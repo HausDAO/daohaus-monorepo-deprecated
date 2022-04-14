@@ -1,7 +1,7 @@
 {
   "version": 2,
   "projects": {
-    "daohaus-main": "apps/daohaus-main",
-    "daohaus-ui": "libs/daohaus-ui"
+    "summon-app": "apps/summon-app",
+    "ui": "libs/ui"
   }
 }

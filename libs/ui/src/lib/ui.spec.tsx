@@ -1,10 +1,10 @@
 import { render } from '@testing-library/react';
 
-import DaohausUi from './daohaus-ui';
+import Ui from './ui';
 
-describe('DaohausUi', () => {
+describe('Ui', () => {
   it('should render successfully', () => {
-    const { baseElement } = render(<DaohausUi />);
+    const { baseElement } = render(<Ui />);
     expect(baseElement).toBeTruthy();
   });
 });

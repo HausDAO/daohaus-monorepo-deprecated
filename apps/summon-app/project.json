@@ -1,6 +1,6 @@
 {
-  "root": "apps/daohaus-main",
-  "sourceRoot": "apps/daohaus-main/src",
+  "root": "apps/summon-app",
+  "sourceRoot": "apps/summon-app/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -8,7 +8,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/daohaus-main",
+        "outputPath": "dist/apps/summon-app",
         "baseHref": "/",
         "configFile": "@nxext/vite/plugins/vite",
         "frameworkConfigFile": "@nxext/react/plugins/vite"
@@ -17,8 +17,8 @@
         "production": {
           "fileReplacements": [
             {
-              "replace": "apps/daohaus-main/src/environments/environment.ts",
-              "with": "apps/daohaus-main/src/environments/environment.prod.ts"
+              "replace": "apps/summon-app/src/environments/environment.ts",
+              "with": "apps/summon-app/src/environments/environment.prod.ts"
             }
           ],
           "optimization": true,
@@ -33,14 +33,14 @@
     "serve": {
       "executor": "@nxext/vite:dev",
       "options": {
-        "outputPath": "dist/apps/daohaus-main",
+        "outputPath": "dist/apps/summon-app",
         "baseHref": "/",
         "configFile": "@nxext/vite/plugins/vite",
         "frameworkConfigFile": "@nxext/react/plugins/vite"
       },
       "configurations": {
         "production": {
-          "buildTarget": "daohaus-main:build:production",
+          "buildTarget": "summon-app:build:production",
           "hmr": false
         }
       }
@@ -49,14 +49,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/daohaus-main/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/summon-app/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/daohaus-main"],
+      "outputs": ["coverage/apps/summon-app"],
       "options": {
-        "jestConfig": "apps/daohaus-main/jest.config.js",
+        "jestConfig": "apps/summon-app/jest.config.js",
         "passWithNoTests": true
       }
     }

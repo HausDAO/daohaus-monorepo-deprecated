@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'daohaus-ui',
+  displayName: 'ui',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -10,5 +10,5 @@ module.exports = {
     '^.+\\.[tj]sx?$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/libs/daohaus-ui',
+  coverageDirectory: '../../coverage/libs/ui',
 };

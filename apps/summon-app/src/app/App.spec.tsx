@@ -22,6 +22,6 @@ describe('App', () => {
       </BrowserRouter>
     );
 
-    expect(getByText(/Welcome daohaus-main/gi)).toBeTruthy();
+    expect(getByText(/Welcome summon-app/gi)).toBeTruthy();
   });
 });

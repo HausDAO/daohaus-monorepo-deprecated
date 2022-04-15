@@ -1,0 +1,12 @@
+{
+  "name": "@daohaus/ui",
+  "version": "0.0.1",
+  "main": "./ui.umd.js",
+  "module": "./ui.es.js",
+  "exports": {
+    ".": {
+      "import": "./ui.es.js",
+      "require": "./ui.umd.js"
+    }
+  }
+}

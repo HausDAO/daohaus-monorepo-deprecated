@@ -1,5 +1,3 @@
-import { GlobalStyles } from '@daohaus/ui';
-
 export function NxWelcome() {
   return (
     <div>

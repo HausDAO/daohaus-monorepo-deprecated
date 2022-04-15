@@ -1,9 +1,9 @@
 import { normalize } from 'polished';
-import { FunctionComponent } from 'react';
 import { createGlobalStyle } from 'styled-components';
 
-const GlobalStyleProvider = createGlobalStyle`
+export const GlobalStyles = createGlobalStyle`
   ${normalize()}
+  @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap');
   html {
     font-size: 10px;
     background-color: #050a1b;
@@ -14,9 +14,3 @@ const GlobalStyleProvider = createGlobalStyle`
     color: white;
   }
 `;
-
-const GlobalStyles: FunctionComponent = ({ children }) => {
-  return <GlobalStyleProvider>{children}</GlobalStyleProvider>;
-};
-
-export default GlobalStyles;

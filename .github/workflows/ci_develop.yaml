@@ -1,0 +1,30 @@
+name: Ci branch
+
+on:
+  push:
+    branches:
+      - 'develop'
+  pull_request:
+    branches:
+      - 'develop'
+
+env:
+  BASE: ${{ github.ref == 'refs/heads/develop' && 'origin/develop~1' || 'origin/develop' }}
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+      - run: yarn install
+      - run: npm install -g nx
+      - name: Lint mono
+        run: nx affected:lint --base $BASE
+      - name: Lint mono
+        run: nx affected:test --base $BASE
+      - name: Build mono
+        run: nx affected:build --base $BASE

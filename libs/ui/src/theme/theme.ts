@@ -5,7 +5,7 @@ export const defaultDarkTheme = { ...DefaultColor, themeName: 'dark' };
 export type Theme = typeof defaultDarkTheme;
 
 export const defaultLightTheme: Theme = {
-  Bg: sky.sky1,
-  Font: sky.sky12,
+  BgColor: sky.sky1,
+  FontColor: sky.sky12,
   themeName: 'light',
 };

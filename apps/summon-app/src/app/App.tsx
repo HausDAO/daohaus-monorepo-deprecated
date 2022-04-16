@@ -1,9 +1,18 @@
-export function NxWelcome() {
+import { HausThemeContext } from '@daohaus/ui';
+import { useContext } from 'react';
+
+export function App() {
+  const { toggleLightDark } = useContext(HausThemeContext);
+
+  const handleLightDark = () => {
+    toggleLightDark();
+  };
   return (
-    <div>
-      <div>Test</div>
-    </div>
+    <>
+      <h1>test</h1>
+      <button onClick={handleLightDark}>Toggle Theme</button>;
+    </>
   );
 }
 
-export default NxWelcome;
+export default App;

@@ -7,7 +7,7 @@ import {
 } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from '../global';
-import { Theme, defaultTheme as hausTheme } from './defaultTheme';
+import { Theme, defaultDarkTheme, defaultLightTheme } from './theme';
 import './global/fonts.css';
 
 type ReactSetter<T> = Dispatch<SetStateAction<T>>;
@@ -15,21 +15,34 @@ type ReactSetter<T> = Dispatch<SetStateAction<T>>;
 type HausUI = {
   theme: Theme;
   setTheme: ReactSetter<Theme>;
+  toggleLightDark: () => void;
 };
 
 export const HausThemeContext = createContext<HausUI>({
-  theme: hausTheme,
+  theme: defaultDarkTheme,
   setTheme: () => null,
+  toggleLightDark: (): void => undefined,
 });
 
-export const HausThemeProvider: FunctionComponent<{ defaultTheme?: Theme }> = ({
+export const HausThemeProvider: FunctionComponent<{
+  defaultDark?: Theme;
+  defaultLight?: Theme;
+  startDark?: boolean;
+}> = ({
   children,
-  defaultTheme = hausTheme,
+  defaultDark = defaultDarkTheme,
+  defaultLight = defaultLightTheme,
+  startDark = true,
 }) => {
-  const [theme, setTheme] = useState(defaultTheme);
+  const [theme, setTheme] = useState(startDark ? defaultDark : defaultLight);
 
+  const toggleLightDark = () => {
+    setTheme((prevState) =>
+      prevState.themeName === 'dark' ? defaultLight : defaultDark
+    );
+  };
   return (
-    <HausThemeContext.Provider value={{ theme, setTheme }}>
+    <HausThemeContext.Provider value={{ theme, setTheme, toggleLightDark }}>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         {children}

@@ -4,6 +4,7 @@ import {
   useState,
   Dispatch,
   SetStateAction,
+  useEffect,
 } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from '../global';
@@ -35,6 +36,12 @@ export const HausThemeProvider: FunctionComponent<{
   startDark = true,
 }) => {
   const [theme, setTheme] = useState(startDark ? defaultDark : defaultLight);
+
+  useEffect(() => {
+    //  handles updates after component mount
+    //  mostly used for storybook theme toggle
+    setTheme(startDark ? defaultDark : defaultLight);
+  }, [startDark, defaultDark, defaultLight]);
 
   const toggleLightDark = () => {
     setTheme((prevState) =>

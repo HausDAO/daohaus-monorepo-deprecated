@@ -1,7 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Input from './input';
-// import { BsSearch } from 'react-icons/bs';
-// import InputDocs from './input.stories.mdx';
 
 export default {
   title: 'Atoms/Input',

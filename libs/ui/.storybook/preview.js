@@ -6,14 +6,14 @@ import {
 
 export const parameters = {
   backgrounds: {
-    default: 'dark',
+    default: 'Dark',
     values: [
       {
-        name: 'dark',
+        name: 'Dark',
         value: defaultDarkTheme.BgColor,
       },
       {
-        name: 'light',
+        name: 'Light',
         value: defaultLightTheme.BgColor,
       },
     ],
@@ -35,11 +35,25 @@ export const globalTypes = {
   },
 };
 
+const handleBGReplace = (context) => ({
+  ...context,
+  globals: {
+    ...context.globals,
+    backgrounds: {
+      value:
+        context?.globals?.theme === 'Dark'
+          ? defaultDarkTheme.BgColor
+          : defaultLightTheme.BgColor,
+    },
+  },
+});
+
 const withThemeProvider = (Story, context) => {
-  const mode = context.globals.theme === 'Dark' ? true : false;
+  const isDark = context.globals.theme === 'Dark' ? true : false;
+  const updatedContext = handleBGReplace(context);
   return (
-    <HausThemeProvider startDark={mode}>
-      <Story {...context} />
+    <HausThemeProvider startDark={isDark}>
+      <Story {...updatedContext} />
     </HausThemeProvider>
   );
 };

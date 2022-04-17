@@ -9,7 +9,6 @@ export const defaultLightTheme: Theme = {
   BgColor: sky.sky1,
   FontColor: sky.sky12,
 };
-
 export const broodingTomatoDarkness: Theme = {
   themeName: 'brood',
   BgColor: tomatoDark.tomato2,

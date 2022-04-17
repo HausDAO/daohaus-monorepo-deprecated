@@ -1,5 +1,8 @@
-import { sky, skyDark } from '@radix-ui/colors';
-import { HausThemeProvider } from '../src/theme';
+import {
+  defaultDarkTheme,
+  defaultLightTheme,
+  HausThemeProvider,
+} from '../src/theme';
 
 export const parameters = {
   backgrounds: {
@@ -7,11 +10,11 @@ export const parameters = {
     values: [
       {
         name: 'dark',
-        value: skyDark.sky1,
+        value: defaultDarkTheme.BgColor,
       },
       {
         name: 'light',
-        value: sky.sky1,
+        value: defaultLightTheme.BgColor,
       },
     ],
   },

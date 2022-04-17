@@ -7,7 +7,7 @@ import {
   useEffect,
 } from 'react';
 import { ThemeProvider } from 'styled-components';
-import { GlobalStyles } from '../global';
+import { GlobalStyles } from './global/globalStyles';
 import { Theme, defaultDarkTheme, defaultLightTheme } from './theme';
 import './global/fonts.css';
 

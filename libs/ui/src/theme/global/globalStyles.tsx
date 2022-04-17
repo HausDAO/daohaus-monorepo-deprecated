@@ -1,7 +1,7 @@
 import { normalize } from 'polished';
 import { createGlobalStyle } from 'styled-components';
-import { Theme } from '../theme';
-import { Font } from '../theme/global';
+import { Theme } from '..';
+import { Font } from '.';
 
 export const GlobalStyles = createGlobalStyle`
   ${normalize()}

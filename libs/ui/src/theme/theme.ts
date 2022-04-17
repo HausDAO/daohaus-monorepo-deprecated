@@ -1,7 +1,10 @@
-import { sky, tomato, tomatoDark } from '@radix-ui/colors';
-import { Color as DefaultColor } from './global/color';
+import { sky, tomato, tomatoDark, skyDark } from '@radix-ui/colors';
 
-export const defaultDarkTheme = { ...DefaultColor, themeName: 'dark' };
+export const defaultDarkTheme = {
+  themeName: 'dark',
+  BgColor: skyDark.sky1,
+  FontColor: skyDark.sky12,
+};
 export type Theme = typeof defaultDarkTheme;
 
 export const defaultLightTheme: Theme = {

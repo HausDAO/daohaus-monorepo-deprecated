@@ -38,7 +38,7 @@ export const HausThemeProvider: FunctionComponent<{
 
   const toggleLightDark = () => {
     setTheme((prevState) =>
-      prevState.themeName === 'dark' ? defaultLight : defaultDark
+      prevState.themeName === defaultDark.themeName ? defaultLight : defaultDark
     );
   };
   return (

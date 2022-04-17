@@ -1,4 +1,21 @@
+import { sky, skyDark } from '@radix-ui/colors';
 import { HausThemeProvider } from '../src/theme';
+
+export const parameters = {
+  backgrounds: {
+    default: 'dark',
+    values: [
+      {
+        name: 'dark',
+        value: skyDark.sky1,
+      },
+      {
+        name: 'light',
+        value: sky.sky1,
+      },
+    ],
+  },
+};
 
 export const globalTypes = {
   theme: {
@@ -14,6 +31,7 @@ export const globalTypes = {
     },
   },
 };
+
 const withThemeProvider = (Story, context) => {
   const mode = context.globals.theme === 'Dark' ? true : false;
   return (

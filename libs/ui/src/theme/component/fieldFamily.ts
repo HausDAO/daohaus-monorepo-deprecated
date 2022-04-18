@@ -1,5 +1,5 @@
-import { Font } from '../global';
+import { font } from '../global';
 
-export const Field = {
-  FontFamily: Font,
+export const field = {
+  fontFamily: font.family.body,
 };

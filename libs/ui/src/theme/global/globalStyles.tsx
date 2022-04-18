@@ -1,7 +1,7 @@
 import { normalize } from 'polished';
 import { createGlobalStyle } from 'styled-components';
 import { Theme } from '..';
-import { Font } from '.';
+import { font } from '.';
 
 export const GlobalStyles = createGlobalStyle`
   ${normalize()}
@@ -18,7 +18,7 @@ export const GlobalStyles = createGlobalStyle`
     background-color: ${({ theme }: { theme: Theme }) => theme.BgColor};
   }
   body {
-    font-family: ${Font.Family.Body};
+    font-family: ${font.family.body};
     color: ${({ theme }: { theme: Theme }) => theme.FontColor}
   }
   `;

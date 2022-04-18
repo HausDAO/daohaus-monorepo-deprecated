@@ -15,10 +15,10 @@ export const GlobalStyles = createGlobalStyle`
   }
   html {
     font-size: 10px;
-    background-color: ${({ theme }: { theme: Theme }) => theme.BgColor};
+    background-color: ${({ theme }: { theme: Theme }) => theme.bgColor};
   }
   body {
     font-family: ${font.family.body};
-    color: ${({ theme }: { theme: Theme }) => theme.FontColor}
+    color: ${({ theme }: { theme: Theme }) => theme.fontColor}
   }
   `;

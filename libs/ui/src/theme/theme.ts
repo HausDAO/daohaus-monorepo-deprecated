@@ -2,13 +2,13 @@ import { sky, skyDark } from '@radix-ui/colors';
 
 export const defaultDarkTheme = {
   themeName: 'dark',
-  BgColor: skyDark.sky1,
-  FontColor: skyDark.sky12,
+  bgColor: skyDark.sky1,
+  fontColor: skyDark.sky12,
 };
 export type Theme = typeof defaultDarkTheme;
 
 export const defaultLightTheme: Theme = {
   themeName: 'light',
-  BgColor: sky.sky1,
-  FontColor: sky.sky12,
+  bgColor: sky.sky1,
+  fontColor: sky.sky12,
 };

@@ -1,6 +1,6 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 
-const Input: FunctionComponent = () => {
+const Input = () => {
   return <input />;
 };
 

@@ -23,6 +23,11 @@ export const ParLg = styled.p`
   font-weight: ${font.weight.reg};
   font-family: ${font.family.body};
 `;
+export const ParXl = styled.p`
+  font-size: ${font.size.xl};
+  font-weight: ${font.weight.reg};
+  font-family: ${font.family.body};
+`;
 ////////////////////HEADER TEXT////////////////////
 export const H6 = styled.h6`
   font-size: ${font.size.md};
@@ -59,26 +64,31 @@ export const DataXs = styled.p`
   font-size: ${font.size.xs};
   font-weight: ${font.weight.reg};
   font-family: ${font.family.data};
+  letter-spacing: 1px;
 `;
 export const DataSm = styled.p`
   font-size: ${font.size.sm};
   font-weight: ${font.weight.reg};
   font-family: ${font.family.data};
+  letter-spacing: 1px;
 `;
 export const DataMd = styled.p`
   font-size: ${font.size.md};
   font-weight: ${font.weight.reg};
   font-family: ${font.family.data};
+  letter-spacing: 1px;
 `;
 export const DataLg = styled.p`
   font-size: ${font.size.lg};
   font-weight: ${font.weight.reg};
   font-family: ${font.family.data};
+  letter-spacing: 1px;
 `;
 export const DataXl = styled.p`
   font-size: ${font.size.xl};
   font-weight: ${font.weight.reg};
   font-family: ${font.family.data};
+  letter-spacing: 1px;
 `;
 ///////////////////////FONT-MODS/////////////////////
 export const Light = styled.span`

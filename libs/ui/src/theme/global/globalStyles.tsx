@@ -16,10 +16,11 @@ export const GlobalStyles = createGlobalStyle`
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; 
   text-rendering: optimizeLegibility;
-  
+
   h1, h2, h3, h4, h5, h6, p{
     margin: 0;
     line-height: 150%;
+    letter-spacing: 1.5px;
   }
 
   html {

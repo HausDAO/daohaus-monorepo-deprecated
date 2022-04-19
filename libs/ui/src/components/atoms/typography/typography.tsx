@@ -1,5 +1,5 @@
+import { font } from '../../../theme/global/font';
 import styled from 'styled-components';
-import { font } from './font';
 
 ////////////////////PARAGRAPH TEXT////////////////////
 export const ParXs = styled.p`
@@ -23,6 +23,7 @@ export const H6 = styled.h6`
   font-size: ${font.size.md};
   font-weight: ${font.weight.black};
   font-family: ${font.family.body};
+  letter-spacing: 1.8px;
 `;
 export const H5 = styled.h5`
   font-size: ${font.size.lg};
@@ -49,9 +50,7 @@ export const H1 = styled.h1`
   font-weight: ${font.weight.light};
   font-family: ${font.family.body};
 `;
-
 ////////////////////DATA TEXT////////////////////
-
 export const DataMd = styled.p`
   font-size: ${font.size.md};
   font-weight: ${font.weight.reg};
@@ -67,7 +66,6 @@ export const DataXl = styled.p`
   font-weight: ${font.weight.reg};
   font-family: ${font.family.data};
 `;
-
 ///////////////////////FONT-MODS/////////////////////
 export const Light = styled.span`
   font-weight: ${font.weight.light};

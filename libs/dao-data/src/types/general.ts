@@ -2,13 +2,13 @@ export type QueryPair = {
   [field: string]: string;
 };
 
-export interface Error {
+export interface QueryError {
   name: string;
   message: string;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface OueryResult<Data = any> {
+export interface QueryResult<Data = any> {
   /** The data returned from the Graphql server. */
   data?: {
     [field: string]: Data;

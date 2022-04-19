@@ -18,12 +18,16 @@ export const ParMd = styled.p`
   font-weight: ${font.weight.reg};
   font-family: ${font.family.body};
 `;
+export const ParLg = styled.p`
+  font-size: ${font.size.lg};
+  font-weight: ${font.weight.reg};
+  font-family: ${font.family.body};
+`;
 ////////////////////HEADER TEXT////////////////////
 export const H6 = styled.h6`
   font-size: ${font.size.md};
   font-weight: ${font.weight.black};
   font-family: ${font.family.body};
-  letter-spacing: 1.8px;
 `;
 export const H5 = styled.h5`
   font-size: ${font.size.lg};
@@ -51,6 +55,16 @@ export const H1 = styled.h1`
   font-family: ${font.family.body};
 `;
 ////////////////////DATA TEXT////////////////////
+export const DataXs = styled.p`
+  font-size: ${font.size.xs};
+  font-weight: ${font.weight.reg};
+  font-family: ${font.family.data};
+`;
+export const DataSm = styled.p`
+  font-size: ${font.size.sm};
+  font-weight: ${font.weight.reg};
+  font-family: ${font.family.data};
+`;
 export const DataMd = styled.p`
   font-size: ${font.size.md};
   font-weight: ${font.weight.reg};

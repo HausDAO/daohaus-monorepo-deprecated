@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "abis": "libs/abis",
+    "commons": "libs/commons",
     "data": "libs/data",
     "summon-app": "apps/summon-app",
     "ui": "libs/ui"

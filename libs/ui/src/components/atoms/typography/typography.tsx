@@ -106,6 +106,6 @@ export const Italic = styled.span`
 export const Underline = styled.span`
   text-decoration: underline;
 `;
-export const Strikethrough = styled.span`
+export const StrikeThrough = styled.span`
   text-decoration: line-through;
 `;

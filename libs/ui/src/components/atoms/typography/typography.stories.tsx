@@ -1,5 +1,5 @@
 import { slateDark } from '@radix-ui/colors';
-import styled, { useTheme } from 'styled-components';
+import styled from 'styled-components';
 import {
   Bold,
   DataLg,
@@ -7,17 +7,22 @@ import {
   DataSm,
   DataXl,
   DataXs,
+  ExtraBold,
   H1,
   H2,
   H3,
   H4,
   H5,
   H6,
+  Italic,
+  Light,
   ParLg,
   ParMd,
   ParSm,
   ParXl,
   ParXs,
+  StrikeThrough,
+  Underline,
 } from './typography';
 
 const Display = styled.div`
@@ -39,8 +44,6 @@ export default {
 };
 
 export const AllFonts = () => {
-  const theme = useTheme();
-  console.log('theme', theme);
   return (
     <Display>
       <FamilyDisplay>
@@ -70,3 +73,43 @@ export const AllFonts = () => {
     </Display>
   );
 };
+
+export const BoldText = () => (
+  <ParLg>
+    {`<Bold /> `}is a <Bold>bold </Bold>
+    text modifier
+  </ParLg>
+);
+export const LightText = () => (
+  <ParLg>
+    <Bold>
+      {`<Light/> `}
+      is a <Light>light </Light>
+      text modifier
+    </Bold>
+  </ParLg>
+);
+export const ExtraBoldText = () => (
+  <ParLg>
+    {`<ExtraBold/> `}
+    is an <ExtraBold>extra bold </ExtraBold>
+    text modifier
+  </ParLg>
+);
+export const ItalicText = () => (
+  <ParLg>
+    {`<Italic /> `}is an <Italic>Italic </Italic>
+    text modifier
+  </ParLg>
+);
+export const UnderlinedText = () => (
+  <ParLg>
+    {`<Underline /> `}is an <Underline>Underline</Underline> text modifier
+  </ParLg>
+);
+export const StrikeThroughText = () => (
+  <ParLg>
+    {`<StrikeThrough /> `}is an <StrikeThrough>StrikeThrough </StrikeThrough>
+    text modifier
+  </ParLg>
+);

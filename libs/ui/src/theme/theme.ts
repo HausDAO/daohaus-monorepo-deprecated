@@ -25,6 +25,7 @@ export const defaultDarkTheme: Theme = {
     bg: indigoDark.indigo3,
     focus: indigoDark.indigo4,
     placeholderText: indigoDark.indigo11,
+    disabled: indigoDark.indigo2,
   },
 };
 
@@ -41,5 +42,6 @@ export const defaultLightTheme: Theme = {
     bg: indigo.indigo3,
     focus: indigo.indigo4,
     placeholderText: indigo.indigo11,
+    disabled: indigo.indigo2,
   },
 };

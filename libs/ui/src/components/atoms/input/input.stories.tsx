@@ -6,6 +6,6 @@ export default {
   component: Input,
 } as ComponentMeta<typeof Input>;
 
-export const InputAtom = () => <Input />;
-export const InputAtom2 = () => <Input />;
-export const InputAtom3 = () => <Input />;
+// export const InputAtom = () => <Input />;
+// export const InputAtom2 = () => <Input />;
+// export const InputAtom3 = () => <Input />;

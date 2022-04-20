@@ -11,5 +11,6 @@ export type Theme = {
     bg: string;
     focus: string;
     placeholderText: string;
+    disabled: string;
   };
 };

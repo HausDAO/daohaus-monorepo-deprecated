@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@daohaus/abis": ["libs/abis/src/index.ts"],
+      "@daohaus/abi-utilities": ["libs/abi-utilities/src/index.ts"],
       "@daohaus/common-utilities": ["libs/common-utilities/src/index.ts"],
       "@daohaus/dao-data": ["libs/dao-data/src/index.ts"],
       "@daohaus/ui": ["libs/ui/src/index.ts"]

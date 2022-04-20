@@ -2,31 +2,30 @@ import { font } from '../../../theme/global/font';
 import styled from 'styled-components';
 
 ////////////////////PARAGRAPH TEXT////////////////////
-export const ParXs = styled.p`
+const Par = styled.p`
+  font-family: ${font.family.body};
+  font-weight: ${font.weight.reg};
+`;
+const Data = styled.p`
+  font-family: ${font.family.body};
+  font-weight: ${font.weight.reg};
+  letter-spacing: 1px;
+`;
+
+export const ParXs = styled(Par)`
   font-size: ${font.size.xs};
-  font-weight: ${font.weight.reg};
-  font-family: ${font.family.body};
 `;
-// ParSm Not actually implemented in design
-export const ParSm = styled.p`
+export const ParSm = styled(Par)`
   font-size: ${font.size.sm};
-  font-weight: ${font.weight.reg};
-  font-family: ${font.family.body};
 `;
-export const ParMd = styled.p`
+export const ParMd = styled(Par)`
   font-size: ${font.size.md};
-  font-weight: ${font.weight.reg};
-  font-family: ${font.family.body};
 `;
-export const ParLg = styled.p`
+export const ParLg = styled(Par)`
   font-size: ${font.size.lg};
-  font-weight: ${font.weight.reg};
-  font-family: ${font.family.body};
 `;
-export const ParXl = styled.p`
+export const ParXl = styled(Par)`
   font-size: ${font.size.xl};
-  font-weight: ${font.weight.reg};
-  font-family: ${font.family.body};
 `;
 ////////////////////HEADER TEXT////////////////////
 export const H6 = styled.h6`
@@ -60,35 +59,20 @@ export const H1 = styled.h1`
   font-family: ${font.family.body};
 `;
 ////////////////////DATA TEXT////////////////////
-export const DataXs = styled.p`
+export const DataXs = styled(Data)`
   font-size: ${font.size.xs};
-  font-weight: ${font.weight.reg};
-  font-family: ${font.family.data};
-  letter-spacing: 1px;
 `;
-export const DataSm = styled.p`
+export const DataSm = styled(Data)`
   font-size: ${font.size.sm};
-  font-weight: ${font.weight.reg};
-  font-family: ${font.family.data};
-  letter-spacing: 1px;
 `;
-export const DataMd = styled.p`
+export const DataMd = styled(Data)`
   font-size: ${font.size.md};
-  font-weight: ${font.weight.reg};
-  font-family: ${font.family.data};
-  letter-spacing: 1px;
 `;
-export const DataLg = styled.p`
+export const DataLg = styled(Data)`
   font-size: ${font.size.lg};
-  font-weight: ${font.weight.reg};
-  font-family: ${font.family.data};
-  letter-spacing: 1px;
 `;
-export const DataXl = styled.p`
+export const DataXl = styled(Data)`
   font-size: ${font.size.xl};
-  font-weight: ${font.weight.reg};
-  font-family: ${font.family.data};
-  letter-spacing: 1px;
 `;
 ///////////////////////FONT-MODS/////////////////////
 export const Light = styled.span`

@@ -14,7 +14,6 @@
     "@radix-ui/colors": "^0.1.8",
     "core-js": "^3.6.5",
     "graphql": "^16.3.0",
-    "isomorphic-unfetch": "^3.1.0",
     "polished": "^4.2.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",

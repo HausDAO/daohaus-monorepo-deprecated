@@ -1,17 +1,14 @@
-// required polyfill for node fetch not included in urql
-// TODO: Better way to add these kinds of polyfill?
-import 'isomorphic-unfetch';
 import { Keychain, KeychainList } from '@daohaus/common-utilities';
 import { createClient, OperationResult } from 'urql';
 import { ENDPOINTS, INVALID_NETWORK_ERROR } from '.';
 
-import { QueryResult, QueryPair } from '..';
+import { QueryResult, WhereQueryVariables } from '..';
 
 export const urqlFetch = async (args: {
   endpointType: keyof KeychainList;
   networkId: keyof Keychain;
   query: string;
-  variables?: QueryPair;
+  variables?: WhereQueryVariables;
 }): Promise<QueryResult> => {
   const url = ENDPOINTS[args.endpointType][args.networkId];
   if (!url) {

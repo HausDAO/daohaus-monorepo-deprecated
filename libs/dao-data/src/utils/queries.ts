@@ -66,10 +66,6 @@ const DEFAULT_VOTE_FIELDS = `
   daoAddress
   approved
   balance
-  proposal {
-    id
-    proposalId
-  }
   member {
     id
     memberAddress
@@ -113,6 +109,9 @@ export const DEFAULT_DAO_QUERY = `
       id: $dao
     ) {
       ${DEAFULT_DAO_FIELDS}
+      rageQuits {
+        ${DEFAULT_RAGE_QUIT_FIELDS}
+      }
     }
   }
 ` as const;
@@ -121,6 +120,9 @@ export const DEFAULT_DAOS_QUERY = `
   query daos {
     daos {
       ${DEAFULT_DAO_FIELDS}
+      rageQuits {
+        ${DEFAULT_RAGE_QUIT_FIELDS}
+      }
     }
   }
 ` as const;
@@ -133,6 +135,9 @@ export const DEFAULT_PROPOSALS_BY_DAO_QUERY = `
       orderDirection: desc 
     ) {
       ${DEFAULT_PROPOSAL_FIELDS}
+      votes {
+        ${DEFAULT_VOTE_FIELDS}
+      }
     }
   }
 ` as const;
@@ -141,6 +146,9 @@ export const DEFAULT_PROPOSAL_QUERY = `
   query proposal($id: String!) {
     proposal(id: $id) {
       ${DEFAULT_PROPOSAL_FIELDS}
+      votes {
+        ${DEFAULT_VOTE_FIELDS}
+      }
     }
   }
 ` as const;
@@ -165,16 +173,6 @@ export const DEFAULT_MEMBER_QUERY = `
   }
 ` as const;
 
-export const LATEST_TX = `
-  query eventTransaction {
-    eventTransactions(first: 1, 
-      orderBy: createdAt, orderDirection: desc) {
-      id
-      createdAt
-    }
-  }
-` as const;
-
 export const LATEST_TX_BY_DAO = `
   query eventTransactions($dao: String!) {
     eventTransactions(
@@ -188,14 +186,3 @@ export const LATEST_TX_BY_DAO = `
     }
 }
 ` as const;
-
-// export const defaultQueryForEntity = (entityName: string): string => {
-//   const defaultQueries: {
-//     [entity: string]: string;
-//   } = {
-//     dao: DEFAULT_DAO_QUERY,
-//     daos: DEFAULT_DAOS_QUERY,
-//   };
-
-//   return defaultQueries[entityName];
-// };

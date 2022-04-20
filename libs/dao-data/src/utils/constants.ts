@@ -9,6 +9,6 @@ export const ENDPOINTS: KeychainList = {
 };
 
 export const INVALID_NETWORK_ERROR: QueryError = {
-  name: 'Unsupported Network ID',
-  message: 'Unsupported Network ID',
+  name: 'unsupportedNetworkID',
+  message: 'Unsupported Network',
 };

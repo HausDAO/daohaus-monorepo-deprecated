@@ -1,35 +1,40 @@
-import styled, { useTheme } from 'styled-components';
+import { Theme } from '../../../types/theming';
+import styled from 'styled-components';
+import { field } from '../../../theme/component/fieldFamily';
 
 const StyledInput = styled.input`
-  background-color: ${Field.BgColor};
-  color: ${Field.TextColor};
-  font-size: ${Field.FontSize};
-  line-height: 2.4rem;
-  font-weight: ${Font.Weight.Medium};
-  font-family: ${Field.Font};
+  background-color: ${({ theme }: { theme: Theme }) => theme.field.bg};
+  color: ${({ theme }: { theme: Theme }) => theme.fontColor};
+  font-size: ${field.fontSize};
+  line-height: 150%;
+  font-weight: ${field.fontWeight};
+  font-family: ${field.fontFamily};
   height: 4.8rem;
-  max-width: ${Field.Size.Md};
+  max-width: ${field.size.md};
   width: 100%;
   border: none;
-  border-radius: ${Field.BorderRadius};
+  border-radius: ${field.borderRadius};
   letter-spacing: 1.2px;
   padding: 12px 18px;
-  transition: ${Field.Transition};
+  transition: ${field.transition};
   ::placeholder {
-    color: ${Field.PlaceHolderColor};
+    color: ${({ theme }: { theme: Theme }) => theme.field.placeholderText};
   }
   :focus {
-    background-color: ${Field.BgColor_Focus};
+    background-color: ${({ theme }: { theme: Theme }) => theme.field.focus};
     outline: none;
   }
-  &.long {
+  &.lg {
     max-width: 52rem;
+  }
+  &.full {
+    max-width: 100%;
   }
 `;
 
 const Input = () => {
-  const theme = useTheme();
-  return <StyledInput theme={theme} />;
+  // const theme = useTheme();
+  return <StyledInput />;
 };
 
 export default Input;

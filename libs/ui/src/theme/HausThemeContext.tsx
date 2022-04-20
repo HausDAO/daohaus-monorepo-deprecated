@@ -8,7 +8,8 @@ import {
 } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from './global/globalStyles';
-import { Theme, defaultDarkTheme, defaultLightTheme } from './theme';
+import { defaultDarkTheme, defaultLightTheme } from './theme';
+import { Theme } from '../types/theming';
 import './global/fonts.css';
 
 type ReactSetter<T> = Dispatch<SetStateAction<T>>;

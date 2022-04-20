@@ -10,8 +10,9 @@ import {
   tomato,
   tomatoDark,
 } from '@radix-ui/colors';
+import { Theme } from '../types/theming';
 
-export const defaultDarkTheme = {
+export const defaultDarkTheme: Theme = {
   themeName: 'dark',
   bgColor: indigoDark.indigo1,
   fontColor: indigoDark.indigo12,
@@ -26,7 +27,6 @@ export const defaultDarkTheme = {
     placeholderText: indigoDark.indigo11,
   },
 };
-export type Theme = typeof defaultDarkTheme;
 
 export const defaultLightTheme: Theme = {
   themeName: 'dark',

@@ -14,8 +14,8 @@ const StyledInput = styled.input`
   width: 100%;
   border: none;
   border-radius: ${field.borderRadius};
-  letter-spacing: 1.2px;
-  padding: 12px 18px;
+  letter-spacing: 1.5px;
+  padding: 1.2rem 1.8rem;
   transition: ${field.transition};
   ::placeholder {
     color: ${({ theme }: { theme: Theme }) => theme.field.placeholderText};
@@ -25,16 +25,15 @@ const StyledInput = styled.input`
     outline: none;
   }
   &.lg {
-    max-width: 52rem;
+    max-width: ${field.size.lg};
   }
   &.full {
-    max-width: 100%;
+    max-width: ${field.size.full};
   }
 `;
 
-const Input = () => {
-  // const theme = useTheme();
-  return <StyledInput />;
+const Input = ({ placeholder = 'Placeholder' }) => {
+  return <StyledInput placeholder={placeholder} />;
 };
 
 export default Input;

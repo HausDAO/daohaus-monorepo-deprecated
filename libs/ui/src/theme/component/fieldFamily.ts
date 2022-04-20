@@ -5,8 +5,8 @@ export const field = {
   fontWeight: font.weight.reg,
   fontSize: font.size.md,
   size: {
-    md: '42rem',
-    lg: '70rem',
+    md: '28rem',
+    lg: '52rem',
     full: '100%',
   },
   borderRadius: '0.4rem',

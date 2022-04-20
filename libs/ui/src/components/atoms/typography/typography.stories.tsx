@@ -101,7 +101,7 @@ export const ItalicText = () => (
   </ParLg>
 );
 export const UnderlinedText = () => (
-  <ParLg as="h3">
+  <ParLg>
     {`<Underline /> `}is an <Underline>Underline</Underline> text modifier
   </ParLg>
 );

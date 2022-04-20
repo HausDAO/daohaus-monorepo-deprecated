@@ -8,6 +8,7 @@ import {
 import { QueryPair } from './index';
 import { QueryResult } from './types';
 import {
+  // defaultQueryForEntity,
   DEFAULT_DAOS_QUERY,
   DEFAULT_DAO_QUERY,
   DEFAULT_MEMBERS_BY_DAO_QUERY,
@@ -45,6 +46,23 @@ export default class Query {
       });
     }
   }
+
+  // public async entityQuery(args: {
+  //   networkId: keyof Keychain;
+  //   entityName: string;
+  //   dao: string;
+  // }): Promise<QueryResult> {
+  //   const query = defaultQueryForEntity(args.entityName);
+  //   // need to build the variables based on this dao/proposal/member
+  //   // likely need the id passed but that requires dev to know about how ids are constructed
+  //   // also can't type the return very well
+  //   return await urqlFetch({
+  //     endpointType: 'V3_SUBGRAPH',
+  //     networkId: args.networkId,
+  //     query,
+  //     variables: { dao: args.dao },
+  //   });
+  // }
 
   public async dao(args: {
     networkId: keyof Keychain;

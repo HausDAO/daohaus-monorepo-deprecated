@@ -188,3 +188,14 @@ export const LATEST_TX_BY_DAO = `
     }
 }
 ` as const;
+
+// export const defaultQueryForEntity = (entityName: string): string => {
+//   const defaultQueries: {
+//     [entity: string]: string;
+//   } = {
+//     dao: DEFAULT_DAO_QUERY,
+//     daos: DEFAULT_DAOS_QUERY,
+//   };
+
+//   return defaultQueries[entityName];
+// };

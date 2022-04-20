@@ -10,9 +10,9 @@ export default {
 
 const Template: ComponentStory<InputType> = (args) => <Input {...args} />;
 
-export const InputAtom = Template.bind({});
+export const AtomInput = Template.bind({});
 
-InputAtom.args = {
+AtomInput.args = {
   placeholder: 'Placeholder',
 };
 export const InputWithIcon = Template.bind({});

@@ -1,12 +1,12 @@
-type ErrorMessage = {
+export type ErrorMessage = {
   type: 'error';
   message: string;
 };
-type WarningMessage = {
+export type WarningMessage = {
   type: 'warning';
   message: string;
 };
-type SuccessMessage = {
+export type SuccessMessage = {
   type: 'success';
   message: string;
 };
@@ -14,7 +14,7 @@ export type Field = {
   id: string;
   label: string;
   type: string;
-  placeholder?: string;
+  placeholder: string;
   helperText?: string;
   required?: boolean;
   info?: string;
@@ -22,7 +22,4 @@ export type Field = {
   warning?: WarningMessage;
   error?: ErrorMessage;
   success?: SuccessMessage;
-  // successText?: string;
-  // errorText?: string;
-  // warningText?: string;
 };

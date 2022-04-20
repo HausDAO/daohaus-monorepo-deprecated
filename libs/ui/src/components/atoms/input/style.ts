@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 import { Theme } from '../../../types/theming';
 import { field } from '../../../theme/component/fieldFamily';
+import { font } from '../../../theme/global/font';
 
 export const BaseInput = styled.input`
   background-color: ${({ theme }: { theme: Theme }) => theme.field.bg};
@@ -13,7 +14,7 @@ export const BaseInput = styled.input`
   height: 4.8rem;
   max-width: ${field.size.md};
   width: 100%;
-  border: none;
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.bgColor};
   border-radius: ${field.borderRadius};
   letter-spacing: 1.5px;
   padding: 1.2rem 1.8rem;
@@ -25,27 +26,45 @@ export const BaseInput = styled.input`
     background-color: ${({ theme }: { theme: Theme }) => theme.field.focus};
     outline: none;
   }
-  &.lg {
+  &.number {
+    font-family: ${font.family.data};
+    font-weight: ${font.weight.reg};
+    letter-spacing: 1px;
+  }
+  &.long {
     max-width: ${field.size.lg};
   }
   &.full {
     max-width: ${field.size.full};
   }
   :disabled {
-    ${({ theme }: { theme: Theme }) => theme.field.disabled}
+    background-color: ${({ theme }: { theme: Theme }) => theme.field.disabled};
+    cursor: not-allowed;
+  }
+
+  &.warning {
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning};
+  }
+  &.error {
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.error};
   }
 `;
 
 export const WithIcon = styled.div`
   position: relative;
-  width: 28rem;
+  display: inline-block;
+  width: 100%;
+  max-width: ${field.size.md};
   svg {
     position: absolute;
     color: ${({ theme }: { theme: Theme }) => theme.fontColor};
     top: 1.4rem;
     right: 2rem;
   }
-  &.lg {
+  input {
+    padding: 1.2rem 4.2rem 1.2rem 1.8rem;
+  }
+  &.long {
     max-width: ${field.size.lg};
   }
   &.full {

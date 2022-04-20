@@ -52,7 +52,7 @@ export const HausThemeProvider: FunctionComponent<{
   return (
     <HausThemeContext.Provider value={{ theme, setTheme, toggleLightDark }}>
       <ThemeProvider theme={theme}>
-        <GlobalStyles theme={theme} />
+        <GlobalStyles />
         {children}
       </ThemeProvider>
     </HausThemeContext.Provider>

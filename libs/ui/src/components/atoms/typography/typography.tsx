@@ -7,7 +7,7 @@ const Par = styled.p`
   font-weight: ${font.weight.reg};
 `;
 const Data = styled.p`
-  font-family: ${font.family.body};
+  font-family: ${font.family.data};
   font-weight: ${font.weight.reg};
   letter-spacing: 1px;
 `;

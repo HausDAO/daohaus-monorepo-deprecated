@@ -1,3 +1,6 @@
+// required polyfill for browser/node fetch not included in urql
+import 'isomorphic-unfetch';
+
 import { Keychain, KeychainList } from '@daohaus/common-utilities';
 import { createClient, OperationResult } from 'urql';
 import { ENDPOINTS, INVALID_NETWORK_ERROR } from '.';

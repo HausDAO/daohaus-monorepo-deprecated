@@ -8,6 +8,7 @@ import {
 import { WhereQueryVariables } from './index';
 import { QueryResult } from './types';
 import {
+  DAOS_BY_MEMBER_QUERY,
   DEFAULT_DAOS_QUERY,
   DEFAULT_DAO_QUERY,
   DEFAULT_MEMBERS_BY_DAO_QUERY,
@@ -133,5 +134,30 @@ export default class Query {
       query: LATEST_TX_BY_DAO,
       variables: { dao: args.dao },
     });
+  }
+
+  /**
+   * Queries scoped to account
+   */
+
+  // TODO: should add network indicator to the res somewhere
+  public async daosByAccount(args: {
+    account: string;
+    networks: string[];
+  }): Promise<QueryResult<Dao[]>[]> {
+    const promises: Promise<QueryResult<Dao[]>>[] = [];
+
+    args.networks.forEach((networkId) => {
+      promises.push(
+        urqlFetch({
+          endpointType: 'V3_SUBGRAPH',
+          networkId: networkId as keyof Keychain,
+          query: DAOS_BY_MEMBER_QUERY,
+          variables: { memberAddress: args.account },
+        })
+      );
+    });
+
+    return Promise.all(promises);
   }
 }

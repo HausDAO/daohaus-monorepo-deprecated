@@ -85,9 +85,6 @@ const DEFAULT_MEMBER_FIELDS = `
     approved
     balance
   }
-  dao {
-    id
-  }
 ` as const;
 
 const DEFAULT_RAGE_QUIT_FIELDS = `
@@ -169,6 +166,17 @@ export const DEFAULT_MEMBER_QUERY = `
   query member($id: String!) {
     member(id: $id) {
       ${DEFAULT_MEMBER_FIELDS}
+    }
+  }
+` as const;
+
+export const DAOS_BY_MEMBER_QUERY = `
+  query members($memberAddress: String!) {
+    members(where: {memberAddress: $memberAddress}) {
+      ${DEFAULT_MEMBER_FIELDS}
+      dao {
+        ${DEAFULT_DAO_FIELDS}
+      }
     }
   }
 ` as const;

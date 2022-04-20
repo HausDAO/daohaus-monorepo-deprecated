@@ -1,6 +1,4 @@
-import { QueryError } from '.';
-
-export type QueryPair = {
+export type WhereQueryVariables = {
   [field: string]: string;
 };
 
@@ -12,4 +10,9 @@ export interface QueryResult<Data = any> {
   };
   /** Any errors resulting from the operation. */
   error?: QueryError;
+}
+
+export interface QueryError {
+  name: string;
+  message: string;
 }

@@ -5,10 +5,9 @@ import {
   Proposal,
 } from '@daohaus/common-utilities';
 
-import { QueryPair } from './index';
+import { WhereQueryVariables } from './index';
 import { QueryResult } from './types';
 import {
-  // defaultQueryForEntity,
   DEFAULT_DAOS_QUERY,
   DEFAULT_DAO_QUERY,
   DEFAULT_MEMBERS_BY_DAO_QUERY,
@@ -17,6 +16,7 @@ import {
   DEFAULT_PROPOSAL_QUERY,
   ENDPOINTS,
   INVALID_NETWORK_ERROR,
+  LATEST_TX_BY_DAO,
 } from './utils';
 import { urqlFetch } from './utils/requests';
 
@@ -30,7 +30,7 @@ export default class Query {
   public async graphFetch(args: {
     networkId: keyof Keychain;
     query: string;
-    variables?: QueryPair;
+    variables?: WhereQueryVariables;
   }): Promise<QueryResult> {
     const endpointType: keyof KeychainList = 'V3_SUBGRAPH';
     if (!this._endpoints[endpointType][args.networkId]) {
@@ -47,35 +47,6 @@ export default class Query {
     }
   }
 
-  // public async entityQuery(args: {
-  //   networkId: keyof Keychain;
-  //   entityName: string;
-  //   dao: string;
-  // }): Promise<QueryResult> {
-  //   const query = defaultQueryForEntity(args.entityName);
-  //   // need to build the variables based on this dao/proposal/member
-  //   // likely need the id passed but that requires dev to know about how ids are constructed
-  //   // also can't type the return very well
-  //   return await urqlFetch({
-  //     endpointType: 'V3_SUBGRAPH',
-  //     networkId: args.networkId,
-  //     query,
-  //     variables: { dao: args.dao },
-  //   });
-  // }
-
-  public async dao(args: {
-    networkId: keyof Keychain;
-    dao: string;
-  }): Promise<QueryResult<Dao>> {
-    return await urqlFetch({
-      endpointType: 'V3_SUBGRAPH',
-      networkId: args.networkId,
-      query: DEFAULT_DAO_QUERY,
-      variables: { dao: args.dao },
-    });
-  }
-
   public async daos(args: {
     networkId: keyof Keychain;
   }): Promise<QueryResult<Dao[]>> {
@@ -86,27 +57,14 @@ export default class Query {
     });
   }
 
-  public async proposal(args: {
+  public async dao(args: {
     networkId: keyof Keychain;
     dao: string;
-    proposalId: string;
-  }): Promise<QueryResult<Proposal>> {
+  }): Promise<QueryResult<Dao>> {
     return await urqlFetch({
       endpointType: 'V3_SUBGRAPH',
       networkId: args.networkId,
-      query: DEFAULT_PROPOSAL_QUERY,
-      variables: { id: `${args.dao}-proposal-${args.proposalId}` },
-    });
-  }
-
-  public async proposals(args: {
-    networkId: keyof Keychain;
-    dao: string;
-  }): Promise<QueryResult<Proposal[]>> {
-    return await urqlFetch({
-      endpointType: 'V3_SUBGRAPH',
-      networkId: args.networkId,
-      query: DEFAULT_PROPOSALS_BY_DAO_QUERY,
+      query: DEFAULT_DAO_QUERY,
       variables: { dao: args.dao },
     });
   }
@@ -124,6 +82,35 @@ export default class Query {
     });
   }
 
+  public async proposal(args: {
+    networkId: keyof Keychain;
+    dao: string;
+    proposalId: string;
+  }): Promise<QueryResult<Proposal>> {
+    return await urqlFetch({
+      endpointType: 'V3_SUBGRAPH',
+      networkId: args.networkId,
+      query: DEFAULT_PROPOSAL_QUERY,
+      variables: { id: `${args.dao}-proposal-${args.proposalId}` },
+    });
+  }
+
+  /**
+   * Queries scoped to daos
+   */
+
+  public async proposals(args: {
+    networkId: keyof Keychain;
+    dao: string;
+  }): Promise<QueryResult<Proposal[]>> {
+    return await urqlFetch({
+      endpointType: 'V3_SUBGRAPH',
+      networkId: args.networkId,
+      query: DEFAULT_PROPOSALS_BY_DAO_QUERY,
+      variables: { dao: args.dao },
+    });
+  }
+
   public async members(args: {
     networkId: keyof Keychain;
     dao: string;
@@ -132,6 +119,18 @@ export default class Query {
       endpointType: 'V3_SUBGRAPH',
       networkId: args.networkId,
       query: DEFAULT_MEMBERS_BY_DAO_QUERY,
+      variables: { dao: args.dao },
+    });
+  }
+
+  public async latestTransaction(args: {
+    networkId: keyof Keychain;
+    dao: string;
+  }): Promise<QueryResult<Proposal[]>> {
+    return await urqlFetch({
+      endpointType: 'V3_SUBGRAPH',
+      networkId: args.networkId,
+      query: LATEST_TX_BY_DAO,
       variables: { dao: args.dao },
     });
   }

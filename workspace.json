@@ -1,7 +1,7 @@
 {
   "version": 2,
   "projects": {
-    "abis": "libs/abis",
+    "abi-utilities": "libs/abi-utilities",
     "common-utilities": "libs/common-utilities",
     "dao-data": "libs/dao-data",
     "summon-app": "apps/summon-app",

@@ -47,9 +47,7 @@ export const AllFonts = () => {
   return (
     <Display>
       <FamilyDisplay>
-        <H1>
-          header <Bold>one</Bold>
-        </H1>
+        <H1>header one</H1>
         <H2>header two</H2>
         <H3>header three</H3>
         <H4>header four</H4>

@@ -1,6 +1,3 @@
-import React, { FunctionComponent } from 'react';
-
-import { BiErrorCircle } from 'react-icons/bi';
 import {
   TooltipArrow,
   TooltipContent,
@@ -8,23 +5,21 @@ import {
   TooltipRoot,
   TooltipTrigger,
 } from './styles';
+import { SmTooltipTrigger } from './tooltipTriggers';
+import { TooltipProps } from './types';
 
-type TooltipType = FunctionComponent<{
-  content?: string | React.ReactNode;
-  side?: 'top' | 'right' | 'bottom' | 'left';
-  triggerEl?: React.ReactNode;
-}>;
-
-const Tooltip: TooltipType = ({
+const Tooltip = ({
   content = 'Content goes here',
   side = 'right',
-  triggerEl = <BiErrorCircle size="1.4rem" />,
-}) => {
+  triggerEl = <SmTooltipTrigger />,
+  offset = 18,
+  delay = 400,
+}: TooltipProps) => {
   return (
-    <TooltipProvider delayDuration={400}>
+    <TooltipProvider delayDuration={delay}>
       <TooltipRoot>
         <TooltipTrigger>{triggerEl}</TooltipTrigger>
-        <TooltipContent side={side} sideOffset={18}>
+        <TooltipContent side={side} sideOffset={offset}>
           {content}
           <TooltipArrow />
         </TooltipContent>

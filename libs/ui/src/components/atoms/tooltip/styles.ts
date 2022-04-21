@@ -9,7 +9,10 @@ import { border } from '../../../theme/global/border';
 export const TooltipProvider = TooltipPrimitive.Provider;
 export const TooltipRoot = TooltipPrimitive.Root;
 export const TooltipTrigger = styled(TooltipPrimitive.Trigger)`
-  /* background-color: ${({ theme }: { theme: Theme }) => theme.warning}; */
+  background-color: ${({ theme }: { theme: Theme }) => theme.bgColor};
+  svg {
+    color: ${({ theme }: { theme: Theme }) => theme.warning};
+  }
   border: none;
 `;
 export const TooltipArrow = styled(TooltipPrimitive.Arrow)`

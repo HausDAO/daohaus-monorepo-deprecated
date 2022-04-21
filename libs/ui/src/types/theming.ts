@@ -13,4 +13,7 @@ export type Theme = {
     placeholderText: string;
     disabled: string;
   };
+  tooltip: {
+    bg: string;
+  };
 };

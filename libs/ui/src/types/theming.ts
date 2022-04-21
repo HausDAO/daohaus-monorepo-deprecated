@@ -13,7 +13,10 @@ export type Theme = {
     placeholderText: string;
     disabled: string;
   };
+<<<<<<< HEAD
   tooltip: {
     bg: string;
   };
+=======
+>>>>>>> 99ef2bcfa8bafb46ac991237863af491b27b21da
 };

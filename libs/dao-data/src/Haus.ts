@@ -1,5 +1,5 @@
+import { Keychain } from '@daohaus/common-utilities';
 import Query from './Query';
-import { Keychain } from './types';
 
 class Haus {
   providers!: Keychain;
@@ -7,7 +7,6 @@ class Haus {
 
   private constructor(providers: Keychain) {
     this.providers = providers;
-
     this.query = new Query();
   }
 

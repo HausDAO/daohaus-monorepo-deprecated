@@ -13,19 +13,23 @@ export const Input = (props: InputType) => {
     number,
   } = props;
 
-  const classes = classNames({ long, full, warning, error, number });
-
+  const inputClasses = classNames({ long, full, warning, error, number });
   if (icon) {
+    const wrapperClasses = classNames({ long, full });
     const Icon = icon;
     return (
-      <WithIcon className={classes}>
-        <BaseInput {...props} className={classes} placeholder={placeholder} />
+      <WithIcon className={wrapperClasses}>
+        <BaseInput
+          {...props}
+          className={inputClasses}
+          placeholder={placeholder}
+        />
         <Icon size="2rem" />
       </WithIcon>
     );
   }
 
-  return <BaseInput className={classes} {...props} />;
+  return <BaseInput className={inputClasses} {...props} />;
 };
 
 export default Input;

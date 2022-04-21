@@ -1,6 +1,6 @@
-import { InputType } from './types';
+import { InputType } from './inputType';
 import classNames from 'classnames';
-import { BaseInput, WithIcon } from './style';
+import { BaseInput, WithIcon } from './inputStyle';
 
 export const Input = (props: InputType) => {
   const {

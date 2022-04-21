@@ -1,8 +1,7 @@
-import React from 'react';
 import Tooltip from '../tooltip/tooltip';
 import { ParMd } from '../typography';
 import { InputLabelType } from './inputLabelType';
-import { InputLabelContainer, RequiredAsterisk } from './style';
+import { InputLabelContainer, RequiredAsterisk } from './inputLabelStyle';
 
 const InputLabel = ({ required, info, children = 'label' }: InputLabelType) => {
   return (

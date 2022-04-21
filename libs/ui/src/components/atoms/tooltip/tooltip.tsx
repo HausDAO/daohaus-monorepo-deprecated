@@ -4,9 +4,9 @@ import {
   TooltipProvider,
   TooltipRoot,
   TooltipTrigger,
-} from './styles';
+} from './tooltipStyles';
 import { SmTooltipIcon } from './tooltipTriggers';
-import { TooltipProps } from './types';
+import { TooltipProps } from './tooltipTypes';
 
 const Tooltip = ({
   content = 'Content goes here',

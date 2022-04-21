@@ -29,7 +29,7 @@ describe('haus', () => {
     const networkId = '0x4';
     const dao = '0x01bdc8eb83282f2ea61bf3387b24a8e760411655';
 
-    const res = await haus.query.dao({
+    const res = await haus.query.findDao({
       networkId,
       dao,
     });
@@ -42,7 +42,7 @@ describe('haus', () => {
   it('can fetch first 1000 daos', async () => {
     const networkId = '0x4';
 
-    const res = await haus.query.daos({
+    const res = await haus.query.listDaos({
       networkId,
     });
 
@@ -57,7 +57,7 @@ describe('haus', () => {
     const dao = '0x02515f07132f9bb6a30364d7dcb14f1b8f916f81';
     const proposalId = '2';
 
-    const res = await haus.query.proposal({
+    const res = await haus.query.findProposal({
       networkId,
       dao,
       proposalId,
@@ -72,7 +72,7 @@ describe('haus', () => {
     const networkId = '0x4';
     const dao = '0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364';
 
-    const res = await haus.query.proposals({
+    const res = await haus.query.listProposals({
       networkId,
       dao,
     });
@@ -87,7 +87,7 @@ describe('haus', () => {
     const dao = '0x067c7885df54e92884221b67901c3daeab3c6a1c';
     const memberAddress = '0xf100041473280b594d78ab5fa4c44ba81edd367b';
 
-    const res = await haus.query.member({
+    const res = await haus.query.findMember({
       networkId,
       dao,
       memberAddress,
@@ -102,7 +102,7 @@ describe('haus', () => {
     const networkId = '0x4';
     const dao = '0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364';
 
-    const res = await haus.query.members({
+    const res = await haus.query.listMembers({
       networkId,
       dao,
     });
@@ -115,7 +115,7 @@ describe('haus', () => {
     const networkId = '0x4';
     const dao = '0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364';
 
-    const res = await haus.query.latestTransaction({
+    const res = await haus.query.findLatestTransaction({
       networkId,
       dao,
     });
@@ -130,7 +130,7 @@ describe('haus', () => {
     const networks = ['0x4', '0x2a'];
     const account = '0xced608aa29bb92185d9b6340adcbfa263dae075b';
 
-    const res = await haus.query.daosByAccount({
+    const res = await haus.query.listDaosByAccount({
       account,
       networks,
     });

@@ -48,7 +48,7 @@ export default class Query {
     }
   }
 
-  public async daos(args: {
+  public async listDaos(args: {
     networkId: keyof Keychain;
   }): Promise<QueryResult<Dao[]>> {
     return await urqlFetch({
@@ -58,7 +58,7 @@ export default class Query {
     });
   }
 
-  public async dao(args: {
+  public async findDao(args: {
     networkId: keyof Keychain;
     dao: string;
   }): Promise<QueryResult<Dao>> {
@@ -70,7 +70,7 @@ export default class Query {
     });
   }
 
-  public async member(args: {
+  public async findMember(args: {
     networkId: keyof Keychain;
     dao: string;
     memberAddress: string;
@@ -83,7 +83,7 @@ export default class Query {
     });
   }
 
-  public async proposal(args: {
+  public async findProposal(args: {
     networkId: keyof Keychain;
     dao: string;
     proposalId: string;
@@ -100,7 +100,7 @@ export default class Query {
    * Queries scoped to daos
    */
 
-  public async proposals(args: {
+  public async listProposals(args: {
     networkId: keyof Keychain;
     dao: string;
   }): Promise<QueryResult<Proposal[]>> {
@@ -112,7 +112,7 @@ export default class Query {
     });
   }
 
-  public async members(args: {
+  public async listMembers(args: {
     networkId: keyof Keychain;
     dao: string;
   }): Promise<QueryResult<Proposal[]>> {
@@ -124,7 +124,7 @@ export default class Query {
     });
   }
 
-  public async latestTransaction(args: {
+  public async findLatestTransaction(args: {
     networkId: keyof Keychain;
     dao: string;
   }): Promise<QueryResult<Proposal[]>> {
@@ -141,7 +141,7 @@ export default class Query {
    */
 
   // TODO: should add network indicator to the res somewhere
-  public async daosByAccount(args: {
+  public async listDaosByAccount(args: {
     account: string;
     networks: string[];
   }): Promise<QueryResult<Dao[]>[]> {

@@ -137,17 +137,4 @@ describe('haus', () => {
 
     expect(res.length).toBe(2);
   });
-
-  // it('returns an error on unsported networks', async () => {
-  //   const query = DEFAULT_DAO_QUERY;
-  //   const networkId = '0x69420';
-  //   const variables = { dao: '0xcfeed89f67ce9c05c43efc7a0ee2e931f22c1bc5' };
-
-  //   const res = await haus.query.graphFetch({ query, networkId, variables });
-
-  //   expect(res.data).toBe;
-  //   if (res.data) {
-  //     expect(res.data['dao'].metaData.name).toEqual('Salty Nonce DAO');
-  //   }
-  // });
 });

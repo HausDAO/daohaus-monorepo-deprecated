@@ -20,4 +20,6 @@ export const font = {
     bold: 700,
     black: 900,
   },
+  lineHeight: '150%',
+  letterSpacing: '1.5px',
 };

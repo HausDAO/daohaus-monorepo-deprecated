@@ -5,13 +5,13 @@ import {
   TooltipRoot,
   TooltipTrigger,
 } from './styles';
-import { SmTooltipTrigger } from './tooltipTriggers';
+import { SmTooltipIcon } from './tooltipTriggers';
 import { TooltipProps } from './types';
 
 const Tooltip = ({
   content = 'Content goes here',
   side = 'right',
-  triggerEl = <SmTooltipTrigger />,
+  triggerEl = <SmTooltipIcon />,
   offset = 18,
   delay = 400,
 }: TooltipProps) => {

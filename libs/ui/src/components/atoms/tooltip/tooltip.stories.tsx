@@ -1,9 +1,9 @@
 import { grass } from '@radix-ui/colors';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { BsCheckCircleFill } from 'react-icons/bs';
-import { H1 } from '../typography';
+import { H1, ParLg } from '../typography';
 import Tooltip from './tooltip';
-import { LgTooltupTrigger } from './tooltipTriggers';
+import { LgTooltipIcon, SmTooltipIcon } from './tooltipTriggers';
 
 export default {
   title: 'Atoms/Tooltip',
@@ -20,10 +20,23 @@ AtomTooltip.args = {
   content: "Oh boy! It's content!",
 };
 
+export const BaseIcons = () => (
+  <div style={{ display: 'flex', flexDirection: 'column' }}>
+    <div>
+      <ParLg>Large Icon</ParLg>
+      <LgTooltipIcon />
+    </div>
+    <div>
+      <ParLg>Small Icon</ParLg>
+      <SmTooltipIcon />
+    </div>
+  </div>
+);
+
 export const LargeIconTooltip = Template.bind({});
 LargeIconTooltip.args = {
   content: 'Oh boy! Large Icons!',
-  triggerEl: <LgTooltupTrigger />,
+  triggerEl: <LgTooltipIcon />,
 };
 export const CustomIconTrigger = Template.bind({});
 CustomIconTrigger.args = {

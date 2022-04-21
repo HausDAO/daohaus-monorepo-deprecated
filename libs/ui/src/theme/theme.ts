@@ -44,7 +44,7 @@ export const defaultLightTheme: Theme = {
   field: {
     bg: indigo.indigo3,
     focus: indigo.indigo4,
-    placeholderText: indigo.indigo11,
+    placeholderText: indigo.indigo8,
     disabled: indigo.indigo2,
   },
   tooltip: {

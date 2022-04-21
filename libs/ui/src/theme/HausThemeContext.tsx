@@ -1,10 +1,10 @@
 import {
   createContext,
-  FunctionComponent,
   useState,
   Dispatch,
   SetStateAction,
   useEffect,
+  ReactNode,
 } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from './global/globalStyles';
@@ -20,22 +20,25 @@ type HausUI = {
   toggleLightDark: () => void;
 };
 
+type ProviderProps = {
+  children: ReactNode;
+  defaultDark?: Theme;
+  defaultLight?: Theme;
+  startDark?: boolean;
+};
+
 export const HausThemeContext = createContext<HausUI>({
   theme: defaultDarkTheme,
   setTheme: () => null,
   toggleLightDark: (): void => undefined,
 });
 
-export const HausThemeProvider: FunctionComponent<{
-  defaultDark?: Theme;
-  defaultLight?: Theme;
-  startDark?: boolean;
-}> = ({
+export const HausThemeProvider = ({
   children,
   defaultDark = defaultDarkTheme,
   defaultLight = defaultLightTheme,
   startDark = true,
-}) => {
+}: ProviderProps) => {
   const [theme, setTheme] = useState(startDark ? defaultDark : defaultLight);
 
   useEffect(() => {
@@ -52,8 +55,10 @@ export const HausThemeProvider: FunctionComponent<{
   return (
     <HausThemeContext.Provider value={{ theme, setTheme, toggleLightDark }}>
       <ThemeProvider theme={theme}>
-        <GlobalStyles theme={theme} />
-        {children}
+        <>
+          {children}
+          <GlobalStyles theme={theme} />
+        </>
       </ThemeProvider>
     </HausThemeContext.Provider>
   );

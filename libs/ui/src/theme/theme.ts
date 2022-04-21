@@ -27,6 +27,9 @@ export const defaultDarkTheme: Theme = {
     placeholderText: indigoDark.indigo11,
     disabled: indigoDark.indigo2,
   },
+  tooltip: {
+    bg: indigoDark.indigo3,
+  },
 };
 
 export const defaultLightTheme: Theme = {
@@ -41,7 +44,10 @@ export const defaultLightTheme: Theme = {
   field: {
     bg: indigo.indigo3,
     focus: indigo.indigo4,
-    placeholderText: indigo.indigo11,
+    placeholderText: indigo.indigo8,
     disabled: indigo.indigo2,
+  },
+  tooltip: {
+    bg: indigo.indigo3,
   },
 };

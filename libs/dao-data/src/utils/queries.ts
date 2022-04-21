@@ -1,4 +1,4 @@
-export const PROPOSAL_FIELDS = `
+const DEFAULT_PROPOSAL_FIELDS = `
   id
   createdAt
   createdBy
@@ -34,9 +34,9 @@ export const PROPOSAL_FIELDS = `
   tributeTokenSymbol
   tributeTokenDecimals
   tributeEscrowRecipient
-`;
+` as const;
 
-export const DAO_FIELDS = `
+const DEAFULT_DAO_FIELDS = `
   id 
   createdAt
   transactionHashSummon
@@ -58,25 +58,21 @@ export const DAO_FIELDS = `
   metaData { 
     name 
   }
-`;
+` as const;
 
-export const VOTE_FIELDS = `
+const DEFAULT_VOTE_FIELDS = `
   id
   createdAt
   daoAddress
   approved
   balance
-  proposal {
-    id
-    proposalId
-  }
   member {
     id
     memberAddress
   }
-`;
+` as const;
 
-export const MEMBER_FIELDS = `
+const DEFAULT_MEMBER_FIELDS = `
   id
   createdAt
   memberAddress
@@ -92,9 +88,9 @@ export const MEMBER_FIELDS = `
   dao {
     id
   }
-`;
+` as const;
 
-export const RAGE_QUIT_FIELDS = `
+const DEFAULT_RAGE_QUIT_FIELDS = `
   id
   createdAt
   to
@@ -105,47 +101,77 @@ export const RAGE_QUIT_FIELDS = `
     id
     memberAddress
   }
-`;
+` as const;
 
-export const DAO_OVERVIEW = `
+export const DEFAULT_DAO_QUERY = `
   query dao($dao: String!) {
     dao(
       id: $dao
     ) {
-      ${DAO_FIELDS}
+      ${DEAFULT_DAO_FIELDS}
+      rageQuits {
+        ${DEFAULT_RAGE_QUIT_FIELDS}
+      }
     }
   }
-`;
+` as const;
 
-export const DAOS = `
+export const DEFAULT_DAOS_QUERY = `
   query daos {
     daos {
-      ${DAO_FIELDS}
+      ${DEAFULT_DAO_FIELDS}
+      rageQuits {
+        ${DEFAULT_RAGE_QUIT_FIELDS}
+      }
     }
   }
-`;
+` as const;
 
-export const DAO_PROPOSALS = `
+export const DEFAULT_PROPOSALS_BY_DAO_QUERY = `
   query proposals($dao: String!) {
     proposals(
       where: {dao: $dao}
       orderBy: createdAt
       orderDirection: desc 
     ) {
-      ${PROPOSAL_FIELDS}
+      ${DEFAULT_PROPOSAL_FIELDS}
+      votes {
+        ${DEFAULT_VOTE_FIELDS}
+      }
     }
   }
-`;
+` as const;
 
-export const LATEST_TX = `
-  query eventTransaction {
-    eventTransactions(first: 1, 
-      orderBy: createdAt, orderDirection: desc) {
-      id
-      createdAt
+export const DEFAULT_PROPOSAL_QUERY = `
+  query proposal($id: String!) {
+    proposal(id: $id) {
+      ${DEFAULT_PROPOSAL_FIELDS}
+      votes {
+        ${DEFAULT_VOTE_FIELDS}
+      }
     }
   }
-`;
+` as const;
+
+export const DEFAULT_MEMBERS_BY_DAO_QUERY = `
+  query members($dao: String!) {
+    members(
+      where: {dao: $dao}
+      orderBy: createdAt
+      orderDirection: desc 
+    ) {
+      ${DEFAULT_MEMBER_FIELDS}
+    }
+  }
+` as const;
+
+export const DEFAULT_MEMBER_QUERY = `
+  query member($id: String!) {
+    member(id: $id) {
+      ${DEFAULT_MEMBER_FIELDS}
+    }
+  }
+` as const;
 
 export const LATEST_TX_BY_DAO = `
   query eventTransactions($dao: String!) {
@@ -159,4 +185,4 @@ export const LATEST_TX_BY_DAO = `
         createdAt
     }
 }
-`;
+` as const;

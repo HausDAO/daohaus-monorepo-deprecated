@@ -2,7 +2,7 @@ import { InputType } from './types';
 import classNames from 'classnames';
 import { BaseInput, WithIcon } from './style';
 
-export const Input: InputType = (props) => {
+export const Input = (props: InputType) => {
   const {
     long,
     full,

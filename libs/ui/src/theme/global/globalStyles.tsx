@@ -1,6 +1,6 @@
 import { normalize } from 'polished';
 import { createGlobalStyle } from 'styled-components';
-import { Theme } from '..';
+import { Theme } from '../../types/theming';
 import { font } from '.';
 
 export const GlobalStyles = createGlobalStyle`
@@ -19,8 +19,8 @@ export const GlobalStyles = createGlobalStyle`
 
   h1, h2, h3, h4, h5, h6, p{
     margin: 0;
-    line-height: 150%;
-    letter-spacing: 1.5px;
+    line-height: ${font.lineHeight};
+    letter-spacing: ${font.letterSpacing};
   }
 
   html {

@@ -1,5 +1,5 @@
-export type InputLabel = {
+export type InputLabelType = {
   required: boolean;
-  label: string;
   info: string;
+  children: React.ReactChild;
 };

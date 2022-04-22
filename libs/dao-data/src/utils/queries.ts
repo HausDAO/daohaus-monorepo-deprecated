@@ -115,7 +115,10 @@ export const DEFAULT_DAO_QUERY = `
 
 export const DEFAULT_DAOS_QUERY = `
   query daos {
-    daos {
+    daos (
+      orderBy: createdAt
+      orderDirection: desc 
+    ) {
       ${DEAFULT_DAO_FIELDS}
       rageQuits {
         ${DEFAULT_RAGE_QUIT_FIELDS}
@@ -194,3 +197,33 @@ export const LATEST_TX_BY_DAO = `
     }
 }
 ` as const;
+
+// how to type the $where and convert into proper string
+export const DEFAULT_DAOS_QUERY_RAGE = `
+  query daos($orderBy: String!, $orderDirection: String!) {
+    daos(
+      orderBy: $orderBy,
+      orderDirection: $orderDirection
+    ) {
+      ${DEAFULT_DAO_FIELDS}
+    }
+  }
+` as const;
+
+// query getTokens($where: Token_filter! = {}, $skip: Int! = 0, $first: Int! = 10, $orderBy: Token_orderBy! = id, $orderDirection: OrderDirection! = asc) {
+//   result: tokens(
+//       where: $where,
+//       skip: $skip
+//       first: $first,
+//       orderBy: $orderBy,
+//       orderDirection: $orderDirection
+//   ) {
+//       id
+//       createdAtTimestamp
+//       createdAtBlockNumber
+//       name
+//       symbol
+//       isListed
+//       underlyingAddress
+//   }
+// }

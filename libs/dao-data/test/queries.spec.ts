@@ -19,6 +19,7 @@ describe('haus', () => {
       networkId,
     });
 
+    expect(res.error).toBeUndefined();
     if (res.data) {
       expect(res.data['daos'].length).toBeGreaterThan(10);
       expect(res.data['daos'].length).toBeLessThan(1001);
@@ -34,6 +35,7 @@ describe('haus', () => {
       filter: { dao },
     });
 
+    expect(res.error).toBeUndefined();
     if (res.data) {
       expect(res.data['proposals'].length).toBeGreaterThan(10);
     }
@@ -47,6 +49,8 @@ describe('haus', () => {
       networkId,
       filter: { dao },
     });
+
+    expect(res.error).toBeUndefined();
     if (res.data) {
       expect(res.data['members'].length).toBeGreaterThan(0);
     }
@@ -61,6 +65,7 @@ describe('haus', () => {
       dao,
     });
 
+    expect(res.error).toBeUndefined();
     if (res.data) {
       expect(res.data['dao'].shareTokenName).toEqual('8Baal Shares');
     }
@@ -77,6 +82,7 @@ describe('haus', () => {
       memberAddress,
     });
 
+    expect(res.error).toBeUndefined();
     if (res.data) {
       expect(res.data['member'].createdAt).toEqual('1647545399');
     }
@@ -93,6 +99,7 @@ describe('haus', () => {
       proposalId,
     });
 
+    expect(res.error).toBeUndefined();
     if (res.data) {
       expect(res.data['proposal'].createdAt).toEqual('1648060445');
     }
@@ -107,6 +114,7 @@ describe('haus', () => {
       dao,
     });
 
+    expect(res.error).toBeUndefined();
     if (res.data) {
       expect(res.data['eventTransactions'].length).toBe(1);
       expect(res.data['eventTransactions'][0].createdAt).toBe('1649105343');
@@ -120,6 +128,7 @@ describe('haus', () => {
 
     const res = await haus.query.graphFetch({ query, networkId, filter });
 
+    expect(res.error).toBeUndefined();
     expect(res.data).toBe;
     if (res.data) {
       expect(res.data['dao'].metaData.name).toEqual('Salty Nonce DAO');

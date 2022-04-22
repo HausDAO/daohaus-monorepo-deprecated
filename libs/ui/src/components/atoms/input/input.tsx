@@ -1,6 +1,14 @@
-import { InputType } from './types';
 import classNames from 'classnames';
-import { BaseInput, WithIcon } from './style';
+import { BaseInput, WithIcon } from './inputStyle';
+import { Field } from '../../../types/formAndField';
+import { IconType } from 'react-icons';
+
+export type InputType = Field & {
+  icon?: IconType;
+  long?: boolean;
+  full?: boolean;
+  number?: boolean;
+};
 
 export const Input = (props: InputType) => {
   const {

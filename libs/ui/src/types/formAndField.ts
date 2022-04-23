@@ -18,7 +18,9 @@ export type Field = {
   helperText?: string;
   required?: boolean;
   info?: string;
-  disabled?: true;
+  disabled?: boolean;
+  number?: boolean;
+  address?: boolean;
   warning?: WarningMessage;
   error?: ErrorMessage;
   success?: SuccessMessage;

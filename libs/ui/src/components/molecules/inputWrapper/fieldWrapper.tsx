@@ -22,8 +22,9 @@ const FieldWrapper = ({
   helperText,
   long,
   full,
+  address,
 }: FieldWrapperProps) => {
-  const classes = classNames({ long, full });
+  const classes = classNames({ long: long || address, full });
   return (
     <FieldWrapperBase className={classes}>
       <InputLabel required={required} info={info}>

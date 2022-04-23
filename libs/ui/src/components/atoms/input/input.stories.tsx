@@ -55,3 +55,8 @@ FullWidthInput.args = {
   placeholder: '100% of container',
   full: true,
 };
+export const AddressInput = Template.bind({});
+AddressInput.args = {
+  placeholder: '0x',
+  address: true,
+};

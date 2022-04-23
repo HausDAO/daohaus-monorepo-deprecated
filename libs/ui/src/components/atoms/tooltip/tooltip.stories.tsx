@@ -6,7 +6,7 @@ import Tooltip from './tooltip';
 import { LgTooltipIcon, SmTooltipIcon } from './tooltipTriggers';
 
 export default {
-  title: 'Atoms/Tooltip',
+  title: 'Atoms/Form/Tooltip',
   component: Tooltip,
 } as ComponentMeta<typeof Tooltip>;
 

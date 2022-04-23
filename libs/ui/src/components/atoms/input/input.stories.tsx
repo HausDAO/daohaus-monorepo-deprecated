@@ -3,7 +3,7 @@ import Input from './input';
 import { BsSearch } from 'react-icons/bs';
 
 export default {
-  title: 'Atoms/Input',
+  title: 'Atoms/Form/Input',
   component: Input,
 } as ComponentMeta<typeof Input>;
 

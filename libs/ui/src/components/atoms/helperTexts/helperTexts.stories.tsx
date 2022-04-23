@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { HelperText, SuccessText, ErrorText, WarningText } from './helperTexts';
 
 export default {
-  title: 'Atoms/InputHelperTexts',
+  title: 'Atoms/Form/InputHelperTexts',
   component: HelperText,
 } as ComponentMeta<typeof HelperText>;
 

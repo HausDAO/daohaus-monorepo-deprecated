@@ -21,6 +21,8 @@ export type Field = {
   disabled?: boolean;
   number?: boolean;
   address?: boolean;
+  long?: boolean;
+  full?: boolean;
   warning?: WarningMessage;
   error?: ErrorMessage;
   success?: SuccessMessage;

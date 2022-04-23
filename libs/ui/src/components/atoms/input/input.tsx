@@ -3,13 +3,10 @@ import { BaseInput, WithIcon } from './inputStyle';
 import { Field } from '../../../types/formAndField';
 import { IconType } from 'react-icons';
 
-export type InputType = Field & {
+export type InputProps = Field & {
   icon?: IconType;
-  long?: boolean;
-  full?: boolean;
 };
-
-export const Input = (props: InputType) => {
+export const Input = (props: InputProps) => {
   const {
     long,
     full,

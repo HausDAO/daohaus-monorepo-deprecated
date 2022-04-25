@@ -85,22 +85,6 @@ const DEFAULT_MEMBER_FIELDS = `
     approved
     balance
   }
-  dao {
-    id
-  }
-` as const;
-
-const DEFAULT_RAGE_QUIT_FIELDS = `
-  id
-  createdAt
-  to
-  shares
-  loot
-  tokens
-  member {
-    id
-    memberAddress
-  }
 ` as const;
 
 export const DEFAULT_DAO_QUERY = `
@@ -109,30 +93,27 @@ export const DEFAULT_DAO_QUERY = `
       id: $dao
     ) {
       ${DEAFULT_DAO_FIELDS}
-      rageQuits {
-        ${DEFAULT_RAGE_QUIT_FIELDS}
-      }
     }
   }
 ` as const;
 
 export const DEFAULT_DAOS_QUERY = `
-  query daos {
-    daos {
+  query daos($orderBy: String!, $orderDirection: String!) {
+    daos (
+      orderBy: $orderBy
+      orderDirection: $orderDirection 
+    ) {
       ${DEAFULT_DAO_FIELDS}
-      rageQuits {
-        ${DEFAULT_RAGE_QUIT_FIELDS}
-      }
     }
   }
 ` as const;
 
 export const DEFAULT_PROPOSALS_BY_DAO_QUERY = `
-  query proposals($dao: String!) {
+  query proposals($dao: String!, $orderBy: String!, $orderDirection: String!) {
     proposals(
       where: {dao: $dao}
-      orderBy: createdAt
-      orderDirection: desc 
+      orderBy: $orderBy
+      orderDirection: $orderDirection  
     ) {
       ${DEFAULT_PROPOSAL_FIELDS}
       votes {
@@ -154,11 +135,11 @@ export const DEFAULT_PROPOSAL_QUERY = `
 ` as const;
 
 export const DEFAULT_MEMBERS_BY_DAO_QUERY = `
-  query members($dao: String!) {
+  query members($dao: String!, $orderBy: String!, $orderDirection: String!) {
     members(
       where: {dao: $dao}
-      orderBy: createdAt
-      orderDirection: desc 
+      orderBy: $orderBy
+      orderDirection: $orderDirection 
     ) {
       ${DEFAULT_MEMBER_FIELDS}
     }
@@ -169,6 +150,17 @@ export const DEFAULT_MEMBER_QUERY = `
   query member($id: String!) {
     member(id: $id) {
       ${DEFAULT_MEMBER_FIELDS}
+    }
+  }
+` as const;
+
+export const DAOS_BY_MEMBER_QUERY = `
+  query members($memberAddress: String!) {
+    members(where: {memberAddress: $memberAddress}) {
+      ${DEFAULT_MEMBER_FIELDS}
+      dao {
+        ${DEAFULT_DAO_FIELDS}
+      }
     }
   }
 ` as const;

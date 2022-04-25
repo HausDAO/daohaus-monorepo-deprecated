@@ -4,11 +4,6 @@ import { WithIcon } from './helperTextStyles';
 import React from 'react';
 import { useTheme } from 'styled-components';
 import { Theme } from '../../../types/theming';
-import {
-  ErrorMessage,
-  WarningMessage,
-  SuccessMessage,
-} from '../../../types/formAndField';
 
 import { BiCheckCircle, BiErrorCircle } from 'react-icons/bi';
 
@@ -20,12 +15,7 @@ export type HelperTextType = {
 export type SpecialHelperText = {
   children: React.ReactNode;
 };
-export type HelperTextFactoryProps = {
-  error?: ErrorMessage;
-  warning?: WarningMessage;
-  success?: SuccessMessage;
-  helperText?: string;
-};
+
 export const HelperText = ({ color, icon, children }: HelperTextType) => {
   if (icon) {
     const Icon = icon;
@@ -66,18 +56,4 @@ export const ErrorText = ({ children }: SpecialHelperText) => {
       {children}
     </HelperText>
   );
-};
-
-export const HelperTextFactory = ({
-  error,
-  success,
-  warning,
-  helperText,
-}: HelperTextFactoryProps) => {
-  if (!error && !success && !warning && !helperText) return null;
-
-  if (error) return <ErrorText>{error.message}</ErrorText>;
-  if (warning) return <WarningText>{warning.message}</WarningText>;
-  if (success) return <SuccessText>{success.message}</SuccessText>;
-  return <HelperText>{helperText}</HelperText>;
 };

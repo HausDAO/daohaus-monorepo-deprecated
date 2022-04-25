@@ -3,14 +3,10 @@ import { BaseInput, WithIcon } from './inputStyle';
 import { Field } from '../../../types/formAndField';
 import { IconType } from 'react-icons';
 
-export type InputType = Field & {
+export type InputProps = Field & {
   icon?: IconType;
-  long?: boolean;
-  full?: boolean;
-  number?: boolean;
 };
-
-export const Input = (props: InputType) => {
+export const Input = (props: InputProps) => {
   const {
     long,
     full,
@@ -19,11 +15,18 @@ export const Input = (props: InputType) => {
     error,
     placeholder = 'Placeholder',
     number,
+    address,
   } = props;
 
-  const inputClasses = classNames({ long, full, warning, error, number });
+  const inputClasses = classNames({
+    long: long || address,
+    full,
+    warning,
+    error,
+    number: number || address,
+  });
   if (icon) {
-    const wrapperClasses = classNames({ long, full });
+    const wrapperClasses = classNames({ long: long || address, full });
     const Icon = icon;
     return (
       <WithIcon className={wrapperClasses}>

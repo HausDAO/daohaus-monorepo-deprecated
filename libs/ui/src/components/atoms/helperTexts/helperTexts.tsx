@@ -8,7 +8,7 @@ import { Theme } from '../../../types/theming';
 import { BiCheckCircle, BiErrorCircle } from 'react-icons/bi';
 
 export type HelperTextType = {
-  color: string;
+  color?: string;
   icon?: IconType;
   children: React.ReactNode;
 };

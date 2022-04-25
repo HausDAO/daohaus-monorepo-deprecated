@@ -3,7 +3,7 @@ import Input from './input';
 import { BsSearch } from 'react-icons/bs';
 
 export default {
-  title: 'Atoms/Input',
+  title: 'Atoms/Form/Input',
   component: Input,
 } as ComponentMeta<typeof Input>;
 
@@ -54,4 +54,9 @@ export const FullWidthInput = Template.bind({});
 FullWidthInput.args = {
   placeholder: '100% of container',
   full: true,
+};
+export const AddressInput = Template.bind({});
+AddressInput.args = {
+  placeholder: '0x',
+  address: true,
 };

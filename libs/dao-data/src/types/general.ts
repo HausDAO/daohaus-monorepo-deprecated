@@ -29,8 +29,6 @@ export interface CrossNetworkQueryArguments {
 
 // rework this and filter pairs with code gen
 export type QueryVariables = {
-  // orderBy?: string;
-  // orderDirection?: string;
   [field: string]: string;
 };
 

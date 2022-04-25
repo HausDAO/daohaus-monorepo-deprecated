@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
+    "hub-app": "apps/hub-app",
     "abi-utilities": "libs/abi-utilities",
     "common-utilities": "libs/common-utilities",
     "dao-data": "libs/dao-data",

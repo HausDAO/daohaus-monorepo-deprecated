@@ -5,9 +5,15 @@ import {
   Proposal,
 } from '@daohaus/common-utilities';
 
-import { WhereQueryVariables } from './index';
-import { QueryResult } from './types';
 import {
+  ListQueryArguments,
+  QueryResult,
+  FindQueryArguments,
+  GenericQueryArguments,
+  CrossNetworkQueryArguments,
+} from './types';
+import {
+  DAOS_BY_MEMBER_QUERY,
   DEFAULT_DAOS_QUERY,
   DEFAULT_DAO_QUERY,
   DEFAULT_MEMBERS_BY_DAO_QUERY,
@@ -27,111 +33,158 @@ export default class Query {
     this._endpoints = ENDPOINTS;
   }
 
-  public async graphFetch(args: {
-    networkId: keyof Keychain;
-    query: string;
-    variables?: WhereQueryVariables;
-  }): Promise<QueryResult> {
+  /*
+  List queries
+*/
+  public async listDaos({
+    networkId,
+    ordering = {
+      orderBy: 'createdAt',
+      orderDirection: 'desc',
+    },
+  }: ListQueryArguments): Promise<QueryResult<Dao[]>> {
+    return await urqlFetch({
+      endpointType: 'V3_SUBGRAPH',
+      networkId: networkId,
+      query: DEFAULT_DAOS_QUERY,
+      variables: { ...ordering },
+    });
+  }
+
+  public async listProposals({
+    networkId,
+    ordering = {
+      orderBy: 'createdAt',
+      orderDirection: 'desc',
+    },
+    filter,
+  }: ListQueryArguments): Promise<QueryResult<Proposal[]>> {
+    return await urqlFetch({
+      endpointType: 'V3_SUBGRAPH',
+      networkId: networkId,
+      query: DEFAULT_PROPOSALS_BY_DAO_QUERY,
+      variables: { ...filter, ...ordering },
+    });
+  }
+
+  public async listMembers({
+    networkId,
+    ordering = {
+      orderBy: 'createdAt',
+      orderDirection: 'desc',
+    },
+    filter,
+  }: ListQueryArguments): Promise<QueryResult<Proposal[]>> {
+    return await urqlFetch({
+      endpointType: 'V3_SUBGRAPH',
+      networkId: networkId,
+      query: DEFAULT_MEMBERS_BY_DAO_QUERY,
+      variables: { ...filter, ...ordering },
+    });
+  }
+
+  public async findDao({
+    networkId,
+    dao,
+  }: Pick<FindQueryArguments, 'networkId' | 'dao'>): Promise<QueryResult<Dao>> {
+    return await urqlFetch({
+      endpointType: 'V3_SUBGRAPH',
+      networkId: networkId,
+      query: DEFAULT_DAO_QUERY,
+      variables: { dao: dao },
+    });
+  }
+
+  public async findMember({
+    networkId,
+    dao,
+    memberAddress,
+  }: Pick<FindQueryArguments, 'networkId' | 'dao' | 'memberAddress'>): Promise<
+    QueryResult<Proposal>
+  > {
+    return await urqlFetch({
+      endpointType: 'V3_SUBGRAPH',
+      networkId: networkId,
+      query: DEFAULT_MEMBER_QUERY,
+      variables: { id: `${dao}-member-${memberAddress}` },
+    });
+  }
+
+  public async findProposal({
+    networkId,
+    dao,
+    proposalId,
+  }: Pick<FindQueryArguments, 'networkId' | 'dao' | 'proposalId'>): Promise<
+    QueryResult<Proposal>
+  > {
+    return await urqlFetch({
+      endpointType: 'V3_SUBGRAPH',
+      networkId: networkId,
+      query: DEFAULT_PROPOSAL_QUERY,
+      variables: { id: `${dao}-proposal-${proposalId}` },
+    });
+  }
+
+  /*
+  Helper queries
+*/
+
+  public async findLatestTransaction({
+    networkId,
+    dao,
+  }: Pick<FindQueryArguments, 'networkId' | 'dao'>): Promise<
+    QueryResult<Proposal[]>
+  > {
+    return await urqlFetch({
+      endpointType: 'V3_SUBGRAPH',
+      networkId: networkId,
+      query: LATEST_TX_BY_DAO,
+      variables: { dao: dao },
+    });
+  }
+
+  public async graphFetch({
+    networkId,
+    query,
+    filter,
+  }: GenericQueryArguments): Promise<QueryResult> {
     const endpointType: keyof KeychainList = 'V3_SUBGRAPH';
-    if (!this._endpoints[endpointType][args.networkId]) {
+    if (!this._endpoints[endpointType][networkId]) {
       return {
         error: INVALID_NETWORK_ERROR,
       };
     } else {
       return await urqlFetch({
         endpointType: 'V3_SUBGRAPH',
-        networkId: args.networkId,
-        query: args.query,
-        variables: args.variables,
+        networkId: networkId,
+        query: query,
+        variables: filter,
       });
     }
   }
 
-  public async daos(args: {
-    networkId: keyof Keychain;
-  }): Promise<QueryResult<Dao[]>> {
-    return await urqlFetch({
-      endpointType: 'V3_SUBGRAPH',
-      networkId: args.networkId,
-      query: DEFAULT_DAOS_QUERY,
-    });
-  }
-
-  public async dao(args: {
-    networkId: keyof Keychain;
-    dao: string;
-  }): Promise<QueryResult<Dao>> {
-    return await urqlFetch({
-      endpointType: 'V3_SUBGRAPH',
-      networkId: args.networkId,
-      query: DEFAULT_DAO_QUERY,
-      variables: { dao: args.dao },
-    });
-  }
-
-  public async member(args: {
-    networkId: keyof Keychain;
-    dao: string;
-    memberAddress: string;
-  }): Promise<QueryResult<Proposal>> {
-    return await urqlFetch({
-      endpointType: 'V3_SUBGRAPH',
-      networkId: args.networkId,
-      query: DEFAULT_MEMBER_QUERY,
-      variables: { id: `${args.dao}-member-${args.memberAddress}` },
-    });
-  }
-
-  public async proposal(args: {
-    networkId: keyof Keychain;
-    dao: string;
-    proposalId: string;
-  }): Promise<QueryResult<Proposal>> {
-    return await urqlFetch({
-      endpointType: 'V3_SUBGRAPH',
-      networkId: args.networkId,
-      query: DEFAULT_PROPOSAL_QUERY,
-      variables: { id: `${args.dao}-proposal-${args.proposalId}` },
-    });
-  }
-
   /**
-   * Queries scoped to daos
+   * Queries scoped to account
    */
 
-  public async proposals(args: {
-    networkId: keyof Keychain;
-    dao: string;
-  }): Promise<QueryResult<Proposal[]>> {
-    return await urqlFetch({
-      endpointType: 'V3_SUBGRAPH',
-      networkId: args.networkId,
-      query: DEFAULT_PROPOSALS_BY_DAO_QUERY,
-      variables: { dao: args.dao },
-    });
-  }
+  // TODO: should add network indicator to the res somewhere
+  public async listDaosByAccount({
+    account,
+    networks,
+  }: CrossNetworkQueryArguments): Promise<QueryResult<Dao[]>[]> {
+    const promises: Promise<QueryResult<Dao[]>>[] = [];
 
-  public async members(args: {
-    networkId: keyof Keychain;
-    dao: string;
-  }): Promise<QueryResult<Proposal[]>> {
-    return await urqlFetch({
-      endpointType: 'V3_SUBGRAPH',
-      networkId: args.networkId,
-      query: DEFAULT_MEMBERS_BY_DAO_QUERY,
-      variables: { dao: args.dao },
+    networks.forEach((networkId) => {
+      promises.push(
+        urqlFetch({
+          endpointType: 'V3_SUBGRAPH',
+          networkId: networkId as keyof Keychain,
+          query: DAOS_BY_MEMBER_QUERY,
+          variables: { memberAddress: account },
+        })
+      );
     });
-  }
 
-  public async latestTransaction(args: {
-    networkId: keyof Keychain;
-    dao: string;
-  }): Promise<QueryResult<Proposal[]>> {
-    return await urqlFetch({
-      endpointType: 'V3_SUBGRAPH',
-      networkId: args.networkId,
-      query: LATEST_TX_BY_DAO,
-      variables: { dao: args.dao },
-    });
+    return Promise.all(promises);
   }
 }

@@ -44,7 +44,6 @@ export const ButtonBase = styled.button`
       ${({ theme }: { theme: Theme }) => theme.button.primary.disabledBorder};
     color: ${({ theme }: { theme: Theme }) =>
       theme.button.primary.disabledText};
-    cursor: not-allowed;
   }
 
   &.secondary {
@@ -85,7 +84,6 @@ export const ButtonBase = styled.button`
           theme.button.secondary.disabledBorder};
       color: ${({ theme }: { theme: Theme }) =>
         theme.button.secondary.disabledText};
-      cursor: not-allowed;
     }
   }
   &.tertiary {
@@ -125,7 +123,6 @@ export const ButtonBase = styled.button`
         ${({ theme }: { theme: Theme }) => theme.button.tertiary.disabledBorder};
       color: ${({ theme }: { theme: Theme }) =>
         theme.button.tertiary.disabledText};
-      cursor: not-allowed;
     }
   }
   &.sm {

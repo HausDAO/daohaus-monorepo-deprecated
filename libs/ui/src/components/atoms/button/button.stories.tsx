@@ -21,29 +21,24 @@ BaseButton.args = {
 export const PrimaryButton = Template.bind({});
 PrimaryButton.args = {
   children: 'Button',
-  disabled: false,
 };
 export const SecondaryButton = Template.bind({});
 SecondaryButton.args = {
   children: 'Button',
   secondary: true,
-  disabled: false,
 };
 export const TertiaryButton = Template.bind({});
 TertiaryButton.args = {
   children: 'Button',
   tertiary: true,
-  disabled: false,
 };
 export const SmallButton = Template.bind({});
 SmallButton.args = {
   children: 'Button',
   sm: true,
-  disabled: false,
 };
 export const LargeButton = Template.bind({});
 LargeButton.args = {
   children: 'Button',
   lg: true,
-  disabled: false,
 };

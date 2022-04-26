@@ -15,6 +15,7 @@
     "@radix-ui/react-tooltip": "^0.1.7",
     "classnames": "^2.3.1",
     "core-js": "^3.6.5",
+    "get-graphql-schema": "^2.1.2",
     "graphql": "^16.3.0",
     "isomorphic-unfetch": "^3.1.0",
     "polished": "^4.2.2",

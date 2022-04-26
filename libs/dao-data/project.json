@@ -27,6 +27,12 @@
         "jestConfig": "libs/dao-data/jest.config.js",
         "passWithNoTests": true
       }
+    },
+    "schema-gen": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "get-graphql-schema https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-rinkeby > libs/dao-data/src/subgraph/schema.graphql"
+      }
     }
   },
   "tags": []

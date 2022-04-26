@@ -13,7 +13,7 @@ export const BaseButton = Template.bind({});
 BaseButton.args = {
   children: 'Button',
   secondary: false,
-  tertiary: false,
+  outline: false,
   sm: false,
   lg: false,
 };
@@ -30,7 +30,7 @@ SecondaryButton.args = {
 export const OutlineButton = Template.bind({});
 OutlineButton.args = {
   children: 'Button',
-  tertiary: true,
+  outline: true,
 };
 export const SmallButton = Template.bind({});
 SmallButton.args = {

@@ -50,7 +50,7 @@ export const ButtonBase = styled.button`
         theme.button.secondaryActive};
     }
   }
-  &.tertiary {
+  &.outline {
     background-color: transparent;
     color: ${({ theme }: { theme: Theme }) => theme.button.primary};
     :hover {
@@ -74,5 +74,9 @@ export const ButtonBase = styled.button`
     height: 6rem;
     font-size: ${font.size.lg};
     padding: 1.5rem;
+  }
+  &.dropdown {
+  }
+  &.icon {
   }
 `;

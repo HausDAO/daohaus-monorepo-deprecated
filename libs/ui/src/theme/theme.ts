@@ -11,14 +11,6 @@ import {
   tomatoDark,
 } from '@radix-ui/colors';
 import { Theme } from '../types/theming';
-import {
-  PrimaryDarkButton,
-  PrimaryLightButton,
-  SecondaryDarkButton,
-  SecondaryLightButton,
-  TertiaryDarkButton,
-  TertiaryLightButton,
-} from './component/button';
 
 export const defaultDarkTheme: Theme = {
   themeName: 'dark',
@@ -36,9 +28,18 @@ export const defaultDarkTheme: Theme = {
     disabled: indigoDark.indigo2,
   },
   button: {
-    primary: PrimaryDarkButton,
-    secondary: SecondaryDarkButton,
-    tertiary: TertiaryDarkButton,
+    primary: amberDark.amber9,
+    primaryHover: amberDark.amber10,
+    primaryActive: amberDark.amber9,
+    primaryFocus: amberDark.amber10,
+    primaryFocusBorder: amberDark.amber11,
+    primaryText: indigoDark.indigo1,
+    secondary: indigoDark.indigo3,
+    secondaryHover: indigoDark.indigo4,
+    secondaryActive: indigoDark.indigo3,
+    secondaryFocus: indigoDark.indigo4,
+    secondaryFocusBorder: indigoDark.indigo11,
+    secondaryText: indigoDark.indigo12,
   },
   tooltip: {
     bg: indigoDark.indigo3,
@@ -61,9 +62,18 @@ export const defaultLightTheme: Theme = {
     disabled: indigo.indigo2,
   },
   button: {
-    primary: PrimaryLightButton,
-    secondary: SecondaryLightButton,
-    tertiary: TertiaryLightButton,
+    primary: amber.amber9,
+    primaryHover: amber.amber10,
+    primaryActive: amber.amber9,
+    primaryFocus: amber.amber10,
+    primaryFocusBorder: amber.amber11,
+    primaryText: indigo.indigo1,
+    secondary: indigo.indigo3,
+    secondaryHover: indigo.indigo4,
+    secondaryActive: indigo.indigo3,
+    secondaryFocus: indigo.indigo4,
+    secondaryFocusBorder: indigo.indigo11,
+    secondaryText: indigo.indigo12,
   },
   tooltip: {
     bg: indigo.indigo3,

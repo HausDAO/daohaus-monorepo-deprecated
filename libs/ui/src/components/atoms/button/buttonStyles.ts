@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled, { ThemeConsumer } from 'styled-components';
 import { Theme } from '../../../types/theming';
 import { font } from '../../../theme/global/font';
 
 export const ButtonBase = styled.button`
   background-color: ${({ theme }: { theme: Theme }) => theme.button.primary};
   border: 0.1rem solid ${({ theme }: { theme: Theme }) => theme.button.primary};
-  min-width: 8.5rem;
+  width: 8.5rem;
   height: 4.8rem;
   font-size: ${font.size.md};
   font-weight: ${font.weight.bold};
@@ -53,6 +53,7 @@ export const ButtonBase = styled.button`
   &.outline {
     background-color: transparent;
     color: ${({ theme }: { theme: Theme }) => theme.button.primary};
+
     :hover {
       color: ${({ theme }: { theme: Theme }) => theme.button.primaryHover};
       border: 1px solid
@@ -64,16 +65,8 @@ export const ButtonBase = styled.button`
     }
   }
   &.sm {
-    min-width: 6.6rem;
-    height: 3.6rem;
-    padding: 0.9rem;
-    font-size: ${font.size.xs};
   }
   &.lg {
-    min-width: 10.7rem;
-    height: 6rem;
-    font-size: ${font.size.lg};
-    padding: 1.5rem;
   }
   &.dropdown {
   }

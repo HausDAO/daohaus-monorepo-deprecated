@@ -13,6 +13,20 @@ export type Theme = {
     placeholderText: string;
     disabled: string;
   };
+  button: {
+    primary: string;
+    primaryHover: string;
+    primaryText: string;
+    primaryActive: string;
+    primaryFocus: string;
+    primaryFocusBorder: string;
+    secondary: string;
+    secondaryHover: string;
+    secondaryText: string;
+    secondaryActive: string;
+    secondaryFocus: string;
+    secondaryFocusBorder: string;
+  };
   tooltip: {
     bg: string;
   };

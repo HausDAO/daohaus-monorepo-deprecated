@@ -16,7 +16,6 @@ BaseButton.args = {
   tertiary: false,
   sm: false,
   lg: false,
-  onClick: () => alert('clicked me'),
 };
 
 export const PrimaryButton = Template.bind({});

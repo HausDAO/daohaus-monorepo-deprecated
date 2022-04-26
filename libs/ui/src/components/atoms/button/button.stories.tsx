@@ -7,18 +7,3 @@ export default {
 } as ComponentMeta<typeof Button>;
 
 const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
-
-export const PrimaryButton = Template.bind({});
-PrimaryButton.args = {
-  children: 'Button',
-};
-export const SecondaryButton = Template.bind({});
-SecondaryButton.args = {
-  children: 'Button',
-  secondary: true,
-};
-export const OutlineButton = Template.bind({});
-OutlineButton.args = {
-  children: 'Button',
-  outline: true,
-};

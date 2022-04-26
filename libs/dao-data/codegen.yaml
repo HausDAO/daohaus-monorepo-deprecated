@@ -18,7 +18,7 @@ config:
   disableDescriptions: true
   declarationKind: 'interface'
 generates:
-  src/subgraph/schema.generated.ts:
+  libs/dao-data/src/subgraph/schema.generated.ts:
     plugins:
       - 'typescript'
   src/subgraph/queries/:
@@ -28,7 +28,7 @@ generates:
       skipTypename: true
     preset: near-operation-file
     presetConfig:
-      baseTypesPath: ../schema.generated.ts
+      baseTypesPath: schema.generated.ts
     plugins:
       - 'typescript-operations'
       - 'typed-document-node'

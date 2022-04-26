@@ -37,8 +37,8 @@
     "generate-gql-types": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "yarn graphql-codegen --config libs/dao-data/codegen.yaml",
-        "outputPath": "libs/dao-data/src/subgraph/types"
+        "command": "graphql-codegen --config libs/dao-data/codegen.yaml",
+        "outputPath": "libs/dao-data/src/subgraph/queries"
       }
     }
   },

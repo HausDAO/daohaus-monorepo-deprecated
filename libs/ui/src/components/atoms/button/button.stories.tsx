@@ -22,3 +22,14 @@ OutlineButton.args = {
   children: 'Button',
   outline: true,
 };
+export const SmallButton = Template.bind({});
+SmallButton.args = {
+  children: 'Button',
+  sm: true,
+};
+export const LargeButton = Template.bind({});
+LargeButton.args = {
+  children: 'Button',
+  lg: true,
+  // outline: true,
+};

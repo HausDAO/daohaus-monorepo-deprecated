@@ -9,6 +9,7 @@ type ButtonProps = {
   lg: boolean;
   tertiary: boolean;
   disabled: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const Button = ({
@@ -18,10 +19,11 @@ const Button = ({
   children,
   tertiary,
   disabled,
+  onClick,
 }: ButtonProps) => {
   const classes = classNames({ secondary, sm, lg, tertiary });
   return (
-    <ButtonBase className={classes} disabled={disabled}>
+    <ButtonBase className={classes} disabled={disabled} onClick={onClick}>
       {children}
     </ButtonBase>
   );

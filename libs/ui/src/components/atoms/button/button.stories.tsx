@@ -27,8 +27,8 @@ SecondaryButton.args = {
   children: 'Button',
   secondary: true,
 };
-export const OutlineButton = Template.bind({});
-OutlineButton.args = {
+export const TertiaryButton = Template.bind({});
+TertiaryButton.args = {
   children: 'Button',
   tertiary: true,
 };

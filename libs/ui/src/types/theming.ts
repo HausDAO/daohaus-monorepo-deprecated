@@ -1,3 +1,21 @@
+export type ButtonColorTargets = {
+  bg: string;
+  text: string;
+  border: string;
+  hoverBg: string;
+  hoverText: string;
+  hoverBorder: string;
+  focusBg: string;
+  focusText: string;
+  focusBorder: string;
+  activeBg: string;
+  activeText: string;
+  activeBorder: string;
+  disabledBg: string;
+  disabledText: string;
+  disabledBorder: string;
+};
+
 export type Theme = {
   themeName: string;
   bgColor: string;
@@ -14,18 +32,9 @@ export type Theme = {
     disabled: string;
   };
   button: {
-    primary: string;
-    primaryHover: string;
-    primaryText: string;
-    primaryActive: string;
-    primaryFocus: string;
-    primaryFocusBorder: string;
-    secondary: string;
-    secondaryHover: string;
-    secondaryText: string;
-    secondaryActive: string;
-    secondaryFocus: string;
-    secondaryFocusBorder: string;
+    primary: ButtonColorTargets;
+    secondary: ButtonColorTargets;
+    tertiary: ButtonColorTargets;
   };
   tooltip: {
     bg: string;

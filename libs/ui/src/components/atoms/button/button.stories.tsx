@@ -8,6 +8,16 @@ export default {
 
 const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
+export const BaseButton = Template.bind({});
+
+BaseButton.args = {
+  children: 'Button',
+  secondary: false,
+  outline: false,
+  sm: false,
+  lg: false,
+};
+
 export const PrimaryButton = Template.bind({});
 PrimaryButton.args = {
   children: 'Button',
@@ -31,5 +41,4 @@ export const LargeButton = Template.bind({});
 LargeButton.args = {
   children: 'Button',
   lg: true,
-  // outline: true,
 };

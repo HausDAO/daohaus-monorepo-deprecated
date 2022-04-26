@@ -21,14 +21,14 @@ generates:
   libs/dao-data/src/subgraph/schema.generated.ts:
     plugins:
       - 'typescript'
-  src/subgraph/queries/:
+  libs/dao-data/src/subgraph/queries/:
     config:
       dedupeFragments: true
       nonOptionalTypename: false
       skipTypename: true
     preset: near-operation-file
     presetConfig:
-      baseTypesPath: schema.generated.ts
+      baseTypesPath: ../schema.generated.ts
     plugins:
       - 'typescript-operations'
       - 'typed-document-node'

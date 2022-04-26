@@ -8,10 +8,22 @@ type ButtonProps = {
   sm: boolean;
   lg: boolean;
   tertiary: boolean;
+  disabled: boolean;
 };
 
-const Button = ({ secondary, sm, lg, children, tertiary }: ButtonProps) => {
+const Button = ({
+  secondary,
+  sm,
+  lg,
+  children,
+  tertiary,
+  disabled,
+}: ButtonProps) => {
   const classes = classNames({ secondary, sm, lg, tertiary });
-  return <ButtonBase className={classes}>{children}</ButtonBase>;
+  return (
+    <ButtonBase className={classes} disabled={disabled}>
+      {children}
+    </ButtonBase>
+  );
 };
 export default Button;

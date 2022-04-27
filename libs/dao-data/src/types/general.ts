@@ -4,9 +4,10 @@ import { OrderDirection } from '../subgraph/schema.generated';
 /**
  * Query related types
  */
-export interface ListQueryArguments<TOrderBy extends string> {
+export interface ListQueryArguments<TOrderBy extends string, Variables> {
   networkId: keyof Keychain;
-  filter?: FilterPairs;
+  // filter?: FilterPairs;
+  filter: Variables;
   ordering?: Ordering<TOrderBy>;
 }
 

@@ -9,6 +9,7 @@
   },
   "private": true,
   "dependencies": {
+    "@graphql-codegen/typescript-graphql-request": "^4.4.5",
     "@nrwl/js": "^13.7.3",
     "@nxext/react": "^13.0.3",
     "@radix-ui/colors": "^0.1.8",

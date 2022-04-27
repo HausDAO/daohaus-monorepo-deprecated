@@ -39,6 +39,7 @@ export const formatQueryResponse = (res: OperationResult): QueryResult => {
   return { data: res.data, error: res.error };
 };
 
+// TODO: replace the unkown with a better res with error like the QueryResult
 export const graphFetch = async <T = unknown, V = QueryVariables>(
   document: RequestDocument | TypedDocumentNode<T, V>,
   endpointType: keyof KeychainList,
@@ -54,6 +55,7 @@ export const graphFetch = async <T = unknown, V = QueryVariables>(
   try {
     return await request<T, V>(url, document, cleanVariables(variables));
   } catch (err) {
+    // todo: understand some errors
     return {
       error: GRAPHQL_REQUEST_ERROR,
     };

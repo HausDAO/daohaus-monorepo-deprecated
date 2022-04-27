@@ -31,7 +31,7 @@ import {
   ListMembersQuery,
   ListMembersQueryVariables,
 } from './subgraph/queries/members.generated';
-import { Member_OrderBy } from './subgraph/schema.generated';
+import { Member_Filter, Member_OrderBy } from './subgraph/schema.generated';
 
 export default class Query {
   private _endpoints: KeychainList;
@@ -43,77 +43,77 @@ export default class Query {
   /*
   List queries
 */
-  // public async listDaos({
-  //   networkId,
-  //   ordering = {
-  //     orderBy: 'createdAt',
-  //     orderDirection: 'desc',
-  //   },
-  // }: ListQueryArguments): Promise<QueryResult<Dao[]>> {
-  //   return await urqlFetch({
-  //     endpointType: 'V3_SUBGRAPH',
-  //     networkId: networkId,
-  //     query: DEFAULT_DAOS_QUERY,
-  //     variables: { ...ordering },
-  //   });
-  // }
+  public async listDaos({
+    networkId,
+    ordering = {
+      orderBy: 'createdAt',
+      orderDirection: 'desc',
+    },
+  }: ListQueryArguments): Promise<QueryResult<Dao[]>> {
+    return await urqlFetch({
+      endpointType: 'V3_SUBGRAPH',
+      networkId: networkId,
+      query: DEFAULT_DAOS_QUERY,
+      variables: { ...ordering },
+    });
+  }
 
-  // public async listProposals({
-  //   networkId,
-  //   ordering = {
-  //     orderBy: 'createdAt',
-  //     orderDirection: 'desc',
-  //   },
-  //   filter,
-  // }: ListQueryArguments): Promise<QueryResult<Proposal[]>> {
-  //   return await urqlFetch({
-  //     endpointType: 'V3_SUBGRAPH',
-  //     networkId: networkId,
-  //     query: DEFAULT_PROPOSALS_BY_DAO_QUERY,
-  //     variables: { ...filter, ...ordering },
-  //   });
-  // }
-
-  // public async listMembers({
-  //   networkId,
-  //   ordering = {
-  //     orderBy: 'createdAt',
-  //     orderDirection: 'desc',
-  //   },
-  //   filter,
-  // }: ListQueryArguments): Promise<QueryResult<Proposal[]>> {
-  //   return await urqlFetch({
-  //     endpointType: 'V3_SUBGRAPH',
-  //     networkId: networkId,
-  //     query: DEFAULT_MEMBERS_BY_DAO_QUERY,
-  //     variables: { ...filter, ...ordering },
-  //   });
-  // }
-
-  public async listMembersGQL({
+  public async listProposals({
     networkId,
     ordering = {
       orderBy: 'createdAt',
       orderDirection: 'desc',
     },
     filter,
-  }: // }: ListQueryArguments): Promise<QueryResult<Proposal[]>> {
-  ListQueryArguments<Member_OrderBy>): Promise<unknown> {
-    const res = await graphFetch<ListMembersQuery, ListMembersQueryVariables>(
-      ListMembersDocument,
-      'V3_SUBGRAPH',
-      networkId,
-      {
-        where: filter,
-        orderBy: ordering.orderBy,
-        orderDirection: ordering.orderDirection,
-      }
-    );
-
-    console.log('res', res);
-
-    return true;
+  }: ListQueryArguments): Promise<QueryResult<Proposal[]>> {
+    return await urqlFetch({
+      endpointType: 'V3_SUBGRAPH',
+      networkId: networkId,
+      query: DEFAULT_PROPOSALS_BY_DAO_QUERY,
+      variables: { ...filter, ...ordering },
+    });
   }
+
+  public async listMembers({
+    networkId,
+    ordering = {
+      orderBy: 'createdAt',
+      orderDirection: 'desc',
+    },
+    filter,
+  }: ListQueryArguments): Promise<QueryResult<Proposal[]>> {
+    return await urqlFetch({
+      endpointType: 'V3_SUBGRAPH',
+      networkId: networkId,
+      query: DEFAULT_MEMBERS_BY_DAO_QUERY,
+      variables: { ...filter, ...ordering },
+    });
+  }
+
+  // public async listMembersGQL({
+  //   networkId,
+  //   ordering = {
+  //     orderBy: 'createdAt',
+  //     orderDirection: 'desc',
+  //   },
+  //   filter,
+  // }: // }: ListQueryArguments): Promise<QueryResult<Proposal[]>> {
+  // ListQueryArguments<Member_OrderBy, Member_Filter>): Promise<unknown> {
+  //   const res = await graphFetch<ListMembersQuery, ListMembersQueryVariables>(
+  //     ListMembersDocument,
+  //     'V3_SUBGRAPH',
+  //     networkId,
+  //     {
+  //       where: filter,
+  //       orderBy: ordering.orderBy,
+  //       orderDirection: ordering.orderDirection,
+  //     }
+  //   );
+
+  //   console.log('res', res);
+
+  //   return true;
+  // }
 
   public async findDao({
     networkId,

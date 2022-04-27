@@ -1,12 +1,13 @@
 import { Keychain } from '@daohaus/common-utilities';
+import { OrderDirection } from '../subgraph/schema.generated';
 
 /**
  * Query related types
  */
-export interface ListQueryArguments {
+export interface ListQueryArguments<TOrderBy extends string> {
   networkId: keyof Keychain;
   filter?: FilterPairs;
-  ordering?: Ordering;
+  ordering?: Ordering<TOrderBy>;
 }
 
 export type FindQueryArguments = {
@@ -36,10 +37,10 @@ export type FilterPairs = {
   [field: string]: string;
 };
 
-export interface Ordering {
-  orderBy: string;
-  orderDirection: string;
-}
+export type Ordering<TOrderBy extends string> = {
+  orderBy: TOrderBy;
+  orderDirection: OrderDirection;
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface QueryResult<Data = any> {

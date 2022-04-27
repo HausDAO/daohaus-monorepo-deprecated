@@ -12,48 +12,68 @@ describe('haus', () => {
     haus = await Haus.create(rpcConfig);
   });
 
-  it('can fetch a list of daos', async () => {
-    const networkId = '0x4';
+  // it('can fetch a list of daos', async () => {
+  //   const networkId = '0x4';
 
-    const res = await haus.query.listDaos({
-      networkId,
-    });
+  //   const res = await haus.query.listDaos({
+  //     networkId,
+  //   });
 
-    expect(res.error).toBeUndefined();
-    if (res.data) {
-      expect(res.data['daos'].length).toBeGreaterThan(10);
-      expect(res.data['daos'].length).toBeLessThan(1001);
-    }
-  });
+  //   expect(res.error).toBeUndefined();
+  //   if (res.data) {
+  //     expect(res.data['daos'].length).toBeGreaterThan(10);
+  //     expect(res.data['daos'].length).toBeLessThan(1001);
+  //   }
+  // });
 
-  it('can fetch a list of dao proposals', async () => {
+  // it('can fetch a list of dao proposals', async () => {
+  //   const networkId = '0x4';
+  //   const dao = '0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364';
+
+  //   const res = await haus.query.listProposals({
+  //     networkId,
+  //     filter: { dao },
+  //   });
+
+  //   expect(res.error).toBeUndefined();
+  //   if (res.data) {
+  //     expect(res.data['proposals'].length).toBeGreaterThan(10);
+  //   }
+  // });
+
+  // it('can fetch a list of dao members', async () => {
+  //   const networkId = '0x4';
+  //   const dao = '0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364';
+
+  //   const res = await haus.query.listMembers({
+  //     networkId,
+  //     filter: { dao },
+  //   });
+
+  //   expect(res.error).toBeUndefined();
+  //   if (res.data) {
+  //     expect(res.data['members'].length).toBeGreaterThan(0);
+  //   }
+  // });
+
+  it('can fetch a list of dao members from gql', async () => {
+    // const networkId = '0x4';
     const networkId = '0x4';
     const dao = '0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364';
 
-    const res = await haus.query.listProposals({
+    const res = await haus.query.listMembersGQL({
       networkId,
+      ordering: {
+        orderBy: 'shares',
+        orderDirection: 'asc',
+      },
       filter: { dao },
     });
 
-    expect(res.error).toBeUndefined();
-    if (res.data) {
-      expect(res.data['proposals'].length).toBeGreaterThan(10);
-    }
-  });
-
-  it('can fetch a list of dao members', async () => {
-    const networkId = '0x4';
-    const dao = '0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364';
-
-    const res = await haus.query.listMembers({
-      networkId,
-      filter: { dao },
-    });
-
-    expect(res.error).toBeUndefined();
-    if (res.data) {
-      expect(res.data['members'].length).toBeGreaterThan(0);
-    }
+    // expect(res.error).toBeUndefined();
+    // if (res.data) {
+    //   expect(res.data['members'].length).toBeGreaterThan(0);
+    // }
   });
 
   it('can fetch a dao', async () => {

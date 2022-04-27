@@ -18,7 +18,7 @@ class Haus {
   }
 
   public account(network: ConnectNetwork, node: string) {
-    return new Account(network, node);
+    return new Account(network, node, this.providers);
   }
 }
 

@@ -9,6 +9,7 @@ type ButtonProps = {
   lg?: boolean;
   tertiary?: boolean;
   disabled?: boolean;
+  fullWidth?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
@@ -19,8 +20,14 @@ type Ref =
   | undefined;
 
 const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
-  const { secondary, sm, lg, tertiary, children } = props;
-  const classes = classNames({ secondary, sm, lg, tertiary });
+  const { secondary, sm, lg, tertiary, children, fullWidth } = props;
+  const classes = classNames({
+    secondary,
+    sm,
+    lg,
+    tertiary,
+    'full-width': fullWidth,
+  });
   return (
     <ButtonBase {...props} className={classes} ref={ref}>
       {children}

@@ -140,4 +140,7 @@ export const ButtonBase = styled.button`
     font-size: ${font.size.lg};
     padding: 1.5rem;
   }
+  &.full-width {
+    min-width: 100%;
+  }
 `;

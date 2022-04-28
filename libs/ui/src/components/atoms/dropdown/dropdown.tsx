@@ -15,7 +15,7 @@ type Item = {
 };
 type DropdownProps = {
   trigger: React.ReactNode;
-  items: Item[];
+  items: React.ReactNode[];
 };
 
 const Dropdown = ({ trigger, items }: DropdownProps) => {
@@ -25,9 +25,7 @@ const Dropdown = ({ trigger, items }: DropdownProps) => {
         <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
         <DropdownMenuContent>
           {items?.map((item) => (
-            <DropdownMenuItem key={uuid()}>
-              <Button onClick={item.onClick}>{item.content}</Button>
-            </DropdownMenuItem>
+            <DropdownMenuItem key={uuid()}>{item}</DropdownMenuItem>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>

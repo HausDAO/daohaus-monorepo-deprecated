@@ -16,10 +16,5 @@ export const DropDown = Template.bind({});
 
 DropDown.args = {
   trigger: <Button>Test</Button>,
-  items: [
-    {
-      content: 'Click',
-      onClick: () => alert('Click'),
-    },
-  ],
+  items: [],
 };

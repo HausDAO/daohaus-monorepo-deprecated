@@ -1,6 +1,7 @@
 import React, { RefObject } from 'react';
-import { ButtonBase } from './buttonStyles';
+import { ButtonBase, WithIcon } from './buttonStyles';
 import classNames from 'classnames';
+import { IconType } from 'react-icons';
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -12,6 +13,7 @@ type ButtonProps = {
   fullWidth?: boolean;
   leftAlign?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  icon?: IconType;
 };
 
 type Ref =
@@ -21,7 +23,8 @@ type Ref =
   | undefined;
 
 const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
-  const { secondary, sm, lg, tertiary, children, fullWidth, leftAlign } = props;
+  const { secondary, sm, lg, tertiary, children, fullWidth, leftAlign, icon } =
+    props;
   const classes = classNames({
     secondary,
     sm,
@@ -31,6 +34,18 @@ const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
     'full-width': fullWidth,
   });
 
+  if (icon) {
+    const Icon = icon;
+    const iconClasses = classNames({ secondary, tertiary });
+    return (
+      <ButtonBase {...props} className={classes} ref={ref}>
+        <WithIcon>
+          <Icon size="2.1rem" className={iconClasses} />
+          {children}
+        </WithIcon>
+      </ButtonBase>
+    );
+  }
   return (
     <ButtonBase {...props} className={classes} ref={ref}>
       {children}

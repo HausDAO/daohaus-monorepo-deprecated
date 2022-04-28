@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { BiError } from 'react-icons/bi';
 import Button from '../button/button';
 import { ParXs } from '../typography';
 import Dropdown from './dropdown';
@@ -17,7 +18,11 @@ const Template: ComponentStory<typeof Dropdown> = (args) => (
 export const DropDown = Template.bind({});
 
 DropDown.args = {
-  trigger: <Button tertiary>Network Unavailable</Button>,
+  trigger: (
+    <Button icon={BiError} tertiary>
+      Network Unavailable
+    </Button>
+  ),
   items: [
     {
       type: 'label',

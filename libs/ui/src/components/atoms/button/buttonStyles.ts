@@ -147,3 +147,18 @@ export const ButtonBase = styled.button`
     text-align: left;
   }
 `;
+
+export const WithIcon = styled.div`
+  display: flex;
+  align-items: center;
+  svg {
+    margin-right: 1rem;
+    color: ${({ theme }: { theme: Theme }) => theme.button.primary.text};
+    &.secondary {
+      color: ${({ theme }: { theme: Theme }) => theme.button.secondary.text};
+    }
+    &.tertiary {
+      color: ${({ theme }: { theme: Theme }) => theme.button.tertiary.text};
+    }
+  }
+`;

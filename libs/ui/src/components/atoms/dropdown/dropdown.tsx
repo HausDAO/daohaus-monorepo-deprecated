@@ -13,9 +13,15 @@ type DropdownProps = {
   trigger: React.ReactNode;
   items: React.ReactNode[];
   bg: string;
+  spacing: string;
 };
 
-const Dropdown = ({ trigger, items, bg }: DropdownProps) => {
+const Dropdown = ({
+  trigger,
+  items,
+  bg,
+  spacing = '0.7rem',
+}: DropdownProps) => {
   const theme = useTheme() as Theme;
   return (
     <div>
@@ -23,7 +29,9 @@ const Dropdown = ({ trigger, items, bg }: DropdownProps) => {
         <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
         <DropdownMenuContent bg={bg || theme.dropdown.bg}>
           {items?.map((item) => (
-            <DropdownMenuItem key={uuid()}>{item}</DropdownMenuItem>
+            <DropdownMenuItem key={uuid()} spacing={spacing}>
+              {item}
+            </DropdownMenuItem>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>

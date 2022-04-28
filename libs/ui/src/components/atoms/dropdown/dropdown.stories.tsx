@@ -19,6 +19,7 @@ export const DropDown = Template.bind({});
 
 DropDown.args = {
   trigger: <Button>Test</Button>,
+  spacing: '0',
   items: [
     <DropdownPanel>{<ParXs>This is a dropdown menu</ParXs>}</DropdownPanel>,
     <Button fullWidth secondary>

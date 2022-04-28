@@ -8,9 +8,9 @@ export const DropdownMenuContent = styled(Dropdown.DropdownMenuContent)`
   background-color: ${(props: { bg: string }) => props.bg};
 `;
 export const DropdownMenuItem = styled(Dropdown.Item)`
-  margin-bottom: 0.7rem;
+  margin-bottom: ${(props: { spacing: string }) => props.spacing};
   :first-child {
-    margin-top: 0.7rem;
+    margin-top: ${(props: { spacing: string }) => props.spacing};
   }
 `;
 export const DropdownMenuTriggerItem = styled(Dropdown.TriggerItem)`

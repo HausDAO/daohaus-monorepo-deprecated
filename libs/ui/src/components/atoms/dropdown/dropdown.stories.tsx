@@ -17,15 +17,14 @@ const Template: ComponentStory<typeof Dropdown> = (args) => (
 export const DropDown = Template.bind({});
 
 DropDown.args = {
-  trigger: <Button>Test</Button>,
-  // spacing: '0',
+  trigger: <Button tertiary>Network Unavailable</Button>,
   items: [
     {
       type: 'label',
       content: <ParXs>0x...</ParXs>,
     },
     {
-      type: 'button',
+      type: 'clickable',
       content: (
         <Button fullWidth secondary leftAlign>
           test 1
@@ -33,7 +32,7 @@ DropDown.args = {
       ),
     },
     {
-      type: 'button',
+      type: 'clickable',
       content: (
         <Button fullWidth secondary leftAlign>
           test 2

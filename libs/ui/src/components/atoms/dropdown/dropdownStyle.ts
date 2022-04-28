@@ -14,9 +14,3 @@ export const DropdownMenuItem = styled(Dropdown.Item)`
   }
 `;
 export const DropdownMenuTriggerItem = styled(Dropdown.TriggerItem);
-
-export const DropdownLabel = styled(Dropdown.Label)`
-  display: flex;
-  align-items: center;
-  padding: 1.2rem;
-`;

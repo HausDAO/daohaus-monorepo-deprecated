@@ -10,6 +10,7 @@ type ButtonProps = {
   tertiary?: boolean;
   disabled?: boolean;
   fullWidth?: boolean;
+  leftAlign?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
@@ -20,12 +21,13 @@ type Ref =
   | undefined;
 
 const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
-  const { secondary, sm, lg, tertiary, children, fullWidth } = props;
+  const { secondary, sm, lg, tertiary, children, fullWidth, leftAlign } = props;
   const classes = classNames({
     secondary,
     sm,
     lg,
     tertiary,
+    'left-align': leftAlign,
     'full-width': fullWidth,
   });
 

@@ -1,8 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import Button from '../button/button';
-import { ParSm, ParXs } from '../typography';
+import { ParXs } from '../typography';
 import Dropdown from './dropdown';
-import { DropdownLabel } from './dropdownExtras';
 
 export default {
   title: 'Atoms/Dropdown',
@@ -19,7 +18,7 @@ export const DropDown = Template.bind({});
 
 DropDown.args = {
   trigger: <Button>Test</Button>,
-  spacing: '0',
+  // spacing: '0',
   items: [
     {
       type: 'label',
@@ -28,7 +27,7 @@ DropDown.args = {
     {
       type: 'button',
       content: (
-        <Button fullWidth secondary>
+        <Button fullWidth secondary leftAlign>
           test 1
         </Button>
       ),
@@ -36,7 +35,7 @@ DropDown.args = {
     {
       type: 'button',
       content: (
-        <Button fullWidth secondary>
+        <Button fullWidth secondary leftAlign>
           test 2
         </Button>
       ),

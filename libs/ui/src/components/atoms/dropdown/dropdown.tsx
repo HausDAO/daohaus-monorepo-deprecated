@@ -22,12 +22,7 @@ type DropdownProps = {
   spacing: string;
 };
 
-const Dropdown = ({
-  trigger,
-  items,
-  bg,
-  spacing = '0.7rem',
-}: DropdownProps) => {
+const Dropdown = ({ trigger, items, bg, spacing = '0' }: DropdownProps) => {
   const theme = useTheme() as Theme;
   return (
     <div>
@@ -45,6 +40,7 @@ const Dropdown = ({
             if (item.type === 'label') {
               return <DropdownLabel key={uuid()}>{item.content}</DropdownLabel>;
             }
+            return null;
           })}
         </DropdownMenuContent>
       </DropdownMenu>

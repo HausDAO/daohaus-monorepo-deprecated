@@ -143,4 +143,7 @@ export const ButtonBase = styled.button`
   &.full-width {
     min-width: 100%;
   }
+  &.left-align {
+    text-align: left;
+  }
 `;

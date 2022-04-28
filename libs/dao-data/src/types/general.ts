@@ -6,7 +6,6 @@ import { OrderDirection } from '../subgraph/schema.generated';
  */
 export interface ListQueryArguments<TOrderBy extends string, Variables> {
   networkId: keyof Keychain;
-  // filter?: FilterPairs;
   filter: Variables;
   ordering?: Ordering<TOrderBy>;
 }
@@ -43,17 +42,16 @@ export type Ordering<TOrderBy extends string> = {
   orderDirection: OrderDirection;
 };
 
+// TODO: Stuck on result.result
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface QueryResult<Data = any> {
   /** The data returned from the Graphql server. */
-  data?: {
-    [field: string]: Data;
-  };
+  data?: Data;
+  // result: Data;
   /** Any errors resulting from the operation. */
   error?: QueryError;
 }
 
 export interface QueryError {
-  name: string;
   message: string;
 }

@@ -8,57 +8,47 @@ import { createClient, OperationResult } from 'urql';
 import { request } from 'graphql-request';
 
 import { ENDPOINTS, GRAPHQL_REQUEST_ERROR, INVALID_NETWORK_ERROR } from '.';
-import { QueryResult, QueryVariables } from '..';
+import { QueryResult, QueryVariables, QueryError } from '..';
+import { HausError } from '../HausError';
 
 type RequestDocument = string | DocumentNode;
 
-export const urqlFetch = async (args: {
-  endpointType: keyof KeychainList;
-  networkId: keyof Keychain;
-  query: string;
-  variables?: QueryVariables;
-}): Promise<QueryResult> => {
-  const url = ENDPOINTS[args.endpointType][args.networkId];
-  if (!url) {
-    return {
-      error: INVALID_NETWORK_ERROR,
-    };
-  } else {
-    const client = createClient({
-      url,
-      requestPolicy: 'network-only',
-    });
+// export const urqlFetch = async (args: {
+//   endpointType: keyof KeychainList;
+//   networkId: keyof Keychain;
+//   query: string;
+//   variables?: QueryVariables;
+// }): Promise<QueryResult> => {
+//   const url = ENDPOINTS[args.endpointType][args.networkId];
+//   if (!url) {
+//     return {
+//       error: INVALID_NETWORK_ERROR,
+//     };
+//   } else {
+//     const client = createClient({
+//       url,
+//       requestPolicy: 'network-only',
+//     });
 
-    const res = await client.query(args.query, args.variables).toPromise();
+//     const res = await client.query(args.query, args.variables).toPromise();
 
-    return formatQueryResponse(res);
-  }
-};
+//     return formatQueryResponse(res);
+//   }
+// };
 
-export const formatQueryResponse = (res: OperationResult): QueryResult => {
-  return { data: res.data, error: res.error };
-};
+// export const formatQueryResponse = (res: OperationResult): QueryResult => {
+//   return { data: res.data, error: res.error };
+// };
 
-// TODO: replace the unkown with a better res with error like the QueryResult
 export const graphFetch = async <T = unknown, V = QueryVariables>(
   document: RequestDocument | TypedDocumentNode<T, V>,
-  endpointType: keyof KeychainList,
-  networkId: keyof Keychain,
+  url: string,
   variables?: V
-): Promise<unknown> => {
-  const url = ENDPOINTS[endpointType][networkId];
-  if (!url) {
-    return {
-      error: INVALID_NETWORK_ERROR,
-    };
-  }
+): Promise<T> => {
   try {
-    return await request<T, V>(url, document, cleanVariables(variables));
+    return request<T, V>(url, document, cleanVariables(variables));
   } catch (err) {
-    // todo: understand some errors
-    return {
-      error: GRAPHQL_REQUEST_ERROR,
-    };
+    throw new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err });
   }
 };
 

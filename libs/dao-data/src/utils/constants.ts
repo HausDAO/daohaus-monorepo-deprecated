@@ -9,11 +9,9 @@ export const ENDPOINTS: KeychainList = {
 };
 
 export const INVALID_NETWORK_ERROR: QueryError = {
-  name: 'unsupportedNetworkID',
   message: 'Unsupported Network',
 };
 
 export const GRAPHQL_REQUEST_ERROR: QueryError = {
-  name: 'graphQLRequestError',
   message: 'Fetch Error',
 };

@@ -44,7 +44,7 @@ export const defaultDarkTheme: Theme = {
     bg: indigoDark.indigo3,
   },
   dropdown: {
-    bg: indigoDark.indigo3,
+    bg: indigoDark.indigo2,
   },
 };
 

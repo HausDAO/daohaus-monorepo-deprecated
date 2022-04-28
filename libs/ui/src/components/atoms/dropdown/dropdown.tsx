@@ -15,7 +15,7 @@ const DropdownContentOptions = {
   label: DropdownLabel,
 };
 
-type DropdownItem = {
+export type DropdownItem = {
   type: keyof typeof DropdownContentOptions;
   content: React.ReactNode;
 };
@@ -26,7 +26,7 @@ type DropdownProps = {
   bg: string;
   spacing: string;
 };
-
+// TODO aria
 const Dropdown = ({ trigger, items, bg, spacing = '0' }: DropdownProps) => {
   const theme = useTheme() as Theme;
   return (

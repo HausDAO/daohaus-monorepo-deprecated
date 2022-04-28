@@ -8,10 +8,16 @@ import React from 'react';
 import { v4 as uuid } from 'uuid';
 import { useTheme } from 'styled-components';
 import { Theme } from '../../../types/theming';
+import { DropdownLabel } from './dropdownExtras';
+
+type DropdownItem = {
+  type: 'button' | 'label';
+  content: React.ReactNode;
+};
 
 type DropdownProps = {
   trigger: React.ReactNode;
-  items: React.ReactNode[];
+  items: DropdownItem[];
   bg: string;
   spacing: string;
 };
@@ -28,11 +34,18 @@ const Dropdown = ({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
         <DropdownMenuContent bg={bg || theme.dropdown.bg}>
-          {items?.map((item) => (
-            <DropdownMenuItem key={uuid()} spacing={spacing}>
-              {item}
-            </DropdownMenuItem>
-          ))}
+          {items?.map((item) => {
+            if (item.type === 'button') {
+              return (
+                <DropdownMenuItem key={uuid()} spacing={spacing}>
+                  {item.content}
+                </DropdownMenuItem>
+              );
+            }
+            if (item.type === 'label') {
+              return <DropdownLabel key={uuid()}>{item.content}</DropdownLabel>;
+            }
+          })}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>

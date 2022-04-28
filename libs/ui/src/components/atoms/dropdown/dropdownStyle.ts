@@ -13,12 +13,10 @@ export const DropdownMenuItem = styled(Dropdown.Item)`
     margin-top: ${(props: { spacing: string }) => props.spacing};
   }
 `;
-export const DropdownMenuTriggerItem = styled(Dropdown.TriggerItem)`
-  /* {
-  '&[data-state="open"]': {
-    backgroundColor: violet.violet4,
-    color: violet.violet11,
-  },
-  ...itemStyles,
-}); */
+export const DropdownMenuTriggerItem = styled(Dropdown.TriggerItem);
+
+export const DropdownLabel = styled(Dropdown.Label)`
+  display: flex;
+  align-items: center;
+  padding: 1.2rem;
 `;

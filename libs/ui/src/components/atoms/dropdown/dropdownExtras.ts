@@ -1,8 +1,8 @@
 import styled from 'styled-components';
+import * as Dropdown from '@radix-ui/react-dropdown-menu';
 
-export const DropdownPanel = styled.div`
+export const DropdownLabel = styled(Dropdown.Label)`
   display: flex;
   align-items: center;
-  min-height: 4.2rem;
-  padding: 0 1.2rem;
+  padding: 1.2rem;
 `;

@@ -1,8 +1,8 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import Button from '../button/button';
-import { ParXs } from '../typography';
+import { ParSm, ParXs } from '../typography';
 import Dropdown from './dropdown';
-import { DropdownPanel } from './dropdownExtras';
+import { DropdownLabel } from './dropdownExtras';
 
 export default {
   title: 'Atoms/Dropdown',
@@ -21,12 +21,25 @@ DropDown.args = {
   trigger: <Button>Test</Button>,
   spacing: '0',
   items: [
-    <DropdownPanel>{<ParXs>This is a dropdown menu</ParXs>}</DropdownPanel>,
-    <Button fullWidth secondary>
-      test 1
-    </Button>,
-    <Button fullWidth secondary>
-      test 2
-    </Button>,
+    {
+      type: 'label',
+      content: <ParXs>0x...</ParXs>,
+    },
+    {
+      type: 'button',
+      content: (
+        <Button fullWidth secondary>
+          test 1
+        </Button>
+      ),
+    },
+    {
+      type: 'button',
+      content: (
+        <Button fullWidth secondary>
+          test 2
+        </Button>
+      ),
+    },
   ],
 };

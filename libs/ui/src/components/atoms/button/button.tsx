@@ -28,6 +28,7 @@ const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
     tertiary,
     'full-width': fullWidth,
   });
+
   return (
     <ButtonBase {...props} className={classes} ref={ref}>
       {children}

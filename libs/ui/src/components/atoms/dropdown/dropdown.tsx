@@ -1,4 +1,3 @@
-import { MouseEventHandler } from 'react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,24 +5,23 @@ import {
   DropdownMenuTrigger,
 } from './dropdownStyle';
 import React from 'react';
-import Button from '../button/button';
 import { v4 as uuid } from 'uuid';
+import { useTheme } from 'styled-components';
+import { Theme } from '../../../types/theming';
 
-type Item = {
-  onClick: MouseEventHandler<HTMLButtonElement>;
-  content: React.ReactNode;
-};
 type DropdownProps = {
   trigger: React.ReactNode;
   items: React.ReactNode[];
+  bg: string;
 };
 
-const Dropdown = ({ trigger, items }: DropdownProps) => {
+const Dropdown = ({ trigger, items, bg }: DropdownProps) => {
+  const theme = useTheme() as Theme;
   return (
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
-        <DropdownMenuContent>
+        <DropdownMenuContent bg={bg || theme.dropdown.bg}>
           {items?.map((item) => (
             <DropdownMenuItem key={uuid()}>{item}</DropdownMenuItem>
           ))}

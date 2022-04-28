@@ -39,4 +39,7 @@ export type Theme = {
   tooltip: {
     bg: string;
   };
+  dropdown: {
+    bg: string;
+  };
 };

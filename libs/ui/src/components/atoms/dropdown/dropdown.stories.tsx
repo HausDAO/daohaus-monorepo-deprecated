@@ -37,9 +37,10 @@ export const FullDropdown = Template.bind({});
 
 FullDropdown.args = {
   spacing: '0.7rem',
+  align: 'end',
   trigger: (
     <Button icon={BiError} tertiary>
-      Network Unavailable
+      Network Unavailable Lots of Text Here, OH yeah...
     </Button>
   ),
   items: [

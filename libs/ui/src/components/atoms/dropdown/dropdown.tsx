@@ -19,15 +19,21 @@ export type DropdownItem = {
   type: keyof typeof DropdownContentOptions;
   content: React.ReactNode;
 };
-
 type DropdownProps = {
   trigger: React.ReactNode;
   items: DropdownItem[];
-  bg: string;
-  spacing: string;
+  bg?: string;
+  spacing?: string;
+  align?: 'start' | 'center' | 'end' | undefined;
 };
 // TODO aria
-const Dropdown = ({ trigger, items, bg, spacing = '0' }: DropdownProps) => {
+const Dropdown = ({
+  trigger,
+  items,
+  bg,
+  spacing = '0',
+  align = 'start',
+}: DropdownProps) => {
   const theme = useTheme() as Theme;
   return (
     <div>
@@ -37,6 +43,7 @@ const Dropdown = ({ trigger, items, bg, spacing = '0' }: DropdownProps) => {
           bg={bg || theme.dropdown.bg}
           spacing={spacing}
           items={items}
+          align={align}
         />
       </DropdownMenu>
     </div>
@@ -49,13 +56,15 @@ const DropdownContentFactory = ({
   bg,
   spacing,
   items,
+  align,
 }: {
   bg: string;
   spacing: string;
   items: DropdownItem[];
+  align: 'start' | 'center' | 'end' | undefined;
 }) => {
   return (
-    <DropdownMenuContent bg={bg}>
+    <DropdownMenuContent bg={bg} align={align}>
       {items?.map((item) => {
         if (item.type === 'clickable') {
           return (

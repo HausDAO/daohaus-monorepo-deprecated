@@ -32,4 +32,3 @@ generates:
     plugins:
       - 'typescript-operations'
       - 'typed-document-node'
-      # - 'typescript-graphql-request'

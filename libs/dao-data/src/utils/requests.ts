@@ -3,42 +3,15 @@ import 'isomorphic-unfetch';
 
 import { TypedDocumentNode } from '@graphql-typed-document-node/core';
 import { DocumentNode } from 'graphql';
-import { Keychain, KeychainList } from '@daohaus/common-utilities';
-import { createClient, OperationResult } from 'urql';
+import { ENDPOINTS, Keychain, KeychainList } from '@daohaus/common-utilities';
+import { createClient } from 'urql';
 import { request } from 'graphql-request';
 
-import { ENDPOINTS, GRAPHQL_REQUEST_ERROR, INVALID_NETWORK_ERROR } from '.';
-import { QueryResult, QueryVariables, QueryError } from '..';
+import { INVALID_NETWORK_ERROR } from '.';
+import { QueryResult, QueryVariables } from '..';
 import { HausError } from '../HausError';
 
 type RequestDocument = string | DocumentNode;
-
-// export const urqlFetch = async (args: {
-//   endpointType: keyof KeychainList;
-//   networkId: keyof Keychain;
-//   query: string;
-//   variables?: QueryVariables;
-// }): Promise<QueryResult> => {
-//   const url = ENDPOINTS[args.endpointType][args.networkId];
-//   if (!url) {
-//     return {
-//       error: INVALID_NETWORK_ERROR,
-//     };
-//   } else {
-//     const client = createClient({
-//       url,
-//       requestPolicy: 'network-only',
-//     });
-
-//     const res = await client.query(args.query, args.variables).toPromise();
-
-//     return formatQueryResponse(res);
-//   }
-// };
-
-// export const formatQueryResponse = (res: OperationResult): QueryResult => {
-//   return { data: res.data, error: res.error };
-// };
 
 export const graphFetch = async <T = unknown, V = QueryVariables>(
   document: RequestDocument | TypedDocumentNode<T, V>,
@@ -65,4 +38,31 @@ const cleanVariables = <V = QueryVariables>(variables: V): V => {
           : value,
       ])
   ) as V;
+};
+
+export const urqlFetch = async (args: {
+  endpointType: keyof KeychainList;
+  networkId: keyof Keychain;
+  entityName: string;
+  query: string;
+  variables?: QueryVariables;
+}): Promise<QueryResult> => {
+  const url = ENDPOINTS[args.endpointType][args.networkId];
+  if (!url) {
+    return {
+      error: INVALID_NETWORK_ERROR,
+    };
+  } else {
+    const client = createClient({
+      url,
+      requestPolicy: 'network-only',
+    });
+
+    const res = await client.query(args.query, args.variables).toPromise();
+
+    return {
+      data: { result: res.data[args.entityName] },
+      error: res.error,
+    };
+  }
 };

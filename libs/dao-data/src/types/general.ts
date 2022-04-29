@@ -6,21 +6,15 @@ import { OrderDirection } from '../subgraph/schema.generated';
  */
 export interface ListQueryArguments<TOrderBy extends string, Variables> {
   networkId: keyof Keychain;
-  filter: Variables;
+  filter?: Variables;
   ordering?: Ordering<TOrderBy>;
 }
 
-export type FindQueryArguments = {
-  networkId: keyof Keychain;
-  dao: string;
-  memberAddress: string;
-  proposalId: string;
-};
-
 export interface GenericQueryArguments {
   networkId: keyof Keychain;
+  entityName: string;
   query: string;
-  filter?: FilterPairs;
+  filter?: QueryVariables;
 }
 
 export interface CrossNetworkQueryArguments {
@@ -28,12 +22,7 @@ export interface CrossNetworkQueryArguments {
   account: string;
 }
 
-// rework this and filter pairs with code gen
 export type QueryVariables = {
-  [field: string]: string;
-};
-
-export type FilterPairs = {
   [field: string]: string;
 };
 

@@ -1,4 +1,4 @@
-query latestTx(
+query findLatestTx(
   $where: EventTransaction_filter! = {}
   $skip: Int! = 0
   $first: Int! = 1

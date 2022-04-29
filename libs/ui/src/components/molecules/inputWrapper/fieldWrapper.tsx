@@ -17,8 +17,6 @@ import {
 
 type FieldWrapperProps = Field & {
   children: React.ReactNode;
-  long?: boolean;
-  full?: boolean;
 };
 
 export type HelperTextFactoryProps = {

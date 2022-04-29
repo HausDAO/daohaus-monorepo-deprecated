@@ -45,7 +45,7 @@ const FieldWrapper = ({
       <InputLabel required={required} info={info}>
         {label}
       </InputLabel>
-      <div>{children}</div>
+      <div className="field-slot">{children}</div>
       <HelperTextFactory
         error={error}
         success={success}

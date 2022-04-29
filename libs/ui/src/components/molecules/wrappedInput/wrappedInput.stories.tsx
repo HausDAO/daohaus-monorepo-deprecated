@@ -4,7 +4,7 @@ import WrappedInput from './wrappedInput';
 import { FormProvider, useForm } from 'react-hook-form';
 
 export default {
-  title: 'Atoms/Form/WrappedInput',
+  title: 'Molecules/Form/WrappedInput',
   component: WrappedInput,
 } as ComponentMeta<typeof WrappedInput>;
 
@@ -23,7 +23,7 @@ export const FullWrappedInput = Template.bind({});
 FullWrappedInput.args = {
   id: 'example',
   label: 'Complete Input',
-  placeholder: 'All parts',
+  placeholder: 'placeholder',
   helperText: 'Test the action/controls',
   info: 'This is controlled by the info prop',
   number: false,

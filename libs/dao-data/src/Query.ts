@@ -91,7 +91,7 @@ export default class Query {
   //   });
   // }
 
-  public async listMembersGQL({
+  public async listMembers({
     networkId,
     ordering = {
       orderBy: 'createdAt',
@@ -103,7 +103,7 @@ export default class Query {
   > {
     const url = ENDPOINTS['V3_SUBGRAPH'][networkId];
     if (!url) {
-      return { error: INVALID_NETWORK_ERROR, result: [] };
+      return { error: INVALID_NETWORK_ERROR };
     }
 
     const res = await graphFetch<ListMembersQuery, ListMembersQueryVariables>(
@@ -116,13 +116,9 @@ export default class Query {
       }
     );
 
-    return res;
-
-    // return {
-    //   data: res.result,
-    // };
-
-    // TODO hydrate into query response somehow
+    return {
+      data: res,
+    };
   }
 
   // public async findDao({

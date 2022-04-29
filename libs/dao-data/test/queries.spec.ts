@@ -53,10 +53,10 @@ describe('haus', () => {
     console.log('res', res);
 
     expect(res.error).toBeUndefined();
-    if (res.result) {
-      expect(res.result.length).toBeGreaterThan(0);
-      expect(res.result[0].memberAddress).toBe(dao);
-    }
+    expect(res?.data?.result.length).toBeGreaterThan(0);
+    expect(res?.data?.result[0].memberAddress).toBe(
+      '0x756ee8b8e898d497043c2320d9909f1dd5a7077f'
+    );
   });
 
   // it('can fetch a dao', async () => {

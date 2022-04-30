@@ -1,6 +1,9 @@
-import Button, { ButtonProps } from '../../components/atoms/button/button';
+import Button, { ButtonProps } from '../../atoms/button/button';
 import { RiUserAddLine } from 'react-icons/ri';
 import { BiError } from 'react-icons/bi';
+import styled from 'styled-components';
+
+const ConnectButton = styled(Button)``;
 
 export const ConnectWalletButton = (props: Omit<ButtonProps, 'children'>) => (
   <Button

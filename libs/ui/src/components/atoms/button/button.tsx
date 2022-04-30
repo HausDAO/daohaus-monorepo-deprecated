@@ -3,8 +3,9 @@ import { ButtonBase, WithIcon } from './buttonStyles';
 import classNames from 'classnames';
 import { IconType } from 'react-icons';
 
-type ButtonProps = {
+export type ButtonProps = {
   children: React.ReactNode;
+  className?: string;
   secondary?: boolean;
   sm?: boolean;
   lg?: boolean;

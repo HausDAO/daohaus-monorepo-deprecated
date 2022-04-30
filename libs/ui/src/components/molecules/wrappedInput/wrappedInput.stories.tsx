@@ -1,7 +1,7 @@
-import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import WrappedInput from './wrappedInput';
-import { FormProvider, useForm } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
+import { H3 } from '../../atoms/typography';
 
 export default {
   title: 'Molecules/Form/WrappedInput',
@@ -9,13 +9,14 @@ export default {
 } as ComponentMeta<typeof WrappedInput>;
 
 const Template: ComponentStory<typeof WrappedInput> = (args) => {
-  const methods = useForm();
+  const { watch } = useFormContext();
+  const value = watch();
+
   return (
-    <FormProvider {...methods}>
-      <div style={{ margin: '4rem' }}>
-        <WrappedInput {...args} />
-      </div>
-    </FormProvider>
+    <div style={{ margin: '4rem' }}>
+      <WrappedInput {...args} />
+      <H3>{value[args.id] || 'Input text will appear here'}</H3>
+    </div>
   );
 };
 

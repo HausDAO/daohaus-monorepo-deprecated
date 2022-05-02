@@ -7,7 +7,6 @@ import {
 import React from 'react';
 import { v4 as uuid } from 'uuid';
 import { useTheme } from 'styled-components';
-import { Theme } from '../../../types/theming';
 import { DropdownLabel } from './dropdownExtras';
 
 const DropdownContentOptions = {
@@ -28,7 +27,8 @@ type DropdownProps = {
 };
 // TODO aria
 const Dropdown = ({ trigger, items, bg, spacing = '0' }: DropdownProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
+
   return (
     <div>
       <DropdownMenu>

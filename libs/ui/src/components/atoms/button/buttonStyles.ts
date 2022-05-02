@@ -140,4 +140,25 @@ export const ButtonBase = styled.button`
     font-size: ${font.size.lg};
     padding: 1.5rem;
   }
+  &.full-width {
+    min-width: 100%;
+  }
+  &.left-align {
+    text-align: left;
+  }
+`;
+
+export const WithIcon = styled.div`
+  display: flex;
+  align-items: center;
+  svg {
+    margin-right: 1rem;
+    color: ${({ theme }: { theme: Theme }) => theme.button.primary.text};
+    &.secondary {
+      color: ${({ theme }: { theme: Theme }) => theme.button.secondary.text};
+    }
+    &.tertiary {
+      color: ${({ theme }: { theme: Theme }) => theme.button.tertiary.text};
+    }
+  }
 `;

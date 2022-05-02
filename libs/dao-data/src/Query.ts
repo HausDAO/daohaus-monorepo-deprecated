@@ -1,30 +1,57 @@
 import {
   Dao,
+  ENDPOINTS,
   Keychain,
   KeychainList,
-  Proposal,
 } from '@daohaus/common-utilities';
 
 import {
   ListQueryArguments,
   QueryResult,
-  FindQueryArguments,
   GenericQueryArguments,
   CrossNetworkQueryArguments,
 } from './types';
+import { DAOS_BY_MEMBER_QUERY, INVALID_NETWORK_ERROR } from './utils';
+import { graphFetch, urqlFetch } from './utils/requests';
 import {
-  DAOS_BY_MEMBER_QUERY,
-  DEFAULT_DAOS_QUERY,
-  DEFAULT_DAO_QUERY,
-  DEFAULT_MEMBERS_BY_DAO_QUERY,
-  DEFAULT_MEMBER_QUERY,
-  DEFAULT_PROPOSALS_BY_DAO_QUERY,
-  DEFAULT_PROPOSAL_QUERY,
-  ENDPOINTS,
-  INVALID_NETWORK_ERROR,
-  LATEST_TX_BY_DAO,
-} from './utils';
-import { urqlFetch } from './utils/requests';
+  FindMemberDocument,
+  FindMemberQuery,
+  FindMemberQueryVariables,
+  ListMembersDocument,
+  ListMembersQuery,
+  ListMembersQueryVariables,
+} from './subgraph/queries/members.generated';
+import {
+  Dao_Filter,
+  Dao_OrderBy,
+  Member_Filter,
+  Member_OrderBy,
+  Proposal_Filter,
+  Proposal_OrderBy,
+} from './subgraph/schema.generated';
+import {
+  FindDaoDocument,
+  FindDaoQuery,
+  FindDaoQueryVariables,
+  ListDaosDocument,
+  ListDaosQuery,
+  ListDaosQueryVariables,
+} from './subgraph/queries/daos.generated';
+import {
+  ListProposalsDocument,
+  ListProposalsQuery,
+  ListProposalsQueryVariables,
+} from './subgraph/queries/listProposals.generated';
+import {
+  FindProposalDocument,
+  FindProposalQuery,
+  FindProposalQueryVariables,
+} from './subgraph/queries/proposals.generated';
+import {
+  FindLatestTxDocument,
+  FindLatestTxQuery,
+  FindLatestTxQueryVariables,
+} from './subgraph/queries/transactions.generated';
 
 export default class Query {
   private _endpoints: KeychainList;
@@ -42,13 +69,32 @@ export default class Query {
       orderBy: 'createdAt',
       orderDirection: 'desc',
     },
-  }: ListQueryArguments): Promise<QueryResult<Dao[]>> {
-    return await urqlFetch({
-      endpointType: 'V3_SUBGRAPH',
-      networkId: networkId,
-      query: DEFAULT_DAOS_QUERY,
-      variables: { ...ordering },
-    });
+    filter,
+  }: ListQueryArguments<Dao_OrderBy, Dao_Filter>): Promise<
+    QueryResult<ListDaosQuery>
+  > {
+    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    if (!url) {
+      // TODO: Should these throw? will need to switch return type so it can be null
+      // throw new HausError({
+      //   type: 'UNSUPPORTED_NETWORK',
+      // });
+      return { error: INVALID_NETWORK_ERROR };
+    }
+
+    const res = await graphFetch<ListDaosQuery, ListDaosQueryVariables>(
+      ListDaosDocument,
+      url,
+      {
+        where: filter,
+        orderBy: ordering.orderBy,
+        orderDirection: ordering.orderDirection,
+      }
+    );
+
+    return {
+      data: res,
+    };
   }
 
   public async listProposals({
@@ -58,13 +104,26 @@ export default class Query {
       orderDirection: 'desc',
     },
     filter,
-  }: ListQueryArguments): Promise<QueryResult<Proposal[]>> {
-    return await urqlFetch({
-      endpointType: 'V3_SUBGRAPH',
-      networkId: networkId,
-      query: DEFAULT_PROPOSALS_BY_DAO_QUERY,
-      variables: { ...filter, ...ordering },
+  }: ListQueryArguments<Proposal_OrderBy, Proposal_Filter>): Promise<
+    QueryResult<ListProposalsQuery>
+  > {
+    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    if (!url) {
+      return { error: INVALID_NETWORK_ERROR };
+    }
+
+    const res = await graphFetch<
+      ListProposalsQuery,
+      ListProposalsQueryVariables
+    >(ListProposalsDocument, url, {
+      where: filter,
+      orderBy: ordering.orderBy,
+      orderDirection: ordering.orderDirection,
     });
+
+    return {
+      data: res,
+    };
   }
 
   public async listMembers({
@@ -74,77 +133,139 @@ export default class Query {
       orderDirection: 'desc',
     },
     filter,
-  }: ListQueryArguments): Promise<QueryResult<Proposal[]>> {
-    return await urqlFetch({
-      endpointType: 'V3_SUBGRAPH',
-      networkId: networkId,
-      query: DEFAULT_MEMBERS_BY_DAO_QUERY,
-      variables: { ...filter, ...ordering },
-    });
+  }: ListQueryArguments<Member_OrderBy, Member_Filter>): Promise<
+    QueryResult<ListMembersQuery>
+  > {
+    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    if (!url) {
+      return { error: INVALID_NETWORK_ERROR };
+    }
+
+    const res = await graphFetch<ListMembersQuery, ListMembersQueryVariables>(
+      ListMembersDocument,
+      url,
+      {
+        where: filter,
+        orderBy: ordering.orderBy,
+        orderDirection: ordering.orderDirection,
+      }
+    );
+
+    return {
+      data: res,
+    };
   }
 
+  /*
+  Find queries
+*/
   public async findDao({
     networkId,
     dao,
-  }: Pick<FindQueryArguments, 'networkId' | 'dao'>): Promise<QueryResult<Dao>> {
-    return await urqlFetch({
-      endpointType: 'V3_SUBGRAPH',
-      networkId: networkId,
-      query: DEFAULT_DAO_QUERY,
-      variables: { dao: dao },
-    });
+  }: {
+    networkId: keyof Keychain;
+    dao: string;
+  }): Promise<QueryResult<FindDaoQuery>> {
+    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    if (!url) {
+      return { error: INVALID_NETWORK_ERROR };
+    }
+
+    const res = await graphFetch<FindDaoQuery, FindDaoQueryVariables>(
+      FindDaoDocument,
+      url,
+      {
+        id: dao,
+      }
+    );
+
+    return {
+      data: res,
+    };
   }
 
   public async findMember({
     networkId,
     dao,
     memberAddress,
-  }: Pick<FindQueryArguments, 'networkId' | 'dao' | 'memberAddress'>): Promise<
-    QueryResult<Proposal>
-  > {
-    return await urqlFetch({
-      endpointType: 'V3_SUBGRAPH',
-      networkId: networkId,
-      query: DEFAULT_MEMBER_QUERY,
-      variables: { id: `${dao}-member-${memberAddress}` },
-    });
+  }: {
+    networkId: keyof Keychain;
+    dao: string;
+    memberAddress: string;
+  }): Promise<QueryResult<FindMemberQuery>> {
+    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    if (!url) {
+      return { error: INVALID_NETWORK_ERROR };
+    }
+
+    const res = await graphFetch<FindMemberQuery, FindMemberQueryVariables>(
+      FindMemberDocument,
+      url,
+      {
+        id: `${dao}-member-${memberAddress}`,
+      }
+    );
+
+    return {
+      data: res,
+    };
   }
 
   public async findProposal({
     networkId,
     dao,
     proposalId,
-  }: Pick<FindQueryArguments, 'networkId' | 'dao' | 'proposalId'>): Promise<
-    QueryResult<Proposal>
-  > {
-    return await urqlFetch({
-      endpointType: 'V3_SUBGRAPH',
-      networkId: networkId,
-      query: DEFAULT_PROPOSAL_QUERY,
-      variables: { id: `${dao}-proposal-${proposalId}` },
-    });
-  }
+  }: {
+    networkId: keyof Keychain;
+    dao: string;
+    proposalId: string;
+  }): Promise<QueryResult<FindProposalQuery>> {
+    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    if (!url) {
+      return { error: INVALID_NETWORK_ERROR };
+    }
 
-  /*
-  Helper queries
-*/
+    const res = await graphFetch<FindProposalQuery, FindProposalQueryVariables>(
+      FindProposalDocument,
+      url,
+      {
+        id: `${dao}-proposal-${proposalId}`,
+      }
+    );
+
+    return {
+      data: res,
+    };
+  }
 
   public async findLatestTransaction({
     networkId,
     dao,
-  }: Pick<FindQueryArguments, 'networkId' | 'dao'>): Promise<
-    QueryResult<Proposal[]>
-  > {
-    return await urqlFetch({
-      endpointType: 'V3_SUBGRAPH',
-      networkId: networkId,
-      query: LATEST_TX_BY_DAO,
-      variables: { dao: dao },
-    });
+  }: {
+    networkId: keyof Keychain;
+    dao: string;
+  }): Promise<QueryResult<FindLatestTxQuery>> {
+    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    if (!url) {
+      return { error: INVALID_NETWORK_ERROR };
+    }
+
+    const res = await graphFetch<FindLatestTxQuery, FindLatestTxQueryVariables>(
+      FindLatestTxDocument,
+      url,
+      {
+        where: { dao },
+      }
+    );
+
+    return {
+      data: res,
+    };
   }
 
-  public async graphFetch({
+  public async querySubgraph({
     networkId,
+    entityName,
     query,
     filter,
   }: GenericQueryArguments): Promise<QueryResult> {
@@ -157,7 +278,8 @@ export default class Query {
       return await urqlFetch({
         endpointType: 'V3_SUBGRAPH',
         networkId: networkId,
-        query: query,
+        entityName,
+        query,
         variables: filter,
       });
     }
@@ -167,7 +289,7 @@ export default class Query {
    * Queries scoped to account
    */
 
-  // TODO: should add network indicator to the res somewhere
+  // TODO: should add network indicator to the res somewhere and redo with grapql
   public async listDaosByAccount({
     account,
     networks,
@@ -179,6 +301,7 @@ export default class Query {
         urqlFetch({
           endpointType: 'V3_SUBGRAPH',
           networkId: networkId as keyof Keychain,
+          entityName: 'members',
           query: DAOS_BY_MEMBER_QUERY,
           variables: { memberAddress: account },
         })

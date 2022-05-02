@@ -17,59 +17,65 @@ describe('haus', () => {
 
     expect(res.error).toBeUndefined();
     if (res.data) {
-      expect(Number(res.data['daos'][1].createdAt)).toBeGreaterThan(
-        Number(res.data['daos'][2].createdAt)
+      expect(Number(res?.data?.result[1].createdAt)).toBeGreaterThan(
+        Number(res?.data?.result[2].createdAt)
       );
     }
   });
 
   it('can order daos by createdAt asc', async () => {
     const networkId = '0x4';
-    const ordering = {
-      orderBy: 'createdAt',
-      orderDirection: 'asc',
-    };
 
-    const res = await haus.query.listDaos({ networkId, ordering });
+    const res = await haus.query.listDaos({
+      networkId,
+      ordering: {
+        orderBy: 'createdAt',
+        orderDirection: 'asc',
+      },
+    });
 
     expect(res.error).toBeUndefined();
     if (res.data) {
-      expect(Number(res.data['daos'][2].createdAt)).toBeGreaterThan(
-        Number(res.data['daos'][1].createdAt)
+      expect(Number(res?.data?.result[2].createdAt)).toBeGreaterThan(
+        Number(res?.data?.result[1].createdAt)
       );
     }
   });
 
   it('can order daos by totalShares asc', async () => {
     const networkId = '0x4';
-    const ordering = {
-      orderBy: 'totalShares',
-      orderDirection: 'asc',
-    };
 
-    const res = await haus.query.listDaos({ networkId, ordering });
+    const res = await haus.query.listDaos({
+      networkId,
+      ordering: {
+        orderBy: 'totalShares',
+        orderDirection: 'asc',
+      },
+    });
 
     expect(res.error).toBeUndefined();
     if (res.data) {
-      expect(Number(res.data['daos'][20].totalShares)).toBeGreaterThan(
-        Number(res.data['daos'][1].totalShares)
+      expect(Number(res?.data?.result[5].totalShares)).toBeGreaterThan(
+        Number(res?.data?.result[1].totalShares)
       );
     }
   });
 
   it('can order daos by totalShares desc', async () => {
     const networkId = '0x4';
-    const ordering = {
-      orderBy: 'totalShares',
-      orderDirection: 'desc',
-    };
 
-    const res = await haus.query.listDaos({ networkId, ordering });
+    const res = await haus.query.listDaos({
+      networkId,
+      ordering: {
+        orderBy: 'totalShares',
+        orderDirection: 'desc',
+      },
+    });
 
     expect(res.error).toBeUndefined();
     if (res.data) {
-      expect(Number(res.data['daos'][1].totalShares)).toBeGreaterThan(
-        Number(res.data['daos'][20].totalShares)
+      expect(Number(res?.data?.result[1].totalShares)).toBeGreaterThan(
+        Number(res?.data?.result[5].totalShares)
       );
     }
   });

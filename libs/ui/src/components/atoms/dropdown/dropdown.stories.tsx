@@ -40,7 +40,7 @@ FullDropdown.args = {
   align: 'end',
   trigger: (
     <Button icon={BiError} tertiary>
-      Network Unavailable Lots of Text Here, OH yeah...
+      Network Unavailable
     </Button>
   ),
   items: [

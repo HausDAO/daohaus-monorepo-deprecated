@@ -7,7 +7,6 @@ import {
 import React from 'react';
 import { v4 as uuid } from 'uuid';
 import { useTheme } from 'styled-components';
-import { Theme } from '../../../types/theming';
 import { DropdownLabel } from './dropdownExtras';
 
 const DropdownContentOptions = {
@@ -34,7 +33,7 @@ const Dropdown = ({
   spacing = '0',
   align = 'start',
 }: DropdownProps) => {
-  const theme = useTheme() as Theme;
+  const theme = useTheme();
   return (
     <div>
       <DropdownMenu>

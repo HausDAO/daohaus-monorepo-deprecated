@@ -6,11 +6,14 @@ export const widthBreakpoint = {
   tabletLg: 1280,
   laptop: 1440,
 };
-export const widthQuery = {
-  mobileSm: `@media (max-width: ${widthBreakpoint.mobileSm}px)`,
-  mobileMd: `@media (max-width: ${widthBreakpoint.mobileMd}px)`,
-  mobileLg: `@media (max-width: ${widthBreakpoint.mobileLg}px)`,
-  tablet: `@media (max-width: ${widthBreakpoint.tablet}px)`,
-  tablet2: `@media (max-width: ${widthBreakpoint.tabletLg}px)`,
-  laptop: `@media (max-width: ${widthBreakpoint.laptop}px)`,
+
+export const mediaQuery = {
+  width: {
+    mobileSm: `@media (max-width: ${widthBreakpoint.mobileSm}px)`,
+    mobileMd: `@media (max-width: ${widthBreakpoint.mobileMd}px)`,
+    mobileLg: `@media (max-width: ${widthBreakpoint.mobileLg}px)`,
+    tablet: `@media (max-width: ${widthBreakpoint.tablet}px)`,
+    tablet2: `@media (max-width: ${widthBreakpoint.tabletLg}px)`,
+    laptop: `@media (max-width: ${widthBreakpoint.laptop}px)`,
+  },
 };

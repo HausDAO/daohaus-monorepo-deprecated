@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const WithIcon = styled.div`
   display: flex;
   align-items: flex-start;
-  margin-top: 1.2rem;
   svg {
     color: ${(props) => props.color};
   }

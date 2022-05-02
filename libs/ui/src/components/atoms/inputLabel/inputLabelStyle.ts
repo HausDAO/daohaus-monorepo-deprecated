@@ -20,3 +20,10 @@ export const RequiredAsterisk = styled.span`
   color: ${({ theme }: { theme: Theme }) => theme.warning};
   transform: translateY(-0.25rem);
 `;
+
+export const Label = styled.label`
+  font-family: ${font.family.body};
+  font-weight: ${font.weight.reg};
+  font-size: ${font.size.md};
+  color: ${(props) => props.color};
+`;

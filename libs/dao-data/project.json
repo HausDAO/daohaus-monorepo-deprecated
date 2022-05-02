@@ -27,6 +27,19 @@
         "jestConfig": "libs/dao-data/jest.config.js",
         "passWithNoTests": true
       }
+    },
+    "generate-gql-schema": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "get-graphql-schema https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-rinkeby > libs/dao-data/src/subgraph/schema.graphql"
+      }
+    },
+    "generate-gql-types": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "graphql-codegen --config libs/dao-data/codegen.yaml",
+        "outputPath": "libs/dao-data/src/subgraph/queries"
+      }
     }
   },
   "tags": []

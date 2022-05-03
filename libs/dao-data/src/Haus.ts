@@ -1,6 +1,6 @@
 import { Keychain } from '@daohaus/common-utilities';
 import { ConnectNetwork } from '@self.id/web';
-import Account from './Account';
+import Profile from './Profile';
 import Query from './Query';
 
 class Haus {
@@ -17,8 +17,8 @@ class Haus {
     return hausSdk;
   }
 
-  public account(network: ConnectNetwork, node: string) {
-    return new Account(network, node, this.providers);
+  public profile(network: ConnectNetwork, node: string) {
+    return new Profile(network, node, this.providers);
   }
 }
 

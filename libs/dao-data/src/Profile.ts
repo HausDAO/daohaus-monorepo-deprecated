@@ -15,7 +15,7 @@ type BasicProfile = {
 
 type AccountProfile = {
   address: string;
-  ens?: string;
+  ens: string | null;
   image?: string;
   name?: string;
   description?: string;
@@ -23,23 +23,7 @@ type AccountProfile = {
   background?: string;
 };
 
-export default class Account {
-  // ceramic node
-  // can instantiate a ceramic client
-  // methods
-  // // getAccount
-  // // //  fetch ceramic basicProfile
-  // // //  do ens lookup
-
-  //     {
-  //         Account: 'oxo',
-  //         name:lll,
-  //    description
-  // ,       ens: 's.eth'
-  //     }
-
-  // define an accountProfile type
-  //
+export default class Profile {
   client: Core;
   providers: Keychain;
 
@@ -73,7 +57,6 @@ export default class Account {
     chain: keyof Keychain = '0x1',
     address: string
   ): Promise<BasicProfile | null> {
-    // fetch number chain
     const link = await Caip10Link.fromAccount(
       this.client.ceramic,
       `${address.toLowerCase()}@eip155:${Number(chain)}`
@@ -85,7 +68,7 @@ export default class Account {
   private async getEns(
     chain: keyof Keychain,
     address: string
-  ): Promise<string> {
+  ): Promise<string | null> {
     const provider = new ethers.providers.JsonRpcProvider(
       this.providers[chain]
     );

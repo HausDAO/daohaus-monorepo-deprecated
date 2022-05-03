@@ -1,7 +1,6 @@
 module.exports = {
   displayName: 'data',
   preset: '../../jest.preset.js',
-  resolver: 'jest-resolver-enhanced',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',

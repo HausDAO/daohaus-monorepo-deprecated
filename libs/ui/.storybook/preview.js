@@ -1,3 +1,4 @@
+import { FormProvider, useForm } from 'react-hook-form';
 import {
   defaultDarkTheme,
   defaultLightTheme,
@@ -58,4 +59,12 @@ const withThemeProvider = (Story, context) => {
   );
 };
 
-export const decorators = [withThemeProvider];
+const WithFormProvider = (Story, context) => {
+  const methods = useForm();
+  return (
+    <FormProvider {...methods}>
+      <Story {...context} />
+    </FormProvider>
+  );
+};
+export const decorators = [withThemeProvider, WithFormProvider];

@@ -11,6 +11,14 @@ import {
   tomatoDark,
 } from '@radix-ui/colors';
 import { Theme } from '../types/theming';
+import {
+  PrimaryDarkButton,
+  PrimaryLightButton,
+  SecondaryDarkButton,
+  SecondaryLightButton,
+  TertiaryDarkButton,
+  TertiaryLightButton,
+} from './component/button';
 
 export const defaultDarkTheme: Theme = {
   themeName: 'dark',
@@ -27,8 +35,16 @@ export const defaultDarkTheme: Theme = {
     placeholderText: indigoDark.indigo11,
     disabled: indigoDark.indigo2,
   },
+  button: {
+    primary: PrimaryDarkButton,
+    secondary: SecondaryDarkButton,
+    tertiary: TertiaryDarkButton,
+  },
   tooltip: {
     bg: indigoDark.indigo3,
+  },
+  dropdown: {
+    bg: indigoDark.indigo2,
   },
 };
 
@@ -47,7 +63,15 @@ export const defaultLightTheme: Theme = {
     placeholderText: indigo.indigo8,
     disabled: indigo.indigo2,
   },
+  button: {
+    primary: PrimaryLightButton,
+    secondary: SecondaryLightButton,
+    tertiary: TertiaryLightButton,
+  },
   tooltip: {
     bg: indigo.indigo3,
+  },
+  dropdown: {
+    bg: indigo.indigo2,
   },
 };

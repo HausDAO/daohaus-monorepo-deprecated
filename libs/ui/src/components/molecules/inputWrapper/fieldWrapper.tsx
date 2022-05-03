@@ -17,8 +17,6 @@ import {
 
 type FieldWrapperProps = Field & {
   children: React.ReactNode;
-  long?: boolean;
-  full?: boolean;
 };
 
 export type HelperTextFactoryProps = {
@@ -40,14 +38,15 @@ const FieldWrapper = ({
   long,
   full,
   address,
+  id,
 }: FieldWrapperProps) => {
   const classes = classNames({ long: long || address, full });
   return (
     <FieldWrapperBase className={classes}>
-      <InputLabel required={required} info={info}>
+      <InputLabel required={required} info={info} id={id}>
         {label}
       </InputLabel>
-      <div>{children}</div>
+      <div className="field-slot">{children}</div>
       <HelperTextFactory
         error={error}
         success={success}

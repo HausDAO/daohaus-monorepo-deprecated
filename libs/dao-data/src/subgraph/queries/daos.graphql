@@ -5,7 +5,7 @@ query listDaos(
   $orderBy: Dao_orderBy! = id
   $orderDirection: OrderDirection! = asc
 ) {
-  result: daos(
+  daos(
     where: $where
     skip: $skip
     first: $first

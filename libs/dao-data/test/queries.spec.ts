@@ -17,7 +17,7 @@ describe('haus', () => {
     const res = await haus.query.listDaos({
       networkId,
       ordering: {
-        orderBy: 'totalShares',
+        orderBy: 'createdAt',
         orderDirection: 'asc',
       },
     });

@@ -1,5 +1,5 @@
 import { amber, amberDark, indigo, indigoDark } from '@radix-ui/colors';
-import { ButtonColorTargets } from '../../types/theming';
+import { ButtonColorTargets } from '../../styled';
 
 export const PrimaryDarkButton: ButtonColorTargets = {
   bg: amberDark.amber9,

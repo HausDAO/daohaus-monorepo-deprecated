@@ -16,10 +16,14 @@ type RequestDocument = string | DocumentNode;
 export const graphFetch = async <T = unknown, V = QueryVariables>(
   document: RequestDocument | TypedDocumentNode<T, V>,
   url: string,
+  networkId: keyof Keychain,
   variables?: V
-): Promise<T> => {
+): Promise<QueryResult<T>> => {
   try {
-    return request<T, V>(url, document, cleanVariables(variables));
+    // return request<T, V>(url, document, cleanVariables(variables));
+
+    const res = await request<T, V>(url, document, cleanVariables(variables));
+    return { data: res, networkId };
   } catch (err) {
     throw new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err });
   }

@@ -141,16 +141,4 @@ describe('haus', () => {
       );
     }
   });
-
-  it('can fetch all daos for an account', async () => {
-    const networks = ['0x4', '0x2a'];
-    const account = '0xced608aa29bb92185d9b6340adcbfa263dae075b';
-
-    const res = await haus.query.listDaosByAccount({
-      account,
-      networks,
-    });
-
-    expect(res.length).toBe(2);
-  });
 });

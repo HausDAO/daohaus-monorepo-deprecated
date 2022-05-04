@@ -5,7 +5,7 @@ query listMembers(
   $orderBy: Member_orderBy! = id
   $orderDirection: OrderDirection! = asc
 ) {
-  result: members(
+  members: members(
     where: $where
     skip: $skip
     first: $first
@@ -17,7 +17,7 @@ query listMembers(
 }
 
 query findMember($id: ID!) {
-  result: member(id: $id) {
+  member: member(id: $id) {
     ...memberFields
   }
 }

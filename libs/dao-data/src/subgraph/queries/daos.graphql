@@ -5,7 +5,7 @@ query listDaos(
   $orderBy: Dao_orderBy! = id
   $orderDirection: OrderDirection! = asc
 ) {
-  result: daos(
+  daos: daos(
     where: $where
     skip: $skip
     first: $first
@@ -17,7 +17,7 @@ query listDaos(
 }
 
 query findDao($id: ID!) {
-  result: dao(id: $id) {
+  dao: dao(id: $id) {
     ...daoFields
   }
 }

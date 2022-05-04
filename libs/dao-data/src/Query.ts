@@ -38,14 +38,12 @@ import {
   ListDaosQueryVariables,
 } from './subgraph/queries/daos.generated';
 import {
-  ListProposalsDocument,
-  ListProposalsQuery,
-  ListProposalsQueryVariables,
-} from './subgraph/queries/listProposals.generated';
-import {
   FindProposalDocument,
   FindProposalQuery,
   FindProposalQueryVariables,
+  ListProposalsDocument,
+  ListProposalsQuery,
+  ListProposalsQueryVariables,
 } from './subgraph/queries/proposals.generated';
 import {
   FindLatestTxDocument,

@@ -23,7 +23,7 @@ describe('haus', () => {
     });
 
     expect(res.error).toBeUndefined();
-    expect(res?.data?.result.length).toBe(10);
+    expect(res?.data?.daos.length).toBe(10);
   });
 
   it('can fetch a list of dao proposals', async () => {
@@ -36,7 +36,7 @@ describe('haus', () => {
     });
 
     expect(res.error).toBeUndefined();
-    expect(res?.data?.result.length).toBe(10);
+    expect(res?.data?.proposals.length).toBe(10);
   });
 
   it('can fetch a list of dao members', async () => {
@@ -49,8 +49,8 @@ describe('haus', () => {
     });
 
     expect(res.error).toBeUndefined();
-    expect(res?.data?.result.length).toBeGreaterThan(0);
-    expect(res?.data?.result[0].memberAddress).toBe(
+    expect(res?.data?.members.length).toBeGreaterThan(0);
+    expect(res?.data?.members[0].memberAddress).toBe(
       '0x756ee8b8e898d497043c2320d9909f1dd5a7077f'
     );
   });
@@ -65,7 +65,7 @@ describe('haus', () => {
     });
 
     expect(res.error).toBeUndefined();
-    expect(res?.data?.result?.shareTokenName).toEqual('8Baal Shares');
+    expect(res?.data?.dao?.shareTokenName).toEqual('8Baal Shares');
   });
 
   it('can fetch a single member', async () => {
@@ -80,7 +80,7 @@ describe('haus', () => {
     });
 
     expect(res.error).toBeUndefined();
-    expect(res?.data?.result?.createdAt).toEqual('1647545399');
+    expect(res?.data?.member?.createdAt).toEqual('1647545399');
   });
 
   it('can fetch a single proposal', async () => {
@@ -95,7 +95,7 @@ describe('haus', () => {
     });
 
     expect(res.error).toBeUndefined();
-    expect(res?.data?.result?.createdAt).toEqual('1648060445');
+    expect(res?.data?.proposal?.createdAt).toEqual('1648060445');
   });
 
   it('can fetch latest transaction by dao address', async () => {
@@ -108,8 +108,8 @@ describe('haus', () => {
     });
 
     expect(res.error).toBeUndefined();
-    expect(res?.data?.result?.length).toBe(1);
-    expect(res?.data?.result[0].createdAt).toBe('1649105343');
+    expect(res?.data?.transactions?.length).toBe(1);
+    expect(res?.data?.transactions[0].createdAt).toBe('1649105343');
   });
 
   it('can make a generic query', async () => {

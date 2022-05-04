@@ -5,7 +5,7 @@ query findLatestTx(
   $orderBy: EventTransaction_orderBy! = createdAt
   $orderDirection: OrderDirection! = desc
 ) {
-  result: eventTransactions(
+  transactions: eventTransactions(
     where: $where
     skip: $skip
     first: $first

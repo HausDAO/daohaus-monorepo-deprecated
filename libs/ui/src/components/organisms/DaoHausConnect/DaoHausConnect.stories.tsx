@@ -3,6 +3,7 @@ import { BiError } from 'react-icons/bi';
 import { RiUserAddLine } from 'react-icons/ri';
 import Button, { ButtonProps } from '../../atoms/button/button';
 import { ParMd } from '../../atoms/typography';
+import * as Avatar from '@radix-ui/react-avatar';
 
 export default {
   title: 'Recipes/DaoHausConnect',
@@ -73,4 +74,32 @@ export const WrongNetworkButton: ComponentStory<typeof Button> = ({
       Switch to {networkName}
     </WarningButton>
   );
+};
+
+// TODO
+
+// Create full atom for Avatar component
+// handle states for isLoading, delay etc.
+// Check with design
+// Check with sdk devs to see how we plan to handle fetching
+// Make plans on how to wrap this atom to handle loading
+// create a ticket for avatar molecules
+// Update this story
+// remove this comment
+
+type AvatarProps = {
+  src: string;
+  alt: string;
+  fallback: string;
+};
+
+const TemporaryAvatar = ({ src, alt, fallback }: AvatarProps) => {
+  <Avatar.Root>
+    <Avatar.AvatarImage src={src} alt={alt} />
+    <Avatar.AvatarFallback>{fallback}</Avatar.AvatarFallback>
+  </Avatar.Root>;
+};
+
+export const AvatarButton: ComponentStory<typeof Button> = (props) => {
+  return <Button {...props}>{/* <TemporaryAvatar /> */}</Button>;
 };

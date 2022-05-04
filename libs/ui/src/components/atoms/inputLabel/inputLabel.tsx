@@ -1,18 +1,28 @@
 import Tooltip from '../tooltip/tooltip';
-import { ParMd } from '../typography';
-import { InputLabelContainer, RequiredAsterisk } from './inputLabelStyle';
+
+import {
+  InputLabelContainer,
+  Label,
+  RequiredAsterisk,
+} from './inputLabelStyle';
 
 export type InputLabelType = {
+  id: string;
   required?: boolean;
   info?: string;
   children: React.ReactChild;
 };
 
-const InputLabel = ({ required, info, children = 'label' }: InputLabelType) => {
+const InputLabel = ({
+  required,
+  info,
+  children = 'label',
+  id,
+}: InputLabelType) => {
   return (
     <InputLabelContainer>
       {required && <RequiredAsterisk>*</RequiredAsterisk>}
-      <ParMd>{children}</ParMd>
+      <Label htmlFor={id}>{children}</Label>
       {info && <Tooltip content={info} />}
     </InputLabelContainer>
   );

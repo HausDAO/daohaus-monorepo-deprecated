@@ -43,6 +43,9 @@ export const defaultDarkTheme: Theme = {
   tooltip: {
     bg: indigoDark.indigo3,
   },
+  dropdown: {
+    bg: indigoDark.indigo2,
+  },
 };
 
 export const defaultLightTheme: Theme = {
@@ -67,5 +70,8 @@ export const defaultLightTheme: Theme = {
   },
   tooltip: {
     bg: indigo.indigo3,
+  },
+  dropdown: {
+    bg: indigo.indigo2,
   },
 };

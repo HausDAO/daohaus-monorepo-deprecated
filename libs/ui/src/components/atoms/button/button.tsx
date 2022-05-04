@@ -1,31 +1,55 @@
-import React from 'react';
-import { ButtonBase } from './buttonStyles';
+import React, { RefObject } from 'react';
+import { ButtonBase, WithIcon } from './buttonStyles';
 import classNames from 'classnames';
+import { IconType } from 'react-icons';
 
 type ButtonProps = {
   children: React.ReactNode;
-  secondary: boolean;
-  sm: boolean;
-  lg: boolean;
-  tertiary: boolean;
-  disabled: boolean;
+  secondary?: boolean;
+  sm?: boolean;
+  lg?: boolean;
+  tertiary?: boolean;
+  disabled?: boolean;
+  fullWidth?: boolean;
+  leftAlign?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  icon?: IconType;
 };
 
-const Button = ({
-  secondary,
-  sm,
-  lg,
-  children,
-  tertiary,
-  disabled,
-  onClick,
-}: ButtonProps) => {
-  const classes = classNames({ secondary, sm, lg, tertiary });
+type Ref =
+  | ((instance: HTMLButtonElement | null) => void)
+  | RefObject<HTMLButtonElement>
+  | null
+  | undefined;
+
+const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
+  const { secondary, sm, lg, tertiary, children, fullWidth, leftAlign, icon } =
+    props;
+  const classes = classNames({
+    secondary,
+    sm,
+    lg,
+    tertiary,
+    'left-align': leftAlign,
+    'full-width': fullWidth,
+  });
+
+  if (icon) {
+    const Icon = icon;
+    const iconClasses = classNames({ secondary, tertiary });
+    return (
+      <ButtonBase {...props} className={classes} ref={ref}>
+        <WithIcon>
+          <Icon size="2.1rem" className={iconClasses} />
+          {children}
+        </WithIcon>
+      </ButtonBase>
+    );
+  }
   return (
-    <ButtonBase className={classes} disabled={disabled} onClick={onClick}>
+    <ButtonBase {...props} className={classes} ref={ref}>
       {children}
     </ButtonBase>
   );
-};
+});
 export default Button;

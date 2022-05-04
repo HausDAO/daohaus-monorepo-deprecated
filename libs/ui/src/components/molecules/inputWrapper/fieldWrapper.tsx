@@ -38,11 +38,12 @@ const FieldWrapper = ({
   long,
   full,
   address,
+  id,
 }: FieldWrapperProps) => {
   const classes = classNames({ long: long || address, full });
   return (
     <FieldWrapperBase className={classes}>
-      <InputLabel required={required} info={info}>
+      <InputLabel required={required} info={info} id={id}>
         {label}
       </InputLabel>
       <div className="field-slot">{children}</div>

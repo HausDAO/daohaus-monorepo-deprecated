@@ -1,6 +1,3 @@
-// required polyfill for browser/node fetch not included in urql
-import 'isomorphic-unfetch';
-
 import { TypedDocumentNode } from '@graphql-typed-document-node/core';
 import { DocumentNode } from 'graphql';
 import { Keychain } from '@daohaus/common-utilities';

@@ -3,12 +3,11 @@ import { ENDPOINTS, Keychain, KeychainList } from '@daohaus/common-utilities';
 import {
   ListQueryArguments,
   QueryResult,
-  GenericQueryArguments,
   CrossNetworkQueryArguments,
   Ordering,
 } from './types';
 import { INVALID_NETWORK_ERROR } from './utils';
-import { graphFetch, urqlFetch } from './utils/requests';
+import { graphFetch } from './utils/requests';
 import {
   FindMemberDocument,
   FindMemberQuery,
@@ -239,28 +238,6 @@ export default class Query {
         where: { dao },
       }
     );
-  }
-
-  public async querySubgraph({
-    networkId,
-    entityName,
-    query,
-    filter,
-  }: GenericQueryArguments): Promise<QueryResult> {
-    const endpointType: keyof KeychainList = 'V3_SUBGRAPH';
-    if (!this._endpoints[endpointType][networkId]) {
-      return {
-        error: INVALID_NETWORK_ERROR,
-      };
-    } else {
-      return await urqlFetch({
-        endpointType: 'V3_SUBGRAPH',
-        networkId: networkId,
-        entityName,
-        query,
-        variables: filter,
-      });
-    }
   }
 
   /**

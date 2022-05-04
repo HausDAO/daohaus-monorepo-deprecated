@@ -3,11 +3,9 @@ import 'isomorphic-unfetch';
 
 import { TypedDocumentNode } from '@graphql-typed-document-node/core';
 import { DocumentNode } from 'graphql';
-import { ENDPOINTS, Keychain, KeychainList } from '@daohaus/common-utilities';
-import { createClient } from 'urql';
+import { Keychain } from '@daohaus/common-utilities';
 import { request } from 'graphql-request';
 
-import { INVALID_NETWORK_ERROR } from '.';
 import { QueryResult, QueryVariables } from '..';
 import { HausError } from '../HausError';
 
@@ -40,31 +38,4 @@ const cleanVariables = <V = QueryVariables>(variables: V): V => {
           : value,
       ])
   ) as V;
-};
-
-export const urqlFetch = async (args: {
-  endpointType: keyof KeychainList;
-  networkId: keyof Keychain;
-  entityName: string;
-  query: string;
-  variables?: QueryVariables;
-}): Promise<QueryResult> => {
-  const url = ENDPOINTS[args.endpointType][args.networkId];
-  if (!url) {
-    return {
-      error: INVALID_NETWORK_ERROR,
-    };
-  } else {
-    const client = createClient({
-      url,
-      requestPolicy: 'network-only',
-    });
-
-    const res = await client.query(args.query, args.variables).toPromise();
-
-    return {
-      data: { result: res.data[args.entityName] },
-      error: res.error,
-    };
-  }
 };

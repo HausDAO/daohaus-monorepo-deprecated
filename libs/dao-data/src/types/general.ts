@@ -1,6 +1,4 @@
 import { Keychain } from '@daohaus/common-utilities';
-import { ListDaosQuery } from '../subgraph/queries/daos.generated';
-import { ListMembersQuery } from '../subgraph/queries/members.generated';
 import { OrderDirection } from '../subgraph/schema.generated';
 
 /**

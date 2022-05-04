@@ -23,7 +23,7 @@ describe('haus', () => {
     });
 
     expect(res.error).toBeUndefined();
-    expect(res?.data?.daos.length).toBe(10);
+    expect(res?.data?.daos.length).toBeGreaterThan(10);
   });
 
   it('can fetch a list of dao proposals', async () => {
@@ -36,7 +36,7 @@ describe('haus', () => {
     });
 
     expect(res.error).toBeUndefined();
-    expect(res?.data?.proposals.length).toBe(10);
+    expect(res?.data?.proposals.length).toBeGreaterThan(0);
   });
 
   it('can fetch a list of dao members', async () => {
@@ -110,35 +110,5 @@ describe('haus', () => {
     expect(res.error).toBeUndefined();
     expect(res?.data?.transactions?.length).toBe(1);
     expect(res?.data?.transactions[0].createdAt).toBe('1649105343');
-  });
-
-  it('can make a generic query', async () => {
-    const query = `
-      query dao($dao: String!) {
-        dao(
-          id: $dao
-        ) {
-          id
-        }
-      }
-    `;
-    const networkId = '0x4';
-    const entityName = 'dao';
-    const filter = { dao: '0xcfeed89f67ce9c05c43efc7a0ee2e931f22c1bc5' };
-
-    const res = await haus.query.querySubgraph({
-      query,
-      networkId,
-      filter,
-      entityName,
-    });
-
-    expect(res.error).toBeUndefined();
-    expect(res.data).toBe;
-    if (res.data) {
-      expect(res.data.result.id).toEqual(
-        '0xcfeed89f67ce9c05c43efc7a0ee2e931f22c1bc5'
-      );
-    }
   });
 });

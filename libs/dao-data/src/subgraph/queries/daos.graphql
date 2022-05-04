@@ -1,7 +1,7 @@
 query listDaos(
   $where: Dao_filter! = {}
   $skip: Int! = 0
-  $first: Int! = 10
+  $first: Int! = 100
   $orderBy: Dao_orderBy! = id
   $orderDirection: OrderDirection! = asc
 ) {

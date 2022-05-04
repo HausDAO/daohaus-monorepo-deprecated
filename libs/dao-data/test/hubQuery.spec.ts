@@ -21,8 +21,6 @@ describe('haus', () => {
       networkIds,
     });
 
-    console.log('res', res[1]?.data?.members);
-
     expect(res.length).toBe(2);
   });
 });

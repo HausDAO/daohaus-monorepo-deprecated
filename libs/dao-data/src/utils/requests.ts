@@ -20,8 +20,6 @@ export const graphFetch = async <T = unknown, V = QueryVariables>(
   variables?: V
 ): Promise<QueryResult<T>> => {
   try {
-    // return request<T, V>(url, document, cleanVariables(variables));
-
     const res = await request<T, V>(url, document, cleanVariables(variables));
     return { data: res, networkId };
   } catch (err) {

@@ -6,7 +6,6 @@ import {
   GenericQueryArguments,
   CrossNetworkQueryArguments,
   Ordering,
-  QueryWithNetwork,
 } from './types';
 import { INVALID_NETWORK_ERROR } from './utils';
 import { graphFetch, urqlFetch } from './utils/requests';
@@ -15,6 +14,9 @@ import {
   FindMemberQuery,
   FindMemberQueryVariables,
   ListMembersDocument,
+  ListMembershipsDocument,
+  ListMembershipsQuery,
+  ListMembershipsQueryVariables,
   ListMembersQuery,
   ListMembersQueryVariables,
 } from './subgraph/queries/members.generated';
@@ -265,13 +267,12 @@ export default class Query {
    * Queries scoped to user address
    */
 
-  // TODO: special query here - see al fields in design
-  // some better error handling when doing the url check
+  // TODO: some better error handling when doing the url check
   public async listDaosByMember({
     memberAddress,
     networkIds,
-  }: CrossNetworkQueryArguments): Promise<QueryResult<ListMembersQuery>[]> {
-    const promises: Promise<QueryResult<ListMembersQuery>>[] = [];
+  }: CrossNetworkQueryArguments): Promise<QueryResult<ListMembershipsQuery>[]> {
+    const promises: Promise<QueryResult<ListMembershipsQuery>>[] = [];
     const filter = { memberAddress: memberAddress };
     const ordering: Ordering<Member_OrderBy> = {
       orderBy: 'createdAt',
@@ -283,8 +284,8 @@ export default class Query {
 
       if (url) {
         promises.push(
-          graphFetch<ListMembersQuery, ListMembersQueryVariables>(
-            ListMembersDocument,
+          graphFetch<ListMembershipsQuery, ListMembershipsQueryVariables>(
+            ListMembershipsDocument,
             url,
             networkId,
             {

@@ -47,11 +47,3 @@ export interface QueryResult<Data = any> {
 export interface QueryError {
   message: string;
 }
-
-export interface QueryWithNetwork extends ListDaosQuery {
-  networkId: string;
-}
-
-// export interface DynamicWithNetwork extends <T = unknown> {
-//   networkId: string;
-// }

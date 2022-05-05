@@ -21,6 +21,6 @@ describe('haus', () => {
       networkIds,
     });
 
-    expect(res.length).toBe(2);
+    expect(res?.data?.daos.length).toBeGreaterThan(18);
   });
 });

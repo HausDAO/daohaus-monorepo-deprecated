@@ -5,7 +5,7 @@ import Button, { ButtonProps } from '../../atoms/button/button';
 import { Bold, ParMd, ParXs } from '../../atoms/typography';
 import styled from 'styled-components';
 import { violet } from '@radix-ui/colors';
-import Dropdown from '../../atoms/dropdown/dropdown';
+import Dropdown, { DropdownItem } from '../../atoms/dropdown/dropdown';
 
 export default {
   title: 'Recipes/DaoHausConnect',
@@ -24,6 +24,7 @@ export const WarningButton: ComponentStory<typeof Button> = ({
 WarningButton.args = {
   children: 'Example',
 };
+
 const ExitButton = (props: ButtonProps) => (
   <Button tertiary fullWidth sm {...props} />
 );
@@ -109,25 +110,13 @@ const TemporaryAvatar = styled.div`
   margin-right: 0.75rem;
 `;
 
-// export const TemproraryAvatarButton: ComponentStory<typeof Button> = React.forwardRef((
-//   props, ref
-// ) => {
-//   return (
-
-//   );
-// };
-
-export const NetworkUnavailableDropdown: ComponentStory<typeof Dropdown> = (
-  props
-) => {
-  return (
-    <div style={{ maxWidth: '25rem' }}>
-      <Dropdown {...props} />
-    </div>
-  );
+const Template: ComponentStory<typeof Dropdown> = (props) => {
+  return <Dropdown {...props} />;
 };
 
-NetworkUnavailableDropdown.args = {
+export const UserConnectedDropdown = Template.bind({});
+
+UserConnectedDropdown.args = {
   trigger: (
     <Button avatar fullWidth>
       <Container>
@@ -155,5 +144,41 @@ NetworkUnavailableDropdown.args = {
       type: 'clickable',
       content: <ExitButton>Disconnect</ExitButton>,
     },
+  ],
+};
+
+const networkPanels = [
+  'Mainnet',
+  'Arbitrum',
+  'Celo',
+  'Gnosis',
+  'Optimism',
+  'Gnosis',
+  'Polygon',
+  'Kovan',
+  'Rinkeby',
+].map((item) => ({
+  type: 'clickable',
+  content: (
+    <Button secondary fullWidth leftAlign>
+      {item}
+    </Button>
+  ),
+})) as DropdownItem[];
+
+export const NetworkUnavailableDropdown = Template.bind({});
+
+NetworkUnavailableDropdown.args = {
+  spacing: '0.7rem',
+  align: 'end',
+  width: '26rem',
+  trigger: (
+    <Button icon={BiError} tertiary>
+      Network Unavailable
+    </Button>
+  ),
+  items: [
+    { type: 'label', content: <ParXs>Switch to available network</ParXs> },
+    ...networkPanels,
   ],
 };

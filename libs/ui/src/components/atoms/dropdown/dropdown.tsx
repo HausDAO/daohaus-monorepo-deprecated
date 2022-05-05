@@ -1,4 +1,5 @@
 import {
+  DropdownContainer,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -36,16 +37,18 @@ const Dropdown = ({
   width = '25rem',
 }: DropdownProps) => {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
-      <DropdownContentFactory
-        items={items}
-        bg={bg}
-        spacing={spacing}
-        align={align}
-        width={width}
-      />
-    </DropdownMenu>
+    <DropdownContainer width={width}>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
+        <DropdownContentFactory
+          items={items}
+          bg={bg}
+          spacing={spacing}
+          align={align}
+          width={width}
+        />
+      </DropdownMenu>
+    </DropdownContainer>
   );
 };
 

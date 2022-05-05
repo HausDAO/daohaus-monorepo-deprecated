@@ -18,8 +18,10 @@ export interface GenericQueryArguments {
 }
 
 export interface CrossNetworkQueryArguments {
-  networks: string[];
-  account: string;
+  // networkIds: string[];
+  networkIds: Array<keyof Keychain>;
+
+  memberAddress: string;
 }
 
 export type QueryVariables = {
@@ -37,6 +39,7 @@ export interface QueryResult<Data = any> {
   data?: Data;
   /** Any errors resulting from the operation. */
   error?: QueryError;
+  networkId?: keyof Keychain;
 }
 
 export interface QueryError {

@@ -146,6 +146,10 @@ export const ButtonBase = styled.button`
   &.left-align {
     text-align: left;
   }
+
+  &.avatar {
+    padding: 0 0.6rem;
+  }
 `;
 
 export const WithIcon = styled.div`

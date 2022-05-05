@@ -2,8 +2,9 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { BiError } from 'react-icons/bi';
 import { RiUserAddLine } from 'react-icons/ri';
 import Button, { ButtonProps } from '../../atoms/button/button';
-import { ParMd } from '../../atoms/typography';
-import * as Avatar from '@radix-ui/react-avatar';
+import { H3, ParMd, ParXs } from '../../atoms/typography';
+import styled from 'styled-components';
+import { violet } from '@radix-ui/colors';
 
 export default {
   title: 'Recipes/DaoHausConnect',
@@ -79,6 +80,7 @@ export const WrongNetworkButton: ComponentStory<typeof Button> = ({
 // TODO
 
 // Create full atom for Avatar component
+// Build from dropdownTriggerButton
 // handle states for isLoading, delay etc.
 // Check with design
 // Check with sdk devs to see how we plan to handle fetching
@@ -87,19 +89,43 @@ export const WrongNetworkButton: ComponentStory<typeof Button> = ({
 // Update this story
 // remove this comment
 
-type AvatarProps = {
-  src: string;
-  alt: string;
-  fallback: string;
-};
+const Container = styled.div`
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  .interior {
+    display: flex;
+    flex-direction: column;
+  }
+`;
 
-const TemporaryAvatar = ({ src, alt, fallback }: AvatarProps) => {
-  <Avatar.Root>
-    <Avatar.AvatarImage src={src} alt={alt} />
-    <Avatar.AvatarFallback>{fallback}</Avatar.AvatarFallback>
-  </Avatar.Root>;
-};
+const TemporaryAvatar = styled.div`
+  width: 3rem;
+  height: 3rem;
 
-export const AvatarButton: ComponentStory<typeof Button> = (props) => {
-  return <Button {...props}>{/* <TemporaryAvatar /> */}</Button>;
+  background-color: ${violet.violet9};
+  border-radius: 45px;
+  margin-right: 0.75rem;
+`;
+
+export const TemproraryAvatarButton: ComponentStory<typeof Button> = (
+  props
+) => {
+  return (
+    <div style={{ width: '25rem', marginBottom: '2rem' }}>
+      <Button avatar fullWidth {...props}>
+        <Container>
+          <TemporaryAvatar />
+          <div className="interior">
+            <ParMd>Kagahara</ParMd>
+            <ParXs>@Ethereum</ParXs>
+          </div>
+        </Container>
+      </Button>
+      <ParMd>
+        Made with temporary Avatar component. Will finalize a full Avatar Atom
+        on separate PR. Same with the ButtonTrigger with Chevron
+      </ParMd>
+    </div>
+  );
 };

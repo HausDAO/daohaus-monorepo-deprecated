@@ -13,6 +13,7 @@ export type ButtonProps = {
   disabled?: boolean;
   fullWidth?: boolean;
   leftAlign?: boolean;
+  avatar?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   icon?: IconType;
 };
@@ -24,17 +25,28 @@ type Ref =
   | undefined;
 
 const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
-  const { secondary, sm, lg, tertiary, children, fullWidth, leftAlign, icon } =
-    props;
+  const {
+    secondary,
+    sm,
+    lg,
+    tertiary,
+    children,
+    fullWidth,
+    leftAlign,
+    icon,
+    avatar,
+  } = props;
   const classes = classNames({
     secondary,
     sm,
     lg,
     tertiary,
+    avatar,
     'left-align': leftAlign,
     'full-width': fullWidth,
   });
-
+  console.log('avatar', avatar);
+  console.log('classes', classes);
   if (icon) {
     const Icon = icon;
     const iconClasses = classNames({ secondary, tertiary });

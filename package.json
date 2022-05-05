@@ -34,7 +34,6 @@
     "regenerator-runtime": "0.13.7",
     "styled-components": "5.3.3",
     "tslib": "^2.0.0",
-    "urql": "^2.2.0",
     "uuid": "^8.3.2",
     "vite": "^2.8.3"
   },

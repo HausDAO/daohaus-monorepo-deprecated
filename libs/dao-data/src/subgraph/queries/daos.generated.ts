@@ -10,7 +10,7 @@ export type ListDaosQueryVariables = Types.Exact<{
 }>;
 
 export type ListDaosQuery = {
-  result: Array<{
+  daos: Array<{
     id: string;
     createdAt: string;
     transactionHashSummon: string;
@@ -38,7 +38,7 @@ export type FindDaoQueryVariables = Types.Exact<{
 }>;
 
 export type FindDaoQuery = {
-  result?:
+  dao?:
     | {
         id: string;
         createdAt: string;
@@ -105,7 +105,7 @@ export const ListDaosDocument = {
             kind: 'NonNullType',
             type: { kind: 'NamedType', name: { kind: 'Name', value: 'Int' } },
           },
-          defaultValue: { kind: 'IntValue', value: '10' },
+          defaultValue: { kind: 'IntValue', value: '100' },
         },
         {
           kind: 'VariableDefinition',
@@ -143,7 +143,6 @@ export const ListDaosDocument = {
         selections: [
           {
             kind: 'Field',
-            alias: { kind: 'Name', value: 'result' },
             name: { kind: 'Name', value: 'daos' },
             arguments: [
               {
@@ -278,7 +277,6 @@ export const FindDaoDocument = {
         selections: [
           {
             kind: 'Field',
-            alias: { kind: 'Name', value: 'result' },
             name: { kind: 'Name', value: 'dao' },
             arguments: [
               {

@@ -1,0 +1,12 @@
+{
+  "name": "@daohaus/daohaus-connect",
+  "version": "0.0.1",
+  "main": "./daohaus-connect.umd.js",
+  "module": "./daohaus-connect.es.js",
+  "exports": {
+    ".": {
+      "import": "./daohaus-connect.es.js",
+      "require": "./daohaus-connect.umd.js"
+    }
+  }
+}

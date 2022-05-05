@@ -20,6 +20,12 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16.x
+
+      - name: Create env file
+        run: |
+          touch .env
+          echo NX_RIVET_KEY=${{ secrets.RIVET_KEY }}
+          cat .env
       - run: yarn install
       - run: npm install -g nx
       - name: Lint mono

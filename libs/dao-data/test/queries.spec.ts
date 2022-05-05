@@ -2,7 +2,7 @@ import { Haus } from '../src/index';
 
 describe('haus', () => {
   const rpcConfig = {
-    '0x4': 'https://<somekey>.rinkeby.rpc.rivet.cloud',
+    '0x4': `https://${process.env['RIVET_KEY']}.rinkeby.rpc.rivet.cloud`,
     '0x64': 'https://rpc.gnosischain.com',
   };
   let haus: Haus;
@@ -17,7 +17,7 @@ describe('haus', () => {
     const res = await haus.query.listDaos({
       networkId,
       ordering: {
-        orderBy: 'totalShares',
+        orderBy: 'createdAt',
         orderDirection: 'asc',
       },
     });

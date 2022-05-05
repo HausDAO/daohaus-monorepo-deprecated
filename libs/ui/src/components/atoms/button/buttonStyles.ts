@@ -157,12 +157,19 @@ export const WithIcon = styled.div`
   align-items: center;
   svg {
     margin-right: 1rem;
+    width: 2.1rem;
+    height: 2.1rem;
     color: ${({ theme }: { theme: Theme }) => theme.button.primary.text};
     &.secondary {
       color: ${({ theme }: { theme: Theme }) => theme.button.secondary.text};
     }
     &.tertiary {
       color: ${({ theme }: { theme: Theme }) => theme.button.tertiary.text};
+    }
+    &.sm {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-right: 0.8rem;
     }
   }
 `;

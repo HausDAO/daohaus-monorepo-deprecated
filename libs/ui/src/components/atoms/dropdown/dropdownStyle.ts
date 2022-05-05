@@ -4,8 +4,10 @@ import * as Dropdown from '@radix-ui/react-dropdown-menu';
 export const DropdownContainer = styled.div`
   width: ${(props: { width: string }) => props.width};
 `;
+
 export const DropdownMenu = styled(Dropdown.Root)``;
 export const DropdownMenuTrigger = styled(Dropdown.Trigger)``;
+
 type MenuContentType = {
   bg?: string;
   width?: string;

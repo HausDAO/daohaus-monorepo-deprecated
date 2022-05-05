@@ -48,11 +48,11 @@ const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
 
   if (icon) {
     const Icon = icon;
-    const iconClasses = classNames({ secondary, tertiary });
+    const iconClasses = classNames({ secondary, tertiary, sm, lg });
     return (
       <ButtonBase {...props} className={classes} ref={ref}>
         <WithIcon>
-          <Icon size="2.1rem" className={iconClasses} />
+          <Icon className={iconClasses} />
           {children}
         </WithIcon>
       </ButtonBase>

@@ -59,6 +59,22 @@ export const ConnectWalletButton: ComponentStory<typeof Button> = (
   </Button>
 );
 
+export const ConnectWalletButtonMoblile: ComponentStory<typeof Button> = (
+  props: Omit<ButtonProps, 'children'>
+) => (
+  <Button
+    sm
+    icon={RiUserAddLine}
+    className="menu-button"
+    onClick={() => {
+      console.log('functionality goes here');
+    }}
+    {...props}
+  >
+    Connect
+  </Button>
+);
+
 export const NetworkUnavailable: ComponentStory<typeof Button> = () => (
   <WarningButton>Network Unavailable</WarningButton>
 );
@@ -79,17 +95,18 @@ export const WrongNetworkButton: ComponentStory<typeof Button> = ({
   );
 };
 
-// TODO
-
-// Create full atom for Avatar component
-// Build from dropdownTriggerButton
-// handle states for isLoading, delay etc.
-// Check with design
-// Check with sdk devs to see how we plan to handle fetching
-// Make plans on how to wrap this atom to handle loading
-// create a ticket for avatar molecules
-// Update this story
-// remove this comment
+export const WrongNetworkMobile: ComponentStory<typeof Button> = ({
+  ...props
+}: Omit<ButtonProps, 'children'>) => {
+  return (
+    <WarningButton
+      onClick={() => {
+        console.log('functionality goes here');
+      }}
+      {...props}
+    />
+  );
+};
 
 const Container = styled.div`
   z-index: 10;

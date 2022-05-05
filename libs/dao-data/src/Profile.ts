@@ -32,7 +32,6 @@ export default class Profile {
     const provider = new ethers.providers.JsonRpcProvider(
       this.providers['0x1']
     );
-
     return await provider.lookupAddress(address);
   }
 }

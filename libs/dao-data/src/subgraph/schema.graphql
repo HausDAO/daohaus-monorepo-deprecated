@@ -631,9 +631,9 @@ type Proposal {
   details: String!
   selfSponsor: Boolean!
   sponsored: Boolean!
+  sponsor: Bytes!
   cancelled: Boolean!
   processed: Boolean!
-  sponsor: Bytes!
   actionFailed: Boolean!
   passed: Boolean!
   proposalOffering: BigInt!
@@ -806,6 +806,12 @@ input Proposal_filter {
   sponsored_not: Boolean
   sponsored_in: [Boolean!]
   sponsored_not_in: [Boolean!]
+  sponsor: Bytes
+  sponsor_not: Bytes
+  sponsor_in: [Bytes!]
+  sponsor_not_in: [Bytes!]
+  sponsor_contains: Bytes
+  sponsor_not_contains: Bytes
   cancelled: Boolean
   cancelled_not: Boolean
   cancelled_in: [Boolean!]
@@ -814,12 +820,6 @@ input Proposal_filter {
   processed_not: Boolean
   processed_in: [Boolean!]
   processed_not_in: [Boolean!]
-  sponsor: Bytes
-  sponsor_not: Bytes
-  sponsor_in: [Bytes!]
-  sponsor_not_in: [Bytes!]
-  sponsor_contains: Bytes
-  sponsor_not_contains: Bytes
   actionFailed: Boolean
   actionFailed_not: Boolean
   actionFailed_in: [Boolean!]
@@ -1046,9 +1046,9 @@ enum Proposal_orderBy {
   details
   selfSponsor
   sponsored
+  sponsor
   cancelled
   processed
-  sponsor
   actionFailed
   passed
   proposalOffering

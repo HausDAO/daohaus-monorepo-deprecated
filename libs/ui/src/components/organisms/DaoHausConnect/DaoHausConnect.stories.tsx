@@ -2,9 +2,10 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { BiError } from 'react-icons/bi';
 import { RiUserAddLine } from 'react-icons/ri';
 import Button, { ButtonProps } from '../../atoms/button/button';
-import { H3, ParMd, ParXs } from '../../atoms/typography';
+import { Bold, ParMd, ParXs } from '../../atoms/typography';
 import styled from 'styled-components';
 import { violet } from '@radix-ui/colors';
+import Dropdown from '../../atoms/dropdown/dropdown';
 
 export default {
   title: 'Recipes/DaoHausConnect',
@@ -108,24 +109,51 @@ const TemporaryAvatar = styled.div`
   margin-right: 0.75rem;
 `;
 
-export const TemproraryAvatarButton: ComponentStory<typeof Button> = (
+// export const TemproraryAvatarButton: ComponentStory<typeof Button> = React.forwardRef((
+//   props, ref
+// ) => {
+//   return (
+
+//   );
+// };
+
+export const NetworkUnavailableDropdown: ComponentStory<typeof Dropdown> = (
   props
 ) => {
   return (
-    <div style={{ width: '25rem', marginBottom: '2rem' }}>
-      <Button avatar fullWidth {...props}>
-        <Container>
-          <TemporaryAvatar />
-          <div className="interior">
-            <ParMd>Kagahara</ParMd>
-            <ParXs>@Ethereum</ParXs>
-          </div>
-        </Container>
-      </Button>
-      <ParMd>
-        Made with temporary Avatar component. Will finalize a full Avatar Atom
-        on separate PR. Same with the ButtonTrigger with Chevron
-      </ParMd>
+    <div style={{ maxWidth: '25rem' }}>
+      <Dropdown {...props} />
     </div>
   );
+};
+
+NetworkUnavailableDropdown.args = {
+  trigger: (
+    <Button avatar fullWidth>
+      <Container>
+        <TemporaryAvatar />
+        <div className="interior">
+          <ParMd>Kagahara</ParMd>
+          <ParXs>@Ethereum</ParXs>
+        </div>
+      </Container>
+    </Button>
+  ),
+  items: [
+    {
+      type: 'label',
+      content: (
+        <div style={{ padding: '.8rem' }}>
+          <ParXs style={{ marginBottom: '.5rem' }}>0xd24bf...6c3b</ParXs>
+          <ParXs>
+            Connected to <Bold>Ethereum</Bold>
+          </ParXs>
+        </div>
+      ),
+    },
+    {
+      type: 'clickable',
+      content: <ExitButton>Disconnect</ExitButton>,
+    },
+  ],
 };

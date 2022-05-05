@@ -23,47 +23,48 @@ type DropdownProps = {
   items: DropdownItem[];
   bg?: string;
   spacing?: string;
+  width?: string;
   align?: 'start' | 'center' | 'end' | undefined;
 };
 // TODO aria
 const Dropdown = ({
   trigger,
   items,
-  bg,
+  bg = 'black',
   spacing = '0',
   align = 'start',
+  width = '25rem',
 }: DropdownProps) => {
-  const theme = useTheme();
   return (
-    <div>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
-        <DropdownContentFactory
-          bg={bg || theme.dropdown.bg}
-          spacing={spacing}
-          items={items}
-          align={align}
-        />
-      </DropdownMenu>
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
+      <DropdownContentFactory
+        items={items}
+        bg={bg}
+        spacing={spacing}
+        align={align}
+        width={width}
+      />
+    </DropdownMenu>
   );
 };
 
 export default Dropdown;
 
 const DropdownContentFactory = ({
-  bg,
-  spacing,
   items,
+  spacing,
+  bg,
   align,
-}: {
-  bg: string;
-  spacing: string;
-  items: DropdownItem[];
-  align: 'start' | 'center' | 'end' | undefined;
-}) => {
+  width,
+}: Omit<DropdownProps, 'trigger'>) => {
+  const theme = useTheme();
   return (
-    <DropdownMenuContent bg={bg} align={align}>
+    <DropdownMenuContent
+      bg={bg || theme.dropdown.bg}
+      align={align}
+      width={width}
+    >
       {items?.map((item) => {
         if (item.type === 'clickable') {
           return (

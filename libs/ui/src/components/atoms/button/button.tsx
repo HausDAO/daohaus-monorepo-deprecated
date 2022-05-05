@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { IconType } from 'react-icons';
 
 export type ButtonProps = {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
   secondary?: boolean;
   sm?: boolean;
@@ -45,8 +45,7 @@ const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
     'left-align': leftAlign,
     'full-width': fullWidth,
   });
-  console.log('avatar', avatar);
-  console.log('classes', classes);
+
   if (icon) {
     const Icon = icon;
     const iconClasses = classNames({ secondary, tertiary });

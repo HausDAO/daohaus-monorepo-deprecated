@@ -1,11 +1,11 @@
 query listProposals(
   $where: Proposal_filter! = {}
   $skip: Int! = 0
-  $first: Int! = 10
+  $first: Int! = 100
   $orderBy: Proposal_orderBy! = id
   $orderDirection: OrderDirection! = asc
 ) {
-  result: proposals(
+  proposals: proposals(
     where: $where
     skip: $skip
     first: $first
@@ -17,7 +17,7 @@ query listProposals(
 }
 
 query findProposal($id: ID!) {
-  result: proposal(id: $id) {
+  proposal: proposal(id: $id) {
     ...proposalFields
   }
 }

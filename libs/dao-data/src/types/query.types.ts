@@ -44,7 +44,7 @@ export interface QueryError {
   message: string;
 }
 
-export type transformedMembership = {
+export type TransformedMembership = {
   dao: string;
   name?: string;
   activeProposalCount: number;
@@ -55,3 +55,7 @@ export type transformedMembership = {
   isDelegate: boolean;
   memberAddress: string;
 };
+
+export interface TransformedMembershipsQuery {
+  daos: TransformedMembership[];
+}

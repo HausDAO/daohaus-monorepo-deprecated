@@ -5,8 +5,7 @@ import {
   QueryResult,
   CrossNetworkQueryArguments,
   Ordering,
-  resolvedMembership,
-  resovledMembershipsQuery,
+  TransformedMembershipsQuery,
 } from './types';
 import { INVALID_NETWORK_ERROR } from './utils';
 import { graphFetch } from './utils/requests';
@@ -50,8 +49,7 @@ import {
   FindLatestTxQuery,
   FindLatestTxQueryVariables,
 } from './subgraph/queries/transactions.generated';
-import { ethers } from 'ethers';
-import { resolveMembershipList } from './utils/resolvers';
+import { transformMembershipList } from './utils/transformers';
 
 export default class Query {
   private _endpoints: KeychainList;
@@ -251,7 +249,7 @@ export default class Query {
     memberAddress,
     networkIds,
   }: CrossNetworkQueryArguments): Promise<
-    QueryResult<resovledMembershipsQuery>
+    QueryResult<TransformedMembershipsQuery>
   > {
     const promises: Promise<QueryResult<ListMembershipsQuery>>[] = [];
     const filter = { memberAddress: memberAddress };
@@ -281,6 +279,6 @@ export default class Query {
 
     const memberData = await Promise.all(promises);
 
-    return { data: { daos: resolveMembershipList(memberData) } };
+    return { data: { daos: transformMembershipList(memberData) } };
   }
 }

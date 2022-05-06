@@ -5,6 +5,7 @@ import {
   QueryResult,
   CrossNetworkQueryArguments,
   Ordering,
+  TransformedMembershipsQuery,
 } from './types';
 import { INVALID_NETWORK_ERROR } from './utils';
 import { graphFetch } from './utils/requests';
@@ -48,6 +49,7 @@ import {
   FindLatestTxQuery,
   FindLatestTxQueryVariables,
 } from './subgraph/queries/transactions.generated';
+import { transformMembershipList } from './utils/transformers';
 
 export default class Query {
   private _endpoints: KeychainList;
@@ -243,12 +245,12 @@ export default class Query {
   /**
    * Queries scoped to user address
    */
-
-  // TODO: some better error handling when doing the url check
   public async listDaosByMember({
     memberAddress,
     networkIds,
-  }: CrossNetworkQueryArguments): Promise<QueryResult<ListMembershipsQuery>[]> {
+  }: CrossNetworkQueryArguments): Promise<
+    QueryResult<TransformedMembershipsQuery>
+  > {
     const promises: Promise<QueryResult<ListMembershipsQuery>>[] = [];
     const filter = { memberAddress: memberAddress };
     const ordering: Ordering<Member_OrderBy> = {
@@ -275,6 +277,8 @@ export default class Query {
       }
     });
 
-    return Promise.all(promises);
+    const memberData = await Promise.all(promises);
+
+    return { data: { daos: transformMembershipList(memberData) } };
   }
 }

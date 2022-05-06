@@ -39,13 +39,18 @@ query listMemberships(
     ...memberFields
     dao {
       id
+      totalShares
       metaData {
         name
       }
-      proposals {
-        id
-      }
-      members {
+      activeMemberCount
+      proposalCount
+      activeProposals: proposals(
+        first: 101
+        orderBy: createdAt
+        orderDirection: desc
+        where: { cancelled: false, processed: false, actionFailed: false }
+      ) {
         id
       }
     }

@@ -28,6 +28,14 @@ export interface Block_Height {
 export interface Dao_Filter {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  activeMemberCount?: InputMaybe<Scalars['BigInt']>;
+  activeMemberCount_gt?: InputMaybe<Scalars['BigInt']>;
+  activeMemberCount_gte?: InputMaybe<Scalars['BigInt']>;
+  activeMemberCount_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  activeMemberCount_lt?: InputMaybe<Scalars['BigInt']>;
+  activeMemberCount_lte?: InputMaybe<Scalars['BigInt']>;
+  activeMemberCount_not?: InputMaybe<Scalars['BigInt']>;
+  activeMemberCount_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   createdAt?: InputMaybe<Scalars['String']>;
   createdAt_contains?: InputMaybe<Scalars['String']>;
   createdAt_contains_nocase?: InputMaybe<Scalars['String']>;
@@ -90,6 +98,14 @@ export interface Dao_Filter {
   minRetentionPercent_lte?: InputMaybe<Scalars['BigInt']>;
   minRetentionPercent_not?: InputMaybe<Scalars['BigInt']>;
   minRetentionPercent_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  proposalCount?: InputMaybe<Scalars['BigInt']>;
+  proposalCount_gt?: InputMaybe<Scalars['BigInt']>;
+  proposalCount_gte?: InputMaybe<Scalars['BigInt']>;
+  proposalCount_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  proposalCount_lt?: InputMaybe<Scalars['BigInt']>;
+  proposalCount_lte?: InputMaybe<Scalars['BigInt']>;
+  proposalCount_not?: InputMaybe<Scalars['BigInt']>;
+  proposalCount_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   proposalOffering?: InputMaybe<Scalars['BigInt']>;
   proposalOffering_gt?: InputMaybe<Scalars['BigInt']>;
   proposalOffering_gte?: InputMaybe<Scalars['BigInt']>;
@@ -197,6 +213,7 @@ export interface Dao_Filter {
 }
 
 export type Dao_OrderBy =
+  | 'activeMemberCount'
   | 'createdAt'
   | 'eventTransactions'
   | 'gracePeriod'
@@ -207,6 +224,7 @@ export type Dao_OrderBy =
   | 'members'
   | 'metaData'
   | 'minRetentionPercent'
+  | 'proposalCount'
   | 'proposalOffering'
   | 'proposals'
   | 'quorumPercent'

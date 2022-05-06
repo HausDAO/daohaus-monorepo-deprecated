@@ -18,9 +18,7 @@ export interface GenericQueryArguments {
 }
 
 export interface CrossNetworkQueryArguments {
-  // networkIds: string[];
   networkIds: Array<keyof Keychain>;
-
   memberAddress: string;
 }
 
@@ -45,3 +43,15 @@ export interface QueryResult<Data = any> {
 export interface QueryError {
   message: string;
 }
+
+export type transformedMembership = {
+  dao: string;
+  name?: string;
+  activeProposalCount: number;
+  activeMemberCount: string;
+  votingPower: number;
+  networkId?: keyof Keychain;
+  delegate?: string;
+  isDelegate: boolean;
+  memberAddress: string;
+};

@@ -1,3 +1,2 @@
-export * from './general';
-export * from './profile';
-export * from './resolvers';
+export * from './query.types';
+export * from './profile.types';

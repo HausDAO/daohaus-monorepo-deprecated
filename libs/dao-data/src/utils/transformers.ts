@@ -1,23 +1,23 @@
-import { ethers } from 'ethers';
-import { QueryResult, resolvedMembership } from '..';
+import { votingPowerPercentage } from '@daohaus/common-utilities';
+import { QueryResult, transformedMembership } from '..';
 import { ListMembershipsQuery } from '../subgraph/queries/members.generated';
 
-export const resolveMembershipList = (
+export const transformMembershipList = (
   memberships: QueryResult<ListMembershipsQuery>[]
-): resolvedMembership[] => {
-  return memberships.reduce((list: resolvedMembership[], network) => {
+): transformedMembership[] => {
+  return memberships.reduce((list: transformedMembership[], network) => {
     if (network?.data?.members) {
-      const daos: resolvedMembership[] = network?.data?.members.map(
+      const daos: transformedMembership[] = network?.data?.members.map(
         (member) => {
           return {
             dao: member.dao.id,
             name: member.dao.metaData?.name,
             activeProposalCount: member.dao.activeProposals?.length || 0,
             activeMemberCount: member.dao.activeMemberCount,
-            votingPower:
-              (Number(ethers.utils.formatEther(member.shares)) /
-                Number(ethers.utils.formatEther(member.dao.totalShares))) *
-              100,
+            votingPower: votingPowerPercentage(
+              member.dao.totalShares,
+              member.shares
+            ),
             networkId: network.networkId,
             delegate:
               member.delegatingTo !== member.memberAddress

@@ -24,7 +24,7 @@ type Ref =
   | null
   | undefined;
 
-const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
+export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
   const {
     secondary,
     sm,
@@ -52,8 +52,8 @@ const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
     return (
       <ButtonBase {...props} className={classes} ref={ref}>
         <WithIcon>
-          <Icon className={iconClasses} />
           {children}
+          <Icon className={iconClasses} />
         </WithIcon>
       </ButtonBase>
     );
@@ -64,4 +64,3 @@ const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
     </ButtonBase>
   );
 });
-export default Button;

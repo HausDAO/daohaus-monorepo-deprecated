@@ -26,18 +26,20 @@ type DropdownProps = {
   spacing?: string;
   width?: string;
   align?: 'start' | 'center' | 'end' | undefined;
+  className?: string;
 };
 // TODO aria
-const Dropdown = ({
+export const Dropdown = ({
   trigger,
   items,
+  className,
   bg = 'black',
   spacing = '0',
   align = 'start',
   width = '25rem',
 }: DropdownProps) => {
   return (
-    <DropdownContainer width={width}>
+    <DropdownContainer className={className} width={width}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
         <DropdownContentFactory
@@ -51,8 +53,6 @@ const Dropdown = ({
     </DropdownContainer>
   );
 };
-
-export default Dropdown;
 
 const DropdownContentFactory = ({
   items,

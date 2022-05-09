@@ -1,7 +1,6 @@
 import { HausThemeContext } from '@daohaus/ui';
 import { useContext } from 'react';
-import { DaohausConnect } from '@daohaus/daohaus-connect-feature';
-console.log(DaohausConnect);
+
 export function App() {
   const { toggleLightDark } = useContext(HausThemeContext);
 

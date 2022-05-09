@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'daohaus-connect',
+  displayName: 'daohaus-connect-feature',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {

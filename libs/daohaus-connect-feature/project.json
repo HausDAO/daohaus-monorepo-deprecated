@@ -1,6 +1,6 @@
 {
-  "root": "libs/daohaus-connect",
-  "sourceRoot": "libs/daohaus-connect/src",
+  "root": "libs/daohaus-connect-feature",
+  "sourceRoot": "libs/daohaus-connect-feature/src",
   "projectType": "library",
   "tags": [],
   "targets": {
@@ -8,7 +8,7 @@
       "executor": "@nxext/vite:package",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/daohaus-connect",
+        "outputPath": "dist/libs/daohaus-connect-feature",
         "configFile": "@nxext/vite/plugins/vite-package",
         "frameworkConfigFile": "@nxext/react/plugins/vite",
         "entryFile": "src/index.ts"
@@ -18,14 +18,16 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/daohaus-connect/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "libs/daohaus-connect-feature/**/*.{ts,tsx,js,jsx}"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/daohaus-connect"],
+      "outputs": ["coverage/libs/daohaus-connect-feature"],
       "options": {
-        "jestConfig": "libs/daohaus-connect/jest.config.js",
+        "jestConfig": "libs/daohaus-connect-feature/jest.config.js",
         "passWithNoTests": true
       }
     }

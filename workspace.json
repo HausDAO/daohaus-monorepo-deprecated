@@ -4,7 +4,7 @@
     "abi-utilities": "libs/abi-utilities",
     "common-utilities": "libs/common-utilities",
     "dao-data": "libs/dao-data",
-    "daohaus-connect": "libs/daohaus-connect",
+    "daohaus-connect-feature": "libs/daohaus-connect-feature",
     "hub-app": "apps/hub-app",
     "summon-app": "apps/summon-app",
     "ui": "libs/ui"

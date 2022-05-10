@@ -3346,6 +3346,17 @@
     "@babel/runtime" "^7.13.10"
     "@radix-ui/react-primitive" "0.1.4"
 
+"@radix-ui/react-avatar@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-avatar/-/react-avatar-0.1.4.tgz#36210e629e0eecde44027195c82d2a4101cbd7e9"
+  integrity sha512-RTs3KQTToVKJHHsn/E+vC2MyP0LnA6uMdcD7thwaCJEbI6NAvf56Y+RNJPSsGXz1o2LkD7Iy5SogsrzBwXQk6A==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@radix-ui/react-context" "0.1.1"
+    "@radix-ui/react-primitive" "0.1.4"
+    "@radix-ui/react-use-callback-ref" "0.1.0"
+    "@radix-ui/react-use-layout-effect" "0.1.0"
+
 "@radix-ui/react-collection@0.1.4":
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-collection/-/react-collection-0.1.4.tgz#734061ffd5bb93e88889d49b87391a73a63824c9"
@@ -9256,7 +9267,7 @@ enhanced-resolve@^4.5.0:
     memory-fs "^0.5.0"
     tapable "^1.0.0"
 
-enhanced-resolve@^5.0.0, enhanced-resolve@^5.7.0, enhanced-resolve@^5.8.2, enhanced-resolve@^5.8.3, enhanced-resolve@^5.9.2:
+enhanced-resolve@^5.0.0, enhanced-resolve@^5.7.0, enhanced-resolve@^5.8.3, enhanced-resolve@^5.9.2:
   version "5.9.3"
   resolved "https://registry.yarnpkg.com/enhanced-resolve/-/enhanced-resolve-5.9.3.tgz#44a342c012cbc473254af5cc6ae20ebd0aae5d88"
   integrity sha512-Bq9VSor+kjvW3f9/MiiR4eE3XYgOl7/rS8lnSxbRbF3kS0B2r+Y9w5krBWxZgDxASVZbdYrn5wT4j/Wb0J9qow==
@@ -12681,13 +12692,6 @@ jest-resolve@^27.2.2, jest-resolve@^27.5.1:
     resolve "^1.20.0"
     resolve.exports "^1.1.0"
     slash "^3.0.0"
-
-jest-resolver-enhanced@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/jest-resolver-enhanced/-/jest-resolver-enhanced-1.0.1.tgz#c3ac121675d62ea3ce9bef0bb936123f839c43d3"
-  integrity sha512-/lHVgdf+VYeFw+s8e09PJ83UdlJ1wb+D7ppFvh1sva3fdhHgLX+iMfVjMDHeN1HvHuauTkLOx3GI7bUnGppl5Q==
-  dependencies:
-    enhanced-resolve "^5.8.2"
 
 jest-runner@^27.2.2, jest-runner@^27.5.1:
   version "27.5.1"

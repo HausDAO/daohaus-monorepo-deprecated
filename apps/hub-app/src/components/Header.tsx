@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button, Dropdown, ParMd } from '@daohaus/ui';
-import { BiChevronDown } from 'react-icons/bi';
+import { BiCommand, BiChevronDown } from 'react-icons/bi';
+import { crimsonDarkA, crimsonDark } from '@radix-ui/colors';
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -9,6 +10,11 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   grid-area: header;
   width: 100%;
+  background: ${crimsonDark.crimson2};
+`;
+
+const StyledParMd = styled(ParMd)`
+  max-width: 15rem;
 `;
 
 // 1. logo dropdown with app navigation
@@ -17,19 +23,67 @@ const HeaderContainer = styled.div`
 // 3. profile component
 // 4. Daos, proposal, people menu bar
 
+const StyledButton = styled(Button)`
+  background-color: ${crimsonDarkA.crimsonA3};
+  color: white;
+  border-radius: 0.4rem;
+  border: none;
+  width: 100%;
+  hover {
+    background-color: ${crimsonDarkA.crimsonA5};
+    color: white;
+    border: none;
+  }
+  :focus {
+    background-color: ${crimsonDarkA.crimsonA5};
+    color: white;
+    border: none;
+  }
+  :active {
+    background-color: ${crimsonDarkA.crimsonA5};
+    color: white;
+    border: none;
+  }
+  :disabled {
+    background-color: ${crimsonDarkA.crimsonA1};
+    color: white;
+    border: none;
+  }
+`;
+
+const StyledChevron = styled(BiChevronDown)`
+  fill: ${crimsonDark.crimson9};
+  :hover {
+    fill: ${crimsonDark.crimson9};
+  }
+`;
+
+const StyledCommand = styled(BiCommand)`
+  fill: ${crimsonDark.crimson9};
+  :hover {
+    fill: ${crimsonDark.crimson9};
+  }
+`;
+
 const Header = () => {
   return (
     <HeaderContainer>
       <Dropdown
-        trigger={<Button icon={BiChevronDown}>Hub</Button>}
+        trigger={
+          <StyledButton icon={StyledChevron}>
+            <StyledCommand />
+            Hub
+          </StyledButton>
+        }
         items={[
           {
             type: 'clickable',
-            content: <ParMd>Summon</ParMd>,
+            content: <StyledParMd>Summon</StyledParMd>,
           },
         ]}
+        width="18rem"
       />
-      <Button icon={BiChevronDown}>Connect</Button>
+      <Button icon={BiChevronDown}>Placeholder</Button>
     </HeaderContainer>
   );
 };

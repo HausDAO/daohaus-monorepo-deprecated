@@ -35,6 +35,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
     leftAlign,
     icon,
     avatar,
+    className,
   } = props;
   const classes = classNames({
     secondary,
@@ -50,7 +51,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
     const Icon = icon;
     const iconClasses = classNames({ secondary, tertiary, sm, lg });
     return (
-      <ButtonBase {...props} className={classes} ref={ref}>
+      <ButtonBase {...props} className={`${classes} ${className}`} ref={ref}>
         <WithIcon>
           {children}
           <Icon className={iconClasses} />

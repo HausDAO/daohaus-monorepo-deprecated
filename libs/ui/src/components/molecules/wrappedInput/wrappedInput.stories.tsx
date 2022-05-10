@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import WrappedInput from './wrappedInput';
+import { WrappedInput } from './wrappedInput';
 import { useFormContext } from 'react-hook-form';
 import { H3 } from '../../atoms/typography';
 

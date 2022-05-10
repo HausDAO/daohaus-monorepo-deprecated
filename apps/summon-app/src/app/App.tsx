@@ -1,4 +1,4 @@
-import { HausThemeContext } from '@daohaus/ui';
+import { Button, HausThemeContext } from '@daohaus/ui';
 import { useContext } from 'react';
 
 export function App() {
@@ -7,7 +7,7 @@ export function App() {
   return (
     <>
       <h1>test</h1>
-      <button onClick={toggleLightDark}>Toggle Theme</button>
+      <Button onClick={toggleLightDark}>Toggle Theme</Button>
     </>
   );
 }

@@ -59,3 +59,26 @@ export type TransformedMembership = {
 export interface TransformedMembershipsQuery {
   daos: TransformedMembership[];
 }
+
+export type TokenInfo = {
+  decimals: number;
+  symbol: string;
+  name: string;
+  logoUri: string | null;
+};
+
+export type TokenBalance = {
+  token: TokenInfo | null;
+  tokenAddress: string | null;
+  balance: string;
+  ethValue: string;
+  timestamp: string;
+  fiatBalance: string;
+  fiatConversion: string;
+  fiatCode: string;
+};
+
+export interface DaoTokenBalances {
+  fiatTotal: number;
+  tokenBalances: TokenBalance[];
+}

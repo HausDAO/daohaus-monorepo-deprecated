@@ -6,8 +6,11 @@ import {
   CrossNetworkQueryArguments,
   Ordering,
   TransformedMembershipsQuery,
+  DaoTokenBalances,
+  TokenBalance,
 } from './types';
 import { INVALID_NETWORK_ERROR } from './utils';
+import * as fetch from './utils';
 import { graphFetch } from './utils/requests';
 import {
   FindMemberDocument,
@@ -50,6 +53,7 @@ import {
   FindLatestTxQueryVariables,
 } from './subgraph/queries/transactions.generated';
 import { transformMembershipList } from './utils/transformers';
+import { ethers } from 'ethers';
 
 export default class Query {
   private _endpoints: KeychainList;
@@ -280,5 +284,40 @@ export default class Query {
     const memberData = await Promise.all(promises);
 
     return { data: { daos: transformMembershipList(memberData) } };
+  }
+
+  /**
+   * Token queries
+   */
+
+  public async listTokenBalances({
+    networkId,
+    safeAddress,
+  }: {
+    networkId: keyof Keychain;
+    safeAddress: string;
+  }): Promise<QueryResult<DaoTokenBalances>> {
+    const url = this._endpoints['GNOSIS_API'][networkId];
+    if (!url) {
+      return { error: INVALID_NETWORK_ERROR };
+    }
+
+    try {
+      const res = await fetch.get<TokenBalance[]>(
+        `${url}/safes/${ethers.utils.getAddress(safeAddress)}/balances/usd`
+      );
+
+      const fiatTotal = res.reduce(
+        (sum: number, balance: TokenBalance): number => {
+          sum += Number(balance.fiatBalance);
+          return sum;
+        },
+        0
+      );
+
+      return { data: { tokenBalances: res, fiatTotal } };
+    } catch (err) {
+      return { error: { message: 'request error' } };
+    }
   }
 }

@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Theme } from '../../../types/theming';
 import styled from 'styled-components';
-import FieldWrapper from './fieldWrapper';
+import { FieldWrapper } from './fieldWrapper';
 import { field } from '../../../theme';
 import { border } from '../../../theme/global/border';
 import { ParXs } from '../../atoms/typography';
@@ -33,6 +33,7 @@ FieldWrapperComponent.args = {
   required: true,
   info: 'Cooltip text',
 };
+
 export const HelperTextPriority = Template.bind({});
 HelperTextPriority.args = {
   children: (

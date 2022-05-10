@@ -15,7 +15,7 @@ export type TooltipProps = {
   delay?: number;
 };
 
-const Tooltip = ({
+export const Tooltip = ({
   content = 'Content goes here',
   side = 'right',
   triggerEl = <SmTooltipIcon />,
@@ -34,5 +34,3 @@ const Tooltip = ({
     </TooltipProvider>
   );
 };
-
-export default Tooltip;

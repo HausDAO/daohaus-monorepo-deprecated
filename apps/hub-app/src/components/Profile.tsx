@@ -27,8 +27,6 @@ const NameContainer = styled.div`
   align-items: center;
 `;
 
-// TODO: Add ENS profile link
-// What is ENS testnet link
 const Profile = () => {
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();

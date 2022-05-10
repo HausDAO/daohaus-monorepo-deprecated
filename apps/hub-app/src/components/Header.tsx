@@ -17,12 +17,6 @@ const StyledParMd = styled(ParMd)`
   max-width: 15rem;
 `;
 
-// 1. logo dropdown with app navigation
-// 2. connect wallet dropdown stub
-//
-// 3. profile component
-// 4. Daos, proposal, people menu bar
-
 const StyledButton = styled(Button)`
   background-color: ${crimsonDarkA.crimsonA3};
   color: white;

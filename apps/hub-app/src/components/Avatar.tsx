@@ -8,25 +8,6 @@ type Props = {
   delay?: number;
 };
 
-// const RECOMMENDED_CSS__AVATAR__ROOT: any = {
-//   // ensures image/fallback is centered
-//   display: 'inline-flex',
-//   alignItems: 'center',
-//   justifyContent: 'center',
-//   verticalAlign: 'middle',
-//   // ensures image doesn't bleed out
-//   overflow: 'hidden',
-//   // ensures no selection is possible
-//   userSelect: 'none',
-// };
-//
-// const rootClass = css({
-//   ...RECOMMENDED_CSS__AVATAR__ROOT,
-//   borderRadius: 9999,
-//   width: 48,
-//   height: 48,
-// });
-
 const AvatarRoot = styled(RadixAvatar.Root)`
   display: inline-flex;
   align-items: center;

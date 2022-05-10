@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import Input from './input';
+import { Input } from './input';
 import { BsSearch } from 'react-icons/bs';
 
 export default {

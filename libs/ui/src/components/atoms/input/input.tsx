@@ -37,5 +37,3 @@ export const Input = React.forwardRef((props: InputProps, ref: Ref) => {
 
   return <BaseInput {...props} className={inputClasses} ref={ref} />;
 });
-
-export default Input;

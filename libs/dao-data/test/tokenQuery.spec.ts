@@ -25,4 +25,4 @@ describe('haus', () => {
     expect(res?.data?.tokenBalances.length).toBeGreaterThan(0);
     expect(res?.data?.fiatTotal).toBe(0);
   });
-
+});

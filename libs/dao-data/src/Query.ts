@@ -263,7 +263,7 @@ export default class Query {
       orderDirection: 'desc',
     };
 
-    networkIds.forEach((networkId) => {
+    networkIds.forEach((networkId: keyof Keychain) => {
       const url = this._endpoints['V3_SUBGRAPH'][networkId];
 
       if (url) {

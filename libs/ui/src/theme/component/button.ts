@@ -19,7 +19,7 @@ export const PrimaryDarkButton: ButtonColorTargets = {
   disabledBorder: amberDark.amber8,
 };
 export const SecondaryDarkButton: ButtonColorTargets = {
-  bg: indigoDark.indigo4,
+  bg: indigoDark.indigo3,
   text: indigoDark.indigo12,
   border: indigoDark.indigo4,
   hoverBg: indigoDark.indigo6,

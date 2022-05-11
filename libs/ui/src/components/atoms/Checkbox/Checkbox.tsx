@@ -1,14 +1,9 @@
-import React, { RefObject } from 'react';
+import React, { RefObject, useState } from 'react';
 import classNames from 'classnames';
-import { IconType } from 'react-icons';
 import { BiCheck } from 'react-icons/bi';
 
-import {
-  StyledCheckbox,
-  StyledIndicator,
-  Container,
-  Label,
-} from './Checkbox.styles';
+import { StyledCheckbox, StyledIndicator, Container } from './Checkbox.styles';
+import ValueLabel from '../ValueLabel/ValueLabel';
 
 type CheckboxProps = {
   children: React.ReactNode;
@@ -16,6 +11,7 @@ type CheckboxProps = {
   secondary?: boolean;
   tertiary?: boolean;
   disabled?: boolean;
+  defaultChecked?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
@@ -26,7 +22,9 @@ type Ref =
   | undefined;
 
 const Checkbox = React.forwardRef((props: CheckboxProps, ref: Ref) => {
-  const { secondary, tertiary, disabled, children } = props;
+  const [isChecked, setIsChecked] = useState(false);
+  const { secondary, tertiary, disabled, required, defaultChecked, children } =
+    props;
   const classes = classNames({
     secondary,
     tertiary,
@@ -35,12 +33,18 @@ const Checkbox = React.forwardRef((props: CheckboxProps, ref: Ref) => {
 
   return (
     <Container>
-      <StyledCheckbox {...props} className={classes}>
+      <StyledCheckbox
+        {...props}
+        checked={isChecked}
+        onClick={() => setIsChecked(!isChecked)}
+        className={classes}
+        id={'2'}
+      >
         <StyledIndicator className={classes}>
           <BiCheck />
         </StyledIndicator>
       </StyledCheckbox>
-      <Label>Place holder text</Label>
+      <ValueLabel id={'2'}>Place holder text</ValueLabel>
     </Container>
   );
 });

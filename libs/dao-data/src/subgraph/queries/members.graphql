@@ -1,11 +1,11 @@
 query listMembers(
   $where: Member_filter! = {}
   $skip: Int! = 0
-  $first: Int! = 10
+  $first: Int! = 100
   $orderBy: Member_orderBy! = id
   $orderDirection: OrderDirection! = asc
 ) {
-  result: members(
+  members: members(
     where: $where
     skip: $skip
     first: $first
@@ -17,8 +17,43 @@ query listMembers(
 }
 
 query findMember($id: ID!) {
-  result: member(id: $id) {
+  member: member(id: $id) {
     ...memberFields
+  }
+}
+
+query listMemberships(
+  $where: Member_filter! = {}
+  $skip: Int! = 0
+  $first: Int! = 100
+  $orderBy: Member_orderBy! = id
+  $orderDirection: OrderDirection! = asc
+) {
+  members: members(
+    where: $where
+    skip: $skip
+    first: $first
+    orderBy: $orderBy
+    orderDirection: $orderDirection
+  ) {
+    ...memberFields
+    dao {
+      id
+      totalShares
+      metaData {
+        name
+      }
+      activeMemberCount
+      proposalCount
+      activeProposals: proposals(
+        first: 101
+        orderBy: createdAt
+        orderDirection: desc
+        where: { cancelled: false, processed: false, actionFailed: false }
+      ) {
+        id
+      }
+    }
   }
 }
 

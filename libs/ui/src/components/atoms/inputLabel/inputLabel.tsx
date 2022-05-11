@@ -1,4 +1,4 @@
-import Tooltip from '../tooltip/tooltip';
+import { Tooltip } from '../tooltip/tooltip';
 
 import {
   InputLabelContainer,
@@ -13,7 +13,7 @@ export type InputLabelType = {
   children: React.ReactChild;
 };
 
-const InputLabel = ({
+export const InputLabel = ({
   required,
   info,
   children = 'label',
@@ -27,5 +27,3 @@ const InputLabel = ({
     </InputLabelContainer>
   );
 };
-
-export default InputLabel;

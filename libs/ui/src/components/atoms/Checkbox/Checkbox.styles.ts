@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+
+import { font } from '../../../theme/global/font';
 import { Theme } from '../../../types/theming';
 
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
@@ -27,10 +29,9 @@ export const Container = styled.div`
   align-items: center;
 `;
 
-export const Label = styled.label`
-  color: white;
-  margin-left: 19px;
-  font-size: 16px;
-  line-height: 24px;
+export const Value = styled.label`
+  font-family: ${font.family.body};
+  font-weight: ${font.weight.reg};
+  font-size: ${font.size.md};
   user-select: none;
 `;

@@ -3,8 +3,9 @@ import { ButtonBase, WithIcon } from './buttonStyles';
 import classNames from 'classnames';
 import { IconType } from 'react-icons';
 
-type ButtonProps = {
-  children: React.ReactNode;
+export type ButtonProps = {
+  children?: React.ReactNode;
+  className?: string;
   secondary?: boolean;
   sm?: boolean;
   lg?: boolean;
@@ -12,6 +13,7 @@ type ButtonProps = {
   disabled?: boolean;
   fullWidth?: boolean;
   leftAlign?: boolean;
+  avatar?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   icon?: IconType;
 };
@@ -22,25 +24,35 @@ type Ref =
   | null
   | undefined;
 
-const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
-  const { secondary, sm, lg, tertiary, children, fullWidth, leftAlign, icon } =
-    props;
+export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
+  const {
+    secondary,
+    sm,
+    lg,
+    tertiary,
+    children,
+    fullWidth,
+    leftAlign,
+    icon,
+    avatar,
+  } = props;
   const classes = classNames({
     secondary,
     sm,
     lg,
     tertiary,
+    avatar,
     'left-align': leftAlign,
     'full-width': fullWidth,
   });
 
   if (icon) {
     const Icon = icon;
-    const iconClasses = classNames({ secondary, tertiary });
+    const iconClasses = classNames({ secondary, tertiary, sm, lg });
     return (
       <ButtonBase {...props} className={classes} ref={ref}>
         <WithIcon>
-          <Icon size="2.1rem" className={iconClasses} />
+          <Icon className={iconClasses} />
           {children}
         </WithIcon>
       </ButtonBase>
@@ -52,4 +64,3 @@ const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
     </ButtonBase>
   );
 });
-export default Button;

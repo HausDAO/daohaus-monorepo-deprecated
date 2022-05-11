@@ -1,4 +1,5 @@
 import {
+  DropdownContainer,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -18,44 +19,53 @@ export type DropdownItem = {
   type: keyof typeof DropdownContentOptions;
   content: React.ReactNode;
 };
-
 type DropdownProps = {
   trigger: React.ReactNode;
   items: DropdownItem[];
-  bg: string;
-  spacing: string;
+  bg?: string;
+  spacing?: string;
+  width?: string;
+  align?: 'start' | 'center' | 'end' | undefined;
 };
 // TODO aria
-const Dropdown = ({ trigger, items, bg, spacing = '0' }: DropdownProps) => {
-  const theme = useTheme();
-
+export const Dropdown = ({
+  trigger,
+  items,
+  bg = 'black',
+  spacing = '0',
+  align = 'start',
+  width = '25rem',
+}: DropdownProps) => {
   return (
-    <div>
+    <DropdownContainer width={width}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
         <DropdownContentFactory
-          bg={bg || theme.dropdown.bg}
-          spacing={spacing}
           items={items}
+          bg={bg}
+          spacing={spacing}
+          align={align}
+          width={width}
         />
       </DropdownMenu>
-    </div>
+    </DropdownContainer>
   );
 };
 
-export default Dropdown;
-
 const DropdownContentFactory = ({
-  bg,
-  spacing,
   items,
-}: {
-  bg: string;
-  spacing: string;
-  items: DropdownItem[];
-}) => {
+  spacing,
+  bg,
+  align,
+  width,
+}: Omit<DropdownProps, 'trigger'>) => {
+  const theme = useTheme();
   return (
-    <DropdownMenuContent bg={bg}>
+    <DropdownMenuContent
+      bg={bg || theme.dropdown.bg}
+      align={align}
+      width={width}
+    >
       {items?.map((item) => {
         if (item.type === 'clickable') {
           return (

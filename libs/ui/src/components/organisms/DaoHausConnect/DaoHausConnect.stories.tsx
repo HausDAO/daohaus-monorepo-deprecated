@@ -1,11 +1,11 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { BiError } from 'react-icons/bi';
 import { RiUserAddLine } from 'react-icons/ri';
-import Button, { ButtonProps } from '../../atoms/button/button';
+import { ButtonProps, Button } from '../../atoms/button/button';
 import { Bold, ParMd, ParXs } from '../../atoms/typography';
 import styled from 'styled-components';
 import { violet } from '@radix-ui/colors';
-import Dropdown, { DropdownItem } from '../../atoms/dropdown/dropdown';
+import { DropdownItem, Dropdown } from '../../atoms/dropdown/dropdown';
 
 export default {
   title: 'Recipes/DaoHausConnect',

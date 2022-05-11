@@ -28,7 +28,7 @@ type DropdownProps = {
   align?: 'start' | 'center' | 'end' | undefined;
 };
 // TODO aria
-const Dropdown = ({
+export const Dropdown = ({
   trigger,
   items,
   bg = 'black',
@@ -51,8 +51,6 @@ const Dropdown = ({
     </DropdownContainer>
   );
 };
-
-export default Dropdown;
 
 const DropdownContentFactory = ({
   items,

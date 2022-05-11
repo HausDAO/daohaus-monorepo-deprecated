@@ -1,1 +1,1 @@
-export * from './lib/daohaus-connect';
+export * from './components';

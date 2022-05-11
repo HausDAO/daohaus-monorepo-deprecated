@@ -22,7 +22,7 @@ type AccountProfile = {
   background?: string;
 };
 
-const CERAMIC_NETWORK = process.env.CERAMIC_NETWORK;
+const CERAMIC_NETWORK = process.env?.CERAMIC_NETWORK || '';
 
 export default class Profile {
   client: Core;

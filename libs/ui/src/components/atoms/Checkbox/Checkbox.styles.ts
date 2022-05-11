@@ -12,16 +12,26 @@ export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
   width: 18px;
   height: 18px;
   border-radius: 1px;
-  border: 2px solid #f2cf63;
+  border: 2px solid
+    ${(props) =>
+      props.checked
+        ? props.theme.checkbox.activeBorder
+        : props.theme.checkbox.border};
   display: flex;
   align-items: center;
   justify-content: center;
+  :disabled {
+    border 2px solid ${({ theme }: { theme: Theme }) => theme.disabled}
+  }
 `;
 
 export const StyledIndicator = styled(CheckboxPrimitive.Indicator)`
   padding-top: 3px;
   font-size: 2rem;
-  color: #f2cf63;
+  color: ${({ theme }: { theme: Theme }) => theme.primary};
+  :disabled {
+    color: ${({ theme }: { theme: Theme }) => theme.disabled};
+  }
 `;
 
 export const Container = styled.div`

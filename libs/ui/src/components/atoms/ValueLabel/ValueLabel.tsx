@@ -1,5 +1,3 @@
-import Tooltip from '../tooltip/tooltip';
-
 import {
   ValueLabelContainer,
   Label,
@@ -14,7 +12,7 @@ export type ValueLabelType = {
 
 const ValueLabel = ({ required, children = 'value', id }: ValueLabelType) => {
   return (
-    <ValueLabelContainer htmlFor={id}>
+    <ValueLabelContainer>
       {required && <RequiredAsterisk>*</RequiredAsterisk>}
       <Label htmlFor={id}>{children}</Label>
     </ValueLabelContainer>

@@ -7,27 +7,24 @@ import ValueLabel from '../ValueLabel/ValueLabel';
 
 type CheckboxProps = {
   children: React.ReactNode;
+  id: string;
+  label: string;
   required?: boolean;
-  secondary?: boolean;
-  tertiary?: boolean;
   disabled?: boolean;
   defaultChecked?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 type Ref =
-  | ((instance: HTMLButtonElement | null) => void)
   | RefObject<HTMLButtonElement>
+  | ((instance: HTMLButtonElement | null) => void)
   | null
   | undefined;
 
 const Checkbox = React.forwardRef((props: CheckboxProps, ref: Ref) => {
   const [isChecked, setIsChecked] = useState(false);
-  const { secondary, tertiary, disabled, required, defaultChecked, children } =
-    props;
+  const { id, label, disabled, required, children } = props;
   const classes = classNames({
-    secondary,
-    tertiary,
     disabled,
   });
 
@@ -38,13 +35,15 @@ const Checkbox = React.forwardRef((props: CheckboxProps, ref: Ref) => {
         checked={isChecked}
         onClick={() => setIsChecked(!isChecked)}
         className={classes}
-        id={'2'}
+        id={id}
       >
         <StyledIndicator className={classes}>
           <BiCheck />
         </StyledIndicator>
       </StyledCheckbox>
-      <ValueLabel id={'2'}>Place holder text</ValueLabel>
+      <ValueLabel required={required} id={id}>
+        {label}
+      </ValueLabel>
     </Container>
   );
 });

@@ -14,13 +14,7 @@ export const BaseCheckbox = Template.bind({});
 
 BaseCheckbox.args = {
   children: 'Checkbox',
-  secondary: false,
-  tertiary: false,
+  label: 'Sample Checkbox',
   disabled: false,
-};
-
-export const PrimaryCheckbox = Template.bind({});
-PrimaryCheckbox.args = {
-  children: 'Checkbox',
-  disabled: false,
+  required: true,
 };

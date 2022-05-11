@@ -29,7 +29,7 @@ jobs:
       - name: Lint mono
         run: nx affected:lint --base $BASE
       - name: Test mono
-        run: nx affected:test --base $BASE
+        run: NODE_OPTIONS=--experimental-vm-modules nx affected:test --base $BASE
       - name: Build mono
         run: nx affected:build --base $BASE
       - name: Deploy mono

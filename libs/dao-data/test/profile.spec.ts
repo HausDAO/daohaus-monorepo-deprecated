@@ -22,4 +22,12 @@ describe('haus', () => {
     );
     expect(profile.ens).toBe('samkuhlmann.eth');
   });
+
+  // TODO: Setup profile
+  it('should have a a ceramic profile', async () => {
+    const profile = await haus.profile.get(
+      '0xEAC5F0d4A9a45E1f9FdD0e7e2882e9f60E301156'
+    );
+    expect(profile).toBeTruthy();
+  });
 });

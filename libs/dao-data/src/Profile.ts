@@ -22,13 +22,15 @@ type AccountProfile = {
   background?: string;
 };
 
+const CERAMIC_NETWORK = process.env.CERAMIC_NETWORK;
+
 export default class Profile {
   client: Core;
   providers: Keychain;
 
   constructor(providers: Keychain) {
     this.providers = providers;
-    this.client = new Core({ ceramic: 'testnet-clay' });
+    this.client = new Core({ ceramic: CERAMIC_NETWORK || 'testnet-clay' });
   }
 
   public async get(address: string): Promise<AccountProfile> {

@@ -2,7 +2,7 @@ import { grass } from '@radix-ui/colors';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { BsCheckCircleFill } from 'react-icons/bs';
 import { H1, ParLg } from '../typography';
-import Tooltip from './tooltip';
+import { Tooltip } from './tooltip';
 import { LgTooltipIcon, SmTooltipIcon } from './tooltipTriggers';
 
 export default {

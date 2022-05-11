@@ -1,9 +1,9 @@
 import { useFormContext } from 'react-hook-form';
 import { Field } from '../../../types/formAndField';
 import { Input } from '../../atoms';
-import FieldWrapper from '../inputWrapper/fieldWrapper';
+import { FieldWrapper } from '../inputWrapper/fieldWrapper';
 
-const WrappedInput = (props: Field) => {
+export const WrappedInput = (props: Field) => {
   const { id } = props;
   const { register } = useFormContext();
   return (
@@ -12,5 +12,3 @@ const WrappedInput = (props: Field) => {
     </FieldWrapper>
   );
 };
-
-export default WrappedInput;

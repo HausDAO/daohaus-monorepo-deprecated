@@ -1,22 +1,21 @@
-import { Haus } from '@daohaus/dao-data';
-import { createContext, ReactNode, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 
 type ConnectType = {
   profile: {
     address: string;
-    ens: string;
+    ens: string | null;
   } | null;
 };
 
 export const HausConnectContext = createContext<ConnectType>({ profile: null });
-type ConnectProviderProps = { children: ReactNode; Haus: Haus };
+type ConnectProviderProps = { children: ReactNode };
 
 export const HausConnectProvider = ({
   children,
-  Haus,
+  haus,
 }: ConnectProviderProps) => {
   const [profile, setProfile] = useState(null);
-
+  useEffect(() => {}, []);
   return (
     <HausConnectContext.Provider value={{ profile }}>
       {children}

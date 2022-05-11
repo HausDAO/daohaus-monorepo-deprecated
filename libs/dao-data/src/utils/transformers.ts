@@ -12,6 +12,7 @@ export const transformMembershipList = (
           return {
             dao: member.dao.id,
             name: member.dao.metaData?.name,
+            safeAddress: member.dao.safeAddress,
             activeProposalCount: member.dao.activeProposals?.length || 0,
             activeMemberCount: member.dao.activeMemberCount,
             votingPower: votingPowerPercentage(

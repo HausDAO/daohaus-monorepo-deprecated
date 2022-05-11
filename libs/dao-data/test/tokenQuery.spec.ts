@@ -20,7 +20,9 @@ describe('haus', () => {
       safeAddress,
     });
 
+    console.log('res', res.data?.tokenBalances);
+
     expect(res?.data?.tokenBalances.length).toBeGreaterThan(0);
     expect(res?.data?.fiatTotal).toBe(0);
   });
-});
+

@@ -9,7 +9,6 @@ async function http<T>(path: string, config: RequestInit): Promise<T> {
     throw new HausError({ type: 'REQUEST_ERROR', errorObject: response });
   }
 
-  // may error if there is no body, return empty array
   return response.json().catch(() => ({}));
 }
 

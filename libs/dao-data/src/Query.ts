@@ -252,6 +252,7 @@ export default class Query {
   public async listDaosByMember({
     memberAddress,
     networkIds,
+    includeTokens = false,
   }: CrossNetworkQueryArguments): Promise<
     QueryResult<TransformedMembershipsQuery>
   > {
@@ -282,8 +283,35 @@ export default class Query {
     });
 
     const memberData = await Promise.all(promises);
+    const transformedList = transformMembershipList(memberData);
 
-    return { data: { daos: transformMembershipList(memberData) } };
+    if (includeTokens) {
+      const tokenPromises: Promise<QueryResult<DaoTokenBalances>>[] = [];
+      transformedList.forEach((dao) => {
+        if (dao.networkId) {
+          tokenPromises.push(
+            this.listTokenBalances({
+              networkId: dao.networkId,
+              safeAddress: dao.safeAddress,
+            })
+          );
+        }
+      });
+
+      const tokenData = await Promise.all(tokenPromises);
+
+      const dataWithTokens = transformedList.map((dao) => {
+        return {
+          ...dao,
+          ...tokenData.find(
+            (dataRes) => dataRes.data?.safeAddress === dao.safeAddress
+          )?.data,
+        };
+      });
+      return { data: { daos: dataWithTokens } };
+    } else {
+      return { data: { daos: transformedList } };
+    }
   }
 
   /**
@@ -315,7 +343,7 @@ export default class Query {
         0
       );
 
-      return { data: { tokenBalances: res, fiatTotal } };
+      return { data: { safeAddress, tokenBalances: res, fiatTotal } };
     } catch (err) {
       return { error: { message: 'request error' } };
     }

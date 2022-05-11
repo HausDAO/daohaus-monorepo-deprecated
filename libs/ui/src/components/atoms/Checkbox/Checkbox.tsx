@@ -23,7 +23,7 @@ type Ref =
 
 const Checkbox = React.forwardRef((props: CheckboxProps, ref: Ref) => {
   const [isChecked, setIsChecked] = useState(false);
-  const { id, label, disabled, required, children } = props;
+  const { id, label, disabled, required } = props;
   const classes = classNames({
     disabled,
   });

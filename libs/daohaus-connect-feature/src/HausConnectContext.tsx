@@ -141,7 +141,6 @@ export const HausConnectProvider = ({
   };
 
   const connectWallet = async () => {
-    console.log('fired');
     try {
       setConnecting(true);
       const modal = getModal();

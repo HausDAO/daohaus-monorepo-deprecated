@@ -1,10 +1,9 @@
-type AvaialbleNetwork = '0x1' | '0x4' | '0x2a' | '0x64';
 type NetworkType = {
-  id: AvaialbleNetwork;
+  id: string;
   name: string;
 };
 
-export const networkData: Record<AvaialbleNetwork, NetworkType> = {
+export const networkData: Record<string, NetworkType> = {
   '0x1': {
     id: '0x1',
     name: 'Ethereum',
@@ -22,3 +21,12 @@ export const networkData: Record<AvaialbleNetwork, NetworkType> = {
     name: 'Gnosis Chain',
   },
 };
+
+export const getNetwork = (chainId: string) => {
+  if (!networkData[chainId]) {
+    return null;
+  }
+  return networkData[chainId];
+};
+
+export const getNetworkName = (chainId: string) => getNetwork(chainId)?.name;

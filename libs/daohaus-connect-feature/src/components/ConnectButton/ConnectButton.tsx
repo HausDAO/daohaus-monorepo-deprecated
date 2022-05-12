@@ -1,4 +1,6 @@
+import { getNetworkName } from '@daohaus/common-utilities';
 import { Bold, Button, Dropdown, ParMd, ParXs } from '@daohaus/ui';
+
 import { violet } from '@radix-ui/colors';
 import { RiUserAddLine } from 'react-icons/ri';
 import styled from 'styled-components';
@@ -34,8 +36,9 @@ const UserConnectedDropdown = () => {
           <Container>
             <TemporaryAvatar />
             <div className="interior">
-              <ParMd>Kagahara</ParMd>
-              <ParXs>@Ethereum</ParXs>
+              {/* TODO add redults from getProfile*/}
+              <ParMd>Jord</ParMd>
+              <ParXs>@{chainId && getNetworkName(chainId)}</ParXs>
             </div>
           </Container>
         </Button>
@@ -44,12 +47,16 @@ const UserConnectedDropdown = () => {
         {
           type: 'label',
           content: (
-            <div style={{ padding: '.8rem' }}>
+            <div
+              style={{
+                padding: '.8rem',
+              }}
+            >
               <ParXs style={{ marginBottom: '.5rem' }}>
                 {address && truncateAddress(address)}
               </ParXs>
               <ParXs>
-                Connected to <Bold>{chainId}</Bold>
+                Connected to <Bold>{chainId && getNetworkName(chainId)}</Bold>
               </ParXs>
             </div>
           ),
@@ -79,6 +86,9 @@ const TemporaryAvatar = styled.div`
 const Container = styled.div`
   display: flex;
   align-items: center;
+  p {
+    text-align: left;
+  }
   .interior {
     display: flex;
     flex-direction: column;

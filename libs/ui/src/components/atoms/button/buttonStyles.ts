@@ -3,7 +3,7 @@ import { Theme } from '../../../types/theming';
 import { font } from '../../../theme/global/font';
 
 export const ButtonBase = styled.button`
-  background-color: ${({ theme }: { theme: Theme }) => theme.button.primary.bg};
+  background-color: ${({ theme }) => theme.button.primary.bg};
   border: 0.1rem solid
     ${({ theme }: { theme: Theme }) => theme.button.primary.border};
   color: ${({ theme }: { theme: Theme }) => theme.button.primary.text};

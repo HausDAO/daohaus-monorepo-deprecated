@@ -109,7 +109,6 @@ export const WrongNetworkMobile: ComponentStory<typeof Button> = ({
 };
 
 const Container = styled.div`
-  z-index: 10;
   display: flex;
   align-items: center;
   .interior {

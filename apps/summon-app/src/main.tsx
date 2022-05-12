@@ -7,12 +7,10 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './app/App';
 
-
-
 ReactDOM.render(
   <StrictMode>
     <BrowserRouter>
-      <HausConnectProvider haus={}>
+      <HausConnectProvider >
         <HausThemeProvider>
           <App />
         </HausThemeProvider>

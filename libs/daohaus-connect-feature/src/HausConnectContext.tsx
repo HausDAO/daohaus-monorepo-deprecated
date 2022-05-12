@@ -26,6 +26,7 @@ import {
   web3modalDefaults,
 } from './utils/defaults';
 import { Haus } from '@daohaus/dao-data';
+import { ENDPOINTS } from '@daohaus/common-utilities';
 
 // declare global {
 //   interface Window {
@@ -215,14 +216,16 @@ export const HausConnectProvider = ({
   }, [web3modalOptions]);
 
   useEffect(() => {
-    const getProfile =  async() => {
-      const haus = await Haus.create({'0x1':  })
-      const profile  = await Haus.profile.
+    const getProfile = async () => {
+      const haus = Haus.create(ENDPOINTS.RPC);
+      // typecasting here. If this function is called, then address is string
+      // const profile = await haus.profile.get(address as string);
+      console.log(profile);
+    };
+    if (address) {
+      getProfile();
     }
-    if(address){
-      getProfile()
-    }
-  }, [address, provider])
+  }, [address, provider]);
 
   return (
     <HausConnectContext.Provider

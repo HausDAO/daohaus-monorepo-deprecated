@@ -25,6 +25,7 @@ import {
   SUPPORTED_NETWORKS,
   web3modalDefaults,
 } from './utils/defaults';
+import { Haus } from '@daohaus/dao-data';
 
 // declare global {
 //   interface Window {
@@ -212,6 +213,16 @@ export const HausConnectProvider = ({
 
     loadWallet();
   }, [web3modalOptions]);
+
+  useEffect(() => {
+    const getProfile =  async() => {
+      const haus = await Haus.create({'0x1':  })
+      const profile  = await Haus.profile.
+    }
+    if(address){
+      getProfile()
+    }
+  }, [address, provider])
 
   return (
     <HausConnectContext.Provider

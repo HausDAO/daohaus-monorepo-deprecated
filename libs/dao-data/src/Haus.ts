@@ -1,5 +1,4 @@
 import { Keychain } from '@daohaus/common-utilities';
-import { ConnectNetwork } from '@self.id/web';
 import Profile from './Profile';
 import Query from './Query';
 

@@ -25,6 +25,7 @@ type AccountProfile = {
 
 export default class Profile {
   providers: Keychain;
+  ceramicNode: string;
 
   constructor(providers: Keychain, node?: string) {
     this.providers = providers;

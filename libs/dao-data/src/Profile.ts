@@ -51,7 +51,7 @@ export default class Profile {
     address: string
   ): Promise<BasicProfile> {
     const client = new CeramicClient(
-      CERMIC_NODE || 'https://ceramic-clay.3boxlabs.com'
+      CERAMIC_NODE || 'https://ceramic-clay.3boxlabs.com'
     );
     const link = await Caip10Link.fromAccount(
       client,

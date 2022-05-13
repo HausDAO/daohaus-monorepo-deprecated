@@ -1,8 +1,12 @@
-export type ErrorType = 'SUBGRAPH_ERROR' | 'UNSUPPORTED_NETWORK';
+export type ErrorType =
+  | 'SUBGRAPH_ERROR'
+  | 'UNSUPPORTED_NETWORK'
+  | 'REQUEST_ERROR';
 
 const errorTypeToTitleMap = new Map<ErrorType, string>([
   ['SUBGRAPH_ERROR', 'Subgraph Error'],
   ['UNSUPPORTED_NETWORK', 'Unsupported Network'],
+  ['REQUEST_ERROR', 'Request error'],
 ]);
 
 interface ErrorProps {

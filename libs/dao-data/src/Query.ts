@@ -6,8 +6,11 @@ import {
   CrossNetworkQueryArguments,
   Ordering,
   TransformedMembershipsQuery,
+  DaoTokenBalances,
+  TokenBalance,
 } from './types';
 import { INVALID_NETWORK_ERROR } from './utils';
+import * as fetch from './utils';
 import { graphFetch } from './utils/requests';
 import {
   FindMemberDocument,
@@ -50,6 +53,7 @@ import {
   FindLatestTxQueryVariables,
 } from './subgraph/queries/transactions.generated';
 import { transformMembershipList } from './utils/transformers';
+import { ethers } from 'ethers';
 
 export default class Query {
   private _endpoints: KeychainList;
@@ -248,6 +252,7 @@ export default class Query {
   public async listDaosByMember({
     memberAddress,
     networkIds,
+    includeTokens = false,
   }: CrossNetworkQueryArguments): Promise<
     QueryResult<TransformedMembershipsQuery>
   > {
@@ -258,7 +263,7 @@ export default class Query {
       orderDirection: 'desc',
     };
 
-    networkIds.forEach((networkId) => {
+    networkIds.forEach((networkId: keyof Keychain) => {
       const url = this._endpoints['V3_SUBGRAPH'][networkId];
 
       if (url) {
@@ -278,7 +283,69 @@ export default class Query {
     });
 
     const memberData = await Promise.all(promises);
+    const transformedList = transformMembershipList(memberData);
 
-    return { data: { daos: transformMembershipList(memberData) } };
+    if (includeTokens) {
+      const tokenPromises: Promise<QueryResult<DaoTokenBalances>>[] = [];
+      transformedList.forEach((dao) => {
+        if (dao.networkId) {
+          tokenPromises.push(
+            this.listTokenBalances({
+              networkId: dao.networkId,
+              safeAddress: dao.safeAddress,
+            })
+          );
+        }
+      });
+
+      const tokenData = await Promise.all(tokenPromises);
+
+      const dataWithTokens = transformedList.map((dao) => {
+        return {
+          ...dao,
+          ...tokenData.find(
+            (dataRes) => dataRes.data?.safeAddress === dao.safeAddress
+          )?.data,
+        };
+      });
+      return { data: { daos: dataWithTokens } };
+    } else {
+      return { data: { daos: transformedList } };
+    }
+  }
+
+  /**
+   * Token queries
+   */
+
+  public async listTokenBalances({
+    networkId,
+    safeAddress,
+  }: {
+    networkId: keyof Keychain;
+    safeAddress: string;
+  }): Promise<QueryResult<DaoTokenBalances>> {
+    const url = this._endpoints['GNOSIS_API'][networkId];
+    if (!url) {
+      return { error: INVALID_NETWORK_ERROR };
+    }
+
+    try {
+      const res = await fetch.get<TokenBalance[]>(
+        `${url}/safes/${ethers.utils.getAddress(safeAddress)}/balances/usd`
+      );
+
+      const fiatTotal = res.reduce(
+        (sum: number, balance: TokenBalance): number => {
+          sum += Number(balance.fiatBalance);
+          return sum;
+        },
+        0
+      );
+
+      return { data: { safeAddress, tokenBalances: res, fiatTotal } };
+    } catch (err) {
+      return { error: { message: 'request error' } };
+    }
   }
 }

@@ -51,7 +51,6 @@ const Profile = () => {
       if (!profile) {
         setProfile(profile);
       }
-      console.log(profile);
     } catch (err) {
       console.error(err);
     }

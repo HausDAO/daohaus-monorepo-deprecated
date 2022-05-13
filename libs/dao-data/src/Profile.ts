@@ -23,13 +23,13 @@ type AccountProfile = {
   background?: string;
 };
 
-const CERAMIC_NODE = process.env['CERAMIC_NODE'] || '';
-
 export default class Profile {
   providers: Keychain;
+  ceramicNode: string;
 
-  constructor(providers: Keychain) {
+  constructor(providers: Keychain, node?: string) {
     this.providers = providers;
+    this.ceramicNode = node || '';
   }
 
   public async get(address: string): Promise<AccountProfile> {
@@ -51,7 +51,7 @@ export default class Profile {
     address: string
   ): Promise<BasicProfile> {
     const client = new CeramicClient(
-      CERAMIC_NODE || 'https://ceramic-clay.3boxlabs.com'
+      this.ceramicNode || 'https://ceramic-clay.3boxlabs.com'
     );
     const link = await Caip10Link.fromAccount(
       client,

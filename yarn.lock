@@ -1238,6 +1238,19 @@
     multiformats "^9.5.8"
     uint8arrays "^3.0.0"
 
+"@ceramicnetwork/3id-did-resolver@^2.0.1-rc.4":
+  version "2.0.1-rc.4"
+  resolved "https://registry.yarnpkg.com/@ceramicnetwork/3id-did-resolver/-/3id-did-resolver-2.0.1-rc.4.tgz#dd43316270d181f924f994c84fbc5725ab471f69"
+  integrity sha512-XfeKGcisIT/WQ5PHBfrZaPV3DKeOFKw6wvNI9RzgIPgznegdvbg7dDJ+Bn9DfdYBbkZwdNBePfa6ACe4L00/6Q==
+  dependencies:
+    "@ceramicnetwork/common" "^2.0.1-rc.2"
+    "@ceramicnetwork/stream-tile" "^2.1.0-rc.3"
+    "@ceramicnetwork/streamid" "^2.0.1-rc.1"
+    cross-fetch "^3.1.4"
+    lru_map "^0.4.1"
+    multiformats "^9.5.8"
+    uint8arrays "^3.0.0"
+
 "@ceramicnetwork/blockchain-utils-linking@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@ceramicnetwork/blockchain-utils-linking/-/blockchain-utils-linking-2.0.0.tgz#85a450800161cac735a5fab4ac444bb91582e48d"
@@ -1266,6 +1279,36 @@
     multiformats "^9.5.8"
     rxjs "^7.5.2"
     uint8arrays "^3.0.0"
+
+"@ceramicnetwork/common@^2.0.1-rc.2":
+  version "2.0.1-rc.2"
+  resolved "https://registry.yarnpkg.com/@ceramicnetwork/common/-/common-2.0.1-rc.2.tgz#78961d0990e8a914043eda3dc11cc9e15a51ae22"
+  integrity sha512-LRK33S2ENceRWIyyCE5f5WRVfZmNik/vk/7jo0IQRYYkNQaws/uRBRuijWz5gcVVir75gxy5czCWH6Jvv6Lr+A==
+  dependencies:
+    "@ceramicnetwork/streamid" "^2.0.1-rc.1"
+    abort-controller "^3.0.0"
+    caip "~1.1.0"
+    ceramic-cacao "^1.0.0"
+    cross-fetch "^3.1.4"
+    flat "^5.0.2"
+    jet-logger "^1.1.5"
+    lodash.clonedeep "^4.5.0"
+    logfmt "^1.3.2"
+    multiformats "^9.5.8"
+    rxjs "^7.5.2"
+    uint8arrays "^3.0.0"
+
+"@ceramicnetwork/http-client@2.0.1-rc.4":
+  version "2.0.1-rc.4"
+  resolved "https://registry.yarnpkg.com/@ceramicnetwork/http-client/-/http-client-2.0.1-rc.4.tgz#1b642d54a68713f2843848d0d81e11c2b47f18ee"
+  integrity sha512-qoYvfXF0h6MbKMhKkeEBpsV7uLCFcB7H0WnolTyEZKp6wDOgAjl4HRYcrPCc3Z3QeGALwN8ui2SQsi2wSJf4Rg==
+  dependencies:
+    "@ceramicnetwork/common" "^2.0.1-rc.2"
+    "@ceramicnetwork/stream-caip10-link" "^2.0.1-rc.2"
+    "@ceramicnetwork/stream-tile" "^2.1.0-rc.3"
+    "@ceramicnetwork/streamid" "^2.0.1-rc.1"
+    query-string "^7.1.0"
+    rxjs "^7.5.2"
 
 "@ceramicnetwork/http-client@^2.0.0":
   version "2.0.0"
@@ -1308,6 +1351,16 @@
     "@ceramicnetwork/transport-postmessage" "^0.6.0"
     rpc-utils "^0.6.0"
 
+"@ceramicnetwork/stream-caip10-link@2.0.1-rc.2", "@ceramicnetwork/stream-caip10-link@^2.0.1-rc.2":
+  version "2.0.1-rc.2"
+  resolved "https://registry.yarnpkg.com/@ceramicnetwork/stream-caip10-link/-/stream-caip10-link-2.0.1-rc.2.tgz#28ec90bcd9271116a006d8b1df63d77618c1fa58"
+  integrity sha512-Vg0ojIh3cD8/kfD7cptY1WJwTQXHGq8w/395t0thGvkrVDEx2/f+Tl29WDkhpjhwoFnof8mknUy1d1EKMCaU/A==
+  dependencies:
+    "@ceramicnetwork/common" "^2.0.1-rc.2"
+    "@ceramicnetwork/streamid" "^2.0.1-rc.1"
+    caip "~1.1.0"
+    did-resolver "^3.1.5"
+
 "@ceramicnetwork/stream-caip10-link@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@ceramicnetwork/stream-caip10-link/-/stream-caip10-link-2.0.0.tgz#fb564610754947f7fdfda8f1dab544f7158aeba9"
@@ -1317,6 +1370,18 @@
     "@ceramicnetwork/streamid" "^2.0.0"
     caip "~1.0.0"
     did-resolver "^3.1.5"
+
+"@ceramicnetwork/stream-tile@2.1.0-rc.3", "@ceramicnetwork/stream-tile@^2.1.0-rc.3":
+  version "2.1.0-rc.3"
+  resolved "https://registry.yarnpkg.com/@ceramicnetwork/stream-tile/-/stream-tile-2.1.0-rc.3.tgz#72920ef1322484b933202cdb21e1349669a3bfcc"
+  integrity sha512-78dCsE3yXgFhYK19PLblOLctnx+N6HOb5s0C7uoWu7mFitXXAzao875M4FAnqxfCXd9X70JLzNDtfjrNuY6jNQ==
+  dependencies:
+    "@ceramicnetwork/common" "^2.0.1-rc.2"
+    "@ceramicnetwork/streamid" "^2.0.1-rc.1"
+    "@ipld/dag-cbor" "^7.0.0"
+    "@stablelib/random" "^1.0.1"
+    fast-json-patch "^3.1.0"
+    uint8arrays "^3.0.0"
 
 "@ceramicnetwork/stream-tile@^2.0.0":
   version "2.0.0"
@@ -1334,6 +1399,17 @@
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@ceramicnetwork/streamid/-/streamid-2.0.0.tgz#d111aa213d0b426137986c599726b87383b83632"
   integrity sha512-YPjj2RwqUPDkgyGBvIcw/uJCLFXjQxXV2z9rcYwsGVhs8XE6sOqIvkDBf/jHxxwqpdxe8yTeTtB98eLpVyyp1A==
+  dependencies:
+    "@ipld/dag-cbor" "^7.0.0"
+    multiformats "^9.5.8"
+    typescript-memoize "^1.1.0"
+    uint8arrays "^3.0.0"
+    varint "^6.0.0"
+
+"@ceramicnetwork/streamid@^2.0.1-rc.1":
+  version "2.0.1-rc.1"
+  resolved "https://registry.yarnpkg.com/@ceramicnetwork/streamid/-/streamid-2.0.1-rc.1.tgz#51dc2e506401a9d234484fe0c6ff7bd0407254db"
+  integrity sha512-7ZDkogcx5gfTaH/79dK/aojmRq+15yVYhL0AcUAscS8WQqNtMimlyFii939TIEFdLeJbM0bV+1YyeDrNELeetQ==
   dependencies:
     "@ipld/dag-cbor" "^7.0.0"
     multiformats "^9.5.8"
@@ -2358,7 +2434,7 @@
     jest-util "^27.5.1"
     slash "^3.0.0"
 
-"@jest/core@^27.2.3", "@jest/core@^27.5.1":
+"@jest/core@^27.2.5", "@jest/core@^27.5.1":
   version "27.5.1"
   resolved "https://registry.yarnpkg.com/@jest/core/-/core-27.5.1.tgz#267ac5f704e09dc52de2922cbf3af9edcd64b626"
   integrity sha512-AK6/UTrvQD0Cd24NSqmIA6rKsu0tKIxfiCducZvqxYdmMisOYAsdItspT+fQDQYARPf8XgjAFZi0ogW2agH5nQ==
@@ -7481,7 +7557,7 @@ cachedir@^2.3.0:
   resolved "https://registry.yarnpkg.com/cachedir/-/cachedir-2.3.0.tgz#0c75892a052198f0b21c7c1804d8331edfcae0e8"
   integrity sha512-A+Fezp4zxnit6FanDmv9EqXNAi3vt9DWp51/71UEhXukb7QUuvtv9344h91dyAxuTLoSYJFU299qzR3tzwPAhw==
 
-caip@^1.0.0:
+caip@1.1.0, caip@^1.0.0, caip@~1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/caip/-/caip-1.1.0.tgz#0ccd5bf1bff822459389ccec0a8555712a30c374"
   integrity sha512-yOO3Fu4ygyKYAdznuoaqschMKIZzcdgyMpBNtrIfrUhnOeaOWG+dh0c13wcOS6B/46IGGbncoyzJlio79jU7rw==
@@ -12413,7 +12489,7 @@ jest-circus@^27.2.2, jest-circus@^27.5.1:
     stack-utils "^2.0.3"
     throat "^6.0.1"
 
-jest-cli@^27.2.3:
+jest-cli@^27.2.5:
   version "27.5.1"
   resolved "https://registry.yarnpkg.com/jest-cli/-/jest-cli-27.5.1.tgz#278794a6e6458ea8029547e6c6cbf673bd30b145"
   integrity sha512-Hc6HOOwYq4/74/c62dEE3r5elx8wjYqxY0r0G/nFrLDPMFRu6RA/u8qINOIkvhxG7mMQ5EJsOGfRpI8L6eFUVw==
@@ -12885,14 +12961,14 @@ jest-worker@^27.0.2, jest-worker@^27.2.2, jest-worker@^27.4.5, jest-worker@^27.5
     merge-stream "^2.0.0"
     supports-color "^8.0.0"
 
-jest@27.2.3:
-  version "27.2.3"
-  resolved "https://registry.yarnpkg.com/jest/-/jest-27.2.3.tgz#9c2af9ce874a3eb202f83d92fbc1cc61ccc73248"
-  integrity sha512-r4ggA29J5xUg93DpvbsX+AXlFMWE3hZ5Y6BfgTl8PJvWelVezNPkmrsixuGoDBTHTCwScRSH0O4wsoeUgLie2w==
+jest@27.2.5:
+  version "27.2.5"
+  resolved "https://registry.yarnpkg.com/jest/-/jest-27.2.5.tgz#7d8a5c8781a160f693beeb7c68e46c16ef948148"
+  integrity sha512-vDMzXcpQN4Ycaqu+vO7LX8pZwNNoKMhc+gSp6q1D8S6ftRk8gNW8cni3YFxknP95jxzQo23Lul0BI2FrWgnwYQ==
   dependencies:
-    "@jest/core" "^27.2.3"
+    "@jest/core" "^27.2.5"
     import-local "^3.0.2"
-    jest-cli "^27.2.3"
+    jest-cli "^27.2.5"
 
 jet-logger@^1.1.5:
   version "1.1.5"

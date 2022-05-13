@@ -48,9 +48,13 @@ export const HausThemeProvider = ({
   }, [startDark, defaultDark, defaultLight]);
 
   const toggleLightDark = () => {
-    setTheme((prevState) =>
-      prevState.themeName === defaultDark.themeName ? defaultLight : defaultDark
-    );
+    console.log('fired');
+    setTheme((prevState) => {
+      console.log('prevState', prevState);
+      return prevState.themeName === defaultDark.themeName
+        ? defaultLight
+        : defaultDark;
+    });
   };
   return (
     <HausThemeContext.Provider value={{ theme, setTheme, toggleLightDark }}>

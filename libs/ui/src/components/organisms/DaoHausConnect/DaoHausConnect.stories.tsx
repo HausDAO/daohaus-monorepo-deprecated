@@ -64,6 +64,7 @@ export const ConnectWalletButtonMoblile: ComponentStory<typeof Button> = (
 ) => (
   <Button
     sm
+    iconPos="left"
     icon={RiUserAddLine}
     className="menu-button"
     onClick={() => {

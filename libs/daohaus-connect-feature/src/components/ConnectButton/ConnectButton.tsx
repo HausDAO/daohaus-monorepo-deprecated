@@ -3,7 +3,7 @@ import { Bold, Button, Dropdown, ParMd, ParXs } from '@daohaus/ui';
 
 import { violet } from '@radix-ui/colors';
 import { RiUserAddLine } from 'react-icons/ri';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { useHausConnect } from '../../HausConnectContext';
 import { truncateAddress } from '../../utils/common';
 
@@ -16,6 +16,7 @@ const ConnectWalletButton = () => {
   const { connectWallet } = useHausConnect() || {};
   return (
     <Button
+      iconPos="left"
       icon={RiUserAddLine}
       className="menu-button"
       onClick={connectWallet}
@@ -27,6 +28,7 @@ const ConnectWalletButton = () => {
 
 const UserConnectedDropdown = () => {
   const { disconnect, address, chainId } = useHausConnect();
+  const theme = useTheme();
   return (
     <Dropdown
       spacing="0.7rem"
@@ -37,8 +39,10 @@ const UserConnectedDropdown = () => {
             <TemporaryAvatar />
             <div className="interior">
               {/* TODO add redults from getProfile*/}
-              <ParMd>Jord</ParMd>
-              <ParXs>@{chainId && getNetworkName(chainId)}</ParXs>
+              <ParMd color={theme.button.primary.text}>Jord</ParMd>
+              <ParXs color={theme.button.primary.text}>
+                @{chainId && getNetworkName(chainId)}
+              </ParXs>
             </div>
           </Container>
         </Button>

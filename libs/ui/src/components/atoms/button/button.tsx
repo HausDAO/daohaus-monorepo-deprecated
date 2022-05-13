@@ -48,14 +48,13 @@ export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
     'left-align': leftAlign,
     'full-width': fullWidth,
   });
-
   if (icon) {
     const Icon = icon;
     const iconClasses = classNames({ secondary, tertiary, sm, lg });
     const iconLeft = (
       <>
-        {children}
         <Icon className={iconClasses} />
+        {children}
       </>
     );
     const iconRight = (

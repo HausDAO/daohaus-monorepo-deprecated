@@ -33,7 +33,7 @@ export const Dropdown = ({
   trigger,
   items,
   className,
-  bg = 'black',
+  bg,
   spacing = '0',
   align = 'start',
   width = '25rem',

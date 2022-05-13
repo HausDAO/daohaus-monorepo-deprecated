@@ -217,10 +217,9 @@ export const HausConnectProvider = ({
 
   useEffect(() => {
     const getProfile = async () => {
-      const haus = Haus.create(ENDPOINTS.RPC);
+      // const haus = Haus.create(ENDPOINTS.RPC);
       // typecasting here. If this function is called, then address is string
       // const profile = await haus.profile.get(address as string);
-      console.log(profile);
     };
     if (address) {
       getProfile();

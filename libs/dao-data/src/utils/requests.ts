@@ -1,5 +1,4 @@
-// required polyfill for browser/node fetch and Object.fromEntries
-import 'isomorphic-unfetch';
+import 'cross-fetch/polyfill';
 
 import { TypedDocumentNode } from '@graphql-typed-document-node/core';
 import { DocumentNode } from 'graphql';

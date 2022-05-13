@@ -20,6 +20,7 @@ export interface GenericQueryArguments {
 export interface CrossNetworkQueryArguments {
   networkIds: Array<keyof Keychain>;
   memberAddress: string;
+  includeTokens?: boolean;
 }
 
 export type QueryVariables = {
@@ -47,6 +48,7 @@ export interface QueryError {
 export type TransformedMembership = {
   dao: string;
   name?: string;
+  safeAddress: string;
   activeProposalCount: number;
   activeMemberCount: string;
   votingPower: number;
@@ -54,8 +56,34 @@ export type TransformedMembership = {
   delegate?: string;
   isDelegate: boolean;
   memberAddress: string;
+  fiatTotal?: number;
+  tokenBalances?: TokenBalance[];
 };
 
 export interface TransformedMembershipsQuery {
   daos: TransformedMembership[];
+}
+
+export type TokenInfo = {
+  decimals: number;
+  symbol: string;
+  name: string;
+  logoUri: string | null;
+};
+
+export type TokenBalance = {
+  token: TokenInfo | null;
+  tokenAddress: string | null;
+  balance: string;
+  ethValue: string;
+  timestamp: string;
+  fiatBalance: string;
+  fiatConversion: string;
+  fiatCode: string;
+};
+
+export interface DaoTokenBalances {
+  safeAddress: string;
+  fiatTotal: number;
+  tokenBalances: TokenBalance[];
 }

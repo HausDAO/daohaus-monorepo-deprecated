@@ -18,10 +18,6 @@ class Haus {
     const hausSdk = new Haus(networkConfig);
     return hausSdk;
   }
-
-  public account(network: Keychain, node: string) {
-    return new Profile(network);
-  }
 }
 
 export default Haus;

@@ -1,6 +1,5 @@
 import { utils } from 'ethers';
-
-import { NetworkConfig } from '../HausConnectContext';
+import { NetworkConfig } from './types';
 
 type SwitchError = Error & { code: number };
 const isSwitchError = (err: unknown): err is SwitchError =>

@@ -39,6 +39,7 @@ export const handleSetProvider = async ({
   handleModalEvents,
   setWalletState,
 }: {
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   provider: any;
   networks: NetworkConfig;
   defaultChainId: string;

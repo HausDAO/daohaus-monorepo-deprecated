@@ -12,3 +12,13 @@ export type WalletStateType = {
   address?: string | null | undefined;
 };
 export type ModalOptions = Partial<ICoreOptions>;
+export type NetworkConfig = Record<
+  string,
+  {
+    chainId: string;
+    name: string;
+    symbol: string;
+    explorer: string;
+    rpc: string;
+  }
+>;

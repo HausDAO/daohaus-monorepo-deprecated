@@ -2,12 +2,15 @@ import { utils } from 'ethers';
 
 import { NetworkConfig } from '../HausConnectContext';
 
+type SwitchError = Error & { code: number };
+const isSwitchError = (err: unknown): err is SwitchError =>
+  (err as SwitchError).code !== undefined;
+
 export const switchChainOnMetaMask = async (
   networks: NetworkConfig,
   chainId: string
 ): Promise<boolean> => {
   if (!networks[chainId]) return false;
-
   const { name, symbol } = networks[chainId] || {};
   const networkName = networks[chainId].name;
   const rpcUrl = networks[chainId].rpc;
@@ -28,32 +31,33 @@ export const switchChainOnMetaMask = async (
       ],
     });
     return true;
-  } catch (switchError) {
-    // This error code indicates that the chain has not been added to MetaMask.
-    if ((switchError as any).code === 4902) {
-      try {
-        await window.ethereum.request({
-          method: 'wallet_addEthereumChain',
-          params: [
-            {
-              chainId: utils.hexValue(chainId),
-              chainName: networkName,
-              nativeCurrency: {
-                name,
-                symbol,
-                decimals: 18,
+  } catch (error) {
+    if (isSwitchError(error)) {
+      if (error.code === 4902) {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [
+              {
+                chainId: utils.hexValue(chainId),
+                chainName: networkName,
+                nativeCurrency: {
+                  name,
+                  symbol,
+                  decimals: 18,
+                },
+                rpcUrls: [rpcUrl],
+                blockExplorerUrls: [explorerUrl],
               },
-              rpcUrls: [rpcUrl],
-              blockExplorerUrls: [explorerUrl],
-            },
-          ],
-        });
-        return true;
-      } catch (addError) {
-        console.error('Unable to add chain to metamask', addError);
+            ],
+          });
+          return true;
+        } catch (addError) {
+          console.error('Unable to add chain to metamask', addError);
+        }
       }
     } else {
-      console.error('Unable to switch to chain on metamask', switchError);
+      console.error('Unable to switch to chain on metamask', error);
     }
   }
   return false;

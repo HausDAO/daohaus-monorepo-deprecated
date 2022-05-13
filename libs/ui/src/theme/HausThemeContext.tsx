@@ -1,18 +1,10 @@
-import {
-  createContext,
-  useState,
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  ReactNode,
-} from 'react';
+import { createContext, useState, useEffect, ReactNode } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from './global/globalStyles';
 import { defaultDarkTheme, defaultLightTheme } from './theme';
 import { Theme } from '../types/theming';
 import './global/fonts.css';
-
-type ReactSetter<T> = Dispatch<SetStateAction<T>>;
+import { ReactSetter } from '@daohaus/common-utilities';
 
 type HausUI = {
   theme: Theme;
@@ -42,19 +34,13 @@ export const HausThemeProvider = ({
   const [theme, setTheme] = useState(startDark ? defaultDark : defaultLight);
 
   useEffect(() => {
-    //  handles updates after component mount
-    //  mostly used for storybook theme toggle
     setTheme(startDark ? defaultDark : defaultLight);
   }, [startDark, defaultDark, defaultLight]);
 
   const toggleLightDark = () => {
-    console.log('fired');
-    setTheme((prevState) => {
-      console.log('prevState', prevState);
-      return prevState.themeName === defaultDark.themeName
-        ? defaultLight
-        : defaultDark;
-    });
+    setTheme((prevState) =>
+      prevState.themeName === defaultDark.themeName ? defaultLight : defaultDark
+    );
   };
   return (
     <HausThemeContext.Provider value={{ theme, setTheme, toggleLightDark }}>

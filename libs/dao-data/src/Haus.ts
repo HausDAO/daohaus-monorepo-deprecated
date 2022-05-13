@@ -18,7 +18,7 @@ class Haus {
     return hausSdk;
   }
 
-  public account(network: Keychain, node: string) {
+  public account(network: Keychain) {
     return new Profile(network);
   }
 }

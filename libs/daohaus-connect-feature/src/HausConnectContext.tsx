@@ -8,6 +8,7 @@ import { ICoreOptions } from 'web3modal';
 import {
   createContext,
   ReactNode,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -16,6 +17,7 @@ import {
 import {
   defaultWalletValues,
   getModal,
+  handleSetProvider,
   isMetamaskProvider,
   numberToHex,
 } from './utils/contextHelpers';
@@ -25,16 +27,7 @@ import {
   SUPPORTED_NETWORKS,
   web3modalDefaults,
 } from './utils/defaults';
-import { Haus } from '@daohaus/dao-data';
-import { ENDPOINTS } from '@daohaus/common-utilities';
-
-// declare global {
-//   interface Window {
-//     ethereum: providers.Web3Provider;
-//   }
-// }
-
-type ProviderType = providers.Web3Provider;
+import { ModalEvents, ProviderType, WalletStateType } from './utils/types';
 
 export type WalletContextType = {
   provider: ProviderType | null | undefined;
@@ -47,12 +40,6 @@ export type WalletContextType = {
   isMetamask: boolean;
   networks: NetworkConfig;
   switchNetwork: (chainId: string) => void;
-};
-
-export type WalletStateType = {
-  provider?: providers.Web3Provider | null | undefined;
-  chainId?: string | null | undefined;
-  address?: string | null | undefined;
 };
 
 export type NetworkConfig = Record<
@@ -74,11 +61,7 @@ type ConnectProviderProps = {
   networks?: NetworkConfig;
   defaultChainId?: string;
   children: ReactNode;
-  // see about refactoring this to lifecycle methods once I full understand it
-  handleModalEvents?: (
-    eventName: 'error' | 'accountsChanged' | 'chainChanged',
-    error?: { code: string; message: string }
-  ) => void;
+  handleModalEvents?: ModalEvents;
 };
 
 export const HausConnectProvider = ({
@@ -88,7 +71,7 @@ export const HausConnectProvider = ({
   defaultChainId = MAINNET_ID,
   handleModalEvents,
 }: ConnectProviderProps) => {
-  const [profile, setProfile] = useState(null);
+  // const [profile, setProfile] = useState(null);
   const [isConnecting, setConnecting] = useState(false);
   const [{ provider, chainId, address }, setWalletState] =
     useState<WalletStateType>({});
@@ -98,43 +81,18 @@ export const HausConnectProvider = ({
   );
   const isMetamask = useMemo(() => isMetamaskProvider(provider), [provider]);
 
-  const setWalletProvider = async (provider: any) => {
-    const ethersProvider = new providers.Web3Provider(provider);
-    let chainId: string =
-      typeof provider.chainId === 'number'
-        ? numberToHex(provider.chainId)
-        : provider.chainId;
-
-    if (!networks[chainId]) {
-      if (!defaultChainId) {
-        handleModalEvents &&
-          handleModalEvents('error', {
-            code: 'UNSUPPORTED_NETWORK',
-            message: `Network not supported, please switch to one of the supported networks`,
-          });
-        return;
-      }
-      const success =
-        isMetamaskProvider(ethersProvider) &&
-        (await switchChainOnMetaMask(networks, defaultChainId));
-      if (!success) {
-        handleModalEvents &&
-          handleModalEvents('error', {
-            code: 'UNSUPPORTED_NETWORK',
-            message: `Network not supported, please switch to ${networks[defaultChainId].name}`,
-          });
-        return;
-      }
-      chainId = defaultChainId;
-    }
-
-    const signerAddress = await ethersProvider.getSigner().getAddress();
-    setWalletState({
-      provider: ethersProvider,
-      chainId,
-      address: signerAddress,
-    });
-  };
+  const setWalletProvider = useCallback(
+    async (provider) => {
+      handleSetProvider({
+        provider,
+        networks,
+        defaultChainId,
+        handleModalEvents,
+        setWalletState,
+      });
+    },
+    [handleModalEvents, defaultChainId, networks]
+  );
 
   const disconnect = async () => {
     const modal = getModal();
@@ -142,7 +100,7 @@ export const HausConnectProvider = ({
     setWalletState({});
   };
 
-  const connectWallet = async () => {
+  const connectWallet = useCallback(async () => {
     try {
       setConnecting(true);
       const modal = getModal();
@@ -166,18 +124,16 @@ export const HausConnectProvider = ({
                 message: `You have switched to an unsupported chain, Disconnecting from Metamask...`,
               });
           }
-          // update wallet provider once the chain is changed
           setWalletProvider(modalProvider);
         });
       }
     } catch (web3Error) {
-      // eslint-disable-next-line no-console
       console.error(web3Error);
       disconnect();
     } finally {
       setConnecting(false);
     }
-  };
+  }, [handleModalEvents, networks, setWalletProvider]);
 
   const switchNetwork = async (_chainId: string | number) => {
     const chainId: string =
@@ -193,10 +149,6 @@ export const HausConnectProvider = ({
 
   useEffect(() => {
     const loadWallet = async () => {
-      /**
-       * Only try to connect when metamask is unlocked.
-       * This prevents unnecessary popup on page load.
-       */
       const isMetamaskUnlocked =
         (await window.ethereum?._metamask?.isUnlocked?.()) ?? false;
       const modal = getModal();
@@ -213,7 +165,7 @@ export const HausConnectProvider = ({
     };
 
     loadWallet();
-  }, [web3modalOptions]);
+  }, [web3modalOptions, connectWallet]);
 
   useEffect(() => {
     const getProfile = async () => {

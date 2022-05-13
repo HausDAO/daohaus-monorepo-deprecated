@@ -1,5 +1,6 @@
-import { Core } from '@self.id/core';
 import { Caip10Link } from '@ceramicnetwork/stream-caip10-link';
+import { CeramicClient } from '@ceramicnetwork/http-client';
+import { TileDocument } from '@ceramicnetwork/stream-tile';
 import { ethers } from 'ethers';
 
 import { Keychain } from '@daohaus/common-utilities';
@@ -22,15 +23,13 @@ type AccountProfile = {
   background?: string;
 };
 
-const CERAMIC_NETWORK = process.env['CERAMIC_NETWORK'] || '';
+const CERAMIC_NODE = process.env['CERAMIC_NODE'] || '';
 
 export default class Profile {
-  client: Core;
   providers: Keychain;
 
   constructor(providers: Keychain) {
     this.providers = providers;
-    this.client = new Core({ ceramic: CERAMIC_NETWORK || 'testnet-clay' });
   }
 
   public async get(address: string): Promise<AccountProfile> {
@@ -50,13 +49,25 @@ export default class Profile {
   private async getBasicProfile(
     chain: keyof Keychain = '0x1',
     address: string
-  ): Promise<BasicProfile | null> {
+  ): Promise<BasicProfile> {
+    const client = new CeramicClient(
+      CERAMIC_NODE || 'https://ceramic-clay.3boxlabs.com'
+    );
     const link = await Caip10Link.fromAccount(
-      this.client.ceramic,
+      client,
       `${address.toLowerCase()}@eip155:${Number(chain)}`
     );
 
-    return this.client.get('basicProfile', link.did || '');
+    const index = (await TileDocument.deterministic(client, {
+      controllers: [link.did || ''],
+      family: 'IDX',
+    })) as TileDocument;
+    const defId =
+      index.content?.[
+        'kjzl6cwe1jw145cjbeko9kil8g9bxszjhyde21ob8epxuxkaon1izyqsu8wgcic'
+      ] ?? null;
+    const doc = await TileDocument.load(client, defId);
+    return doc.content as BasicProfile;
   }
 
   private async getEns(address: string): Promise<string | null> {

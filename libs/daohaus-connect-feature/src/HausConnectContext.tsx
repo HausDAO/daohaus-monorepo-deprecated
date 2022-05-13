@@ -1,10 +1,9 @@
-import { providers } from 'ethers';
 // TODO
 // Investigate and see if there's a better way to get this typing in rather than
 // importing the same code twice.
 // Also worth noting that web3Modal declares window.ethereum as 'any' for us
 // See about taking the time to reconstruct ICoreOptions and Window.Ethereum typings
-import { ICoreOptions } from 'web3modal';
+
 import {
   createContext,
   ReactNode,
@@ -17,17 +16,25 @@ import {
 import {
   defaultWalletValues,
   getModal,
+  handleConnectWallet,
   handleSetProvider,
+  handleSwitchNetwork,
   isMetamaskProvider,
-  numberToHex,
+  loadProfile,
+  loadWallet,
 } from './utils/contextHelpers';
-import { switchChainOnMetaMask } from './utils/metamask';
 import {
   MAINNET_ID,
   SUPPORTED_NETWORKS,
   web3modalDefaults,
 } from './utils/defaults';
-import { ModalEvents, ProviderType, WalletStateType } from './utils/types';
+import {
+  ModalEvents,
+  ModalOptions,
+  NetworkConfig,
+  ProviderType,
+  WalletStateType,
+} from './utils/types';
 
 export type WalletContextType = {
   provider: ProviderType | null | undefined;
@@ -42,22 +49,11 @@ export type WalletContextType = {
   switchNetwork: (chainId: string) => void;
 };
 
-export type NetworkConfig = Record<
-  string,
-  {
-    chainId: string;
-    name: string;
-    symbol: string;
-    explorer: string;
-    rpc: string;
-  }
->;
-
 export const HausConnectContext =
   createContext<WalletContextType>(defaultWalletValues);
 
 type ConnectProviderProps = {
-  web3modalOptions?: Partial<ICoreOptions>;
+  web3modalOptions?: ModalOptions;
   networks?: NetworkConfig;
   defaultChainId?: string;
   children: ReactNode;
@@ -75,6 +71,7 @@ export const HausConnectProvider = ({
   const [isConnecting, setConnecting] = useState(false);
   const [{ provider, chainId, address }, setWalletState] =
     useState<WalletStateType>({});
+
   const isConnected = useMemo(
     () => !!provider && !!address && !!chainId,
     [provider, address, chainId]
@@ -101,80 +98,26 @@ export const HausConnectProvider = ({
   };
 
   const connectWallet = useCallback(async () => {
-    try {
-      setConnecting(true);
-      const modal = getModal();
-      const modalProvider = await modal.requestProvider();
-      await setWalletProvider(modalProvider);
-
-      const _isGnosisSafe = await modal.isSafeApp();
-
-      if (!_isGnosisSafe) {
-        modalProvider.on('accountsChanged', () => {
-          disconnect();
-          handleModalEvents && handleModalEvents('accountsChanged');
-        });
-        modalProvider.on('chainChanged', () => {
-          handleModalEvents && handleModalEvents('chainChanged');
-          if (!networks[modalProvider.chainId]) {
-            disconnect();
-            handleModalEvents &&
-              handleModalEvents('error', {
-                code: 'UNSUPPORTED_NETWORK',
-                message: `You have switched to an unsupported chain, Disconnecting from Metamask...`,
-              });
-          }
-          setWalletProvider(modalProvider);
-        });
-      }
-    } catch (web3Error) {
-      console.error(web3Error);
-      disconnect();
-    } finally {
-      setConnecting(false);
-    }
+    handleConnectWallet({
+      setConnecting,
+      handleModalEvents,
+      setWalletProvider,
+      networks,
+      disconnect,
+    });
   }, [handleModalEvents, networks, setWalletProvider]);
 
   const switchNetwork = async (_chainId: string | number) => {
-    const chainId: string =
-      typeof _chainId === 'number' ? numberToHex(_chainId) : _chainId;
-    if (!networks[chainId]) {
-      throw new Error(`No network configuration for chainId: ${chainId}`);
-    }
-    if (!window.ethereum?.isMetaMask) {
-      throw new Error('Switching chain is only supported in Metamask');
-    }
-    await switchChainOnMetaMask(networks, chainId);
+    handleSwitchNetwork(_chainId, networks);
   };
 
   useEffect(() => {
-    const loadWallet = async () => {
-      const isMetamaskUnlocked =
-        (await window.ethereum?._metamask?.isUnlocked?.()) ?? false;
-      const modal = getModal();
-      const _isGnosisSafe = await modal.isSafeApp();
-
-      if (
-        isMetamaskUnlocked &&
-        (_isGnosisSafe || web3modalOptions.cacheProvider)
-      ) {
-        await connectWallet();
-      } else {
-        setConnecting(false);
-      }
-    };
-
-    loadWallet();
+    loadWallet({ setConnecting, connectWallet, web3modalOptions });
   }, [web3modalOptions, connectWallet]);
 
   useEffect(() => {
-    const getProfile = async () => {
-      // const haus = Haus.create(ENDPOINTS.RPC);
-      // typecasting here. If this function is called, then address is string
-      // const profile = await haus.profile.get(address as string);
-    };
     if (address) {
-      getProfile();
+      loadProfile();
     }
   }, [address, provider]);
 

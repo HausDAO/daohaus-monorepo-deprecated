@@ -29,7 +29,7 @@ export default class Profile {
 
   constructor(providers: Keychain, node?: string) {
     this.providers = providers;
-    this.ceramicNode = node;
+    this.ceramicNode = node || '';
   }
 
   public async get(address: string): Promise<AccountProfile> {

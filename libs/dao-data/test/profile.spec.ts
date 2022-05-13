@@ -29,5 +29,5 @@ describe('haus', () => {
       '0xEAC5F0d4A9a45E1f9FdD0e7e2882e9f60E301156'
     );
     expect(profile.name).toBeTruthy();
-  });
+  }, 7000);
 });

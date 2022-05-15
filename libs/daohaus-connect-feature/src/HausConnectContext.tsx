@@ -115,7 +115,7 @@ export const HausConnectProvider = ({
   }, [web3modalOptions, connectWallet]);
 
   useEffect(() => {
-    loadWallet({ setConnecting, connectWallet, web3modalOptions });
+    loadProfile();
   }, [web3modalOptions, connectWallet]);
 
   useEffect(() => {

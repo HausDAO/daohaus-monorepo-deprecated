@@ -31,6 +31,15 @@ const Highlight = styled.p`
   color: ${amberDark.amber9};
 `;
 
+const FirstHeader = styled.p`
+  text-align: left;
+  padding-left: 1.6rem;
+`;
+
+const FirstCell = styled.p`
+  text-align: left;
+`;
+
 export const DataTable = () => {
   const exampleData = React.useMemo(
     () => [
@@ -68,11 +77,13 @@ export const DataTable = () => {
   const exampleColumns = React.useMemo(
     () => [
       {
-        Header: '',
         accessor: 'name', // accessor is the "key" in the data
-        // Cell: ({ value }) => {
-        //   return <>{value}</Highlight>;
-        // },
+        Cell: ({ value }) => {
+          return <FirstCell>{value}</FirstCell>;
+        },
+        Header: ({ value }) => {
+          return <FirstHeader>3 Daos</FirstHeader>;
+        },
       },
       {
         Header: 'Active Proposals',

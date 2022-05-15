@@ -14,7 +14,6 @@ import {
   useState,
 } from 'react';
 import {
-  defaultWalletValues,
   getModal,
   handleConnectWallet,
   handleSetProvider,
@@ -24,6 +23,7 @@ import {
   loadWallet,
 } from './utils/contextHelpers';
 import {
+  defaultWalletValues,
   MAINNET_ID,
   SUPPORTED_NETWORKS,
   web3modalDefaults,
@@ -33,13 +33,15 @@ import {
   ModalOptions,
   NetworkConfig,
   ProviderType,
+  UserProfile,
   WalletStateType,
 } from './utils/types';
 
-export type WalletContextType = {
+export type UserConnectType = {
   provider: ProviderType | null | undefined;
   chainId: string | null | undefined;
   address: string | null | undefined;
+  profile: UserProfile;
   connectWallet: () => Promise<void>;
   disconnect: () => void;
   isConnecting: boolean;
@@ -50,7 +52,7 @@ export type WalletContextType = {
 };
 
 export const HausConnectContext =
-  createContext<WalletContextType>(defaultWalletValues);
+  createContext<UserConnectType>(defaultWalletValues);
 
 type ConnectProviderProps = {
   web3modalOptions?: ModalOptions;
@@ -70,6 +72,7 @@ export const HausConnectProvider = ({
   const [isConnecting, setConnecting] = useState(false);
   const [{ provider, chainId, address }, setWalletState] =
     useState<WalletStateType>({});
+  const [profile, setProfile] = useState<UserProfile>(null);
 
   const isConnected = useMemo(
     () => !!provider && !!address && !!chainId,
@@ -115,14 +118,10 @@ export const HausConnectProvider = ({
   }, [web3modalOptions, connectWallet]);
 
   useEffect(() => {
-    loadProfile();
-  }, [web3modalOptions, connectWallet]);
-
-  useEffect(() => {
     if (address) {
-      loadProfile();
+      loadProfile({ address, setProfile });
     }
-  }, [address, provider]);
+  }, [address]);
 
   return (
     <HausConnectContext.Provider
@@ -137,11 +136,12 @@ export const HausConnectProvider = ({
         isMetamask,
         networks,
         switchNetwork,
+        profile,
       }}
     >
       {children}
     </HausConnectContext.Provider>
   );
 };
-export const useHausConnect = (): WalletContextType =>
+export const useHausConnect = (): UserConnectType =>
   useContext(HausConnectContext);

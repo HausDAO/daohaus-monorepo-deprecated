@@ -1,7 +1,8 @@
 import { ENDPOINTS, ReactSetter } from '@daohaus/common-utilities';
-import { Haus } from '@daohaus/dao-data';
+import { AccountProfile, Haus } from '@daohaus/dao-data';
 import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
 import { providers } from 'ethers';
+import { truncateAddress } from './common';
 
 import { switchChainOnMetaMask } from './metamask';
 import {
@@ -9,6 +10,7 @@ import {
   ModalOptions,
   WalletStateType,
   NetworkConfig,
+  UserProfile,
 } from './types';
 
 export const numberToHex = (number: number) => {
@@ -21,18 +23,7 @@ export const getModal = () => {
 export const isMetamaskProvider = (
   provider: providers.Web3Provider | undefined | null
 ) => provider?.connection?.url === 'metamask';
-export const defaultWalletValues = {
-  provider: null,
-  chainId: null,
-  address: null,
-  connectWallet: async () => undefined,
-  disconnect: () => undefined,
-  isConnecting: true,
-  isConnected: false,
-  isMetamask: false,
-  networks: {},
-  switchNetwork: () => undefined,
-};
+
 export const handleSetProvider = async ({
   provider,
   networks,
@@ -152,10 +143,36 @@ export const loadWallet = async ({
   }
 };
 
-export const loadProfile = async () => {
-  const haus = Haus.create(ENDPOINTS.RPC);
+export const loadProfile = async ({
+  address,
+  setProfile,
+}: {
+  address: string;
+  setProfile: ReactSetter<UserProfile>;
+}) => {
+  try {
+    const TEMPORARY_VITE_CONFIG = {
+      '0x1': `https://${import.meta.env.VITE_RIVET_KEY}.eth.rpc.rivet.cloud/`,
+      '0x4': `https://${
+        import.meta.env.VITE_RIVET_KEY
+      }.rinkeby.rpc.rivet.cloud/`,
+      '0x2a': `https://kovan.infura.io/v3/${
+        import.meta.env.VITE_INFURA_PROJECT_ID
+      }`,
+    };
+    const haus = Haus.create({ ...ENDPOINTS.RPC, ...TEMPORARY_VITE_CONFIG });
+    const profile = await haus.profile.get(address);
+
+    if (profile) {
+      const displayName =
+        profile.name || profile.ens || truncateAddress(address);
+      setProfile({ ...profile, displayName });
+    }
+  } catch (error) {
+    console.error(error);
+  }
+
   // typecasting here. If this function is called, then address is string
-  // const profile = await haus.profile.get(address as string);
 };
 export const handleSwitchNetwork = async (
   _chainId: string | number,

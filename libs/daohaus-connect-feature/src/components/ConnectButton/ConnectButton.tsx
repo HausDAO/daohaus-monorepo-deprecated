@@ -27,7 +27,7 @@ const ConnectWalletButton = () => {
 };
 
 const UserConnectedDropdown = () => {
-  const { disconnect, address, chainId } = useHausConnect();
+  const { disconnect, address, chainId, profile } = useHausConnect();
   const theme = useTheme();
   return (
     <Dropdown
@@ -38,8 +38,9 @@ const UserConnectedDropdown = () => {
           <Container>
             <TemporaryAvatar />
             <div className="interior">
-              {/* TODO add redults from getProfile*/}
-              <ParMd color={theme.button.primary.text}>Jord</ParMd>
+              <ParMd color={theme.button.primary.text}>
+                {profile?.displayName}
+              </ParMd>
               <ParXs color={theme.button.primary.text}>
                 @{chainId && getNetworkName(chainId)}
               </ParXs>

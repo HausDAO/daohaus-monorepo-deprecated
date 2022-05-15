@@ -59,3 +59,16 @@ export const web3modalDefaults = {
 };
 
 export const MAINNET_ID = '0x1';
+export const defaultWalletValues = {
+  provider: null,
+  chainId: null,
+  address: null,
+  profile: null,
+  connectWallet: async () => undefined,
+  disconnect: () => undefined,
+  isConnecting: true,
+  isConnected: false,
+  isMetamask: false,
+  networks: {},
+  switchNetwork: () => undefined,
+};

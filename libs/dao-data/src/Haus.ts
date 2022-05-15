@@ -7,19 +7,15 @@ class Haus {
   query: Query;
   profile: Profile;
 
-  private constructor(providers: Keychain) {
+  private constructor(providers: Keychain, ceramicNode?: string) {
     this.providers = providers;
     this.query = new Query();
-    this.profile = new Profile(providers);
+    this.profile = new Profile(providers, ceramicNode);
   }
 
   static create(networkConfig: Keychain): Haus {
     const hausSdk = new Haus(networkConfig);
     return hausSdk;
-  }
-
-  public account(network: Keychain) {
-    return new Profile(network);
   }
 }
 

@@ -1,5 +1,5 @@
 import { IProviderOptions } from 'web3modal';
-import { NetworkConfig } from '../HausConnectContext';
+import { NetworkConfig } from './types';
 // import WalletConnectProvider from '@walletconnect/web3-provider';
 
 export const SUPPORTED_NETWORKS: NetworkConfig = {
@@ -50,7 +50,6 @@ const providerOptions: IProviderOptions = {
   //     },
   //   },
   // },
-  // .. Other providers
 };
 
 export const web3modalDefaults = {

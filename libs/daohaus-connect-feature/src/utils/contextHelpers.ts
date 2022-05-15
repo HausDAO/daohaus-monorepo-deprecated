@@ -1,4 +1,5 @@
-import { ReactSetter } from '@daohaus/common-utilities';
+import { ENDPOINTS, ReactSetter } from '@daohaus/common-utilities';
+import { Haus } from '@daohaus/dao-data';
 import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
 import { providers } from 'ethers';
 
@@ -152,7 +153,7 @@ export const loadWallet = async ({
 };
 
 export const loadProfile = async () => {
-  // const haus = Haus.create(ENDPOINTS.RPC);
+  const haus = Haus.create(ENDPOINTS.RPC);
   // typecasting here. If this function is called, then address is string
   // const profile = await haus.profile.get(address as string);
 };

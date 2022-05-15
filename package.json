@@ -9,13 +9,10 @@
   },
   "private": true,
   "dependencies": {
-<<<<<<< HEAD
-=======
     "@ceramicnetwork/3id-did-resolver": "^2.0.1-rc.4",
     "@ceramicnetwork/http-client": "2.0.1-rc.4",
     "@ceramicnetwork/stream-caip10-link": "2.0.1-rc.2",
     "@ceramicnetwork/stream-tile": "2.1.0-rc.3",
->>>>>>> 09472faac10461669527128776edd1853e5714b9
     "@gnosis.pm/safe-apps-web3modal": "^12.0.0",
     "@graphql-codegen/typescript-graphql-request": "^4.4.5",
     "@nrwl/js": "^13.7.3",
@@ -27,11 +24,9 @@
     "@self.id/core": "^0.4.0",
     "@self.id/web": "^0.4.0",
     "@types/uuid": "^8.3.4",
-<<<<<<< HEAD
+    "@walletconnect/ethereum-provider": "^1.7.8",
     "@walletconnect/web3-provider": "^1.7.8",
-=======
     "caip": "1.1.0",
->>>>>>> 09472faac10461669527128776edd1853e5714b9
     "classnames": "^2.3.1",
     "core-js": "^3.6.5",
     "cross-fetch": "^3.1.5",

@@ -29,7 +29,7 @@ export type Field = {
 };
 
 // TODO Refine based on Radix Checkbox Type & Wrapper
-export type CheckboxInput = {
+export type CheckboxWrapperField = {
   id: string;
   label: string;
   type: string;
@@ -38,11 +38,18 @@ export type CheckboxInput = {
   required?: boolean;
   info?: string;
   disabled?: boolean;
-  number?: boolean;
-  address?: boolean;
-  long?: boolean;
-  full?: boolean;
   warning?: WarningMessage;
   error?: ErrorMessage;
   success?: SuccessMessage;
+  checkboxes: CheckboxProps[];
+};
+
+type CheckboxProps = {
+  id: string;
+  label: string;
+  defaultChecked?: boolean;
+  helperText?: string;
+  required?: boolean;
+  disabled?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };

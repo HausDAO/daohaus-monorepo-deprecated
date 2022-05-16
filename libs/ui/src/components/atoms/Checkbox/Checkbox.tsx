@@ -8,10 +8,10 @@ import ValueLabel from '../ValueLabel/ValueLabel';
 type CheckboxProps = {
   id: string;
   label: string;
+  defaultChecked?: boolean;
   helperText?: string;
   required?: boolean;
   disabled?: boolean;
-  defaultChecked?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
@@ -22,9 +22,8 @@ type Ref =
   | undefined;
 
 export const Checkbox = React.forwardRef((props: CheckboxProps, ref: Ref) => {
-  console.log('checkbox props', props);
-  const [isChecked, setIsChecked] = useState(false);
-  const { id, label, disabled, required, helperText } = props;
+  const { id, label, defaultChecked, disabled, required } = props;
+  const [isChecked, setIsChecked] = useState<boolean>(defaultChecked || false);
   const classes = classNames({
     disabled,
   });
@@ -33,10 +32,11 @@ export const Checkbox = React.forwardRef((props: CheckboxProps, ref: Ref) => {
     <Container>
       <StyledCheckbox
         {...props}
+        id={id}
+        ref={ref}
+        className={classes}
         checked={isChecked}
         onCheckedChange={() => setIsChecked(!isChecked)}
-        className={classes}
-        id={id}
       >
         <StyledIndicator className={classes}>
           <BiCheck />

@@ -25,24 +25,14 @@ FullWrappedCheckbox.args = {
   success: undefined,
 };
 
+// TODO Rowdy Add support for multiple checkboxes
 // export const MultipleWrappedCheckbox = Template.bind({});
-// MultipleWrappedCheckbox.args = [
-//   {
-//     id: 'Example Checkbox',
-//     label: 'Complete Input',
-//     helperText: 'Test the action/controls',
-//     info: 'This is controlled by the info prop',
-//     warning: undefined,
-//     error: undefined,
-//     success: undefined,
-//   },
-//   {
-//     id: 'Example Checkbox',
-//     label: 'Complete Input',
-//     helperText: 'Test the action/controls',
-//     info: 'This is controlled by the info prop',
-//     warning: undefined,
-//     error: undefined,
-//     success: undefined,
-//   },
-// ];
+// MultipleWrappedCheckbox.args = {
+//   id: 'Example Checkbox',
+//   label: 'Complete Input',
+//   helperText: 'Test the action/controls',
+//   info: 'This is controlled by the info prop',
+//   warning: undefined,
+//   error: undefined,
+//   success: undefined,
+// };

@@ -28,14 +28,20 @@ export type Field = {
   success?: SuccessMessage;
 };
 
+// TODO Refine based on Radix Checkbox Type & Wrapper
 export type CheckboxInput = {
   id: string;
   label: string;
   type: string;
+  placeholder: string;
   helperText?: string;
   required?: boolean;
   info?: string;
   disabled?: boolean;
+  number?: boolean;
+  address?: boolean;
+  long?: boolean;
+  full?: boolean;
   warning?: WarningMessage;
   error?: ErrorMessage;
   success?: SuccessMessage;

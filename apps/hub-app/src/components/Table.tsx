@@ -2,6 +2,7 @@ import React from 'react';
 import { useTable } from 'react-table';
 import styled from 'styled-components';
 import { amberDark, crimsonDark } from '@radix-ui/colors';
+import { AvatarSm } from '../components/Avatar';
 
 const Table = styled.table`
   width: 100%;
@@ -38,6 +39,9 @@ const FirstHeader = styled.p`
 
 const FirstCell = styled.p`
   text-align: left;
+  display: flex;
+  gap: 1.2rem;
+  align-items: center;
 `;
 
 export const DataTable = () => {
@@ -79,7 +83,12 @@ export const DataTable = () => {
       {
         accessor: 'name', // accessor is the "key" in the data
         Cell: ({ value }) => {
-          return <FirstCell>{value}</FirstCell>;
+          return (
+            <FirstCell>
+              <AvatarSm />
+              {value}
+            </FirstCell>
+          );
         },
         Header: ({ value }) => {
           return <FirstHeader>3 Daos</FirstHeader>;

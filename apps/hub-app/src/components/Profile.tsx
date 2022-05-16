@@ -2,7 +2,7 @@ import React, { useEffect, useState, MouseEvent } from 'react';
 import styled from 'styled-components';
 import { BiCopy } from 'react-icons/bi';
 import { H5, H6, Underline, ParLg, ParMd } from '@daohaus/ui';
-import Avatar from '../components/Avatar';
+import { AvatarLg } from '../components/Avatar';
 import { networks } from '../constants';
 import { Haus } from '@daohaus/dao-data';
 
@@ -62,7 +62,7 @@ const Profile = () => {
 
   return (
     <ProfileContainer>
-      <Avatar src={profile.image} alt="profile image" />
+      <AvatarLg src={profile.image} alt="profile image" />
       <div>
         <NameContainer>
           <H5>{profile.name}</H5>

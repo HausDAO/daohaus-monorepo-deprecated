@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Header from '../components/Header';
 import Profile from '../components/Profile';
 import { DataTable } from '../components/Table';
+import TableControl from '../components/TableControl';
 import { crimsonDark } from '@radix-ui/colors';
 
 const Layout = styled.div`
@@ -54,6 +55,7 @@ const App = () => {
         <Profile />
       </ProfileContainer>
       <Body>
+        <TableControl />
         <DataTable />
       </Body>
     </Layout>

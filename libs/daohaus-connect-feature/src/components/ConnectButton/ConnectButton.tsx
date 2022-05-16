@@ -2,7 +2,8 @@ import { getNetworkName } from '@daohaus/common-utilities';
 import { Bold, Button, Dropdown, ParMd, ParXs } from '@daohaus/ui';
 
 import { violet } from '@radix-ui/colors';
-import { BiChevronDown } from 'react-icons/bi';
+import { useState } from 'react';
+import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
 import { RiUserAddLine } from 'react-icons/ri';
 import styled, { useTheme } from 'styled-components';
 import { useHausConnect } from '../../HausConnectContext';
@@ -41,12 +42,17 @@ const LoadingButton = () => {
 const UserConnectedDropdown = () => {
   const { disconnect, address, chainId, profile } = useHausConnect();
   const theme = useTheme();
+
+  const [open, setOpen] = useState(false);
+
   return (
     <Dropdown
       spacing="0.7rem"
       align="end"
+      open={open}
+      onOpenChange={setOpen}
       trigger={
-        <Button avatar fullWidth IconRight={BiChevronDown}>
+        <Button avatar fullWidth IconRight={open ? BiChevronUp : BiChevronDown}>
           <Container>
             <TemporaryAvatar />
             <div className="interior">

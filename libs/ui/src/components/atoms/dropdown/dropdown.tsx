@@ -27,6 +27,8 @@ type DropdownProps = {
   width?: string;
   align?: 'start' | 'center' | 'end' | undefined;
   className?: string;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 };
 // TODO aria
 export const Dropdown = ({
@@ -37,10 +39,12 @@ export const Dropdown = ({
   spacing = '0',
   align = 'start',
   width = '25rem',
+  open,
+  onOpenChange,
 }: DropdownProps) => {
   return (
     <DropdownContainer className={className} width={width}>
-      <DropdownMenu>
+      <DropdownMenu open={open} onOpenChange={onOpenChange}>
         <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
         <DropdownContentFactory
           items={items}

@@ -2,6 +2,7 @@ import { getNetworkName } from '@daohaus/common-utilities';
 import { Bold, Button, Dropdown, ParMd, ParXs } from '@daohaus/ui';
 
 import { violet } from '@radix-ui/colors';
+import { BiChevronDown } from 'react-icons/bi';
 import { RiUserAddLine } from 'react-icons/ri';
 import styled, { useTheme } from 'styled-components';
 import { useHausConnect } from '../../HausConnectContext';
@@ -22,12 +23,7 @@ const ConnectWalletButton = () => {
   const { connectWallet } = useHausConnect() || {};
   return (
     <ButtonContainer>
-      <Button
-        fullWidth
-        iconPos="left"
-        icon={RiUserAddLine}
-        onClick={connectWallet}
-      >
+      <Button fullWidth IconLeft={RiUserAddLine} onClick={connectWallet}>
         Connect Wallet
       </Button>
     </ButtonContainer>
@@ -50,7 +46,7 @@ const UserConnectedDropdown = () => {
       spacing="0.7rem"
       align="end"
       trigger={
-        <Button avatar fullWidth>
+        <Button avatar fullWidth IconRight={BiChevronDown}>
           <Container>
             <TemporaryAvatar />
             <div className="interior">
@@ -107,6 +103,7 @@ const TemporaryAvatar = styled.div`
 const Container = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
   p {
     text-align: left;
   }

@@ -156,7 +156,6 @@ export const WithIcon = styled.div`
   display: flex;
   align-items: center;
   svg {
-    margin-right: 1rem;
     width: 2.1rem;
     height: 2.1rem;
     color: ${({ theme }: { theme: Theme }) => theme.button.primary.text};
@@ -171,5 +170,11 @@ export const WithIcon = styled.div`
       height: 1.5rem;
       margin-right: 0.8rem;
     }
+  }
+  svg.icon-left {
+    margin-right: 1rem;
+  }
+  svg.icon-right {
+    margin-left: 0.5rem;
   }
 `;

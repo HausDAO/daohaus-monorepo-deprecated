@@ -16,7 +16,7 @@ export const WarningButton: ComponentStory<typeof Button> = ({
   children,
   ...props
 }: ButtonProps) => (
-  <Button tertiary icon={BiError} {...props}>
+  <Button tertiary IconLeft={BiError} {...props}>
     {children}
   </Button>
 );
@@ -48,7 +48,7 @@ export const ConnectWalletButton: ComponentStory<typeof Button> = (
   props: Omit<ButtonProps, 'children'>
 ) => (
   <Button
-    icon={RiUserAddLine}
+    IconLeft={RiUserAddLine}
     className="menu-button"
     onClick={() => {
       console.log('functionality goes here');
@@ -64,8 +64,7 @@ export const ConnectWalletButtonMoblile: ComponentStory<typeof Button> = (
 ) => (
   <Button
     sm
-    iconPos="left"
-    icon={RiUserAddLine}
+    IconLeft={RiUserAddLine}
     className="menu-button"
     onClick={() => {
       console.log('functionality goes here');
@@ -190,7 +189,7 @@ NetworkUnavailableDropdown.args = {
   align: 'end',
   width: '26rem',
   trigger: (
-    <Button icon={BiError} tertiary>
+    <Button IconLeft={BiError} tertiary>
       Network Unavailable
     </Button>
   ),

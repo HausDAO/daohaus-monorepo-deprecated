@@ -4,6 +4,7 @@
 // Also worth noting that web3Modal declares window.ethereum as 'any' for us
 // See about taking the time to reconstruct ICoreOptions and Window.Ethereum typings
 
+import { addKeychain, ENDPOINTS } from '@daohaus/common-utilities';
 import {
   createContext,
   ReactNode,
@@ -25,7 +26,6 @@ import {
 import {
   defaultWalletValues,
   MAINNET_ID,
-  SUPPORTED_NETWORKS,
   web3modalDefaults,
 } from './utils/defaults';
 import {
@@ -61,11 +61,26 @@ type ConnectProviderProps = {
   children: ReactNode;
   handleModalEvents?: ModalEvents;
 };
+const TEMPORARY_RPC = {
+  '0x1': `https://${import.meta.env.NX_RIVET_KEY}.eth.rpc.rivet.cloud/`,
+  '0x4': `https://${import.meta.env.NX_RIVET_KEY}.rinkeby.rpc.rivet.cloud/`,
+  '0x2a': `https://kovan.infura.io/v3/${import.meta.env.NX_INFURA_PROJECT_ID}`,
+  '0x64': 'https://rpc.gnosischain.com/',
+  '0xa': 'https://mainnet.optimism.io',
+  '0x89': 'https://polygon-rpc.com/',
+  '0xa4b1': 'https://arb1.arbitrum.io/rpc',
+  '0xa4ec': 'https://forno.celo.org',
+};
+const supportedNetworks = addKeychain(
+  ENDPOINTS.EXPLORER,
+  'explorer',
+  addKeychain(TEMPORARY_RPC, 'rpc')
+);
 
 export const HausConnectProvider = ({
   web3modalOptions = web3modalDefaults,
   children,
-  networks = SUPPORTED_NETWORKS,
+  networks = supportedNetworks,
   defaultChainId = MAINNET_ID,
   handleModalEvents,
 }: ConnectProviderProps) => {

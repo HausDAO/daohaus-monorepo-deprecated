@@ -1,5 +1,4 @@
 import { Keychain, ValidNetwork } from '../types';
-import { ENDPOINTS } from './endpoints';
 
 type ValidKey = string | number | symbol;
 

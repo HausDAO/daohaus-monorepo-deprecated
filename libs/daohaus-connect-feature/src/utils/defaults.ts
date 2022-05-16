@@ -1,24 +1,30 @@
 import { IProviderOptions } from 'web3modal';
-import { NetworkConfig } from './types';
+// import { NetworkConfig } from './types';
 // import WalletConnectProvider from '@walletconnect/web3-provider';
 
-export const SUPPORTED_NETWORKS = {
-  '0x1': {
-    chainId: '0x1',
-    name: 'Mainnet',
-    symbol: 'ETH',
-  },
-  '0x4': {
-    chainId: '0x4',
-    name: 'Rinkeby',
-    symbol: 'ETH',
-  },
-  '0x89': {
-    chainId: '0x89',
-    name: 'Polygon',
-    symbol: 'MATIC',
-  },
-};
+// export const SUPPORTED_NETWORKS: NetworkConfig = {
+//   '0x1': {
+//     chainId: '0x1',
+//     name: 'Mainnet',
+//     symbol: 'ETH',
+//     explorer: 'https://etherscan.io',
+//     rpc: `https://${import.meta.env.VITE_RIVET_KEY}.eth.rpc.rivet.cloud/`,
+//   },
+//   '0x4': {
+//     chainId: '0x4',
+//     name: 'Rinkeby',
+//     symbol: 'ETH',
+//     explorer: 'https://rinkeby.etherscan.io',
+//     rpc: `https://${import.meta.env.VITE_RIVET_KEY}.rinkeby.rpc.rivet.cloud/`,
+//   },
+//   '0x89': {
+//     chainId: '0x89',
+//     name: 'Polygon',
+//     symbol: 'MATIC',
+//     explorer: 'https://polygonscan.com',
+//     rpc: 'https://polygon-rpc.com/',
+//   },
+// };
 
 const providerOptions: IProviderOptions = {
   // authereum: {

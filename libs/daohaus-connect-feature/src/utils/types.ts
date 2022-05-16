@@ -18,6 +18,7 @@ export type NetworkConfig = Record<
   string,
   {
     chainId: string;
+    networkId: number;
     name: string;
     symbol: string;
     explorer: string;

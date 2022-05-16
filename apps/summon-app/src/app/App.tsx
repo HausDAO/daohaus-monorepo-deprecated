@@ -1,4 +1,4 @@
-import { ConnectButton } from '@daohaus/daohaus-connect-feature';
+import { ConnectButton, NetworkButton } from '@daohaus/daohaus-connect-feature';
 import { Button, H1, HausThemeContext } from '@daohaus/ui';
 import { useContext } from 'react';
 import styled from 'styled-components';
@@ -17,7 +17,12 @@ export function App() {
   return (
     <TemporaryLayout>
       <nav>
-        <ConnectButton />
+        <div>
+          <NetworkButton />
+        </div>
+        <div>
+          <ConnectButton />
+        </div>
       </nav>
       <H1>test</H1>
       <Button onClick={toggleLightDark}>Toggle Theme</Button>

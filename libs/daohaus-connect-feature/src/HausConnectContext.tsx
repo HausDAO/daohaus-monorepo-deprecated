@@ -25,7 +25,7 @@ import {
 import {
   ModalEvents,
   ModalOptions,
-  NetworkConfig,
+  NetworkConfigs,
   ProviderType,
   UserProfile,
   WalletStateType,
@@ -41,7 +41,7 @@ export type UserConnectType = {
   isConnecting: boolean;
   isConnected: boolean;
   isMetamask: boolean;
-  networks: NetworkConfig;
+  networks: NetworkConfigs;
   switchNetwork: (chainId: string) => void;
   isProfileLoading: boolean;
 };
@@ -51,7 +51,7 @@ export const HausConnectContext =
 
 type ConnectProviderProps = {
   web3modalOptions?: ModalOptions;
-  networks?: NetworkConfig;
+  networks?: NetworkConfigs;
   defaultChainId?: string;
   children: ReactNode;
   handleModalEvents?: ModalEvents;

@@ -78,7 +78,7 @@ export const addKeychain = (
   keychain: Keychain<unknown>,
   property: string,
   networkList: Keychain<NetworkType> = networkData
-): Keychain<NetworkType> => {
+) => {
   return Object.values(networkList).reduce((acc, networkObj) => {
     const { chainId } = networkObj;
     if (!isValidNetwork(chainId)) {

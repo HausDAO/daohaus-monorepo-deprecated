@@ -32,17 +32,6 @@ export const supportedNetworks = addKeychain(
   addKeychain(TEMPORARY_RPC, 'rpc')
 );
 
-const wcProviderOptions = Object.values(supportedNetworks).reduce(
-  (acc, network) => {
-    return {
-      ...acc,
-      [network.networkId]: network.rpc,
-    };
-  },
-  {}
-);
-console.log('wcProviderOptions', wcProviderOptions);
-
 const providerOptions: IProviderOptions = {
   // authereum: {
   //   package: Authereum,

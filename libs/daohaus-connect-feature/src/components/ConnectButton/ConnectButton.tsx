@@ -48,6 +48,7 @@ const UserConnectedDropdown = () => {
   return (
     <Dropdown
       spacing="0.7rem"
+      width="25rem"
       align="end"
       open={open}
       onOpenChange={setOpen}

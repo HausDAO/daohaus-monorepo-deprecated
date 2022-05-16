@@ -1,4 +1,8 @@
-import { ENDPOINTS, ReactSetter } from '@daohaus/common-utilities';
+import {
+  ENDPOINTS,
+  isValidNetwork,
+  ReactSetter,
+} from '@daohaus/common-utilities';
 import { Haus } from '@daohaus/dao-data';
 import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
 import { providers } from 'ethers';
@@ -9,8 +13,8 @@ import {
   ModalEvents,
   ModalOptions,
   WalletStateType,
-  NetworkConfig,
   UserProfile,
+  NetworkConfigs,
 } from './types';
 
 export const numberToHex = (number: number) => {
@@ -33,7 +37,7 @@ export const handleSetProvider = async ({
 }: {
   /* eslint-disable  @typescript-eslint/no-explicit-any */
   provider: any;
-  networks: NetworkConfig;
+  networks: NetworkConfigs;
   defaultChainId: string;
   handleModalEvents?: ModalEvents;
   setWalletState: ReactSetter<WalletStateType>;
@@ -44,7 +48,7 @@ export const handleSetProvider = async ({
       ? numberToHex(provider.chainId)
       : provider.chainId;
 
-  if (!networks[chainId]) {
+  if (!isValidNetwork(chainId)) {
     if (!defaultChainId) {
       handleModalEvents &&
         handleModalEvents('error', {
@@ -60,7 +64,7 @@ export const handleSetProvider = async ({
       handleModalEvents &&
         handleModalEvents('error', {
           code: 'UNSUPPORTED_NETWORK',
-          message: `Network not supported, please switch to ${networks[defaultChainId].name}`,
+          message: `Network not supported`,
         });
       return;
     }
@@ -84,7 +88,7 @@ export const handleConnectWallet = async ({
 }: {
   setConnecting: ReactSetter<boolean>;
   handleModalEvents?: ModalEvents;
-  networks: NetworkConfig;
+  networks: NetworkConfigs;
   setWalletProvider: ReactSetter<WalletStateType>;
   disconnect: () => Promise<void>;
 }) => {
@@ -103,7 +107,7 @@ export const handleConnectWallet = async ({
       });
       modalProvider.on('chainChanged', () => {
         handleModalEvents && handleModalEvents('chainChanged');
-        if (!networks[modalProvider.chainId]) {
+        if (!isValidNetwork(modalProvider.chainId)) {
           disconnect();
           handleModalEvents &&
             handleModalEvents('error', {
@@ -184,11 +188,11 @@ export const loadProfile = async ({
 };
 export const handleSwitchNetwork = async (
   _chainId: string | number,
-  networks: NetworkConfig
+  networks: NetworkConfigs
 ) => {
   const chainId: string =
     typeof _chainId === 'number' ? numberToHex(_chainId) : _chainId;
-  if (!networks[chainId]) {
+  if (!isValidNetwork) {
     throw new Error(`No network configuration for chainId: ${chainId}`);
   }
   if (!window.ethereum?.isMetaMask) {

@@ -38,7 +38,7 @@ export const Dropdown = ({
   bg,
   spacing = '0',
   align = 'start',
-  width = '25rem',
+  width = 'fit-content',
   open,
   onOpenChange,
 }: DropdownProps) => {

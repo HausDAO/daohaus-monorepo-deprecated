@@ -1,19 +1,21 @@
+import { isValidNetwork } from '@daohaus/common-utilities';
 import { utils } from 'ethers';
-import { NetworkConfig } from './types';
+import { NetworkConfig, NetworkConfigs } from './types';
 
 type SwitchError = Error & { code: number };
 const isSwitchError = (err: unknown): err is SwitchError =>
   (err as SwitchError).code !== undefined;
 
 export const switchChainOnMetaMask = async (
-  networks: NetworkConfig,
+  networks: NetworkConfigs,
   chainId: string
 ): Promise<boolean> => {
-  if (!networks[chainId]) return false;
-  const { name, symbol } = networks[chainId] || {};
-  const networkName = networks[chainId].name;
-  const rpcUrl = networks[chainId].rpc;
-  const explorerUrl = networks[chainId].explorer;
+  if (!isValidNetwork(chainId)) return false;
+  const currentNetwork = networks[chainId] as NetworkConfig;
+  const { name, symbol, rpc, explorer } = currentNetwork;
+  const networkName = name;
+  const rpcUrl = rpc;
+  const explorerUrl = explorer;
 
   if (
     !(name && symbol && networkName && rpcUrl && explorerUrl && window.ethereum)

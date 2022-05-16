@@ -5,8 +5,6 @@ import { Theme } from '../../../types/theming';
 
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 
-// background-color: ${({ theme }: { theme: Theme }) =>
-//   theme.button.secondary.bg};
 export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
   background-color: transparent;
   width: 18px;

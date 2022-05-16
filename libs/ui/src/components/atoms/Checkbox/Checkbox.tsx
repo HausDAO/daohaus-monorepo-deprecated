@@ -6,9 +6,9 @@ import { StyledCheckbox, StyledIndicator, Container } from './Checkbox.styles';
 import ValueLabel from '../ValueLabel/ValueLabel';
 
 type CheckboxProps = {
-  children: React.ReactNode;
   id: string;
   label: string;
+  helperText?: string;
   required?: boolean;
   disabled?: boolean;
   defaultChecked?: boolean;
@@ -21,9 +21,10 @@ type Ref =
   | null
   | undefined;
 
-const Checkbox = React.forwardRef((props: CheckboxProps, ref: Ref) => {
+export const Checkbox = React.forwardRef((props: CheckboxProps, ref: Ref) => {
+  console.log('checkbox props', props);
   const [isChecked, setIsChecked] = useState(false);
-  const { id, label, disabled, required } = props;
+  const { id, label, disabled, required, helperText } = props;
   const classes = classNames({
     disabled,
   });
@@ -33,7 +34,7 @@ const Checkbox = React.forwardRef((props: CheckboxProps, ref: Ref) => {
       <StyledCheckbox
         {...props}
         checked={isChecked}
-        onClick={() => setIsChecked(!isChecked)}
+        onCheckedChange={() => setIsChecked(!isChecked)}
         className={classes}
         id={id}
       >
@@ -47,4 +48,3 @@ const Checkbox = React.forwardRef((props: CheckboxProps, ref: Ref) => {
     </Container>
   );
 });
-export default Checkbox;

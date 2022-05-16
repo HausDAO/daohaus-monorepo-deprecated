@@ -27,3 +27,16 @@ export type Field = {
   error?: ErrorMessage;
   success?: SuccessMessage;
 };
+
+export type CheckboxInput = {
+  id: string;
+  label: string;
+  type: string;
+  helperText?: string;
+  required?: boolean;
+  info?: string;
+  disabled?: boolean;
+  warning?: WarningMessage;
+  error?: ErrorMessage;
+  success?: SuccessMessage;
+};

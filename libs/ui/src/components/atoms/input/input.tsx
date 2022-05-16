@@ -18,8 +18,6 @@ export const Input = React.forwardRef((props: InputProps, ref: Ref) => {
   const { long, full, icon, warning, error, number, address, className } =
     props;
 
-  console.log('className');
-  console.log(className);
   const inputClasses = classNames({
     long: long || address,
     full,

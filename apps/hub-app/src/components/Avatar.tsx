@@ -19,13 +19,7 @@ const AvatarLgRoot = styled(RadixAvatar.Root)`
   height: 16rem;
 `;
 
-const AvatarSmRoot = styled(RadixAvatar.Root)`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  vertical-align: middle;
-  overflow: hidden;
-  border-radius: 999.9rem;
+const AvatarSmRoot = styled(AvatarLgRoot)`
   width: 3.6rem;
   height: 3.6rem;
 `;

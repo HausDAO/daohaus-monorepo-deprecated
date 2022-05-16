@@ -1,6 +1,7 @@
 import { IProviderOptions } from 'web3modal';
-// import { NetworkConfig } from './types';
-// import WalletConnectProvider from '@walletconnect/web3-provider';
+// import WalletConnectProvider from '@walletconnect/ethereum-provider';
+import { addKeychain, ENDPOINTS } from '@daohaus/common-utilities';
+import { TEMPORARY_RPC } from './common';
 
 // export const SUPPORTED_NETWORKS: NetworkConfig = {
 //   '0x1': {
@@ -25,6 +26,22 @@ import { IProviderOptions } from 'web3modal';
 //     rpc: 'https://polygon-rpc.com/',
 //   },
 // };
+export const supportedNetworks = addKeychain(
+  ENDPOINTS.EXPLORER,
+  'explorer',
+  addKeychain(TEMPORARY_RPC, 'rpc')
+);
+
+const wcProviderOptions = Object.values(supportedNetworks).reduce(
+  (acc, network) => {
+    return {
+      ...acc,
+      [network.networkId]: network.rpc,
+    };
+  },
+  {}
+);
+console.log('wcProviderOptions', wcProviderOptions);
 
 const providerOptions: IProviderOptions = {
   // authereum: {
@@ -59,6 +76,7 @@ export const web3modalDefaults = {
 };
 
 export const MAINNET_ID = '0x1';
+
 export const defaultWalletValues = {
   provider: null,
   chainId: null,
@@ -71,4 +89,5 @@ export const defaultWalletValues = {
   isMetamask: false,
   networks: {},
   switchNetwork: () => undefined,
+  isProfileLoading: false,
 };

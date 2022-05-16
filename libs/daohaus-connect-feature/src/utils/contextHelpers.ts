@@ -92,7 +92,7 @@ export const handleConnectWallet = async ({
     setConnecting(true);
     const modal = getModal();
     const modalProvider = await modal.requestProvider();
-    await setWalletProvider(modalProvider);
+    setWalletProvider(modalProvider);
 
     const _isGnosisSafe = await modal.isSafeApp();
 
@@ -146,11 +146,16 @@ export const loadWallet = async ({
 export const loadProfile = async ({
   address,
   setProfile,
+  setProfileLoading,
+  shouldUpdate,
 }: {
   address: string;
   setProfile: ReactSetter<UserProfile>;
+  setProfileLoading: ReactSetter<boolean>;
+  shouldUpdate: boolean;
 }) => {
   try {
+    setProfileLoading(true);
     const TEMPORARY_VITE_CONFIG = {
       '0x1': `https://${import.meta.env.VITE_RIVET_KEY}.eth.rpc.rivet.cloud/`,
       '0x4': `https://${
@@ -163,15 +168,18 @@ export const loadProfile = async ({
     const haus = Haus.create({ ...ENDPOINTS.RPC, ...TEMPORARY_VITE_CONFIG });
     const profile = await haus.profile.get(address);
 
-    if (profile) {
+    if (profile && shouldUpdate) {
       const displayName =
         profile.name || profile.ens || truncateAddress(address);
       setProfile({ ...profile, displayName });
     }
   } catch (error) {
     console.error(error);
+  } finally {
+    if (shouldUpdate) {
+      setProfileLoading(false);
+    }
   }
-
   // typecasting here. If this function is called, then address is string
 };
 export const handleSwitchNetwork = async (

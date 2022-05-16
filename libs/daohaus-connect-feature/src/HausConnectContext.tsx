@@ -1,10 +1,3 @@
-// TODO
-// Investigate and see if there's a better way to get this typing in rather than
-// importing the same code twice.
-// Also worth noting that web3Modal declares window.ethereum as 'any' for us
-// See about taking the time to reconstruct ICoreOptions and Window.Ethereum typings
-
-import { addKeychain, ENDPOINTS } from '@daohaus/common-utilities';
 import {
   createContext,
   ReactNode,
@@ -26,6 +19,7 @@ import {
 import {
   defaultWalletValues,
   MAINNET_ID,
+  supportedNetworks,
   web3modalDefaults,
 } from './utils/defaults';
 import {
@@ -49,6 +43,7 @@ export type UserConnectType = {
   isMetamask: boolean;
   networks: NetworkConfig;
   switchNetwork: (chainId: string) => void;
+  isProfileLoading: boolean;
 };
 
 export const HausConnectContext =
@@ -61,21 +56,6 @@ type ConnectProviderProps = {
   children: ReactNode;
   handleModalEvents?: ModalEvents;
 };
-const TEMPORARY_RPC = {
-  '0x1': `https://${import.meta.env.NX_RIVET_KEY}.eth.rpc.rivet.cloud/`,
-  '0x4': `https://${import.meta.env.NX_RIVET_KEY}.rinkeby.rpc.rivet.cloud/`,
-  '0x2a': `https://kovan.infura.io/v3/${import.meta.env.NX_INFURA_PROJECT_ID}`,
-  '0x64': 'https://rpc.gnosischain.com/',
-  '0xa': 'https://mainnet.optimism.io',
-  '0x89': 'https://polygon-rpc.com/',
-  '0xa4b1': 'https://arb1.arbitrum.io/rpc',
-  '0xa4ec': 'https://forno.celo.org',
-};
-const supportedNetworks = addKeychain(
-  ENDPOINTS.EXPLORER,
-  'explorer',
-  addKeychain(TEMPORARY_RPC, 'rpc')
-);
 
 export const HausConnectProvider = ({
   web3modalOptions = web3modalDefaults,
@@ -88,7 +68,7 @@ export const HausConnectProvider = ({
   const [{ provider, chainId, address }, setWalletState] =
     useState<WalletStateType>({});
   const [profile, setProfile] = useState<UserProfile>(null);
-
+  const [isProfileLoading, setProfileLoading] = useState(false);
   const isConnected = useMemo(
     () => !!provider && !!address && !!chainId,
     [provider, address, chainId]
@@ -133,9 +113,13 @@ export const HausConnectProvider = ({
   }, [web3modalOptions, connectWallet]);
 
   useEffect(() => {
+    let shouldUpdate = true;
     if (address) {
-      loadProfile({ address, setProfile });
+      loadProfile({ address, setProfile, setProfileLoading, shouldUpdate });
     }
+    return () => {
+      shouldUpdate = false;
+    };
   }, [address]);
 
   return (
@@ -152,6 +136,7 @@ export const HausConnectProvider = ({
         networks,
         switchNetwork,
         profile,
+        isProfileLoading,
       }}
     >
       {children}

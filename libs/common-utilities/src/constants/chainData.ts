@@ -1,14 +1,4 @@
-import { Keychain, ValidNetwork } from '../types';
-
-type ValidKey = string | number | symbol;
-
-type NetworkType = {
-  chainId: string;
-  networkId: number;
-  name: string;
-  symbol: string;
-  [index: string]: ValidKey | Record<ValidKey, unknown>;
-};
+import { Keychain, NetworkType, ValidNetwork } from '../types';
 
 export const VALID_NETWORKS = {
   '0x1': true,
@@ -88,7 +78,7 @@ export const addKeychain = (
   keychain: Keychain<unknown>,
   property: string,
   networkList: Keychain<NetworkType> = networkData
-) => {
+): Keychain<NetworkType> => {
   return Object.values(networkList).reduce((acc, networkObj) => {
     const { chainId } = networkObj;
     if (!isValidNetwork(chainId)) {

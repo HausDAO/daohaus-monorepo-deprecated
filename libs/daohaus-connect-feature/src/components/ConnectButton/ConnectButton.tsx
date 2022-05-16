@@ -8,21 +8,37 @@ import { useHausConnect } from '../../HausConnectContext';
 import { truncateAddress } from '../../utils/common';
 
 export const ConnectButton = () => {
-  const { isConnected } = useHausConnect() || {};
-  return isConnected ? <UserConnectedDropdown /> : <ConnectWalletButton />;
+  const { isConnected, isProfileLoading } = useHausConnect() || {};
+  if (!isConnected) {
+    return <ConnectWalletButton />;
+  }
+  if (isProfileLoading) {
+    return <LoadingButton />;
+  }
+  return <UserConnectedDropdown />;
 };
 
 const ConnectWalletButton = () => {
   const { connectWallet } = useHausConnect() || {};
   return (
-    <Button
-      iconPos="left"
-      icon={RiUserAddLine}
-      className="menu-button"
-      onClick={connectWallet}
-    >
-      Connect Wallet
-    </Button>
+    <ButtonContainer>
+      <Button
+        fullWidth
+        iconPos="left"
+        icon={RiUserAddLine}
+        onClick={connectWallet}
+      >
+        Connect Wallet
+      </Button>
+    </ButtonContainer>
+  );
+};
+
+const LoadingButton = () => {
+  return (
+    <ButtonContainer>
+      <Button fullWidth>Loading</Button>
+    </ButtonContainer>
   );
 };
 
@@ -98,4 +114,7 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
   }
+`;
+const ButtonContainer = styled.div`
+  width: 20rem;
 `;

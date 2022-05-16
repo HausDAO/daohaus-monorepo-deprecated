@@ -1,5 +1,5 @@
 import { ENDPOINTS, ReactSetter } from '@daohaus/common-utilities';
-import { AccountProfile, Haus } from '@daohaus/dao-data';
+import { Haus } from '@daohaus/dao-data';
 import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
 import { providers } from 'ethers';
 import { truncateAddress } from './common';

@@ -8,7 +8,7 @@ type Props = {
   delay?: number;
 };
 
-const AvatarRoot = styled(RadixAvatar.Root)`
+const AvatarLgRoot = styled(RadixAvatar.Root)`
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -17,6 +17,11 @@ const AvatarRoot = styled(RadixAvatar.Root)`
   border-radius: 999.9rem;
   width: 16rem;
   height: 16rem;
+`;
+
+const AvatarSmRoot = styled(AvatarLgRoot)`
+  width: 3.6rem;
+  height: 3.6rem;
 `;
 
 const AvatarFallback = styled(RadixAvatar.Fallback)`
@@ -33,13 +38,20 @@ const StyledGhost = styled(BiGhost)`
   width: 6.4rem;
 `;
 
-const Avatar = ({ src, delay, alt }: Props) => (
-  <AvatarRoot>
+export const AvatarLg = ({ src, delay, alt }: Props) => (
+  <AvatarLgRoot>
     {src && <RadixAvatar.Image src={src} alt={alt} />}
     <AvatarFallback delay={src ? delay || 300 : 0}>
       <StyledGhost />
     </AvatarFallback>
-  </AvatarRoot>
+  </AvatarLgRoot>
 );
 
-export default Avatar;
+export const AvatarSm = ({ src, delay, alt }: Props) => (
+  <AvatarSmRoot>
+    {src && <RadixAvatar.Image src={src} alt={alt} />}
+    <AvatarFallback delay={src ? delay || 300 : 0}>
+      <StyledGhost />
+    </AvatarFallback>
+  </AvatarSmRoot>
+);

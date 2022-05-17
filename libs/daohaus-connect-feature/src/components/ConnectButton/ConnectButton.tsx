@@ -1,16 +1,12 @@
-import { getNetworkName } from '@daohaus/common-utilities';
-import { Button, Dropdown, ParMd, ParXs } from '@daohaus/ui';
+import { Button } from '@daohaus/ui';
 
-import { violet } from '@radix-ui/colors';
-import { useState } from 'react';
-import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
 import { RiUserAddLine } from 'react-icons/ri';
-import styled, { useTheme } from 'styled-components';
 import { useHausConnect } from '../../HausConnectContext';
-import { truncateAddress } from '../../utils/common';
+import { ButtonContainer } from './ConnectButtonStyles';
+import { UserConnectedDropdown } from './UserConnetedDropdown';
 
 export const ConnectButton = () => {
-  const { isConnected, isProfileLoading } = useHausConnect() || {};
+  const { isConnected, isProfileLoading } = useHausConnect();
   if (!isConnected) {
     return <ConnectWalletButton />;
   }
@@ -21,7 +17,7 @@ export const ConnectButton = () => {
 };
 
 const ConnectWalletButton = () => {
-  const { connectWallet } = useHausConnect() || {};
+  const { connectWallet } = useHausConnect();
   return (
     <ButtonContainer>
       <Button fullWidth IconLeft={RiUserAddLine} onClick={connectWallet}>
@@ -38,92 +34,3 @@ const LoadingButton = () => {
     </ButtonContainer>
   );
 };
-
-const UserConnectedDropdown = () => {
-  const { disconnect, address, chainId, profile, validNetwork } =
-    useHausConnect();
-  const theme = useTheme();
-
-  const [open, setOpen] = useState(false);
-  return (
-    <Dropdown
-      spacing="0.7rem"
-      width="25rem"
-      align="end"
-      open={open}
-      onOpenChange={setOpen}
-      trigger={
-        <Button avatar fullWidth IconRight={open ? BiChevronUp : BiChevronDown}>
-          <Container>
-            <TemporaryAvatar />
-            <div className="interior">
-              <ParMd color={theme.button.primary.text}>
-                {profile?.displayName ||
-                  (address && truncateAddress(address.toLowerCase()))}
-              </ParMd>
-              <ParXs color={theme.button.primary.text}>
-                {chainId && validNetwork
-                  ? `@${getNetworkName(chainId)}`
-                  : 'Wrong Network'}
-              </ParXs>
-            </div>
-          </Container>
-        </Button>
-      }
-      items={[
-        {
-          type: 'label',
-          content: (
-            <div
-              style={{
-                padding: '.8rem',
-              }}
-            >
-              <ParXs style={{ marginBottom: '.5rem' }}>
-                {address && truncateAddress(address)}
-              </ParXs>
-              <ParXs>
-                {validNetwork && chainId
-                  ? `Connected To ${getNetworkName(chainId)}`
-                  : 'Unsupported Network'}
-              </ParXs>
-            </div>
-          ),
-        },
-        {
-          type: 'clickable',
-          content: (
-            <Button tertiary fullWidth sm onClick={disconnect}>
-              Disconnect
-            </Button>
-          ),
-        },
-      ]}
-    />
-  );
-};
-
-const TemporaryAvatar = styled.div`
-  width: 3rem;
-  height: 3rem;
-
-  background-color: ${violet.violet9};
-  border-radius: 45px;
-  margin-right: 0.75rem;
-`;
-
-const Container = styled.div`
-  display: flex;
-  align-items: center;
-  width: 100%;
-  p {
-    text-align: left;
-  }
-  .interior {
-    display: flex;
-    flex-direction: column;
-  }
-`;
-const ButtonContainer = styled.div`
-  width: 20rem;
-`;

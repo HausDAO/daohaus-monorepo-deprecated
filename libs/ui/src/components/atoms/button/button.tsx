@@ -17,8 +17,6 @@ export type ButtonProps = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   IconLeft?: IconType;
   IconRight?: IconType;
-  // icon?: IconType;
-  // iconPos?: 'left' | 'right';
 };
 
 type Ref =

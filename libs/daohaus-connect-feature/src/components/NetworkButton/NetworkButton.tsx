@@ -8,8 +8,6 @@ import { Button, Dropdown, DropdownItem, ParXs } from '@daohaus/ui';
 import { BiError } from 'react-icons/bi';
 import { useHausConnect } from '../../HausConnectContext';
 
-//  Refactor
-
 export const NetworkButton = () => {
   const { isDaoScope, validNetwork, isConnected } = useHausConnect();
   if (!isConnected) return null;
@@ -59,7 +57,7 @@ export const NotDaoNetwork = () => {
 };
 
 export const NotSupportedNetwork = () => {
-  const { switchNetwork } = useHausConnect();
+  const { switchNetwork, networks } = useHausConnect();
 
   return (
     <Dropdown
@@ -73,7 +71,7 @@ export const NotSupportedNetwork = () => {
       }
       items={[
         { type: 'label', content: <ParXs>Switch to available network</ParXs> },
-        ...getNetworkPanels(networkData, switchNetwork),
+        ...getNetworkPanels(networks, switchNetwork),
       ]}
     />
   );

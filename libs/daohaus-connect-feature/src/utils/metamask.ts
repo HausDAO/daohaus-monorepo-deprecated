@@ -10,7 +10,7 @@ export const switchChainOnMetaMask = async (
   networks: NetworkConfigs,
   chainId: string
 ): Promise<boolean> => {
-  if (!isValidNetwork(chainId)) return false;
+  if (!isValidNetwork(chainId, networks)) return false;
   const currentNetwork = networks[chainId] as NetworkConfig;
   const { name, symbol, rpc, explorer } = currentNetwork;
   const networkName = name;

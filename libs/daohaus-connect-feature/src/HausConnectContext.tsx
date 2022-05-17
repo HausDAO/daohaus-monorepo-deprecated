@@ -1,4 +1,5 @@
 import { isValidNetwork } from '@daohaus/common-utilities';
+
 import {
   createContext,
   ReactNode,
@@ -8,6 +9,7 @@ import {
   useMemo,
   useState,
 } from 'react';
+
 import {
   getModal,
   handleConnectWallet,
@@ -16,12 +18,13 @@ import {
   loadProfile,
   loadWallet,
 } from './utils/contextHelpers';
+
 import {
   defaultWalletValues,
-  MAINNET_ID,
   supportedNetworks,
   web3modalDefaults,
 } from './utils/defaults';
+
 import {
   ModalEvents,
   ModalOptions,
@@ -54,7 +57,6 @@ export const HausConnectContext =
 type ConnectProviderProps = {
   web3modalOptions?: ModalOptions;
   networks?: NetworkConfigs;
-  defaultChainId?: string;
   children: ReactNode;
   handleModalEvents?: ModalEvents;
 };
@@ -63,7 +65,6 @@ export const HausConnectProvider = ({
   web3modalOptions = web3modalDefaults,
   children,
   networks = supportedNetworks,
-  defaultChainId = MAINNET_ID,
   handleModalEvents,
 }: ConnectProviderProps) => {
   const [isConnecting, setConnecting] = useState(false);
@@ -105,7 +106,6 @@ export const HausConnectProvider = ({
 
   useEffect(() => {
     let shouldUpdate = true;
-
     if (address && isConnected) {
       loadProfile({ address, setProfile, setProfileLoading, shouldUpdate });
     }

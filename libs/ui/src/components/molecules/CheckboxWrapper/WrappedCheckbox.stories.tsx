@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { useForm, FormProvider, Controller } from 'react-hook-form';
 import { WrappedCheckbox } from './WrappedCheckbox';
 
 export default {
@@ -7,16 +8,22 @@ export default {
 } as ComponentMeta<typeof WrappedCheckbox>;
 
 const Template: ComponentStory<typeof WrappedCheckbox> = (args) => {
+  const methods = useForm();
+  const onSubmit = (data: any) => console.log(data);
+
   return (
-    <div style={{ margin: '4rem' }}>
-      <WrappedCheckbox {...args} />
-    </div>
+    <form onSubmit={methods.handleSubmit(onSubmit)}>
+      <div style={{ margin: '4rem' }}>
+        <WrappedCheckbox {...args} />
+      </div>
+      <button onSubmit={onSubmit}>Submit</button>
+    </form>
   );
 };
 
 export const FullWrappedCheckbox = Template.bind({});
 FullWrappedCheckbox.args = {
-  id: 'Example Checkbox',
+  id: 'exampleCheckbox',
   label: 'Complete Input',
   helperText: 'Test the action/controls',
   info: 'This is controlled by the info prop',
@@ -25,8 +32,10 @@ FullWrappedCheckbox.args = {
   success: undefined,
   checkboxes: [
     {
-      id: 'Example Checkbox',
-      label: 'Complete Input',
+      id: 'exampleCheckbox',
+      title: 'completeInput',
+      name: 'test0',
+      value: undefined,
       defaultChecked: false,
       disabled: false,
       required: false,
@@ -36,7 +45,7 @@ FullWrappedCheckbox.args = {
 
 export const MultipleWrappedCheckbox = Template.bind({});
 MultipleWrappedCheckbox.args = {
-  id: 'Example of Multiple Checkbox',
+  id: 'multipleCheckboxId',
   label: 'Multiple Checkboxes',
   helperText: 'Test the action/controls',
   info: 'This is controlled by the info prop',
@@ -45,15 +54,19 @@ MultipleWrappedCheckbox.args = {
   success: undefined,
   checkboxes: [
     {
-      label: 'Sample Checkbox 1',
-      id: 'Sample Checkbox 1 Id',
+      id: 'childCheckboxId1',
+      title: 'sampleCheckbox1',
+      name: 'test1',
+      value: undefined,
       defaultChecked: false,
       disabled: false,
       required: false,
     },
     {
-      label: 'Sample Checkbox 2',
-      id: 'Sample Checkbox 2 Id',
+      id: 'childCheckboxId2',
+      title: 'sampleCheckbox2',
+      name: 'test2',
+      value: undefined,
       defaultChecked: true,
       disabled: false,
       required: false,

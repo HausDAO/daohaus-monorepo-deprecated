@@ -1,3 +1,5 @@
+import { CheckboxProps } from '@radix-ui/react-checkbox';
+
 export type ErrorMessage = {
   type: 'error';
   message: string;
@@ -10,11 +12,24 @@ export type SuccessMessage = {
   type: 'success';
   message: string;
 };
+
+export type Wrapper = {
+  id: string;
+  label: string;
+  type?: string;
+  helperText?: string;
+  info?: string;
+  required?: boolean;
+  warning?: WarningMessage;
+  error?: ErrorMessage;
+  success?: SuccessMessage;
+};
+
 export type Field = {
   id: string;
   label: string;
-  type: string;
-  placeholder: string;
+  type?: string;
+  placeholder?: string;
   helperText?: string;
   required?: boolean;
   info?: string;
@@ -29,27 +44,6 @@ export type Field = {
 };
 
 // TODO Refine based on Radix Checkbox Type & Wrapper
-export type CheckboxWrapperField = {
-  id: string;
-  label: string;
-  type: string;
-  placeholder: string;
-  helperText?: string;
-  required?: boolean;
-  info?: string;
-  disabled?: boolean;
-  warning?: WarningMessage;
-  error?: ErrorMessage;
-  success?: SuccessMessage;
+export type CheckboxWrapperProps = Wrapper & {
   checkboxes: CheckboxProps[];
-};
-
-type CheckboxProps = {
-  id: string;
-  label: string;
-  defaultChecked?: boolean;
-  helperText?: string;
-  required?: boolean;
-  disabled?: boolean;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };

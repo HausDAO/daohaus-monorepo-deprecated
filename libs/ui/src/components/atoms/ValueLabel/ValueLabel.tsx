@@ -5,12 +5,12 @@ import {
 } from './ValueLabel.styles';
 
 export type ValueLabelType = {
-  id: string;
+  id: string | undefined;
   children: React.ReactChild;
   required?: boolean;
 };
 
-const ValueLabel = ({ required, children = 'value', id }: ValueLabelType) => {
+const ValueLabel = ({ required, children, id }: ValueLabelType) => {
   return (
     <ValueLabelContainer>
       {required && <RequiredAsterisk>*</RequiredAsterisk>}

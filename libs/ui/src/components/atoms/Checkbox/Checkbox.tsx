@@ -1,19 +1,11 @@
 import React, { RefObject, useState } from 'react';
 import classNames from 'classnames';
 import { BiCheck } from 'react-icons/bi';
+import { CheckboxProps } from '@radix-ui/react-checkbox';
 
 import { StyledCheckbox, StyledIndicator, Container } from './Checkbox.styles';
 import ValueLabel from '../ValueLabel/ValueLabel';
-
-type CheckboxProps = {
-  id: string;
-  label: string;
-  defaultChecked?: boolean;
-  helperText?: string;
-  required?: boolean;
-  disabled?: boolean;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-};
+import { setConstantValue } from 'typescript';
 
 type Ref =
   | RefObject<HTMLButtonElement>
@@ -22,8 +14,10 @@ type Ref =
   | undefined;
 
 export const Checkbox = React.forwardRef((props: CheckboxProps, ref: Ref) => {
-  const { id, label, defaultChecked, disabled, required } = props;
-  const [isChecked, setIsChecked] = useState<boolean>(defaultChecked || false);
+  console.log('Checkbox props', props);
+  const { id, title, disabled, required } = props;
+  const [checked, setChecked] = useState(props.defaultChecked || props.checked);
+
   const classes = classNames({
     disabled,
   });
@@ -32,18 +26,16 @@ export const Checkbox = React.forwardRef((props: CheckboxProps, ref: Ref) => {
     <Container>
       <StyledCheckbox
         {...props}
-        id={id}
         ref={ref}
-        className={classes}
-        checked={isChecked}
-        onCheckedChange={() => setIsChecked(!isChecked)}
+        checked={checked}
+        onCheckedChange={setChecked}
       >
         <StyledIndicator className={classes}>
           <BiCheck />
         </StyledIndicator>
       </StyledCheckbox>
       <ValueLabel required={required} id={id}>
-        {label}
+        {title ? title : 'No Title Found'}
       </ValueLabel>
     </Container>
   );

@@ -1,27 +1,15 @@
-import { useFormContext } from 'react-hook-form';
-import type { CheckboxWrapperField } from '../../../types/formAndField';
+import { useFormContext, Controller } from 'react-hook-form';
+import type { CheckboxWrapperProps } from '../../../types/formAndField';
 import { Checkbox } from '../../atoms/Checkbox';
 import { FieldWrapper } from '../inputWrapper/fieldWrapper';
 
-export const WrappedCheckbox = (props: CheckboxWrapperField) => {
-  const {
-    id,
-    type,
-    placeholder,
-    helperText,
-    info,
-    label,
-    error,
-    success,
-    warning,
-    checkboxes,
-  } = props;
+export const WrappedCheckbox = (props: CheckboxWrapperProps) => {
+  const { id, helperText, info, label, error, success, warning, checkboxes } =
+    props;
   const { register } = useFormContext();
   return (
     <FieldWrapper
       id={id}
-      type={type}
-      placeholder={placeholder}
       helperText={helperText}
       info={info}
       label={label}
@@ -30,7 +18,13 @@ export const WrappedCheckbox = (props: CheckboxWrapperField) => {
       warning={warning}
     >
       {checkboxes.map((checkbox) => {
-        return <Checkbox {...register(checkbox.id)} {...checkbox} />;
+        return (
+          <Checkbox
+            key={checkbox.id}
+            {...register(checkbox.name ? checkbox.name : id)}
+            {...checkbox}
+          />
+        );
       })}
     </FieldWrapper>
   );

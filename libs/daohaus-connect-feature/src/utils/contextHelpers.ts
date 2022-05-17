@@ -32,9 +32,7 @@ export const handleSetProvider = async ({
   provider: any;
   setWalletState: ReactSetter<WalletStateType>;
 }) => {
-  console.log('provider', provider);
   const ethersProvider = new providers.Web3Provider(provider);
-
   const signerAddress = await ethersProvider.getSigner().getAddress();
   setWalletState({
     provider: ethersProvider,

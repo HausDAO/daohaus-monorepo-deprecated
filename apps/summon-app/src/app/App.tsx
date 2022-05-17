@@ -1,14 +1,10 @@
-import { ConnectButton, NetworkButton } from '@daohaus/daohaus-connect-feature';
+import { DaoHausNav } from '@daohaus/daohaus-connect-feature';
 import { Button, H1, HausThemeContext } from '@daohaus/ui';
 import { useContext } from 'react';
 import styled from 'styled-components';
 
 const TemporaryLayout = styled.main`
-  nav {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-  }
+  width: 100%;
 `;
 
 export function App() {
@@ -16,14 +12,7 @@ export function App() {
 
   return (
     <TemporaryLayout>
-      <nav>
-        <div>
-          <NetworkButton />
-        </div>
-        <div>
-          <ConnectButton />
-        </div>
-      </nav>
+      <DaoHausNav />
       <H1>test</H1>
       <Button onClick={toggleLightDark}>Toggle Theme</Button>
     </TemporaryLayout>

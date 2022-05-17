@@ -83,13 +83,7 @@ export const HausConnectProvider = ({
   );
   // TODO, detect if we're in DAOscope by looking at the url.
   //  Or we could use DAOcontext to add to this state on context mount/unmount
-  const isDaoScope = true;
-
-  const disconnect = async () => {
-    const modal = getModal();
-    modal.clearCachedProvider();
-    setWalletState({});
-  };
+  const isDaoScope = false;
 
   const connectWallet = useCallback(async () => {
     handleConnectWallet({
@@ -116,6 +110,12 @@ export const HausConnectProvider = ({
 
   const switchNetwork = async (_chainId: string | number) => {
     handleSwitchNetwork(_chainId, networks);
+  };
+
+  const disconnect = async () => {
+    const modal = getModal();
+    modal.clearCachedProvider();
+    setWalletState({});
   };
 
   return (

@@ -48,7 +48,6 @@ const Profile = () => {
       const profile = await haus.profile.get(
         '0xEAC5F0d4A9a45E1f9FdD0e7e2882e9f60E301156'
       );
-      console.log(profile);
       if (profile) {
         setProfile({
           name: profile.name || '',

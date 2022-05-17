@@ -1,4 +1,9 @@
-import { Keychain, networkData, NetworkType } from '@daohaus/common-utilities';
+import {
+  getNetworkName,
+  Keychain,
+  networkData,
+  NetworkType,
+} from '@daohaus/common-utilities';
 import { Button, Dropdown, DropdownItem, ParXs } from '@daohaus/ui';
 import { BiError } from 'react-icons/bi';
 import { useHausConnect } from '../../HausConnectContext';
@@ -7,15 +12,14 @@ import { useHausConnect } from '../../HausConnectContext';
 
 export const NetworkButton = () => {
   const { isDaoScope, validNetwork, isConnected } = useHausConnect();
+  if (!isConnected) return null;
 
-  if (isDaoScope || !isConnected) {
-    // return
-    return null;
-  }
+  if (
+    isDaoScope /*AND user's network is different from DAO's network (in DAO context)*/
+  )
+    return <NotDaoNetwork />;
 
-  if (!validNetwork) {
-    return <NotSupportedNetwork />;
-  }
+  if (!validNetwork) return <NotSupportedNetwork />;
 
   return null;
 };
@@ -39,6 +43,21 @@ export const getNetworkPanels = (
     };
   });
 
+export const NotDaoNetwork = () => {
+  //  In the future, this will come from the dao context
+  const { switchNetwork } = useHausConnect();
+  const sampleDaoNetworkId = '0x1';
+
+  const handleSwitchNetwork = () => {
+    switchNetwork(sampleDaoNetworkId);
+  };
+  return (
+    <Button tertiary IconLeft={BiError} onClick={handleSwitchNetwork}>
+      Switch to {getNetworkName(sampleDaoNetworkId)}
+    </Button>
+  );
+};
+
 export const NotSupportedNetwork = () => {
   const { switchNetwork } = useHausConnect();
 
@@ -46,7 +65,7 @@ export const NotSupportedNetwork = () => {
     <Dropdown
       align="end"
       spacing="0.7rem"
-      width="26rem"
+      width="25.25rem"
       trigger={
         <Button tertiary IconLeft={BiError}>
           Network Unavailable

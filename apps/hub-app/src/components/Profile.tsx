@@ -1,8 +1,10 @@
-import React, { MouseEvent } from 'react';
+import React, { useEffect, useState, MouseEvent } from 'react';
 import styled from 'styled-components';
 import { BiCopy } from 'react-icons/bi';
 import { H5, H6, Underline, ParLg, ParMd } from '@daohaus/ui';
-import Avatar from '../components/Avatar';
+import { AvatarLg } from '../components/Avatar';
+import { networks } from '../constants';
+import { Haus } from '@daohaus/dao-data';
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -28,19 +30,44 @@ const NameContainer = styled.div`
 `;
 
 const Profile = () => {
+  const [profile, setProfile] = useState({
+    image: '',
+    name: '',
+    description: '',
+    emoji: '',
+    background: '',
+  });
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     navigator.clipboard.writeText(`stub.eth`);
   };
 
+  const getProfile = async () => {
+    const haus = Haus.create(networks);
+    try {
+      const profile = await haus.profile.get(
+        '0xEAC5F0d4A9a45E1f9FdD0e7e2882e9f60E301156'
+      );
+      if (!profile) {
+        setProfile(profile);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    getProfile();
+  }, []);
+
   return (
     <ProfileContainer>
-      <Avatar />
+      <AvatarLg src={profile.image} alt="profile image" />
       <div>
         <NameContainer>
-          <H5>Example Username</H5>
+          <H5>{profile.name}</H5>
           <ParLg as="span" role="img" aria-label="profile emoji">
-            🤘
+            {profile.emoji}
           </ParLg>
         </NameContainer>
         <NameContainer>

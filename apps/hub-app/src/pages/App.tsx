@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header';
 import Profile from '../components/Profile';
+import { DataTable } from '../components/Table';
+import TableControl from '../components/TableControl';
 import { crimsonDark } from '@radix-ui/colors';
 
 const Layout = styled.div`
@@ -39,6 +41,10 @@ const SideTopRight = styled.div`
   width: 100%;
 `;
 
+const Body = styled.div`
+  grid-area: body;
+`;
+
 const App = () => {
   return (
     <Layout>
@@ -48,6 +54,10 @@ const App = () => {
       <ProfileContainer>
         <Profile />
       </ProfileContainer>
+      <Body>
+        <TableControl />
+        <DataTable />
+      </Body>
     </Layout>
   );
 };

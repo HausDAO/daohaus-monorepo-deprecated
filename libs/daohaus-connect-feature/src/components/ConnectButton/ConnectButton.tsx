@@ -40,7 +40,8 @@ const LoadingButton = () => {
 };
 
 const UserConnectedDropdown = () => {
-  const { disconnect, address, chainId, profile } = useHausConnect();
+  const { disconnect, address, chainId, profile, validNetwork } =
+    useHausConnect();
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);
@@ -58,10 +59,13 @@ const UserConnectedDropdown = () => {
             <TemporaryAvatar />
             <div className="interior">
               <ParMd color={theme.button.primary.text}>
-                {profile?.displayName}
+                {profile?.displayName ||
+                  (address && truncateAddress(address.toLowerCase()))}
               </ParMd>
               <ParXs color={theme.button.primary.text}>
-                @{chainId && getNetworkName(chainId)}
+                {chainId && validNetwork
+                  ? `@${getNetworkName(chainId)}`
+                  : 'Wrong Network'}
               </ParXs>
             </div>
           </Container>

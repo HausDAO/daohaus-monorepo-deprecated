@@ -1,8 +1,4 @@
-import {
-  ENDPOINTS,
-  isValidNetwork,
-  ReactSetter,
-} from '@daohaus/common-utilities';
+import { isValidNetwork, ReactSetter } from '@daohaus/common-utilities';
 import { Haus } from '@daohaus/dao-data';
 import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
 import { providers } from 'ethers';
@@ -49,15 +45,11 @@ export const handleSetProvider = async ({
 export const handleConnectWallet = async ({
   setConnecting,
   handleModalEvents,
-  // setWalletProvider,
-  // networks,
   disconnect,
   setWalletState,
 }: {
   setConnecting: ReactSetter<boolean>;
   handleModalEvents?: ModalEvents;
-  // networks: NetworkConfigs;
-  // setWalletProvider: ReactSetter<WalletStateType>;
   disconnect: () => Promise<void>;
   setWalletState: ReactSetter<WalletStateType>;
 }) => {
@@ -66,28 +58,25 @@ export const handleConnectWallet = async ({
 
     const modal = getModal();
     const modalProvider = await modal.requestProvider();
-    console.log('modalProvider', modalProvider);
     const _isGnosisSafe = await modal.isSafeApp();
 
     if (!_isGnosisSafe) {
-      modalProvider.on('accountsChanged', (account: string) => {
+      modalProvider.on('accountsChanged', () => {
         handleSetProvider({ provider: modalProvider, setWalletState });
-        // handleModalEvents && handleModalEvents('accountsChanged');
+        handleModalEvents && handleModalEvents('accountsChanged');
       });
-      modalProvider.on('chainChanged', () => {
-        console.log('CHAIN_CHANGED');
-        // handleModalEvents && handleModalEvents('chainChanged');
-        // if (!isValidNetwork(modalProvider.chainId)) {
-        //   handleModalEvents &&
-        //     handleModalEvents('error', {
-        //       code: 'UNSUPPORTED_NETWORK',
-        //       message: `You have switched to an unsupported chain, Disconnecting from Metamask...`,
-        //     });
-        // }
-        // setWalletProvider(modalProvider);
+      modalProvider.on('chainChanged', (chainId: string) => {
+        handleSetProvider({ provider: modalProvider, setWalletState });
+        handleModalEvents && handleModalEvents('chainChanged');
+        if (!isValidNetwork(chainId)) {
+          handleModalEvents &&
+            handleModalEvents('error', {
+              code: 'UNSUPPORTED_NETWORK',
+              message: `You have switched to an unsupported chain, Disconnecting from Metamask...`,
+            });
+        }
       });
     }
-
     handleSetProvider({ provider: modalProvider, setWalletState });
   } catch (web3Error) {
     console.error(web3Error);
@@ -131,7 +120,6 @@ export const loadProfile = async ({
 }) => {
   try {
     setProfileLoading(true);
-    console.log('address', address);
     const haus = Haus.create(TEMPORARY_RPC);
     const profile = await haus.profile.get(address);
 
@@ -142,12 +130,14 @@ export const loadProfile = async ({
     }
   } catch (error) {
     console.error(error);
+    setProfile(null);
   } finally {
     if (shouldUpdate) {
       setProfileLoading(false);
     }
   }
 };
+
 export const handleSwitchNetwork = async (
   _chainId: string | number,
   networks: NetworkConfigs

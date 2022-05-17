@@ -1,4 +1,5 @@
 import { Keychain } from '@daohaus/common-utilities';
+import { HausError } from '../HausError';
 import { OrderDirection } from '../subgraph/schema.generated';
 
 /**
@@ -34,15 +35,9 @@ export type Ordering<TOrderBy extends string> = {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface QueryResult<Data = any> {
-  /** The data returned from the Graphql server. */
   data?: Data;
-  /** Any errors resulting from the operation. */
-  error?: QueryError;
+  error?: HausError;
   networkId?: keyof Keychain;
-}
-
-export interface QueryError {
-  message: string;
 }
 
 export type TransformedMembership = {

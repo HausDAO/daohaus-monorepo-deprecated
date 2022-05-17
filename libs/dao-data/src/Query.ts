@@ -9,7 +9,6 @@ import {
   DaoTokenBalances,
   TokenBalance,
 } from './types';
-import { INVALID_NETWORK_ERROR } from './utils';
 import * as fetch from './utils';
 import { graphFetch } from './utils/requests';
 import {

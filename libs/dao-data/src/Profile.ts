@@ -4,24 +4,7 @@ import { TileDocument } from '@ceramicnetwork/stream-tile';
 import { ethers } from 'ethers';
 
 import { Keychain } from '@daohaus/common-utilities';
-
-type BasicProfile = {
-  image?: string;
-  name?: string;
-  description?: string;
-  emoji?: string;
-  background?: string;
-};
-
-type AccountProfile = {
-  address: string;
-  ens: string | null;
-  image?: string;
-  name?: string;
-  description?: string;
-  emoji?: string;
-  background?: string;
-};
+import { AccountProfile, BasicProfile } from './types';
 
 export default class Profile {
   providers: Keychain;

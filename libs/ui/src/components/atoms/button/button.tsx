@@ -15,8 +15,8 @@ export type ButtonProps = {
   leftAlign?: boolean;
   avatar?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  icon?: IconType;
-  iconPos?: 'left' | 'right';
+  IconLeft?: IconType;
+  IconRight?: IconType;
 };
 
 type Ref =
@@ -34,10 +34,10 @@ export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
     children,
     fullWidth,
     leftAlign,
-    icon,
     avatar,
     className,
-    iconPos,
+    IconLeft,
+    IconRight,
   } = props;
   const classes = classNames({
     secondary,
@@ -48,31 +48,20 @@ export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
     'left-align': leftAlign,
     'full-width': fullWidth,
   });
-
-  if (icon) {
-    const Icon = icon;
+  if (IconLeft || IconRight) {
     const iconClasses = classNames({ secondary, tertiary, sm, lg });
-    const iconLeft = (
-      <>
-        {children}
-        <Icon className={iconClasses} />
-      </>
-    );
-    const iconRight = (
-      <>
-        <Icon className={iconClasses} />
-        {children}
-      </>
-    );
-
     return (
       <ButtonBase {...props} className={`${classes} ${className}`} ref={ref}>
-        <WithIcon>{iconPos === 'right' ? iconRight : iconLeft}</WithIcon>
+        <WithIcon>
+          {IconLeft && <IconLeft className={`${iconClasses} icon-left`} />}
+          {children}
+          {IconRight && <IconRight className={`${iconClasses} icon-right`} />}
+        </WithIcon>
       </ButtonBase>
     );
   }
   return (
-    <ButtonBase {...props} className={classes} ref={ref}>
+    <ButtonBase {...props} className={`${classes} ${className}`} ref={ref}>
       {children}
     </ButtonBase>
   );

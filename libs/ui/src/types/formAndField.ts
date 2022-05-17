@@ -12,8 +12,8 @@ export type SuccessMessage = {
 };
 export type Field = {
   id: string;
-  label: string;
-  type: string;
+  label?: string;
+  type?: string;
   placeholder: string;
   helperText?: string;
   required?: boolean;

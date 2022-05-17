@@ -6,7 +6,7 @@ import {
 import { Haus } from '@daohaus/dao-data';
 import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
 import { providers } from 'ethers';
-import { truncateAddress } from './common';
+import { TEMPORARY_RPC, truncateAddress } from './common';
 
 import { switchChainOnMetaMask } from './metamask';
 import {
@@ -30,51 +30,18 @@ export const isMetamaskProvider = (
 
 export const handleSetProvider = async ({
   provider,
-  networks,
-  defaultChainId,
-  handleModalEvents,
   setWalletState,
 }: {
-  /* eslint-disable  @typescript-eslint/no-explicit-any */
   provider: any;
-  networks: NetworkConfigs;
-  defaultChainId: string;
-  handleModalEvents?: ModalEvents;
   setWalletState: ReactSetter<WalletStateType>;
 }) => {
+  console.log('provider', provider);
   const ethersProvider = new providers.Web3Provider(provider);
-  let chainId: string =
-    typeof provider.chainId === 'number'
-      ? numberToHex(provider.chainId)
-      : provider.chainId;
-
-  if (!isValidNetwork(chainId)) {
-    if (!defaultChainId) {
-      handleModalEvents &&
-        handleModalEvents('error', {
-          code: 'UNSUPPORTED_NETWORK',
-          message: `Network not supported, please switch to one of the supported networks`,
-        });
-      return;
-    }
-    const success =
-      isMetamaskProvider(ethersProvider) &&
-      (await switchChainOnMetaMask(networks, defaultChainId));
-    if (!success) {
-      handleModalEvents &&
-        handleModalEvents('error', {
-          code: 'UNSUPPORTED_NETWORK',
-          message: `Network not supported`,
-        });
-      return;
-    }
-    chainId = defaultChainId;
-  }
 
   const signerAddress = await ethersProvider.getSigner().getAddress();
   setWalletState({
     provider: ethersProvider,
-    chainId,
+    chainId: provider.chainId,
     address: signerAddress,
   });
 };
@@ -82,42 +49,46 @@ export const handleSetProvider = async ({
 export const handleConnectWallet = async ({
   setConnecting,
   handleModalEvents,
-  setWalletProvider,
-  networks,
+  // setWalletProvider,
+  // networks,
   disconnect,
+  setWalletState,
 }: {
   setConnecting: ReactSetter<boolean>;
   handleModalEvents?: ModalEvents;
-  networks: NetworkConfigs;
-  setWalletProvider: ReactSetter<WalletStateType>;
+  // networks: NetworkConfigs;
+  // setWalletProvider: ReactSetter<WalletStateType>;
   disconnect: () => Promise<void>;
+  setWalletState: ReactSetter<WalletStateType>;
 }) => {
   try {
     setConnecting(true);
+
     const modal = getModal();
     const modalProvider = await modal.requestProvider();
-    setWalletProvider(modalProvider);
-
+    console.log('modalProvider', modalProvider);
     const _isGnosisSafe = await modal.isSafeApp();
 
     if (!_isGnosisSafe) {
-      modalProvider.on('accountsChanged', () => {
-        disconnect();
-        handleModalEvents && handleModalEvents('accountsChanged');
+      modalProvider.on('accountsChanged', (account: string) => {
+        handleSetProvider({ provider: modalProvider, setWalletState });
+        // handleModalEvents && handleModalEvents('accountsChanged');
       });
       modalProvider.on('chainChanged', () => {
-        handleModalEvents && handleModalEvents('chainChanged');
-        if (!isValidNetwork(modalProvider.chainId)) {
-          disconnect();
-          handleModalEvents &&
-            handleModalEvents('error', {
-              code: 'UNSUPPORTED_NETWORK',
-              message: `You have switched to an unsupported chain, Disconnecting from Metamask...`,
-            });
-        }
-        setWalletProvider(modalProvider);
+        console.log('CHAIN_CHANGED');
+        // handleModalEvents && handleModalEvents('chainChanged');
+        // if (!isValidNetwork(modalProvider.chainId)) {
+        //   handleModalEvents &&
+        //     handleModalEvents('error', {
+        //       code: 'UNSUPPORTED_NETWORK',
+        //       message: `You have switched to an unsupported chain, Disconnecting from Metamask...`,
+        //     });
+        // }
+        // setWalletProvider(modalProvider);
       });
     }
+
+    handleSetProvider({ provider: modalProvider, setWalletState });
   } catch (web3Error) {
     console.error(web3Error);
     disconnect();
@@ -160,16 +131,8 @@ export const loadProfile = async ({
 }) => {
   try {
     setProfileLoading(true);
-    const TEMPORARY_VITE_CONFIG = {
-      '0x1': `https://${import.meta.env.VITE_RIVET_KEY}.eth.rpc.rivet.cloud/`,
-      '0x4': `https://${
-        import.meta.env.VITE_RIVET_KEY
-      }.rinkeby.rpc.rivet.cloud/`,
-      '0x2a': `https://kovan.infura.io/v3/${
-        import.meta.env.VITE_INFURA_PROJECT_ID
-      }`,
-    };
-    const haus = Haus.create({ ...ENDPOINTS.RPC, ...TEMPORARY_VITE_CONFIG });
+    console.log('address', address);
+    const haus = Haus.create(TEMPORARY_RPC);
     const profile = await haus.profile.get(address);
 
     if (profile && shouldUpdate) {
@@ -184,7 +147,6 @@ export const loadProfile = async ({
       setProfileLoading(false);
     }
   }
-  // typecasting here. If this function is called, then address is string
 };
 export const handleSwitchNetwork = async (
   _chainId: string | number,

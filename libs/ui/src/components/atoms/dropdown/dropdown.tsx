@@ -18,6 +18,7 @@ const DropdownContentOptions = {
 export type DropdownItem = {
   type: keyof typeof DropdownContentOptions;
   content: React.ReactNode;
+  key?: string;
 };
 type DropdownProps = {
   trigger: React.ReactNode;
@@ -75,13 +76,17 @@ const DropdownContentFactory = ({
       {items?.map((item) => {
         if (item.type === 'clickable') {
           return (
-            <DropdownMenuItem key={uuid()} spacing={spacing}>
+            <DropdownMenuItem key={item.key || uuid()} spacing={spacing}>
               {item.content}
             </DropdownMenuItem>
           );
         }
         if (item.type === 'label') {
-          return <DropdownLabel key={uuid()}>{item.content}</DropdownLabel>;
+          return (
+            <DropdownLabel key={item.key || uuid()}>
+              {item.content}
+            </DropdownLabel>
+          );
         }
         return null;
       })}

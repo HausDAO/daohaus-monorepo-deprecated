@@ -1,3 +1,4 @@
+import { isValidNetwork } from '@daohaus/common-utilities';
 import {
   createContext,
   ReactNode,
@@ -10,7 +11,6 @@ import {
 import {
   getModal,
   handleConnectWallet,
-  handleSetProvider,
   handleSwitchNetwork,
   isMetamaskProvider,
   loadProfile,
@@ -44,6 +44,8 @@ export type UserConnectType = {
   networks: NetworkConfigs;
   switchNetwork: (chainId: string) => void;
   isProfileLoading: boolean;
+  isDaoScope: boolean;
+  validNetwork: boolean;
 };
 
 export const HausConnectContext =
@@ -74,19 +76,13 @@ export const HausConnectProvider = ({
     [provider, address, chainId]
   );
   const isMetamask = useMemo(() => isMetamaskProvider(provider), [provider]);
-
-  const setWalletProvider = useCallback(
-    async (provider) => {
-      handleSetProvider({
-        provider,
-        networks,
-        defaultChainId,
-        handleModalEvents,
-        setWalletState,
-      });
-    },
-    [handleModalEvents, defaultChainId, networks]
+  const validNetwork = useMemo(
+    () => !!chainId && isValidNetwork(chainId, networks),
+    [chainId, networks]
   );
+  // TODO, detect if we're in DAOscope by looking at the url.
+  //  Or we could use DAOcontext to add to this state on context mount/unmount
+  const isDaoScope = false;
 
   const disconnect = async () => {
     const modal = getModal();
@@ -98,15 +94,10 @@ export const HausConnectProvider = ({
     handleConnectWallet({
       setConnecting,
       handleModalEvents,
-      setWalletProvider,
-      networks,
       disconnect,
+      setWalletState,
     });
-  }, [handleModalEvents, networks, setWalletProvider]);
-
-  const switchNetwork = async (_chainId: string | number) => {
-    handleSwitchNetwork(_chainId, networks);
-  };
+  }, [setConnecting, handleModalEvents]);
 
   useEffect(() => {
     loadWallet({ setConnecting, connectWallet, web3modalOptions });
@@ -114,13 +105,18 @@ export const HausConnectProvider = ({
 
   useEffect(() => {
     let shouldUpdate = true;
-    if (address) {
+
+    if (address && isConnected) {
       loadProfile({ address, setProfile, setProfileLoading, shouldUpdate });
     }
     return () => {
       shouldUpdate = false;
     };
-  }, [address]);
+  }, [address, isConnected]);
+
+  const switchNetwork = async (_chainId: string | number) => {
+    handleSwitchNetwork(_chainId, networks);
+  };
 
   return (
     <HausConnectContext.Provider
@@ -137,6 +133,8 @@ export const HausConnectProvider = ({
         switchNetwork,
         profile,
         isProfileLoading,
+        isDaoScope,
+        validNetwork,
       }}
     >
       {children}

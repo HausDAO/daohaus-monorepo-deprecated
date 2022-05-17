@@ -1,25 +1,48 @@
 import { Keychain, networkData, NetworkType } from '@daohaus/common-utilities';
 import { Button, Dropdown, DropdownItem, ParXs } from '@daohaus/ui';
 import { BiError } from 'react-icons/bi';
+import { useHausConnect } from '../../HausConnectContext';
 
 //  Refactor
 
-export const NetworkButton = () => <BadNetworkDropdown />;
+export const NetworkButton = () => {
+  const { isDaoScope, validNetwork, isConnected } = useHausConnect();
+
+  if (isDaoScope || !isConnected) {
+    // return
+    return null;
+  }
+
+  if (!validNetwork) {
+    return <NotSupportedNetwork />;
+  }
+
+  return null;
+};
 
 export const getNetworkPanels = (
-  availableNetworks: Keychain<NetworkType>
+  availableNetworks: Keychain<NetworkType>,
+  switchNetwork: (id: string) => void
 ): DropdownItem[] =>
   Object.values(availableNetworks).map((network) => {
+    const handleNetworkSwitch = () => {
+      switchNetwork(network.chainId);
+    };
     return {
+      key: network.chainId,
       type: 'clickable',
       content: (
-        <Button secondary fullWidth leftAlign>
+        <Button secondary fullWidth leftAlign onClick={handleNetworkSwitch}>
           {network.name}
         </Button>
       ),
     };
   });
-export const BadNetworkDropdown = () => {
+
+export const NotSupportedNetwork = () => {
+  const switchNetwork = (id: string) => {
+    console.log(id);
+  };
   return (
     <Dropdown
       align="end"
@@ -32,7 +55,7 @@ export const BadNetworkDropdown = () => {
       }
       items={[
         { type: 'label', content: <ParXs>Switch to available network</ParXs> },
-        ...getNetworkPanels(networkData),
+        ...getNetworkPanels(networkData, switchNetwork),
       ]}
     />
   );

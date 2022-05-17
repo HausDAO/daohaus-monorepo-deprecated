@@ -33,9 +33,7 @@ export default class Profile {
   }
 
   public async get(address: string): Promise<AccountProfile> {
-    console.log('address', address);
     const ens = await this.getEns(address);
-    console.log('ens', ens);
     const basicProfile = await this.getBasicProfile('0x1', address);
     return {
       address,
@@ -73,7 +71,6 @@ export default class Profile {
   }
 
   private async getEns(address: string): Promise<string | null> {
-    console.log('this.providers', this.providers);
     const provider = new ethers.providers.JsonRpcProvider(
       this.providers['0x1']
     );

@@ -11,8 +11,13 @@ export const VALID_NETWORKS = {
   '0xa4ec': true,
 };
 
-export const isValidNetwork = (string: string): string is ValidNetwork =>
-  VALID_NETWORKS[string as ValidNetwork] !== undefined;
+export const isValidNetwork = (
+  string: string,
+  networks?: Keychain<unknown>
+): string is ValidNetwork =>
+  networks
+    ? networks[string as ValidNetwork] !== undefined
+    : VALID_NETWORKS[string as ValidNetwork] !== undefined;
 
 export const networkData: Keychain<NetworkType> = {
   '0x1': {
@@ -40,7 +45,7 @@ export const networkData: Keychain<NetworkType> = {
     symbol: 'xDAI',
   },
   '0xa': {
-    chainId: '0x64',
+    chainId: '0xa',
     networkId: 10,
     name: 'Optimism Mainnet',
     symbol: 'ETH',

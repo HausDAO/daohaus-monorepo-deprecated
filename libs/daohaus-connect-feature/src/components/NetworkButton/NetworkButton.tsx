@@ -40,9 +40,8 @@ export const getNetworkPanels = (
   });
 
 export const NotSupportedNetwork = () => {
-  const switchNetwork = (id: string) => {
-    console.log(id);
-  };
+  const { switchNetwork } = useHausConnect();
+
   return (
     <Dropdown
       align="end"

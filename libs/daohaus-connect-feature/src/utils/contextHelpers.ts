@@ -28,6 +28,7 @@ export const handleSetProvider = async ({
   provider,
   setWalletState,
 }: {
+  // eslint-disable-next-line
   provider: any;
   setWalletState: ReactSetter<WalletStateType>;
 }) => {

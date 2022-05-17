@@ -1,5 +1,5 @@
 import { getNetworkName } from '@daohaus/common-utilities';
-import { Bold, Button, Dropdown, ParMd, ParXs } from '@daohaus/ui';
+import { Button, Dropdown, ParMd, ParXs } from '@daohaus/ui';
 
 import { violet } from '@radix-ui/colors';
 import { useState } from 'react';
@@ -45,7 +45,6 @@ const UserConnectedDropdown = () => {
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);
-
   return (
     <Dropdown
       spacing="0.7rem"
@@ -84,7 +83,9 @@ const UserConnectedDropdown = () => {
                 {address && truncateAddress(address)}
               </ParXs>
               <ParXs>
-                Connected to <Bold>{chainId && getNetworkName(chainId)}</Bold>
+                {validNetwork && chainId
+                  ? `Connected To ${getNetworkName(chainId)}`
+                  : 'Unsupported Network'}
               </ParXs>
             </div>
           ),

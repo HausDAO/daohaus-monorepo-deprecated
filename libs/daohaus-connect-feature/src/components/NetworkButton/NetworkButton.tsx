@@ -1,7 +1,6 @@
 import {
   getNetworkName,
   Keychain,
-  networkData,
   NetworkType,
 } from '@daohaus/common-utilities';
 import { Button, Dropdown, DropdownItem, ParXs } from '@daohaus/ui';

@@ -10,7 +10,7 @@ type AvatarProps = {
 
 export const Avatar = ({
   src,
-  size = '3rem',
+  size = 'sm',
   alt,
   delayMs = 500,
   fallback = 'X',

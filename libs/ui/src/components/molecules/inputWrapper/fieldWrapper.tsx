@@ -43,9 +43,11 @@ export const FieldWrapper = ({
   const classes = classNames({ long: long || address, full });
   return (
     <FieldWrapperBase className={classes}>
-      <InputLabel required={required} info={info} id={id}>
-        {label}
-      </InputLabel>
+      {label && (
+        <InputLabel required={required} info={info} id={id}>
+          label
+        </InputLabel>
+      )}
       <div className="field-slot">{children}</div>
       <HelperTextFactory
         error={error}

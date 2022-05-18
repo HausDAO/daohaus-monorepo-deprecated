@@ -41,7 +41,7 @@ const StyledGhost = styled(BiGhost)`
 export const AvatarLg = ({ src, delay, alt }: Props) => (
   <AvatarLgRoot>
     {src && <RadixAvatar.Image src={src} alt={alt} />}
-    <AvatarFallback delay={src ? delay || 300 : 0}>
+    <AvatarFallback delayMs={src ? delay || 300 : 0}>
       <StyledGhost />
     </AvatarFallback>
   </AvatarLgRoot>
@@ -50,7 +50,7 @@ export const AvatarLg = ({ src, delay, alt }: Props) => (
 export const AvatarSm = ({ src, delay, alt }: Props) => (
   <AvatarSmRoot>
     {src && <RadixAvatar.Image src={src} alt={alt} />}
-    <AvatarFallback delay={src ? delay || 300 : 0}>
+    <AvatarFallback delayMs={src ? delay || 300 : 0}>
       <StyledGhost />
     </AvatarFallback>
   </AvatarSmRoot>

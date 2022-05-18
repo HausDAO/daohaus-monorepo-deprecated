@@ -1,2 +1,2 @@
-export * from './constants';
-export * from './urqlQueries';
+export * from './requests';
+export * from './fetch';

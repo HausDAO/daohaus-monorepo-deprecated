@@ -3,8 +3,9 @@ import { ButtonBase, WithIcon } from './buttonStyles';
 import classNames from 'classnames';
 import { IconType } from 'react-icons';
 
-type ButtonProps = {
-  children: React.ReactNode;
+export type ButtonProps = {
+  children?: React.ReactNode;
+  className?: string;
   secondary?: boolean;
   sm?: boolean;
   lg?: boolean;
@@ -12,8 +13,10 @@ type ButtonProps = {
   disabled?: boolean;
   fullWidth?: boolean;
   leftAlign?: boolean;
+  avatar?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  icon?: IconType;
+  IconLeft?: IconType;
+  IconRight?: IconType;
 };
 
 type Ref =
@@ -22,34 +25,44 @@ type Ref =
   | null
   | undefined;
 
-const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
-  const { secondary, sm, lg, tertiary, children, fullWidth, leftAlign, icon } =
-    props;
+export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
+  const {
+    secondary,
+    sm,
+    lg,
+    tertiary,
+    children,
+    fullWidth,
+    leftAlign,
+    avatar,
+    className,
+    IconLeft,
+    IconRight,
+  } = props;
   const classes = classNames({
     secondary,
     sm,
     lg,
     tertiary,
+    avatar,
     'left-align': leftAlign,
     'full-width': fullWidth,
   });
-
-  if (icon) {
-    const Icon = icon;
-    const iconClasses = classNames({ secondary, tertiary });
+  if (IconLeft || IconRight) {
+    const iconClasses = classNames({ secondary, tertiary, sm, lg });
     return (
-      <ButtonBase {...props} className={classes} ref={ref}>
+      <ButtonBase {...props} className={`${classes} ${className}`} ref={ref}>
         <WithIcon>
-          <Icon size="2.1rem" className={iconClasses} />
+          {IconLeft && <IconLeft className={`${iconClasses} icon-left`} />}
           {children}
+          {IconRight && <IconRight className={`${iconClasses} icon-right`} />}
         </WithIcon>
       </ButtonBase>
     );
   }
   return (
-    <ButtonBase {...props} className={classes} ref={ref}>
+    <ButtonBase {...props} className={`${classes} ${className}`} ref={ref}>
       {children}
     </ButtonBase>
   );
 });
-export default Button;

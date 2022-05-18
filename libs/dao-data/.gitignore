@@ -1,3 +1,2 @@
-# dao-data code generation
-# *.generated.ts
 **/*.env
+.env.local

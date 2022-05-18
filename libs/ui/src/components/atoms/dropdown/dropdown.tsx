@@ -1,4 +1,5 @@
 import {
+  DropdownContainer,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -17,55 +18,75 @@ const DropdownContentOptions = {
 export type DropdownItem = {
   type: keyof typeof DropdownContentOptions;
   content: React.ReactNode;
+  key?: string;
 };
-
 type DropdownProps = {
   trigger: React.ReactNode;
   items: DropdownItem[];
-  bg: string;
-  spacing: string;
+  bg?: string;
+  spacing?: string;
+  width?: string;
+  align?: 'start' | 'center' | 'end' | undefined;
+  className?: string;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 };
 // TODO aria
-const Dropdown = ({ trigger, items, bg, spacing = '0' }: DropdownProps) => {
-  const theme = useTheme();
-
+export const Dropdown = ({
+  trigger,
+  items,
+  className,
+  bg,
+  spacing = '0',
+  align = 'start',
+  width = 'fit-content',
+  open,
+  onOpenChange,
+}: DropdownProps) => {
   return (
-    <div>
-      <DropdownMenu>
+    <DropdownContainer className={className} width={width}>
+      <DropdownMenu open={open} onOpenChange={onOpenChange}>
         <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
         <DropdownContentFactory
-          bg={bg || theme.dropdown.bg}
-          spacing={spacing}
           items={items}
+          bg={bg}
+          spacing={spacing}
+          align={align}
+          width={width}
         />
       </DropdownMenu>
-    </div>
+    </DropdownContainer>
   );
 };
 
-export default Dropdown;
-
 const DropdownContentFactory = ({
-  bg,
-  spacing,
   items,
-}: {
-  bg: string;
-  spacing: string;
-  items: DropdownItem[];
-}) => {
+  spacing,
+  bg,
+  align,
+  width,
+}: Omit<DropdownProps, 'trigger'>) => {
+  const theme = useTheme();
   return (
-    <DropdownMenuContent bg={bg}>
+    <DropdownMenuContent
+      bg={bg || theme.dropdown.bg}
+      align={align}
+      width={width}
+    >
       {items?.map((item) => {
         if (item.type === 'clickable') {
           return (
-            <DropdownMenuItem key={uuid()} spacing={spacing}>
+            <DropdownMenuItem key={item.key || uuid()} spacing={spacing}>
               {item.content}
             </DropdownMenuItem>
           );
         }
         if (item.type === 'label') {
-          return <DropdownLabel key={uuid()}>{item.content}</DropdownLabel>;
+          return (
+            <DropdownLabel key={item.key || uuid()}>
+              {item.content}
+            </DropdownLabel>
+          );
         }
         return null;
       })}

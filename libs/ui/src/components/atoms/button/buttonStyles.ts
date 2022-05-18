@@ -3,7 +3,7 @@ import { Theme } from '../../../types/theming';
 import { font } from '../../../theme/global/font';
 
 export const ButtonBase = styled.button`
-  background-color: ${({ theme }: { theme: Theme }) => theme.button.primary.bg};
+  background-color: ${({ theme }) => theme.button.primary.bg};
   border: 0.1rem solid
     ${({ theme }: { theme: Theme }) => theme.button.primary.border};
   color: ${({ theme }: { theme: Theme }) => theme.button.primary.text};
@@ -146,13 +146,18 @@ export const ButtonBase = styled.button`
   &.left-align {
     text-align: left;
   }
+
+  &.avatar {
+    padding: 0 0.6rem;
+  }
 `;
 
 export const WithIcon = styled.div`
   display: flex;
   align-items: center;
   svg {
-    margin-right: 1rem;
+    width: 2.1rem;
+    height: 2.1rem;
     color: ${({ theme }: { theme: Theme }) => theme.button.primary.text};
     &.secondary {
       color: ${({ theme }: { theme: Theme }) => theme.button.secondary.text};
@@ -160,5 +165,16 @@ export const WithIcon = styled.div`
     &.tertiary {
       color: ${({ theme }: { theme: Theme }) => theme.button.tertiary.text};
     }
+    &.sm {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-right: 0.8rem;
+    }
+  }
+  svg.icon-left {
+    margin-right: 1rem;
+  }
+  svg.icon-right {
+    margin-left: 0.5rem;
   }
 `;

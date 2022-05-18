@@ -1,12 +1,12 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import Input from './input';
+import { Input } from './input';
 import { BsSearch } from 'react-icons/bs';
 
 export default {
   title: 'Atoms/Form/Input',
   component: Input,
 } as ComponentMeta<typeof Input>;
-
+Input.displayName = 'Input';
 const Template: ComponentStory<typeof Input> = (args) => <Input {...args} />;
 
 export const AtomInput = Template.bind({});

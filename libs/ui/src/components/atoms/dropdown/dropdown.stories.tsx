@@ -1,8 +1,8 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { BiError } from 'react-icons/bi';
-import Button from '../button/button';
+import { Button } from '../button/button';
 import { ParXs } from '../typography';
-import Dropdown, { DropdownItem } from './dropdown';
+import { DropdownItem, Dropdown } from './dropdown';
 
 export default {
   title: 'Atoms/Dropdown',
@@ -37,8 +37,10 @@ export const FullDropdown = Template.bind({});
 
 FullDropdown.args = {
   spacing: '0.7rem',
+  width: '26rem',
+  align: 'end',
   trigger: (
-    <Button icon={BiError} tertiary>
+    <Button IconLeft={BiError} tertiary>
       Network Unavailable
     </Button>
   ),

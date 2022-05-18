@@ -1,3 +1,4 @@
+import { slateDark } from '@radix-ui/colors';
 import * as RadixAvatar from '@radix-ui/react-avatar';
 import styled from 'styled-components';
 
@@ -18,6 +19,7 @@ export const AvatarFallback = styled(RadixAvatar.Fallback)`
   display: flex;
   align-items: center;
   justify-content: center;
+  background: ${slateDark.slate9};
 `;
 export const AvatarImage = styled(RadixAvatar.Image)`
   width: 100%;

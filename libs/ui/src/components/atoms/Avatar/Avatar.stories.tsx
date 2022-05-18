@@ -10,6 +10,22 @@ const Template: ComponentStory<typeof Avatar> = (args) => <Avatar {...args} />;
 
 export const DefaultAvatar = Template.bind({});
 DefaultAvatar.args = {
-  src: 'ipfs://QmNS6662WGwQriDQUvYWB69E6EVyhAvTKfM6KcbkWdJMd8',
+  src: 'https://bafybeiabmsm2gy3eb7d3b3zx7mqmg7tg54swosqjb2swcwpatgrctu5ry4.ipfs.dweb.link/',
   alt: 'Jord',
+  size: undefined,
+};
+export const FallbackAvatar = Template.bind({});
+FallbackAvatar.args = {
+  src: undefined,
+  alt: "don't know",
+  size: undefined,
+  fallback: 'FB',
+};
+export const LargeAvatar = Template.bind({});
+
+LargeAvatar.args = {
+  src: 'https://bafybeiabmsm2gy3eb7d3b3zx7mqmg7tg54swosqjb2swcwpatgrctu5ry4.ipfs.dweb.link/',
+  alt: 'Jord',
+  size: '16rem',
+  fallback: 'FB',
 };

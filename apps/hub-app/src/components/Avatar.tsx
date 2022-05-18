@@ -30,7 +30,6 @@ const AvatarFallback = styled(RadixAvatar.Fallback)`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #1a84dd;
 `;
 
 const StyledGhost = styled(BiGhost)`

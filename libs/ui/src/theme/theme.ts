@@ -56,7 +56,7 @@ export const defaultDarkTheme: Theme = {
 };
 
 export const defaultLightTheme: Theme = {
-  themeName: 'dark',
+  themeName: 'light',
   bgColor: indigo.indigo1,
   fontColor: indigo.indigo12,
   primary: amber.amber9,

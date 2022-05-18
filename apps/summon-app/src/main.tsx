@@ -1,3 +1,4 @@
+import { HausConnectProvider } from '@daohaus/daohaus-connect-feature';
 import { HausThemeProvider } from '@daohaus/ui';
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom';
@@ -9,7 +10,9 @@ ReactDOM.render(
   <StrictMode>
     <BrowserRouter>
       <HausThemeProvider>
-        <App />
+        <HausConnectProvider>
+          <App />
+        </HausConnectProvider>
       </HausThemeProvider>
     </BrowserRouter>
   </StrictMode>,

@@ -5,7 +5,6 @@ import { CheckboxProps } from '@radix-ui/react-checkbox';
 
 import { StyledCheckbox, StyledIndicator, Container } from './Checkbox.styles';
 import ValueLabel from '../ValueLabel/ValueLabel';
-import { setConstantValue } from 'typescript';
 
 type Ref =
   | RefObject<HTMLButtonElement>
@@ -14,9 +13,7 @@ type Ref =
   | undefined;
 
 export const Checkbox = React.forwardRef((props: CheckboxProps, ref: Ref) => {
-  console.log('Checkbox props', props);
   const { id, title, disabled, required } = props;
-  const [checked, setChecked] = useState(props.defaultChecked || props.checked);
 
   const classes = classNames({
     disabled,
@@ -24,12 +21,7 @@ export const Checkbox = React.forwardRef((props: CheckboxProps, ref: Ref) => {
 
   return (
     <Container>
-      <StyledCheckbox
-        {...props}
-        ref={ref}
-        checked={checked}
-        onCheckedChange={setChecked}
-      >
+      <StyledCheckbox {...props} ref={ref}>
         <StyledIndicator className={classes}>
           <BiCheck />
         </StyledIndicator>

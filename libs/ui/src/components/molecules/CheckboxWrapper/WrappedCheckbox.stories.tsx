@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { useForm, FormProvider, Controller } from 'react-hook-form';
 import { WrappedCheckbox } from './WrappedCheckbox';
 
 export default {
@@ -8,16 +7,10 @@ export default {
 } as ComponentMeta<typeof WrappedCheckbox>;
 
 const Template: ComponentStory<typeof WrappedCheckbox> = (args) => {
-  const methods = useForm();
-  const onSubmit = (data: any) => console.log(data);
-
   return (
-    <form onSubmit={methods.handleSubmit(onSubmit)}>
-      <div style={{ margin: '4rem' }}>
-        <WrappedCheckbox {...args} />
-      </div>
-      <button onSubmit={onSubmit}>Submit</button>
-    </form>
+    <div style={{ margin: '4rem' }}>
+      <WrappedCheckbox {...args} />
+    </div>
   );
 };
 
@@ -35,7 +28,6 @@ FullWrappedCheckbox.args = {
       id: 'exampleCheckbox',
       title: 'completeInput',
       name: 'test0',
-      value: undefined,
       defaultChecked: false,
       disabled: false,
       required: false,
@@ -57,16 +49,14 @@ MultipleWrappedCheckbox.args = {
       id: 'childCheckboxId1',
       title: 'sampleCheckbox1',
       name: 'test1',
-      value: undefined,
       defaultChecked: false,
       disabled: false,
-      required: false,
+      required: true,
     },
     {
       id: 'childCheckboxId2',
       title: 'sampleCheckbox2',
       name: 'test2',
-      value: undefined,
       defaultChecked: true,
       disabled: false,
       required: false,

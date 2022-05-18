@@ -1,4 +1,4 @@
-import React, { RefObject, useState } from 'react';
+import React, { RefObject } from 'react';
 import classNames from 'classnames';
 import { BiCheck } from 'react-icons/bi';
 import { CheckboxProps } from '@radix-ui/react-checkbox';

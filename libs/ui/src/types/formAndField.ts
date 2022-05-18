@@ -13,7 +13,7 @@ export type SuccessMessage = {
   message: string;
 };
 
-export type Wrapper = {
+export type PrimitiveWrapper = {
   id: string;
   label: string;
   type?: string;
@@ -44,6 +44,6 @@ export type Field = {
 };
 
 // TODO Refine based on Radix Checkbox Type & Wrapper
-export type CheckboxWrapperProps = Wrapper & {
+export type CheckboxWrapperProps = PrimitiveWrapper & {
   checkboxes: CheckboxProps[];
 };

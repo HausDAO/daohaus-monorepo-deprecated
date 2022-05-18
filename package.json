@@ -25,6 +25,8 @@
     "@self.id/web": "^0.4.0",
     "@types/react-table": "^7.7.12",
     "@types/uuid": "^8.3.4",
+    "@walletconnect/ethereum-provider": "^1.7.8",
+    "@walletconnect/web3-provider": "^1.7.8",
     "caip": "1.1.0",
     "classnames": "^2.3.1",
     "core-js": "^3.6.5",
@@ -45,7 +47,8 @@
     "styled-components": "5.3.3",
     "tslib": "^2.0.0",
     "uuid": "^8.3.2",
-    "vite": "^2.8.3"
+    "vite": "^2.8.3",
+    "web3modal": "^1.9.7"
   },
   "devDependencies": {
     "@babel/core": "7.12.13",

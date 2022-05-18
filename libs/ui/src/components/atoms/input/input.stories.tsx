@@ -6,7 +6,7 @@ export default {
   title: 'Atoms/Form/Input',
   component: Input,
 } as ComponentMeta<typeof Input>;
-
+Input.displayName = 'Input';
 const Template: ComponentStory<typeof Input> = (args) => <Input {...args} />;
 
 export const AtomInput = Template.bind({});

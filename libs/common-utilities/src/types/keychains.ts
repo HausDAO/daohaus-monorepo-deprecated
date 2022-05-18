@@ -1,11 +1,15 @@
-export type Keychain = {
-  '0x1'?: string;
-  '0x2a'?: string;
-  '0x4'?: string;
-  '0x64'?: string;
-  '0x89'?: string;
-  '0xa4b1'?: string;
-  '0xa4ec'?: string;
-};
+import { VALID_NETWORKS } from '../constants';
 
-export type KeychainList = { [index: string]: Keychain };
+export type ValidNetwork = keyof typeof VALID_NETWORKS;
+export type Keychain<T = string> = { [key in ValidNetwork]?: T };
+export type KeychainList = Record<string, Keychain>;
+
+export type ValidKey = string | number | symbol;
+
+export type NetworkType = {
+  chainId: string;
+  networkId: number;
+  name: string;
+  symbol: string;
+  [index: string]: ValidKey | Record<ValidKey, unknown>;
+};

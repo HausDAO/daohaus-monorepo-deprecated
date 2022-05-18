@@ -19,6 +19,7 @@ export const BaseInput = styled.input`
   letter-spacing: 1.5px;
   padding: 1.2rem 1.8rem;
   transition: ${field.transition};
+
   ::placeholder {
     color: ${({ theme }: { theme: Theme }) => theme.field.placeholderText};
   }

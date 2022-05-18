@@ -7,10 +7,10 @@ class Haus {
   query: Query;
   profile: Profile;
 
-  private constructor(providers: Keychain, ceramicNode?: string) {
+  private constructor(providers: Keychain) {
     this.providers = providers;
     this.query = new Query();
-    this.profile = new Profile(providers, ceramicNode);
+    this.profile = new Profile(providers);
   }
 
   static create(networkConfig: Keychain): Haus {

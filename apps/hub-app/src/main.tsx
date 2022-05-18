@@ -1,17 +1,14 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
-import { HausThemeProvider } from '@daohaus/ui';
 
-import App from './pages/App';
+import App from './app/App';
 
 ReactDOM.render(
   <StrictMode>
-    <HausThemeProvider>
-      <HashRouter>
-        <App />
-      </HashRouter>
-    </HausThemeProvider>
+    <HashRouter>
+      <App />
+    </HashRouter>
   </StrictMode>,
   document.getElementById('root')
 );

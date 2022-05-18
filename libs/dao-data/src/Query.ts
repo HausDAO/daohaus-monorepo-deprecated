@@ -6,10 +6,8 @@ import {
   CrossNetworkQueryArguments,
   Ordering,
   TransformedMembershipsQuery,
-  DaoTokenBalances,
-  TokenBalance,
 } from './types';
-import * as fetch from './utils';
+import { INVALID_NETWORK_ERROR } from './utils';
 import { graphFetch } from './utils/requests';
 import {
   FindMemberDocument,
@@ -52,8 +50,6 @@ import {
   FindLatestTxQueryVariables,
 } from './subgraph/queries/transactions.generated';
 import { transformMembershipList } from './utils/transformers';
-import { ethers } from 'ethers';
-import { HausError } from './HausError';
 
 export default class Query {
   private _endpoints: KeychainList;
@@ -77,29 +73,24 @@ export default class Query {
   > {
     const url = this._endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
-      return {
-        error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
-        data: { daos: [] },
-      };
+      // TODO: Should these throw? will need to switch return type so it can be null
+      // throw new HausError({
+      //   type: 'UNSUPPORTED_NETWORK',
+      // });
+      return { error: INVALID_NETWORK_ERROR };
     }
 
-    try {
-      return await graphFetch<ListDaosQuery, ListDaosQueryVariables>(
-        ListDaosDocument,
-        url,
-        networkId,
-        {
-          where: filter,
-          orderBy: ordering.orderBy,
-          orderDirection: ordering.orderDirection,
-        }
-      );
-    } catch (err) {
-      return {
-        error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
-        data: { daos: [] },
-      };
-    }
+    // const res = await graphFetch<ListDaosQuery, ListDaosQueryVariables>(
+    return await graphFetch<ListDaosQuery, ListDaosQueryVariables>(
+      ListDaosDocument,
+      url,
+      networkId,
+      {
+        where: filter,
+        orderBy: ordering.orderBy,
+        orderDirection: ordering.orderDirection,
+      }
+    );
   }
 
   public async listProposals({
@@ -114,29 +105,19 @@ export default class Query {
   > {
     const url = this._endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
-      return {
-        error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
-        data: { proposals: [] },
-      };
+      return { error: INVALID_NETWORK_ERROR };
     }
 
-    try {
-      return await graphFetch<ListProposalsQuery, ListProposalsQueryVariables>(
-        ListProposalsDocument,
-        url,
-        networkId,
-        {
-          where: filter,
-          orderBy: ordering.orderBy,
-          orderDirection: ordering.orderDirection,
-        }
-      );
-    } catch (err) {
-      return {
-        error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
-        data: { proposals: [] },
-      };
-    }
+    return await graphFetch<ListProposalsQuery, ListProposalsQueryVariables>(
+      ListProposalsDocument,
+      url,
+      networkId,
+      {
+        where: filter,
+        orderBy: ordering.orderBy,
+        orderDirection: ordering.orderDirection,
+      }
+    );
   }
 
   public async listMembers({
@@ -151,29 +132,19 @@ export default class Query {
   > {
     const url = this._endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
-      return {
-        error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
-        data: { members: [] },
-      };
+      return { error: INVALID_NETWORK_ERROR };
     }
 
-    try {
-      return await graphFetch<ListMembersQuery, ListMembersQueryVariables>(
-        ListMembersDocument,
-        url,
-        networkId,
-        {
-          where: filter,
-          orderBy: ordering.orderBy,
-          orderDirection: ordering.orderDirection,
-        }
-      );
-    } catch (err) {
-      return {
-        error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
-        data: { members: [] },
-      };
-    }
+    return await graphFetch<ListMembersQuery, ListMembersQueryVariables>(
+      ListMembersDocument,
+      url,
+      networkId,
+      {
+        where: filter,
+        orderBy: ordering.orderBy,
+        orderDirection: ordering.orderDirection,
+      }
+    );
   }
 
   /*
@@ -188,25 +159,17 @@ export default class Query {
   }): Promise<QueryResult<FindDaoQuery>> {
     const url = this._endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
-      return {
-        error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
-      };
+      return { error: INVALID_NETWORK_ERROR };
     }
 
-    try {
-      return await graphFetch<FindDaoQuery, FindDaoQueryVariables>(
-        FindDaoDocument,
-        url,
-        networkId,
-        {
-          id: dao,
-        }
-      );
-    } catch (err) {
-      return {
-        error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
-      };
-    }
+    return await graphFetch<FindDaoQuery, FindDaoQueryVariables>(
+      FindDaoDocument,
+      url,
+      networkId,
+      {
+        id: dao,
+      }
+    );
   }
 
   public async findMember({
@@ -220,25 +183,17 @@ export default class Query {
   }): Promise<QueryResult<FindMemberQuery>> {
     const url = this._endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
-      return {
-        error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
-      };
+      return { error: INVALID_NETWORK_ERROR };
     }
 
-    try {
-      return await graphFetch<FindMemberQuery, FindMemberQueryVariables>(
-        FindMemberDocument,
-        url,
-        networkId,
-        {
-          id: `${dao}-member-${memberAddress}`,
-        }
-      );
-    } catch (err) {
-      return {
-        error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
-      };
-    }
+    return await graphFetch<FindMemberQuery, FindMemberQueryVariables>(
+      FindMemberDocument,
+      url,
+      networkId,
+      {
+        id: `${dao}-member-${memberAddress}`,
+      }
+    );
   }
 
   public async findProposal({
@@ -252,25 +207,17 @@ export default class Query {
   }): Promise<QueryResult<FindProposalQuery>> {
     const url = this._endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
-      return {
-        error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
-      };
+      return { error: INVALID_NETWORK_ERROR };
     }
 
-    try {
-      return await graphFetch<FindProposalQuery, FindProposalQueryVariables>(
-        FindProposalDocument,
-        url,
-        networkId,
-        {
-          id: `${dao}-proposal-${proposalId}`,
-        }
-      );
-    } catch (err) {
-      return {
-        error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
-      };
-    }
+    return await graphFetch<FindProposalQuery, FindProposalQueryVariables>(
+      FindProposalDocument,
+      url,
+      networkId,
+      {
+        id: `${dao}-proposal-${proposalId}`,
+      }
+    );
   }
 
   public async findLatestTransaction({
@@ -282,25 +229,17 @@ export default class Query {
   }): Promise<QueryResult<FindLatestTxQuery>> {
     const url = this._endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
-      return {
-        error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
-      };
+      return { error: INVALID_NETWORK_ERROR };
     }
 
-    try {
-      return await graphFetch<FindLatestTxQuery, FindLatestTxQueryVariables>(
-        FindLatestTxDocument,
-        url,
-        networkId,
-        {
-          where: { dao },
-        }
-      );
-    } catch (err) {
-      return {
-        error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
-      };
-    }
+    return await graphFetch<FindLatestTxQuery, FindLatestTxQueryVariables>(
+      FindLatestTxDocument,
+      url,
+      networkId,
+      {
+        where: { dao },
+      }
+    );
   }
 
   /**
@@ -309,7 +248,6 @@ export default class Query {
   public async listDaosByMember({
     memberAddress,
     networkIds,
-    includeTokens = false,
   }: CrossNetworkQueryArguments): Promise<
     QueryResult<TransformedMembershipsQuery>
   > {
@@ -320,7 +258,7 @@ export default class Query {
       orderDirection: 'desc',
     };
 
-    networkIds.forEach((networkId: keyof Keychain) => {
+    networkIds.forEach((networkId) => {
       const url = this._endpoints['V3_SUBGRAPH'][networkId];
 
       if (url) {
@@ -340,72 +278,7 @@ export default class Query {
     });
 
     const memberData = await Promise.all(promises);
-    const transformedList = transformMembershipList(memberData);
 
-    if (includeTokens) {
-      const tokenPromises: Promise<QueryResult<DaoTokenBalances>>[] = [];
-      transformedList.forEach((dao) => {
-        if (dao.networkId) {
-          tokenPromises.push(
-            this.listTokenBalances({
-              networkId: dao.networkId,
-              safeAddress: dao.safeAddress,
-            })
-          );
-        }
-      });
-
-      const tokenData = await Promise.all(tokenPromises);
-
-      const dataWithTokens = transformedList.map((dao) => {
-        return {
-          ...dao,
-          ...tokenData.find(
-            (dataRes) => dataRes.data?.safeAddress === dao.safeAddress
-          )?.data,
-        };
-      });
-
-      return { data: { daos: dataWithTokens } };
-    } else {
-      return { data: { daos: transformedList } };
-    }
-  }
-
-  /**
-   * Token queries
-   */
-
-  public async listTokenBalances({
-    networkId,
-    safeAddress,
-  }: {
-    networkId: keyof Keychain;
-    safeAddress: string;
-  }): Promise<QueryResult<DaoTokenBalances>> {
-    const url = this._endpoints['GNOSIS_API'][networkId];
-    if (!url) {
-      return {
-        error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
-      };
-    }
-
-    try {
-      const res = await fetch.get<TokenBalance[]>(
-        `${url}/safes/${ethers.utils.getAddress(safeAddress)}/balances/usd`
-      );
-
-      const fiatTotal = res.reduce(
-        (sum: number, balance: TokenBalance): number => {
-          sum += Number(balance.fiatBalance);
-          return sum;
-        },
-        0
-      );
-
-      return { data: { safeAddress, tokenBalances: res, fiatTotal } };
-    } catch (err) {
-      return { error: new HausError({ type: 'GNOSIS_ERROR' }) };
-    }
+    return { data: { daos: transformMembershipList(memberData) } };
   }
 }

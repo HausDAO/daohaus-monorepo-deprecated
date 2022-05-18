@@ -16,8 +16,8 @@ export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
         ? props.theme.checkbox.activeBorder
         : props.theme.checkbox.border};
   border-radius: 1px;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.125rem;
+  height: 1.125rem;
   :disabled {
     border 2px solid ${({ theme }: { theme: Theme }) => theme.disabled}
   }

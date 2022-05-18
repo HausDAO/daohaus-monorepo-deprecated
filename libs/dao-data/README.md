@@ -8,7 +8,7 @@ Run `nx build dao-data` to build the library.
 
 ## Running unit tests
 
-Run `NODE_OPTIONS=--experimental-vm-modules nx run dao-data:test` to execute the unit tests via [Jest](https://jestjs.io).
+Run `nx test dao-data` to execute the unit tests via [Jest](https://jestjs.io).
 
 ## Generating GraphQL Schema and Types
 

@@ -5,7 +5,7 @@ export const DropdownContainer = styled.div`
   width: ${(props: { width: string }) => props.width};
 `;
 
-export const DropdownMenu = Dropdown.Root;
+export const DropdownMenu = styled(Dropdown.Root)``;
 export const DropdownMenuTrigger = styled(Dropdown.Trigger)``;
 
 type MenuContentType = {

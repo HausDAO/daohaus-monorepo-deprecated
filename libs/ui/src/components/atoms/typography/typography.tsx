@@ -1,13 +1,11 @@
 import { font } from '../../../theme/global/font';
 import styled from 'styled-components';
-import { Theme } from '../../../types/theming';
 
 ////////////////////PARAGRAPH TEXT////////////////////
 const Par = styled.p`
   font-family: ${font.family.body};
   font-weight: ${font.weight.reg};
-  color: ${({ theme, color }: { color?: string; theme: Theme }) =>
-    color || theme.fontColor};
+  color: ${(props) => props.color};
 `;
 const Data = styled.p`
   font-family: ${font.family.data};

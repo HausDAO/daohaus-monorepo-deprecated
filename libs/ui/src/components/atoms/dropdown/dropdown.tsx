@@ -18,7 +18,6 @@ const DropdownContentOptions = {
 export type DropdownItem = {
   type: keyof typeof DropdownContentOptions;
   content: React.ReactNode;
-  key?: string;
 };
 type DropdownProps = {
   trigger: React.ReactNode;
@@ -27,25 +26,19 @@ type DropdownProps = {
   spacing?: string;
   width?: string;
   align?: 'start' | 'center' | 'end' | undefined;
-  className?: string;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
 };
 // TODO aria
 export const Dropdown = ({
   trigger,
   items,
-  className,
-  bg,
+  bg = 'black',
   spacing = '0',
   align = 'start',
-  width = 'fit-content',
-  open,
-  onOpenChange,
+  width = '25rem',
 }: DropdownProps) => {
   return (
-    <DropdownContainer className={className} width={width}>
-      <DropdownMenu open={open} onOpenChange={onOpenChange}>
+    <DropdownContainer width={width}>
+      <DropdownMenu>
         <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
         <DropdownContentFactory
           items={items}
@@ -76,17 +69,13 @@ const DropdownContentFactory = ({
       {items?.map((item) => {
         if (item.type === 'clickable') {
           return (
-            <DropdownMenuItem key={item.key || uuid()} spacing={spacing}>
+            <DropdownMenuItem key={uuid()} spacing={spacing}>
               {item.content}
             </DropdownMenuItem>
           );
         }
         if (item.type === 'label') {
-          return (
-            <DropdownLabel key={item.key || uuid()}>
-              {item.content}
-            </DropdownLabel>
-          );
+          return <DropdownLabel key={uuid()}>{item.content}</DropdownLabel>;
         }
         return null;
       })}

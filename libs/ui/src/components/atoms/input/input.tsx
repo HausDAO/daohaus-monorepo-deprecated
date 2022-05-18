@@ -6,7 +6,6 @@ import React from 'react';
 
 export type InputProps = Field & {
   icon?: IconType;
-  className?: string;
 };
 type Ref =
   | React.RefObject<HTMLInputElement>
@@ -15,8 +14,7 @@ type Ref =
   | undefined;
 
 export const Input = React.forwardRef((props: InputProps, ref: Ref) => {
-  const { long, full, icon, warning, error, number, address, className } =
-    props;
+  const { long, full, icon, warning, error, number, address } = props;
 
   const inputClasses = classNames({
     long: long || address,
@@ -27,28 +25,15 @@ export const Input = React.forwardRef((props: InputProps, ref: Ref) => {
   });
 
   if (icon) {
-    const wrapperClasses = classNames({
-      long: long || address,
-      full,
-    });
+    const wrapperClasses = classNames({ long: long || address, full });
     const Icon = icon;
     return (
       <WithIcon className={wrapperClasses}>
-        <BaseInput
-          {...props}
-          className={`${inputClasses} ${className}`}
-          ref={ref}
-        />
+        <BaseInput {...props} className={inputClasses} ref={ref} />
         <Icon size="2rem" />
       </WithIcon>
     );
   }
 
-  return (
-    <BaseInput
-      {...props}
-      className={`${inputClasses} ${className}`}
-      ref={ref}
-    />
-  );
+  return <BaseInput {...props} className={inputClasses} ref={ref} />;
 });

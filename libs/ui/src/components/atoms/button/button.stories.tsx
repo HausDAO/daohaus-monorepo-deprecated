@@ -1,5 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { BiChevronDown, BiError } from 'react-icons/bi';
 import { Button } from './button';
 
 export default {
@@ -26,42 +25,29 @@ BaseButton.args = {
 export const PrimaryButton = Template.bind({});
 PrimaryButton.args = {
   children: 'Button',
+  disabled: false,
 };
 export const SecondaryButton = Template.bind({});
 SecondaryButton.args = {
   children: 'Button',
   secondary: true,
+  disabled: false,
 };
 export const TertiaryButton = Template.bind({});
 TertiaryButton.args = {
   children: 'Button',
   tertiary: true,
+  disabled: false,
 };
 export const SmallButton = Template.bind({});
 SmallButton.args = {
   children: 'Button',
   sm: true,
+  disabled: false,
 };
 export const LargeButton = Template.bind({});
 LargeButton.args = {
   children: 'Button',
   lg: true,
-};
-export const IconLeftButton = Template.bind({});
-IconLeftButton.args = {
-  children: 'Button',
-  IconLeft: BiError,
-};
-
-export const IconRightButton = Template.bind({});
-IconRightButton.args = {
-  children: 'Button',
-  IconRight: BiChevronDown,
-};
-
-export const IconBothButton = Template.bind({});
-IconBothButton.args = {
-  children: 'Button',
-  IconLeft: BiError,
-  IconRight: BiChevronDown,
+  disabled: false,
 };

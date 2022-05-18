@@ -45,7 +45,6 @@ query listMemberships(
       }
       activeMemberCount
       proposalCount
-      safeAddress
       activeProposals: proposals(
         first: 101
         orderBy: createdAt

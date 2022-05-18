@@ -1,25 +1,29 @@
-export const QueryErrors: { [index: string]: string } = {
-  SUBGRAPH_ERROR: 'Subgraph request error',
-  UNSUPPORTED_NETWORK: 'Unsupported network',
-  GNOSIS_ERROR: 'Gnosis api request error',
-  REQUEST_ERROR: 'Request error',
-};
+export type ErrorType = 'SUBGRAPH_ERROR' | 'UNSUPPORTED_NETWORK';
+
+const errorTypeToTitleMap = new Map<ErrorType, string>([
+  ['SUBGRAPH_ERROR', 'Subgraph Error'],
+  ['UNSUPPORTED_NETWORK', 'Unsupported Network'],
+]);
 
 interface ErrorProps {
-  type: string;
+  type: ErrorType;
   errorObject?: unknown;
 }
 
 export class HausError {
-  readonly type: string;
+  readonly type: ErrorType;
   readonly message: string;
   readonly errorObject?: unknown;
 
   constructor(props: ErrorProps) {
     const { type, errorObject } = props;
 
+    const title = errorTypeToTitleMap.get(type);
+    const formattedErrorObject = errorObject
+      ? ': ' + JSON.stringify(errorObject, null, 2)
+      : '';
     this.type = type;
     this.errorObject = errorObject;
-    this.message = QueryErrors[type] || 'Unknown error';
+    this.message = title + ' Error - ' + formattedErrorObject;
   }
 }

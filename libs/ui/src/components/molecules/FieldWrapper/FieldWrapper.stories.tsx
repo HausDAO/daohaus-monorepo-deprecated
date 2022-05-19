@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Theme } from '../../../types/theming';
 import styled from 'styled-components';
-import { FieldWrapper } from './fieldWrapper';
+import { FieldWrapper } from './FieldWrapper';
 import { field } from '../../../theme';
 import { border } from '../../../theme/global/border';
 import { ParXs } from '../../atoms/Typography';

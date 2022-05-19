@@ -1,6 +1,20 @@
 import { votingPowerPercentage } from '@daohaus/common-utilities';
-import { QueryResult, TransformedMembership } from '..';
 import { ListMembershipsQuery } from '../subgraph/queries/members.generated';
+import { Proposal } from '../subgraph/schema.generated';
+import {
+  TransformedProposal,
+  TransformedMembership,
+  QueryResult,
+} from '../types';
+
+export const transformProposal = (
+  proposal: FindProposalQuery | undefined
+): TransformedProposalQuery | undefined => {
+  if (!proposal) {
+    return;
+  }
+  return { ...proposal, status: 'ok' };
+};
 
 export const transformMembershipList = (
   memberships: QueryResult<ListMembershipsQuery>[]

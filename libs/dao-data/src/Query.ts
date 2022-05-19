@@ -8,6 +8,7 @@ import {
   TransformedMembershipsQuery,
   DaoTokenBalances,
   TokenBalance,
+  TransformedProposal,
 } from './types';
 import * as fetch from './utils';
 import { graphFetch } from './utils/requests';
@@ -51,7 +52,10 @@ import {
   FindLatestTxQuery,
   FindLatestTxQueryVariables,
 } from './subgraph/queries/transactions.generated';
-import { transformMembershipList } from './utils/transformers';
+import {
+  transformMembershipList,
+  transformProposal,
+} from './utils/transformers';
 import { ethers } from 'ethers';
 import { HausError } from './HausError';
 
@@ -249,7 +253,7 @@ export default class Query {
     networkId: keyof Keychain;
     dao: string;
     proposalId: string;
-  }): Promise<QueryResult<FindProposalQuery>> {
+  }): Promise<QueryResult<TransformedProposal>> {
     const url = this._endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
@@ -258,14 +262,14 @@ export default class Query {
     }
 
     try {
-      return await graphFetch<FindProposalQuery, FindProposalQueryVariables>(
-        FindProposalDocument,
-        url,
-        networkId,
-        {
-          id: `${dao}-proposal-${proposalId}`,
-        }
-      );
+      const queryResult = await graphFetch<
+        FindProposalQuery,
+        FindProposalQueryVariables
+      >(FindProposalDocument, url, networkId, {
+        id: `${dao}-proposal-${proposalId}`,
+      });
+
+      return { data: transformProposal(queryResult?.data) };
     } catch (err) {
       return {
         error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),

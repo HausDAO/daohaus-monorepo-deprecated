@@ -1,6 +1,6 @@
 import { Keychain } from '@daohaus/common-utilities';
 import { HausError } from '../HausError';
-import { OrderDirection } from '../subgraph/schema.generated';
+import { OrderDirection, Proposal } from '../subgraph/schema.generated';
 
 /**
  * Query related types
@@ -40,6 +40,11 @@ export interface QueryResult<Data = any> {
   networkId?: keyof Keychain;
 }
 
+export interface FindProposalQuery extends FindProposalQueryVariables {
+  
+  status: string;
+}
+
 export type TransformedMembership = {
   dao: string;
   name?: string;
@@ -54,7 +59,6 @@ export type TransformedMembership = {
   fiatTotal?: number;
   tokenBalances?: TokenBalance[];
 };
-
 export interface TransformedMembershipsQuery {
   daos: TransformedMembership[];
 }

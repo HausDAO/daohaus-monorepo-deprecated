@@ -1,32 +1,30 @@
 import { useMemo } from 'react';
 import { Avatar } from '../../atoms';
 import makeBlockie from 'ethereum-blockies-base64';
-
-//  manually recreating an accountProfile type
-// so that this could work independantly od DAOdata
-type AccountProfile = {
-  address: string;
-  image?: string;
-  [key: string]: string | null | undefined;
-};
+import styled from 'styled-components';
 
 type ProfileAvatarProps = Parameters<typeof Avatar>[0] & {
-  profile: AccountProfile;
+  address?: string;
+  image?: string;
 };
 
 export const ProfileAvatar = ({
-  profile: { address, image },
+  address,
+  image,
   ...props
 }: ProfileAvatarProps) => {
-  const pfp = useMemo(() => {
-    if (image) {
-      return image;
-    }
+  const blockie = useMemo(() => {
     if (address) {
-      return makeBlockie(address);
+      return <BlockieImg src={makeBlockie(address)} alt="user avatar" />;
     }
     return;
-  }, [image, address]);
+  }, [address]);
 
-  return <Avatar {...props} src={pfp} fallback={'?'} />;
+  return <Avatar {...props} src={image} fallback={blockie} />;
 };
+export const BlockieImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+`;

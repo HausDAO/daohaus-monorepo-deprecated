@@ -6,6 +6,7 @@ type AvatarProps = {
   fallback?: string | React.ReactNode;
   delayMs?: number;
   size?: string;
+  className?: string;
 };
 
 export const Avatar = ({
@@ -14,9 +15,10 @@ export const Avatar = ({
   alt,
   delayMs = 500,
   fallback = 'X',
+  className,
 }: AvatarProps) => {
   return (
-    <AvatarBase size={size}>
+    <AvatarBase size={size} className={className}>
       <AvatarImage src={src} alt={alt} />
       <AvatarFallback delayMs={src ? delayMs : 0}>{fallback}</AvatarFallback>
     </AvatarBase>

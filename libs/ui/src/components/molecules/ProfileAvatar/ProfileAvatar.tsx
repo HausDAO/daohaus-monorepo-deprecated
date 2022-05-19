@@ -17,7 +17,7 @@ export const ProfileAvatar = ({
     if (address) {
       return <BlockieImg src={makeBlockie(address)} alt="user avatar" />;
     }
-    return;
+    return '?';
   }, [address]);
 
   return <Avatar {...props} src={image} fallback={blockie} />;

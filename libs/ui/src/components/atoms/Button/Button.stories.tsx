@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { BiChevronDown, BiError } from 'react-icons/bi';
-import { Button } from './button';
+import { Button } from './Button';
 
 export default {
   title: 'Atoms/Button',

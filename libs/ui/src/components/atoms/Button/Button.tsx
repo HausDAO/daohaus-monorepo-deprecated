@@ -1,5 +1,5 @@
 import React, { RefObject } from 'react';
-import { ButtonBase, WithIcon } from './buttonStyles';
+import { ButtonBase, WithIcon } from './Button.styles';
 import classNames from 'classnames';
 import { IconType } from 'react-icons';
 

@@ -44,7 +44,7 @@ export const FieldWrapper = ({
   return (
     <FieldWrapperBase className={classes}>
       <InputLabel required={required} info={info} id={id}>
-        {label}
+        {label ? label : 'No label found'}
       </InputLabel>
       <div className="field-slot">{children}</div>
       <HelperTextFactory

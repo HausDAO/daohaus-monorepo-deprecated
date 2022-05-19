@@ -23,7 +23,7 @@ import {
   ParXs,
   StrikeThrough,
   Underline,
-} from './typography';
+} from './Typography';
 
 const Display = styled.div`
   display: flex;
@@ -40,7 +40,7 @@ const FamilyDisplay = styled.div`
 `;
 
 export default {
-  title: 'atoms/typography',
+  title: 'atoms/Typography',
 };
 
 export const AllFonts = () => {

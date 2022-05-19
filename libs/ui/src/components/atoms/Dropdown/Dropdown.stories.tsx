@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { BiError } from 'react-icons/bi';
 import { Button } from '../Button/Button';
-import { ParXs } from '../typography';
+import { ParXs } from '../Typography';
 import { DropdownItem, Dropdown } from './Dropdown';
 
 export default {

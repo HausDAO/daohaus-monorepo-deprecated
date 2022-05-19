@@ -1,4 +1,4 @@
-import { ParXs } from '../typography';
+import { ParXs } from '../Typography';
 import { IconType } from 'react-icons';
 import { WithIcon } from './HelperText.styles';
 import React from 'react';

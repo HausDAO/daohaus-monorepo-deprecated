@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { FieldWrapper } from './fieldWrapper';
 import { field } from '../../../theme';
 import { border } from '../../../theme/global/border';
-import { ParXs } from '../../atoms/typography';
+import { ParXs } from '../../atoms/Typography';
 
 export default {
   title: 'Molecules/Form/FieldWrapper',

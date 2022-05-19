@@ -4,11 +4,11 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from './dropdownStyle';
+} from './Dropdown.style';
 import React from 'react';
 import { v4 as uuid } from 'uuid';
 import { useTheme } from 'styled-components';
-import { DropdownLabel } from './dropdownExtras';
+import { DropdownLabel } from './DropdownExtras';
 
 const DropdownContentOptions = {
   clickable: DropdownMenuItem,

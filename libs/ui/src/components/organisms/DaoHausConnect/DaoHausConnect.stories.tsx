@@ -5,7 +5,7 @@ import { ButtonProps, Button } from '../../atoms/Button/Button';
 import { Bold, ParMd, ParXs } from '../../atoms/typography';
 import styled from 'styled-components';
 import { violet } from '@radix-ui/colors';
-import { DropdownItem, Dropdown } from '../../atoms/dropdown/dropdown';
+import { DropdownItem, Dropdown } from '../../atoms/Dropdown/Dropdown';
 
 export default {
   title: 'Recipes/DaoHausConnect',

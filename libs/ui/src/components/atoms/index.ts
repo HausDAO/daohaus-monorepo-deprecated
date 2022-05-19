@@ -1,5 +1,5 @@
 export * from './Button';
-export * from './dropdown';
+export * from './Dropdown';
 export * from './inputLabel';
 export * from './input';
 export * from './helperTexts';

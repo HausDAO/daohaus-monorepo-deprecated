@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { BiError } from 'react-icons/bi';
 import { Button } from '../Button/Button';
 import { ParXs } from '../typography';
-import { DropdownItem, Dropdown } from './dropdown';
+import { DropdownItem, Dropdown } from './Dropdown';
 
 export default {
   title: 'Atoms/Dropdown',

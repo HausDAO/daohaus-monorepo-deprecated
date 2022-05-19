@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { InputLabel } from './inputLabel';
+import { InputLabel } from './InputLabel';
 
 export default {
   title: 'Atoms/Form/InputLabel',

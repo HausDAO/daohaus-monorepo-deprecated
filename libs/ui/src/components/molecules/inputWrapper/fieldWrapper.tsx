@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import { Field } from '../../../types/formAndField';
-import { InputLabel } from '../../atoms/inputLabel/inputLabel';
+import { InputLabel } from '../../atoms/InputLabel/InputLabel';
 import { FieldWrapperBase } from './fieldWrapperStyles';
 import {
   ErrorMessage,

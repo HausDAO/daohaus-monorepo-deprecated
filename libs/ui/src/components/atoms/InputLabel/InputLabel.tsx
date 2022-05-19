@@ -4,7 +4,7 @@ import {
   InputLabelContainer,
   Label,
   RequiredAsterisk,
-} from './inputLabelStyle';
+} from './InputLabel.style';
 
 export type InputLabelType = {
   id: string;

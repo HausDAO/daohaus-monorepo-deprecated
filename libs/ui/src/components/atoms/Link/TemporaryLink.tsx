@@ -1,4 +1,4 @@
-import { font } from '@daohaus/ui';
+import { font } from '../../../theme/global/font';
 import styled from 'styled-components';
 
 export const TemporaryLink = styled.a`

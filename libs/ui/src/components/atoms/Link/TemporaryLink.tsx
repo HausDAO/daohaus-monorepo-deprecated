@@ -1,0 +1,16 @@
+import { font } from '@daohaus/ui';
+import styled from 'styled-components';
+
+export const TemporaryLink = styled.a`
+  text-decoration: none;
+  cursor: pointer;
+  font-family: ${font.family.body};
+  font-weight: ${font.weight.reg};
+  font-size: ${font.size.md};
+  color: ${(props) => props.theme.button.primary.bg};
+
+  :hover {
+    text-decoration: underline;
+    color: ${(props) => props.theme.button.primary.hoverBg};
+  }
+`;

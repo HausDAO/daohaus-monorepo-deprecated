@@ -45,7 +45,8 @@ export const ExplorerLink = ({
       rel="noopener noreferrer"
     >
       <WithIcon>
-        {children} {<Icon />}
+        <span className="link-text">{children}</span>
+        <Icon />
       </WithIcon>
     </TemporaryLink>
   );
@@ -54,8 +55,10 @@ export const ExplorerLink = ({
 const WithIcon = styled.div`
   display: flex;
   align-items: center;
+  .link-text {
+    margin-right: 0.6rem;
+  }
   svg {
-    margin-left: 0.8rem;
     height: 1.2rem;
     width: 1.2rem;
   }

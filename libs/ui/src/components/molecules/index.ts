@@ -1,2 +1,2 @@
 export * from './FieldWrapper';
-export * from './wrappedInput';
+export * from './WrappedInput';

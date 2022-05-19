@@ -4,8 +4,8 @@ import {
   TooltipProvider,
   TooltipRoot,
   TooltipTrigger,
-} from './tooltipStyles';
-import { SmTooltipIcon } from './tooltipTriggers';
+} from './Tooltip.styles';
+import { SmTooltipIcon } from './TooltipTriggers';
 
 export type TooltipProps = {
   content?: string | React.ReactNode;

@@ -2,8 +2,8 @@ import { grass } from '@radix-ui/colors';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { BsCheckCircleFill } from 'react-icons/bs';
 import { H1, ParLg } from '../Typography';
-import { Tooltip } from './tooltip';
-import { LgTooltipIcon, SmTooltipIcon } from './tooltipTriggers';
+import { Tooltip } from './Tooltip';
+import { LgTooltipIcon, SmTooltipIcon } from './TooltipTriggers';
 
 export default {
   title: 'Atoms/Form/Tooltip',

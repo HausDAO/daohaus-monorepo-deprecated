@@ -1,4 +1,4 @@
-import { Tooltip } from '../tooltip/tooltip';
+import { Tooltip } from '../Tooltip/Tooltip';
 
 import {
   InputLabelContainer,

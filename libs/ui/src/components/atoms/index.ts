@@ -3,5 +3,5 @@ export * from './Dropdown';
 export * from './InputLabel';
 export * from './Input';
 export * from './HelperTexts';
-export * from './tooltip';
+export * from './Tooltip';
 export * from './Typography';

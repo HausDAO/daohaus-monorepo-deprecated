@@ -6,6 +6,7 @@ import { ethers } from 'ethers';
 import { Keychain } from '@daohaus/common-utilities';
 
 import { AccountProfile, BasicProfile } from './types';
+import { transformProfile } from './utils/transformers';
 
 export default class Profile {
   providers: Keychain;
@@ -20,11 +21,7 @@ export default class Profile {
     const ens = await this.getEns(address);
     const basicProfile = await this.getBasicProfile('0x1', address);
 
-    return {
-      address,
-      ens,
-      ...basicProfile,
-    };
+    return transformProfile(address, ens, basicProfile);
   }
 
   private async getBasicProfile(
@@ -32,7 +29,7 @@ export default class Profile {
     address: string
   ): Promise<BasicProfile> {
     const client = new CeramicClient(
-      this.ceramicNode || 'https://ceramic-clay.3boxlabs.com'
+      this.ceramicNode || 'https://gateway.ceramic.network'
     );
     const link = await Caip10Link.fromAccount(
       client,

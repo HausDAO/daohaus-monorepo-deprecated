@@ -1,9 +1,18 @@
+type BasicProfileImage = {
+  original: {
+    src: string;
+    width: number;
+    height: number;
+    mimeType: string;
+    size: number;
+  };
+};
+
 export type BasicProfile = {
-  image?: string;
+  image?: BasicProfileImage;
   name?: string;
   description?: string;
   emoji?: string;
-  background?: string;
 };
 
 export type AccountProfile = {
@@ -13,5 +22,4 @@ export type AccountProfile = {
   name?: string;
   description?: string;
   emoji?: string;
-  background?: string;
 };

@@ -5,6 +5,8 @@ import {
   TransformedProposal,
   TransformedMembership,
   QueryResult,
+  AccountProfile,
+  BasicProfile,
 } from '../types';
 
 export const transformProposal = (
@@ -14,6 +16,24 @@ export const transformProposal = (
     return;
   }
   return { ...proposal, status: 'ok' };
+};
+
+export const transformProfile = (
+  address: string,
+  ens: string | null,
+  profile: BasicProfile
+): AccountProfile => {
+  console.log('profile', profile);
+  return {
+    address,
+    ens,
+    ...profile,
+    image:
+      profile.image?.original?.src &&
+      `https://daohaus.mypinata.cloud/ipfs/${profile.image.original.src.match(
+        /Qm[a-zA-Z0-9/.]+/
+      )}`,
+  };
 };
 
 export const transformMembershipList = (

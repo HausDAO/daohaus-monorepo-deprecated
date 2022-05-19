@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 
-import { HelperText, SuccessText, ErrorText, WarningText } from './helperTexts';
+import { HelperText, SuccessText, ErrorText, WarningText } from './HelperTexts';
 
 export default {
   title: 'Atoms/Form/InputHelperTexts',

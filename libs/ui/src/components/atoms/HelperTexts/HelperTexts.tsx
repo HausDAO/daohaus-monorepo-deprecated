@@ -1,6 +1,6 @@
 import { ParXs } from '../typography';
 import { IconType } from 'react-icons';
-import { WithIcon } from './helperTextStyles';
+import { WithIcon } from './HelperText.styles';
 import React from 'react';
 import { useTheme } from 'styled-components';
 import { Theme } from '../../../types/theming';
@@ -30,7 +30,7 @@ export const HelperText = ({ color, icon, children }: HelperTextType) => {
 };
 
 export const SuccessText = ({ children }: SpecialHelperText) => {
-  /*  Using 'as Theme' here because useTheme only seems to return a 
+  /*  Using 'as Theme' here because useTheme only seems to return a
   'DefaultTheme' type, despite being initialized with a 'Theme' type.*/
   const theme = useTheme() as Theme;
   return (

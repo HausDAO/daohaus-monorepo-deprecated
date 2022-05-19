@@ -13,7 +13,7 @@ import {
   HelperText,
   SuccessText,
   WarningText,
-} from '../../atoms/helperTexts';
+} from '../../atoms/HelperTexts';
 
 type FieldWrapperProps = Field & {
   children: React.ReactNode;

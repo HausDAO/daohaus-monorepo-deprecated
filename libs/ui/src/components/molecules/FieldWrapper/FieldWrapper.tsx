@@ -1,8 +1,14 @@
 import classNames from 'classnames';
 import React from 'react';
+
+import { Label } from '../../atoms/Label';
+import { Tooltip } from '../../atoms/Tooltip';
+import {
+  FieldWrapperBase,
+  LabelContainer,
+  RequiredAsterisk,
+} from './FieldWrapper.styles';
 import { Field } from '../../../types/formAndField';
-import { InputLabel } from '../../atoms/InputLabel/InputLabel';
-import { FieldWrapperBase } from './FieldWrapper.styles';
 import {
   ErrorMessage,
   WarningMessage,
@@ -43,9 +49,11 @@ export const FieldWrapper = ({
   const classes = classNames({ long: long || address, full });
   return (
     <FieldWrapperBase className={classes}>
-      <InputLabel required={required} info={info} id={id}>
-        {label ? label : 'No label found'}
-      </InputLabel>
+      <LabelContainer>
+        {required && <RequiredAsterisk>*</RequiredAsterisk>}
+        <Label id={id}>{label}</Label>
+        {info && <Tooltip content={info} />}
+      </LabelContainer>
       <div className="field-slot">{children}</div>
       <HelperTextFactory
         error={error}

@@ -25,10 +25,6 @@ export const TextArea = React.forwardRef((props: TextAreaProps, ref: Ref) => {
   });
 
   return (
-    <BaseTextArea
-      {...props}
-      className={`${classes} ${className}`}
-      // ref={ref}
-    />
+    <BaseTextArea {...props} className={`${classes} ${className}`} ref={ref} />
   );
 });

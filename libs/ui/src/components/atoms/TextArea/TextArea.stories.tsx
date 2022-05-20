@@ -12,7 +12,7 @@ const Template: ComponentStory<typeof TextArea> = (args) => (
 
 export const AtomTextArea = Template.bind({});
 AtomTextArea.args = {
-  placeholder: 'Placeholder',
+  placeholder: 'Placeholder...',
 };
 
 export const TextAreaDisabled = Template.bind({});

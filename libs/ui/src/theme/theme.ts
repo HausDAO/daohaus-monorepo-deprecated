@@ -11,6 +11,7 @@ import {
   slateDark,
   tomato,
   tomatoDark,
+  gray,
 } from '@radix-ui/colors';
 import { Theme } from '../types/theming';
 import {
@@ -30,6 +31,8 @@ export const defaultDarkTheme: Theme = {
   error: tomatoDark.tomato9,
   warning: amberDark.amber9,
   success: grassDark.grass9,
+  disabled: gray.gray9,
+  transparent: 'transparent',
   info: skyDark.sky9,
   field: {
     bg: indigoDark.indigo3,
@@ -49,6 +52,10 @@ export const defaultDarkTheme: Theme = {
   dropdown: {
     bg: indigoDark.indigo2,
   },
+  checkbox: {
+    border: indigoDark.indigo12,
+    activeBorder: amberDark.amber9,
+  },
 };
 
 export const defaultLightTheme: Theme = {
@@ -59,6 +66,8 @@ export const defaultLightTheme: Theme = {
   error: tomato.tomato9,
   warning: amber.amber9,
   success: grass.grass9,
+  disabled: gray.gray9,
+  transparent: 'transparent',
   info: sky.sky9,
   field: {
     bg: indigo.indigo3,
@@ -77,5 +86,9 @@ export const defaultLightTheme: Theme = {
   },
   dropdown: {
     bg: indigo.indigo2,
+  },
+  checkbox: {
+    border: indigoDark.indigo12,
+    activeBorder: amberDark.amber9,
   },
 };

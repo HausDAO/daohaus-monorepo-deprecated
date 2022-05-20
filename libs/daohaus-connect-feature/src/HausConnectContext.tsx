@@ -1,5 +1,3 @@
-import { isValidNetwork } from '@daohaus/common-utilities';
-
 import {
   createContext,
   ReactNode,
@@ -9,6 +7,8 @@ import {
   useMemo,
   useState,
 } from 'react';
+
+import { isValidNetwork } from '@daohaus/common-utilities';
 
 import {
   getModal,
@@ -101,12 +101,18 @@ export const HausConnectProvider = ({
   useEffect(() => {
     let shouldUpdate = true;
     if (address && isConnected) {
-      loadProfile({ address, setProfile, setProfileLoading, shouldUpdate });
+      loadProfile({
+        address,
+        setProfile,
+        setProfileLoading,
+        shouldUpdate,
+        networks,
+      });
     }
     return () => {
       shouldUpdate = false;
     };
-  }, [address, isConnected]);
+  }, [address, isConnected, networks]);
 
   const switchNetwork = async (_chainId: string | number) => {
     handleSwitchNetwork(_chainId, networks);

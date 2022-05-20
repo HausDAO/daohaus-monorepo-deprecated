@@ -6,6 +6,7 @@ import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
 import styled, { useTheme } from 'styled-components';
 import { useHausConnect } from '../../HausConnectContext';
 import { truncateAddress } from '../../utils/common';
+import { ExplorerLink } from '../ExplorerLink';
 
 export const UserConnectedDropdown = () => {
   const { disconnect, address, chainId, profile, validNetwork } =
@@ -53,9 +54,15 @@ export const UserConnectedDropdown = () => {
                 padding: '.8rem',
               }}
             >
-              <ParXs style={{ marginBottom: '.5rem' }}>
-                {address && truncateAddress(address)}
-              </ParXs>
+              <AddressContainer className="address-container">
+                <ParXs style={{ marginBottom: '.5rem' }}>
+                  {address && truncateAddress(address)}
+                </ParXs>
+                <ExplorerLink
+                  className="explorer-link"
+                  address="0x756ee8B8E898D497043c2320d9909f1DD5a7077F"
+                />
+              </AddressContainer>
               <ParXs>
                 {validNetwork && chainId
                   ? `Connected To ${getNetworkName(chainId)}`
@@ -90,5 +97,12 @@ const Container = styled.div`
   }
   .user-avatar {
     margin-right: 0.75rem;
+  }
+`;
+
+const AddressContainer = styled.div`
+  display: flex;
+  .explorer-link {
+    transform: translateY(0.2rem);
   }
 `;

@@ -10,7 +10,6 @@ import {
   tomato,
   tomatoDark,
   gray,
-  amberDarkA,
 } from '@radix-ui/colors';
 import { Theme } from '../types/theming';
 import {

@@ -1,4 +1,3 @@
-import { amberDark, amberDarkA } from '@radix-ui/colors';
 import styled, { useTheme } from 'styled-components';
 
 type SpinnerType = {
@@ -14,8 +13,8 @@ const StyledSpinner = styled.div`
   &.loader,
   &.loader:after {
     border-radius: 50%;
-    width: ${(props: SpinnerType) => props.size};
-    height: ${(props: SpinnerType) => props.size};
+    width: 100%;
+    height: 100%;
   }
   &.loader {
     font-size: 1rem;
@@ -58,9 +57,12 @@ const StyledSpinner = styled.div`
   }
 `;
 const Container = styled.div`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: ${(props: SpinnerType) => props.size};
   height: ${(props: SpinnerType) => props.size};
-  padding: 1rem;
+  padding: ${(props: SpinnerType) => props.padding};
 `;
 export const Spinner = ({
   topColor,

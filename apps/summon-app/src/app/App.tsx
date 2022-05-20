@@ -1,5 +1,5 @@
-import { DaoHausNav, ExplorerLink } from '@daohaus/daohaus-connect-feature';
-import { Button, H1, HausThemeContext, Spinner } from '@daohaus/ui';
+import { DaoHausNav } from '@daohaus/daohaus-connect-feature';
+import { Button, H1, HausThemeContext } from '@daohaus/ui';
 import { useContext } from 'react';
 import styled from 'styled-components';
 

@@ -1,7 +1,6 @@
 import { getNetworkName } from '@daohaus/common-utilities';
-import { Button, Dropdown, ParMd, ParXs } from '@daohaus/ui';
+import { Button, Dropdown, ParMd, ParXs, ProfileAvatar } from '@daohaus/ui';
 
-import { violet } from '@radix-ui/colors';
 import { useState } from 'react';
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
 import styled, { useTheme } from 'styled-components';
@@ -25,7 +24,12 @@ export const UserConnectedDropdown = () => {
       trigger={
         <Button avatar fullWidth IconRight={open ? BiChevronUp : BiChevronDown}>
           <Container>
-            <TemporaryAvatar />
+            <ProfileAvatar
+              image={profile?.image}
+              address={profile?.address}
+              size="sm"
+              className="user-avatar"
+            />
             <div className="interior">
               <ParMd color={theme.button.primary.text}>
                 {profile?.displayName ||
@@ -73,15 +77,6 @@ export const UserConnectedDropdown = () => {
   );
 };
 
-const TemporaryAvatar = styled.div`
-  width: 3rem;
-  height: 3rem;
-
-  background-color: ${violet.violet9};
-  border-radius: 45px;
-  margin-right: 0.75rem;
-`;
-
 const Container = styled.div`
   display: flex;
   align-items: center;
@@ -92,5 +87,8 @@ const Container = styled.div`
   .interior {
     display: flex;
     flex-direction: column;
+  }
+  .user-avatar {
+    margin-right: 0.75rem;
   }
 `;

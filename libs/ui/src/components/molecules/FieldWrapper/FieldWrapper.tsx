@@ -51,7 +51,7 @@ export const FieldWrapper = ({
     <FieldWrapperBase className={classes}>
       <LabelContainer>
         {required && <RequiredAsterisk>*</RequiredAsterisk>}
-        <Label id={id}>{label}</Label>
+        {label && <Label id={id}>{label}</Label>}
         {info && <Tooltip content={info} />}
       </LabelContainer>
       <div className="field-slot">{children}</div>

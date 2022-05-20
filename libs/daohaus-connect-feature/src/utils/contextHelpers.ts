@@ -1,8 +1,12 @@
-import { isValidNetwork, ReactSetter } from '@daohaus/common-utilities';
+import {
+  extractKeychain,
+  isValidNetwork,
+  ReactSetter,
+} from '@daohaus/common-utilities';
 import { Haus } from '@daohaus/dao-data';
 import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
 import { providers } from 'ethers';
-import { TEMPORARY_RPC, truncateAddress } from './common';
+import { truncateAddress } from './common';
 
 import { switchChainOnMetaMask } from './metamask';
 import {
@@ -111,15 +115,19 @@ export const loadProfile = async ({
   setProfile,
   setProfileLoading,
   shouldUpdate,
+  networks,
 }: {
   address: string;
   setProfile: ReactSetter<UserProfile>;
   setProfileLoading: ReactSetter<boolean>;
   shouldUpdate: boolean;
+  networks: NetworkConfigs;
 }) => {
   try {
     setProfileLoading(true);
-    const haus = Haus.create(TEMPORARY_RPC);
+    const rpcs = extractKeychain(networks, 'rpc');
+
+    const haus = Haus.create(rpcs);
     const profile = await haus.profile.get(address);
 
     if (profile && shouldUpdate) {

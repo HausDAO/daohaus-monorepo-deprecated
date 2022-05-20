@@ -1,3 +1,3 @@
-export * from './inputWrapper';
-export * from './wrappedInput';
+export * from './FieldWrapper';
+export * from './WrappedInput';
 export * from './ProfileAvatar';

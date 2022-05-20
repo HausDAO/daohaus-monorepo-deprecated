@@ -1,5 +1,5 @@
 import { amberDark, amberDarkA } from '@radix-ui/colors';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
 type SpinnerType = {
   topColor?: string;
@@ -63,18 +63,19 @@ const Container = styled.div`
   padding: 1rem;
 `;
 export const Spinner = ({
-  topColor = amberDark.amber9,
-  bottomColor = amberDarkA.amberA2,
+  topColor,
+  bottomColor,
   size = '4rem',
   padding = '0',
   strokeWidth = '.5rem',
   speed = '1.1s',
 }: SpinnerType) => {
+  const theme = useTheme();
   return (
     <Container size={size} padding={padding}>
       <StyledSpinner
-        topColor={topColor}
-        bottomColor={bottomColor}
+        topColor={topColor || theme.spinner.topColor}
+        bottomColor={bottomColor || theme.spinner.bottomColor}
         size={size}
         className="loader"
         strokeWidth={strokeWidth}

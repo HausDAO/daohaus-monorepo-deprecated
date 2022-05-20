@@ -34,6 +34,7 @@ export type Field = {
   required?: boolean;
   info?: string;
   disabled?: boolean;
+  disabledPlaceholder?: boolean;
   number?: boolean;
   address?: boolean;
   long?: boolean;

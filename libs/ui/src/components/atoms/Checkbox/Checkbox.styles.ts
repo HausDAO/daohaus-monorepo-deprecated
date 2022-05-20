@@ -5,6 +5,12 @@ import { Theme } from '../../../types/theming';
 
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 
+export const Container = styled.div`
+  align-items: center;
+  display: flex;
+  margin-bottom: 12px;
+`;
+
 export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
   display: flex;
   align-items: center;
@@ -16,8 +22,8 @@ export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
         ? props.theme.checkbox.activeBorder
         : props.theme.checkbox.border};
   border-radius: 1px;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 18px;
+  height: 18px;
   :disabled {
     border 2px solid ${({ theme }: { theme: Theme }) => theme.disabled}
   }
@@ -32,15 +38,21 @@ export const StyledIndicator = styled(CheckboxPrimitive.Indicator)`
   }
 `;
 
-export const Container = styled.div`
-  align-items: center;
+export const LabelContainer = styled.label`
   display: flex;
-  margin-bottom: 12px;
+  align-items: center;
+  margin-left: 19px;
+  label {
+    margin-right: 10px;
+  }
+  svg {
+    transform: translateY(0.1rem);
+  }
 `;
 
-export const Value = styled.label`
-  font-family: ${font.family.body};
-  font-size: ${font.size.md};
-  font-weight: ${font.weight.reg};
-  user-select: none;
+export const RequiredAsterisk = styled.span`
+  margin-right: 8px;
+  font-weight: ${font.weight.bold};
+  color: ${({ theme }: { theme: Theme }) => theme.warning};
+  transform: translateY(-0.25rem);
 `;

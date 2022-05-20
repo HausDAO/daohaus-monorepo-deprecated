@@ -1,7 +1,7 @@
 import { useForm, Controller } from 'react-hook-form';
 import type { CheckboxWrapperProps } from '../../../types/formAndField';
 import { Checkbox } from '../../atoms/Checkbox';
-import { FieldWrapper } from '../inputWrapper/fieldWrapper';
+import { FieldWrapper } from '../FieldWrapper/FieldWrapper';
 
 export const WrappedCheckbox = (props: CheckboxWrapperProps) => {
   const { id, helperText, info, label, error, success, warning, checkboxes } =

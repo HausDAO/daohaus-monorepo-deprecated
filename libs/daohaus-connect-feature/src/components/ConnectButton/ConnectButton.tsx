@@ -1,4 +1,4 @@
-import { Button } from '@daohaus/ui';
+import { Button, Spinner } from '@daohaus/ui';
 
 import { RiUserAddLine } from 'react-icons/ri';
 import { useHausConnect } from '../../HausConnectContext';
@@ -30,7 +30,9 @@ const ConnectWalletButton = () => {
 const LoadingButton = () => {
   return (
     <ButtonContainer>
-      <Button fullWidth>Loading</Button>
+      <Button fullWidth>
+        <Spinner />
+      </Button>
     </ButtonContainer>
   );
 };

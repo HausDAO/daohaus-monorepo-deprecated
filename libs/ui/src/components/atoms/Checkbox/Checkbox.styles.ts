@@ -50,6 +50,7 @@ export const LabelContainer = styled.label`
   }
 `;
 
+// TODO Rowdy - RequiredAsterisk should be a reusable icon atom
 export const RequiredAsterisk = styled.span`
   margin-right: 8px;
   font-weight: ${font.weight.bold};

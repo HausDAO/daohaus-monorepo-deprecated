@@ -33,6 +33,7 @@ declare module 'styled-components' {
       focus: string;
       placeholderText: string;
       disabled: string;
+      disabledPlaceholder: string;
     };
     button: {
       primary: ButtonColorTargets;

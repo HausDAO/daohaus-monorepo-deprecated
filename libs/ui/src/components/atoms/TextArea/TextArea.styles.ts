@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 import { Theme } from '../../../types/theming';
 import { field } from '../../../theme/component/fieldFamily';
-import { font } from '../../../theme/global/font';
 
 export const BaseTextArea = styled.textarea`
   background-color: ${({ theme }: { theme: Theme }) => theme.field.bg};

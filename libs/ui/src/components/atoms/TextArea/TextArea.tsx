@@ -1,5 +1,4 @@
 import React from 'react';
-import { IconType } from 'react-icons';
 
 import classNames from 'classnames';
 import { BaseTextArea } from './TextArea.styles';

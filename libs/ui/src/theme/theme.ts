@@ -7,6 +7,8 @@ import {
   indigoDark,
   sky,
   skyDark,
+  slate,
+  slateDark,
   tomato,
   tomatoDark,
   gray,
@@ -36,7 +38,8 @@ export const defaultDarkTheme: Theme = {
     bg: indigoDark.indigo3,
     focus: indigoDark.indigo4,
     placeholderText: indigoDark.indigo11,
-    disabled: indigoDark.indigo2,
+    disabled: slateDark.slate5,
+    disabledPlaceholder: slateDark.slate10,
   },
   button: {
     primary: PrimaryDarkButton,
@@ -70,7 +73,8 @@ export const defaultLightTheme: Theme = {
     bg: indigo.indigo3,
     focus: indigo.indigo4,
     placeholderText: indigo.indigo8,
-    disabled: indigo.indigo2,
+    disabled: slate.slate5,
+    disabledPlaceholder: slate.slate5,
   },
   button: {
     primary: PrimaryLightButton,

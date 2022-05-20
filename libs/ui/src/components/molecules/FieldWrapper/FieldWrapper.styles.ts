@@ -6,7 +6,7 @@ import { Theme } from '../../../types/theming';
 
 export const FieldWrapperBase = styled.div`
   width: 100%;
-  max-width: ${field.size.md};
+  max-width: ${field.size.lg};
   .field-slot {
     margin-bottom: 1.2rem;
   }

@@ -56,6 +56,10 @@ export const defaultDarkTheme: Theme = {
     border: indigoDark.indigo12,
     activeBorder: amberDark.amber9,
   },
+  spinner: {
+    topColor: amberDark.amber9,
+    bottomColor: amberDark.amber4,
+  },
 };
 
 export const defaultLightTheme: Theme = {
@@ -90,5 +94,9 @@ export const defaultLightTheme: Theme = {
   checkbox: {
     border: indigoDark.indigo12,
     activeBorder: amberDark.amber9,
+  },
+  spinner: {
+    topColor: amber.amber9,
+    bottomColor: amber.amber4,
   },
 };

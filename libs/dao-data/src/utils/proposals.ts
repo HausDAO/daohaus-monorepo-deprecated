@@ -1,5 +1,5 @@
-import { Proposal } from '@daohaus/dao-data';
-import { PROPOSAL_STATUSES } from '../constants/proposals';
+import { PROPOSAL_STATUSES } from '@daohaus/common-utilities';
+import { Proposal } from '../types';
 
 export const getProposalStatus = (proposal: Partial<Proposal>): string => {
   if (!proposal.sponsored) {

@@ -1,7 +1,4 @@
-import {
-  getProposalStatus,
-  votingPowerPercentage,
-} from '@daohaus/common-utilities';
+import { votingPowerPercentage } from '@daohaus/common-utilities';
 import { ListMembershipsQuery } from '../subgraph/queries/members.generated';
 import { Proposal } from '../subgraph/schema.generated';
 import {
@@ -13,6 +10,7 @@ import {
   TokenBalance,
   DaoTokenBalances,
 } from '../types';
+import { getProposalStatus } from './proposals';
 
 export const transformProposal = (
   proposal: Partial<Proposal> | undefined

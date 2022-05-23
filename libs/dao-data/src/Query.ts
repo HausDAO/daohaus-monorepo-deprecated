@@ -139,15 +139,6 @@ export default class Query {
         orderDirection: ordering.orderDirection,
       });
 
-      // return {
-      //   ...queryResult,
-      //   data: {
-      //     proposal: transformProposal(
-      //       queryResult?.data?.proposal as Partial<Proposal>
-      //     ),
-      //   },
-      // };
-
       const proposals = queryResult.data?.proposals
         ? queryResult.data?.proposals.map((prop) =>
             transformProposal(prop as Partial<Proposal>)

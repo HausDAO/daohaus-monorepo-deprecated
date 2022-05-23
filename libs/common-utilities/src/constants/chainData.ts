@@ -99,3 +99,18 @@ export const addKeychain = (
     };
   }, {});
 };
+
+export const extractKeychain = (
+  networkList: Keychain<NetworkType>,
+  property: string
+) => {
+  return Object.values(networkList).reduce((acc, network) => {
+    const { chainId } = network;
+    return network[property]
+      ? {
+          ...acc,
+          [chainId]: network[property],
+        }
+      : acc;
+  }, {});
+};

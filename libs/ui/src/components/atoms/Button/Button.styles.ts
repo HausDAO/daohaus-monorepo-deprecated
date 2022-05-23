@@ -46,7 +46,6 @@ export const ButtonBase = styled.button`
       theme.button.primary.disabledText};
     cursor: not-allowed;
   }
-
   &.secondary {
     background-color: ${({ theme }: { theme: Theme }) =>
       theme.button.secondary.bg};

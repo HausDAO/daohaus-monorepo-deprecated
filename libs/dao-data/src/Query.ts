@@ -10,6 +10,7 @@ import {
   TokenBalance,
   TransformedProposal,
   TransformedProposalQuery,
+  TransformedProposalListQuery,
 } from './types';
 import * as fetch from './utils';
 import { graphFetch } from './utils/requests';
@@ -117,7 +118,8 @@ export default class Query {
     },
     filter,
   }: ListQueryArguments<Proposal_OrderBy, Proposal_Filter>): Promise<
-    QueryResult<ListProposalsQuery>
+    QueryResult<TransformedProposalListQuery>
+    // QueryResult<ListProposalsQuery>
   > {
     const url = this._endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
@@ -128,16 +130,36 @@ export default class Query {
     }
 
     try {
-      return await graphFetch<ListProposalsQuery, ListProposalsQueryVariables>(
-        ListProposalsDocument,
-        url,
-        networkId,
-        {
-          where: filter,
-          orderBy: ordering.orderBy,
-          orderDirection: ordering.orderDirection,
-        }
-      );
+      const queryResult = await graphFetch<
+        ListProposalsQuery,
+        ListProposalsQueryVariables
+      >(ListProposalsDocument, url, networkId, {
+        where: filter,
+        orderBy: ordering.orderBy,
+        orderDirection: ordering.orderDirection,
+      });
+
+      // return {
+      //   ...queryResult,
+      //   data: {
+      //     proposal: transformProposal(
+      //       queryResult?.data?.proposal as Partial<Proposal>
+      //     ),
+      //   },
+      // };
+
+      const proposals = queryResult.data?.proposals
+        ? queryResult.data?.proposals.map((prop) =>
+            transformProposal(prop as Partial<Proposal>)
+          )
+        : [];
+
+      return {
+        ...queryResult,
+        data: {
+          proposals,
+        },
+      };
     } catch (err) {
       return {
         error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),

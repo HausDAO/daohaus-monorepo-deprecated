@@ -46,6 +46,9 @@ export interface TransformedProposal extends Partial<Proposal> {
 export interface TransformedProposalQuery {
   proposal: TransformedProposal;
 }
+export interface TransformedProposalListQuery {
+  proposals: TransformedProposal[];
+}
 
 export type TransformedMembership = {
   dao: string;

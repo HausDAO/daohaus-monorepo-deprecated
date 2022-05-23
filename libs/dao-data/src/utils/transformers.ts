@@ -1,4 +1,7 @@
-import { votingPowerPercentage } from '@daohaus/common-utilities';
+import {
+  getProposalStatus,
+  votingPowerPercentage,
+} from '@daohaus/common-utilities';
 import { ListMembershipsQuery } from '../subgraph/queries/members.generated';
 import { Proposal } from '../subgraph/schema.generated';
 import {
@@ -17,7 +20,7 @@ export const transformProposal = (
   if (!proposal) {
     return {};
   }
-  return { ...proposal, status: 'ok' };
+  return { ...proposal, status: getProposalStatus(proposal) };
 };
 
 export const transformProfile = (

@@ -1,5 +1,12 @@
 import 'styled-components';
 
+export type CheckboxColorTargets = {
+  bg: string;
+  border: string;
+  activeBorder: string;
+  disabled: string;
+};
+
 export type ButtonColorTargets = {
   bg: string;
   text: string;
@@ -27,12 +34,15 @@ declare module 'styled-components' {
     error: string;
     warning: string;
     success: string;
+    disabled: string;
+    transparent: string;
     info: string;
     field: {
       bg: string;
       focus: string;
       placeholderText: string;
       disabled: string;
+      disabledPlaceholder: string;
     };
     button: {
       primary: ButtonColorTargets;
@@ -44,6 +54,14 @@ declare module 'styled-components' {
     };
     dropdown: {
       bg: string;
+    };
+    checkbox: {
+      border: string;
+      activeBorder: string;
+    };
+    spinner: {
+      topColor: string;
+      bottomColor: string;
     };
   }
 }

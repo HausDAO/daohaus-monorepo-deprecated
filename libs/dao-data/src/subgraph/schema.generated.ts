@@ -25,6 +25,72 @@ export interface Block_Height {
   number_gte?: InputMaybe<Scalars['Int']>;
 }
 
+export interface Dao {
+  __typename?: 'Dao';
+  activeMemberCount: Scalars['BigInt'];
+  createdAt: Scalars['String'];
+  eventTransactions?: Maybe<EventTransaction>;
+  gracePeriod: Scalars['BigInt'];
+  id: Scalars['ID'];
+  latestSponsoredProposalId: Scalars['BigInt'];
+  lootAddress: Scalars['Bytes'];
+  lootPaused: Scalars['Boolean'];
+  members?: Maybe<Array<Member>>;
+  metaData?: Maybe<MetaData>;
+  minRetentionPercent: Scalars['BigInt'];
+  proposalCount: Scalars['BigInt'];
+  proposalOffering: Scalars['BigInt'];
+  proposals?: Maybe<Array<Proposal>>;
+  quorumPercent: Scalars['BigInt'];
+  rageQuits?: Maybe<Array<RageQuit>>;
+  safeAddress: Scalars['Bytes'];
+  shaman?: Maybe<Array<Shaman>>;
+  shareTokenName?: Maybe<Scalars['String']>;
+  shareTokenSymbol?: Maybe<Scalars['String']>;
+  sharesPaused: Scalars['Boolean'];
+  sponsorThreshold: Scalars['BigInt'];
+  totalLoot: Scalars['BigInt'];
+  totalShares: Scalars['BigInt'];
+  transactionHashSummon: Scalars['Bytes'];
+  votingPeriod: Scalars['BigInt'];
+}
+
+
+export interface DaoMembersArgs {
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Member_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<Member_Filter>;
+}
+
+
+export interface DaoProposalsArgs {
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Proposal_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<Proposal_Filter>;
+}
+
+
+export interface DaoRageQuitsArgs {
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<RageQuit_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<RageQuit_Filter>;
+}
+
+
+export interface DaoShamanArgs {
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Shaman_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<Shaman_Filter>;
+}
+
 export interface Dao_Filter {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
@@ -240,6 +306,13 @@ export type Dao_OrderBy =
   | 'transactionHashSummon'
   | 'votingPeriod';
 
+export interface EventTransaction {
+  __typename?: 'EventTransaction';
+  createdAt: Scalars['String'];
+  dao: Dao;
+  id: Scalars['ID'];
+}
+
 export interface EventTransaction_Filter {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
@@ -297,6 +370,28 @@ export type EventTransaction_OrderBy =
   | 'createdAt'
   | 'dao'
   | 'id';
+
+export interface Member {
+  __typename?: 'Member';
+  createdAt: Scalars['String'];
+  dao: Dao;
+  delegateShares: Scalars['BigInt'];
+  delegatingTo: Scalars['Bytes'];
+  id: Scalars['ID'];
+  loot: Scalars['BigInt'];
+  memberAddress: Scalars['Bytes'];
+  shares: Scalars['BigInt'];
+  votes?: Maybe<Array<Vote>>;
+}
+
+
+export interface MemberVotesArgs {
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Vote_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<Vote_Filter>;
+}
 
 export interface Member_Filter {
   /** Filter for the block changed event. */
@@ -397,6 +492,16 @@ export type Member_OrderBy =
   | 'memberAddress'
   | 'shares'
   | 'votes';
+
+export interface MetaData {
+  __typename?: 'MetaData';
+  createdAt: Scalars['String'];
+  createdBy: Scalars['Bytes'];
+  dao?: Maybe<Dao>;
+  id: Scalars['ID'];
+  name?: Maybe<Scalars['String']>;
+  rawContent: Scalars['String'];
+}
 
 export interface MetaData_Filter {
   /** Filter for the block changed event. */
@@ -509,6 +614,57 @@ export type MetaData_OrderBy =
 export type OrderDirection =
   | 'asc'
   | 'desc';
+
+export interface Proposal {
+  __typename?: 'Proposal';
+  actionFailed: Scalars['Boolean'];
+  cancelled: Scalars['Boolean'];
+  contentURI?: Maybe<Scalars['String']>;
+  contentURIType?: Maybe<Scalars['String']>;
+  createdAt: Scalars['String'];
+  createdBy: Scalars['Bytes'];
+  dao: Dao;
+  description?: Maybe<Scalars['String']>;
+  details: Scalars['String'];
+  expiration: Scalars['BigInt'];
+  graceEnds: Scalars['BigInt'];
+  id: Scalars['ID'];
+  maxTotalSharesAndLootAtYesVote: Scalars['BigInt'];
+  noBalance: Scalars['BigInt'];
+  noVotes: Scalars['BigInt'];
+  passed: Scalars['Boolean'];
+  prevProposalId: Scalars['BigInt'];
+  processed: Scalars['Boolean'];
+  proposalData: Scalars['Bytes'];
+  proposalDataHash: Scalars['Bytes'];
+  proposalId: Scalars['BigInt'];
+  proposalOffering: Scalars['BigInt'];
+  proposalType: Scalars['String'];
+  selfSponsor: Scalars['Boolean'];
+  sponsor: Scalars['Bytes'];
+  sponsored: Scalars['Boolean'];
+  title?: Maybe<Scalars['String']>;
+  tributeEscrowRecipient?: Maybe<Scalars['Bytes']>;
+  tributeOffered?: Maybe<Scalars['BigInt']>;
+  tributeToken?: Maybe<Scalars['Bytes']>;
+  tributeTokenDecimals?: Maybe<Scalars['BigInt']>;
+  tributeTokenSymbol?: Maybe<Scalars['String']>;
+  votes?: Maybe<Array<Vote>>;
+  votingEnds: Scalars['BigInt'];
+  votingPeriod: Scalars['BigInt'];
+  votingStarts: Scalars['BigInt'];
+  yesBalance: Scalars['BigInt'];
+  yesVotes: Scalars['BigInt'];
+}
+
+
+export interface ProposalVotesArgs {
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Vote_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<Vote_Filter>;
+}
 
 export interface Proposal_Filter {
   /** Filter for the block changed event. */
@@ -923,6 +1079,189 @@ export type Proposal_OrderBy =
   | 'yesBalance'
   | 'yesVotes';
 
+export interface Query {
+  __typename?: 'Query';
+  /** Access to subgraph metadata */
+  _meta?: Maybe<_Meta_>;
+  dao?: Maybe<Dao>;
+  daos: Array<Dao>;
+  eventTransaction?: Maybe<EventTransaction>;
+  eventTransactions: Array<EventTransaction>;
+  member?: Maybe<Member>;
+  members: Array<Member>;
+  metaData?: Maybe<MetaData>;
+  metaDatas: Array<MetaData>;
+  proposal?: Maybe<Proposal>;
+  proposals: Array<Proposal>;
+  rageQuit?: Maybe<RageQuit>;
+  rageQuits: Array<RageQuit>;
+  shaman?: Maybe<Shaman>;
+  shamans: Array<Shaman>;
+  vote?: Maybe<Vote>;
+  votes: Array<Vote>;
+}
+
+
+export interface Query_MetaArgs {
+  block?: InputMaybe<Block_Height>;
+}
+
+
+export interface QueryDaoArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface QueryDaosArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Dao_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Dao_Filter>;
+}
+
+
+export interface QueryEventTransactionArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface QueryEventTransactionsArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<EventTransaction_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<EventTransaction_Filter>;
+}
+
+
+export interface QueryMemberArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface QueryMembersArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Member_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Member_Filter>;
+}
+
+
+export interface QueryMetaDataArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface QueryMetaDatasArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<MetaData_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<MetaData_Filter>;
+}
+
+
+export interface QueryProposalArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface QueryProposalsArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Proposal_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Proposal_Filter>;
+}
+
+
+export interface QueryRageQuitArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface QueryRageQuitsArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<RageQuit_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<RageQuit_Filter>;
+}
+
+
+export interface QueryShamanArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface QueryShamansArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Shaman_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Shaman_Filter>;
+}
+
+
+export interface QueryVoteArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface QueryVotesArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Vote_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Vote_Filter>;
+}
+
+export interface RageQuit {
+  __typename?: 'RageQuit';
+  createdAt: Scalars['String'];
+  dao: Dao;
+  id: Scalars['ID'];
+  loot: Scalars['BigInt'];
+  member: Member;
+  shares: Scalars['BigInt'];
+  to: Scalars['Bytes'];
+  tokens: Array<Scalars['Bytes']>;
+}
+
 export interface RageQuit_Filter {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
@@ -1034,6 +1373,15 @@ export type RageQuit_OrderBy =
   | 'to'
   | 'tokens';
 
+export interface Shaman {
+  __typename?: 'Shaman';
+  createdAt: Scalars['String'];
+  dao: Dao;
+  id: Scalars['ID'];
+  permissions: Scalars['BigInt'];
+  shamanAddress: Scalars['Bytes'];
+}
+
 export interface Shaman_Filter {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
@@ -1107,6 +1455,188 @@ export type Shaman_OrderBy =
   | 'id'
   | 'permissions'
   | 'shamanAddress';
+
+export interface Subscription {
+  __typename?: 'Subscription';
+  /** Access to subgraph metadata */
+  _meta?: Maybe<_Meta_>;
+  dao?: Maybe<Dao>;
+  daos: Array<Dao>;
+  eventTransaction?: Maybe<EventTransaction>;
+  eventTransactions: Array<EventTransaction>;
+  member?: Maybe<Member>;
+  members: Array<Member>;
+  metaData?: Maybe<MetaData>;
+  metaDatas: Array<MetaData>;
+  proposal?: Maybe<Proposal>;
+  proposals: Array<Proposal>;
+  rageQuit?: Maybe<RageQuit>;
+  rageQuits: Array<RageQuit>;
+  shaman?: Maybe<Shaman>;
+  shamans: Array<Shaman>;
+  vote?: Maybe<Vote>;
+  votes: Array<Vote>;
+}
+
+
+export interface Subscription_MetaArgs {
+  block?: InputMaybe<Block_Height>;
+}
+
+
+export interface SubscriptionDaoArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface SubscriptionDaosArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Dao_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Dao_Filter>;
+}
+
+
+export interface SubscriptionEventTransactionArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface SubscriptionEventTransactionsArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<EventTransaction_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<EventTransaction_Filter>;
+}
+
+
+export interface SubscriptionMemberArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface SubscriptionMembersArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Member_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Member_Filter>;
+}
+
+
+export interface SubscriptionMetaDataArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface SubscriptionMetaDatasArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<MetaData_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<MetaData_Filter>;
+}
+
+
+export interface SubscriptionProposalArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface SubscriptionProposalsArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Proposal_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Proposal_Filter>;
+}
+
+
+export interface SubscriptionRageQuitArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface SubscriptionRageQuitsArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<RageQuit_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<RageQuit_Filter>;
+}
+
+
+export interface SubscriptionShamanArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface SubscriptionShamansArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Shaman_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Shaman_Filter>;
+}
+
+
+export interface SubscriptionVoteArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface SubscriptionVotesArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Vote_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Vote_Filter>;
+}
+
+export interface Vote {
+  __typename?: 'Vote';
+  approved: Scalars['Boolean'];
+  balance: Scalars['BigInt'];
+  createdAt: Scalars['String'];
+  daoAddress: Scalars['Bytes'];
+  id: Scalars['ID'];
+  member: Member;
+  proposal: Proposal;
+}
 
 export interface Vote_Filter {
   /** Filter for the block changed event. */
@@ -1207,6 +1737,30 @@ export type Vote_OrderBy =
   | 'id'
   | 'member'
   | 'proposal';
+
+export interface _Block_ {
+  __typename?: '_Block_';
+  /** The hash of the block */
+  hash?: Maybe<Scalars['Bytes']>;
+  /** The block number */
+  number: Scalars['Int'];
+}
+
+/** The type for the top-level _meta field */
+export interface _Meta_ {
+  __typename?: '_Meta_';
+  /**
+   * Information about a specific subgraph block. The hash of the block
+   * will be null if the _meta field has a block constraint that asks for
+   * a block number. It will be filled if the _meta field has no block constraint
+   * and therefore asks for the latest  block
+   */
+  block: _Block_;
+  /** The deployment ID */
+  deployment: Scalars['String'];
+  /** If `true`, the subgraph encountered indexing errors at some past block */
+  hasIndexingErrors: Scalars['Boolean'];
+}
 
 export type _SubgraphErrorPolicy_ =
   /** Data will be returned even if the subgraph has indexing errors */

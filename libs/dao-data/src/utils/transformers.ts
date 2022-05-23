@@ -7,13 +7,15 @@ import {
   QueryResult,
   AccountProfile,
   BasicProfile,
+  TokenBalance,
+  DaoTokenBalances,
 } from '../types';
 
 export const transformProposal = (
-  proposal: FindProposalQuery | undefined
-): TransformedProposalQuery | undefined => {
+  proposal: Partial<Proposal> | undefined
+): TransformedProposal => {
   if (!proposal) {
-    return;
+    return {};
   }
   return { ...proposal, status: 'ok' };
 };
@@ -23,7 +25,6 @@ export const transformProfile = (
   ens: string | null,
   profile: BasicProfile
 ): AccountProfile => {
-  console.log('profile', profile);
   return {
     address,
     ens,
@@ -34,6 +35,21 @@ export const transformProfile = (
         /Qm[a-zA-Z0-9/.]+/
       )}`,
   };
+};
+
+export const transformTokenBalances = (
+  tokenBalanceRes: TokenBalance[],
+  safeAddress: string
+): DaoTokenBalances => {
+  const fiatTotal = tokenBalanceRes.reduce(
+    (sum: number, balance: TokenBalance): number => {
+      sum += Number(balance.fiatBalance);
+      return sum;
+    },
+    0
+  );
+
+  return { safeAddress, tokenBalances: tokenBalanceRes, fiatTotal };
 };
 
 export const transformMembershipList = (

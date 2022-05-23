@@ -40,9 +40,11 @@ export interface QueryResult<Data = any> {
   networkId?: keyof Keychain;
 }
 
-export interface FindProposalQuery extends FindProposalQueryVariables {
-  
-  status: string;
+export interface TransformedProposal extends Partial<Proposal> {
+  status?: string;
+}
+export interface TransformedProposalQuery {
+  proposal: TransformedProposal;
 }
 
 export type TransformedMembership = {

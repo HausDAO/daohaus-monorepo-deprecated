@@ -9,6 +9,7 @@ import {
   DaoTokenBalances,
   TokenBalance,
   TransformedProposal,
+  TransformedProposalQuery,
 } from './types';
 import * as fetch from './utils';
 import { graphFetch } from './utils/requests';
@@ -28,6 +29,7 @@ import {
   Dao_OrderBy,
   Member_Filter,
   Member_OrderBy,
+  Proposal,
   Proposal_Filter,
   Proposal_OrderBy,
 } from './subgraph/schema.generated';
@@ -55,6 +57,7 @@ import {
 import {
   transformMembershipList,
   transformProposal,
+  transformTokenBalances,
 } from './utils/transformers';
 import { ethers } from 'ethers';
 import { HausError } from './HausError';
@@ -253,7 +256,7 @@ export default class Query {
     networkId: keyof Keychain;
     dao: string;
     proposalId: string;
-  }): Promise<QueryResult<TransformedProposal>> {
+  }): Promise<QueryResult<TransformedProposalQuery>> {
     const url = this._endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
@@ -269,7 +272,14 @@ export default class Query {
         id: `${dao}-proposal-${proposalId}`,
       });
 
-      return { data: transformProposal(queryResult?.data) };
+      return {
+        ...queryResult,
+        data: {
+          proposal: transformProposal(
+            queryResult?.data?.proposal as Partial<Proposal>
+          ),
+        },
+      };
     } catch (err) {
       return {
         error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
@@ -399,15 +409,7 @@ export default class Query {
         `${url}/safes/${ethers.utils.getAddress(safeAddress)}/balances/usd`
       );
 
-      const fiatTotal = res.reduce(
-        (sum: number, balance: TokenBalance): number => {
-          sum += Number(balance.fiatBalance);
-          return sum;
-        },
-        0
-      );
-
-      return { data: { safeAddress, tokenBalances: res, fiatTotal } };
+      return { data: transformTokenBalances(res, safeAddress) };
     } catch (err) {
       return { error: new HausError({ type: 'GNOSIS_ERROR' }) };
     }

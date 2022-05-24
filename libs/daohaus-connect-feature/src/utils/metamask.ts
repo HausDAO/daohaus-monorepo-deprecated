@@ -1,5 +1,7 @@
-import { isValidNetwork } from '@daohaus/common-utilities';
 import { utils } from 'ethers';
+
+import { isValidNetwork } from '@daohaus/common-utilities';
+
 import { NetworkConfig, NetworkConfigs } from './types';
 
 type SwitchError = Error & { code: number };

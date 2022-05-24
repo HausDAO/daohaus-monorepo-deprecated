@@ -1,13 +1,15 @@
+import React, { useMemo } from 'react';
+import styled from 'styled-components';
+import { IconType } from 'react-icons/lib';
+import { RiExternalLinkLine } from 'react-icons/ri';
+
 import {
   generateExplorerLink,
   isValidNetwork,
   ValidNetwork,
 } from '@daohaus/common-utilities';
 import { TemporaryLink } from '@daohaus/ui';
-import React, { useMemo } from 'react';
-import { IconType } from 'react-icons/lib';
-import { RiExternalLinkLine } from 'react-icons/ri';
-import styled from 'styled-components';
+
 import { useHausConnect } from '../../HausConnectContext';
 
 type ExplorerLinkProps = {

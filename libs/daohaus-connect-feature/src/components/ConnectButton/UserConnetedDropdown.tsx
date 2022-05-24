@@ -1,13 +1,11 @@
-import { getNetworkName } from '@daohaus/common-utilities';
-import { Button, Dropdown, ParMd, ParXs, ProfileAvatar } from '@daohaus/ui';
-
 import { useState } from 'react';
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
 import styled, { useTheme } from 'styled-components';
-import { useHausConnect } from '../../HausConnectContext';
-import { truncateAddress } from '../../utils/common';
-import { ExplorerLink } from '../ExplorerLink';
+import { getNetworkName, truncateAddress } from '@daohaus/common-utilities';
+import { Button, Dropdown, ParMd, ParXs, ProfileAvatar } from '@daohaus/ui';
 
+import { useHausConnect } from '../../HausConnectContext';
+import { ExplorerLink } from '../ExplorerLink';
 export const UserConnectedDropdown = () => {
   const { disconnect, address, chainId, profile, validNetwork } =
     useHausConnect();

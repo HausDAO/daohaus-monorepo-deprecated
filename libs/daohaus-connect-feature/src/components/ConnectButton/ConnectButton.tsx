@@ -1,7 +1,7 @@
-import { Button, Spinner } from '@daohaus/ui';
 import { amberDark } from '@radix-ui/colors';
-
 import { RiUserAddLine } from 'react-icons/ri';
+import { Button, Spinner } from '@daohaus/ui';
+
 import { useHausConnect } from '../../HausConnectContext';
 import { ButtonContainer } from './ConnectButtonStyles';
 import { UserConnectedDropdown } from './UserConnetedDropdown';

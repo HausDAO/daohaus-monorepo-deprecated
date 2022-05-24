@@ -1,0 +1,4 @@
+.env
+.ops.md
+/build
+/generated

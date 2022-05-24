@@ -15,7 +15,7 @@ export type SuccessMessage = {
 
 export type PrimitiveWrapper = {
   id: string;
-  label: string;
+  label?: string;
   type?: string;
   helperText?: string;
   info?: string;
@@ -27,7 +27,7 @@ export type PrimitiveWrapper = {
 
 export type Field = {
   id: string;
-  label: string;
+  label?: string;
   type?: string;
   placeholder?: string;
   helperText?: string;

@@ -8,7 +8,6 @@ import {
   TransformedMembershipsQuery,
   DaoTokenBalances,
   TokenBalance,
-  TransformedProposal,
   TransformedProposalQuery,
   TransformedProposalListQuery,
 } from './types';

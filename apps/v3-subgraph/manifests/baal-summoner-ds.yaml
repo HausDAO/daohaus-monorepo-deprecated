@@ -2,7 +2,7 @@ kind: ethereum/contract
 name: BaalSummoner
 network:
 source:
-  address: ""
+  address: ''
   abi: BaalSummoner
   startBlock:
 mapping:
@@ -15,6 +15,6 @@ mapping:
     - name: BaalSummoner
       file: ./abis/BaalSummoner.json
   eventHandlers:
-    - event: SummonBaal(indexed address,indexed address,indexed address)
+    - event: SummonBaal(indexed address,indexed address,indexed address,address)
       handler: handleSummonBaal
   file: ./src/baal-summoner-mapping.ts

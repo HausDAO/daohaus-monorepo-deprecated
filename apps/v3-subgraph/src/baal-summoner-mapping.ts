@@ -1,13 +1,17 @@
-import { log } from "@graphprotocol/graph-ts";
-
-import { SummonBaal } from "../generated/BaalSummoner/BaalSummoner";
-import { BaalTemplate } from "../generated/templates";
-import { Dao } from "../generated/schema";
-import { addTransaction } from "./util/transactions";
-import { constants } from "./util/constants";
+import { SummonBaal } from '../generated/BaalSummoner/BaalSummoner';
+import {
+  BaalTemplate,
+  LootTemplate,
+  SharesTemplate,
+} from '../generated/templates';
+import { Dao } from '../generated/schema';
+import { addTransaction } from './util/transactions';
+import { constants } from './util/constants';
 
 export function handleSummonBaal(event: SummonBaal): void {
   BaalTemplate.create(event.params.baal);
+  SharesTemplate.create(event.params.shares);
+  LootTemplate.create(event.params.loot);
 
   let daoId = event.params.baal.toHexString();
   let dao = new Dao(daoId);
@@ -18,6 +22,7 @@ export function handleSummonBaal(event: SummonBaal): void {
   dao.createdAt = event.block.timestamp.toString();
   dao.transactionHashSummon = event.transaction.hash;
   dao.lootAddress = event.params.loot;
+  dao.sharesAddress = event.params.shares;
   dao.safeAddress = event.params.safe;
   dao.totalShares = constants.BIGINT_ZERO;
   dao.totalLoot = constants.BIGINT_ZERO;

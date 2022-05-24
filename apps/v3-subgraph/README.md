@@ -8,13 +8,21 @@ TBD
 
 `nx run v3-subgraph:generate-config --network=goerli`
 
+supported networks:
+
+- goerli
+
 #### Generate subgraph code
 
 `nx run v3-subgraph:generate-code`
 
 ### Deployment
 
-TBD
+`nx run v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-goerli`
+
+suported names:
+
+- hausdao/daohaus-v3-goerli
 
 ### License
 

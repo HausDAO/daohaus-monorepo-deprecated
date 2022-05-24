@@ -159,7 +159,7 @@ export function handleSharesTransfer(event: Transfer): void {
 }
 
 // // TransferLoot (index_topic_1 address from, index_topic_2 address to, uint256 amount)
-export function handleTransferLoot(event: LootTransfer): void {
+export function handleLootTransfer(event: LootTransfer): void {
   log.info('handleTransfer, to: {}, from: {}, address: {}', [
     event.params.to.toHexString(),
     event.params.from.toHexString(),

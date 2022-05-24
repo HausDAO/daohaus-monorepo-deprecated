@@ -57,6 +57,19 @@
         "cwd": "apps/v3-subgraph",
         "parallel": false
       }
+    },
+    "graph-deploy": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ {args.name}",
+            "forwardAllArgs": true
+          }
+        ],
+        "cwd": "apps/v3-subgraph",
+        "parallel": false
+      }
     }
   },
   "tags": []

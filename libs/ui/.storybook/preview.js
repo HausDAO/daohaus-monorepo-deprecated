@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import {
   defaultDarkTheme,
@@ -61,6 +62,16 @@ const withThemeProvider = (Story, context) => {
 
 const WithFormProvider = (Story, context) => {
   const methods = useForm();
+  const { watch } = methods;
+
+  const values = watch();
+
+  useEffect(() => {
+    if (values) {
+      console.log('Form Values', values);
+    }
+  }, [values]);
+
   return (
     <FormProvider {...methods}>
       <Story {...context} />

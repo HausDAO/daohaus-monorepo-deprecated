@@ -23,12 +23,12 @@ export const AvatarBase = styled(RadixAvatar.Root)`
 export const AvatarFallback = styled(RadixAvatar.Fallback)`
   width: 100%;
   height: 100%;
-
+  display: flex;
   align-items: center;
-  object-fit: cover;
-  border-radius: inherit;
+  justify-content: center;
   background: ${slateDark.slate9};
 `;
+
 export const AvatarImage = styled(RadixAvatar.Image)`
   width: 100%;
   height: 100%;

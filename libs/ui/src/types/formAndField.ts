@@ -1,3 +1,5 @@
+import { CheckboxProps } from '@radix-ui/react-checkbox';
+
 export type ErrorMessage = {
   type: 'error';
   message: string;
@@ -10,15 +12,29 @@ export type SuccessMessage = {
   type: 'success';
   message: string;
 };
+
+export type PrimitiveWrapper = {
+  id: string;
+  label: string;
+  type?: string;
+  helperText?: string;
+  info?: string;
+  required?: boolean;
+  warning?: WarningMessage;
+  error?: ErrorMessage;
+  success?: SuccessMessage;
+};
+
 export type Field = {
   id: string;
-  label?: string;
+  label: string;
   type?: string;
-  placeholder: string;
+  placeholder?: string;
   helperText?: string;
   required?: boolean;
   info?: string;
   disabled?: boolean;
+  disabledPlaceholder?: boolean;
   number?: boolean;
   address?: boolean;
   long?: boolean;
@@ -26,4 +42,9 @@ export type Field = {
   warning?: WarningMessage;
   error?: ErrorMessage;
   success?: SuccessMessage;
+};
+
+// TODO Refine based on Radix Checkbox Type & Wrapper
+export type CheckboxWrapperProps = PrimitiveWrapper & {
+  checkboxes: CheckboxProps[];
 };

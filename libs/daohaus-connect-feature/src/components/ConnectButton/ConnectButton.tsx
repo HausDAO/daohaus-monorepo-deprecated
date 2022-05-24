@@ -1,4 +1,5 @@
-import { Button } from '@daohaus/ui';
+import { Button, Spinner } from '@daohaus/ui';
+import { amberDark } from '@radix-ui/colors';
 
 import { RiUserAddLine } from 'react-icons/ri';
 import { useHausConnect } from '../../HausConnectContext';
@@ -30,7 +31,14 @@ const ConnectWalletButton = () => {
 const LoadingButton = () => {
   return (
     <ButtonContainer>
-      <Button fullWidth>Loading</Button>
+      <Button fullWidth>
+        <Spinner
+          topColor={amberDark.amber8}
+          bottomColor={amberDark.amber11}
+          size="2.8rem"
+          strokeWidth=".3rem"
+        />
+      </Button>
     </ButtonContainer>
   );
 };

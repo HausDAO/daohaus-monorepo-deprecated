@@ -1,10 +1,12 @@
+import { BiError } from 'react-icons/bi';
+
 import {
   getNetworkName,
   Keychain,
   NetworkType,
 } from '@daohaus/common-utilities';
 import { Button, Dropdown, DropdownItem, ParXs } from '@daohaus/ui';
-import { BiError } from 'react-icons/bi';
+
 import { useHausConnect } from '../../HausConnectContext';
 
 export const NetworkButton = () => {

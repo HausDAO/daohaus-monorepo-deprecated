@@ -1,5 +1,5 @@
-import { violet } from '@radix-ui/colors';
 import styled from 'styled-components';
+import { violet } from '@radix-ui/colors';
 
 export const TemporaryAvatar = styled.div`
   width: 3rem;

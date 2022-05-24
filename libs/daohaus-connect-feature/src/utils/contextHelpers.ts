@@ -2,11 +2,11 @@ import {
   extractKeychain,
   isValidNetwork,
   ReactSetter,
+  truncateAddress,
 } from '@daohaus/common-utilities';
 import { Haus } from '@daohaus/dao-data';
 import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
 import { providers } from 'ethers';
-import { truncateAddress } from './common';
 
 import { switchChainOnMetaMask } from './metamask';
 import {

@@ -63,5 +63,17 @@ declare module 'styled-components' {
       topColor: string;
       bottomColor: string;
     };
+    switch: {
+      bar: {
+        bg: string;
+        activeBg: string;
+        disabledBg: string;
+      };
+      thumb: {
+        bg: string;
+        activeBg: string;
+        disabledBg: string;
+      };
+    };
   }
 }

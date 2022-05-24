@@ -10,7 +10,7 @@ TBD
 
 #### Generate subgraph code
 
-`nx run v3-subgraph:generate-code`
+`nx run v3-subgraph:build`
 
 ### Deployment
 

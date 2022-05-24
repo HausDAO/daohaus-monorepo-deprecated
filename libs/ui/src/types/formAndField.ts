@@ -1,5 +1,4 @@
 import { CheckboxProps } from '@radix-ui/react-checkbox';
-import { SwitchProps } from '@radix-ui/react-switch';
 
 export type ErrorMessage = {
   type: 'error';
@@ -48,13 +47,4 @@ export type Field = {
 // TODO Refine based on Radix Checkbox Type & Wrapper
 export type CheckboxWrapperProps = PrimitiveWrapper & {
   checkboxes: CheckboxProps[];
-};
-
-type SwitchComponentProps = SwitchProps & {
-  fieldLabel: string;
-  id?: string;
-  className?: string;
-};
-export type SwitchWrapperProps = PrimitiveWrapper & {
-  switches: SwitchComponentProps[];
 };

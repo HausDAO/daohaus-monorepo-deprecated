@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import * as SwitchPrimitive from '@radix-ui/react-switch';
 import { Theme } from '../../../types/theming';
+import { font } from '../../../theme/global/font';
 
 export const Container = styled.div`
   align-items: center;
@@ -64,13 +65,12 @@ export const LabelContainer = styled.label`
   }
 `;
 
-// TODO Agnes - figure out how to change text color based on on/off
-// export const StyledLabel = styled.label`
-//   font-family: ${font.family.body};
-//   font-weight: ${font.weight.reg};
-//   font-size: ${font.size.md};
-//   color: white;
-//   &[data-state='checked'] {
-//     color: ${toggle.disabledBg};
-//   }
-// `;
+export const StyledLabel = styled.label`
+  font-family: ${font.family.body};
+  font-weight: ${font.weight.reg};
+  font-size: ${font.size.md};
+  color: white;
+  &.disabled {
+    color: ${({ theme }: { theme: Theme }) => theme.switch.thumb.disabledBg};
+  }
+`;

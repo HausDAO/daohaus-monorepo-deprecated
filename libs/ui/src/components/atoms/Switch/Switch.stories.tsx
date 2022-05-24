@@ -11,27 +11,31 @@ const Template: ComponentStory<typeof Switch> = (args) => <Switch {...args} />;
 export const AtomSwitch = Template.bind({});
 
 AtomSwitch.args = {
+  id: 'switchOff',
   fieldLabel: 'Default Unchecked Switch',
-  defaultChecked: false,
+  defaultOn: false,
 };
 
 export const AtomSwitchOn = Template.bind({});
 
 AtomSwitchOn.args = {
+  id: 'switchOn',
   fieldLabel: 'Default Checked Switch',
-  defaultChecked: true,
+  defaultOn: true,
 };
 
 export const SwitchDisabled = Template.bind({});
 SwitchDisabled.args = {
+  id: 'switchDisabledOn',
   fieldLabel: 'Disabled Unchecked Switch',
   disabled: true,
-  defaultChecked: false,
+  defaultOn: false,
 };
 
 export const SwitchDisabledOn = Template.bind({});
 SwitchDisabledOn.args = {
+  id: 'switchDisabledOff',
   fieldLabel: 'Disabled Checked Switch',
   disabled: true,
-  defaultChecked: true,
+  defaultOn: true,
 };

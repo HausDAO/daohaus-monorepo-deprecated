@@ -1,7 +1,17 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import type { SwitchWrapperProps } from '../../../types/formAndField';
+import { SwitchProps } from '@radix-ui/react-switch';
+import type { PrimitiveWrapper } from '../../../types/formAndField';
 import { Switch } from '../../atoms/Switch';
 import { FieldWrapper } from '../FieldWrapper/FieldWrapper';
+
+type SwitchComponentProps = SwitchProps & {
+  fieldLabel: string;
+  id?: string;
+  className?: string;
+};
+type SwitchWrapperProps = PrimitiveWrapper & {
+  switches: SwitchComponentProps[];
+};
 
 export const WrappedSwitch = (props: SwitchWrapperProps) => {
   const { id, helperText, info, label, error, success, warning, switches } =
@@ -28,7 +38,7 @@ export const WrappedSwitch = (props: SwitchWrapperProps) => {
               <Switch
                 {...field}
                 {...switchProps}
-                checked={field.value}
+                switchOn={field.value}
                 onCheckedChange={field.onChange}
                 ref={field.ref}
               />

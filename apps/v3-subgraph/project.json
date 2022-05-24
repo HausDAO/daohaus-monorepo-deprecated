@@ -3,6 +3,13 @@
   "sourceRoot": "apps/v3-subgraph/src",
   "projectType": "application",
   "targets": {
+    "build": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "pwd",
+        "cwd": "apps/v3-subgraph"
+      }
+    },
     "serve": {
       "executor": "@alexkeating/nx-subgraph:serve",
       "options": {
@@ -43,7 +50,7 @@
         "cwd": "apps/v3-subgraph"
       }
     },
-    "build": {
+    "generate-code": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "commands": ["graph codegen", "graph build"],

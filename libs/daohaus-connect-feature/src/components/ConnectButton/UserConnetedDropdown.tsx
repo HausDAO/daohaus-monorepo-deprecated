@@ -98,8 +98,6 @@ const Container = styled.div`
   .user-avatar {
     margin-right: 0.75rem;
   }
-<<<<<<< HEAD
-=======
 `;
 
 const AddressContainer = styled.div`
@@ -107,5 +105,4 @@ const AddressContainer = styled.div`
   .explorer-link {
     transform: translateY(0.2rem);
   }
->>>>>>> 8419fec41ac52de3f681334067f642037f11f0bd
 `;

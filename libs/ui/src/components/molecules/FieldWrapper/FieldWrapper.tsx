@@ -49,19 +49,11 @@ export const FieldWrapper = ({
   const classes = classNames({ long: long || address, full });
   return (
     <FieldWrapperBase className={classes}>
-<<<<<<< HEAD:libs/ui/src/components/molecules/inputWrapper/fieldWrapper.tsx
-      {label && (
-        <InputLabel required={required} info={info} id={id}>
-          label
-        </InputLabel>
-      )}
-=======
       <LabelContainer>
         {required && <RequiredAsterisk>*</RequiredAsterisk>}
         {label && <Label id={id}>{label}</Label>}
         {info && <Tooltip content={info} />}
       </LabelContainer>
->>>>>>> 8419fec41ac52de3f681334067f642037f11f0bd:libs/ui/src/components/molecules/FieldWrapper/FieldWrapper.tsx
       <div className="field-slot">{children}</div>
       <HelperTextFactory
         error={error}

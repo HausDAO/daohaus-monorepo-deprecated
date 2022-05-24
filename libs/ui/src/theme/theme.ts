@@ -12,6 +12,7 @@ import {
   tomato,
   tomatoDark,
   gray,
+  grayDark,
 } from '@radix-ui/colors';
 import { Theme } from '../types/theming';
 import {
@@ -60,6 +61,18 @@ export const defaultDarkTheme: Theme = {
     topColor: amberDark.amber9,
     bottomColor: amberDark.amber4,
   },
+  switch: {
+    bar: {
+      bg: indigoDark.indigo6,
+      activeBg: amberDark.amber6,
+      disabledBg: grayDark.gray6,
+    },
+    thumb: {
+      bg: indigoDark.indigo9,
+      activeBg: amberDark.amber9,
+      disabledBg: grayDark.gray9,
+    },
+  },
 };
 
 export const defaultLightTheme: Theme = {
@@ -98,5 +111,17 @@ export const defaultLightTheme: Theme = {
   spinner: {
     topColor: amber.amber9,
     bottomColor: amber.amber4,
+  },
+  switch: {
+    bar: {
+      bg: indigoDark.indigo6,
+      activeBg: amberDark.amber6,
+      disabledBg: grayDark.gray6,
+    },
+    thumb: {
+      bg: indigoDark.indigo9,
+      activeBg: amberDark.amber9,
+      disabledBg: grayDark.gray9,
+    },
   },
 };

@@ -5,7 +5,6 @@
     "common-utilities": "libs/common-utilities",
     "dao-data": "libs/dao-data",
     "daohaus-connect-feature": "libs/daohaus-connect-feature",
-    "daohaus-v3-subgraph": "apps/daohaus-v3-subgraph",
     "hub-app": "apps/hub-app",
     "summon-app": "apps/summon-app",
     "ui": "libs/ui"

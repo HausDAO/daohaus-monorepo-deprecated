@@ -1,8 +1,14 @@
 export type Maybe<T> = T | undefined;
 export type InputMaybe<T> = T | undefined | null;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export interface Scalars {
   ID: string;
@@ -55,7 +61,6 @@ export interface Dao {
   votingPeriod: Scalars['BigInt'];
 }
 
-
 export interface DaoMembersArgs {
   first?: InputMaybe<Scalars['Int']>;
   orderBy?: InputMaybe<Member_OrderBy>;
@@ -63,7 +68,6 @@ export interface DaoMembersArgs {
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<Member_Filter>;
 }
-
 
 export interface DaoProposalsArgs {
   first?: InputMaybe<Scalars['Int']>;
@@ -73,7 +77,6 @@ export interface DaoProposalsArgs {
   where?: InputMaybe<Proposal_Filter>;
 }
 
-
 export interface DaoRageQuitsArgs {
   first?: InputMaybe<Scalars['Int']>;
   orderBy?: InputMaybe<RageQuit_OrderBy>;
@@ -81,7 +84,6 @@ export interface DaoRageQuitsArgs {
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<RageQuit_Filter>;
 }
-
 
 export interface DaoShamanArgs {
   first?: InputMaybe<Scalars['Int']>;
@@ -366,10 +368,7 @@ export interface EventTransaction_Filter {
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
 }
 
-export type EventTransaction_OrderBy =
-  | 'createdAt'
-  | 'dao'
-  | 'id';
+export type EventTransaction_OrderBy = 'createdAt' | 'dao' | 'id';
 
 export interface Member {
   __typename?: 'Member';
@@ -383,7 +382,6 @@ export interface Member {
   shares: Scalars['BigInt'];
   votes?: Maybe<Array<Vote>>;
 }
-
 
 export interface MemberVotesArgs {
   first?: InputMaybe<Scalars['Int']>;
@@ -611,9 +609,7 @@ export type MetaData_OrderBy =
   | 'rawContent';
 
 /** Defines the order direction, either ascending or descending */
-export type OrderDirection =
-  | 'asc'
-  | 'desc';
+export type OrderDirection = 'asc' | 'desc';
 
 export interface Proposal {
   __typename?: 'Proposal';
@@ -656,7 +652,6 @@ export interface Proposal {
   yesBalance: Scalars['BigInt'];
   yesVotes: Scalars['BigInt'];
 }
-
 
 export interface ProposalVotesArgs {
   first?: InputMaybe<Scalars['Int']>;
@@ -1101,18 +1096,15 @@ export interface Query {
   votes: Array<Vote>;
 }
 
-
 export interface Query_MetaArgs {
   block?: InputMaybe<Block_Height>;
 }
-
 
 export interface QueryDaoArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
-
 
 export interface QueryDaosArgs {
   block?: InputMaybe<Block_Height>;
@@ -1124,13 +1116,11 @@ export interface QueryDaosArgs {
   where?: InputMaybe<Dao_Filter>;
 }
 
-
 export interface QueryEventTransactionArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
-
 
 export interface QueryEventTransactionsArgs {
   block?: InputMaybe<Block_Height>;
@@ -1142,13 +1132,11 @@ export interface QueryEventTransactionsArgs {
   where?: InputMaybe<EventTransaction_Filter>;
 }
 
-
 export interface QueryMemberArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
-
 
 export interface QueryMembersArgs {
   block?: InputMaybe<Block_Height>;
@@ -1160,13 +1148,11 @@ export interface QueryMembersArgs {
   where?: InputMaybe<Member_Filter>;
 }
 
-
 export interface QueryMetaDataArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
-
 
 export interface QueryMetaDatasArgs {
   block?: InputMaybe<Block_Height>;
@@ -1178,13 +1164,11 @@ export interface QueryMetaDatasArgs {
   where?: InputMaybe<MetaData_Filter>;
 }
 
-
 export interface QueryProposalArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
-
 
 export interface QueryProposalsArgs {
   block?: InputMaybe<Block_Height>;
@@ -1196,13 +1180,11 @@ export interface QueryProposalsArgs {
   where?: InputMaybe<Proposal_Filter>;
 }
 
-
 export interface QueryRageQuitArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
-
 
 export interface QueryRageQuitsArgs {
   block?: InputMaybe<Block_Height>;
@@ -1214,13 +1196,11 @@ export interface QueryRageQuitsArgs {
   where?: InputMaybe<RageQuit_Filter>;
 }
 
-
 export interface QueryShamanArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
-
 
 export interface QueryShamansArgs {
   block?: InputMaybe<Block_Height>;
@@ -1232,13 +1212,11 @@ export interface QueryShamansArgs {
   where?: InputMaybe<Shaman_Filter>;
 }
 
-
 export interface QueryVoteArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
-
 
 export interface QueryVotesArgs {
   block?: InputMaybe<Block_Height>;
@@ -1478,18 +1456,15 @@ export interface Subscription {
   votes: Array<Vote>;
 }
 
-
 export interface Subscription_MetaArgs {
   block?: InputMaybe<Block_Height>;
 }
-
 
 export interface SubscriptionDaoArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
-
 
 export interface SubscriptionDaosArgs {
   block?: InputMaybe<Block_Height>;
@@ -1501,13 +1476,11 @@ export interface SubscriptionDaosArgs {
   where?: InputMaybe<Dao_Filter>;
 }
 
-
 export interface SubscriptionEventTransactionArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
-
 
 export interface SubscriptionEventTransactionsArgs {
   block?: InputMaybe<Block_Height>;
@@ -1519,13 +1492,11 @@ export interface SubscriptionEventTransactionsArgs {
   where?: InputMaybe<EventTransaction_Filter>;
 }
 
-
 export interface SubscriptionMemberArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
-
 
 export interface SubscriptionMembersArgs {
   block?: InputMaybe<Block_Height>;
@@ -1537,13 +1508,11 @@ export interface SubscriptionMembersArgs {
   where?: InputMaybe<Member_Filter>;
 }
 
-
 export interface SubscriptionMetaDataArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
-
 
 export interface SubscriptionMetaDatasArgs {
   block?: InputMaybe<Block_Height>;
@@ -1555,13 +1524,11 @@ export interface SubscriptionMetaDatasArgs {
   where?: InputMaybe<MetaData_Filter>;
 }
 
-
 export interface SubscriptionProposalArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
-
 
 export interface SubscriptionProposalsArgs {
   block?: InputMaybe<Block_Height>;
@@ -1573,13 +1540,11 @@ export interface SubscriptionProposalsArgs {
   where?: InputMaybe<Proposal_Filter>;
 }
 
-
 export interface SubscriptionRageQuitArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
-
 
 export interface SubscriptionRageQuitsArgs {
   block?: InputMaybe<Block_Height>;
@@ -1591,13 +1556,11 @@ export interface SubscriptionRageQuitsArgs {
   where?: InputMaybe<RageQuit_Filter>;
 }
 
-
 export interface SubscriptionShamanArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
-
 
 export interface SubscriptionShamansArgs {
   block?: InputMaybe<Block_Height>;
@@ -1609,13 +1572,11 @@ export interface SubscriptionShamansArgs {
   where?: InputMaybe<Shaman_Filter>;
 }
 
-
 export interface SubscriptionVoteArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
-
 
 export interface SubscriptionVotesArgs {
   block?: InputMaybe<Block_Height>;

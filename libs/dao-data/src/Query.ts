@@ -118,7 +118,6 @@ export default class Query {
     filter,
   }: ListQueryArguments<Proposal_OrderBy, Proposal_Filter>): Promise<
     QueryResult<TransformedProposalListQuery>
-    // QueryResult<ListProposalsQuery>
   > {
     const url = this._endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {

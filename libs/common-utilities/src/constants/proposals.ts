@@ -1,4 +1,16 @@
-export const PROPOSAL_STATUSES = {
+export type ProposalStatus =
+  | 'Unsponsored'
+  | 'Voting'
+  | 'Grace'
+  | 'Expired'
+  | 'Cancelled'
+  | 'Ready for Processing'
+  | 'Failed'
+  | 'Passed'
+  | 'Processing Failed'
+  | 'Unknown';
+
+export const PROPOSAL_STATUS: { [index: string]: ProposalStatus } = {
   unsponsored: 'Unsponsored',
   voting: 'Voting',
   grace: 'Grace',

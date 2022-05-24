@@ -10,7 +10,7 @@ import {
   TokenBalance,
   DaoTokenBalances,
 } from '../types';
-import { getProposalStatus } from './proposals';
+import { getProposalStatus, ProposalForStatusCheck } from './proposalsStatus';
 
 export const transformProposal = (
   proposal: Partial<Proposal> | undefined
@@ -18,7 +18,10 @@ export const transformProposal = (
   if (!proposal) {
     return {};
   }
-  return { ...proposal, status: getProposalStatus(proposal) };
+  return {
+    ...proposal,
+    status: getProposalStatus(proposal as ProposalForStatusCheck),
+  };
 };
 
 export const transformProfile = (

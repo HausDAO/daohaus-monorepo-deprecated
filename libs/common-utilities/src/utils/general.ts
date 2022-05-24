@@ -10,3 +10,5 @@ export const votingPowerPercentage = (
     100
   );
 };
+
+export const nowInSeconds = (): number => new Date().getTime() / 1000;

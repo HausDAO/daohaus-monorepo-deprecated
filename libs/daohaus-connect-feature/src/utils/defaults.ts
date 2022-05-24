@@ -10,19 +10,7 @@ export const supportedNetworks = addKeychain(
 );
 
 const providerOptions: IProviderOptions = {
-  // authereum: {
-  //   package: Authereum,
-  // },
-  // frame: {
-  //   package: ethProvider,
-  // },
-  // portis: {
-  //   package: Portis,
-  //   options: {
-  //     // Get the DAPP ID at https://dashboard.portis.io/
-  //     id: 'YOUR-PORTIS-DAPP-ID',
-  //   },
-  // },
+  // TODO
   // walletconnect: {
   //   package: WalletConnectProvider,
   //   options: {

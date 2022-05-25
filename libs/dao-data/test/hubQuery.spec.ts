@@ -3,7 +3,7 @@ import { Haus } from '../src/index';
 
 describe('haus', () => {
   const rpcConfig = {
-    '0x4': 'https://<somekey>.rinkeby.rpc.rivet.cloud',
+    '0x5': 'https://<somekey>.goerli.rpc.rivet.cloud',
     '0x64': 'https://rpc.gnosischain.com',
   };
   let haus: Haus;
@@ -13,7 +13,7 @@ describe('haus', () => {
   });
 
   it('can fetch all daos for an account', async () => {
-    const networkIds: (keyof Keychain)[] = ['0x4', '0x2a'];
+    const networkIds: (keyof Keychain)[] = ['0x5'];
     const memberAddress = '0xced608aa29bb92185d9b6340adcbfa263dae075b';
 
     const res = await haus.query.listDaosByMember({
@@ -25,8 +25,8 @@ describe('haus', () => {
   });
 
   it('can request tokens with the daos', async () => {
-    const networkIds: (keyof Keychain)[] = ['0x4', '0x2a'];
-    const memberAddress = '0x83aB8e31df35AA3281d630529C6F4bf5AC7f7aBF';
+    const networkIds: (keyof Keychain)[] = ['0x5'];
+    const memberAddress = '0xced608aa29bb92185d9b6340adcbfa263dae075b';
 
     const res = await haus.query.listDaosByMember({
       memberAddress,

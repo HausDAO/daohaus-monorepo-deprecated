@@ -2,7 +2,7 @@ import { Haus } from '../src/index';
 
 describe('haus', () => {
   const rpcConfig = {
-    '0x4': `https://${process.env['RIVET_KEY']}.rinkeby.rpc.rivet.cloud`,
+    '0x5': `https://${process.env['RIVET_KEY']}.rinkeby.rpc.rivet.cloud`,
     '0x64': 'https://rpc.gnosischain.com',
   };
   let haus: Haus;
@@ -12,7 +12,7 @@ describe('haus', () => {
   });
 
   it('can fetch a list of daos', async () => {
-    const networkId = '0x4';
+    const networkId = '0x5';
 
     const res = await haus.query.listDaos({
       networkId,
@@ -27,7 +27,7 @@ describe('haus', () => {
   });
 
   it('can fetch a list of dao proposals', async () => {
-    const networkId = '0x4';
+    const networkId = '0x5';
     const dao = '0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364';
 
     const res = await haus.query.listProposals({
@@ -40,7 +40,7 @@ describe('haus', () => {
   });
 
   it('can fetch a list of dao members', async () => {
-    const networkId = '0x4';
+    const networkId = '0x5';
     const dao = '0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364';
 
     const res = await haus.query.listMembers({
@@ -56,7 +56,7 @@ describe('haus', () => {
   });
 
   it('can fetch a dao', async () => {
-    const networkId = '0x4';
+    const networkId = '0x5';
     const dao = '0x01bdc8eb83282f2ea61bf3387b24a8e760411655';
 
     const res = await haus.query.findDao({
@@ -69,7 +69,7 @@ describe('haus', () => {
   });
 
   it('can fetch a single member', async () => {
-    const networkId = '0x4';
+    const networkId = '0x5';
     const dao = '0x067c7885df54e92884221b67901c3daeab3c6a1c';
     const memberAddress = '0xf100041473280b594d78ab5fa4c44ba81edd367b';
 
@@ -84,7 +84,7 @@ describe('haus', () => {
   });
 
   it('can fetch a single proposal', async () => {
-    const networkId = '0x4';
+    const networkId = '0x5';
     const dao = '0x02515f07132f9bb6a30364d7dcb14f1b8f916f81';
     const proposalId = '2';
 
@@ -99,7 +99,7 @@ describe('haus', () => {
   });
 
   it('can fetch latest transaction by dao address', async () => {
-    const networkId = '0x4';
+    const networkId = '0x5';
     const dao = '0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364';
 
     const res = await haus.query.findLatestTransaction({

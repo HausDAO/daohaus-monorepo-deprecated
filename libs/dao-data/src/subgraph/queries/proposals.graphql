@@ -32,6 +32,7 @@ fragment proposalFields on Proposal {
   proposalData
   details
   title
+  description
   proposalType
   contentURI
   contentURIType

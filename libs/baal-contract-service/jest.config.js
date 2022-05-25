@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'baal-contract-sdk',
+  displayName: 'baal-contract-service',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -10,5 +10,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/libs/baal-contract-sdk',
+  coverageDirectory: '../../coverage/libs/baal-contract-service',
 };

@@ -23,12 +23,12 @@ describe('haus', () => {
     });
 
     expect(res.error).toBeUndefined();
-    expect(res?.data?.daos.length).toBeGreaterThan(10);
+    expect(res?.data?.daos.length).toBeGreaterThan(0);
   });
 
   it('can fetch a list of dao proposals', async () => {
     const networkId = '0x5';
-    const dao = '0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364';
+    const dao = '0x69fe2468a844ae30dfd3e49e9790347491999a03';
 
     const res = await haus.query.listProposals({
       networkId,
@@ -41,7 +41,7 @@ describe('haus', () => {
 
   it('can fetch a list of dao members', async () => {
     const networkId = '0x5';
-    const dao = '0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364';
+    const dao = '0x5e3b62ac3da3c469e92f70f4d515701c785842e2';
 
     const res = await haus.query.listMembers({
       networkId,
@@ -57,7 +57,7 @@ describe('haus', () => {
 
   it('can fetch a dao', async () => {
     const networkId = '0x5';
-    const dao = '0x01bdc8eb83282f2ea61bf3387b24a8e760411655';
+    const dao = '0x5e3b62ac3da3c469e92f70f4d515701c785842e2';
 
     const res = await haus.query.findDao({
       networkId,
@@ -65,7 +65,7 @@ describe('haus', () => {
     });
 
     expect(res.error).toBeUndefined();
-    expect(res?.data?.dao?.shareTokenName).toEqual('8Baal Shares');
+    expect(res?.data?.dao?.shareTokenName).toEqual('Baal Shares');
   });
 
   it('can fetch a single member', async () => {
@@ -85,8 +85,8 @@ describe('haus', () => {
 
   it('can fetch a single proposal', async () => {
     const networkId = '0x5';
-    const dao = '0x02515f07132f9bb6a30364d7dcb14f1b8f916f81';
-    const proposalId = '2';
+    const dao = '0x69fe2468a844ae30dfd3e49e9790347491999a03';
+    const proposalId = '1';
 
     const res = await haus.query.findProposal({
       networkId,
@@ -95,20 +95,21 @@ describe('haus', () => {
     });
 
     expect(res.error).toBeUndefined();
-    expect(res?.data?.proposal?.createdAt).toEqual('1648060445');
+    expect(res?.data?.proposal?.createdAt).toEqual('1653066832');
   });
 
   it('can fetch latest transaction by dao address', async () => {
     const networkId = '0x5';
-    const dao = '0xfe53688bf0a5b5be52cc6d2c6c715b3d8b312364';
+    const dao = '0x69fe2468a844ae30dfd3e49e9790347491999a03';
 
     const res = await haus.query.findLatestTransaction({
       networkId,
       dao,
     });
 
+    console.log(res);
+
     expect(res.error).toBeUndefined();
     expect(res?.data?.transactions?.length).toBe(1);
-    expect(res?.data?.transactions[0].createdAt).toBe('1649105343');
   });
 });

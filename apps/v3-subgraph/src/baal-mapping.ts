@@ -1,12 +1,5 @@
-import { BigInt, Bytes, log } from '@graphprotocol/graph-ts';
-import {
-  Dao,
-  Member,
-  Proposal,
-  RageQuit,
-  Shaman,
-  Vote,
-} from '../generated/schema';
+import { Bytes, log } from '@graphprotocol/graph-ts';
+import { Dao, Proposal, RageQuit, Shaman, Vote } from '../generated/schema';
 
 import {
   CancelProposal,
@@ -21,9 +14,7 @@ import {
   SponsorProposal,
   SubmitProposal,
   SubmitVote,
-  TransferLoot,
 } from '../generated/templates/BaalTemplate/Baal';
-import { burnShares, burnLoot } from './token-mapping';
 import { constants } from './util/constants';
 import { parser } from './util/parser';
 import { addTransaction } from './util/transactions';
@@ -49,6 +40,8 @@ export function handleSetupComplete(event: SetupComplete): void {
   dao.shareTokenSymbol = event.params.symbol;
   dao.totalShares = event.params.totalShares;
   dao.totalLoot = event.params.totalLoot;
+
+  log.info('handleSetupComplete loot: {}', [dao.totalLoot.toString()]);
 
   dao.save();
 }
@@ -370,14 +363,6 @@ export function handleRageQuit(event: Ragequit): void {
     .concat('-member-')
     .concat(event.params.member.toHexString());
 
-  if (event.params.lootToBurn !== constants.BIGINT_ZERO) {
-    burnLoot(dao, memberId, event.params.lootToBurn);
-  }
-
-  if (event.params.sharesToBurn !== constants.BIGINT_ZERO) {
-    burnShares(dao, memberId, event.params.sharesToBurn);
-  }
-
   let rageId = memberId
     .concat('-')
     .concat('rage-')
@@ -395,14 +380,7 @@ export function handleRageQuit(event: Ragequit): void {
 
   rage.save();
 
+  dao.save();
+
   addTransaction(event.block, event.transaction, event.address);
 }
-
-// gnosis events
-// - AvatarSet(indexed address,indexed address)
-// - ChangedGuard(address)
-// - OwnershipTransferred(indexed address,indexed address)
-// - TargetSet(indexed address,indexed address)
-
-// erc20 event - no current need to map
-// - Approval(indexed address,indexed address,uint256)

@@ -13,7 +13,7 @@ describe('haus', () => {
 
   it('can fetch all token balances for a dao', async () => {
     const networkId = '0x5';
-    const safeAddress = '0x7d231D960651D4405559cc4FC66EFb8aAA5c19F3';
+    const safeAddress = '0x1149a4bfd9c23f3c49ff786ef55f869c24009d3b';
 
     const res = await haus.query.listTokenBalances({
       networkId,

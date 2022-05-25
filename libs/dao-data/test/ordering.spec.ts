@@ -36,8 +36,8 @@ describe('haus', () => {
 
     expect(res.error).toBeUndefined();
     if (res.data) {
-      expect(Number(res?.data?.daos[2].createdAt)).toBeGreaterThan(
-        Number(res?.data?.daos[1].createdAt)
+      expect(Number(res?.data?.daos[1].createdAt)).toBeGreaterThan(
+        Number(res?.data?.daos[0].createdAt)
       );
     }
   });
@@ -55,8 +55,8 @@ describe('haus', () => {
 
     expect(res.error).toBeUndefined();
     if (res.data) {
-      expect(Number(res?.data?.daos[5].totalShares)).toBeGreaterThan(
-        Number(res?.data?.daos[1].totalShares)
+      expect(Number(res?.data?.daos[1].totalShares)).toBeGreaterThan(
+        Number(res?.data?.daos[0].totalShares)
       );
     }
   });
@@ -74,8 +74,8 @@ describe('haus', () => {
 
     expect(res.error).toBeUndefined();
     if (res.data) {
-      expect(Number(res?.data?.daos[1].totalShares)).toBeGreaterThan(
-        Number(res?.data?.daos[5].totalShares)
+      expect(Number(res?.data?.daos[0].totalShares)).toBeGreaterThan(
+        Number(res?.data?.daos[1].totalShares)
       );
     }
   });

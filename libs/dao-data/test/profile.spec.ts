@@ -2,7 +2,7 @@ import { Haus } from '../src/index';
 
 describe('haus', () => {
   const rpcConfig = {
-    '0x4': `https://${process.env['NX_RIVET_KEY']}.rinkeby.rpc.rivet.cloud`,
+    '0x5': `https://${process.env['NX_RIVET_KEY']}.rinkeby.rpc.rivet.cloud`,
     '0x64': 'https://rpc.gnosischain.com',
     '0x1': `https://${process.env['NX_RIVET_KEY']}.eth.rpc.rivet.cloud`,
   };

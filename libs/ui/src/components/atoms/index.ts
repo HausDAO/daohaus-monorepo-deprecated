@@ -9,3 +9,4 @@ export * from './Tooltip';
 export * from './Typography';
 export * from './Link';
 export * from './Spinner';
+export * from './Switch';

@@ -1,0 +1,76 @@
+{
+  "root": "apps/v3-subgraph",
+  "sourceRoot": "apps/v3-subgraph/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "pwd",
+        "cwd": "apps/v3-subgraph"
+      }
+    },
+    "serve": {
+      "executor": "@alexkeating/nx-subgraph:serve",
+      "options": {
+        "daemonMode": true,
+        "composePath": "docker-compose.yml"
+      }
+    },
+    "stop": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "docker compose kill",
+        "cwd": "apps/v3-subgraph"
+      }
+    },
+    "deploy": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "graph deploy v3-subgraph --node http://127.0.0.1:8020 --ipfs http://localhost:5001",
+        "cwd": "apps/v3-subgraph"
+      }
+    },
+    "create": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "graph create daohaus-v3-subgraph --node http://127.0.0.1:8020",
+        "cwd": "apps/daohaus-v3-subgraph"
+      }
+    },
+    "generate-config": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "node manifests/deploy-prep.js {args.network}",
+            "forwardAllArgs": true
+          }
+        ],
+        "cwd": "apps/v3-subgraph"
+      }
+    },
+    "generate-code": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": ["graph codegen", "graph build"],
+        "cwd": "apps/v3-subgraph",
+        "parallel": false
+      }
+    },
+    "graph-deploy": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ {args.name}",
+            "forwardAllArgs": true
+          }
+        ],
+        "cwd": "apps/v3-subgraph",
+        "parallel": false
+      }
+    }
+  },
+  "tags": []
+}

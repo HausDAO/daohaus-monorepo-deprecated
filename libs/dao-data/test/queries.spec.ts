@@ -28,7 +28,7 @@ describe('haus', () => {
 
   it('can fetch a list of dao proposals', async () => {
     const networkId = '0x5';
-    const dao = '0x69fe2468a844ae30dfd3e49e9790347491999a03';
+    const dao = '0x209866bbc39e0ac02ca7f2d0acd107ab95610439';
 
     const res = await haus.query.listProposals({
       networkId,
@@ -36,12 +36,12 @@ describe('haus', () => {
     });
 
     expect(res.error).toBeUndefined();
-    expect(res?.data?.proposals.length).toBeGreaterThan(0);
+    expect(res?.data?.proposals.length).toBe(0);
   });
 
   it('can fetch a list of dao members', async () => {
     const networkId = '0x5';
-    const dao = '0x5e3b62ac3da3c469e92f70f4d515701c785842e2';
+    const dao = '0x209866bbc39e0ac02ca7f2d0acd107ab95610439';
 
     const res = await haus.query.listMembers({
       networkId,
@@ -49,15 +49,15 @@ describe('haus', () => {
     });
 
     expect(res.error).toBeUndefined();
-    expect(res?.data?.members.length).toBeGreaterThan(0);
+    expect(res?.data?.members.length).toBeGreaterThan(2);
     expect(res?.data?.members[0].memberAddress).toBe(
-      '0x756ee8b8e898d497043c2320d9909f1dd5a7077f'
+      '0xf100041473280B594D78AB5Fa4C44Ba81edd367B'.toLowerCase()
     );
   });
 
   it('can fetch a dao', async () => {
     const networkId = '0x5';
-    const dao = '0x5e3b62ac3da3c469e92f70f4d515701c785842e2';
+    const dao = '0x209866bbc39e0ac02ca7f2d0acd107ab95610439';
 
     const res = await haus.query.findDao({
       networkId,
@@ -70,7 +70,7 @@ describe('haus', () => {
 
   it('can fetch a single member', async () => {
     const networkId = '0x5';
-    const dao = '0x067c7885df54e92884221b67901c3daeab3c6a1c';
+    const dao = '0x209866bbc39e0ac02ca7f2d0acd107ab95610439';
     const memberAddress = '0xf100041473280b594d78ab5fa4c44ba81edd367b';
 
     const res = await haus.query.findMember({
@@ -80,12 +80,12 @@ describe('haus', () => {
     });
 
     expect(res.error).toBeUndefined();
-    expect(res?.data?.member?.createdAt).toEqual('1647545399');
+    expect(res?.data?.member?.createdAt).toEqual('1653592270');
   });
 
   it('can fetch a single proposal', async () => {
     const networkId = '0x5';
-    const dao = '0x69fe2468a844ae30dfd3e49e9790347491999a03';
+    const dao = '0x209866bbc39e0ac02ca7f2d0acd107ab95610439';
     const proposalId = '1';
 
     const res = await haus.query.findProposal({
@@ -95,12 +95,11 @@ describe('haus', () => {
     });
 
     expect(res.error).toBeUndefined();
-    expect(res?.data?.proposal?.createdAt).toEqual('1653066832');
   });
 
   it('can fetch latest transaction by dao address', async () => {
     const networkId = '0x5';
-    const dao = '0x69fe2468a844ae30dfd3e49e9790347491999a03';
+    const dao = '0x209866bbc39e0ac02ca7f2d0acd107ab95610439';
 
     const res = await haus.query.findLatestTransaction({
       networkId,

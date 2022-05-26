@@ -14,19 +14,20 @@ describe('haus', () => {
 
   it('can fetch all daos for an account', async () => {
     const networkIds: (keyof Keychain)[] = ['0x5'];
-    const memberAddress = '0xced608aa29bb92185d9b6340adcbfa263dae075b';
+    const memberAddress =
+      '0xf100041473280b594d78ab5fa4c44ba81edd367b'.toLowerCase();
 
     const res = await haus.query.listDaosByMember({
       memberAddress,
       networkIds,
     });
 
-    expect(res?.data?.daos.length).toBeGreaterThan(18);
+    expect(res?.data?.daos.length).toBeGreaterThan(1);
   });
 
   it('can request tokens with the daos', async () => {
     const networkIds: (keyof Keychain)[] = ['0x5'];
-    const memberAddress = '0xced608aa29bb92185d9b6340adcbfa263dae075b';
+    const memberAddress = '0xf100041473280b594d78ab5fa4c44ba81edd367b';
 
     const res = await haus.query.listDaosByMember({
       memberAddress,
@@ -34,7 +35,7 @@ describe('haus', () => {
       includeTokens: true,
     });
 
-    expect(res?.data?.daos.length).toBeGreaterThan(2);
-    expect(res.data?.daos[0].tokenBalances?.length).toBeGreaterThan(1);
+    expect(res?.data?.daos.length).toBeGreaterThan(1);
+    expect(res.data?.daos[0].tokenBalances?.length).toBe(1);
   });
 });

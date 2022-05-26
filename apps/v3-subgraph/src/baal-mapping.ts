@@ -5,7 +5,6 @@ import {
   CancelProposal,
   GovernanceConfigSet,
   LootPaused,
-  ProcessingFailed,
   ProcessProposal,
   Ragequit,
   SetupComplete,
@@ -256,24 +255,6 @@ export function handleProcessProposal(event: ProcessProposal): void {
   proposal.processed = true;
   proposal.passed = event.params.passed;
   proposal.actionFailed = event.params.actionFailed;
-
-  proposal.save();
-
-  addTransaction(event.block, event.transaction, event.address);
-}
-
-export function handleProcessingFailed(event: ProcessingFailed): void {
-  let proposalId = event.address
-    .toHexString()
-    .concat('-proposal-')
-    .concat(event.params.proposal.toString());
-
-  let proposal = Proposal.load(proposalId);
-  if (proposal === null) {
-    return;
-  }
-
-  proposal.actionFailed = true;
 
   proposal.save();
 

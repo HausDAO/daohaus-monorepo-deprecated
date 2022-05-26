@@ -100,63 +100,63 @@ export function burnLoot(dao: Dao, memberId: string, amount: BigInt): void {
 
 // Transfer (index_topic_1 address from, index_topic_2 address to, uint256 value)
 export function handleSharesTransfer(event: Transfer): void {
-  // log.info('handleTransfer shares, to: {}, from: {}, address: {}, amount: {}', [
-  //   event.params.to.toHexString(),
-  //   event.params.from.toHexString(),
-  //   event.address.toHexString(),
-  //   event.params.value.toString(),
-  // ]);
-  // let tokenLookup = TokenLookup.load(event.address.toHexString());
-  // if (tokenLookup === null) {
-  //   log.info('handleTransfer shares, no tokenlookup', []);
-  //   return;
-  // }
-  // let dao = Dao.load(tokenLookup.dao.toHexString());
-  // if (dao === null) {
-  //   log.info('handleTransfer shares, no dao', []);
-  //   return;
-  // }
-  // log.info('handleTransfer shares, found dao {}', [dao.id]);
-  // // if from zero address it mints to a member
-  // if (event.params.from.toHexString() == constants.ADDRESS_ZERO) {
-  //   let memberId = dao.id
-  //     .concat('-member-')
-  //     .concat(event.params.to.toHexString());
-  //   log.info('handleTransfer, minting shares to: {}', [memberId]);
-  //   mintShares(event, dao, memberId);
-  //   return;
-  // }
-  // //if to baal it burns from member
-  // // 5/25: adjust event.address to look at baal we looked up tokenLookup.dao
-  // // but need to check - it could be the loot/share token
-  // if (event.params.to.toHexString() == constants.ADDRESS_ZERO) {
-  //   let memberId = dao.id
-  //     .concat('-member-')
-  //     .concat(event.params.from.toHexString());
-  //   log.info('handleTransfer, buring shares to: {}', [memberId]);
-  //   burnShares(dao, memberId, event.params.value);
-  //   return;
-  // }
-  // //if member to member it transfers (add/subtract)
-  // let burnMemberId = dao.id
-  //   .concat('-member-')
-  //   .concat(event.params.from.toHexString());
-  // let mintMemberId = dao.id
-  //   .concat('-member-')
-  //   .concat(event.params.to.toHexString());
-  // log.info(
-  //   'handleTransfer all the way down, buring shares: {}, minting shares: {}',
-  //   [burnMemberId, mintMemberId]
-  // );
-  // burnShares(dao, burnMemberId, event.params.value);
-  // mintShares(event, dao, mintMemberId);
-  // addTransaction(event.block, event.transaction, event.address);
+  log.info('handleTransfer shares, to: {}, from: {}, address: {}, amount: {}', [
+    event.params.to.toHexString(),
+    event.params.from.toHexString(),
+    event.address.toHexString(),
+    event.params.value.toString(),
+  ]);
+  let tokenLookup = TokenLookup.load(event.address.toHexString());
+  if (tokenLookup === null) {
+    log.info('handleTransfer shares, no tokenlookup', []);
+    return;
+  }
+
+  let dao = Dao.load(tokenLookup.dao.toHexString());
+  if (dao === null) {
+    log.info('handleTransfer shares, no dao', []);
+    return;
+  }
+  log.info('handleTransfer shares, found dao {}', [dao.id]);
+  // if from zero address it mints to a member
+  if (event.params.from.toHexString() == constants.ADDRESS_ZERO) {
+    let memberId = dao.id
+      .concat('-member-')
+      .concat(event.params.to.toHexString());
+    log.info('handleTransfer, minting shares to: {}', [memberId]);
+    mintShares(event, dao, memberId);
+    return;
+  }
+  //if to baal it burns from member
+  // 5/25: adjust event.address to look at baal we looked up tokenLookup.dao
+  // but need to check - it could be the loot/share token
+  if (event.params.to.toHexString() == constants.ADDRESS_ZERO) {
+    let memberId = dao.id
+      .concat('-member-')
+      .concat(event.params.from.toHexString());
+    log.info('handleTransfer, buring shares to: {}', [memberId]);
+    burnShares(dao, memberId, event.params.value);
+    return;
+  }
+  //if member to member it transfers (add/subtract)
+  let burnMemberId = dao.id
+    .concat('-member-')
+    .concat(event.params.from.toHexString());
+  let mintMemberId = dao.id
+    .concat('-member-')
+    .concat(event.params.to.toHexString());
+  log.info(
+    'handleTransfer all the way down, buring shares: {}, minting shares: {}',
+    [burnMemberId, mintMemberId]
+  );
+  burnShares(dao, burnMemberId, event.params.value);
+  mintShares(event, dao, mintMemberId);
+  addTransaction(event.block, event.transaction, event.address);
 }
 
 // // TransferLoot (index_topic_1 address from, index_topic_2 address to, uint256 amount)
 export function handleLootTransfer(event: LootTransfer): void {
   let tokenLookup = TokenLookup.load(event.address.toHexString());
-
   if (tokenLookup === null) {
     return;
   }

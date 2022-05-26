@@ -10,3 +10,4 @@ export * from './Typography';
 export * from './Link';
 export * from './Spinner';
 export * from './Divider';
+export * from './Switch';

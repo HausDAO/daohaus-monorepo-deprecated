@@ -30,8 +30,6 @@ mapping:
       handler: handleSponsorProposal
     - event: 'ProcessProposal(indexed uint256,bool,bool)'
       handler: handleProcessProposal
-    - event: 'ProcessingFailed(indexed uint256)'
-      handler: handleProcessingFailed
     - event: 'CancelProposal(indexed uint256)'
       handler: handleCancelProposal
     - event: 'SubmitVote(indexed address,uint256,indexed uint256,indexed bool)'

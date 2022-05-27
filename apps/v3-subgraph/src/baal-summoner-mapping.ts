@@ -4,7 +4,7 @@ import {
   LootTemplate,
   SharesTemplate,
 } from '../generated/templates';
-import { Dao } from '../generated/schema';
+import { Dao, TokenLookup } from '../generated/schema';
 import { addTransaction } from './util/transactions';
 import { constants } from './util/constants';
 
@@ -39,6 +39,16 @@ export function handleSummonBaal(event: SummonBaal): void {
   dao.proposalCount = constants.BIGINT_ZERO;
 
   dao.save();
+
+  let shareTokenLookup = new TokenLookup(event.params.shares.toHexString());
+  shareTokenLookup.dao = event.params.baal;
+
+  shareTokenLookup.save();
+
+  let lootTokenLookup = new TokenLookup(event.params.loot.toHexString());
+  lootTokenLookup.dao = event.params.baal;
+
+  lootTokenLookup.save();
 
   addTransaction(event.block, event.transaction, event.params.baal);
 }

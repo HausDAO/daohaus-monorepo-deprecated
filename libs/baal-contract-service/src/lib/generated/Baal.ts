@@ -502,7 +502,6 @@ export interface BaalInterface extends utils.Interface {
     "LootPaused(bool)": EventFragment;
     "OwnershipTransferred(address,address)": EventFragment;
     "ProcessProposal(uint256,bool,bool)": EventFragment;
-    "ProcessingFailed(uint256)": EventFragment;
     "Ragequit(address,address,uint256,uint256,address[])": EventFragment;
     "SetupComplete(bool,bool,uint32,uint32,uint256,uint256,uint256,uint256,string,string,uint256,uint256)": EventFragment;
     "ShamanSet(address,uint256)": EventFragment;
@@ -511,8 +510,6 @@ export interface BaalInterface extends utils.Interface {
     "SubmitProposal(uint256,bytes32,uint256,bytes,uint256,uint256,bool,uint256,string)": EventFragment;
     "SubmitVote(address,uint256,uint256,bool)": EventFragment;
     "TargetSet(address,address)": EventFragment;
-    "TransferLoot(address,address,uint256)": EventFragment;
-    "TransferShares(address,address,uint256)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "Approval"): EventFragment;
@@ -523,7 +520,6 @@ export interface BaalInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "LootPaused"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "OwnershipTransferred"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ProcessProposal"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "ProcessingFailed"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Ragequit"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SetupComplete"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "ShamanSet"): EventFragment;
@@ -532,8 +528,6 @@ export interface BaalInterface extends utils.Interface {
   getEvent(nameOrSignatureOrTopic: "SubmitProposal"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "SubmitVote"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "TargetSet"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "TransferLoot"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "TransferShares"): EventFragment;
 }
 
 export interface ApprovalEventObject {
@@ -619,17 +613,6 @@ export type ProcessProposalEvent = TypedEvent<
 >;
 
 export type ProcessProposalEventFilter = TypedEventFilter<ProcessProposalEvent>;
-
-export interface ProcessingFailedEventObject {
-  proposal: BigNumber;
-}
-export type ProcessingFailedEvent = TypedEvent<
-  [BigNumber],
-  ProcessingFailedEventObject
->;
-
-export type ProcessingFailedEventFilter =
-  TypedEventFilter<ProcessingFailedEvent>;
 
 export interface RagequitEventObject {
   member: string;
@@ -757,30 +740,6 @@ export interface TargetSetEventObject {
 export type TargetSetEvent = TypedEvent<[string, string], TargetSetEventObject>;
 
 export type TargetSetEventFilter = TypedEventFilter<TargetSetEvent>;
-
-export interface TransferLootEventObject {
-  from: string;
-  to: string;
-  amount: BigNumber;
-}
-export type TransferLootEvent = TypedEvent<
-  [string, string, BigNumber],
-  TransferLootEventObject
->;
-
-export type TransferLootEventFilter = TypedEventFilter<TransferLootEvent>;
-
-export interface TransferSharesEventObject {
-  from: string;
-  to: string;
-  amount: BigNumber;
-}
-export type TransferSharesEvent = TypedEvent<
-  [string, string, BigNumber],
-  TransferSharesEventObject
->;
-
-export type TransferSharesEventFilter = TypedEventFilter<TransferSharesEvent>;
 
 export interface Baal extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -1638,13 +1597,6 @@ export interface Baal extends BaseContract {
       actionFailed?: null
     ): ProcessProposalEventFilter;
 
-    "ProcessingFailed(uint256)"(
-      proposal?: BigNumberish | null
-    ): ProcessingFailedEventFilter;
-    ProcessingFailed(
-      proposal?: BigNumberish | null
-    ): ProcessingFailedEventFilter;
-
     "Ragequit(address,address,uint256,uint256,address[])"(
       member?: string | null,
       to?: null,
@@ -1753,28 +1705,6 @@ export interface Baal extends BaseContract {
       previousTarget?: string | null,
       newTarget?: string | null
     ): TargetSetEventFilter;
-
-    "TransferLoot(address,address,uint256)"(
-      from?: string | null,
-      to?: string | null,
-      amount?: null
-    ): TransferLootEventFilter;
-    TransferLoot(
-      from?: string | null,
-      to?: string | null,
-      amount?: null
-    ): TransferLootEventFilter;
-
-    "TransferShares(address,address,uint256)"(
-      from?: string | null,
-      to?: string | null,
-      amount?: null
-    ): TransferSharesEventFilter;
-    TransferShares(
-      from?: string | null,
-      to?: string | null,
-      amount?: null
-    ): TransferSharesEventFilter;
   };
 
   estimateGas: {

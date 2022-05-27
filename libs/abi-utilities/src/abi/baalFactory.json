@@ -62,6 +62,12 @@
       {
         "indexed": true,
         "internalType": "address",
+        "name": "shares",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
         "name": "safe",
         "type": "address"
       }

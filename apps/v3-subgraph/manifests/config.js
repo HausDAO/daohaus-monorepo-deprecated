@@ -24,8 +24,8 @@ module.exports.config = {
       {
         name: 'baalSummoner',
         template: 'baal-summoner-ds.yaml',
-        address: '0x9425f47e808d9d4fE56f5F9f517CbBDd802DcdFb',
-        startBlock: 6918540,
+        address: '0x1b94221EB2bC8dc9F16660EA5be9dcd92b0ae862',
+        startBlock: 6953669,
       },
       {
         name: 'poster',
@@ -36,8 +36,8 @@ module.exports.config = {
       {
         name: 'tributeEscrow',
         template: 'tribute-escrow-ds.yaml',
-        address: '0x76095061f675F4CcD86094b8ac9018fD96a70Fa3',
-        startBlock: 6935358,
+        address: '0x328F80e44592E017B1745B0B574dBaB0c8DFc5f0',
+        startBlock: 6953708,
       },
     ],
     templates: [

@@ -73,56 +73,6 @@
     "anonymous": false,
     "inputs": [
       {
-        "indexed": true,
-        "internalType": "address",
-        "name": "delegator",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "fromDelegate",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "toDelegate",
-        "type": "address"
-      }
-    ],
-    "name": "DelegateChanged",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "delegate",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "previousBalance",
-        "type": "uint256"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "newBalance",
-        "type": "uint256"
-      }
-    ],
-    "name": "DelegateVotesChanged",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
         "indexed": false,
         "internalType": "uint32",
         "name": "voting",
@@ -217,19 +167,6 @@
       }
     ],
     "name": "ProcessProposal",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "uint256",
-        "name": "proposal",
-        "type": "uint256"
-      }
-    ],
-    "name": "ProcessingFailed",
     "type": "event"
   },
   {
@@ -440,6 +377,12 @@
       },
       {
         "indexed": false,
+        "internalType": "uint256",
+        "name": "baalGas",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
         "internalType": "bool",
         "name": "selfSponsor",
         "type": "bool"
@@ -511,56 +454,6 @@
     "type": "event"
   },
   {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "from",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "Transfer",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "from",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "internalType": "address",
-        "name": "to",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "amount",
-        "type": "uint256"
-      }
-    ],
-    "name": "TransferLoot",
-    "type": "event"
-  },
-  {
     "inputs": [],
     "name": "adminLock",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
@@ -578,26 +471,9 @@
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "to", "type": "address" },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" }
-    ],
-    "name": "approve",
-    "outputs": [{ "internalType": "bool", "name": "success", "type": "bool" }],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
     "name": "avatar",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "name": "balanceOf",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -626,54 +502,6 @@
     "name": "cancelProposal",
     "outputs": [],
     "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "", "type": "address" },
-      { "internalType": "uint256", "name": "", "type": "uint256" }
-    ],
-    "name": "checkpoints",
-    "outputs": [
-      { "internalType": "uint32", "name": "fromTimeStamp", "type": "uint32" },
-      { "internalType": "uint256", "name": "votes", "type": "uint256" }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "decimals",
-    "outputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "delegatee", "type": "address" }
-    ],
-    "name": "delegate",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "delegatee", "type": "address" },
-      { "internalType": "uint256", "name": "nonce", "type": "uint256" },
-      { "internalType": "uint256", "name": "deadline", "type": "uint256" },
-      { "internalType": "bytes", "name": "signature", "type": "bytes" }
-    ],
-    "name": "delegateBySig",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "name": "delegates",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -824,7 +652,7 @@
     "inputs": [],
     "name": "lootToken",
     "outputs": [
-      { "internalType": "contract ILoot", "name": "", "type": "address" }
+      { "internalType": "contract IBaalToken", "name": "", "type": "address" }
     ],
     "stateMutability": "view",
     "type": "function"
@@ -874,22 +702,8 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "name",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "name": "nonces",
-    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "name": "numCheckpoints",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
@@ -899,19 +713,6 @@
     "name": "owner",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "owner", "type": "address" },
-      { "internalType": "address", "name": "spender", "type": "address" },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" },
-      { "internalType": "uint256", "name": "deadline", "type": "uint256" },
-      { "internalType": "bytes", "name": "signature", "type": "bytes" }
-    ],
-    "name": "permit",
-    "outputs": [],
-    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -948,6 +749,7 @@
       { "internalType": "uint32", "name": "votingEnds", "type": "uint32" },
       { "internalType": "uint32", "name": "graceEnds", "type": "uint32" },
       { "internalType": "uint32", "name": "expiration", "type": "uint32" },
+      { "internalType": "uint256", "name": "baalGas", "type": "uint256" },
       { "internalType": "uint256", "name": "yesVotes", "type": "uint256" },
       { "internalType": "uint256", "name": "noVotes", "type": "uint256" },
       {
@@ -1080,6 +882,15 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "sharesToken",
+    "outputs": [
+      { "internalType": "contract IBaalToken", "name": "", "type": "address" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [{ "internalType": "uint32", "name": "id", "type": "uint32" }],
     "name": "sponsorProposal",
     "outputs": [],
@@ -1106,6 +917,7 @@
     "inputs": [
       { "internalType": "bytes", "name": "proposalData", "type": "bytes" },
       { "internalType": "uint32", "name": "expiration", "type": "uint32" },
+      { "internalType": "uint256", "name": "baalGas", "type": "uint256" },
       { "internalType": "string", "name": "details", "type": "string" }
     ],
     "name": "submitProposal",
@@ -1136,13 +948,6 @@
   },
   {
     "inputs": [],
-    "name": "symbol",
-    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
     "name": "target",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
@@ -1157,30 +962,16 @@
   },
   {
     "inputs": [],
-    "name": "totalSupply",
+    "name": "totalShares",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "address", "name": "to", "type": "address" },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" }
-    ],
-    "name": "transfer",
-    "outputs": [{ "internalType": "bool", "name": "success", "type": "bool" }],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      { "internalType": "address", "name": "from", "type": "address" },
-      { "internalType": "address", "name": "to", "type": "address" },
-      { "internalType": "uint256", "name": "amount", "type": "uint256" }
-    ],
-    "name": "transferFrom",
-    "outputs": [{ "internalType": "bool", "name": "success", "type": "bool" }],
-    "stateMutability": "nonpayable",
+    "inputs": [],
+    "name": "totalSupply",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
     "type": "function"
   },
   {

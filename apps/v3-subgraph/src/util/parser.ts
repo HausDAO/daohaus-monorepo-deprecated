@@ -7,9 +7,9 @@ import {
   json,
   ByteArray,
   Address,
-} from "@graphprotocol/graph-ts";
-import { NewPost } from "../../generated/Poster/Poster";
-import { MetaData, Proposal } from "../../generated/schema";
+} from '@graphprotocol/graph-ts';
+import { NewPost } from '../../generated/Poster/Poster';
+import { Dao, MetaData, Proposal } from '../../generated/schema';
 
 class JsonStringResult {
   data: string;
@@ -23,14 +23,14 @@ class JsonResult {
 export namespace parser {
   export function getResultFromJson(content: string): JsonResult {
     let result: JsonResult;
-    result.error = "none";
+    result.error = 'none';
     let bytes = changetype<Bytes>(ByteArray.fromUTF8(content));
 
     // let jsonResult = json.try_fromBytes(ByteArray.fromUTF8(content) as Bytes);
     let jsonResult = json.try_fromBytes(bytes);
 
     if (jsonResult.isError) {
-      result.error = "Failed to parse JSON";
+      result.error = 'Failed to parse JSON';
       return result;
     }
     result.object = jsonResult.value.toObject();
@@ -42,11 +42,11 @@ export namespace parser {
     key: string
   ): JsonStringResult {
     let result: JsonStringResult;
-    result.error = "none";
+    result.error = 'none';
     let value = object.get(key);
 
     if (!value || value.kind != JSONValueKind.STRING) {
-      result.error = "Missing valid Poster field: " + key;
+      result.error = 'Missing valid Poster field: ' + key;
       return result;
     }
     result.data = value.toString();
@@ -58,11 +58,11 @@ export namespace parser {
     key: string
   ): JsonResult {
     let result: JsonResult;
-    result.error = "none";
+    result.error = 'none';
     let value = object.get(key);
 
     if (!value || value.kind != JSONValueKind.OBJECT) {
-      result.error = "Missing valid Poster field: " + key;
+      result.error = 'Missing valid Poster field: ' + key;
       return result;
     }
     result.object = value.toObject();
@@ -72,7 +72,6 @@ export namespace parser {
   export function createDaoMetaSummoning(
     object: TypedMap<string, JSONValue>,
     daoAddress: Bytes | null,
-
     event: NewPost
   ): boolean {
     if (daoAddress === null) {
@@ -80,12 +79,12 @@ export namespace parser {
     }
     let entityId = daoAddress
       .toHexString()
-      .concat("-content-")
+      .concat('-content-')
       .concat(event.block.timestamp.toString());
     let entity = new MetaData(entityId);
 
-    let name = parser.getStringFromJson(object, "name");
-    if (name.error != "none") {
+    let name = parser.getStringFromJson(object, 'name');
+    if (name.error != 'none') {
       return false;
     }
     entity.name = name.data;
@@ -96,6 +95,13 @@ export namespace parser {
     entity.rawContent = event.params.content;
 
     entity.save();
+
+    let dao = Dao.load(daoAddress.toHexString());
+    if (dao) {
+      dao.name = name.data;
+
+      dao.save();
+    }
 
     return true;
   }

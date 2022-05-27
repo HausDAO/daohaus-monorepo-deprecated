@@ -29,7 +29,7 @@ export const WrappedSwitch = (props: SwitchWrapperProps) => {
     >
       {switches.map((switchProps) => (
         <Controller
-          key={switchProps.id}
+          key={switchProps.id || id}
           name={switchProps.name || id}
           control={control}
           defaultValue={switchProps.defaultChecked}

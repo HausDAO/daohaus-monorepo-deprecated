@@ -46,10 +46,7 @@ export const FieldWrapper = ({
   address,
   id,
 }: FieldWrapperProps) => {
-  console.log('id', id);
-  console.log('full', full);
   const classes = classNames({ long: long || address, full });
-  console.log('classes', classes);
   return (
     <FieldWrapperBase className={classes}>
       <LabelContainer>

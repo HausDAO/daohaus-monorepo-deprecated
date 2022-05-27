@@ -10,10 +10,10 @@ export const FieldWrapperBase = styled.div`
   .field-slot {
     margin-bottom: 1.2rem;
   }
-  .long {
+  &.long {
     max-width: ${field.size.lg};
   }
-  .full {
+  &.full {
     max-width: ${field.size.full};
   }
 `;

@@ -6,7 +6,7 @@ import { FieldWrapper } from '../FieldWrapper/FieldWrapper';
 
 type SwitchComponentProps = SwitchProps & {
   fieldLabel: string;
-  id?: string;
+  id: string;
   className?: string;
 };
 type SwitchWrapperProps = PrimitiveWrapper & {

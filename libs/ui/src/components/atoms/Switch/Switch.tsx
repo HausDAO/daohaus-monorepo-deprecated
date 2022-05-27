@@ -52,7 +52,11 @@ export const Switch = React.forwardRef(
     });
     return (
       <Container className={className}>
-        <SwitchBase checked={switchOn} defaultChecked={defaultOn} {...props}>
+        <SwitchBase
+          checked={switchOn}
+          defaultChecked={defaultOn}
+          disabled={disabled}
+        >
           <SwitchSlider className={classes} ref={ref} />
         </SwitchBase>
         <LabelContainer>

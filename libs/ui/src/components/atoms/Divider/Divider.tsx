@@ -20,6 +20,7 @@ type DividerProps = {
   decorative?: boolean;
   asChild?: boolean;
   margin?: string;
+  className?: string;
 };
 
 export const Divider = ({
@@ -27,6 +28,7 @@ export const Divider = ({
   decorative = false,
   asChild = false,
   margin = '0rem',
+  className,
 }: DividerProps) => {
   return (
     <StyledDivider
@@ -34,6 +36,7 @@ export const Divider = ({
       orientation={orientation}
       decorative={decorative}
       asChild={asChild}
+      className={className}
     />
   );
 };

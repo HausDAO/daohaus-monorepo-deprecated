@@ -6,6 +6,7 @@ import { FieldWrapper } from '../FieldWrapper/FieldWrapper';
 export const WrappedTextArea = (props: Field) => {
   const { id } = props;
   const { register } = useFormContext();
+
   return (
     <FieldWrapper {...props}>
       <TextArea {...register(id)} {...props} />

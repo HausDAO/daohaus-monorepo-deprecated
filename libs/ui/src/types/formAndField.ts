@@ -42,6 +42,8 @@ export type Field = {
   warning?: WarningMessage;
   error?: ErrorMessage;
   success?: SuccessMessage;
+  rows?: number;
+  cols?: number;
 };
 
 // TODO Refine based on Radix Checkbox Type & Wrapper

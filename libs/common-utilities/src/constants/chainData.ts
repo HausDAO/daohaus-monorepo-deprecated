@@ -2,8 +2,7 @@ import { Keychain, NetworkType, ValidNetwork } from '../types';
 
 export const VALID_NETWORKS = {
   '0x1': true,
-  '0x4': true,
-  '0x2a': true,
+  '0x5': true,
   '0x64': true,
   '0xa': true,
   '0x89': true,
@@ -26,16 +25,10 @@ export const networkData: Keychain<NetworkType> = {
     name: 'Mainnet',
     symbol: 'ETH',
   },
-  '0x4': {
-    chainId: '0x4',
-    networkId: 4,
-    name: 'Rinkeby',
-    symbol: 'ETH',
-  },
-  '0x2a': {
-    chainId: '0x2a',
-    networkId: 42,
-    name: 'Kovan',
+  '0x5': {
+    chainId: '0x5',
+    networkId: 5,
+    name: 'Goerli',
     symbol: 'ETH',
   },
   '0x64': {

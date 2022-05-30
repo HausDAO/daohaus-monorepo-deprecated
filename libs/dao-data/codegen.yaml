@@ -13,7 +13,7 @@ config:
   preResolveTypes: true
   maybeValue: T | undefined
   inputMaybeValue: T | undefined | null
-  onlyOperationTypes: true
+  onlyOperationTypes: false
   declarationKind: 'interface'
 generates:
   libs/dao-data/src/subgraph/schema.generated.ts:

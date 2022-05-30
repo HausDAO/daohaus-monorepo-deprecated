@@ -22,6 +22,7 @@ type Dao @entity {
   latestSponsoredProposalId: BigInt!
   proposalCount: BigInt!
   activeMemberCount: BigInt!
+  name: String
   proposals: [Proposal!] @derivedFrom(field: "dao")
   members: [Member!] @derivedFrom(field: "dao")
   rageQuits: [RageQuit!] @derivedFrom(field: "dao")
@@ -126,4 +127,9 @@ type EventTransaction @entity {
   id: ID!
   createdAt: String!
   dao: Dao!
+}
+
+type TokenLookup @entity {
+  id: ID!
+  dao: Bytes!
 }

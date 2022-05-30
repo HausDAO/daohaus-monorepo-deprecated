@@ -57,6 +57,7 @@
     "web3modal": "^1.9.7"
   },
   "devDependencies": {
+    "@alexkeating/nx-skynet": "^0.0.1",
     "@babel/core": "7.12.13",
     "@babel/preset-typescript": "7.12.13",
     "@graphql-codegen/cli": "^2.6.2",

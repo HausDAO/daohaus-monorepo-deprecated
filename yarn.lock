@@ -41,6 +41,11 @@
     "@ceramicnetwork/rpc-window" "^0.6.0"
     caip "^1.0.0"
 
+"@alexkeating/nx-skynet@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@alexkeating/nx-skynet/-/nx-skynet-0.0.1.tgz#2e71c7f4045af91fccd93708f26cad234e82c97b"
+  integrity sha512-w4AYfDeC46pbxvmau0rLtFHWg+YHq6NbnnkBJflHXMG9gRfC4VchR/EOBm8rjY4vDMLR4KrKPwqhyyRpE8O4/Q==
+
 "@ampproject/remapping@^2.1.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.2.0.tgz#56c133824780de3174aed5ab6834f3026790154d"

@@ -66,6 +66,16 @@
         "command": "tsc --project apps/hub-app/tsconfig.app.json --noEmit --skipLibCheck",
         "color": true
       }
+    },
+    "deploy": {
+      "executor": "@alexkeating/nx-skynet:deploy",
+      "options": {
+        "uploadDir": "dist/apps/hub-app",
+        "registrySeedVarName": "DAOHAUS_HUB_SKYNET_SEED",
+        "registryDataKey": "skylink.txt",
+        "portalUrl": "https://skynetfree.net",
+        "skynetJwtVarName": "SKYNET_JWT"
+      }
     }
   },
   "tags": []

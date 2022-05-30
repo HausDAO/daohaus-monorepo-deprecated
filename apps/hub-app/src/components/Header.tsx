@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button, Dropdown, ParMd } from '@daohaus/ui';
+import { ConnectButton } from '@daohaus/daohaus-connect-feature';
 import { BiCommand, BiChevronDown } from 'react-icons/bi';
 import { crimsonDarkA, crimsonDark } from '@radix-ui/colors';
 
@@ -23,7 +24,7 @@ const StyledButton = styled(Button)`
   border-radius: 0.4rem;
   border: none;
   width: 100%;
-  hover {
+  :hover {
     background-color: ${crimsonDarkA.crimsonA5};
     color: white;
     border: none;
@@ -64,8 +65,7 @@ const Header = () => {
     <HeaderContainer>
       <Dropdown
         trigger={
-          <StyledButton icon={StyledChevron}>
-            <StyledCommand />
+          <StyledButton IconRight={StyledChevron} IconLeft={StyledCommand}>
             Hub
           </StyledButton>
         }
@@ -77,7 +77,7 @@ const Header = () => {
         ]}
         width="18rem"
       />
-      <Button icon={BiChevronDown}>Placeholder</Button>
+      <ConnectButton />
     </HeaderContainer>
   );
 };

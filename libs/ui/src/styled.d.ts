@@ -59,5 +59,21 @@ declare module 'styled-components' {
       border: string;
       activeBorder: string;
     };
+    spinner: {
+      topColor: string;
+      bottomColor: string;
+    };
+    switch: {
+      bar: {
+        bg: string;
+        activeBg: string;
+        disabledBg: string;
+      };
+      thumb: {
+        bg: string;
+        activeBg: string;
+        disabledBg: string;
+      };
+    };
   }
 }

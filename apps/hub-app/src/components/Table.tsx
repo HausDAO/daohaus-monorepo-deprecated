@@ -1,8 +1,18 @@
 import React from 'react';
-import { useTable } from 'react-table';
+import { useTable, Column } from 'react-table';
 import styled from 'styled-components';
 import { amberDark, crimsonDark } from '@radix-ui/colors';
 import { AvatarSm } from '../components/Avatar';
+
+interface EData {
+  name: string;
+  activeProposals: string;
+  vaults: string;
+  members: string;
+  power: string;
+  network: string;
+  delegate: string;
+}
 
 const Table = styled.table`
   width: 100%;
@@ -45,7 +55,7 @@ const FirstCell = styled.p`
 `;
 
 export const DataTable = () => {
-  const exampleData = React.useMemo(
+  const exampleData = React.useMemo<EData[]>(
     () => [
       {
         name: 'AntiMetaMetaGovernanceDao',
@@ -78,11 +88,11 @@ export const DataTable = () => {
     []
   );
 
-  const exampleColumns = React.useMemo(
+  const exampleColumns = React.useMemo<Column<EData>[]>(
     () => [
       {
         accessor: 'name', // accessor is the "key" in the data
-        Cell: ({ value }) => {
+        Cell: ({ value }: { value: string }) => {
           return (
             <FirstCell>
               <AvatarSm />
@@ -90,14 +100,14 @@ export const DataTable = () => {
             </FirstCell>
           );
         },
-        Header: ({ value }) => {
+        Header: () => {
           return <FirstHeader>3 Daos</FirstHeader>;
         },
       },
       {
         Header: 'Active Proposals',
         accessor: 'activeProposals',
-        Cell: ({ value }) => {
+        Cell: ({ value }: { value: string }) => {
           return <Highlight>{value}</Highlight>;
         },
       },
@@ -120,7 +130,7 @@ export const DataTable = () => {
       {
         Header: 'Delegate',
         accessor: 'delegate',
-        Cell: ({ value }) => {
+        Cell: ({ value }: { value: string }) => {
           return <Highlight>{value}</Highlight>;
         },
       },

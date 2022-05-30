@@ -1,0 +1,38 @@
+{
+  "root": "libs/baal-contract-service",
+  "sourceRoot": "libs/baal-contract-service/src",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/baal-contract-service",
+        "main": "libs/baal-contract-service/src/index.ts",
+        "tsConfig": "libs/baal-contract-service/tsconfig.lib.json",
+        "assets": ["libs/baal-contract-service/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/baal-contract-service/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/baal-contract-service"],
+      "options": {
+        "jestConfig": "libs/baal-contract-service/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "typechain": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "typechain --target ethers-v5 --out-dir ./libs/baal-contract-service/src/lib/generated ./libs/abi-utilities/src/abi/**.json"
+      }
+    }
+  },
+  "tags": []
+}

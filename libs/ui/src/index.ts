@@ -1,1 +1,5 @@
-export * from './lib/ui';
+export * from './components';
+export * from './theme';
+export * from './components';
+export * from './theme';
+export * from './types';

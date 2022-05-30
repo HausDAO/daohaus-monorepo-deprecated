@@ -17,14 +17,11 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "types": ["vite/client", "@nxext/react/client"]
-    
   },
   "files": [],
   "include": [],
   "references": [
-    {
-      "path": "./tsconfig.lib.json"
-    },
+    { "path": "./tsconfig.lib.json"},
     {
       "path": "./.storybook/tsconfig.json"
     }

@@ -1,0 +1,46 @@
+{
+  "root": "libs/dao-data",
+  "sourceRoot": "libs/dao-data/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/dao-data",
+        "main": "libs/dao-data/src/index.ts",
+        "tsConfig": "libs/dao-data/tsconfig.lib.json",
+        "assets": ["libs/dao-data/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/dao-data/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/dao-data"],
+      "options": {
+        "jestConfig": "libs/dao-data/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "generate-gql-schema": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "get-graphql-schema https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-rinkeby > libs/dao-data/src/subgraph/schema.graphql"
+      }
+    },
+    "generate-gql-types": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "graphql-codegen --config libs/dao-data/codegen.yaml",
+        "outputPath": "libs/dao-data/src/subgraph/queries"
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,0 +1,73 @@
+query listProposals(
+  $where: Proposal_filter! = {}
+  $skip: Int! = 0
+  $first: Int! = 100
+  $orderBy: Proposal_orderBy! = id
+  $orderDirection: OrderDirection! = asc
+) {
+  proposals: proposals(
+    where: $where
+    skip: $skip
+    first: $first
+    orderBy: $orderBy
+    orderDirection: $orderDirection
+  ) {
+    ...proposalFields
+  }
+}
+
+query findProposal($id: ID!) {
+  proposal: proposal(id: $id) {
+    ...proposalFields
+  }
+}
+
+fragment proposalFields on Proposal {
+  id
+  createdAt
+  createdBy
+  proposalId
+  prevProposalId
+  proposalDataHash
+  proposalData
+  details
+  title
+  description
+  proposalType
+  contentURI
+  contentURIType
+  sponsored
+  selfSponsor
+  sponsor
+  votingPeriod
+  votingStarts
+  votingEnds
+  graceEnds
+  expiration
+  cancelled
+  yesBalance
+  noBalance
+  yesVotes
+  noVotes
+  processed
+  actionFailed
+  passed
+  proposalOffering
+  maxTotalSharesAndLootAtYesVote
+  tributeToken
+  tributeOffered
+  tributeTokenSymbol
+  tributeTokenDecimals
+  tributeEscrowRecipient
+  votes {
+    id
+    createdAt
+    daoAddress
+    approved
+    balance
+    member {
+      id
+      memberAddress
+    }
+  }
+}

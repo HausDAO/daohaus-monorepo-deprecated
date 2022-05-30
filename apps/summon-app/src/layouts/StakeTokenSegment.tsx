@@ -8,7 +8,6 @@ import { FORM_COPY } from '../utils/content';
 export const StakeTokensSegment = () => {
   const { watch } = useFormContext();
   const formValues = watch();
-
   const votingTransferableLabel = formValues?.votingTransferable
     ? 'Transferable'
     : 'Not Transferable';
@@ -50,7 +49,6 @@ export const StakeTokensSegment = () => {
                   switches={[
                     {
                       fieldLabel: votingTransferableLabel,
-                      id: 'votingTransferable',
                     },
                   ]}
                 />
@@ -62,7 +60,6 @@ export const StakeTokensSegment = () => {
                   switches={[
                     {
                       fieldLabel: nvTransferableLabel,
-                      id: 'nvVotingTransferable',
                     },
                   ]}
                 />

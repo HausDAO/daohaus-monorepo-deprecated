@@ -11,12 +11,12 @@ export const VALID_NETWORKS = {
 };
 
 export const isValidNetwork = (
-  string: string,
+  str: string,
   networks?: Keychain<unknown>
-): string is ValidNetwork =>
+): str is ValidNetwork =>
   networks
-    ? networks[string as ValidNetwork] !== undefined
-    : VALID_NETWORKS[string as ValidNetwork] !== undefined;
+    ? networks[str as ValidNetwork] !== undefined
+    : VALID_NETWORKS[str as ValidNetwork] !== undefined;
 
 export const networkData: Keychain<NetworkType> = {
   '0x1': {

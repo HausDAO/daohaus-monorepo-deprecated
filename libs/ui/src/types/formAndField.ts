@@ -27,7 +27,7 @@ export type PrimitiveWrapper = {
 
 export type Field = {
   id: string;
-  label: string;
+  label?: string;
   type?: string;
   placeholder?: string;
   helperText?: string;

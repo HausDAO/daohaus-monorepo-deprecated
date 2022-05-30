@@ -1,6 +1,7 @@
 import React, { RefObject } from 'react';
+
 import classNames from 'classnames';
-import { BiCheck } from 'react-icons/bi';
+import { RiCheckLine } from 'react-icons/ri';
 import { CheckboxProps } from '@radix-ui/react-checkbox';
 
 import {
@@ -29,7 +30,7 @@ export const Checkbox = React.forwardRef((props: CheckboxProps, ref: Ref) => {
     <Container>
       <StyledCheckbox {...props} ref={ref}>
         <StyledIndicator className={classes}>
-          <BiCheck />
+          <RiCheckLine />
         </StyledIndicator>
       </StyledCheckbox>
       <LabelContainer>

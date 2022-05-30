@@ -19,6 +19,7 @@
     "@nrwl/js": "^13.7.3",
     "@nxext/react": "^13.0.3",
     "@radix-ui/colors": "^0.1.8",
+    "@radix-ui/react-accessible-icon": "^0.1.4",
     "@radix-ui/react-avatar": "^0.1.4",
     "@radix-ui/react-checkbox": "^0.1.5",
     "@radix-ui/react-dropdown-menu": "^0.1.6",
@@ -58,6 +59,7 @@
     "web3modal": "^1.9.7"
   },
   "devDependencies": {
+    "@alexkeating/nx-skynet": "^0.0.1",
     "@babel/core": "7.12.13",
     "@babel/preset-typescript": "7.12.13",
     "@graphql-codegen/cli": "^2.6.2",
@@ -72,6 +74,7 @@
     "@nrwl/eslint-plugin-nx": "13.7.3",
     "@nrwl/jest": "13.7.3",
     "@nrwl/linter": "13.7.3",
+    "@nrwl/node": "^14.1.9",
     "@nrwl/react": "13.7.3",
     "@nrwl/storybook": "13.7.3",
     "@nrwl/tao": "13.7.3",
@@ -85,6 +88,7 @@
     "@swc/jest": "^0.2.21",
     "@testing-library/react": "12.1.2",
     "@testing-library/react-hooks": "7.0.2",
+    "@typechain/ethers-v5": "^10.0.0",
     "@types/jest": "27.0.2",
     "@types/node": "16.11.7",
     "@types/react": "17.0.30",
@@ -111,7 +115,9 @@
     "prettier": "^2.5.1",
     "react-test-renderer": "17.0.2",
     "ts-jest": "27.0.5",
-    "typescript": "~4.5.2",
+    "ts-node": "9.1.1",
+    "typechain": "^8.0.0",
+    "typescript": "4.6.4",
     "url-loader": "^3.0.0"
   }
 }

@@ -1,5 +1,15 @@
+import {
+  SelectContent,
+  SelectIcon,
+  SelectItem,
+  SelectItemText,
+  SelectTrigger,
+  SelectValue,
+  SelectViewport,
+} from './Select.styles';
 import React from 'react';
-import { BaseSelect } from './Select.styles';
+import { BiChevronDown } from 'react-icons/bi';
+import { SelectRoot } from './Select.styles';
 
 type OptionType = {
   name: string;
@@ -7,16 +17,31 @@ type OptionType = {
   key?: string;
 };
 type SelectProps = {
-  default: string;
+  defaultValue?: string;
   options: OptionType[];
 };
 
-export const Select = ({ options }: SelectProps) => {
+export const Select = ({
+  options,
+  defaultValue = 'defaultValue',
+}: SelectProps) => {
   return (
-    <BaseSelect>
-      {options.map((option) => (
-        <option key={option.key || option.value}>{option.name}</option>
-      ))}
-    </BaseSelect>
+    <SelectRoot defaultValue={defaultValue}>
+      <SelectTrigger>
+        <SelectValue />
+        <SelectIcon>
+          <BiChevronDown />
+        </SelectIcon>
+      </SelectTrigger>
+      <SelectContent>
+        <SelectViewport>
+          {options.map((option) => (
+            <SelectItem key={option.key || option.value} value={option.value}>
+              <SelectItemText>{option.name}</SelectItemText>
+            </SelectItem>
+          ))}
+        </SelectViewport>
+      </SelectContent>
+    </SelectRoot>
   );
 };

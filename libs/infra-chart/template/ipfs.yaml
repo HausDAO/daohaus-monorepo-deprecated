@@ -1,0 +1,53 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ceramic-ipfs
+  labels:
+    environment: production
+    app: headline
+    tier: service
+spec:
+  replicas: 1
+  serviceName: ceramic-ipfs-node
+  selector:
+    matchLabels:
+      name: ceramic-ipfs
+  template:
+    metadata:
+      labels:
+        name: ceramic-ipfs
+    spec:
+      containers:
+        - name: ipfs
+          image: ceramicnetwork/ipfs-daemon@sha256:7f7b8c132c04744fdb9dab3204b845accf1b930d9c969f3143008ef372e18563
+          ports:
+            - containerPort: 4011
+            - containerPort: 4012
+            - containerPort: 5011
+          volumeMounts:
+            - mountPath: '/data'
+              name: ipfs-pvc
+          env:
+            - name: CERAMIC_NETWORK
+              value: 'mainnet'
+            - name: IPFS_PATH
+              value: '/data'
+            - name: ANNOUNCE_ADDRESS_LIST
+              value: '/dns4/ceramic-ipfs-test.viaheadline.xyz/tcp/4012/ws'
+          resources:
+            requests:
+              memory: 1024Mi
+              cpu: 2048m
+            limits:
+              memory: 2048Mi
+              cpu: 4096m
+  volumeClaimTemplates:
+    - metadata:
+        name: ipfs-pvc
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 5Gi

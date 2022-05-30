@@ -6,6 +6,7 @@
     "dao-data": "libs/dao-data",
     "daohaus-connect-feature": "libs/daohaus-connect-feature",
     "hub-app": "apps/hub-app",
+    "infra-chart": "libs/infra-chart",
     "summon-app": "apps/summon-app",
     "ui": "libs/ui",
     "v3-subgraph": "apps/v3-subgraph"

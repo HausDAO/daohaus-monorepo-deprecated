@@ -1,47 +1,47 @@
-import {
-  SelectContent,
-  SelectIcon,
-  SelectItem,
-  SelectItemText,
-  SelectTrigger,
-  SelectValue,
-  SelectViewport,
-} from './Select.styles';
-import React from 'react';
+import classNames from 'classnames';
+import { forwardRef } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
-import { SelectRoot } from './Select.styles';
+import { BaseSelect, StyledOption, WithIcon } from './Select.styles';
+import { Field } from '../../../types/formAndField';
 
 type OptionType = {
   name: string;
   value: string;
   key?: string;
 };
-type SelectProps = {
+type SelectProps = Field & {
   defaultValue?: string;
   options: OptionType[];
+  inputSelect?: boolean;
 };
 
-export const Select = ({
-  options,
-  defaultValue = 'defaultValue',
-}: SelectProps) => {
-  return (
-    <SelectRoot defaultValue={defaultValue}>
-      <SelectTrigger>
-        <SelectValue />
-        <SelectIcon>
-          <BiChevronDown />
-        </SelectIcon>
-      </SelectTrigger>
-      <SelectContent>
-        <SelectViewport>
+type Ref =
+  | React.RefObject<HTMLSelectElement>
+  | ((instance: HTMLSelectElement | null) => void)
+  | null
+  | undefined;
+
+export const Select = forwardRef(
+  (
+    { options, defaultValue, inputSelect, long, full }: SelectProps,
+    ref: Ref
+  ) => {
+    const classes = classNames({ 'input-select': inputSelect, long, full });
+    return (
+      <WithIcon className={classes}>
+        <BaseSelect ref={ref} className={classes}>
           {options.map((option) => (
-            <SelectItem key={option.key || option.value} value={option.value}>
-              <SelectItemText>{option.name}</SelectItemText>
-            </SelectItem>
+            <StyledOption
+              key={option.key || option.value}
+              value={option.value}
+              selected={option.value === defaultValue}
+            >
+              {option.name}
+            </StyledOption>
           ))}
-        </SelectViewport>
-      </SelectContent>
-    </SelectRoot>
-  );
-};
+        </BaseSelect>
+        <BiChevronDown size="2rem" />
+      </WithIcon>
+    );
+  }
+);

@@ -14,10 +14,12 @@
     "@ceramicnetwork/stream-caip10-link": "2.0.1-rc.2",
     "@ceramicnetwork/stream-tile": "2.1.0-rc.3",
     "@gnosis.pm/safe-apps-web3modal": "^12.0.0",
+    "@graphprotocol/graph-ts": "^0.27.0",
     "@graphql-codegen/typescript-graphql-request": "^4.4.5",
     "@nrwl/js": "^13.7.3",
     "@nxext/react": "^13.0.3",
     "@radix-ui/colors": "^0.1.8",
+    "@radix-ui/react-accessible-icon": "^0.1.4",
     "@radix-ui/react-avatar": "^0.1.4",
     "@radix-ui/react-checkbox": "^0.1.5",
     "@radix-ui/react-dropdown-menu": "^0.1.6",
@@ -39,6 +41,7 @@
     "graphql": "^16.3.0",
     "graphql-request": "^4.2.0",
     "isomorphic-unfetch": "^3.1.0",
+    "js-yaml": "^4.1.0",
     "polished": "^4.2.2",
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -55,6 +58,7 @@
     "web3modal": "^1.9.7"
   },
   "devDependencies": {
+    "@alexkeating/nx-skynet": "^0.0.1",
     "@babel/core": "7.12.13",
     "@babel/preset-typescript": "7.12.13",
     "@graphql-codegen/cli": "^2.6.2",
@@ -69,6 +73,7 @@
     "@nrwl/eslint-plugin-nx": "13.7.3",
     "@nrwl/jest": "13.7.3",
     "@nrwl/linter": "13.7.3",
+    "@nrwl/node": "^14.1.9",
     "@nrwl/react": "13.7.3",
     "@nrwl/storybook": "13.7.3",
     "@nrwl/tao": "13.7.3",
@@ -108,7 +113,8 @@
     "prettier": "^2.5.1",
     "react-test-renderer": "17.0.2",
     "ts-jest": "27.0.5",
-    "typescript": "~4.5.2",
+    "ts-node": "9.1.1",
+    "typescript": "4.6.4",
     "url-loader": "^3.0.0"
   }
 }

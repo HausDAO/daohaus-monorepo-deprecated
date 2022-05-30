@@ -422,7 +422,9 @@ export default class Query {
 
       return { data: transformTokenBalances(res, safeAddress) };
     } catch (err) {
-      return { error: new HausError({ type: 'GNOSIS_ERROR' }) };
+      return {
+        error: new HausError({ type: 'GNOSIS_ERROR', errorObject: err }),
+      };
     }
   }
 }

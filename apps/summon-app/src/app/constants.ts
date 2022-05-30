@@ -16,6 +16,14 @@ export const limitedNetworkTest = {
     rpc: `https://${import.meta.env.VITE_RIVET_KEY}.rinkeby.rpc.rivet.cloud/`,
     explorer: 'https://rinkeby.etherscan.io',
   },
+  '0x5': {
+    chainId: '0x5',
+    networkId: 5,
+    name: 'Goerli',
+    symbol: 'ETH',
+    rpc: `https://${import.meta.env.VITE_RIVET_KEY}.goerli.rpc.rivet.cloud/`,
+    explorer: 'https://goerli.etherscan.io',
+  },
   '0x2a': {
     chainId: '0x2a',
     networkId: 42,

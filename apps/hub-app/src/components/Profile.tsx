@@ -54,7 +54,7 @@ const Profile = () => {
           image: profile.image || '',
           description: profile.description || '',
           emoji: profile.emoji || '',
-          background: profile.background || '',
+          background: profile.image || '',
         });
       }
     } catch (err) {

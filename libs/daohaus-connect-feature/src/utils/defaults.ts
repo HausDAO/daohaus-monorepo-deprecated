@@ -10,7 +10,6 @@ export const supportedNetworks = addKeychain(
 );
 
 const providerOptions: IProviderOptions = {
-  // TODO
   walletconnect: {
     package: WalletConnectProvider,
     options: {

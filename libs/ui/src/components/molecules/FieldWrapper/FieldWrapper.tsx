@@ -1,8 +1,16 @@
-import classNames from 'classnames';
 import React from 'react';
+import classNames from 'classnames';
+import { RiAsterisk } from 'react-icons/ri';
 
 import { Label } from '../../atoms/Label';
 import { Tooltip } from '../../atoms/Tooltip';
+import { Icon } from '../../atoms/Icon';
+import {
+  ErrorText,
+  HelperText,
+  SuccessText,
+  WarningText,
+} from '../../atoms/HelperTexts';
 import {
   FieldWrapperBase,
   LabelContainer,
@@ -14,12 +22,6 @@ import {
   WarningMessage,
   SuccessMessage,
 } from '../../../types/formAndField';
-import {
-  ErrorText,
-  HelperText,
-  SuccessText,
-  WarningText,
-} from '../../atoms/HelperTexts';
 
 type FieldWrapperProps = Field & {
   children: React.ReactNode;
@@ -50,7 +52,13 @@ export const FieldWrapper = ({
   return (
     <FieldWrapperBase className={classes}>
       <LabelContainer>
-        {required && <RequiredAsterisk>*</RequiredAsterisk>}
+        {required && (
+          <RequiredAsterisk>
+            <Icon label="Required">
+              <RiAsterisk />
+            </Icon>
+          </RequiredAsterisk>
+        )}
         {label && <Label id={id}>{label}</Label>}
         {info && <Tooltip content={info} />}
       </LabelContainer>

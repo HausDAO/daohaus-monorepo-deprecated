@@ -35,17 +35,18 @@ const Home = () => {
     const fetchData = async () => {
       setLoading(true);
       const rpcs = extractKeychain(networks, 'rpc');
+
+      // SDK REFACTOR: look at how to align these types
       const networkIds = Object.keys(
         extractKeychain(networks, 'networkId')
       ) as string[];
-
-      // TODO: not working in haus sdk due to type issue
       console.log('networkIds', networkIds);
 
       const haus = Haus.create(rpcs);
+      // SDK REFACTOR: how to handle the potential unefined address
       const res = await haus.query.listDaosByMember({
         memberAddress: address || '0x0',
-        networkIds: ['0x5'],
+        networkIds: ['0x5', '0x1'],
       });
 
       if (res?.data?.daos) {

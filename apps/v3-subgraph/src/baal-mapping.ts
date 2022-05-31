@@ -37,6 +37,8 @@ export function handleSetupComplete(event: SetupComplete): void {
   dao.minRetentionPercent = event.params.minRetentionPercent;
   dao.shareTokenName = event.params.name;
   dao.shareTokenSymbol = event.params.symbol;
+  dao.lootTokenName = event.params.name.concat(' LOOT');
+  dao.lootTokenSymbol = event.params.symbol.concat('-LOOT');
   dao.totalShares = event.params.totalShares;
   dao.totalLoot = event.params.totalLoot;
 

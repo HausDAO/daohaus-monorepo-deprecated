@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { H5 } from '@daohaus/ui';
+import { ParSm } from '@daohaus/ui';
 import { Link, useLocation } from 'react-router-dom';
 
 const NavContainer = styled.div`
@@ -21,6 +21,7 @@ const CrumbContainer = styled.div`
 const CrumbLink = styled(Link)`
   color: unset;
   text-decoration: unset;
+  text-transform: uppercase;
 `;
 
 const Separator = styled.p`
@@ -28,24 +29,36 @@ const Separator = styled.p`
   font-size: 2rem;
 `;
 
-const getPageName = (path: string): string => {
+const baseCrumb = { name: 'Home', path: '/' };
+
+const getCrumbs = (path: string) => {
   if (path === '/') {
-    return 'Home';
+    return [baseCrumb];
   }
 
-  return '404';
+  const pathCrumbs = path.split('/');
+  const daoCrumbs = [
+    baseCrumb,
+    { name: 'Dao', path: `/dao/${pathCrumbs[2]}/${pathCrumbs[3]}` },
+  ];
+  if (pathCrumbs.length > 4) {
+    return [
+      ...daoCrumbs,
+      {
+        name: pathCrumbs[4],
+        path: `/dao/${pathCrumbs[2]}/${pathCrumbs[3]}/${pathCrumbs[4]}`,
+      },
+    ];
+  }
+  return daoCrumbs;
 };
 
 const Breadcrumb = () => {
   const location = useLocation();
-  const [pageName, setPageName] = useState('');
-  const [crumbs, setCrumbs] = useState([
-    { name: 'Home', path: '/' },
-    { name: 'Dao', path: '/' },
-  ]);
+  const [crumbs, setCrumbs] = useState([baseCrumb]);
 
   useEffect(() => {
-    setPageName(getPageName(location.pathname));
+    setCrumbs(getCrumbs(location.pathname));
   }, [location]);
 
   return (
@@ -55,7 +68,7 @@ const Breadcrumb = () => {
           <CrumbContainer key={crumb.name}>
             {i !== 0 && <Separator>|</Separator>}
             <CrumbLink to={crumb.path}>
-              <H5>{crumb.name}</H5>
+              <ParSm>{crumb.name}</ParSm>
             </CrumbLink>
           </CrumbContainer>
         );

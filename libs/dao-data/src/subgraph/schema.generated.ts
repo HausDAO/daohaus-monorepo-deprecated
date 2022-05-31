@@ -1,14 +1,8 @@
 export type Maybe<T> = T | undefined;
 export type InputMaybe<T> = T | undefined | null;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export interface Scalars {
   ID: string;
@@ -41,9 +35,12 @@ export interface Dao {
   latestSponsoredProposalId: Scalars['BigInt'];
   lootAddress: Scalars['Bytes'];
   lootPaused: Scalars['Boolean'];
+  lootTokenName?: Maybe<Scalars['String']>;
+  lootTokenSymbol?: Maybe<Scalars['String']>;
   members?: Maybe<Array<Member>>;
   metaData?: Maybe<MetaData>;
   minRetentionPercent: Scalars['BigInt'];
+  name?: Maybe<Scalars['String']>;
   proposalCount: Scalars['BigInt'];
   proposalOffering: Scalars['BigInt'];
   proposals?: Maybe<Array<Proposal>>;
@@ -53,6 +50,7 @@ export interface Dao {
   shaman?: Maybe<Array<Shaman>>;
   shareTokenName?: Maybe<Scalars['String']>;
   shareTokenSymbol?: Maybe<Scalars['String']>;
+  sharesAddress: Scalars['Bytes'];
   sharesPaused: Scalars['Boolean'];
   sponsorThreshold: Scalars['BigInt'];
   totalLoot: Scalars['BigInt'];
@@ -60,6 +58,7 @@ export interface Dao {
   transactionHashSummon: Scalars['Bytes'];
   votingPeriod: Scalars['BigInt'];
 }
+
 
 export interface DaoMembersArgs {
   first?: InputMaybe<Scalars['Int']>;
@@ -69,6 +68,7 @@ export interface DaoMembersArgs {
   where?: InputMaybe<Member_Filter>;
 }
 
+
 export interface DaoProposalsArgs {
   first?: InputMaybe<Scalars['Int']>;
   orderBy?: InputMaybe<Proposal_OrderBy>;
@@ -77,6 +77,7 @@ export interface DaoProposalsArgs {
   where?: InputMaybe<Proposal_Filter>;
 }
 
+
 export interface DaoRageQuitsArgs {
   first?: InputMaybe<Scalars['Int']>;
   orderBy?: InputMaybe<RageQuit_OrderBy>;
@@ -84,6 +85,7 @@ export interface DaoRageQuitsArgs {
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<RageQuit_Filter>;
 }
+
 
 export interface DaoShamanArgs {
   first?: InputMaybe<Scalars['Int']>;
@@ -158,6 +160,46 @@ export interface Dao_Filter {
   lootPaused_in?: InputMaybe<Array<Scalars['Boolean']>>;
   lootPaused_not?: InputMaybe<Scalars['Boolean']>;
   lootPaused_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  lootTokenName?: InputMaybe<Scalars['String']>;
+  lootTokenName_contains?: InputMaybe<Scalars['String']>;
+  lootTokenName_contains_nocase?: InputMaybe<Scalars['String']>;
+  lootTokenName_ends_with?: InputMaybe<Scalars['String']>;
+  lootTokenName_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  lootTokenName_gt?: InputMaybe<Scalars['String']>;
+  lootTokenName_gte?: InputMaybe<Scalars['String']>;
+  lootTokenName_in?: InputMaybe<Array<Scalars['String']>>;
+  lootTokenName_lt?: InputMaybe<Scalars['String']>;
+  lootTokenName_lte?: InputMaybe<Scalars['String']>;
+  lootTokenName_not?: InputMaybe<Scalars['String']>;
+  lootTokenName_not_contains?: InputMaybe<Scalars['String']>;
+  lootTokenName_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  lootTokenName_not_ends_with?: InputMaybe<Scalars['String']>;
+  lootTokenName_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  lootTokenName_not_in?: InputMaybe<Array<Scalars['String']>>;
+  lootTokenName_not_starts_with?: InputMaybe<Scalars['String']>;
+  lootTokenName_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  lootTokenName_starts_with?: InputMaybe<Scalars['String']>;
+  lootTokenName_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  lootTokenSymbol?: InputMaybe<Scalars['String']>;
+  lootTokenSymbol_contains?: InputMaybe<Scalars['String']>;
+  lootTokenSymbol_contains_nocase?: InputMaybe<Scalars['String']>;
+  lootTokenSymbol_ends_with?: InputMaybe<Scalars['String']>;
+  lootTokenSymbol_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  lootTokenSymbol_gt?: InputMaybe<Scalars['String']>;
+  lootTokenSymbol_gte?: InputMaybe<Scalars['String']>;
+  lootTokenSymbol_in?: InputMaybe<Array<Scalars['String']>>;
+  lootTokenSymbol_lt?: InputMaybe<Scalars['String']>;
+  lootTokenSymbol_lte?: InputMaybe<Scalars['String']>;
+  lootTokenSymbol_not?: InputMaybe<Scalars['String']>;
+  lootTokenSymbol_not_contains?: InputMaybe<Scalars['String']>;
+  lootTokenSymbol_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  lootTokenSymbol_not_ends_with?: InputMaybe<Scalars['String']>;
+  lootTokenSymbol_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  lootTokenSymbol_not_in?: InputMaybe<Array<Scalars['String']>>;
+  lootTokenSymbol_not_starts_with?: InputMaybe<Scalars['String']>;
+  lootTokenSymbol_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  lootTokenSymbol_starts_with?: InputMaybe<Scalars['String']>;
+  lootTokenSymbol_starts_with_nocase?: InputMaybe<Scalars['String']>;
   minRetentionPercent?: InputMaybe<Scalars['BigInt']>;
   minRetentionPercent_gt?: InputMaybe<Scalars['BigInt']>;
   minRetentionPercent_gte?: InputMaybe<Scalars['BigInt']>;
@@ -166,6 +208,26 @@ export interface Dao_Filter {
   minRetentionPercent_lte?: InputMaybe<Scalars['BigInt']>;
   minRetentionPercent_not?: InputMaybe<Scalars['BigInt']>;
   minRetentionPercent_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  name?: InputMaybe<Scalars['String']>;
+  name_contains?: InputMaybe<Scalars['String']>;
+  name_contains_nocase?: InputMaybe<Scalars['String']>;
+  name_ends_with?: InputMaybe<Scalars['String']>;
+  name_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  name_gt?: InputMaybe<Scalars['String']>;
+  name_gte?: InputMaybe<Scalars['String']>;
+  name_in?: InputMaybe<Array<Scalars['String']>>;
+  name_lt?: InputMaybe<Scalars['String']>;
+  name_lte?: InputMaybe<Scalars['String']>;
+  name_not?: InputMaybe<Scalars['String']>;
+  name_not_contains?: InputMaybe<Scalars['String']>;
+  name_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  name_not_ends_with?: InputMaybe<Scalars['String']>;
+  name_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  name_not_in?: InputMaybe<Array<Scalars['String']>>;
+  name_not_starts_with?: InputMaybe<Scalars['String']>;
+  name_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  name_starts_with?: InputMaybe<Scalars['String']>;
+  name_starts_with_nocase?: InputMaybe<Scalars['String']>;
   proposalCount?: InputMaybe<Scalars['BigInt']>;
   proposalCount_gt?: InputMaybe<Scalars['BigInt']>;
   proposalCount_gte?: InputMaybe<Scalars['BigInt']>;
@@ -236,6 +298,12 @@ export interface Dao_Filter {
   shareTokenSymbol_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
   shareTokenSymbol_starts_with?: InputMaybe<Scalars['String']>;
   shareTokenSymbol_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  sharesAddress?: InputMaybe<Scalars['Bytes']>;
+  sharesAddress_contains?: InputMaybe<Scalars['Bytes']>;
+  sharesAddress_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  sharesAddress_not?: InputMaybe<Scalars['Bytes']>;
+  sharesAddress_not_contains?: InputMaybe<Scalars['Bytes']>;
+  sharesAddress_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   sharesPaused?: InputMaybe<Scalars['Boolean']>;
   sharesPaused_in?: InputMaybe<Array<Scalars['Boolean']>>;
   sharesPaused_not?: InputMaybe<Scalars['Boolean']>;
@@ -289,9 +357,12 @@ export type Dao_OrderBy =
   | 'latestSponsoredProposalId'
   | 'lootAddress'
   | 'lootPaused'
+  | 'lootTokenName'
+  | 'lootTokenSymbol'
   | 'members'
   | 'metaData'
   | 'minRetentionPercent'
+  | 'name'
   | 'proposalCount'
   | 'proposalOffering'
   | 'proposals'
@@ -301,6 +372,7 @@ export type Dao_OrderBy =
   | 'shaman'
   | 'shareTokenName'
   | 'shareTokenSymbol'
+  | 'sharesAddress'
   | 'sharesPaused'
   | 'sponsorThreshold'
   | 'totalLoot'
@@ -368,7 +440,10 @@ export interface EventTransaction_Filter {
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
 }
 
-export type EventTransaction_OrderBy = 'createdAt' | 'dao' | 'id';
+export type EventTransaction_OrderBy =
+  | 'createdAt'
+  | 'dao'
+  | 'id';
 
 export interface Member {
   __typename?: 'Member';
@@ -382,6 +457,7 @@ export interface Member {
   shares: Scalars['BigInt'];
   votes?: Maybe<Array<Vote>>;
 }
+
 
 export interface MemberVotesArgs {
   first?: InputMaybe<Scalars['Int']>;
@@ -609,11 +685,14 @@ export type MetaData_OrderBy =
   | 'rawContent';
 
 /** Defines the order direction, either ascending or descending */
-export type OrderDirection = 'asc' | 'desc';
+export type OrderDirection =
+  | 'asc'
+  | 'desc';
 
 export interface Proposal {
   __typename?: 'Proposal';
   actionFailed: Scalars['Boolean'];
+  actionGasEstimate: Scalars['BigInt'];
   cancelled: Scalars['Boolean'];
   contentURI?: Maybe<Scalars['String']>;
   contentURIType?: Maybe<Scalars['String']>;
@@ -653,6 +732,7 @@ export interface Proposal {
   yesVotes: Scalars['BigInt'];
 }
 
+
 export interface ProposalVotesArgs {
   first?: InputMaybe<Scalars['Int']>;
   orderBy?: InputMaybe<Vote_OrderBy>;
@@ -668,6 +748,14 @@ export interface Proposal_Filter {
   actionFailed_in?: InputMaybe<Array<Scalars['Boolean']>>;
   actionFailed_not?: InputMaybe<Scalars['Boolean']>;
   actionFailed_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  actionGasEstimate?: InputMaybe<Scalars['BigInt']>;
+  actionGasEstimate_gt?: InputMaybe<Scalars['BigInt']>;
+  actionGasEstimate_gte?: InputMaybe<Scalars['BigInt']>;
+  actionGasEstimate_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  actionGasEstimate_lt?: InputMaybe<Scalars['BigInt']>;
+  actionGasEstimate_lte?: InputMaybe<Scalars['BigInt']>;
+  actionGasEstimate_not?: InputMaybe<Scalars['BigInt']>;
+  actionGasEstimate_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   cancelled?: InputMaybe<Scalars['Boolean']>;
   cancelled_in?: InputMaybe<Array<Scalars['Boolean']>>;
   cancelled_not?: InputMaybe<Scalars['Boolean']>;
@@ -1036,6 +1124,7 @@ export interface Proposal_Filter {
 
 export type Proposal_OrderBy =
   | 'actionFailed'
+  | 'actionGasEstimate'
   | 'cancelled'
   | 'contentURI'
   | 'contentURIType'
@@ -1092,19 +1181,24 @@ export interface Query {
   rageQuits: Array<RageQuit>;
   shaman?: Maybe<Shaman>;
   shamans: Array<Shaman>;
+  tokenLookup?: Maybe<TokenLookup>;
+  tokenLookups: Array<TokenLookup>;
   vote?: Maybe<Vote>;
   votes: Array<Vote>;
 }
 
+
 export interface Query_MetaArgs {
   block?: InputMaybe<Block_Height>;
 }
+
 
 export interface QueryDaoArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
+
 
 export interface QueryDaosArgs {
   block?: InputMaybe<Block_Height>;
@@ -1116,11 +1210,13 @@ export interface QueryDaosArgs {
   where?: InputMaybe<Dao_Filter>;
 }
 
+
 export interface QueryEventTransactionArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
+
 
 export interface QueryEventTransactionsArgs {
   block?: InputMaybe<Block_Height>;
@@ -1132,11 +1228,13 @@ export interface QueryEventTransactionsArgs {
   where?: InputMaybe<EventTransaction_Filter>;
 }
 
+
 export interface QueryMemberArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
+
 
 export interface QueryMembersArgs {
   block?: InputMaybe<Block_Height>;
@@ -1148,11 +1246,13 @@ export interface QueryMembersArgs {
   where?: InputMaybe<Member_Filter>;
 }
 
+
 export interface QueryMetaDataArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
+
 
 export interface QueryMetaDatasArgs {
   block?: InputMaybe<Block_Height>;
@@ -1164,11 +1264,13 @@ export interface QueryMetaDatasArgs {
   where?: InputMaybe<MetaData_Filter>;
 }
 
+
 export interface QueryProposalArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
+
 
 export interface QueryProposalsArgs {
   block?: InputMaybe<Block_Height>;
@@ -1180,11 +1282,13 @@ export interface QueryProposalsArgs {
   where?: InputMaybe<Proposal_Filter>;
 }
 
+
 export interface QueryRageQuitArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
+
 
 export interface QueryRageQuitsArgs {
   block?: InputMaybe<Block_Height>;
@@ -1196,11 +1300,13 @@ export interface QueryRageQuitsArgs {
   where?: InputMaybe<RageQuit_Filter>;
 }
 
+
 export interface QueryShamanArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
+
 
 export interface QueryShamansArgs {
   block?: InputMaybe<Block_Height>;
@@ -1212,11 +1318,31 @@ export interface QueryShamansArgs {
   where?: InputMaybe<Shaman_Filter>;
 }
 
+
+export interface QueryTokenLookupArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface QueryTokenLookupsArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<TokenLookup_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<TokenLookup_Filter>;
+}
+
+
 export interface QueryVoteArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
+
 
 export interface QueryVotesArgs {
   block?: InputMaybe<Block_Height>;
@@ -1452,19 +1578,24 @@ export interface Subscription {
   rageQuits: Array<RageQuit>;
   shaman?: Maybe<Shaman>;
   shamans: Array<Shaman>;
+  tokenLookup?: Maybe<TokenLookup>;
+  tokenLookups: Array<TokenLookup>;
   vote?: Maybe<Vote>;
   votes: Array<Vote>;
 }
 
+
 export interface Subscription_MetaArgs {
   block?: InputMaybe<Block_Height>;
 }
+
 
 export interface SubscriptionDaoArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
+
 
 export interface SubscriptionDaosArgs {
   block?: InputMaybe<Block_Height>;
@@ -1476,11 +1607,13 @@ export interface SubscriptionDaosArgs {
   where?: InputMaybe<Dao_Filter>;
 }
 
+
 export interface SubscriptionEventTransactionArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
+
 
 export interface SubscriptionEventTransactionsArgs {
   block?: InputMaybe<Block_Height>;
@@ -1492,11 +1625,13 @@ export interface SubscriptionEventTransactionsArgs {
   where?: InputMaybe<EventTransaction_Filter>;
 }
 
+
 export interface SubscriptionMemberArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
+
 
 export interface SubscriptionMembersArgs {
   block?: InputMaybe<Block_Height>;
@@ -1508,11 +1643,13 @@ export interface SubscriptionMembersArgs {
   where?: InputMaybe<Member_Filter>;
 }
 
+
 export interface SubscriptionMetaDataArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
+
 
 export interface SubscriptionMetaDatasArgs {
   block?: InputMaybe<Block_Height>;
@@ -1524,11 +1661,13 @@ export interface SubscriptionMetaDatasArgs {
   where?: InputMaybe<MetaData_Filter>;
 }
 
+
 export interface SubscriptionProposalArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
+
 
 export interface SubscriptionProposalsArgs {
   block?: InputMaybe<Block_Height>;
@@ -1540,11 +1679,13 @@ export interface SubscriptionProposalsArgs {
   where?: InputMaybe<Proposal_Filter>;
 }
 
+
 export interface SubscriptionRageQuitArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
+
 
 export interface SubscriptionRageQuitsArgs {
   block?: InputMaybe<Block_Height>;
@@ -1556,11 +1697,13 @@ export interface SubscriptionRageQuitsArgs {
   where?: InputMaybe<RageQuit_Filter>;
 }
 
+
 export interface SubscriptionShamanArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
+
 
 export interface SubscriptionShamansArgs {
   block?: InputMaybe<Block_Height>;
@@ -1572,11 +1715,31 @@ export interface SubscriptionShamansArgs {
   where?: InputMaybe<Shaman_Filter>;
 }
 
+
+export interface SubscriptionTokenLookupArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface SubscriptionTokenLookupsArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<TokenLookup_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<TokenLookup_Filter>;
+}
+
+
 export interface SubscriptionVoteArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
 }
+
 
 export interface SubscriptionVotesArgs {
   block?: InputMaybe<Block_Height>;
@@ -1587,6 +1750,35 @@ export interface SubscriptionVotesArgs {
   subgraphError?: _SubgraphErrorPolicy_;
   where?: InputMaybe<Vote_Filter>;
 }
+
+export interface TokenLookup {
+  __typename?: 'TokenLookup';
+  dao: Scalars['Bytes'];
+  id: Scalars['ID'];
+}
+
+export interface TokenLookup_Filter {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  dao?: InputMaybe<Scalars['Bytes']>;
+  dao_contains?: InputMaybe<Scalars['Bytes']>;
+  dao_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  dao_not?: InputMaybe<Scalars['Bytes']>;
+  dao_not_contains?: InputMaybe<Scalars['Bytes']>;
+  dao_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  id?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+}
+
+export type TokenLookup_OrderBy =
+  | 'dao'
+  | 'id';
 
 export interface Vote {
   __typename?: 'Vote';

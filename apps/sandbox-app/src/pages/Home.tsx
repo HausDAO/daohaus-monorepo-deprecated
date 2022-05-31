@@ -65,20 +65,18 @@ const Home = () => {
     <>
       {loading && <Spinner />}
       {daos.length > 0 && <H3>Your daos</H3>}
-      <DaoListContainer>
-        {daos.map((dao) => {
-          return (
-            <PlainLink key={dao.dao} to={`/dao/${dao.networkId}/${dao.dao}`}>
-              <DaoCard>
-                <H6>{dao.dao}</H6>
-                <ParSm>{dao.name || 'No name dao'}</ParSm>
-                <ParSm>NetworkId: {dao.networkId}</ParSm>
-                <ParSm>Voting Power: {dao.votingPower}%</ParSm>
-              </DaoCard>
-            </PlainLink>
-          );
-        })}
-      </DaoListContainer>
+      {daos.map((dao) => {
+        return (
+          <PlainLink key={dao.dao} to={`/dao/${dao.networkId}/${dao.dao}`}>
+            <DaoCard>
+              <H6>{dao.dao}</H6>
+              <ParSm>{dao.name || 'No name dao'}</ParSm>
+              <ParSm>NetworkId: {dao.networkId}</ParSm>
+              <ParSm>Voting Power: {dao.votingPower}%</ParSm>
+            </DaoCard>
+          </PlainLink>
+        );
+      })}
     </>
   );
 };

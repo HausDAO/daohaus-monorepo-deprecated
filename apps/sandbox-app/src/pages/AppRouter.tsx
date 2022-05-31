@@ -1,8 +1,8 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+
 import DaoPage from './DaoPage';
 import Home from './Home';
-import Member from './Member';
 import Members from './Members';
 import Proposal from './Proposal';
 import Proposals from './Proposals';
@@ -20,10 +20,6 @@ const AppRouter = () => {
         element={<Proposal />}
       />
       <Route path="/dao/:daochain/:daoid/members" element={<Members />} />
-      <Route
-        path="/dao/:daochain/:daoid/members/:memberid"
-        element={<Member />}
-      />
       <Route path="/dao/:daochain/:daoid/vault" element={<Vault />} />
     </Routes>
   );

@@ -79,6 +79,19 @@ const DaoPage = () => {
       {dao.id && (
         <>
           <H3>{dao.id}</H3>
+          <NavButton secondary sm>
+            <PlainLink to={`/dao/${daochain}/${daoid}/proposals`}>
+              Proposals
+            </PlainLink>
+          </NavButton>
+          <NavButton secondary sm>
+            <PlainLink to={`/dao/${daochain}/${daoid}/members`}>
+              Members
+            </PlainLink>
+          </NavButton>
+          <NavButton secondary sm>
+            <PlainLink to={`/dao/${daochain}/${daoid}/vault`}>Vault</PlainLink>
+          </NavButton>
           <DaoDataLayout>
             <DaoDataContainer>
               <H5>Overview</H5>
@@ -163,20 +176,6 @@ const DaoPage = () => {
               </DaoField>
             </DaoDataContainer>
           </DaoDataLayout>
-
-          <NavButton secondary>
-            <PlainLink to={`/dao/${daochain}/${daoid}/proposals`}>
-              Proposals
-            </PlainLink>
-          </NavButton>
-          <NavButton secondary>
-            <PlainLink to={`/dao/${daochain}/${daoid}/members`}>
-              Members
-            </PlainLink>
-          </NavButton>
-          <NavButton secondary>
-            <PlainLink to={`/dao/${daochain}/${daoid}/vault`}>Vault</PlainLink>
-          </NavButton>
         </>
       )}
     </>

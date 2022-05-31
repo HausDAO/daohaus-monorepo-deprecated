@@ -1,0 +1,65 @@
+{
+  "root": "apps/sandbox-app",
+  "sourceRoot": "apps/sandbox-app/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nxext/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/apps/sandbox-app",
+        "baseHref": "/",
+        "configFile": "@nxext/vite/plugins/vite",
+        "frameworkConfigFile": "@nxext/react/plugins/vite"
+      },
+      "configurations": {
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/sandbox-app/src/environments/environment.ts",
+              "with": "apps/sandbox-app/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nxext/vite:dev",
+      "options": {
+        "outputPath": "dist/apps/sandbox-app",
+        "baseHref": "/",
+        "configFile": "@nxext/vite/plugins/vite",
+        "frameworkConfigFile": "@nxext/react/plugins/vite"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "sandbox-app:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/sandbox-app/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/sandbox-app"],
+      "options": {
+        "jestConfig": "apps/sandbox-app/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

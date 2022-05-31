@@ -2881,6 +2881,13 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
+"@nrwl/cli@13.10.4":
+  version "13.10.4"
+  resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-13.10.4.tgz#62fca7420e1a670fced0f8cea99922c85bdcf627"
+  integrity sha512-/pkd4VC2yiBBLCkHMUOaHisTd63f7z20C+zMzad3w/D757WY+VRJwkMY/m+C+8J8EaZ/Q9Re0pchb2dAZun+9Q==
+  dependencies:
+    nx "13.10.4"
+
 "@nrwl/cli@13.10.5":
   version "13.10.5"
   resolved "https://registry.yarnpkg.com/@nrwl/cli/-/cli-13.10.5.tgz#b99d2626f8eeff8f4a981a218f80f4bd9582a22a"
@@ -3256,6 +3263,13 @@
     semver "7.3.4"
     ts-loader "^9.2.6"
     tsconfig-paths-webpack-plugin "3.5.2"
+
+"@nrwl/tao@13.10.4":
+  version "13.10.4"
+  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-13.10.4.tgz#2311d9df01007fe606eb03d6e47bb7debcffb27b"
+  integrity sha512-dRqYI7Mzj4Zhy23xXBIIu6yauPfio/xiPqh1St/Z6gEkV8MMlp/iMOgShrQsM/KNktf5ccuk8oFOWkhcn04K2Q==
+  dependencies:
+    nx "13.10.4"
 
 "@nrwl/tao@13.10.5":
   version "13.10.5"
@@ -15596,6 +15610,43 @@ nwsapi@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/nwsapi/-/nwsapi-2.2.0.tgz#204879a9e3d068ff2a55139c2c772780681a38b7"
   integrity sha512-h2AatdwYH+JHiZpv7pt/gSX1XoRGb7L/qSIeuqA6GwYoF9w1vP1cw42TO0aI2pNyshRK5893hNSl+1//vHK7hQ==
+
+nx@13.10.4, nx@^13.10.4:
+  version "13.10.4"
+  resolved "https://registry.yarnpkg.com/nx/-/nx-13.10.4.tgz#d7eaea30f2ff4443de2810460027a6fc6c6233d8"
+  integrity sha512-p38LUAcycSSEwMaW/FKYDqBTuTDvE1hXZ6VNMKD1PvuHS6Tz2J0GB8ayIucUc2jCVRkGnx3N/XB0B/vEFW+jMA==
+  dependencies:
+    "@nrwl/cli" "13.10.4"
+    "@nrwl/tao" "13.10.4"
+    "@parcel/watcher" "2.0.4"
+    "@swc-node/register" "^1.4.2"
+    "@swc/core" "^1.2.152"
+    chalk "4.1.0"
+    chokidar "^3.5.1"
+    cli-cursor "3.1.0"
+    cli-spinners "2.6.1"
+    dotenv "~10.0.0"
+    enquirer "~2.3.6"
+    fast-glob "3.2.7"
+    figures "3.2.0"
+    flat "^5.0.2"
+    fs-extra "^9.1.0"
+    glob "7.1.4"
+    ignore "^5.0.4"
+    jsonc-parser "3.0.0"
+    minimatch "3.0.4"
+    npm-run-path "^4.0.1"
+    open "^8.4.0"
+    rxjs "^6.5.4"
+    rxjs-for-await "0.0.2"
+    semver "7.3.4"
+    tar-stream "~2.2.0"
+    tmp "~0.2.1"
+    tsconfig-paths "^3.9.0"
+    tslib "^2.3.0"
+    v8-compile-cache "2.3.0"
+    yargs "^17.4.0"
+    yargs-parser "21.0.1"
 
 nx@13.10.5:
   version "13.10.5"

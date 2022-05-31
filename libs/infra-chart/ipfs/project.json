@@ -1,0 +1,14 @@
+{
+  "root": "libs/infra-chart",
+  "sourceRoot": "libs/infra-chart",
+  "projectType": "library",
+  "targets": {
+    "dryRun": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "helm install --dry-run test ./libs/infra-chart"
+      }
+    }
+  },
+  "tags": []
+}

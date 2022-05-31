@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: ceramic-node
+  name: ceramic-ipfs
 spec:
   type: {{ .Values.service.type }}
   {{- if .Values.service.sessionAffinity }}
@@ -24,7 +24,7 @@ spec:
   {{- end }}
   type: ClusterIP
   selector:
-    name: ceramic-node
+    name: ceramic-ipfs
   ports:
     - name: http
       port: {{ .Values.service.ports.http }}

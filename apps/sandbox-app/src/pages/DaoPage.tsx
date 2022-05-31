@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { DataMd, H3, H5, ParSm, Spinner } from '@daohaus/ui';
+import { Button, DataMd, H3, H5, ParSm, Spinner } from '@daohaus/ui';
 import {
   extractKeychain,
   formatDateTimeFromSeconds,
@@ -19,8 +19,8 @@ const DaoDataLayout = styled.div`
 `;
 
 const DaoDataContainer = styled.div`
-  margin: 0 1rem 1rem 0;
-  margin-right: 4rem;
+  margin: 2rem 4rem 1rem 0;
+  width: 40rem;
 `;
 
 const DaoField = styled.div`
@@ -30,6 +30,15 @@ const DaoField = styled.div`
   flex-wrap: wrap;
   width: 100%;
   margin: 1rem 0 1rem 0;
+`;
+
+const PlainLink = styled(Link)`
+  color: unset;
+  text-decoration: unset;
+`;
+
+const NavButton = styled(Button)`
+  margin-right: 2em;
 `;
 
 const DaoPage = () => {
@@ -100,10 +109,7 @@ const DaoPage = () => {
             </DaoDataContainer>
             <DaoDataContainer>
               <H5>Governance Settings</H5>
-              <DaoField>
-                <ParSm>Safe contract</ParSm>
-                <DataMd>{dao.safeAddress}</DataMd>
-              </DaoField>
+
               <DaoField>
                 <ParSm>Voting period length</ParSm>
                 <DataMd>{dao.votingPeriod}</DataMd>
@@ -132,6 +138,10 @@ const DaoPage = () => {
             <DaoDataContainer>
               <H5>Contracts</H5>
               <DaoField>
+                <ParSm>Safe contract</ParSm>
+                <DataMd>{dao.safeAddress}</DataMd>
+              </DaoField>
+              <DaoField>
                 <ParSm>Shares contract</ParSm>
                 <DataMd>{dao.sharesAddress}</DataMd>
                 <DataMd>
@@ -153,6 +163,20 @@ const DaoPage = () => {
               </DaoField>
             </DaoDataContainer>
           </DaoDataLayout>
+
+          <NavButton secondary>
+            <PlainLink to={`/dao/${daochain}/${daoid}/proposals`}>
+              Proposals
+            </PlainLink>
+          </NavButton>
+          <NavButton secondary>
+            <PlainLink to={`/dao/${daochain}/${daoid}/members`}>
+              Members
+            </PlainLink>
+          </NavButton>
+          <NavButton secondary>
+            <PlainLink to={`/dao/${daochain}/${daoid}/vault`}>Vault</PlainLink>
+          </NavButton>
         </>
       )}
     </>

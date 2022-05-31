@@ -1,30 +1,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: 'ceramic-node-configmap'
+  name: { { printf "%s-node-configmap" (include "common.names.fullname" .) } }
+  namespace: { { .Release.Namespace | quote } }
 data:
-  daemon.config.json: |
+  daemon.config.json:
     {
-      "anchor": {
-        "ethereum-rpc-url": "https://eth-mainnet.alchemyapi.io/v2/6idtzGwDtRbzil3s6QbYHr2Q_WBfn100"
+      {
+        include "common.tplvalues.render" ( dict "value" .Values.daemonConfigJson "context" $ ) | b64enc | quote,
       },
-      "http-api": {
-        "cors-allowed-origins": ["viaheadline.xyz", "www.viaheadline.xyz", "app.daohaus.club"]
-      },
-      "ipfs": {
-        "mode": "remote",
-        "host": "http://ceramic-ipfs:5011"
-      },
-      "logger": {
-        "log-level": 2,
-        "log-to-files": true
-      },
-      "network": {
-        "name": "elp"
-      },
-      "node": {},
-      "state-store": {
-        "mode": "fs",
-        "local-directory": "/root/.ceramic/statestore"
-      }
     }

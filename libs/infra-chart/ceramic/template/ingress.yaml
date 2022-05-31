@@ -1,66 +1,51 @@
-apiVersion: networking.k8s.io/v1
+{{- if .Values.ingress.enabled }}
+apiVersion: {{ include "common.capabilities.ingress.apiVersion" . }}
 kind: Ingress
 metadata:
   name: ceramic-api
+  labels: {{- include "common.labels.standard" . | nindent 4 }}
+  {{- if .Values.commonLabels }}
+  {{- include "common.tplvalues.render" (dict "value" .Values.commonLabels "context" $) | nindent 4 }}
+  {{- end }}
   annotations:
-    kubernetes.io/ingress.class: nginx
-    kubernetes.io/tls-acme: 'true'
-    cert-manager.io/issuer: 'letsencrypt-prod'
+  {{- if .Values.commonAnnotations }}
+  {{- include "common.tplvalues.render" ( dict "value" .Values.commonAnnotations "context" $ ) | nindent 4 }}
+  {{- end }}
+{{- if .Values.ingress.annotations }}
+  {{- include "common.tplvalues.render" (dict "value" .Values.ingress.annotations "context" $) | nindent 4 }}
+  {{- end }}
 spec:
-  tls:
-    - hosts:
-        - ceramic.viaheadline.xyz
-      secretName: ceramic-node-two-tls
+  {{- if and .Values.ingress.ingressClassName (eq "true" (include "common.ingress.supportsIngressClassname" .)) }}
+  ingressClassName: {{ .Values.ingress.ingressClassName | quote }}
+  {{- end }}
   rules:
-    - host: ceramic.viaheadline.xyz
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: ceramic-node
-                port:
-                  number: 7007
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: ceramic-ipfs
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    kubernetes.io/tls-acme: 'true'
-    cert-manager.io/issuer: 'letsencrypt-staging'
-spec:
+  {{- if .Values.ingress.hostname }}
+   - host: {{ include "common.tplvalues.render" ( dict "value" .Values.ingress.hostname "context" $ ) }}
+     http:
+       paths:
+         {{- if .Values.ingress.extraPaths }}
+         {{- toYaml .Values.ingress.extraPaths | nindent 10 }}
+         {{- end }}
+         - path: {{ .Values.ingress.path }}
+           {{- if eq "true" (include "common.ingress.supportsPathType" .) }}
+           pathType: {{ .Values.ingress.pathType }}
+           {{- end }}
+           backend: {{- include "common.ingress.backend" (dict "serviceName" (include "common.names.fullname" .) "servicePort" "http" "context" $)  | nindent 14 }}
+   {{- end }}
+   {{- if .Values.ingress.extraRules }}
+   {{- include "common.tplvalues.render" (dict "value" .Values.ingress.extraRules "context" $) | nindent 4 }}
+   {{- end }}
+  {{- if or (and .Values.ingress.tls (or (include "common.ingress.certManagerRequest" ( dict "annotations" .Values.ingress.annotations )) .Values.ingress.selfSigned)) .Values.ingress.extraTls }}
   tls:
+  {{- if and .Values.ingress.tls (or (include "common.ingress.certManagerRequest" ( dict "annotations" .Values.ingress.annotations )) .Values.ingress.selfSigned) }}
     - hosts:
-        - ceramic-ipfs.viaheadline.xyz
-      secretName: ceramic-ipfs-node-tls
-  rules:
-    - host: ceramic-ipfs.viaheadline.xyz
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: ceramic-ipfs
-                port:
-                  number: 4012
-  #apiVersion: cert-manager.io/v1
-  #kind: Issuer
-  #metadata:
-  #  name: letsencrypt-prod
-  #spec:
-  #  acme:
-  #    # The ACME server URL
-  #    server: https://acme-v02.api.letsencrypt.org/directory
-  #    # Email address used for ACME registration
-  #    # Name of a secret used to store the ACME account private key
-  #    privateKeySecretRef:
-  #      name: letsencrypt-prod
-  #    # Enable the HTTP-01 challenge provider
-  #    solvers:
-  #      - http01:
-  #          ingress:
-  #            class: nginx
+        - {{ .Values.ingress.hostname | quote }}
+      secretName: {{ printf "%s-tls" .Values.ingress.hostname }}
+    {{- end }}
+    {{- if .Values.ingress.extraTls }}
+    {{- include "common.tplvalues.render" (dict "value" .Values.ingress.extraTls "context" $) | nindent 4 }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+
+

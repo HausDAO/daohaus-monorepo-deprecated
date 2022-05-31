@@ -2,21 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
-import {
-  DataMd,
-  DataXl,
-  H3,
-  H5,
-  ParLg,
-  ParMd,
-  ParSm,
-  Spinner,
-} from '@daohaus/ui';
+import { DataMd, H3, H5, ParSm, Spinner } from '@daohaus/ui';
 import {
   extractKeychain,
   formatDateTimeFromSeconds,
   Keychain,
-  truncateAddress,
 } from '@daohaus/common-utilities';
 import { Dao, Haus } from '@daohaus/dao-data';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
@@ -30,7 +20,7 @@ const DaoDataLayout = styled.div`
 
 const DaoDataContainer = styled.div`
   margin: 0 1rem 1rem 0;
-  min-width: 45%;
+  margin-right: 4rem;
 `;
 
 const DaoField = styled.div`
@@ -62,7 +52,6 @@ const DaoPage = () => {
         dao: daoid || '0x0',
       });
       if (res?.data?.dao) {
-        console.log('res.data.dao', res.data.dao);
         // SDK REFACTOR: these types on subqueries are a nightmare whe mataData was in there
         setDao(res.data.dao);
       }
@@ -80,32 +69,35 @@ const DaoPage = () => {
       {loading && <Spinner />}
       {dao.id && (
         <>
-          <H3>{truncateAddress(dao.id)}</H3>
+          <H3>{dao.id}</H3>
           <DaoDataLayout>
             <DaoDataContainer>
               <H5>Overview</H5>
               <DaoField>
-                <ParLg>Proposals</ParLg>
-                <DataXl>{dao.proposalCount}</DataXl>
+                <ParSm>Name</ParSm>
+                <DataMd>{dao.name || 'no name'}</DataMd>
               </DaoField>
               <DaoField>
-                <ParLg>Members</ParLg>
-                <DataXl>{dao.activeMemberCount}</DataXl>
+                <ParSm>Proposals</ParSm>
+                <DataMd>{dao.proposalCount}</DataMd>
               </DaoField>
               <DaoField>
-                <ParLg>Total shares supply</ParLg>
-                <DataXl>{dao.totalShares}</DataXl>
+                <ParSm>Members</ParSm>
+                <DataMd>{dao.activeMemberCount}</DataMd>
               </DaoField>
               <DaoField>
-                <ParLg>Total loot supply</ParLg>
-                <DataXl>{dao.totalLoot}</DataXl>
+                <ParSm>Total shares supply</ParSm>
+                <DataMd>{dao.totalShares}</DataMd>
               </DaoField>
               <DaoField>
-                <ParLg>Created on</ParLg>
-                <DataXl>{formatDateTimeFromSeconds(dao.createdAt)}</DataXl>
+                <ParSm>Total loot supply</ParSm>
+                <DataMd>{dao.totalLoot}</DataMd>
+              </DaoField>
+              <DaoField>
+                <ParSm>Created on</ParSm>
+                <DataMd>{formatDateTimeFromSeconds(dao.createdAt)}</DataMd>
               </DaoField>
             </DaoDataContainer>
-
             <DaoDataContainer>
               <H5>Governance Settings</H5>
               <DaoField>

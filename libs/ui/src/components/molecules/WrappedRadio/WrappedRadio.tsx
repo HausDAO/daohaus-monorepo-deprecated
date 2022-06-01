@@ -21,7 +21,9 @@ type RadioGroupWrapperProps = PrimitiveWrapper & {
 export const WrappedRadio = (props: RadioGroupWrapperProps) => {
   const { id, helperText, info, label, error, success, warning, radioGroup } =
     props;
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
+  // Watches the values of the form element
+  console.log(watch());
   return (
     <FieldWrapper
       id={id}
@@ -33,12 +35,17 @@ export const WrappedRadio = (props: RadioGroupWrapperProps) => {
       warning={warning}
     >
       <Controller
-        key={radioGroup.id}
         name={radioGroup.name || id}
         control={control}
         defaultValue={radioGroup.defaultValue}
         render={({ field }) => {
-          return <Radio {...field} {...radioGroup} ref={field.ref} />;
+          return (
+            <Radio
+              onValueChange={field.onChange}
+              {...radioGroup}
+              ref={field.ref}
+            />
+          );
         }}
       />
     </FieldWrapper>

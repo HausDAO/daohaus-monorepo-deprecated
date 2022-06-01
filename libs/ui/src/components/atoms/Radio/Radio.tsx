@@ -38,7 +38,7 @@ export const Radio = React.forwardRef(
             disabled,
           });
           return (
-            <Container>
+            <Container key={radio.id}>
               <RadioItem {...radio}>
                 <RadioIndicator className={classes} ref={ref} />
               </RadioItem>

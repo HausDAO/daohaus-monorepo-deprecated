@@ -29,15 +29,12 @@ export const RadioIndicator = styled(RadioGroupPrimitive.Indicator)`
     background-color: ${({ theme }: { theme: Theme }) =>
       theme.radio.indicator.bg};
   }
-  :disabled {
-    content: '';
-    display: block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
 
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.radio.indicator.disabledBg};
+  &[data-disabled] {
+    &::after {
+      background-color: ${({ theme }: { theme: Theme }) =>
+        theme.radio.indicator.disabledBg};
+    }
   }
 `;
 

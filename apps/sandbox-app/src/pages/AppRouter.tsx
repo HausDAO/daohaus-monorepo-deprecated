@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
+import AllDaos from './AllDaos';
 import DaoPage from './DaoPage';
 import Home from './Home';
 import Members from './Members';
@@ -12,8 +13,8 @@ const AppRouter = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/all-daos" element={<AllDaos />} />
       <Route path="/dao/:daochain/:daoid" element={<DaoPage />} />
-
       <Route path="/dao/:daochain/:daoid/proposals" element={<Proposals />} />
       <Route
         path="/dao/:daochain/:daoid/proposals/:proposalid"

@@ -36,6 +36,10 @@ const getCrumbs = (path: string) => {
     return [baseCrumb];
   }
 
+  if (path === '/all-daos') {
+    return [baseCrumb, { name: 'All DAOs', path: '/all-daos' }];
+  }
+
   const pathCrumbs = path.split('/');
   const daoCrumbs = [
     baseCrumb,

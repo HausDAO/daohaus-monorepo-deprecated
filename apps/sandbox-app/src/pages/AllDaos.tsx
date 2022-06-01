@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { H3, H6, ParSm, Spinner } from '@daohaus/ui';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { Haus, TransformedMembership } from '@daohaus/dao-data';
-import { extractKeychain } from '@daohaus/common-utilities';
+import { Haus } from '@daohaus/dao-data';
+import { extractKeychain, Keychain } from '@daohaus/common-utilities';
 import { ListCard, PlainLink } from './Page.styles';
 
-const Home = () => {
-  const { address, networks } = useHausConnect();
-  const [daos, setDaos] = useState([] as TransformedMembership[]);
+const AllDaos = () => {
+  const { networks, chainId } = useHausConnect();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [daos, setDaos] = useState([] as any[]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -23,9 +24,8 @@ const Home = () => {
 
       const haus = Haus.create(rpcs);
       // SDK REFACTOR: how to handle the potential unefined address
-      const res = await haus.query.listDaosByMember({
-        memberAddress: address || '0x0',
-        networkIds: ['0x5', '0x1'],
+      const res = await haus.query.listDaos({
+        networkId: chainId as keyof Keychain,
       });
 
       if (res?.data?.daos) {
@@ -35,31 +35,34 @@ const Home = () => {
       setLoading(false);
     };
 
-    if (address && networks) {
+    if (chainId === '0x5' && networks) {
       fetchData();
+    } else {
+      console.log('connect to goerli');
     }
-  }, [address, networks]);
+  }, [chainId, networks]);
 
   return (
     <>
       {loading && <Spinner />}
-      {daos.length > 0 && <H3>Your daos</H3>}
-
+      {daos.length > 0 && <H3>All Goerli DAOs</H3>}
       {daos.map((dao) => {
         return (
-          <PlainLink key={dao.dao} to={`/dao/${dao.networkId}/${dao.dao}`}>
+          <PlainLink key={dao.id} to={`/dao/${chainId}/${dao.id}`}>
             <ListCard>
-              <H6>{dao.dao}</H6>
+              <H6>{dao.id}</H6>
               <ParSm>{dao.name || 'No name dao'}</ParSm>
-              <ParSm>NetworkId: {dao.networkId}</ParSm>
-              <ParSm>Voting Power: {dao.votingPower}%</ParSm>
+              <ParSm>Proposals: {dao.proposalCount}</ParSm>
+              <ParSm>Members: {dao.activeMemberCount}</ParSm>
+
+              {/* <ParSm>Voting Power: {dao.votingPower}%</ParSm> */}
             </ListCard>
           </PlainLink>
         );
       })}
-      <PlainLink to={'/all-daos'}>View All DAOs</PlainLink>
+      <PlainLink to={'/'}>View My DAOs</PlainLink>
     </>
   );
 };
 
-export default Home;
+export default AllDaos;

@@ -30,6 +30,7 @@ fragment proposalFields on Proposal {
   prevProposalId
   proposalDataHash
   proposalData
+  actionGasEstimate
   details
   title
   description

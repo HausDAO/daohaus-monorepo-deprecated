@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
 
 import { H3, H6, ParSm, Spinner } from '@daohaus/ui';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
@@ -11,21 +10,7 @@ import {
 } from '@daohaus/common-utilities';
 // import { Haus, Member as IMember } from '@daohaus/dao-data';
 import { Haus } from '@daohaus/dao-data';
-
-const ListContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  width: 100%;
-`;
-
-const ListCard = styled.div`
-  padding: 2rem;
-  margin: 0 1rem 1rem 0;
-  border: 1px solid;
-  border-radius: 5px;
-`;
+import { ListCard } from './Page.styles';
 
 // SDK REFACTOR: Should we add vote power?
 
@@ -66,7 +51,7 @@ const Members = () => {
   return (
     <>
       {loading && <Spinner />}
-      {members.length > 0 && <H3>{members.length} members</H3>}
+      {!loading && <H3>{members.length} members</H3>}
 
       {members.map((member) => {
         return (

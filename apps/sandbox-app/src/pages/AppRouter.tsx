@@ -20,7 +20,10 @@ const AppRouter = () => {
         element={<Proposal />}
       />
       <Route path="/dao/:daochain/:daoid/members" element={<Members />} />
-      <Route path="/dao/:daochain/:daoid/vault" element={<Vault />} />
+      <Route
+        path="/dao/:daochain/:daoid/vault/:safeaddress"
+        element={<Vault />}
+      />
     </Routes>
   );
 };

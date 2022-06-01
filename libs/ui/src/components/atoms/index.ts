@@ -11,3 +11,4 @@ export * from './Link';
 export * from './Select';
 export * from './Spinner';
 export * from './Switch';
+export * from './Icon';

@@ -79,6 +79,8 @@ export const defaultDarkTheme: Theme = {
       disabledBg: grayDark.gray9,
     },
   },
+
+  //  Update this to secondary button style once we update colors
 };
 
 export const defaultLightTheme: Theme = {

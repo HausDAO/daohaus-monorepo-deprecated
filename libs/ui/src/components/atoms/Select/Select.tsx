@@ -23,7 +23,8 @@ export const Select = forwardRef(
       disabled,
       error,
       warning,
-
+      className,
+      containerClassName,
       ...props
     }: SelectProps,
     ref: Ref
@@ -42,13 +43,13 @@ export const Select = forwardRef(
       warning,
     });
     return (
-      <WithIcon className={wrapperClasses}>
+      <WithIcon className={`${containerClassName} ${classes}`}>
         <BaseSelect
+          {...props}
           ref={ref}
-          className={classes}
+          className={`${className} ${classes}`}
           defaultValue={defaultValue}
           disabled={disabled}
-          {...props}
         >
           {placeholder && (
             <StyledOption value="">--{placeholder}--</StyledOption>

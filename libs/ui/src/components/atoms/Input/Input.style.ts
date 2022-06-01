@@ -14,7 +14,7 @@ export const BaseInput = styled.input`
   height: 4.8rem;
   max-width: ${field.size.md};
   width: 100%;
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.bgColor};
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.field.bg};
   border-radius: ${field.borderRadius};
   letter-spacing: 1.5px;
   padding: 1.2rem 1.8rem;
@@ -54,6 +54,9 @@ export const BaseInput = styled.input`
     max-width: ${field.size.full};
   }
 
+  &.input-select {
+    max-width: ${field.size.full};
+  }
   &.warning {
     border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning};
   }

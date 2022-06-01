@@ -36,6 +36,5 @@ describe('haus', () => {
     });
 
     expect(res?.data?.daos.length).toBeGreaterThan(1);
-    expect(res.data?.daos[0].tokenBalances?.length).toBe(1);
   });
 });

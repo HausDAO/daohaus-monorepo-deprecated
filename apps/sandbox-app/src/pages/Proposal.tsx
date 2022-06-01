@@ -96,6 +96,9 @@ const Proposal = () => {
           <DaoDataContainer>
             <H5>Status</H5>
             <DaoField>
+              <DataMd>{proposal.status}</DataMd>
+            </DaoField>
+            <DaoField>
               <ParSm>Voting Period</ParSm>
               <DataMd>{proposal.votingPeriod} seconds</DataMd>
               <DataMd>

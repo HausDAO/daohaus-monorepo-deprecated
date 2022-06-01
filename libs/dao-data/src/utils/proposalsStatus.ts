@@ -39,8 +39,10 @@ export const isProposalInVoting = (
   proposal: ProposalForStatusCheck
 ): boolean => {
   const now = nowInSeconds();
+
+  console.log('now', now);
   return (
-    Number(proposal.votingStarts) < now && Number(proposal.votingEnds) < now
+    Number(proposal.votingStarts) < now && Number(proposal.votingEnds) > now
   );
 };
 
@@ -48,7 +50,7 @@ export const isProposalInGrace = (
   proposal: ProposalForStatusCheck
 ): boolean => {
   const now = nowInSeconds();
-  return Number(proposal.votingEnds) < now && Number(proposal.graceEnds) < now;
+  return Number(proposal.votingEnds) < now && Number(proposal.graceEnds) > now;
 };
 
 export const isProposalExpired = (proposal: ProposalForStatusCheck): boolean =>
@@ -70,6 +72,7 @@ export const isProposalFailed = (proposal: ProposalForStatusCheck): boolean =>
 export const getProposalStatus = (
   proposal: ProposalForStatusCheck
 ): ProposalStatus => {
+  console.log('proposal', proposal);
   if (isProposalUnsponsored(proposal)) {
     return PROPOSAL_STATUS['unsponsored'];
   }

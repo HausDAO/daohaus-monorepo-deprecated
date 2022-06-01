@@ -1,9 +1,8 @@
 import styled from 'styled-components';
+import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 
 import { font } from '../../../theme/global/font';
 import { Theme } from '../../../types/theming';
-
-import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 
 export const Container = styled.div`
   align-items: center;

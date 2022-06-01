@@ -44,6 +44,7 @@ export const Select = forwardRef(
           ref={ref}
           className={classes}
           defaultValue={defaultValue}
+          disabled={disabled}
           {...props}
         >
           {placeholder && (
@@ -57,7 +58,7 @@ export const Select = forwardRef(
         </BaseSelect>
         <BiChevronDown
           size="2rem"
-          color={disabled ? theme.select.text : theme.field.disabledColor}
+          color={disabled ? theme.field.disabledColor : theme.select.text}
         />
       </WithIcon>
     );

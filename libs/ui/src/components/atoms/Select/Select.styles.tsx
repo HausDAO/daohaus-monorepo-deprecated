@@ -50,16 +50,7 @@ export const BaseSelect = styled.select`
   border: 1px ${({ theme }: { theme: Theme }) => theme.select.borderColor} solid;
   transition: ${field.transition};
   border-radius: ${field.borderRadius};
-  :disabled {
-    background-color: ${({ theme }: { theme: Theme }) => theme.field.disabled};
-    cursor: not-allowed;
-    font-style: italic;
-    color: ${({ theme }: { theme: Theme }) => theme.field.disabledColor};
-    ::placeholder {
-      color: ${({ theme }: { theme: Theme }) =>
-        theme.field.disabledPlaceholder};
-    }
-  }
+
   &.long {
     max-width: ${field.size.lg};
   }
@@ -78,6 +69,16 @@ export const BaseSelect = styled.select`
     max-width: 10rem;
     padding: 0 1.2rem;
     border-radius: 0 ${field.borderRadius} ${field.borderRadius} 0;
+  }
+  :disabled {
+    background-color: ${({ theme }: { theme: Theme }) => theme.field.disabled};
+    cursor: not-allowed;
+    font-style: italic;
+    color: ${({ theme }: { theme: Theme }) => theme.field.disabledColor};
+    ::placeholder {
+      color: ${({ theme }: { theme: Theme }) =>
+        theme.field.disabledPlaceholder};
+    }
   }
 `;
 export const StyledOption = styled.option`

@@ -6,6 +6,7 @@ import { Button, DataMd, H3, H5, ParSm, Spinner } from '@daohaus/ui';
 import {
   extractKeychain,
   formatDateTimeFromSeconds,
+  isValidNetwork,
   Keychain,
 } from '@daohaus/common-utilities';
 import { Dao, Haus } from '@daohaus/dao-data';
@@ -18,7 +19,7 @@ const NavButton = styled(Button)`
 `;
 
 const DaoPage = () => {
-  const { networks } = useHausConnect();
+  const { networks, chainId } = useHausConnect();
   const { daochain, daoid } = useParams();
   const [loading, setLoading] = useState(false);
 
@@ -27,14 +28,19 @@ const DaoPage = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      if (!daoid || !daochain || !isValidNetwork(daochain)) {
+        return;
+      }
       setLoading(true);
       const rpcs = extractKeychain(networks, 'rpc');
 
       const haus = Haus.create(rpcs);
       // SDK REFACTOR: how to handle the potential unefined daoid and is it ok to force the type on daochain?
+
       const res = await haus.query.findDao({
-        networkId: daochain as keyof Keychain,
-        dao: daoid || '0x0',
+        // networkId: daochain as keyof Keychain,
+        networkId: daochain,
+        dao: daoid,
       });
       if (res?.data?.dao) {
         // SDK REFACTOR: these types on subqueries are a nightmare whe mataData was in there
@@ -44,7 +50,7 @@ const DaoPage = () => {
       setLoading(false);
     };
 
-    if (networks) {
+    if (networks && daoid) {
       fetchData();
     }
   }, [networks, daochain, daoid]);

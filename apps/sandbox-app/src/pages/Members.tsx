@@ -8,8 +8,8 @@ import {
   Keychain,
   formatDateTimeFromSeconds,
 } from '@daohaus/common-utilities';
-// import { Haus, Member as IMember } from '@daohaus/dao-data';
-import { Haus } from '@daohaus/dao-data';
+import { Haus, ListMembersQuery } from '@daohaus/dao-data';
+// import { Haus } from '@daohaus/dao-data';
 import { ListCard } from './Page.styles';
 
 // SDK REFACTOR: Should we add vote power?
@@ -21,7 +21,14 @@ const Members = () => {
 
   // SDK REFACTOR: examples of best practice and easy to use types from the sdk
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [members, setMembers] = useState([] as any[]);
+  // const [members, setMembers] = useState([] as any[]);
+  // type ValueOf<T> = T[keyof T];
+  // const [members, setMembers] = useState<ValueOf<ListMembershipsQuery>>([]);
+
+  const [members, setMembers] = useState<ListMembersQuery['members'] | null>(
+    null
+  );
+
   // const [members, setMembers] = useState([] as Partial<IMember>[]);
 
   useEffect(() => {
@@ -37,6 +44,7 @@ const Members = () => {
       });
       if (res?.data?.members) {
         // SDK REFACTOR: these types on subqueries are a nightmare whe mataData was in there
+        // setMembers(res.data.members);
         setMembers(res.data.members);
       }
 

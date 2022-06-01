@@ -20,9 +20,10 @@ DisabledSelect.args = {
     { name: 'Option 1', value: 'option2' },
     { name: 'Option 2', value: 'option1' },
   ],
+  disabled: true,
 };
 export const LongSelect = Template.bind({});
-DisabledSelect.args = {
+LongSelect.args = {
   options: [
     { name: 'Option 1', value: 'option2' },
     { name: 'Option 2', value: 'option1' },
@@ -30,7 +31,7 @@ DisabledSelect.args = {
   long: true,
 };
 export const FullWidthSelect = Template.bind({});
-DisabledSelect.args = {
+FullWidthSelect.args = {
   options: [
     { name: 'Option 1', value: 'option2' },
     { name: 'Option 2', value: 'option1' },
@@ -58,16 +59,5 @@ WarningSelect.args = {
   warning: {
     type: 'warning',
     message: 'This is an error message',
-  },
-};
-export const SuccessSelect = Template.bind({});
-SuccessSelect.args = {
-  options: [
-    { name: 'Option 1', value: 'option2' },
-    { name: 'Option 2', value: 'option1' },
-  ],
-  success: {
-    type: 'success',
-    message: 'This is a success message',
   },
 };

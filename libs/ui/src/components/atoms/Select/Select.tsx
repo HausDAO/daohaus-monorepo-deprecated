@@ -32,14 +32,28 @@ export const Select = forwardRef(
       full,
       placeholder,
       disabled,
+      error,
+      warning,
+
       ...props
     }: SelectProps,
     ref: Ref
   ) => {
     const theme = useTheme();
-    const classes = classNames({ 'input-select': inputSelect, long, full });
+    const wrapperClasses = classNames({
+      'input-select': inputSelect,
+      long,
+      full,
+    });
+    const classes = classNames({
+      'input-select': inputSelect,
+      long,
+      full,
+      error,
+      warning,
+    });
     return (
-      <WithIcon className={classes}>
+      <WithIcon className={wrapperClasses}>
         <BaseSelect
           ref={ref}
           className={classes}

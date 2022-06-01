@@ -15,7 +15,7 @@ const Template: ComponentStory<typeof WrappedSelect> = (args) => {
   return (
     <div style={{ margin: '4rem' }}>
       <WrappedSelect {...args} />
-      <H3>{value[args.id] || 'Input text will appear here'}</H3>
+      <H3>{value[args.id] || 'Select text will appear here'}</H3>
     </div>
   );
 };

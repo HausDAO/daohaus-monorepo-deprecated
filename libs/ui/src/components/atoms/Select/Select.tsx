@@ -2,19 +2,8 @@ import classNames from 'classnames';
 import { forwardRef } from 'react';
 import { BiChevronDown } from 'react-icons/bi';
 import { BaseSelect, StyledOption, WithIcon } from './Select.styles';
-import { Field } from '../../../types/formAndField';
+import { SelectProps } from '../../../types/formAndField';
 import { useTheme } from 'styled-components';
-
-type OptionType = {
-  name: string;
-  value: string;
-  key?: string;
-};
-type SelectProps = Field & {
-  defaultValue?: string;
-  options: OptionType[];
-  inputSelect?: boolean;
-};
 
 type Ref =
   | React.RefObject<HTMLSelectElement>

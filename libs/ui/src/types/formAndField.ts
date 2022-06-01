@@ -48,3 +48,13 @@ export type Field = {
 export type CheckboxWrapperProps = PrimitiveWrapper & {
   checkboxes: CheckboxProps[];
 };
+export type OptionType = {
+  name: string;
+  value: string;
+  key?: string;
+};
+export type SelectProps = Field & {
+  defaultValue?: string;
+  options: OptionType[];
+  inputSelect?: boolean;
+};

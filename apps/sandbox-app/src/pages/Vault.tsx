@@ -14,6 +14,7 @@ const Vault = () => {
   // SDK REFACTOR: examples of best practice and easy to use types from the sdk
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [tokenBalances, setTokenBalances] = useState([] as any[]);
+  const [totalUsd, setTotalUsd] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +30,7 @@ const Vault = () => {
       if (res?.data?.tokenBalances) {
         // SDK REFACTOR: these types on subqueries are a nightmare whe mataData was in there
         setTokenBalances(res.data.tokenBalances);
+        setTotalUsd(res.data.fiatTotal);
       }
 
       setLoading(false);
@@ -39,12 +41,10 @@ const Vault = () => {
     }
   }, [networks, daochain, daoid, safeaddress]);
 
-  console.log('tokenBalances', tokenBalances);
-
   return (
     <>
       {loading && <Spinner />}
-      {!loading && <H3>{tokenBalances.length} token balances</H3>}
+      {!loading && <H3>${totalUsd.toFixed(2)}</H3>}
 
       {tokenBalances.map((bal, i) => {
         return (

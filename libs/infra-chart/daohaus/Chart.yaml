@@ -28,9 +28,12 @@ dependencies:
     tags:
       - bitnami-common
     version: 1.x.x
+  - name: redis
+    repository: https://charts.bitnami.com/bitnami
+    version: 16.x.x
   - name: ipfs
-    version: '0.1.0'
+    version: '0.1.2'
     repository: file://../ipfs
   - name: ceramic
     version: '0.1.0'
-    repository: file://../ipfs
+    repository: file://../ceramic

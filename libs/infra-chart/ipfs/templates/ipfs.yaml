@@ -1,5 +1,4 @@
----
-apiVersion: apiVersion: {{ include "common.capabilities.statefulset.apiVersion" . }}
+apiVersion: {{ include "common.capabilities.statefulset.apiVersion" . }}
 kind: StatefulSet
 metadata:
   name: {{ include "common.names.fullname" . }}
@@ -16,7 +15,7 @@ metadata:
   {{- end }}
 spec:
   replicas: {{ .Values.replicaCount }}
-  serviceName: {{ printf "%s-api-node" (include "common.names.fullname" .) }}
+  serviceName: {{ printf "%s-ipfs-node" (include "common.names.fullname" .) }}
   {{- if .Values.updateStrategy }}
   updateStrategy: {{- toYaml .Values.updateStrategy | nindent 4 }}
   {{- end }}
@@ -66,8 +65,8 @@ spec:
       {{- end }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
       containers:
-        - name: ceramic
-          image: {{ template "ceramic.image" . }}
+        - name: ipfs
+          image: {{ template "ipfs.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy | quote }}
           {{- if .Values.containerSecurityContext.enabled }}
           securityContext: {{- omit .Values.containerSecurityContext "enabled" | toYaml | nindent 12 }}
@@ -101,31 +100,16 @@ spec:
           {{- if not .Values.diagnosticMode.enabled }}
           {{- if .Values.livenessProbe.enabled }}
           livenessProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.livenessProbe "enabled") "context" $) | nindent 12 }}
-            httpHeaders:
-              - name: Accept
-                value: application/json
-            path: /api/v0/node/healthcheck
-            port: 7007
           {{- else if .Values.customLivenessProbe }}
           livenessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customLivenessProbe "context" $) | nindent 12 }}
           {{- end }}
           {{- if .Values.readinessProbe.enabled }}
           readinessProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.readinessProbe "enabled") "context" $) | nindent 12 }}
-            httpHeaders:
-              - name: Accept
-                value: application/json
-            path: /api/v0/node/healthcheck
-            port: 7007
           {{- else if .Values.customReadinessProbe }}
           readinessProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customReadinessProbe "context" $) | nindent 12 }}
           {{- end }}
           {{- if .Values.startupProbe.enabled }}
           startupProbe: {{- include "common.tplvalues.render" (dict "value" (omit .Values.startupProbe "enabled") "context" $) | nindent 12 }}
-            httpHeaders:
-              - name: Accept
-                value: application/json
-            path: /api/v0/node/healthcheck
-            port: 7007
           {{- else if .Values.customStartupProbe }}
           startupProbe: {{- include "common.tplvalues.render" (dict "value" .Values.customStartupProbe "context" $) | nindent 12 }}
           {{- end }}
@@ -134,64 +118,38 @@ spec:
           resources: {{- toYaml .Values.resources | nindent 12 }}
           {{- end }}
           ports:
-            - name: ceramic
-              containerPort: {{ .Values.containerPorts.ceramic }}
+            - name: ipfs
+              containerPort: {{ .Values.containerPorts.ipfs }}
+            - name: healthcheck
+              containerPort: {{ .Values.containerPorts.healthcheck }}
+            - name: api
+              containerPort: {{ .Values.containerPorts.api }}
           volumeMounts: 
-            - name: ceramic-pvc
-              mountPath: {{ .Values.dataPersistence.mountPath }}
+            - name: "ipfs-pvc"
+              mountPath: {{ .Values.persistence.mountPath }}
               {{- if .Values.persistence.subPath }}
-              subPath: {{ .Values.dataPersistence.subPath }}
+              subPath: {{ .Values.persistence.subPath }}
               {{- end }}
-            - name: daemon-config
-              mountPath: /root/.ceramic
-            - name: ceramic-logs-pvc
-              mountPath: {{ .Values.logPersistence.mountPath }}
-              {{- if .Values.persistence.subPath }}
-              subPath: {{ .Values.logPersistence.subPath }}
-              {{- end }}
-      volumes:
-        - name: daemon-config
-          configMap:
-            name: {{ printf "%s-scripts" (include "common.names.fullname" .) }}-node-configmap
-            defaultMode: 0755
   volumeClaimTemplates:
     - metadata:
-        name: ceramic-pvc
+        name: ipfs-pvc
         labels: {{- include "common.labels.matchLabels" . | nindent 10 }}
-        {{- if .Values.dataPersistence.annotations }}
+        {{- if .Values.persistence.annotations }}
         annotations:
-          {{- include "common.tplvalues.render" ( dict "value" .Values.dataPersistence.annotations "context" $) | nindent 10 }}
+          {{- include "common.tplvalues.render" ( dict "value" .Values.persistence.annotations "context" $) | nindent 10 }}
         {{- end }}
       spec:
         accessModes:
-        {{- range .Values.dataPersistence.accessModes }}
+        {{- range .Values.persistence.accessModes }}
           - {{ . | quote }}
         {{- end }}
         resources:
           requests:
-            storage: {{ .Values.dataPersistence.size | quote }}
-        {{ include "common.storage.class" (dict "persistence" .Values.dataPersistence "global" .Values.global) }}
-        {{- if .Values.dataPersistence.selector }}
-        selector: {{- include "common.tplvalues.render" (dict "value" .Values.dataPersistence.selector "context" $) | nindent 10 }}
+            storage: {{ .Values.persistence.size | quote }}
+        {{ include "common.storage.class" (dict "persistence" .Values.persistence "global" .Values.global) }}
+        {{- if .Values.persistence.selector }}
+        selector: {{- include "common.tplvalues.render" (dict "value" .Values.persistence.selector "context" $) | nindent 10 }}
         {{- end -}}
-        {{- if .Values.dataPersistence.storageClass }}
-        storageClassName: {{ .Values.dataPersistance.storageClass }}
+        {{- if .Values.persistence.storageClass }}
+        storageClassName: {{ .Values.persistance.storageClass }}
         {{- end -}}
-    - metadata:
-        name: ceramic-logs-pvc
-      spec:
-        accessModes:
-        {{- range .Values.logPersistence.accessModes }}
-          - {{ . | quote }}
-        {{- end }}
-        resources:
-          requests:
-            storage: {{ .Values.logPersistence.size | quote }}
-        {{ include "common.storage.class" (dict "persistence" .Values.logPersistence "global" .Values.global) }}
-        {{- if .Values.logPersistence.selector }}
-        selector: {{- include "common.tplvalues.render" (dict "value" .Values.logPersistence.selector "context" $) | nindent 10 }}
-        {{- end -}}
-        {{- if .Values.logPersistence.storageClass }}
-        storageClassName: {{ .Values.logPersistance.storageClass }}
-        {{- end -}}
-

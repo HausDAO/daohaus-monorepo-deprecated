@@ -1,12 +1,42 @@
 {
-  "root": "libs/infra-chart",
-  "sourceRoot": "libs/infra-chart",
+  "root": "libs/infra-chart/daohaus",
+  "sourceRoot": "libs/infra-chart/daohaus",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "helm dependency build ./daohaus",
+        "cwd": "libs/infra-chart"
+      }
+    },
+    "dependencyUpdate": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "helm dependency update ./daohaus",
+        "cwd": "libs/infra-chart"
+      }
+    },
+
     "dryRun": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "helm install --dry-run test ./libs/infra-chart"
+        "command": "helm install --dry-run --debug -f ./daohaus/values.yaml test ./daohaus",
+        "cwd": "libs/infra-chart"
+      }
+    },
+    "deploy": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "helm install -f ./daohaus/values.yaml test ./daohaus",
+        "cwd": "libs/infra-chart"
+      }
+    },
+    "add": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "helm repo add bitnami https://charts.bitnami.com/bitnami",
+        "cwd": "libs/infra-chart"
       }
     }
   },

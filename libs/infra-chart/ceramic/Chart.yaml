@@ -1,6 +1,6 @@
 apiVersion: v2
-name: infra-chart
-description: A Helm chart for deploying all daohaus infrastructure
+name: ceramic
+description: A chart to deploy a ceramic node
 
 # A chart can be either an 'application' or a 'library' chart.
 #

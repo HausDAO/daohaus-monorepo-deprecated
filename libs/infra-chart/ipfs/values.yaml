@@ -48,7 +48,7 @@ image:
 ## @param statefulsetLabels IPFS statefulset labels. Evaluated as a template
 ## Ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 ##
-statefulsetLabels: { 'environment': 'staging' }
+statefulsetLabels: {}
 
 ## @param replicaCount Number of IPFS node replicas to deploy
 ##
@@ -225,7 +225,7 @@ extraEnvVarsSecret: ''
 ## @param livenessProbe.successThreshold Success threshold for livenessProbe
 ##
 livenessProbe:
-  enabled: true
+  enabled: false
   initialDelaySeconds: 120
   timeoutSeconds: 20
   periodSeconds: 30
@@ -244,7 +244,7 @@ customLivenessProbe: {}
 ## @param readinessProbe.successThreshold Success threshold for readinessProbe
 ##
 readinessProbe:
-  enabled: true
+  enabled: false
   initialDelaySeconds: 10
   timeoutSeconds: 20
   periodSeconds: 30

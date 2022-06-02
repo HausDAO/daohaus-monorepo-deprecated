@@ -48,7 +48,7 @@ image:
 ## @param statefulsetLabels Ceramic statefulset labels. Evaluated as a template
 ## Ref: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 ##
-statefulsetLabels: { 'environment': 'staging' }
+statefulsetLabels: {}
 
 ## Ceramic pods ServiceAccount
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
@@ -241,7 +241,7 @@ extraEnvVarsSecret: ''
 ## @param livenessProbe.successThreshold Success threshold for livenessProbe
 ##
 livenessProbe:
-  enabled: true
+  enabled: false
   initialDelaySeconds: 120
   timeoutSeconds: 20
   periodSeconds: 30
@@ -260,7 +260,7 @@ customLivenessProbe: {}
 ## @param readinessProbe.successThreshold Success threshold for readinessProbe
 ##
 readinessProbe:
-  enabled: true
+  enabled: false
   initialDelaySeconds: 10
   timeoutSeconds: 20
   periodSeconds: 30
@@ -406,32 +406,32 @@ logPersistence:
 ## @param daemonConfigJson Secret containing the JSON configuration
 ## Source: https://developers.ceramic.network/run/nodes/nodes/#example-daemonconfigjson
 ##
-daemonConfigJson: '
-    {
-      "anchor": {
-        "ethereum-rpc-url": "https://ropsten.infura.io/v3/<API_TOKEN>"
-      },
-      "http-api": {
-        "cors-allowed-origins": ["*"]
-      },
-      "ipfs": {
-        "mode": "remote",
-        "host": "http://ceramic-ipfs:5011"
-      },
-      "logger": {
-        "log-level": 2,
-        "log-to-files": true
-      },
-      "network": {
-        "name": "testnet-clay"
-      },
-      "node": {},
-      "state-store": {
-        "mode": "fs",
-        "local-directory": "/root/.ceramic/statestore"
-      }
-    }
-'
+# daemonConfigJson: '
+#     {
+#       "anchor": {
+#         "ethereum-rpc-url": "https://ropsten.infura.io/v3/<API_TOKEN>"
+#       },
+#       "http-api": {
+#         "cors-allowed-origins": ["*"]
+#       },
+#       "ipfs": {
+#         "mode": "remote",
+#         "host": "http://ceramic-ipfs:5011"
+#       },
+#       "logger": {
+#         "log-level": 2,
+#         "log-to-files": true
+#       },
+#       "network": {
+#         "name": "testnet-clay"
+#       },
+#       "node": {},
+#       "state-store": {
+#         "mode": "fs",
+#         "local-directory": "/root/.ceramic/statestore"
+#       }
+#     }
+# '
 
 ## Ceramic service parameters
 ##
@@ -448,7 +448,7 @@ service:
   ## NOTE: choose port between <30000-32767>
   ##
   nodePorts:
-    http: ""
+    http: ''
   ## @param service.sessionAffinity Control where client requests go, to the same pod or round-robin
   ## Values: ClientIP or None
   ## ref: https://kubernetes.io/docs/user-guide/services/
@@ -464,11 +464,11 @@ service:
   ## e.g.:
   ## clusterIP: None
   ##
-  clusterIP: ""
+  clusterIP: ''
   ## @param service.loadBalancerIP Ceramic service Load Balancer IP
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
   ##
-  loadBalancerIP: ""
+  loadBalancerIP: ''
   ## @param service.loadBalancerSourceRanges Ceramic service Load Balancer sources
   ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
   ## e.g:
@@ -487,7 +487,6 @@ service:
   ##
   extraPorts: []
 
-
 ## Airflow ingress parameters
 ## ref: https://kubernetes.io/docs/user-guide/ingress/
 ##
@@ -499,13 +498,13 @@ ingress:
   ## This is supported in Kubernetes 1.18+ and required if you have more than one IngressClass marked as the default for your cluster .
   ## ref: https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/
   ##
-  ingressClassName: ""
+  ingressClassName: ''
   ## @param ingress.pathType Ingress path type
   ##
   pathType: ImplementationSpecific
   ## @param ingress.apiVersion Force Ingress API version (automatically detected if not set)
   ##
-  apiVersion: ""
+  apiVersion: ''
   ## @param ingress.hostname Default host for the ingress record
   ##
   hostname: ceramic.local
@@ -592,4 +591,3 @@ ingress:
   ##             name: http
   ##
   extraRules: []
-

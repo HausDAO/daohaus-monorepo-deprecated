@@ -1,5 +1,4 @@
-import * as dayjs from 'dayjs';
-import * as relativeTime from 'dayjs/plugin/relativeTime';
+import { format, formatDistanceToNow } from 'date-fns';
 
 export const formatDateTimeFromSeconds = (
   seconds: string | undefined
@@ -7,7 +6,8 @@ export const formatDateTimeFromSeconds = (
   if (!seconds) {
     return;
   }
-  return dayjs(new Date(Number(seconds) * 1000), 'h:m aaa MMMM do y').format();
+
+  return format(new Date(Number(seconds) * 1000), 'h:m aaa MMMM do y');
 };
 
 export const formatDistanceToNowFromSeconds = (
@@ -16,6 +16,8 @@ export const formatDistanceToNowFromSeconds = (
   if (!seconds) {
     return;
   }
-  dayjs.extend(relativeTime);
-  return dayjs(new Date(Number(seconds) * 1000)).toNow();
+
+  return formatDistanceToNow(new Date(Number(seconds) * 1000), {
+    addSuffix: true,
+  });
 };

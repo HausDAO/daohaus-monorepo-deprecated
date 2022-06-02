@@ -7,7 +7,6 @@
     "dao-data": "libs/dao-data",
     "daohaus-connect-feature": "libs/daohaus-connect-feature",
     "hub-app": "apps/hub-app",
-    "sandbox-app": "apps/sandbox-app",
     "summon-app": "apps/summon-app",
     "ui": "libs/ui",
     "v3-subgraph": "apps/v3-subgraph"

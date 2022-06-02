@@ -9,11 +9,12 @@ import {
   BasicProfile,
   TokenBalance,
   DaoTokenBalances,
+  ListProposalsQuery,
 } from '../types';
 import { getProposalStatus, ProposalForStatusCheck } from './proposalsStatus';
 
 export const transformProposal = (
-  proposal: Partial<Proposal> | undefined
+  proposal: ListProposalsQuery['proposals']
 ): TransformedProposal => {
   if (!proposal) {
     return {};

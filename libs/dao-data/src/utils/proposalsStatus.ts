@@ -3,22 +3,9 @@ import {
   ProposalStatus,
   PROPOSAL_STATUS,
 } from '@daohaus/common-utilities';
-import { Proposal } from '../types';
+import { ListProposalsQuery } from '../types';
 
-export type ProposalForStatusCheck = Pick<
-  Proposal,
-  | 'sponsored'
-  | 'cancelled'
-  | 'passed'
-  | 'actionFailed'
-  | 'votingStarts'
-  | 'votingEnds'
-  | 'graceEnds'
-  | 'expiration'
-  | 'noBalance'
-  | 'yesBalance'
-> &
-  Partial<Proposal>;
+type ProposalForStatusCheck = ListProposalsQuery['proposals'][number];
 
 export const isProposalUnsponsored = (
   proposal: ProposalForStatusCheck
@@ -39,8 +26,6 @@ export const isProposalInVoting = (
   proposal: ProposalForStatusCheck
 ): boolean => {
   const now = nowInSeconds();
-
-  console.log('now', now);
   return (
     Number(proposal.votingStarts) < now && Number(proposal.votingEnds) > now
   );
@@ -69,10 +54,9 @@ export const isProposalFailed = (proposal: ProposalForStatusCheck): boolean =>
   nowInSeconds() > Number(proposal.graceEnds) &&
   Number(proposal.yesBalance) < Number(proposal.noBalance);
 
-export const getProposalStatus = (
-  proposal: ProposalForStatusCheck
-): ProposalStatus => {
-  console.log('proposal', proposal);
+type QueryProposal = ListProposalsQuery['proposals'][number];
+
+export const getProposalStatus = (proposal: QueryProposal): ProposalStatus => {
   if (isProposalUnsponsored(proposal)) {
     return PROPOSAL_STATUS['unsponsored'];
   }

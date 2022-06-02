@@ -25,7 +25,9 @@ const Template: ComponentStory<typeof WrappedInputSelect> = (args) => {
 export const BaseInputSelect = Template.bind({});
 BaseInputSelect.args = {
   id: 'inputId',
+  label: 'Wrapped Input Select',
   selectId: 'selectID',
+  info: 'This is controlled by the info prop',
   options: [
     { value: 'Scam Token', name: 'SCAM' },
     { value: 'Rug Token', name: 'RUG' },
@@ -33,4 +35,8 @@ BaseInputSelect.args = {
   ],
   placeholder: 'placeholder',
   selectPlaceholder: '-token-',
+  warning: {
+    type: 'warning',
+    message: 'Whoa!!!',
+  },
 };

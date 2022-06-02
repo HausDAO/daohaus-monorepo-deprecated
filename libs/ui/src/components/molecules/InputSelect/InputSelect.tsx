@@ -12,6 +12,8 @@ export const InputSelect = ({
   disabled,
   long,
   full,
+  error,
+  warning,
   selectPlaceholder,
   registerSelect = {},
   registerInput = {},
@@ -26,6 +28,8 @@ export const InputSelect = ({
         id={id}
         disabled={disabled}
         className="input"
+        error={error}
+        warning={warning}
         full
         {...registerInput}
       />
@@ -36,6 +40,8 @@ export const InputSelect = ({
         className="select"
         containerClassName="select-box"
         placeholder={selectPlaceholder}
+        error={error}
+        warning={warning}
         {...registerSelect}
       />
     </InputSelectBox>

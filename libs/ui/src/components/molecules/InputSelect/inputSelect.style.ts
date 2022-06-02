@@ -12,47 +12,30 @@ export const InputSelectBox = styled.div`
     max-width: 10rem;
     padding: 0 0.8rem;
     border-radius: 0 ${field.borderRadius} ${field.borderRadius} 0;
-    border: none;
+    border-left: none;
     color: white;
     font-weight: ${font.weight.bold};
     background-color: ${({ theme }: { theme: Theme }) =>
       theme.button.secondary.bg};
-    border: 0.1rem solid
-      ${({ theme }: { theme: Theme }) => theme.button.secondary.border};
+
     color: ${({ theme }: { theme: Theme }) => theme.button.secondary.text};
 
     :hover {
       background-color: ${({ theme }: { theme: Theme }) =>
         theme.button.secondary.hoverBg};
-      border: 0.1rem solid
-        ${({ theme }: { theme: Theme }) => theme.button.secondary.hoverBorder};
-      color: ${({ theme }: { theme: Theme }) =>
-        theme.button.secondary.hoverText};
+    }
+
+    :active {
+      background-color: ${({ theme }: { theme: Theme }) =>
+        theme.button.secondary.activeBg};
     }
     :focus {
       background-color: ${({ theme }: { theme: Theme }) =>
         theme.button.secondary.focusBg};
-      border: 0.1rem solid
-        ${({ theme }: { theme: Theme }) => theme.button.secondary.focusBorder};
-      color: ${({ theme }: { theme: Theme }) =>
-        theme.button.secondary.focusText};
-    }
-    :active {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.button.secondary.activeBg};
-      border: 0.1rem solid
-        ${({ theme }: { theme: Theme }) => theme.button.secondary.activeBorder};
-      color: ${({ theme }: { theme: Theme }) =>
-        theme.button.secondary.activeText};
     }
     :disabled {
       background-color: ${({ theme }: { theme: Theme }) =>
         theme.button.secondary.disabledBg};
-      border: 0.1rem solid
-        ${({ theme }: { theme: Theme }) =>
-          theme.button.secondary.disabledBorder};
-      color: ${({ theme }: { theme: Theme }) =>
-        theme.button.secondary.disabledText};
       cursor: not-allowed;
     }
   }

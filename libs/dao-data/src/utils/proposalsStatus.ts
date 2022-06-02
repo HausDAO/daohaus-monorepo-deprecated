@@ -29,10 +29,15 @@ export const isProposalInGrace = (proposal: QueryProposal): boolean => {
   return Number(proposal.votingEnds) < now && Number(proposal.graceEnds) > now;
 };
 
+// TODO - more testing here and in filters. likely need some checkes on unsponsored/cancelled
 export const isProposalExpired = (proposal: QueryProposal): boolean =>
   Number(proposal.expiration) > 0 &&
+  !proposal.processed &&
+  !proposal.cancelled &&
   Number(proposal.expiration) <
-    Number(proposal.votingEnds) + Number(proposal.graceEnds) + nowInSeconds();
+    Number(proposal.votingPeriod) +
+      Number(proposal.gracePeriod) +
+      nowInSeconds();
 
 export const proposalNeedsProcessing = (proposal: QueryProposal): boolean =>
   nowInSeconds() > Number(proposal.graceEnds) &&

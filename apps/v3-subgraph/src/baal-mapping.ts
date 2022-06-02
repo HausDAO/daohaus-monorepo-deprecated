@@ -31,6 +31,9 @@ export function handleSetupComplete(event: SetupComplete): void {
   dao.sharesPaused = event.params.sharesPaused;
   dao.gracePeriod = event.params.gracePeriod;
   dao.votingPeriod = event.params.votingPeriod;
+  dao.votingPlusGraceDuration = event.params.votingPeriod.plus(
+    event.params.gracePeriod
+  );
   dao.proposalOffering = event.params.proposalOffering;
   dao.quorumPercent = event.params.quorumPercent;
   dao.sponsorThreshold = event.params.sponsorThreshold;
@@ -56,6 +59,7 @@ export function handleGovernanceConfigSet(event: GovernanceConfigSet): void {
 
   dao.votingPeriod = event.params.voting;
   dao.gracePeriod = event.params.grace;
+  dao.votingPlusGraceDuration = event.params.voting.plus(event.params.grace);
   dao.proposalOffering = event.params.newOffering;
   dao.quorumPercent = event.params.quorum;
   dao.sponsorThreshold = event.params.sponsor;
@@ -138,6 +142,10 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   proposal.proposalDataHash = event.params.proposalDataHash;
   proposal.proposalData = event.params.proposalData;
   proposal.votingPeriod = event.params.votingPeriod;
+  proposal.gracePeriod = dao.gracePeriod;
+  proposal.votingPlusGraceDuration = event.params.votingPeriod.plus(
+    dao.gracePeriod
+  );
   proposal.expiration = event.params.expiration;
   proposal.actionGasEstimate = event.params.baalGas;
   proposal.sponsored = event.params.selfSponsor;
@@ -145,6 +153,7 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   proposal.processed = false;
   proposal.actionFailed = false;
   proposal.passed = false;
+  proposal.currentlyPassing = false;
   proposal.proposalOffering = event.transaction.value;
   proposal.maxTotalSharesAndLootAtYesVote = constants.BIGINT_ZERO;
   proposal.selfSponsor = event.params.selfSponsor;
@@ -328,6 +337,7 @@ export function handleSubmitVote(event: SubmitVote): void {
     proposal.noVotes = proposal.noVotes.plus(constants.BIGINT_ONE);
     proposal.noBalance = proposal.noBalance.plus(event.params.balance);
   }
+  proposal.currentlyPassing = proposal.yesBalance > proposal.noBalance;
 
   vote.save();
   proposal.save();

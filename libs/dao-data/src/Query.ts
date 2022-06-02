@@ -202,7 +202,7 @@ export default class Query {
   }: {
     networkId: keyof Keychain;
     dao: string;
-    includeTokens: boolean;
+    includeTokens?: boolean;
   }): Promise<QueryResult<FindDaoQuery | DaoWithTokenDataQuery>> {
     const url = this._endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {

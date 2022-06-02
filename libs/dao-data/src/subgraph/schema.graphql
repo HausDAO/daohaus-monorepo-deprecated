@@ -75,6 +75,7 @@ type Dao {
   sharesPaused: Boolean!
   gracePeriod: BigInt!
   votingPeriod: BigInt!
+  votingPlusGraceDuration: BigInt!
   proposalOffering: BigInt!
   quorumPercent: BigInt!
   sponsorThreshold: BigInt!
@@ -174,6 +175,14 @@ input Dao_filter {
   votingPeriod_lte: BigInt
   votingPeriod_in: [BigInt!]
   votingPeriod_not_in: [BigInt!]
+  votingPlusGraceDuration: BigInt
+  votingPlusGraceDuration_not: BigInt
+  votingPlusGraceDuration_gt: BigInt
+  votingPlusGraceDuration_lt: BigInt
+  votingPlusGraceDuration_gte: BigInt
+  votingPlusGraceDuration_lte: BigInt
+  votingPlusGraceDuration_in: [BigInt!]
+  votingPlusGraceDuration_not_in: [BigInt!]
   proposalOffering: BigInt
   proposalOffering_not: BigInt
   proposalOffering_gt: BigInt
@@ -362,6 +371,7 @@ enum Dao_orderBy {
   sharesPaused
   gracePeriod
   votingPeriod
+  votingPlusGraceDuration
   proposalOffering
   quorumPercent
   sponsorThreshold
@@ -699,6 +709,8 @@ type Proposal {
   votingPeriod: BigInt!
   votingStarts: BigInt!
   votingEnds: BigInt!
+  gracePeriod: BigInt!
+  votingPlusGraceDuration: BigInt!
   graceEnds: BigInt!
   proposalData: Bytes!
   expiration: BigInt!
@@ -716,6 +728,7 @@ type Proposal {
   noVotes: BigInt!
   yesBalance: BigInt!
   noBalance: BigInt!
+  currentlyPassing: Boolean!
   maxTotalSharesAndLootAtYesVote: BigInt!
   tributeToken: Bytes
   tributeOffered: BigInt
@@ -831,6 +844,22 @@ input Proposal_filter {
   votingEnds_lte: BigInt
   votingEnds_in: [BigInt!]
   votingEnds_not_in: [BigInt!]
+  gracePeriod: BigInt
+  gracePeriod_not: BigInt
+  gracePeriod_gt: BigInt
+  gracePeriod_lt: BigInt
+  gracePeriod_gte: BigInt
+  gracePeriod_lte: BigInt
+  gracePeriod_in: [BigInt!]
+  gracePeriod_not_in: [BigInt!]
+  votingPlusGraceDuration: BigInt
+  votingPlusGraceDuration_not: BigInt
+  votingPlusGraceDuration_gt: BigInt
+  votingPlusGraceDuration_lt: BigInt
+  votingPlusGraceDuration_gte: BigInt
+  votingPlusGraceDuration_lte: BigInt
+  votingPlusGraceDuration_in: [BigInt!]
+  votingPlusGraceDuration_not_in: [BigInt!]
   graceEnds: BigInt
   graceEnds_not: BigInt
   graceEnds_gt: BigInt
@@ -951,6 +980,10 @@ input Proposal_filter {
   noBalance_lte: BigInt
   noBalance_in: [BigInt!]
   noBalance_not_in: [BigInt!]
+  currentlyPassing: Boolean
+  currentlyPassing_not: Boolean
+  currentlyPassing_in: [Boolean!]
+  currentlyPassing_not_in: [Boolean!]
   maxTotalSharesAndLootAtYesVote: BigInt
   maxTotalSharesAndLootAtYesVote_not: BigInt
   maxTotalSharesAndLootAtYesVote_gt: BigInt
@@ -1123,6 +1156,8 @@ enum Proposal_orderBy {
   votingPeriod
   votingStarts
   votingEnds
+  gracePeriod
+  votingPlusGraceDuration
   graceEnds
   proposalData
   expiration
@@ -1140,6 +1175,7 @@ enum Proposal_orderBy {
   noVotes
   yesBalance
   noBalance
+  currentlyPassing
   maxTotalSharesAndLootAtYesVote
   tributeToken
   tributeOffered

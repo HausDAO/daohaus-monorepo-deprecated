@@ -57,6 +57,7 @@ export interface Dao {
   totalShares: Scalars['BigInt'];
   transactionHashSummon: Scalars['Bytes'];
   votingPeriod: Scalars['BigInt'];
+  votingPlusGraceDuration: Scalars['BigInt'];
 }
 
 
@@ -346,6 +347,14 @@ export interface Dao_Filter {
   votingPeriod_lte?: InputMaybe<Scalars['BigInt']>;
   votingPeriod_not?: InputMaybe<Scalars['BigInt']>;
   votingPeriod_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  votingPlusGraceDuration?: InputMaybe<Scalars['BigInt']>;
+  votingPlusGraceDuration_gt?: InputMaybe<Scalars['BigInt']>;
+  votingPlusGraceDuration_gte?: InputMaybe<Scalars['BigInt']>;
+  votingPlusGraceDuration_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  votingPlusGraceDuration_lt?: InputMaybe<Scalars['BigInt']>;
+  votingPlusGraceDuration_lte?: InputMaybe<Scalars['BigInt']>;
+  votingPlusGraceDuration_not?: InputMaybe<Scalars['BigInt']>;
+  votingPlusGraceDuration_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
 }
 
 export type Dao_OrderBy =
@@ -378,7 +387,8 @@ export type Dao_OrderBy =
   | 'totalLoot'
   | 'totalShares'
   | 'transactionHashSummon'
-  | 'votingPeriod';
+  | 'votingPeriod'
+  | 'votingPlusGraceDuration';
 
 export interface EventTransaction {
   __typename?: 'EventTransaction';
@@ -698,11 +708,13 @@ export interface Proposal {
   contentURIType?: Maybe<Scalars['String']>;
   createdAt: Scalars['String'];
   createdBy: Scalars['Bytes'];
+  currentlyPassing: Scalars['Boolean'];
   dao: Dao;
   description?: Maybe<Scalars['String']>;
   details: Scalars['String'];
   expiration: Scalars['BigInt'];
   graceEnds: Scalars['BigInt'];
+  gracePeriod: Scalars['BigInt'];
   id: Scalars['ID'];
   maxTotalSharesAndLootAtYesVote: Scalars['BigInt'];
   noBalance: Scalars['BigInt'];
@@ -727,6 +739,7 @@ export interface Proposal {
   votes?: Maybe<Array<Vote>>;
   votingEnds: Scalars['BigInt'];
   votingPeriod: Scalars['BigInt'];
+  votingPlusGraceDuration: Scalars['BigInt'];
   votingStarts: Scalars['BigInt'];
   yesBalance: Scalars['BigInt'];
   yesVotes: Scalars['BigInt'];
@@ -826,6 +839,10 @@ export interface Proposal_Filter {
   createdBy_not?: InputMaybe<Scalars['Bytes']>;
   createdBy_not_contains?: InputMaybe<Scalars['Bytes']>;
   createdBy_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  currentlyPassing?: InputMaybe<Scalars['Boolean']>;
+  currentlyPassing_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  currentlyPassing_not?: InputMaybe<Scalars['Boolean']>;
+  currentlyPassing_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
   dao?: InputMaybe<Scalars['String']>;
   dao_contains?: InputMaybe<Scalars['String']>;
   dao_contains_nocase?: InputMaybe<Scalars['String']>;
@@ -902,6 +919,14 @@ export interface Proposal_Filter {
   graceEnds_lte?: InputMaybe<Scalars['BigInt']>;
   graceEnds_not?: InputMaybe<Scalars['BigInt']>;
   graceEnds_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  gracePeriod?: InputMaybe<Scalars['BigInt']>;
+  gracePeriod_gt?: InputMaybe<Scalars['BigInt']>;
+  gracePeriod_gte?: InputMaybe<Scalars['BigInt']>;
+  gracePeriod_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  gracePeriod_lt?: InputMaybe<Scalars['BigInt']>;
+  gracePeriod_lte?: InputMaybe<Scalars['BigInt']>;
+  gracePeriod_not?: InputMaybe<Scalars['BigInt']>;
+  gracePeriod_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   id?: InputMaybe<Scalars['ID']>;
   id_gt?: InputMaybe<Scalars['ID']>;
   id_gte?: InputMaybe<Scalars['ID']>;
@@ -1096,6 +1121,14 @@ export interface Proposal_Filter {
   votingPeriod_lte?: InputMaybe<Scalars['BigInt']>;
   votingPeriod_not?: InputMaybe<Scalars['BigInt']>;
   votingPeriod_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  votingPlusGraceDuration?: InputMaybe<Scalars['BigInt']>;
+  votingPlusGraceDuration_gt?: InputMaybe<Scalars['BigInt']>;
+  votingPlusGraceDuration_gte?: InputMaybe<Scalars['BigInt']>;
+  votingPlusGraceDuration_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  votingPlusGraceDuration_lt?: InputMaybe<Scalars['BigInt']>;
+  votingPlusGraceDuration_lte?: InputMaybe<Scalars['BigInt']>;
+  votingPlusGraceDuration_not?: InputMaybe<Scalars['BigInt']>;
+  votingPlusGraceDuration_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   votingStarts?: InputMaybe<Scalars['BigInt']>;
   votingStarts_gt?: InputMaybe<Scalars['BigInt']>;
   votingStarts_gte?: InputMaybe<Scalars['BigInt']>;
@@ -1130,11 +1163,13 @@ export type Proposal_OrderBy =
   | 'contentURIType'
   | 'createdAt'
   | 'createdBy'
+  | 'currentlyPassing'
   | 'dao'
   | 'description'
   | 'details'
   | 'expiration'
   | 'graceEnds'
+  | 'gracePeriod'
   | 'id'
   | 'maxTotalSharesAndLootAtYesVote'
   | 'noBalance'
@@ -1159,6 +1194,7 @@ export type Proposal_OrderBy =
   | 'votes'
   | 'votingEnds'
   | 'votingPeriod'
+  | 'votingPlusGraceDuration'
   | 'votingStarts'
   | 'yesBalance'
   | 'yesVotes';

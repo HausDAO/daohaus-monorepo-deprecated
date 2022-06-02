@@ -43,6 +43,7 @@ fragment proposalFields on Proposal {
   votingPeriod
   votingStarts
   votingEnds
+  gracePeriod
   graceEnds
   expiration
   cancelled

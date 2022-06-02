@@ -59,15 +59,15 @@ const Members = () => {
   return (
     <>
       {loading && <Spinner />}
-      {!loading && <H3>{members.length} members</H3>}
+      {!loading && <H3>{members?.length} members</H3>}
 
-      {members.map((member) => {
+      {members?.map((member) => {
         return (
           <ListCard key={member.id}>
             <H6>{member.memberAddress}</H6>
             <ParSm>Shares: {member.shares}</ParSm>
             <ParSm>Loot: {member.loot}</ParSm>
-            <ParSm>Vote Count: {member.votes.length}</ParSm>
+            <ParSm>Vote Count: {member.votes?.length}</ParSm>
 
             <ParSm>
               Joined on: {formatDateTimeFromSeconds(member.createdAt)}

@@ -29,7 +29,13 @@
       "options": {
         "command": "helm lint ./ceramic",
         "cwd": "libs/infra-chart"
-      }
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ]
     }
   },
   "tags": []

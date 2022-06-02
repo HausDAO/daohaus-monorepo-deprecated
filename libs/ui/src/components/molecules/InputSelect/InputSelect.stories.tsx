@@ -14,7 +14,11 @@ export const BaseInputSelect = Template.bind({});
 BaseInputSelect.args = {
   id: 'inputId',
   selectId: 'selectID',
-  options: [{ value: 'test', name: 'Test' }],
+  options: [
+    { value: 'test', name: 'SCAM' },
+    { value: 'test2', name: 'RUG' },
+    { value: 'blort!', name: 'PULL' },
+  ],
   placeholder: 'placeholder',
-  selectPlaceholder: 'hodl',
+  selectPlaceholder: '-token-',
 };

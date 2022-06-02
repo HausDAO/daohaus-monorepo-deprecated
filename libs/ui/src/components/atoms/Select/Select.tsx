@@ -43,7 +43,7 @@ export const Select = forwardRef(
       warning,
     });
     return (
-      <WithIcon className={`${containerClassName} ${classes}`}>
+      <WithIcon className={`${containerClassName} ${wrapperClasses}`}>
         <BaseSelect
           {...props}
           ref={ref}
@@ -51,9 +51,7 @@ export const Select = forwardRef(
           defaultValue={defaultValue}
           disabled={disabled}
         >
-          {placeholder && (
-            <StyledOption value="">--{placeholder}--</StyledOption>
-          )}
+          {placeholder && <StyledOption value="">{placeholder}</StyledOption>}
           {options.map((option) => (
             <StyledOption key={option.key || option.value} value={option.value}>
               {option.name}

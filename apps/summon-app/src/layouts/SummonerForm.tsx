@@ -37,10 +37,18 @@ const Main = styled.main`
 
 export const SummonerForm = () => {
   const methods = useForm();
+
+  const handleFormSubmit = async (formValues: Record<string, unknown>) => {
+    console.log('formValues', formValues);
+  };
+
   return (
     <Main>
       <FormProvider {...methods}>
-        <form className="form-column">
+        <form
+          className="form-column"
+          onSubmit={methods.handleSubmit(handleFormSubmit)}
+        >
           <div className="title-section">
             <H1>
               <Bold>Summon a Baal.</Bold>
@@ -58,7 +66,7 @@ export const SummonerForm = () => {
           <AdvancedSegment />
           <ShamanSegment />
           <MembersSegment />
-          <Button fullWidth lg>
+          <Button fullWidth lg type="submit">
             Summon DAO
           </Button>
         </form>

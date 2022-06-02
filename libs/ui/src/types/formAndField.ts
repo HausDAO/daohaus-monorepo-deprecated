@@ -15,7 +15,7 @@ export type SuccessMessage = {
 
 export type PrimitiveWrapper = {
   id: string;
-  label: string;
+  label?: string;
   type?: string;
   helperText?: string;
   info?: string;
@@ -42,6 +42,8 @@ export type Field = {
   warning?: WarningMessage;
   error?: ErrorMessage;
   success?: SuccessMessage;
+  rows?: number;
+  cols?: number;
 };
 
 // TODO Refine based on Radix Checkbox Type & Wrapper

@@ -1,22 +1,21 @@
-import { DaoHausNav } from '@daohaus/daohaus-connect-feature';
-import { Button, H1, HausThemeContext } from '@daohaus/ui';
-import { useContext } from 'react';
 import styled from 'styled-components';
 
-const TemporaryLayout = styled.main`
+import { DaoHausNav } from '@daohaus/daohaus-connect-feature';
+import { SummonerForm } from '../layouts/SummonerForm';
+
+const TemporaryLayout = styled.div`
   width: 100%;
+  padding-top: 2.7rem;
+  padding-right: 4rem;
 `;
 
-export function App() {
-  const { toggleLightDark } = useContext(HausThemeContext);
-
+export const App = () => {
   return (
     <TemporaryLayout>
       <DaoHausNav />
-      <H1>test</H1>
-      <Button onClick={toggleLightDark}>Toggle Theme</Button>
+      <SummonerForm />
     </TemporaryLayout>
   );
-}
+};
 
 export default App;

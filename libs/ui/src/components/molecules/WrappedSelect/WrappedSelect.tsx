@@ -1,15 +1,14 @@
 import { useFormContext } from 'react-hook-form';
-import { Field } from '../../../types/formAndField';
-import { TextArea } from '../../atoms';
+import { SelectProps } from '../../../types/formAndField';
+import { Select } from '../../atoms';
 import { FieldWrapper } from '../FieldWrapper/FieldWrapper';
 
-export const WrappedTextArea = (props: Field) => {
+export const WrappedSelect = (props: SelectProps) => {
   const { id } = props;
   const { register } = useFormContext();
-
   return (
     <FieldWrapper {...props}>
-      <TextArea {...register(id)} {...props} />
+      <Select {...register(id)} {...props} />
     </FieldWrapper>
   );
 };

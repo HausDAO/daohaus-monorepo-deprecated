@@ -31,6 +31,7 @@ export const BaseInput = styled.input`
 
   :disabled {
     background-color: ${({ theme }: { theme: Theme }) => theme.field.disabled};
+    color: ${({ theme }: { theme: Theme }) => theme.field.disabledPlaceholder};
     cursor: not-allowed;
     font-style: italic;
     ::placeholder {

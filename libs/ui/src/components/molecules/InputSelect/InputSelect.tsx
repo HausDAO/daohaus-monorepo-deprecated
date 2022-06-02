@@ -1,11 +1,9 @@
 import classNames from 'classnames';
+import { UseFormRegisterReturn } from 'react-hook-form';
+import { InputSelectProps } from '../../../types/formAndField';
 
-import { Field, SelectProps } from '../../../types/formAndField';
 import { Input, Select } from '../../atoms';
 import { InputSelectBox } from './inputSelect.style';
-
-type InputSelectProps = Field &
-  SelectProps & { selectId: string; selectPlaceholder: string };
 
 export const InputSelect = ({
   selectId,
@@ -15,11 +13,22 @@ export const InputSelect = ({
   long,
   full,
   selectPlaceholder,
-}: InputSelectProps) => {
+  registerSelect = {},
+  registerInput = {},
+}: InputSelectProps & {
+  registerSelect?: UseFormRegisterReturn | Record<string, unknown>;
+  registerInput?: UseFormRegisterReturn | Record<string, unknown>;
+}) => {
   const classes = classNames({ long, full });
   return (
     <InputSelectBox className={classes}>
-      <Input id={id} disabled={disabled} className="input" full />
+      <Input
+        id={id}
+        disabled={disabled}
+        className="input"
+        full
+        {...registerInput}
+      />
       <Select
         id={selectId}
         options={options}
@@ -27,6 +36,7 @@ export const InputSelect = ({
         className="select"
         containerClassName="select-box"
         placeholder={selectPlaceholder}
+        {...registerSelect}
       />
     </InputSelectBox>
   );

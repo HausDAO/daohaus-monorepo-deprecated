@@ -60,3 +60,6 @@ export type SelectProps = Field & {
   inputSelect?: boolean;
   containerClassName?: string;
 };
+
+export type InputSelectProps = Field &
+  SelectProps & { selectId: string; selectPlaceholder: string };

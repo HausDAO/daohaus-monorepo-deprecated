@@ -10,6 +10,7 @@ import {
   TokenBalance,
   TransformedProposalQuery,
   TransformedProposalListQuery,
+  DaoWithTokenDataQuery,
 } from './types';
 import * as fetch from './utils';
 import { graphFetch } from './utils/requests';
@@ -29,7 +30,6 @@ import {
   Dao_OrderBy,
   Member_Filter,
   Member_OrderBy,
-  Proposal,
   Proposal_Filter,
   Proposal_OrderBy,
 } from './subgraph/schema.generated';
@@ -138,9 +138,7 @@ export default class Query {
       });
 
       const proposals = queryResult.data?.proposals
-        ? queryResult.data?.proposals.map((prop) =>
-            transformProposal(prop as Partial<Proposal>)
-          )
+        ? queryResult.data?.proposals.map((prop) => transformProposal(prop))
         : [];
 
       return {
@@ -200,10 +198,12 @@ export default class Query {
   public async findDao({
     networkId,
     dao,
+    includeTokens = false,
   }: {
     networkId: keyof Keychain;
     dao: string;
-  }): Promise<QueryResult<FindDaoQuery>> {
+    includeTokens?: boolean;
+  }): Promise<QueryResult<FindDaoQuery | DaoWithTokenDataQuery>> {
     const url = this._endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
@@ -212,7 +212,7 @@ export default class Query {
     }
 
     try {
-      return await graphFetch<FindDaoQuery, FindDaoQueryVariables>(
+      const daoRes = await graphFetch<FindDaoQuery, FindDaoQueryVariables>(
         FindDaoDocument,
         url,
         networkId,
@@ -220,6 +220,25 @@ export default class Query {
           id: dao,
         }
       );
+
+      if (includeTokens && daoRes?.data?.dao) {
+        const res = await fetch.get<TokenBalance[]>(
+          `${url}/safes/${ethers.utils.getAddress(
+            daoRes.data.dao.safeAddress
+          )}/balances/usd`
+        );
+
+        return {
+          data: {
+            dao: {
+              ...daoRes.data.dao,
+              ...transformTokenBalances(res, daoRes.data.dao.safeAddress),
+            },
+          },
+        };
+      } else {
+        return daoRes;
+      }
     } catch (err) {
       return {
         error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
@@ -286,9 +305,9 @@ export default class Query {
       return {
         ...queryResult,
         data: {
-          proposal: transformProposal(
-            queryResult?.data?.proposal as Partial<Proposal>
-          ),
+          proposal:
+            queryResult?.data?.proposal &&
+            transformProposal(queryResult.data.proposal),
         },
       };
     } catch (err) {

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import * as RadioGroupPrimitive from '@radix-ui/react-radio-group';
+
 import { Theme } from '../../../types/theming';
-import { font } from '../../../theme/global/font';
 
 export const Container = styled.div`
   align-items: center;
@@ -27,7 +27,7 @@ export const RadioIndicator = styled(RadioGroupPrimitive.Indicator)`
     border-radius: 50%;
 
     background-color: ${({ theme }: { theme: Theme }) =>
-      theme.radio.indicator.bg};
+      theme.radio.indicator.disabledBg};
   }
 
   &[data-disabled] {

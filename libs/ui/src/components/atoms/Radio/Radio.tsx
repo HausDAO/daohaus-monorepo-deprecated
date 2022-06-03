@@ -3,6 +3,7 @@ import {
   RadioGroupProps,
   RadioGroupItemProps,
 } from '@radix-ui/react-radio-group';
+
 import {
   RadioGroup,
   RadioItem,
@@ -10,12 +11,10 @@ import {
   Container,
   LabelContainer,
 } from './Radio.styles';
-import classNames from 'classnames';
 import { Label } from '../Label/Label';
 
 export type RadioProps = { label: string; id?: string } & RadioGroupItemProps;
 export type Props = {
-  id?: string;
   className?: string;
   radios: RadioProps[];
 };
@@ -28,26 +27,20 @@ type Ref =
 
 export const Radio = React.forwardRef(
   (props: RadioGroupProps & Props, ref: Ref) => {
-    const { id, className, radios } = props;
+    const { className, radios } = props;
 
     return (
       <RadioGroup {...props} className={className}>
-        {radios.map((radio) => {
-          const { disabled } = radio;
-          const classes = classNames({
-            disabled,
-          });
-          return (
-            <Container key={radio.id}>
-              <RadioItem {...radio}>
-                <RadioIndicator className={classes} ref={ref} />
-              </RadioItem>
-              <LabelContainer>
-                <Label id={radio.id}>{radio.label}</Label>
-              </LabelContainer>
-            </Container>
-          );
-        })}
+        {radios.map((radio: RadioProps) => (
+          <Container key={radio.id}>
+            <RadioItem {...radio}>
+              <RadioIndicator ref={ref} />
+            </RadioItem>
+            <LabelContainer>
+              <Label id={radio.id}>{radio.label}</Label>
+            </LabelContainer>
+          </Container>
+        ))}
       </RadioGroup>
     );
   }

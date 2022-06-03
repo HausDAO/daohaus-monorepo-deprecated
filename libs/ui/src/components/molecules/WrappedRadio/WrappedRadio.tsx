@@ -1,19 +1,11 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import {
-  RadioGroupProps,
-  RadioGroupItemProps,
-} from '@radix-ui/react-radio-group';
+import { RadioGroupProps } from '@radix-ui/react-radio-group';
+
 import type { PrimitiveWrapper } from '../../../types/formAndField';
-import { Radio } from '../../atoms/Radio';
+import { Radio, Props } from '../../atoms/Radio';
 import { FieldWrapper } from '../FieldWrapper/FieldWrapper';
 
-type RadioProps = { label: string; id?: string } & RadioGroupItemProps;
-
-type RadioGroupComponentProps = RadioGroupProps & {
-  id?: string;
-  className?: string;
-  radios: RadioProps[];
-};
+type RadioGroupComponentProps = RadioGroupProps & Props;
 type RadioGroupWrapperProps = PrimitiveWrapper & {
   radioGroup: RadioGroupComponentProps;
 };
@@ -21,9 +13,9 @@ type RadioGroupWrapperProps = PrimitiveWrapper & {
 export const WrappedRadio = (props: RadioGroupWrapperProps) => {
   const { id, helperText, info, label, error, success, warning, radioGroup } =
     props;
-  const { control, watch } = useFormContext();
+  const { control } = useFormContext();
   // Watches the values of the form element
-  console.log(watch());
+
   return (
     <FieldWrapper
       id={id}

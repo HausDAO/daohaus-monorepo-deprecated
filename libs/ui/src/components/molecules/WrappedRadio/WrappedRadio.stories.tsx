@@ -1,4 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { useFormContext } from 'react-hook-form';
+
+import { H3 } from '../../atoms/Typography';
 import { WrappedRadio } from './WrappedRadio';
 
 export default {
@@ -7,9 +10,13 @@ export default {
 } as ComponentMeta<typeof WrappedRadio>;
 
 const Template: ComponentStory<typeof WrappedRadio> = (args) => {
+  const { watch } = useFormContext();
+  const value = watch();
+
   return (
     <div style={{ margin: '4rem' }}>
       <WrappedRadio {...args} />
+      <H3>{value[args.id] || 'Selected value will appear here'}</H3>
     </div>
   );
 };
@@ -24,7 +31,6 @@ FullWrappedRadio.args = {
   error: undefined,
   success: undefined,
   radioGroup: {
-    id: 'exampleR',
     radios: [
       { id: 'g1r1', label: 'Value 1', value: 'v1' },
       { id: 'g1r2', label: 'Value 2', value: 'v2' },
@@ -43,8 +49,6 @@ SecondWrappedRadio.args = {
   error: undefined,
   success: undefined,
   radioGroup: {
-    id: 'exampleR2',
-    name: 'random',
     defaultValue: 'v2',
     radios: [
       { id: 'g2r1', label: 'Value 1', value: 'v1' },
@@ -65,7 +69,6 @@ DisabledWrappedRadio.args = {
   error: undefined,
   success: undefined,
   radioGroup: {
-    id: 'exampleR3',
     defaultValue: 'v1',
     radios: [
       { id: 'g3r1', label: 'Value 1', value: 'v1', disabled: true },

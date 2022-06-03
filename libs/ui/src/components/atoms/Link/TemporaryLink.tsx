@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export const TemporaryLink = styled.a`
   text-decoration: none;
+  display: inline-block;
   cursor: pointer;
   font-family: ${font.family.body};
   font-weight: ${font.weight.reg};

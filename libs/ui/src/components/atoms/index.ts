@@ -10,5 +10,6 @@ export * from './Typography';
 export * from './Link';
 export * from './Select';
 export * from './Spinner';
+export * from './Divider';
 export * from './Switch';
 export * from './Icon';

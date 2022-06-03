@@ -86,6 +86,9 @@ export function handleShamanSet(event: ShamanSet): void {
   if (shaman === null) {
     shaman = new Shaman(shamanId);
     shaman.createdAt = event.block.timestamp.toString();
+    shaman.cursorSort = event.block.timestamp
+      .toString()
+      .concat(event.logIndex.toString());
     shaman.dao = event.address.toHexString();
     shaman.shamanAddress = event.params.shaman;
   }
@@ -137,6 +140,9 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   let proposal = new Proposal(proposalId);
   proposal.createdAt = event.block.timestamp.toString();
   proposal.createdBy = event.transaction.from;
+  proposal.cursorSort = event.block.timestamp
+    .toString()
+    .concat(event.logIndex.toString());
   proposal.dao = event.address.toHexString();
   proposal.proposalId = event.params.proposal;
   proposal.proposalDataHash = event.params.proposalDataHash;
@@ -316,6 +322,9 @@ export function handleSubmitVote(event: SubmitVote): void {
   let vote = new Vote(voteId);
 
   vote.createdAt = event.block.timestamp.toString();
+  vote.cursorSort = event.block.timestamp
+    .toString()
+    .concat(event.logIndex.toString());
   vote.daoAddress = event.address;
   vote.approved = event.params.approved;
   vote.balance = event.params.balance;
@@ -364,6 +373,9 @@ export function handleRageQuit(event: Ragequit): void {
   let rage = new RageQuit(rageId);
 
   rage.createdAt = event.block.timestamp.toString();
+  rage.cursorSort = event.block.timestamp
+    .toString()
+    .concat(event.logIndex.toString());
   rage.dao = dao.id;
   rage.member = memberId;
   rage.to = event.params.to;

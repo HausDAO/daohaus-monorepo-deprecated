@@ -10,10 +10,10 @@ export const FieldWrapperBase = styled.div`
   .field-slot {
     margin-bottom: 1.2rem;
   }
-  .long {
+  &.long {
     max-width: ${field.size.lg};
   }
-  .full {
+  &.full {
     max-width: ${field.size.full};
   }
 `;
@@ -30,7 +30,6 @@ export const LabelContainer = styled.label`
   }
 `;
 
-// TODO Rowdy - RequiredAsterisk should be a reusable icon atom
 export const RequiredAsterisk = styled.span`
   margin-right: 8px;
   font-weight: ${font.weight.bold};

@@ -8,9 +8,9 @@ dataSources:
     name: BaalSummoner
     network: goerli
     source:
-      address: '0x9425f47e808d9d4fE56f5F9f517CbBDd802DcdFb'
+      address: '0x1b94221EB2bC8dc9F16660EA5be9dcd92b0ae862'
       abi: BaalSummoner
-      startBlock: 6918540
+      startBlock: 6953669
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -49,9 +49,9 @@ dataSources:
     name: TributeEscrow
     network: goerli
     source:
-      address: '0x76095061f675F4CcD86094b8ac9018fD96a70Fa3'
+      address: '0x328F80e44592E017B1745B0B574dBaB0c8DFc5f0'
       abi: TributeEscrow
-      startBlock: 6935358
+      startBlock: 6953708
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -105,8 +105,6 @@ templates:
           handler: handleSponsorProposal
         - event: ProcessProposal(indexed uint256,bool,bool)
           handler: handleProcessProposal
-        - event: ProcessingFailed(indexed uint256)
-          handler: handleProcessingFailed
         - event: CancelProposal(indexed uint256)
           handler: handleCancelProposal
         - event: SubmitVote(indexed address,uint256,indexed uint256,indexed bool)

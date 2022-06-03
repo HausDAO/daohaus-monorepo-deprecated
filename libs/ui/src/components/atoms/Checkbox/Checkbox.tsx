@@ -1,6 +1,7 @@
 import React, { RefObject } from 'react';
+
 import classNames from 'classnames';
-import { BiCheck } from 'react-icons/bi';
+import { RiCheckLine, RiAsterisk } from 'react-icons/ri';
 import { CheckboxProps } from '@radix-ui/react-checkbox';
 
 import {
@@ -11,6 +12,7 @@ import {
   RequiredAsterisk,
 } from './Checkbox.styles';
 import { Label } from '../Label/Label';
+import { Icon } from '../Icon';
 
 type Ref =
   | RefObject<HTMLButtonElement>
@@ -29,11 +31,17 @@ export const Checkbox = React.forwardRef((props: CheckboxProps, ref: Ref) => {
     <Container>
       <StyledCheckbox {...props} ref={ref}>
         <StyledIndicator className={classes}>
-          <BiCheck />
+          <RiCheckLine />
         </StyledIndicator>
       </StyledCheckbox>
       <LabelContainer>
-        {required && <RequiredAsterisk>*</RequiredAsterisk>}
+        {required && (
+          <RequiredAsterisk>
+            <Icon label="Required">
+              <RiAsterisk />
+            </Icon>
+          </RequiredAsterisk>
+        )}
         <Label id={id}>{title ? title : 'No Title Found'}</Label>
       </LabelContainer>
     </Container>

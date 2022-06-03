@@ -25,7 +25,7 @@ export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
   width: 18px;
   height: 18px;
   :disabled {
-    border 2px solid ${({ theme }: { theme: Theme }) => theme.disabled}
+    border: 2px solid ${({ theme }: { theme: Theme }) => theme.disabled};
   }
 `;
 
@@ -50,7 +50,6 @@ export const LabelContainer = styled.label`
   }
 `;
 
-// TODO Rowdy - RequiredAsterisk should be a reusable icon atom
 export const RequiredAsterisk = styled.span`
   margin-right: 8px;
   font-weight: ${font.weight.bold};

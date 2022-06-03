@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "abi-utilities": "libs/abi-utilities",
+    "baal-contract-service": "libs/baal-contract-service",
     "common-utilities": "libs/common-utilities",
     "dao-data": "libs/dao-data",
     "daohaus-connect-feature": "libs/daohaus-connect-feature",

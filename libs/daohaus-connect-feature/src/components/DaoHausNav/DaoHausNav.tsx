@@ -5,8 +5,6 @@ import { NetworkButton } from '../NetworkButton';
 const StyledNav = styled.nav`
   display: flex;
   justify-content: flex-end;
-  padding-top: 2.7rem;
-  padding-right: 4rem;
   .connect-box {
     margin-left: 1.2rem;
   }

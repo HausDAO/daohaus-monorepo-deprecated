@@ -42,6 +42,7 @@ declare module 'styled-components' {
       focus: string;
       placeholderText: string;
       disabled: string;
+      disabledColor: string;
       disabledPlaceholder: string;
     };
     button: {
@@ -58,6 +59,11 @@ declare module 'styled-components' {
     checkbox: {
       border: string;
       activeBorder: string;
+    };
+    select: {
+      bg: string;
+      text: string;
+      borderColor: string;
     };
     spinner: {
       topColor: string;

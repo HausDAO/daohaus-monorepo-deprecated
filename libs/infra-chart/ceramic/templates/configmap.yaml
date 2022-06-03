@@ -1,0 +1,10 @@
+{{- if .Values.daemonConfigJson }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ printf "%s-node-config" (include "common.names.fullname" .) }}
+  namespace: {{ .Release.Namespace | quote }}
+data:
+  daemon.config.json: |-
+    {{- include "common.tplvalues.render" ( dict "value" .Values.daemonConfigJson "context" $ ) | b64enc | quote }}
+{{- end -}}

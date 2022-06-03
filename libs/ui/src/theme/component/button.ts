@@ -1,4 +1,11 @@
-import { amber, amberDark, indigo, indigoDark } from '@radix-ui/colors';
+import {
+  amber,
+  amberDark,
+  indigo,
+  indigoDark,
+  indigoDarkA,
+  whiteA,
+} from '@radix-ui/colors';
 import { ButtonColorTargets } from '../../styled';
 
 export const PrimaryDarkButton: ButtonColorTargets = {
@@ -19,22 +26,23 @@ export const PrimaryDarkButton: ButtonColorTargets = {
   disabledBorder: amberDark.amber8,
 };
 export const SecondaryDarkButton: ButtonColorTargets = {
-  bg: indigoDark.indigo3,
+  bg: indigoDark.indigo6,
   text: indigoDark.indigo12,
-  border: indigoDark.indigo4,
-  hoverBg: indigoDark.indigo6,
+  border: indigoDark.indigo6,
+  hoverBg: indigoDark.indigo7,
   hoverText: indigoDark.indigo12,
-  hoverBorder: indigoDark.indigo6,
-  focusBg: indigoDark.indigo4,
+  hoverBorder: indigoDark.indigo7,
+  focusBg: indigoDark.indigo6,
   focusText: indigoDark.indigo12,
-  focusBorder: indigoDark.indigo11,
-  activeBg: indigoDark.indigo4,
+  focusBorder: indigoDark.indigo3,
+  activeBg: indigoDark.indigo6,
   activeText: indigoDark.indigo12,
-  activeBorder: indigoDark.indigo4,
-  disabledBg: indigoDark.indigo3,
-  disabledText: indigoDark.indigo8,
-  disabledBorder: indigoDark.indigo4,
+  activeBorder: indigoDark.indigo6,
+  disabledBg: indigoDarkA.indigoA3,
+  disabledText: whiteA.whiteA9,
+  disabledBorder: indigoDarkA.indigoA3,
 };
+
 export const TertiaryDarkButton: ButtonColorTargets = {
   bg: 'transparent',
   text: amberDark.amber11,

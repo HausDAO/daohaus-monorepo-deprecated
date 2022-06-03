@@ -10,6 +10,9 @@ on:
 
 env:
   BASE: ${{ github.ref == 'refs/heads/master' && 'origin/master~1' || 'origin/master' }}
+  SKYNET_JWT: ${{ secrets.SKYNET_JWT }}
+  DAOHAUS_SUMMON_SKYNET_SEED: ${{ secrets.DAOHAUS_SUMMON_SKYNET_SEED }}
+  DAOHAUS_HUB_SKYNET_SEED: ${{ secrets.DAOHAUS_HUB_SKYNET_SEED }}
 jobs:
   build:
     runs-on: ubuntu-latest

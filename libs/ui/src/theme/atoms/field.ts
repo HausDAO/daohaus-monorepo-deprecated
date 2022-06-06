@@ -5,7 +5,7 @@ import {
   neutralDark,
 } from '../global/colors';
 
-export type FildColorTarget = {
+export type FieldColorTarget = {
   bg: string;
   focus: string;
   placeholderText: string;
@@ -14,7 +14,7 @@ export type FildColorTarget = {
   disabledPlaceholder: string;
 };
 
-export const FieldTheme: FildColorTarget = {
+export const FieldTheme: FieldColorTarget = {
   bg: secondary.elementBg,
   focus: secondary.elementBgHover,
   placeholderText: secondary.elementBorderHover,
@@ -23,7 +23,7 @@ export const FieldTheme: FildColorTarget = {
   disabledPlaceholder: neutral.bgSolidHover,
 };
 
-export const FieldThemeDark: FildColorTarget = {
+export const FieldThemeDark: FieldColorTarget = {
   bg: secondaryDark.elementBg,
   focus: secondaryDark.elementBgHover,
   placeholderText: secondaryDark.textLowContrast,

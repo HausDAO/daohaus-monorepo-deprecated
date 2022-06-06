@@ -2,7 +2,7 @@ import React, { useEffect, useState, MouseEvent } from 'react';
 import styled from 'styled-components';
 import { BiCopy } from 'react-icons/bi';
 import { H5, H6, Underline, ParLg, ParMd } from '@daohaus/ui';
-import { Avatar } from '@daohaus/ui';
+import { Avatar, TemporaryLink } from '@daohaus/ui';
 import { networks } from '../constants';
 import { Haus } from '@daohaus/dao-data';
 import { BiGhost } from 'react-icons/bi';
@@ -17,9 +17,13 @@ const ProfileContainer = styled.div`
   align-items: center;
   gap: 2.6rem;
 `;
-const StyledAnchor = styled.a`
+const StyledAnchor = styled(TemporaryLink)`
   text-decoration: none;
   color: white;
+  :hover {
+    text-decoration: underline;
+    color: white;
+  }
 `;
 
 const CopyIcon = styled(BiCopy)`

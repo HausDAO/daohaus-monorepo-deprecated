@@ -27,25 +27,27 @@ export const WrappedSwitch = (props: SwitchWrapperProps) => {
       success={success}
       warning={warning}
     >
-      {switches.map((switchProps) => (
-        <Controller
-          key={switchProps.id}
-          name={switchProps.name || id}
-          control={control}
-          defaultValue={switchProps.defaultChecked}
-          render={({ field }) => {
-            return (
-              <Switch
-                {...field}
-                {...switchProps}
-                switchOn={field.value}
-                onCheckedChange={field.onChange}
-                ref={field.ref}
-              />
-            );
-          }}
-        />
-      ))}
+      {switches.map((switchProps) => {
+        return (
+          <Controller
+            key={switchProps.id || id}
+            name={switchProps.id || id}
+            control={control}
+            defaultValue={switchProps.defaultChecked}
+            render={({ field }) => {
+              return (
+                <Switch
+                  {...field}
+                  {...switchProps}
+                  switchOn={field.value}
+                  onCheckedChange={field.onChange}
+                  ref={field.ref}
+                />
+              );
+            }}
+          />
+        );
+      })}
     </FieldWrapper>
   );
 };

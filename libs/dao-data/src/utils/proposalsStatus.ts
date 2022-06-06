@@ -3,73 +3,52 @@ import {
   ProposalStatus,
   PROPOSAL_STATUS,
 } from '@daohaus/common-utilities';
-import { Proposal } from '../types';
+import { QueryProposal } from '../types';
 
-export type ProposalForStatusCheck = Pick<
-  Proposal,
-  | 'sponsored'
-  | 'cancelled'
-  | 'passed'
-  | 'actionFailed'
-  | 'votingStarts'
-  | 'votingEnds'
-  | 'graceEnds'
-  | 'expiration'
-  | 'noBalance'
-  | 'yesBalance'
-> &
-  Partial<Proposal>;
+export const isProposalUnsponsored = (proposal: QueryProposal): boolean =>
+  !proposal.sponsored;
 
-export const isProposalUnsponsored = (
-  proposal: ProposalForStatusCheck
-): boolean => !proposal.sponsored;
+export const isProposalCancelled = (proposal: QueryProposal): boolean =>
+  proposal.cancelled;
 
-export const isProposalCancelled = (
-  proposal: ProposalForStatusCheck
-): boolean => proposal.cancelled;
-
-export const isProposalPassed = (proposal: ProposalForStatusCheck): boolean =>
+export const isProposalPassed = (proposal: QueryProposal): boolean =>
   proposal.passed;
 
-export const isProposalActionFailed = (
-  proposal: ProposalForStatusCheck
-): boolean => proposal.actionFailed;
+export const isProposalActionFailed = (proposal: QueryProposal): boolean =>
+  proposal.actionFailed;
 
-export const isProposalInVoting = (
-  proposal: ProposalForStatusCheck
-): boolean => {
+export const isProposalInVoting = (proposal: QueryProposal): boolean => {
   const now = nowInSeconds();
   return (
-    Number(proposal.votingStarts) < now && Number(proposal.votingEnds) < now
+    Number(proposal.votingStarts) < now && Number(proposal.votingEnds) > now
   );
 };
 
-export const isProposalInGrace = (
-  proposal: ProposalForStatusCheck
-): boolean => {
+export const isProposalInGrace = (proposal: QueryProposal): boolean => {
   const now = nowInSeconds();
-  return Number(proposal.votingEnds) < now && Number(proposal.graceEnds) < now;
+  return Number(proposal.votingEnds) < now && Number(proposal.graceEnds) > now;
 };
 
-export const isProposalExpired = (proposal: ProposalForStatusCheck): boolean =>
+// TODO - more testing here and in filters. likely need some checkes on unsponsored/cancelled
+export const isProposalExpired = (proposal: QueryProposal): boolean =>
   Number(proposal.expiration) > 0 &&
+  !proposal.processed &&
+  !proposal.cancelled &&
   Number(proposal.expiration) <
-    Number(proposal.votingEnds) + Number(proposal.graceEnds) + nowInSeconds();
+    Number(proposal.votingPeriod) +
+      Number(proposal.gracePeriod) +
+      nowInSeconds();
 
-export const proposalNeedsProcessing = (
-  proposal: ProposalForStatusCheck
-): boolean =>
+export const proposalNeedsProcessing = (proposal: QueryProposal): boolean =>
   nowInSeconds() > Number(proposal.graceEnds) &&
   Number(proposal.yesBalance) > Number(proposal.noBalance) &&
   !proposal.processed;
 
-export const isProposalFailed = (proposal: ProposalForStatusCheck): boolean =>
+export const isProposalFailed = (proposal: QueryProposal): boolean =>
   nowInSeconds() > Number(proposal.graceEnds) &&
   Number(proposal.yesBalance) < Number(proposal.noBalance);
 
-export const getProposalStatus = (
-  proposal: ProposalForStatusCheck
-): ProposalStatus => {
+export const getProposalStatus = (proposal: QueryProposal): ProposalStatus => {
   if (isProposalUnsponsored(proposal)) {
     return PROPOSAL_STATUS['unsponsored'];
   }

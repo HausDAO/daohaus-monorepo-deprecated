@@ -31,7 +31,7 @@
     "generate-gql-schema": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "get-graphql-schema https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-rinkeby > libs/dao-data/src/subgraph/schema.graphql"
+        "command": "get-graphql-schema https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli > libs/dao-data/src/subgraph/schema.graphql"
       }
     },
     "generate-gql-types": {

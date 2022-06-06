@@ -26,7 +26,6 @@ fragment daoFields on Dao {
   id
   createdAt
   transactionHashSummon
-  lootAddress
   safeAddress
   lootPaused
   sharesPaused
@@ -38,10 +37,14 @@ fragment daoFields on Dao {
   minRetentionPercent
   shareTokenName
   shareTokenSymbol
+  sharesAddress
+  lootTokenName
+  lootTokenSymbol
+  lootAddress
   totalShares
   totalLoot
   latestSponsoredProposalId
-  metaData {
-    name
-  }
+  proposalCount
+  activeMemberCount
+  name
 }

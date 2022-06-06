@@ -1,0 +1,56 @@
+# Default values for infra-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+# IPFS will be another subchart
+ceramic:
+  resources:
+    limits:
+      cpu: 1024m
+      memory: 2048Gi
+    requests:
+      cpu: 512m
+      memory: 1024Gi
+  dataPersistence:
+    size: 8Gi
+  commonAnnotations:
+    environment: staging
+  readinessProbe:
+    enabled: false
+  livenessProbe:
+    enabled: false
+  ingress:
+    tls: true
+    hostname: ceramic-test.daohaus.club
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: 'true'
+      cert-manager.io/issuer: 'letsencrypt-prod'
+    extraHosts:
+      - name: www.ceramic-test.daohaus.club
+        path: /
+ipfs:
+  resources:
+    limits:
+      cpu: 1024m
+      memory: 2048Gi
+    requests:
+      cpu: 512m
+      memory: 1024Gi
+  persistence:
+    size: 8Gi
+  commonAnnotations:
+    environment: staging
+  readinessProbe:
+    enabled: false
+  livenessProbe:
+    enabled: false
+  ingress:
+    tls: true
+    hostname: ipfs-test.daohaus.club
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      kubernetes.io/tls-acme: 'true'
+      cert-manager.io/issuer: 'letsencrypt-prod'
+    extraHosts:
+      - name: www.ipfs-test.daohaus.club
+        path: /

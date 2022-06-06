@@ -40,6 +40,7 @@ export const defaultDarkTheme: Theme = {
     focus: indigoDark.indigo4,
     placeholderText: indigoDark.indigo11,
     disabled: slateDark.slate5,
+    disabledColor: slateDark.slate11,
     disabledPlaceholder: slateDark.slate10,
   },
   button: {
@@ -57,6 +58,11 @@ export const defaultDarkTheme: Theme = {
     border: indigoDark.indigo12,
     activeBorder: amberDark.amber9,
   },
+  select: {
+    bg: indigoDark.indigo3,
+    text: indigoDark.indigo11,
+    borderColor: 'transparent',
+  },
   spinner: {
     topColor: amberDark.amber9,
     bottomColor: amberDark.amber4,
@@ -73,6 +79,8 @@ export const defaultDarkTheme: Theme = {
       disabledBg: grayDark.gray9,
     },
   },
+
+  //  Update this to secondary button style once we update colors
 };
 
 export const defaultLightTheme: Theme = {
@@ -91,6 +99,7 @@ export const defaultLightTheme: Theme = {
     focus: indigo.indigo4,
     placeholderText: indigo.indigo8,
     disabled: slate.slate5,
+    disabledColor: slate.slate6,
     disabledPlaceholder: slate.slate5,
   },
   button: {
@@ -107,6 +116,11 @@ export const defaultLightTheme: Theme = {
   checkbox: {
     border: indigoDark.indigo12,
     activeBorder: amberDark.amber9,
+  },
+  select: {
+    bg: indigo.indigo3,
+    text: indigo.indigo11,
+    borderColor: 'transparent',
   },
   spinner: {
     topColor: amber.amber9,

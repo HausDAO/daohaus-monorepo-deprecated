@@ -1,5 +1,7 @@
 import 'styled-components';
 
+import { FildColorTarget } from './theme/atoms/field';
+
 export type CheckboxColorTargets = {
   bg: string;
   border: string;
@@ -37,13 +39,7 @@ declare module 'styled-components' {
     disabled: string;
     transparent: string;
     info: string;
-    field: {
-      bg: string;
-      focus: string;
-      placeholderText: string;
-      disabled: string;
-      disabledPlaceholder: string;
-    };
+    field: FildColorTarget;
     button: {
       primary: ButtonColorTargets;
       secondary: ButtonColorTargets;

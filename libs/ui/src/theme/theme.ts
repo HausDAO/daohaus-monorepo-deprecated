@@ -1,12 +1,4 @@
-import {
-  amber,
-  amberDark,
-  indigo,
-  indigoDark,
-  slate,
-  slateDark,
-  grayDark,
-} from '@radix-ui/colors';
+import { grayDark } from '@radix-ui/colors';
 import { Theme } from '../types/theming';
 
 import {
@@ -28,6 +20,7 @@ import {
   TertiaryDarkButton,
   TertiaryLightButton,
 } from './atoms/button';
+import { FieldTheme, FieldThemeDark } from './atoms/field';
 
 export const defaultDarkTheme: Theme = {
   themeName: 'dark',
@@ -37,44 +30,38 @@ export const defaultDarkTheme: Theme = {
   error: utilityDark.danger,
   warning: utilityDark.warning,
   success: utilityDark.success,
-  disabled: neutralDark.bgSolidDisabled,
+  disabled: neutralDark.bgSolid,
   transparent: utilityDark.transparent,
   info: utilityDark.info,
-  field: {
-    bg: indigoDark.indigo3,
-    focus: indigoDark.indigo4,
-    placeholderText: indigoDark.indigo11,
-    disabled: slateDark.slate5,
-    disabledPlaceholder: slateDark.slate10,
-  },
+  field: FieldThemeDark,
   button: {
     primary: PrimaryDarkButton,
     secondary: SecondaryDarkButton,
     tertiary: TertiaryDarkButton,
   },
   tooltip: {
-    bg: indigoDark.indigo3,
+    bg: secondaryDark.elementBg,
   },
   dropdown: {
-    bg: indigoDark.indigo2,
+    bg: secondaryDark.bgSubtle,
   },
   checkbox: {
-    border: indigoDark.indigo12,
-    activeBorder: amberDark.amber9,
+    border: secondaryDark.textHighContrast,
+    activeBorder: primaryDark.bgSolid,
   },
   spinner: {
-    topColor: amberDark.amber9,
-    bottomColor: amberDark.amber4,
+    topColor: primaryDark.bgSolid,
+    bottomColor: primaryDark.elementBgHover,
   },
   switch: {
     bar: {
-      bg: indigoDark.indigo6,
-      activeBg: amberDark.amber6,
+      bg: secondaryDark.elementBorderSubtle,
+      activeBg: primaryDark.elementBorderSubtle,
       disabledBg: grayDark.gray6,
     },
     thumb: {
-      bg: indigoDark.indigo9,
-      activeBg: amberDark.amber9,
+      bg: secondaryDark.bgSolid,
+      activeBg: primaryDark.bgSolid,
       disabledBg: grayDark.gray9,
     },
   },
@@ -91,41 +78,35 @@ export const defaultLightTheme: Theme = {
   info: utility.info,
   transparent: utility.transparent,
   disabled: neutral.bgSolid,
-  field: {
-    bg: indigo.indigo3,
-    focus: indigo.indigo4,
-    placeholderText: indigo.indigo8,
-    disabled: slate.slate5,
-    disabledPlaceholder: slate.slate5,
-  },
+  field: FieldTheme,
   button: {
     primary: PrimaryLightButton,
     secondary: SecondaryLightButton,
     tertiary: TertiaryLightButton,
   },
   tooltip: {
-    bg: indigo.indigo3,
+    bg: secondary.elementBg,
   },
   dropdown: {
-    bg: indigo.indigo2,
+    bg: secondary.bgSubtle,
   },
   checkbox: {
-    border: indigoDark.indigo12,
-    activeBorder: amberDark.amber9,
+    border: secondary.textHighContrast,
+    activeBorder: primary.bgSolid,
   },
   spinner: {
-    topColor: amber.amber9,
-    bottomColor: amber.amber4,
+    topColor: primary.bgSolid,
+    bottomColor: primary.elementBgHover,
   },
   switch: {
     bar: {
-      bg: indigoDark.indigo6,
-      activeBg: amberDark.amber6,
+      bg: secondary.elementBorderSubtle,
+      activeBg: primary.elementBorderSubtle,
       disabledBg: grayDark.gray6,
     },
     thumb: {
-      bg: indigoDark.indigo9,
-      activeBg: amberDark.amber9,
+      bg: secondaryDark.bgSolid,
+      activeBg: primaryDark.bgSolid,
       disabledBg: grayDark.gray9,
     },
   },

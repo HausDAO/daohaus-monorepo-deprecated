@@ -50,9 +50,9 @@ export const defaultDarkTheme: Theme = {
     activeBorder: primaryDark.bgSolid,
   },
   select: {
-    bg: indigoDark.indigo3,
-    text: indigoDark.indigo11,
-    borderColor: 'transparent',
+    bg: secondaryDark.elementBg,
+    text: secondaryDark.textLowContrast,
+    borderColor: utilityDark.transparent,
   },
   spinner: {
     topColor: primaryDark.bgSolid,
@@ -102,9 +102,9 @@ export const defaultLightTheme: Theme = {
     activeBorder: primary.bgSolid,
   },
   select: {
-    bg: indigo.indigo3,
-    text: indigo.indigo11,
-    borderColor: 'transparent',
+    bg: secondary.elementBg,
+    text: secondary.textLowContrast,
+    borderColor: utility.transparent,
   },
   spinner: {
     topColor: primary.bgSolid,

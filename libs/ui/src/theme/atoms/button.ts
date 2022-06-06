@@ -1,5 +1,3 @@
-import { ButtonColorTargets } from '../../styled';
-
 import {
   primary,
   secondary,
@@ -8,6 +6,24 @@ import {
   utility,
   utilityDark,
 } from '../global/colors';
+
+export type ButtonColorTargets = {
+  bg: string;
+  text: string;
+  border: string;
+  hoverBg: string;
+  hoverText: string;
+  hoverBorder: string;
+  focusBg: string;
+  focusText: string;
+  focusBorder: string;
+  activeBg: string;
+  activeText: string;
+  activeBorder: string;
+  disabledBg: string;
+  disabledText: string;
+  disabledBorder: string;
+};
 
 export const PrimaryDarkButton: ButtonColorTargets = {
   bg: primaryDark.bgSolid,
@@ -26,6 +42,7 @@ export const PrimaryDarkButton: ButtonColorTargets = {
   disabledText: secondaryDark.bg,
   disabledBorder: primaryDark.elementBorderHover,
 };
+
 export const SecondaryDarkButton: ButtonColorTargets = {
   bg: secondaryDark.elementBg,
   text: secondaryDark.textHighContrast,
@@ -43,6 +60,7 @@ export const SecondaryDarkButton: ButtonColorTargets = {
   disabledText: secondaryDark.elementBorderHover,
   disabledBorder: secondaryDark.elementBgHover,
 };
+
 export const TertiaryDarkButton: ButtonColorTargets = {
   bg: utilityDark.transparent,
   text: primaryDark.textLowContrast,

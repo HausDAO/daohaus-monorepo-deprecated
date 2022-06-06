@@ -24,7 +24,7 @@ export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
   width: 18px;
   height: 18px;
   :disabled {
-    border 2px solid ${({ theme }: { theme: Theme }) => theme.disabled}
+    border: 2px solid ${({ theme }: { theme: Theme }) => theme.disabled};
   }
 `;
 

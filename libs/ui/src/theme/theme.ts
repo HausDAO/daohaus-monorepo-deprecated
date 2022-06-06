@@ -49,6 +49,11 @@ export const defaultDarkTheme: Theme = {
     border: secondaryDark.textHighContrast,
     activeBorder: primaryDark.bgSolid,
   },
+  select: {
+    bg: indigoDark.indigo3,
+    text: indigoDark.indigo11,
+    borderColor: 'transparent',
+  },
   spinner: {
     topColor: primaryDark.bgSolid,
     bottomColor: primaryDark.elementBgHover,
@@ -65,6 +70,8 @@ export const defaultDarkTheme: Theme = {
       disabledBg: grayDark.gray9,
     },
   },
+
+  //  Update this to secondary button style once we update colors
 };
 
 export const defaultLightTheme: Theme = {
@@ -93,6 +100,11 @@ export const defaultLightTheme: Theme = {
   checkbox: {
     border: secondary.textHighContrast,
     activeBorder: primary.bgSolid,
+  },
+  select: {
+    bg: indigo.indigo3,
+    text: indigo.indigo11,
+    borderColor: 'transparent',
   },
   spinner: {
     topColor: primary.bgSolid,

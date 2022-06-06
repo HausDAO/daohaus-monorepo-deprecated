@@ -30,6 +30,11 @@ declare module 'styled-components' {
       border: string;
       activeBorder: string;
     };
+    select: {
+      bg: string;
+      text: string;
+      borderColor: string;
+    };
     spinner: {
       topColor: string;
       bottomColor: string;

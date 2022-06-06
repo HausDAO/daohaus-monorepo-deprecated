@@ -20,6 +20,9 @@ supported networks:
 
 `nx run v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-goerli`
 
+_These require installing the graph cli locally_
+`npm install -g @graphprotocol/graph-cli`
+
 suported names:
 
 - hausdao/daohaus-v3-goerli

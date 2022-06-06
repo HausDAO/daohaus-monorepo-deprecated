@@ -15,7 +15,7 @@ export type SuccessMessage = {
 
 export type PrimitiveWrapper = {
   id: string;
-  label: string;
+  label?: string;
   type?: string;
   helperText?: string;
   info?: string;
@@ -29,6 +29,7 @@ export type Field = {
   id: string;
   label?: string;
   type?: string;
+  className?: string;
   placeholder?: string;
   helperText?: string;
   required?: boolean;
@@ -42,9 +43,25 @@ export type Field = {
   warning?: WarningMessage;
   error?: ErrorMessage;
   success?: SuccessMessage;
+  rows?: number;
+  cols?: number;
 };
 
 // TODO Refine based on Radix Checkbox Type & Wrapper
 export type CheckboxWrapperProps = PrimitiveWrapper & {
   checkboxes: CheckboxProps[];
 };
+export type OptionType = {
+  name: string;
+  value: string;
+  key?: string;
+};
+export type SelectProps = Field & {
+  defaultValue?: string;
+  options: OptionType[];
+  inputSelect?: boolean;
+  containerClassName?: string;
+};
+
+export type InputSelectProps = Field &
+  SelectProps & { selectId: string; selectPlaceholder: string };

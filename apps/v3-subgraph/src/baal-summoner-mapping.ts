@@ -31,6 +31,7 @@ export function handleSummonBaal(event: SummonBaal): void {
   dao.sharesPaused = false;
   dao.gracePeriod = constants.BIGINT_ZERO;
   dao.votingPeriod = constants.BIGINT_ZERO;
+  dao.votingPlusGraceDuration = constants.BIGINT_ZERO;
   dao.proposalOffering = constants.BIGINT_ZERO;
   dao.quorumPercent = constants.BIGINT_ZERO;
   dao.sponsorThreshold = constants.BIGINT_ZERO;

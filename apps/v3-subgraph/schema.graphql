@@ -3,7 +3,6 @@ type Dao @entity {
   id: ID!
   "timestamp of the block when the dao was summoned"
   createdAt: String!
-  cursorSort: String!
   transactionHashSummon: Bytes!
   lootAddress: Bytes!
   sharesAddress: Bytes!
@@ -39,7 +38,6 @@ type Proposal @entity {
   id: ID!
   createdAt: String!
   createdBy: Bytes!
-  cursorSort: String!
   dao: Dao!
   proposalId: BigInt!
   prevProposalId: BigInt!
@@ -84,7 +82,6 @@ type Proposal @entity {
 type Vote @entity {
   id: ID!
   createdAt: String!
-  cursorSort: String!
   daoAddress: Bytes!
   approved: Boolean!
   balance: BigInt!
@@ -104,7 +101,6 @@ type MetaData @entity {
 type Member @entity {
   id: ID!
   createdAt: String!
-  cursorSort: String!
   dao: Dao!
   memberAddress: Bytes!
   shares: BigInt!
@@ -117,7 +113,6 @@ type Member @entity {
 type RageQuit @entity {
   id: ID!
   createdAt: String!
-  cursorSort: String!
   dao: Dao!
   member: Member!
   to: Bytes!
@@ -129,7 +124,6 @@ type RageQuit @entity {
 type Shaman @entity {
   id: ID!
   createdAt: String!
-  cursorSort: String!
   dao: Dao!
   shamanAddress: Bytes!
   permissions: BigInt!
@@ -138,7 +132,6 @@ type Shaman @entity {
 type EventTransaction @entity {
   id: ID!
   createdAt: String!
-  cursorSort: String!
   dao: Dao!
 }
 

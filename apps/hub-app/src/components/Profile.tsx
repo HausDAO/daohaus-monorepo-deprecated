@@ -2,9 +2,15 @@ import React, { useEffect, useState, MouseEvent } from 'react';
 import styled from 'styled-components';
 import { BiCopy } from 'react-icons/bi';
 import { H5, H6, Underline, ParLg, ParMd } from '@daohaus/ui';
-import { AvatarLg } from '../components/Avatar';
+import { Avatar } from '@daohaus/ui';
 import { networks } from '../constants';
 import { Haus } from '@daohaus/dao-data';
+import { BiGhost } from 'react-icons/bi';
+
+const StyledGhost = styled(BiGhost)`
+  height: 6.4rem;
+  width: 6.4rem;
+`;
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -27,6 +33,11 @@ const CopyIcon = styled(BiCopy)`
 const NameContainer = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const AvatarLg = styled(Avatar)`
+  height: 16rem;
+  width: 16rem;
 `;
 
 const Profile = () => {
@@ -68,7 +79,12 @@ const Profile = () => {
 
   return (
     <ProfileContainer>
-      <AvatarLg src={profile.image} alt="profile image" />
+      <AvatarLg
+        size="lg"
+        src={profile.image}
+        alt="profile image"
+        fallback={<StyledGhost />}
+      />
       <div>
         <NameContainer>
           <H5>{profile.name}</H5>

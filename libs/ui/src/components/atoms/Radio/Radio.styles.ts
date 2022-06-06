@@ -6,10 +6,10 @@ import { Theme } from '../../../types/theming';
 export const Container = styled.div`
   align-items: center;
   display: flex;
-  padding-bottom: 14px;
+  padding-bottom: 1.4rem;
 `;
 
-export const RadioGroup = styled(RadioGroupPrimitive.Root)``;
+export const RadioGroup = RadioGroupPrimitive.Root;
 
 export const RadioIndicator = styled(RadioGroupPrimitive.Indicator)`
   display: flex;
@@ -22,8 +22,8 @@ export const RadioIndicator = styled(RadioGroupPrimitive.Indicator)`
   &::after {
     content: '';
     display: block;
-    width: 10px;
-    height: 10px;
+    width: 1rem;
+    height: 1rem;
     border-radius: 50%;
 
     background-color: ${({ theme }: { theme: Theme }) =>
@@ -41,12 +41,12 @@ export const RadioIndicator = styled(RadioGroupPrimitive.Indicator)`
 export const RadioItem = styled(RadioGroupPrimitive.Item)`
   all: unset;
   cursor: pointer;
-  width: 20px;
-  height: 20px;
+  width: 2rem;
+  height: 2rem;
 
   background-color: ${({ theme }: { theme: Theme }) => theme.radio.item.bg};
   border: 2px solid ${({ theme }: { theme: Theme }) => theme.radio.item.border};
-  border-radius: 9999px;
+  border-radius: 100%;
   position: relative;
 
   &[data-state='checked'] {
@@ -72,9 +72,9 @@ export const RadioItem = styled(RadioGroupPrimitive.Item)`
 export const LabelContainer = styled.label`
   display: flex;
   align-items: center;
-  margin-left: 19px;
+  margin-left: 1.9rem;
   label {
-    margin-right: 1px;
+    margin-right: 0.1rem;
   }
   svg {
     transform: translateY(0.1rem);

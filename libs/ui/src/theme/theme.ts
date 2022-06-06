@@ -1,20 +1,25 @@
 import {
   amber,
   amberDark,
-  grass,
-  grassDark,
   indigo,
   indigoDark,
-  sky,
-  skyDark,
   slate,
   slateDark,
-  tomato,
-  tomatoDark,
-  gray,
   grayDark,
 } from '@radix-ui/colors';
 import { Theme } from '../types/theming';
+
+import {
+  primary,
+  primaryDark,
+  secondary,
+  secondaryDark,
+  neutral,
+  neutralDark,
+  utility,
+  utilityDark,
+} from './global/colors';
+
 import {
   PrimaryDarkButton,
   PrimaryLightButton,
@@ -22,19 +27,19 @@ import {
   SecondaryLightButton,
   TertiaryDarkButton,
   TertiaryLightButton,
-} from './component/button';
+} from './atoms/button';
 
 export const defaultDarkTheme: Theme = {
   themeName: 'dark',
-  bgColor: indigoDark.indigo1,
-  fontColor: indigoDark.indigo12,
-  primary: amberDark.amber9,
-  error: tomatoDark.tomato9,
-  warning: amberDark.amber9,
-  success: grassDark.grass9,
-  disabled: gray.gray9,
-  transparent: 'transparent',
-  info: skyDark.sky9,
+  bgColor: secondaryDark.bg,
+  fontColor: secondaryDark.textHighContrast,
+  primary: primaryDark.bgSolid,
+  error: utilityDark.danger,
+  warning: utilityDark.warning,
+  success: utilityDark.success,
+  disabled: neutralDark.bgSolidDisabled,
+  transparent: utilityDark.transparent,
+  info: utilityDark.info,
   field: {
     bg: indigoDark.indigo3,
     focus: indigoDark.indigo4,
@@ -77,15 +82,15 @@ export const defaultDarkTheme: Theme = {
 
 export const defaultLightTheme: Theme = {
   themeName: 'light',
-  bgColor: indigo.indigo1,
-  fontColor: indigo.indigo12,
-  primary: amber.amber9,
-  error: tomato.tomato9,
-  warning: amber.amber9,
-  success: grass.grass9,
-  disabled: gray.gray9,
-  transparent: 'transparent',
-  info: sky.sky9,
+  bgColor: secondary.bg,
+  fontColor: secondary.textHighContrast,
+  primary: primary.bgSolid,
+  error: utility.danger,
+  warning: utility.warning,
+  success: utility.success,
+  info: utility.info,
+  transparent: utility.transparent,
+  disabled: neutral.bgSolid,
   field: {
     bg: indigo.indigo3,
     focus: indigo.indigo4,

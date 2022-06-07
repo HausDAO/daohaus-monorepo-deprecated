@@ -52,7 +52,7 @@ export const isProposalFailed = (proposal: QueryProposal): boolean =>
 
 export const passedQuorum = (proposal: QueryProposal): boolean => {
   return (
-    Number(proposal.yesVotes) * 100 >
+    Number(proposal.yesBalance) * 100 >
     Number(proposal.dao.quorumPercent) * Number(proposal.dao.totalShares)
   );
 };

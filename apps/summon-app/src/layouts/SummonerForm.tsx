@@ -17,7 +17,6 @@ import { ShamanSegment } from '../layouts/ShamanSegment';
 import { StakeTokensSegment } from '../layouts/StakeTokenSegment';
 import { TimingSegment } from '../layouts/TimingSegment';
 import { isArray, isString } from '@daohaus/common-utilities';
-import { useEffect } from 'react';
 
 const INCORRECT_FORMAT = {
   error: true,
@@ -77,7 +76,7 @@ export const SummonerForm = () => {
     formState: { errors },
   } = methods;
   const handleFormSubmit = async (formValues: Record<string, unknown>) => {
-    const { shamans, members } = formValues;
+    const { shamans } = formValues;
     const shamanData = parseShamans(shamans);
     // const memberData = parseMembers(members);
   };

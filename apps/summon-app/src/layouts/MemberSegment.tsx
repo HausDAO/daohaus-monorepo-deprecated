@@ -1,66 +1,10 @@
 import { useState } from 'react';
-import { isAddress } from 'ethers/lib/utils';
+
 import { useFormContext } from 'react-hook-form';
 
-import { isArray, isNumberString } from '@daohaus/common-utilities';
 import { ParSm, WrappedTextArea } from '@daohaus/ui';
 import { FormSegment, TextAreaSection } from '../layouts/FormLayouts';
-
-const ValidationMessages = {
-  formattingError:
-    'Incorrect formatting. Check formatting rules in tooltip above.',
-  lootErr:
-    'Loot is required and must be a number. Check formatting rules in tooltip above.',
-  shareErr:
-    'Shares are required and must be a number. Check formatting rules in tooltip above',
-  addressErr:
-    'Member addresses are required and must be follow the "0x" pattern. Check formatting rules in tooltip above',
-};
-
-const validateMemberData = (memberData: Record<string, string[]>) => {
-  const { memberAddresses, memberShares, memberLoot } = memberData;
-  if (
-    !isArray(memberAddresses) ||
-    !isArray(memberShares) ||
-    !isArray(memberLoot)
-  )
-    return ValidationMessages.formattingError;
-
-  if (!memberAddresses.every((address) => isAddress(address)))
-    return ValidationMessages.addressErr;
-  if (!memberShares.every((address) => isNumberString(address)))
-    return ValidationMessages.shareErr;
-  if (!memberLoot.every((address) => isNumberString(address)))
-    return ValidationMessages.lootErr;
-  return true;
-};
-
-const handleSetValue = (response: string) => {
-  if (!response) return '';
-  const memberEntities = response
-    .split(/[\n|,]/)
-    .map((str) => str.trim())
-    .filter(Boolean);
-
-  return memberEntities.reduce(
-    (acc, member) => {
-      const splitString = member.trim().split(' ');
-      const newMemberAddress = splitString[0];
-      const newMemberShares = splitString[1];
-      const newMemberLoot = splitString[2];
-      return {
-        memberAddresses: [...acc.memberAddresses, newMemberAddress],
-        memberShares: [...acc.memberShares, newMemberShares],
-        memberLoot: [...acc.memberLoot, newMemberLoot],
-      };
-    },
-    {
-      memberAddresses: [] as string[],
-      memberShares: [] as string[],
-      memberLoot: [] as string[],
-    }
-  );
-};
+import { transformMemberData, validateMemberData } from '../utils/common';
 
 export const MembersSegment = () => {
   const { watch, setError, clearErrors } = useFormContext();
@@ -70,6 +14,22 @@ export const MembersSegment = () => {
   const [helperText, setHelperText] = useState('');
 
   const handleBlur = () => {
+    //  REVIEW
+    //  thinking there might be a repeatable pattern here.
+    //  for every input that we use blur validation for
+    //  we should be able to use these steps as a guide to create some
+    //  sort of common API to ensure that all blur validation follows
+    //  a consistent pattern. It would also be nice to not have to type this
+    //  stuff out by hand.
+
+    /*  composeBlur({
+      validationFn, 
+      onFalsy, 
+      onValid, 
+      onInvalid
+    })*/
+
+    // on falsy
     if (!members) {
       clearErrors(['members']);
       setHelperText('');
@@ -77,12 +37,14 @@ export const MembersSegment = () => {
       return;
     }
     const validationResponse = validateMemberData(members);
+    // onValid
     if (validationResponse === true) {
       setAmtMembers(members.memberAddresses.length);
       setHelperText('Seems like a valid response');
       clearErrors(['members']);
       return;
     }
+    // onInvalid
     setHelperText('');
     setError('members', {
       message: validationResponse,
@@ -107,7 +69,7 @@ export const MembersSegment = () => {
             required
             registerOptions={{
               onBlur: handleBlur,
-              setValueAs: handleSetValue,
+              setValueAs: transformMemberData,
               validate: validateMemberData,
               required: true,
             }}

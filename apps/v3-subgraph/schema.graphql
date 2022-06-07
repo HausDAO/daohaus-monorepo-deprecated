@@ -122,7 +122,7 @@ type Proposal @entity {
   yesBalance: BigInt!
   "amount of current shares that have voted no"
   noBalance: BigInt!
-  "indicates if the proposal is currently passing"
+  "minimum % of shares that must vote yes for it to pass"
   currentlyPassing: Boolean!
   "highest share+loot count during any individual yes vote"
   maxTotalSharesAndLootAtYesVote: BigInt!

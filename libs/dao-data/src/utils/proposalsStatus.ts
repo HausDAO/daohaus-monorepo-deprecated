@@ -3,6 +3,7 @@ import {
   ProposalStatus,
   PROPOSAL_STATUS,
 } from '@daohaus/common-utilities';
+import { daysToWeeks } from 'date-fns';
 import { QueryProposal } from '../types';
 
 export const isProposalUnsponsored = (proposal: QueryProposal): boolean =>
@@ -29,7 +30,6 @@ export const isProposalInGrace = (proposal: QueryProposal): boolean => {
   return Number(proposal.votingEnds) < now && Number(proposal.graceEnds) > now;
 };
 
-// TODO - more testing here and in filters. likely need some checkes on unsponsored/cancelled
 export const isProposalExpired = (proposal: QueryProposal): boolean =>
   Number(proposal.expiration) > 0 &&
   !proposal.processed &&
@@ -42,11 +42,20 @@ export const isProposalExpired = (proposal: QueryProposal): boolean =>
 export const proposalNeedsProcessing = (proposal: QueryProposal): boolean =>
   nowInSeconds() > Number(proposal.graceEnds) &&
   Number(proposal.yesBalance) > Number(proposal.noBalance) &&
+  passedQuorum(proposal) &&
   !proposal.processed;
 
 export const isProposalFailed = (proposal: QueryProposal): boolean =>
   nowInSeconds() > Number(proposal.graceEnds) &&
-  Number(proposal.yesBalance) < Number(proposal.noBalance);
+  (!passedQuorum(proposal) ||
+    Number(proposal.yesBalance) < Number(proposal.noBalance));
+
+export const passedQuorum = (proposal: QueryProposal): boolean => {
+  return (
+    Number(proposal.yesVotes) * 100 >
+    Number(proposal.dao.quorumPercent) * Number(proposal.dao.totalShares)
+  );
+};
 
 export const getProposalStatus = (proposal: QueryProposal): ProposalStatus => {
   if (isProposalUnsponsored(proposal)) {

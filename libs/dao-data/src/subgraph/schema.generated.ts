@@ -27,36 +27,67 @@ export interface Block_Height {
 
 export interface Dao {
   __typename?: 'Dao';
+  /** count of share or loot holding members */
   activeMemberCount: Scalars['BigInt'];
+  /** block timestamp when the dao contract was deployed */
   createdAt: Scalars['String'];
+  /** transactions scoped to this dao */
   eventTransactions?: Maybe<EventTransaction>;
+  /** length in seconds of the current grace period */
   gracePeriod: Scalars['BigInt'];
+  /** unique identifier and primary key of the entity */
   id: Scalars['ID'];
+  /** ID of the last sponsored proposal */
   latestSponsoredProposalId: Scalars['BigInt'];
+  /** contract address of the loot erc20 token */
   lootAddress: Scalars['Bytes'];
+  /** indicates if loot transferability is on/off */
   lootPaused: Scalars['Boolean'];
+  /** name of the erc20 loot token */
   lootTokenName?: Maybe<Scalars['String']>;
+  /** symbol of the erc20 loot token */
   lootTokenSymbol?: Maybe<Scalars['String']>;
+  /** members scoped to this dao */
   members?: Maybe<Array<Member>>;
+  /** metadata scoped to this dao */
   metaData?: Maybe<MetaData>;
+  /** auto-fails a proposal if more than (1- minRetentionPercent) * total shares exit before processing */
   minRetentionPercent: Scalars['BigInt'];
+  /** name of the DAO */
   name?: Maybe<Scalars['String']>;
+  /** count of proposal submitted */
   proposalCount: Scalars['BigInt'];
+  /** amount of network token required as tribute to submit a proposal */
   proposalOffering: Scalars['BigInt'];
+  /** proposals scoped to this dao */
   proposals?: Maybe<Array<Proposal>>;
+  /** minimum % of shares that must vote yes for it to pass */
   quorumPercent: Scalars['BigInt'];
+  /** rage quits scoped to this dao */
   rageQuits?: Maybe<Array<RageQuit>>;
+  /** contract address of the gnosis safe treasury */
   safeAddress: Scalars['Bytes'];
+  /** shaman scoped to this dao */
   shaman?: Maybe<Array<Shaman>>;
+  /** name of the erc20 shares token */
   shareTokenName?: Maybe<Scalars['String']>;
+  /** symbol of the erc20 shares token */
   shareTokenSymbol?: Maybe<Scalars['String']>;
+  /** contract address of the shares erc20 token */
   sharesAddress: Scalars['Bytes'];
+  /** indicates if shares transferability is on/off */
   sharesPaused: Scalars['Boolean'];
+  /** amount of shares needed to automatically sponsor a proposal */
   sponsorThreshold: Scalars['BigInt'];
+  /** total circulating loot tokens */
   totalLoot: Scalars['BigInt'];
+  /** total circulating shares tokens */
   totalShares: Scalars['BigInt'];
+  /** transaction hash of the dao contract deployment */
   transactionHashSummon: Scalars['Bytes'];
+  /** length in seconds of the current voting period */
   votingPeriod: Scalars['BigInt'];
+  /** length in seconds of the current voting period and grace period */
   votingPlusGraceDuration: Scalars['BigInt'];
 }
 
@@ -392,8 +423,11 @@ export type Dao_OrderBy =
 
 export interface EventTransaction {
   __typename?: 'EventTransaction';
+  /** block timestamp of the transaction */
   createdAt: Scalars['String'];
+  /** related DAO */
   dao: Dao;
+  /** unique identifier and primary key of the entity */
   id: Scalars['ID'];
 }
 
@@ -457,14 +491,23 @@ export type EventTransaction_OrderBy =
 
 export interface Member {
   __typename?: 'Member';
+  /** block timestamp when the member entity was created (when the address first recieved shares or loot) */
   createdAt: Scalars['String'];
+  /** related dao */
   dao: Dao;
+  /** amount of shares this address has delegated to it */
   delegateShares: Scalars['BigInt'];
+  /** address the member is delegating to */
   delegatingTo: Scalars['Bytes'];
+  /** unique identifier and primary key of the entity */
   id: Scalars['ID'];
+  /** current loot held by the member */
   loot: Scalars['BigInt'];
+  /** address of the member */
   memberAddress: Scalars['Bytes'];
+  /** current shares held by the member */
   shares: Scalars['BigInt'];
+  /** related votes */
   votes?: Maybe<Array<Vote>>;
 }
 
@@ -701,47 +744,92 @@ export type OrderDirection =
 
 export interface Proposal {
   __typename?: 'Proposal';
+  /** indicates if the proposal is processed */
   actionFailed: Scalars['Boolean'];
+  /** estimated gas needed to execute the proposal actions */
   actionGasEstimate: Scalars['BigInt'];
+  /** indicates if the proposal is cancelled */
   cancelled: Scalars['Boolean'];
+  /** proposal content URI derived from the details field */
   contentURI?: Maybe<Scalars['String']>;
+  /** proposal Content URI type (ipfs hash, url) derived from the details field */
   contentURIType?: Maybe<Scalars['String']>;
+  /** block timestamp when the proposal was submitted */
   createdAt: Scalars['String'];
+  /** address that submitted the proposal */
   createdBy: Scalars['Bytes'];
+  /** minimum % of shares that must vote yes for it to pass */
   currentlyPassing: Scalars['Boolean'];
+  /** related DAO entity */
   dao: Dao;
+  /** proposal description derived from the details field */
   description?: Maybe<Scalars['String']>;
+  /** string with human readable description of the proposal */
   details: Scalars['String'];
+  /** unix timestamp after which proposal should be considered invalid and skipped */
   expiration: Scalars['BigInt'];
+  /** unix timestamp of when the grace period ends */
   graceEnds: Scalars['BigInt'];
+  /** duration in seconds of the grace period for this proposal in seconds */
   gracePeriod: Scalars['BigInt'];
+  /** unique identifier and primary key of the entity */
   id: Scalars['ID'];
+  /** highest share+loot count during any individual yes vote */
   maxTotalSharesAndLootAtYesVote: Scalars['BigInt'];
+  /** amount of current shares that have voted no */
   noBalance: Scalars['BigInt'];
+  /** number of current no votes */
   noVotes: Scalars['BigInt'];
+  /** indicates if the proposal passed */
   passed: Scalars['Boolean'];
+  /** id of the previous proposal, set at sponsorship */
   prevProposalId: Scalars['BigInt'];
+  /** indicates if the proposal is processed */
   processed: Scalars['Boolean'];
+  /** raw transaction data that will be executed if the proposal passes */
   proposalData: Scalars['Bytes'];
+  /** hash of raw transaction data that will be executed if the proposal passes */
   proposalDataHash: Scalars['Bytes'];
+  /** id of the proposal */
   proposalId: Scalars['BigInt'];
+  /** amount of native token that was provided as tribute when the proposal was submitted */
   proposalOffering: Scalars['BigInt'];
+  /** proposal type derived from the details field */
   proposalType: Scalars['String'];
+  /** indicates if the proposal was automatically sponsored */
   selfSponsor: Scalars['Boolean'];
+  /** address that sponsored the proposal */
   sponsor: Scalars['Bytes'];
+  /** indicates if the proposal is sponsored */
   sponsored: Scalars['Boolean'];
+  /** proposal title derived from the details field */
   title?: Maybe<Scalars['String']>;
+  /** applicant submitting the tribute proposal */
   tributeEscrowRecipient?: Maybe<Scalars['Bytes']>;
+  /** amount of tribute token offered */
   tributeOffered?: Maybe<Scalars['BigInt']>;
+  /**
+   * The following tribute fields will only have values if the proposal was submitted through the trbute minion contract.
+   *  token address in tribute proposals.
+   */
   tributeToken?: Maybe<Scalars['Bytes']>;
+  /** decimal places of the tribute token */
   tributeTokenDecimals?: Maybe<Scalars['BigInt']>;
+  /** symbol of the tribute token */
   tributeTokenSymbol?: Maybe<Scalars['String']>;
+  /** votes scoped to this proposal */
   votes?: Maybe<Array<Vote>>;
+  /** unix timestamp of when the voting period ends */
   votingEnds: Scalars['BigInt'];
+  /** duration of the voting period for this proposal in seconds */
   votingPeriod: Scalars['BigInt'];
+  /** duration in seconds of the grace and voting periods for this proposal in seconds */
   votingPlusGraceDuration: Scalars['BigInt'];
+  /** unix timestamp of when the voting period starts */
   votingStarts: Scalars['BigInt'];
+  /** amount of current shares that have voted yes */
   yesBalance: Scalars['BigInt'];
+  /** number of current yes votes */
   yesVotes: Scalars['BigInt'];
 }
 
@@ -1392,13 +1480,21 @@ export interface QueryVotesArgs {
 
 export interface RageQuit {
   __typename?: 'RageQuit';
+  /** block timestamp when the member rage quit */
   createdAt: Scalars['String'];
+  /** related DAO */
   dao: Dao;
+  /** unique identifier and primary key of the entity */
   id: Scalars['ID'];
+  /** number of loot rage quit */
   loot: Scalars['BigInt'];
+  /** related member */
   member: Member;
+  /** number of shares rage quit */
   shares: Scalars['BigInt'];
+  /** address the tokens where rage quit to */
   to: Scalars['Bytes'];
+  /** list of treasury token addresses requested in the rage quit */
   tokens: Array<Scalars['Bytes']>;
 }
 
@@ -1515,10 +1611,15 @@ export type RageQuit_OrderBy =
 
 export interface Shaman {
   __typename?: 'Shaman';
+  /** block timestamp when the shaman was added */
   createdAt: Scalars['String'];
+  /** related DAO */
   dao: Dao;
+  /** unique identifier and primary key of the entity */
   id: Scalars['ID'];
+  /** permission level of the shaman (0-7) */
   permissions: Scalars['BigInt'];
+  /** address of the shaman */
   shamanAddress: Scalars['Bytes'];
 }
 
@@ -1789,7 +1890,9 @@ export interface SubscriptionVotesArgs {
 
 export interface TokenLookup {
   __typename?: 'TokenLookup';
+  /** related DAO */
   dao: Scalars['Bytes'];
+  /** unique identifier and primary key of the entity (share or loot token address) */
   id: Scalars['ID'];
 }
 
@@ -1818,12 +1921,19 @@ export type TokenLookup_OrderBy =
 
 export interface Vote {
   __typename?: 'Vote';
+  /** indicates yes vote/no vote */
   approved: Scalars['Boolean'];
+  /** shares balance of the voting member at the time of the vote */
   balance: Scalars['BigInt'];
+  /** block timestamp when the vote was submitted */
   createdAt: Scalars['String'];
+  /** contract address of the DAO related to this vote */
   daoAddress: Scalars['Bytes'];
+  /** unique identifier and primary key of the entity */
   id: Scalars['ID'];
+  /** related/voting member */
   member: Member;
+  /** related proposal */
   proposal: Proposal;
 }
 

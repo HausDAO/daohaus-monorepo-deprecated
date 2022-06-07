@@ -1,4 +1,5 @@
 import { CheckboxProps } from '@radix-ui/react-checkbox';
+import { RegisterOptions } from 'react-hook-form';
 
 export type ErrorMessage = {
   type: 'error';
@@ -44,6 +45,7 @@ export type Field = {
   success?: SuccessMessage;
   rows?: number;
   cols?: number;
+  registerOptions?: RegisterOptions;
 };
 
 // TODO Refine based on Radix Checkbox Type & Wrapper

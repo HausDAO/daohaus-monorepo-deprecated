@@ -22,6 +22,7 @@ import {
   WarningMessage,
   SuccessMessage,
 } from '../../../types/formAndField';
+import { useForm, useFormContext } from 'react-hook-form';
 
 type FieldWrapperProps = Field & {
   children: React.ReactNode;
@@ -49,6 +50,10 @@ export const FieldWrapper = ({
   id,
 }: FieldWrapperProps) => {
   const classes = classNames({ long: long || address, full });
+  const {
+    formState: { errors },
+  } = useFormContext();
+  const contextError = errors[id];
   return (
     <FieldWrapperBase className={classes}>
       <LabelContainer>
@@ -64,7 +69,7 @@ export const FieldWrapper = ({
       </LabelContainer>
       <div className="field-slot">{children}</div>
       <HelperTextFactory
-        error={error}
+        error={contextError || error}
         success={success}
         warning={warning}
         helperText={helperText}

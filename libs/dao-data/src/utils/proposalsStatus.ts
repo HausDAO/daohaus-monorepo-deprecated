@@ -3,7 +3,6 @@ import {
   ProposalStatus,
   PROPOSAL_STATUS,
 } from '@daohaus/common-utilities';
-import { daysToWeeks } from 'date-fns';
 import { QueryProposal } from '../types';
 
 export const isProposalUnsponsored = (proposal: QueryProposal): boolean =>
@@ -42,11 +41,11 @@ export const isProposalExpired = (proposal: QueryProposal): boolean =>
 export const proposalNeedsProcessing = (proposal: QueryProposal): boolean =>
   nowInSeconds() > Number(proposal.graceEnds) &&
   Number(proposal.yesBalance) > Number(proposal.noBalance) &&
-  passedQuorum(proposal) &&
   !proposal.processed;
 
 export const isProposalFailed = (proposal: QueryProposal): boolean =>
   nowInSeconds() > Number(proposal.graceEnds) &&
+  !proposal.cancelled &&
   (!passedQuorum(proposal) ||
     Number(proposal.yesBalance) < Number(proposal.noBalance));
 

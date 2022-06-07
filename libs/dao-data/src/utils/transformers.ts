@@ -68,7 +68,8 @@ export const transformMembershipList = (
             activeMemberCount: member.dao.activeMemberCount,
             votingPower: votingPowerPercentage(
               member.dao.totalShares,
-              member.shares
+              member.shares,
+              member.delegateShares
             ),
             networkId: network.networkId,
             delegate:

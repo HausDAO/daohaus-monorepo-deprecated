@@ -38,14 +38,8 @@ const Main = styled.main`
 export const SummonerForm = () => {
   const methods = useForm({ mode: 'onTouched' });
   const handleFormSubmit = async (formValues: Record<string, unknown>) => {
-    const { shamans } = formValues;
-
     // const memberData = parseMembers(members);
   };
-
-  // useEffect(() => {
-  //   console.log('errors', errors);
-  // }, [errors]);
 
   return (
     <Main>

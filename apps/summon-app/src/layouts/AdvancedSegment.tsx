@@ -12,13 +12,21 @@ export const AdvancedSegment = () => {
             {
               rowID: 'advanced1',
               left: (
-                <WrappedInput id="quorum" label="Quorum %" placeholder="80" />
+                <WrappedInput
+                  id="quorum"
+                  label="Quorum %"
+                  placeholder="80"
+                  required
+                  registerOptions={{ required: 'This value is required' }}
+                />
               ),
               right: (
                 <WrappedInput
                   id="minRetention"
                   label="Min Retention %"
                   placeholder="66"
+                  required
+                  registerOptions={{ required: 'This value is required' }}
                 />
               ),
             },
@@ -29,6 +37,8 @@ export const AdvancedSegment = () => {
                   id="sponsorThreshold"
                   label="Sponsor Threshold"
                   placeholder="1"
+                  required
+                  registerOptions={{ required: 'This value is required' }}
                 />
               ),
               right: (
@@ -36,6 +46,8 @@ export const AdvancedSegment = () => {
                   id="newOffering"
                   label="New Offering (ETH)"
                   placeholder="0"
+                  required
+                  registerOptions={{ required: 'This value is required' }}
                 />
               ),
             },

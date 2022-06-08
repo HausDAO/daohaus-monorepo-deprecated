@@ -61,9 +61,8 @@ export type OptionType = {
 export type SelectProps = Field & {
   defaultValue?: string;
   options: OptionType[];
-  inputSelect?: boolean;
   containerClassName?: string;
 };
 
 export type InputSelectProps = Field &
-  SelectProps & { selectId: string; selectPlaceholder: string };
+  SelectProps & { selectId: string; selectPlaceholder?: string };

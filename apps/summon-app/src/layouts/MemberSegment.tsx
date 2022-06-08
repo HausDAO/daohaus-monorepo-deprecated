@@ -5,12 +5,13 @@ import { useFormContext } from 'react-hook-form';
 import { ParSm, WrappedTextArea } from '@daohaus/ui';
 import { FormSegment, TextAreaSection } from '../layouts/FormLayouts';
 import { transformMemberData, validateMemberData } from '../utils/common';
-import { isArray } from '@daohaus/common-utilities';
+
+const MEMBERS = 'members';
 
 export const MembersSegment = () => {
   const {
     watch,
-    formState: { errors },
+    formState: { errors, touchedFields },
   } = useFormContext();
   const { members } = watch();
 
@@ -18,14 +19,16 @@ export const MembersSegment = () => {
   const [helperText, setHelperText] = useState('');
 
   useEffect(() => {
-    if (!members) return;
-    if (isArray(members?.memberAddresses)) {
-      setAmtMembers(members.memberAddresses.length);
+    if (members == null) return;
+    setAmtMembers(members?.memberAddresses?.length || 0);
+    if (members === '') {
+      setHelperText('');
+      return;
     }
-    if (!errors?.['members']) {
+    if (!errors?.[MEMBERS] && touchedFields[MEMBERS]) {
       setHelperText('Seems like a valid response');
     }
-  }, [members, errors]);
+  }, [members, errors, touchedFields]);
 
   return (
     <FormSegment
@@ -37,7 +40,7 @@ export const MembersSegment = () => {
           <WrappedTextArea
             label="Addresses & Stake Amounts"
             placeholder="0x00000000000000000000000000 30 10"
-            id="members"
+            id={MEMBERS}
             full
             number
             required

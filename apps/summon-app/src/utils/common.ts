@@ -16,7 +16,10 @@ const VAL_MSG = {
 };
 
 ////////////////////Members Segment////////////////////////
-export const validateMemberData = (memberData: Record<string, string[]>) => {
+export const validateMemberData = (
+  memberData: Record<string, string[]> | ''
+) => {
+  if (memberData === '') return true;
   const { memberAddresses, memberShares, memberLoot } = memberData;
   if (
     !isArray(memberAddresses) ||
@@ -62,11 +65,14 @@ export const transformMemberData = (response: string | undefined) => {
 
 ////////////////////Shamans Segment////////////////////////
 
-export const validateShamanData = (shamanData: Record<string, string[]>) => {
+export const validateShamanData = (
+  shamanData: Record<string, string[]> | ''
+) => {
+  if (shamanData === '') return true;
   const { shamanAddresses, shamanPermissions } = shamanData;
+  console.log('shamanData', shamanData);
   if (!isArray(shamanAddresses) || !isArray(shamanPermissions))
     return VAL_MSG.formattingError;
-
   if (!shamanAddresses.every((address) => isAddress(address)))
     return VAL_MSG.SHAMAN_ADDR_ERR;
   if (!shamanPermissions.every((address) => isNumberString(address)))

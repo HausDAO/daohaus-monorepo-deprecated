@@ -4,14 +4,29 @@ import { useFormContext } from 'react-hook-form';
 import { FormSegment, TextAreaSection } from '../layouts/FormLayouts';
 import { transformShamans, validateShamanData } from '../utils/common';
 
-const FIELD_ID = 'shamans';
+const SHAMANS = 'shamans';
 
 export const ShamanSegment = () => {
-  const { watch, clearErrors, setError } = useFormContext();
+  const {
+    watch,
+    formState: { errors, touchedFields },
+  } = useFormContext();
   const { shamans } = watch();
 
   const [amtShamans, setAmtShamans] = useState(0);
   const [helperText, setHelperText] = useState('');
+
+  useEffect(() => {
+    if (shamans == null) return;
+    setAmtShamans(shamans?.shamanAddresses?.length || 0);
+    if (shamans === '') {
+      setHelperText('');
+      return;
+    }
+    if (!errors?.[SHAMANS] && touchedFields[SHAMANS]) {
+      setHelperText('Seems like a valid response');
+    }
+  }, [shamans, errors, touchedFields]);
 
   return (
     <FormSegment
@@ -24,13 +39,13 @@ export const ShamanSegment = () => {
           <WrappedTextArea
             label="Addresses & Permissions"
             placeholder="0x00000000000000000000000000 3"
-            id={FIELD_ID}
+            id={SHAMANS}
             full
             number
             helperText={helperText}
             registerOptions={{
               setValueAs: transformShamans,
-              validate: () => false,
+              validate: validateShamanData,
             }}
           />
         </TextAreaSection>

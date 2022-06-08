@@ -16,8 +16,8 @@ export const AdvancedSegment = () => {
                 <WrappedInput
                   id="quorum"
                   label="Quorum %"
-                  placeholder="80"
                   required
+                  defaultValue="80"
                   registerOptions={{ required: 'This value is required' }}
                 />
               ),
@@ -25,7 +25,7 @@ export const AdvancedSegment = () => {
                 <WrappedInput
                   id="minRetention"
                   label="Min Retention %"
-                  placeholder="66"
+                  defaultValue="66"
                   required
                   registerOptions={{ required: 'This value is required' }}
                 />
@@ -37,7 +37,7 @@ export const AdvancedSegment = () => {
                 <WrappedInput
                   id="sponsorThreshold"
                   label="Sponsor Threshold"
-                  placeholder="1"
+                  defaultValue="0"
                   required
                   registerOptions={{ required: 'This value is required' }}
                 />
@@ -46,7 +46,7 @@ export const AdvancedSegment = () => {
                 <WrappedInput
                   id="newOffering"
                   label="New Offering (ETH)"
-                  placeholder="0"
+                  defaultValue="0"
                   required
                   registerOptions={{ required: 'This value is required' }}
                 />

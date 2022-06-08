@@ -12,12 +12,7 @@ export const WithIcon = styled.div`
     top: 1.4rem;
     right: 2rem;
   }
-  &.input-select {
-    max-width: 10rem;
-    svg {
-      right: 0.8rem;
-    }
-  }
+
   &.long {
     max-width: ${field.size.lg};
   }

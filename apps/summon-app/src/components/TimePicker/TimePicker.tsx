@@ -1,11 +1,11 @@
+import { useEffect, useMemo } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { hoursToSeconds, minutesToSeconds } from 'date-fns/esm';
+
 import { Field, OptionType, WrappedInputSelect } from '@daohaus/ui';
 import { isNumberString } from '@daohaus/common-utilities';
 
-import React, { useEffect, useMemo } from 'react';
-import { useFormContext } from 'react-hook-form';
-// import hoursToSeconds from 'date-fns/hoursToSeconds';
-
-import { hoursToSeconds, minutesToSeconds } from 'date-fns/esm';
+//  REFACTOR TO MOLECULES AFTER REVIEW
 
 const defaultOptions = [
   { name: 'Days', value: 'days' },

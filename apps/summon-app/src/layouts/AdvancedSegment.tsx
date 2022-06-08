@@ -1,4 +1,5 @@
 import { WrappedInput } from '@daohaus/ui';
+
 import { FormSegment, SplitColumn } from '../layouts/FormLayouts';
 
 export const AdvancedSegment = () => {

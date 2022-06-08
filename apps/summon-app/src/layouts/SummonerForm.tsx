@@ -16,7 +16,6 @@ import { MembersSegment } from '../layouts/MemberSegment';
 import { ShamanSegment } from '../layouts/ShamanSegment';
 import { StakeTokensSegment } from '../layouts/StakeTokenSegment';
 import { TimingSegment } from '../layouts/TimingSegment';
-import { useEffect } from 'react';
 
 const Main = styled.main`
   display: flex;
@@ -39,12 +38,8 @@ const Main = styled.main`
 export const SummonerForm = () => {
   const methods = useForm({ mode: 'onTouched' });
   const handleFormSubmit = async (formValues: Record<string, unknown>) => {
-    // const memberData = parseMembers(members);
+    /// TX TOWN!!!!!!!
   };
-  const values = methods.watch();
-  useEffect(() => {
-    console.log('values', values);
-  }, [values]);
 
   return (
     <Main>

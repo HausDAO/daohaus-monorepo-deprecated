@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-
 import { useFormContext } from 'react-hook-form';
 
 import { ParSm, WrappedTextArea } from '@daohaus/ui';
+
 import { FormSegment, TextAreaSection } from '../layouts/FormLayouts';
 import { transformMemberData, validateMemberData } from '../utils/common';
 

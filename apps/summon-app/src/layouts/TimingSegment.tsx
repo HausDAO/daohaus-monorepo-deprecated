@@ -17,6 +17,7 @@ export const TimingSegment = () => {
                 id="votingPeriod"
                 full
                 placeholder="0"
+                required
               />
             ),
             right: (
@@ -25,6 +26,7 @@ export const TimingSegment = () => {
                 id="gracePeriod"
                 full
                 placeholder="0"
+                required
               />
             ),
           }}

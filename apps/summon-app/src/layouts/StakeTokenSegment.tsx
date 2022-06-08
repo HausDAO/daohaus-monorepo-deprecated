@@ -29,6 +29,10 @@ export const StakeTokensSegment = () => {
                   id="tokenName"
                   label="Name"
                   placeholder="Voting Stake"
+                  required
+                  registerOptions={{
+                    required: 'Token name is required',
+                  }}
                 />
               ),
               right: (
@@ -37,6 +41,10 @@ export const StakeTokensSegment = () => {
                   label="Symbol"
                   placeholder="vSTK"
                   full
+                  required
+                  registerOptions={{
+                    required: 'Token name is required',
+                  }}
                 />
               ),
             },

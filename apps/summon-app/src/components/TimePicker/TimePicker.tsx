@@ -13,7 +13,6 @@ const defaultOptions = [
   { name: 'Minutes', value: 'minutes' },
   { name: 'Seconds', value: 'seconds' },
 ];
-console.log('hoursToSeconds', hoursToSeconds);
 
 const conversionFns = {
   days: (amt: number) => hoursToSeconds(amt * 24),
@@ -25,7 +24,6 @@ const conversionFns = {
 const toSeconds = (amt: number, unit: keyof typeof conversionFns) =>
   conversionFns[unit]?.(amt);
 
-// const getSeconds = ({}) => {};
 type TimePickerProps = Field & {
   defaultValue?: string;
   options?: OptionType[];
@@ -44,12 +42,9 @@ export const TimePicker = ({
   const [amt, units] = watch([id, unitId]);
 
   useEffect(() => {
-    if (!amt || !units) return;
-
     if (isNumberString(amt) && units in conversionFns) {
-      console.log(toSeconds(Number(amt), units));
+      setValue(`${id}InSeconds`, toSeconds(amt, units));
     }
-    // setValue(`${id}InSeconds`, 0);
   }, [amt, units, id, setValue]);
 
   return (
@@ -59,9 +54,9 @@ export const TimePicker = ({
       options={options}
       required={required}
       registerOptions={{
-        required,
+        required: required ? 'Time value is required' : false,
         validate: (value) =>
-          isNumberString(value) ? true : 'Must be a number',
+          value === '' || isNumberString(value) ? true : 'Must be a number',
       }}
       {...props}
     />

@@ -9,6 +9,7 @@ import {
   Input,
   ParMd,
   TemporaryLink,
+  WrappedInput,
 } from '@daohaus/ui';
 
 import { AdvancedSegment } from '../layouts/AdvancedSegment';
@@ -16,6 +17,7 @@ import { MembersSegment } from '../layouts/MemberSegment';
 import { ShamanSegment } from '../layouts/ShamanSegment';
 import { StakeTokensSegment } from '../layouts/StakeTokenSegment';
 import { TimingSegment } from '../layouts/TimingSegment';
+import { useEffect } from 'react';
 
 const Main = styled.main`
   display: flex;
@@ -40,6 +42,10 @@ export const SummonerForm = () => {
   const handleFormSubmit = async (formValues: Record<string, unknown>) => {
     // const memberData = parseMembers(members);
   };
+  const values = methods.watch();
+  useEffect(() => {
+    console.log('values', values);
+  }, [values]);
 
   return (
     <Main>
@@ -58,7 +64,12 @@ export const SummonerForm = () => {
             </ParMd>
           </div>
           <div>
-            <Input id="daoName" full placeholder="Braid Guild" />
+            <WrappedInput
+              id="daoName"
+              placeholder="Braid Guild"
+              full
+              registerOptions={{ required: 'DAO name is required' }}
+            />
             <Divider className="top-divider" />
           </div>
           <StakeTokensSegment />

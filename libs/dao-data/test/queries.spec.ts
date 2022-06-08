@@ -12,18 +12,16 @@ describe('haus', () => {
     haus = await Haus.create(rpcConfig);
   });
 
-  it('can fetch a filtered list of dao proposals', async () => {
+  it('can fetch a list of daos', async () => {
     const networkId = '0x5';
-    const dao = '0x3ebd5cf78cb8e100b88f96adbd836bb1ae9a05ca';
 
-    const statusFilterVaribles = statusFilter('Expired', '500');
-
-    const res = await haus.query.listProposals({
+    const res = await haus.query.listDaos({
       networkId,
-      filter: { dao: dao, ...statusFilterVaribles },
     });
 
+    console.log('res', res?.data?.daos);
+
     expect(res.error).toBeUndefined();
-    expect(res?.data?.proposals.length).toBe(3);
+    expect(res?.data?.daos.length).toBe(1);
   });
 });

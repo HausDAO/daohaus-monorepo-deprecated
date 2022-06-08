@@ -11,6 +11,7 @@ export interface ListQueryArguments<TOrderBy extends string, Variables> {
   networkId: keyof Keychain;
   filter?: Variables;
   ordering?: Ordering<TOrderBy>;
+  paging?: Paging;
 }
 
 export interface GenericQueryArguments {
@@ -33,6 +34,14 @@ export type QueryVariables = {
 export type Ordering<TOrderBy extends string> = {
   orderBy: TOrderBy;
   orderDirection: OrderDirection;
+};
+
+export type Paging = {
+  paginationType: 'offset' | 'cursor' | 'all';
+  pageSize: number;
+  offset?: number;
+  lastId?: string;
+  pageNumber?: number;
 };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

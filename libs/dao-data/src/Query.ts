@@ -61,6 +61,7 @@ import {
 } from './utils/transformers';
 import { ethers } from 'ethers';
 import { HausError } from './HausError';
+import { defaultOrdering, defaultPagination } from './utils';
 
 export default class Query {
   private _endpoints: KeychainList;
@@ -74,14 +75,24 @@ export default class Query {
 */
   public async listDaos({
     networkId,
+    filter,
     ordering = {
-      orderBy: 'createdAt',
+      orderBy: 'id',
       orderDirection: 'desc',
     },
-    filter,
+    paging = defaultPagination,
   }: ListQueryArguments<Dao_OrderBy, Dao_Filter>): Promise<
     QueryResult<ListDaosQuery>
   > {
+    console.log('paging', paging);
+
+    // TODO
+    // // apply paging to query - always add 1 to pageSize
+    // // override ordering if 'cursor'
+    // // 'cursor' needs to adjust the filter
+    // // // how can we warn the user here?
+    // // return paged results to add some extras to the return
+    // // all loop
     const url = this._endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
@@ -91,7 +102,7 @@ export default class Query {
     }
 
     try {
-      return await graphFetch<ListDaosQuery, ListDaosQueryVariables>(
+      const res = await graphFetch<ListDaosQuery, ListDaosQueryVariables>(
         ListDaosDocument,
         url,
         networkId,
@@ -99,8 +110,22 @@ export default class Query {
           where: filter,
           orderBy: ordering.orderBy,
           orderDirection: ordering.orderDirection,
+          first: paging.pageSize + 1,
+          skip: paging.offset,
         }
       );
+
+      if (res?.data?.daos) {
+        const hasNextPage = paging.pageSize < res.data.daos.length;
+
+        const pagedData: ListDaosQuery['daos'] = hasNextPage
+          ? res.data.daos.slice(0, paging.pageSize)
+          : res.data.daos;
+
+        return { data: { daos: pagedData }, networkId };
+      } else {
+        return res;
+      }
     } catch (err) {
       return {
         error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
@@ -112,7 +137,7 @@ export default class Query {
   public async listProposals({
     networkId,
     ordering = {
-      orderBy: 'createdAt',
+      orderBy: 'id',
       orderDirection: 'desc',
     },
     filter,
@@ -158,7 +183,7 @@ export default class Query {
   public async listMembers({
     networkId,
     ordering = {
-      orderBy: 'createdAt',
+      orderBy: 'id',
       orderDirection: 'desc',
     },
     filter,

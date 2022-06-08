@@ -11,9 +11,10 @@ import {
   TransformedProposalQuery,
   TransformedProposalListQuery,
   DaoWithTokenDataQuery,
+  IListQueryResults,
 } from './types';
 import * as fetch from './utils';
-import { graphFetch } from './utils/requests';
+import { graphFetch, graphFetchList } from './utils/requests';
 import {
   FindMemberDocument,
   FindMemberQuery,
@@ -61,7 +62,7 @@ import {
 } from './utils/transformers';
 import { ethers } from 'ethers';
 import { HausError } from './HausError';
-import { defaultOrdering, defaultPagination } from './utils';
+import { createPaging, defaultPagination, paginateResponse } from './utils';
 
 export default class Query {
   private _endpoints: KeychainList;
@@ -73,6 +74,49 @@ export default class Query {
   /*
   List queries
 */
+  public async listDaoPages({
+    networkId,
+    filter,
+    ordering = {
+      orderBy: 'id',
+      orderDirection: 'desc',
+    },
+    paging = {
+      pageSize: 1,
+      offset: 0,
+    },
+  }: ListQueryArguments<Dao_OrderBy, Dao_Filter>): Promise<
+    IListQueryResults<Dao_OrderBy, Dao_Filter, ListDaosQuery['daos']>
+  > {
+    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    if (!url) {
+      throw new HausError({ type: 'INVALID_NETWORK_ERROR' });
+    }
+
+    const res = await graphFetchList<ListDaosQuery, ListDaosQueryVariables>(
+      ListDaosDocument,
+      url,
+      {
+        where: { ...filter, id_gt: paging.lastId || '' },
+        orderBy: paging.lastId ? 'id' : ordering.orderBy,
+        orderDirection: paging.lastId ? 'asc' : ordering.orderDirection,
+        first: paging.pageSize + 1,
+        skip: paging.offset,
+      }
+    );
+
+    const pagingUpdates = createPaging(res['daos'], paging);
+
+    return {
+      networkId,
+      filter,
+      ordering,
+      nextPaging: pagingUpdates.nextPaging,
+      previousPaging: pagingUpdates.previousPaging,
+      items: pagingUpdates.pageItems,
+    };
+  }
+
   public async listDaos({
     networkId,
     filter,
@@ -87,12 +131,8 @@ export default class Query {
     console.log('paging', paging);
 
     // TODO
-    // // apply paging to query - always add 1 to pageSize
-    // // override ordering if 'cursor'
-    // // 'cursor' needs to adjust the filter
-    // // // how can we warn the user here?
     // // return paged results to add some extras to the return
-    // // all loop
+    // // all loop in different ticket
     const url = this._endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
@@ -102,6 +142,15 @@ export default class Query {
     }
 
     try {
+      // TODO: warn client of ordering override or throw?
+      if (paging.lastId) {
+        ordering = {
+          orderBy: 'id',
+          orderDirection: 'asc',
+        };
+        filter = { ...filter, id_gt: paging.lastId || '' };
+      }
+
       const res = await graphFetch<ListDaosQuery, ListDaosQueryVariables>(
         ListDaosDocument,
         url,
@@ -115,13 +164,14 @@ export default class Query {
         }
       );
 
+      // get this all into the function
+      // return updated query and function to retry
+      // res inclused function for next page and previous page
       if (res?.data?.daos) {
-        const hasNextPage = paging.pageSize < res.data.daos.length;
-
-        const pagedData: ListDaosQuery['daos'] = hasNextPage
-          ? res.data.daos.slice(0, paging.pageSize)
-          : res.data.daos;
-
+        const pagedData = paginateResponse<ListDaosQuery['daos'][number]>(
+          res.data.daos,
+          paging
+        );
         return { data: { daos: pagedData }, networkId };
       } else {
         return res;

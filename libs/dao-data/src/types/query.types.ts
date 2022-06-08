@@ -14,13 +14,6 @@ export interface ListQueryArguments<TOrderBy extends string, Variables> {
   paging?: Paging;
 }
 
-export interface GenericQueryArguments {
-  networkId: keyof Keychain;
-  entityName: string;
-  query: string;
-  filter?: QueryVariables;
-}
-
 export interface CrossNetworkQueryArguments {
   networkIds: Array<keyof Keychain>;
   memberAddress: string;
@@ -37,18 +30,34 @@ export type Ordering<TOrderBy extends string> = {
 };
 
 export type Paging = {
-  paginationType: 'offset' | 'cursor' | 'all';
   pageSize: number;
   offset?: number;
   lastId?: string;
-  pageNumber?: number;
 };
+
+export interface IListQueryResults<
+  TOrderBy extends string,
+  Variables,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  Data = any
+> {
+  items?: Data;
+  error?: HausError;
+  networkId?: keyof Keychain;
+  filter?: Variables;
+  ordering?: Ordering<TOrderBy>;
+  nextPaging?: Paging;
+  previousPaging?: Paging;
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface QueryResult<Data = any> {
   data?: Data;
   error?: HausError;
   networkId?: keyof Keychain;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // queryOptions: any;
+  // nextPage: Function,
 }
 
 export type QueryProposal = ListProposalsQuery['proposals'][number];

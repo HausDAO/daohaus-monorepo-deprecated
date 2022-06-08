@@ -1,5 +1,4 @@
 import { Haus } from '../src/index';
-import { statusFilter } from '../src/utils';
 
 describe('haus', () => {
   const rpcConfig = {
@@ -12,14 +11,27 @@ describe('haus', () => {
     haus = await Haus.create(rpcConfig);
   });
 
-  it('can fetch a list of daos', async () => {
+  it('can fetch a list of daos - offset', async () => {
     const networkId = '0x5';
 
     const res = await haus.query.listDaos({
       networkId,
     });
 
-    console.log('res', res?.data?.daos);
+    expect(res.error).toBeUndefined();
+    expect(res?.data?.daos.length).toBe(1);
+  });
+
+  it('can fetch a list of daos - cursor', async () => {
+    const networkId = '0x5';
+
+    const res = await haus.query.listDaos({
+      networkId,
+      paging: {
+        pageSize: 1,
+        lastId: '0',
+      },
+    });
 
     expect(res.error).toBeUndefined();
     expect(res?.data?.daos.length).toBe(1);

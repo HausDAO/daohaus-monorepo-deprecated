@@ -1,7 +1,18 @@
 import { ParSm, TemporaryLink, WrappedTextArea } from '@daohaus/ui';
+import { useEffect, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { FormSegment, TextAreaSection } from '../layouts/FormLayouts';
+import { transformShamans, validateShamanData } from '../utils/common';
+
+const FIELD_ID = 'shamans';
 
 export const ShamanSegment = () => {
+  const { watch, clearErrors, setError } = useFormContext();
+  const { shamans } = watch();
+
+  const [amtShamans, setAmtShamans] = useState(0);
+  const [helperText, setHelperText] = useState('');
+
   return (
     <FormSegment
       title="Starting Shamans"
@@ -9,14 +20,18 @@ export const ShamanSegment = () => {
       formArea={
         <TextAreaSection>
           <TemporaryLink className="link">How to add a Shaman</TemporaryLink>
-          <ParSm className="number-display">0 Shamans</ParSm>
+          <ParSm className="number-display">{amtShamans} Shamans</ParSm>
           <WrappedTextArea
             label="Addresses & Permissions"
             placeholder="0x00000000000000000000000000 3"
-            id="shamans"
+            id={FIELD_ID}
             full
             number
-            helperText="Seems like a valid response"
+            helperText={helperText}
+            registerOptions={{
+              setValueAs: transformShamans,
+              validate: () => false,
+            }}
           />
         </TextAreaSection>
       }

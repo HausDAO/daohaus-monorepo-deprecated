@@ -16,41 +16,6 @@ import { MembersSegment } from '../layouts/MemberSegment';
 import { ShamanSegment } from '../layouts/ShamanSegment';
 import { StakeTokensSegment } from '../layouts/StakeTokenSegment';
 import { TimingSegment } from '../layouts/TimingSegment';
-import { isArray, isString } from '@daohaus/common-utilities';
-
-const INCORRECT_FORMAT = {
-  error: true,
-  message: 'Incorrect formatting',
-};
-
-const parseShamans = (response: unknown) => {
-  if (response === '') return '';
-  if (!isString(response)) return INCORRECT_FORMAT;
-
-  const shamanEntities = response
-    .split(/[\n|,]/)
-    .map((str) => str.trim())
-    .filter(Boolean);
-
-  if (!isArray(shamanEntities)) return INCORRECT_FORMAT;
-
-  return shamanEntities.reduce(
-    (acc, shaman) => {
-      const splitString = shaman.trim().split(' ');
-      const newShamanAddress = splitString[0];
-      const newShamanPermission = splitString[1];
-
-      return {
-        shamanAddresses: [...acc.shamanAddresses, newShamanAddress],
-        shamanPermissions: [...acc.shamanPermissions, newShamanPermission],
-      };
-    },
-    {
-      shamanAddresses: [] as string[],
-      shamanPermissions: [] as string[],
-    }
-  );
-};
 
 const Main = styled.main`
   display: flex;
@@ -71,13 +36,10 @@ const Main = styled.main`
 `;
 
 export const SummonerForm = () => {
-  const methods = useForm();
-  const {
-    formState: { errors },
-  } = methods;
+  const methods = useForm({ mode: 'onTouched' });
   const handleFormSubmit = async (formValues: Record<string, unknown>) => {
     const { shamans } = formValues;
-    const shamanData = parseShamans(shamans);
+
     // const memberData = parseMembers(members);
   };
 
@@ -91,6 +53,7 @@ export const SummonerForm = () => {
         <form
           className="form-column"
           onSubmit={methods.handleSubmit(handleFormSubmit)}
+          noValidate
         >
           <div className="title-section">
             <H1>

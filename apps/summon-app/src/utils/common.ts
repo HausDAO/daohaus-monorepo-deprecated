@@ -1,4 +1,4 @@
-import { isArray, isNumberString } from '@daohaus/common-utilities';
+import { isArray, isNumberString, isString } from '@daohaus/common-utilities';
 import { isAddress } from 'ethers/lib/utils';
 
 const VAL_MSG = {
@@ -9,7 +9,10 @@ const VAL_MSG = {
   SHARE_ERR:
     'Shares are required and must be a number. Check formatting rules in tooltip above',
   ADDRESS_ERR:
-    'Member addresses are required and must be follow the "0x" pattern. Check formatting rules in tooltip above',
+    'Member addresses are required and must be valid Ethereum Addresses. Check formatting rules in tooltip above',
+  SHAMAN_ADDR_ERR:
+    'Shaman addresses are required and must valid ethereum addresses',
+  PERMISSION_ERR: 'Shaman permissions are required and must be a number',
 };
 
 ////////////////////Members Segment////////////////////////
@@ -30,8 +33,8 @@ export const validateMemberData = (memberData: Record<string, string[]>) => {
     return VAL_MSG.LOOT_ERR;
   return true;
 };
-export const transformMemberData = (response: string) => {
-  if (!response) return '';
+export const transformMemberData = (response: string | undefined) => {
+  if (!isString(response) || response === '') return '';
   const memberEntities = response
     .split(/[\n|,]/)
     .map((str) => str.trim())
@@ -53,6 +56,45 @@ export const transformMemberData = (response: string) => {
       memberAddresses: [] as string[],
       memberShares: [] as string[],
       memberLoot: [] as string[],
+    }
+  );
+};
+
+////////////////////Shamans Segment////////////////////////
+
+export const validateShamanData = (shamanData: Record<string, string[]>) => {
+  const { shamanAddresses, shamanPermissions } = shamanData;
+  if (!isArray(shamanAddresses) || !isArray(shamanPermissions))
+    return VAL_MSG.formattingError;
+
+  if (!shamanAddresses.every((address) => isAddress(address)))
+    return VAL_MSG.SHAMAN_ADDR_ERR;
+  if (!shamanPermissions.every((address) => isNumberString(address)))
+    return VAL_MSG.PERMISSION_ERR;
+  return true;
+};
+
+export const transformShamans = (response: string | undefined) => {
+  if (!isString(response) || response === '') return '';
+  const shamanEntities = response
+    .split(/[\n|,]/)
+    .map((str) => str.trim())
+    .filter(Boolean);
+
+  return shamanEntities.reduce(
+    (acc, shaman) => {
+      const splitString = shaman.trim().split(' ');
+      const newShamanAddress = splitString[0];
+      const newShamanPermission = splitString[1];
+
+      return {
+        shamanAddresses: [...acc.shamanAddresses, newShamanAddress],
+        shamanPermissions: [...acc.shamanPermissions, newShamanPermission],
+      };
+    },
+    {
+      shamanAddresses: [] as string[],
+      shamanPermissions: [] as string[],
     }
   );
 };

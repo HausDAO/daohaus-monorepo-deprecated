@@ -6,7 +6,6 @@ import {
   Button,
   Divider,
   H1,
-  Input,
   ParMd,
   TemporaryLink,
   WrappedInput,

@@ -1,4 +1,3 @@
-import { WrappedInput } from '@daohaus/ui';
 import { TimePicker } from '../components/TimePicker/TimePicker';
 import { FormSegment, SplitColumn } from '../layouts/FormLayouts';
 

@@ -1,6 +1,8 @@
 import { Keychain } from '@daohaus/common-utilities';
 import { HausError } from '../HausError';
-import { OrderDirection, Proposal } from '../subgraph/schema.generated';
+import { FindDaoQuery } from '../subgraph/queries/daos.generated';
+import { ListProposalsQuery } from '../subgraph/queries/proposals.generated';
+import { OrderDirection } from '../subgraph/schema.generated';
 
 /**
  * Query related types
@@ -40,11 +42,12 @@ export interface QueryResult<Data = any> {
   networkId?: keyof Keychain;
 }
 
-export interface TransformedProposal extends Partial<Proposal> {
+export type QueryProposal = ListProposalsQuery['proposals'][number];
+export interface TransformedProposal extends QueryProposal {
   status?: string;
 }
 export interface TransformedProposalQuery {
-  proposal: TransformedProposal;
+  proposal: TransformedProposal | undefined;
 }
 export interface TransformedProposalListQuery {
   proposals: TransformedProposal[];
@@ -67,14 +70,12 @@ export type TransformedMembership = {
 export interface TransformedMembershipsQuery {
   daos: TransformedMembership[];
 }
-
 export type TokenInfo = {
   decimals: number;
   symbol: string;
   name: string;
   logoUri: string | null;
 };
-
 export type TokenBalance = {
   token: TokenInfo | null;
   tokenAddress: string | null;
@@ -85,9 +86,17 @@ export type TokenBalance = {
   fiatConversion: string;
   fiatCode: string;
 };
-
 export interface DaoTokenBalances {
   safeAddress: string;
   fiatTotal: number;
   tokenBalances: TokenBalance[];
+}
+
+export type QueryDao = FindDaoQuery['dao'];
+export type DaoWithTokenData = {
+  fiatTotal: number;
+  tokenBalances: TokenBalance[];
+} & QueryDao;
+export interface DaoWithTokenDataQuery {
+  dao: DaoWithTokenData;
 }

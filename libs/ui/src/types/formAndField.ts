@@ -30,6 +30,7 @@ export type Field = {
   id: string;
   label?: string;
   type?: string;
+  className?: string;
   placeholder?: string;
   helperText?: string;
   required?: boolean;
@@ -61,4 +62,8 @@ export type SelectProps = Field & {
   defaultValue?: string;
   options: OptionType[];
   inputSelect?: boolean;
+  containerClassName?: string;
 };
+
+export type InputSelectProps = Field &
+  SelectProps & { selectId: string; selectPlaceholder: string };

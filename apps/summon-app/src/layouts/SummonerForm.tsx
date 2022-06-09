@@ -6,9 +6,9 @@ import {
   Button,
   Divider,
   H1,
-  Input,
   ParMd,
   TemporaryLink,
+  WrappedInput,
 } from '@daohaus/ui';
 
 import { AdvancedSegment } from '../layouts/AdvancedSegment';
@@ -36,11 +36,19 @@ const Main = styled.main`
 `;
 
 export const SummonerForm = () => {
-  const methods = useForm();
+  const methods = useForm({ mode: 'onTouched' });
+  const handleFormSubmit = async (formValues: Record<string, unknown>) => {
+    /// TX TOWN!!!!!!!
+  };
+
   return (
     <Main>
       <FormProvider {...methods}>
-        <form className="form-column">
+        <form
+          className="form-column"
+          onSubmit={methods.handleSubmit(handleFormSubmit)}
+          noValidate
+        >
           <div className="title-section">
             <H1>
               <Bold>Summon a Baal.</Bold>
@@ -50,7 +58,12 @@ export const SummonerForm = () => {
             </ParMd>
           </div>
           <div>
-            <Input id="daoName" full placeholder="Braid Guild" />
+            <WrappedInput
+              id="daoName"
+              placeholder="Braid Guild"
+              full
+              registerOptions={{ required: 'DAO name is required' }}
+            />
             <Divider className="top-divider" />
           </div>
           <StakeTokensSegment />
@@ -58,7 +71,7 @@ export const SummonerForm = () => {
           <AdvancedSegment />
           <ShamanSegment />
           <MembersSegment />
-          <Button fullWidth lg>
+          <Button fullWidth lg type="submit">
             Summon DAO
           </Button>
         </form>

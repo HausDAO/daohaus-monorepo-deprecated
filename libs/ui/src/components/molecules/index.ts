@@ -6,3 +6,4 @@ export * from './WrappedTextArea';
 export * from './FieldWrapper';
 export * from './WrappedTextArea';
 export * from './WrappedSwitch';
+export * from './WrappedInputSelect';

@@ -1,4 +1,4 @@
-import { WrappedInput } from '@daohaus/ui';
+import { TimePicker } from '../components/TimePicker/TimePicker';
 import { FormSegment, SplitColumn } from '../layouts/FormLayouts';
 
 export const TimingSegment = () => {
@@ -11,17 +11,21 @@ export const TimingSegment = () => {
           singleRow={{
             rowID: 'timing',
             left: (
-              <WrappedInput
+              <TimePicker
                 label="Voting Period"
                 id="votingPeriod"
-                placeholder="Wait for Input Select"
+                full
+                placeholder="0"
+                required
               />
             ),
             right: (
-              <WrappedInput
+              <TimePicker
                 label="Grace Period"
                 id="gracePeriod"
-                placeholder="Wait for Input-Select"
+                full
+                placeholder="0"
+                required
               />
             ),
           }}

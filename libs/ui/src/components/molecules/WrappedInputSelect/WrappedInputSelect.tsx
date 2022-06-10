@@ -5,13 +5,17 @@ import { InputSelect } from '../InputSelect';
 import { InputSelectProps } from '../../../types/formAndField';
 
 export const WrappedInputSelect = (props: InputSelectProps) => {
-  const { id, selectId } = props;
+  const { id, selectId, registerOptions } = props;
   const { register } = useFormContext();
+  const registration = registerOptions
+    ? register(id, registerOptions)
+    : register(id);
+
   return (
     <FieldWrapper {...props}>
       <InputSelect
         {...props}
-        registerInput={register(id)}
+        registerInput={registration}
         registerSelect={register(selectId)}
       />
     </FieldWrapper>

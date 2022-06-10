@@ -16,7 +16,6 @@ export const Select = forwardRef(
     {
       options,
       defaultValue,
-      inputSelect,
       long,
       full,
       placeholder,
@@ -31,12 +30,10 @@ export const Select = forwardRef(
   ) => {
     const theme = useTheme();
     const wrapperClasses = classNames({
-      'input-select': inputSelect,
       long,
       full,
     });
     const classes = classNames({
-      'input-select': inputSelect,
       long,
       full,
       error,

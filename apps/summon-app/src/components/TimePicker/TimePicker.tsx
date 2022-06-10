@@ -55,17 +55,12 @@ export const TimePicker = ({
       required={required}
       registerOptions={{
         required: required ? 'Time value is required' : false,
-<<<<<<< HEAD
-        validate: (value) =>
-          value === '' || isNumberString(value) ? true : 'Must be a number',
-=======
         validate: {
           isNumber: (value) =>
             value === '' || isNumberString(value) ? true : 'Must be a number',
           noZero: (value) =>
             value !== '0' ? true : 'Time units cannot be zero',
         },
->>>>>>> efbe086e5fde60d8edc0ff8a2f402636b8ee0352
       }}
       {...props}
     />

@@ -1,21 +1,18 @@
 import 'styled-components';
 
 export type ButtonColorTargets = {
-  bg: string;
   text: string;
-  border: string;
+  bg: string;
+  border?: string;
+  hoverText?: string;
   hoverBg: string;
-  hoverText: string;
-  hoverBorder: string;
+  hoverBorder?: string;
+  focusText?: string;
   focusBg: string;
-  focusText: string;
-  focusBorder: string;
-  activeBg: string;
-  activeText: string;
-  activeBorder: string;
+  focusBorder?: string;
+  disabledText?: string;
   disabledBg: string;
-  disabledText: string;
-  disabledBorder: string;
+  disabledBorder?: string;
 };
 declare module 'styled-components' {
   export interface DefaultTheme {

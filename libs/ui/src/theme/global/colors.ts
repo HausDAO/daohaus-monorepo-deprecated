@@ -1,16 +1,18 @@
 import {
   amber,
   amberDark,
-  grass,
-  grassDark,
+  blue,
+  blueDark,
+  green,
+  greenDark,
   indigo,
   indigoDark,
-  sky,
-  skyDark,
+  orange,
+  orangeDark,
+  red,
+  redDark,
   slate,
   slateDark,
-  tomato,
-  tomatoDark,
 } from '@radix-ui/colors';
 
 /**
@@ -119,17 +121,17 @@ export const neutralDark = {
 // * Utility Colors
 
 export const utility = {
-  success: grass.grass9,
-  warning: amber.amber9,
-  danger: tomato.tomato9,
-  info: sky.sky9,
+  success: green.green9,
+  warning: orange.orange9,
+  danger: red.red9,
+  info: blue.blue9,
   transparent: 'transparent',
 };
 
 export const utilityDark = {
-  success: grassDark.grass9,
-  warning: amberDark.amber9,
-  danger: tomatoDark.tomato9,
-  info: skyDark.sky9,
+  success: greenDark.green9,
+  warning: orangeDark.orange9,
+  danger: redDark.red9,
+  info: blueDark.blue9,
   transparent: 'transparent',
 };

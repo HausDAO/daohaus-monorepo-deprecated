@@ -1,3 +1,4 @@
+import { ButtonColorTargets } from '../../styled';
 import {
   primary,
   secondary,
@@ -7,40 +8,13 @@ import {
   utilityDark,
 } from '../global/colors';
 
-export type ButtonColorTargets = {
-  bg: string;
-  text: string;
-  border: string;
-  hoverBg: string;
-  hoverText: string;
-  hoverBorder: string;
-  focusBg: string;
-  focusText: string;
-  focusBorder: string;
-  activeBg: string;
-  activeText: string;
-  activeBorder: string;
-  disabledBg: string;
-  disabledText: string;
-  disabledBorder: string;
-};
-
 export const PrimaryDarkButton: ButtonColorTargets = {
   bg: primaryDark.bgSolid,
-  text: secondaryDark.bg,
-  border: primaryDark.bgSolid,
+  text: primaryDark.bg,
   hoverBg: primaryDark.bgSolidHover,
-  hoverText: secondaryDark.bg,
-  hoverBorder: primaryDark.bgSolidHover,
   focusBg: primaryDark.bgSolidHover,
-  focusText: secondaryDark.bg,
   focusBorder: primaryDark.textLowContrast,
-  activeBg: primaryDark.bgSolid,
-  activeText: secondaryDark.bg,
-  activeBorder: primaryDark.bgSolid,
-  disabledBg: primaryDark.elementBorderHover,
-  disabledText: secondaryDark.bg,
-  disabledBorder: primaryDark.elementBorderHover,
+  disabledBg: primaryDark.elementBorderSubtle,
 };
 
 export const SecondaryDarkButton: ButtonColorTargets = {
@@ -48,17 +22,9 @@ export const SecondaryDarkButton: ButtonColorTargets = {
   text: secondaryDark.textHighContrast,
   border: secondaryDark.elementBgHover,
   hoverBg: secondaryDark.elementBorderSubtle,
-  hoverText: secondaryDark.textHighContrast,
-  hoverBorder: secondaryDark.elementBorderSubtle,
   focusBg: secondaryDark.elementBgHover,
-  focusText: secondaryDark.textHighContrast,
   focusBorder: secondaryDark.textLowContrast,
-  activeBg: secondaryDark.elementBgHover,
-  activeText: secondaryDark.textHighContrast,
-  activeBorder: secondaryDark.elementBgHover,
   disabledBg: secondaryDark.elementBg,
-  disabledText: secondaryDark.elementBorderHover,
-  disabledBorder: secondaryDark.elementBgHover,
 };
 
 export const TertiaryDarkButton: ButtonColorTargets = {
@@ -71,9 +37,6 @@ export const TertiaryDarkButton: ButtonColorTargets = {
   focusBg: utilityDark.transparent,
   focusText: primaryDark.bgSolidHover,
   focusBorder: primaryDark.textHighContrast,
-  activeBg: utilityDark.transparent,
-  activeText: primaryDark.textLowContrast,
-  activeBorder: primaryDark.bgSolid,
   disabledBg: utilityDark.transparent,
   disabledText: primaryDark.elementBorderHover,
   disabledBorder: primaryDark.elementBorderHover,
@@ -84,16 +47,10 @@ export const PrimaryLightButton: ButtonColorTargets = {
   text: secondary.textHighContrast,
   border: primary.bgSolid,
   hoverBg: primary.bgSolidHover,
-  hoverText: secondary.textHighContrast,
   hoverBorder: primary.bgSolidHover,
   focusBg: primary.bgSolidHover,
-  focusText: secondary.textHighContrast,
   focusBorder: primary.textLowContrast,
-  activeBg: primary.bgSolid,
-  activeText: secondary.textHighContrast,
-  activeBorder: primary.bgSolid,
   disabledBg: primary.elementBorderHover,
-  disabledText: secondary.textHighContrast,
   disabledBorder: primary.elementBorderHover,
 };
 
@@ -102,16 +59,10 @@ export const SecondaryLightButton: ButtonColorTargets = {
   text: secondary.textHighContrast,
   border: secondary.elementBgHover,
   hoverBg: secondary.elementBorderSubtle,
-  hoverText: secondary.textHighContrast,
   hoverBorder: secondary.elementBorderSubtle,
   focusBg: secondary.elementBgHover,
-  focusText: secondary.textHighContrast,
   focusBorder: secondary.textLowContrast,
-  activeBg: secondary.elementBgHover,
-  activeText: secondary.textHighContrast,
-  activeBorder: secondary.elementBgHover,
   disabledBg: secondary.elementBg,
-  disabledText: secondary.elementBorderHover,
   disabledBorder: secondary.elementBgHover,
 };
 
@@ -125,9 +76,6 @@ export const TertiaryLightButton: ButtonColorTargets = {
   focusBg: utility.transparent,
   focusText: primary.bgSolidHover,
   focusBorder: primary.textHighContrast,
-  activeBg: utility.transparent,
-  activeText: primary.textLowContrast,
-  activeBorder: primary.bgSolid,
   disabledBg: utility.transparent,
   disabledText: primary.elementBorderHover,
   disabledBorder: primary.elementBorderHover,

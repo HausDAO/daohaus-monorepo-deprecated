@@ -32,13 +32,10 @@ export const StakeTokensSegment = () => {
                   required
                   registerOptions={{
                     required: 'Token name is required',
-<<<<<<< HEAD
-=======
                     maxLength: {
                       value: 50,
                       message: 'Token name cannot be longer than 50 characters',
                     },
->>>>>>> efbe086e5fde60d8edc0ff8a2f402636b8ee0352
                   }}
                 />
               ),
@@ -51,14 +48,11 @@ export const StakeTokensSegment = () => {
                   required
                   registerOptions={{
                     required: 'Token name is required',
-<<<<<<< HEAD
-=======
                     maxLength: {
                       value: 5,
                       message:
                         'Token symbol cannot be longer than 5 characters',
                     },
->>>>>>> efbe086e5fde60d8edc0ff8a2f402636b8ee0352
                   }}
                 />
               ),

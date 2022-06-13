@@ -182,7 +182,6 @@ const handleKeychains = (chainId: ValidNetwork) => {
     GNOSIS_MULTISEND,
     POSTER,
   ];
-  console.log('v3Contracts', v3Contracts);
 
   if (v3Contracts.every((contract) => contract[chainId])) {
     // REVIEW. Before this conditional statement, each contract

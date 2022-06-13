@@ -9,6 +9,8 @@ export const isString = (item: unknown): item is string =>
   typeof item === 'string';
 export const isBoolean = (item: unknown): item is boolean =>
   typeof item === 'boolean';
+export const isNumberish = (item: unknown): item is string | number =>
+  isNumber(item) || isNumberString(item);
 // general 'is' guards that help us verify shapes of data
 
 export const isNumberString = (item: unknown) =>

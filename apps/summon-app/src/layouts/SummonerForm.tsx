@@ -16,6 +16,9 @@ import { MembersSegment } from '../layouts/MemberSegment';
 import { ShamanSegment } from '../layouts/ShamanSegment';
 import { StakeTokensSegment } from '../layouts/StakeTokenSegment';
 import { TimingSegment } from '../layouts/TimingSegment';
+import { FORM_KEYS } from '../utils/formKeys';
+import { summon } from '../utils/summonTx';
+import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 const Main = styled.main`
   display: flex;
@@ -36,9 +39,12 @@ const Main = styled.main`
 `;
 
 export const SummonerForm = () => {
+  const { provider } = useHausConnect();
   const methods = useForm({ mode: 'onTouched' });
   const handleFormSubmit = async (formValues: Record<string, unknown>) => {
-    /// TX TOWN!!!!!!!
+    if (!provider) return;
+    console.log('formValues', formValues);
+    summon(provider, formValues);
   };
 
   return (
@@ -59,7 +65,7 @@ export const SummonerForm = () => {
           </div>
           <div>
             <WrappedInput
-              id="daoName"
+              id={FORM_KEYS.DAO_NAME}
               placeholder="Braid Guild"
               full
               registerOptions={{ required: 'DAO name is required' }}

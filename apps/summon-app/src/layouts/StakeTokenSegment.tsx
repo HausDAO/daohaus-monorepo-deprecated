@@ -68,7 +68,7 @@ export const StakeTokensSegment = () => {
                   switches={[
                     {
                       fieldLabel: votingTransferableLabel,
-                      checked: false,
+                      defaultChecked: false,
                     },
                   ]}
                 />
@@ -80,7 +80,7 @@ export const StakeTokensSegment = () => {
                   switches={[
                     {
                       fieldLabel: nvTransferableLabel,
-                      checked: false,
+                      defaultChecked: false,
                     },
                   ]}
                 />

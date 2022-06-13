@@ -1,5 +1,6 @@
 import { TimePicker } from '../components/TimePicker/TimePicker';
 import { FormSegment, SplitColumn } from '../layouts/FormLayouts';
+import { FORM_KEYS } from '../utils/formKeys';
 
 export const TimingSegment = () => {
   return (
@@ -13,7 +14,7 @@ export const TimingSegment = () => {
             left: (
               <TimePicker
                 label="Voting Period"
-                id="votingPeriod"
+                id={FORM_KEYS.VOTING_PERIOD}
                 full
                 placeholder="0"
                 required
@@ -22,7 +23,7 @@ export const TimingSegment = () => {
             right: (
               <TimePicker
                 label="Grace Period"
-                id="gracePeriod"
+                id={FORM_KEYS.GRACE_PERIOD}
                 full
                 placeholder="0"
                 required

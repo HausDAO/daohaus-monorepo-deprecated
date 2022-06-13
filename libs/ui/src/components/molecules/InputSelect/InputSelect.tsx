@@ -14,6 +14,7 @@ export const InputSelect = ({
   full,
   error,
   warning,
+  placeholder,
   selectPlaceholder,
   registerSelect = {},
   registerInput = {},
@@ -28,6 +29,7 @@ export const InputSelect = ({
         id={id}
         disabled={disabled}
         className="input"
+        placeholder={placeholder}
         error={error}
         warning={warning}
         full

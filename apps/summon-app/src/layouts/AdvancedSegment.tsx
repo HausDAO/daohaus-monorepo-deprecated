@@ -1,4 +1,5 @@
 import { WrappedInput } from '@daohaus/ui';
+
 import { FormSegment, SplitColumn } from '../layouts/FormLayouts';
 
 export const AdvancedSegment = () => {
@@ -12,13 +13,21 @@ export const AdvancedSegment = () => {
             {
               rowID: 'advanced1',
               left: (
-                <WrappedInput id="quorum" label="Quorum %" placeholder="80" />
+                <WrappedInput
+                  id="quorum"
+                  label="Quorum %"
+                  required
+                  defaultValue="80"
+                  registerOptions={{ required: 'This value is required' }}
+                />
               ),
               right: (
                 <WrappedInput
                   id="minRetention"
                   label="Min Retention %"
-                  placeholder="66"
+                  defaultValue="66"
+                  required
+                  registerOptions={{ required: 'This value is required' }}
                 />
               ),
             },
@@ -28,14 +37,18 @@ export const AdvancedSegment = () => {
                 <WrappedInput
                   id="sponsorThreshold"
                   label="Sponsor Threshold"
-                  placeholder="1"
+                  defaultValue="0"
+                  required
+                  registerOptions={{ required: 'This value is required' }}
                 />
               ),
               right: (
                 <WrappedInput
                   id="newOffering"
                   label="New Offering (ETH)"
-                  placeholder="0"
+                  defaultValue="0"
+                  required
+                  registerOptions={{ required: 'This value is required' }}
                 />
               ),
             },

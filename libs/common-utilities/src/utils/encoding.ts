@@ -1,0 +1,32 @@
+import { ethers } from 'ethers';
+import { ABI } from '../types';
+
+export const encodeWithTypes = (
+  typesArray: string[],
+  valueArray: (string | number)[]
+): string => {
+  return ethers.utils.defaultAbiCoder.encode(typesArray, valueArray);
+};
+
+export const safeEncodeHexFunction = (
+  abi: ABI,
+  fnName: string,
+  functionArgs: ReadonlyArray<unknown>
+): string | { error: true; message: string } => {
+  try {
+    if (!abi || !Array.isArray(functionArgs))
+      throw new Error(
+        'Incorrect params passed to safeEncodeHexFunction in abi.js'
+      );
+    const abiString = JSON.stringify(abi);
+    const ethersInterface = new ethers.utils.Interface(abiString);
+    return ethersInterface.encodeFunctionData(fnName, functionArgs);
+  } catch (error) {
+    console.log('error', error);
+    return {
+      error: true,
+      message:
+        'Could not encode transaction data with the values entered into this form',
+    };
+  }
+};

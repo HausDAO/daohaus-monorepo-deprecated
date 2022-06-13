@@ -19,6 +19,7 @@ import { TimingSegment } from '../layouts/TimingSegment';
 import { FORM_KEYS } from '../utils/formKeys';
 import { summon } from '../utils/summonTx';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+import { isValidNetwork } from '@daohaus/common-utilities';
 
 const Main = styled.main`
   display: flex;
@@ -39,12 +40,12 @@ const Main = styled.main`
 `;
 
 export const SummonerForm = () => {
-  const { provider } = useHausConnect();
+  const { provider, chainId } = useHausConnect();
   const methods = useForm({ mode: 'onTouched' });
   const handleFormSubmit = async (formValues: Record<string, unknown>) => {
-    if (!provider) return;
+    if (!provider || !chainId || !isValidNetwork(chainId)) return;
     console.log('formValues', formValues);
-    summon(provider, formValues);
+    summon(provider, formValues, chainId);
   };
 
   return (

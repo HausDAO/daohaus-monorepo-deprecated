@@ -1,6 +1,7 @@
 // REFACTOR CONSTANTS TO ENDPOINTS
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import {
+  CONTRACTS,
   encodeFunction,
   encodeValues,
   getNonce,
@@ -8,15 +9,10 @@ import {
   isNumberish,
   isString,
   toBaseUnits,
+  ValidNetwork,
 } from '@daohaus/common-utilities';
 import { ethers, providers } from 'ethers';
 import { FORM_KEYS } from './formKeys';
-
-const SHARE_SINGLETON = '0xE4B40ea347Dffe40b5d0d562bF873d830C124643';
-const LOOT_SINGLETON = '0x29FF7b9C945158CCD973B7c190a73AB9e110Fc74';
-const BAAL_FACTORY = '0x1b94221EB2bC8dc9F16660EA5be9dcd92b0ae862';
-const GNOSIS_MULTISEND = '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761';
-const POSTER = '0x000000000000cd17345801aa8147b8d3950260ff';
 
 const tokenConfigTX = (formValues: Record<string, unknown>) => {
   const pauseVoteToken = !formValues.votingTransferable;
@@ -64,6 +60,10 @@ const governanceConfigTX = (formValues: Record<string, unknown>) => {
 };
 
 export const shamanConfigTX = (formValues: Record<string, unknown>) => {
+  // Review. Typecasting here as validation will not allow the form to be submittied
+  // without anything other than the shape seen below.
+  // React Hook Form only allows us to shape the functions with Record<string, unknown>
+
   const shamanData = formValues[FORM_KEYS.SHAMANS] as
     | Record<string, unknown>
     | '';
@@ -89,6 +89,10 @@ export const shamanConfigTX = (formValues: Record<string, unknown>) => {
 };
 
 export const shareConfigTX = (formValues: Record<string, unknown>) => {
+  // Review. Typecasting here as validation will not allow the form to be submittied
+  // without anything other than the shape seen below.
+  // React Hook Form only allows us to shape the functions with Record<string, unknown>
+
   const memberData = formValues[FORM_KEYS.MEMBERS] as Record<string, unknown>;
 
   if (
@@ -103,7 +107,7 @@ export const shareConfigTX = (formValues: Record<string, unknown>) => {
     );
   }
 
-  const wholeShareAmts = memberData.memberShares as (string | number)[];
+  const wholeShareAmts = memberData.memberShares as string[];
   const sharesInBaseUnits = wholeShareAmts.map((shares) =>
     toBaseUnits(shares.toString())
   );
@@ -141,7 +145,10 @@ export const lootConfigTX = (formValues: Record<string, unknown>) => {
   ]);
 };
 
-const metadataConfigTX = (formValues: Record<string, unknown>) => {
+const metadataConfigTX = (
+  formValues: Record<string, unknown>,
+  posterAddress: string
+) => {
   const daoName = formValues[FORM_KEYS.DAO_NAME];
   if (!isString(daoName)) {
     console.log('ERROR: Form Values', formValues);
@@ -152,11 +159,52 @@ const metadataConfigTX = (formValues: Record<string, unknown>) => {
     JSON.stringify({ name: daoName }),
     'daohaus.metadata.summoner',
   ]);
-  console.log('METADATA', METADATA);
-  return encodeFunction(LOCAL_ABI.BAAL, 'executeAsBaal', [POSTER, 0, METADATA]);
+
+  return encodeFunction(LOCAL_ABI.BAAL, 'executeAsBaal', [
+    posterAddress,
+    0,
+    METADATA,
+  ]);
 };
 
-export const assembleTxArgs = (formValues: Record<string, unknown>) => {
+const handleKeychains = (chainId: ValidNetwork) => {
+  const {
+    V3_FACTORY,
+    V3_LOOT_SINGLETON,
+    V3_SHARE_SINGLETON,
+    GNOSIS_MULTISEND,
+    POSTER,
+  } = CONTRACTS;
+  const v3Contracts = [
+    V3_FACTORY,
+    V3_LOOT_SINGLETON,
+    V3_SHARE_SINGLETON,
+    GNOSIS_MULTISEND,
+    POSTER,
+  ];
+  console.log('v3Contracts', v3Contracts);
+
+  if (v3Contracts.every((contract) => contract[chainId])) {
+    // REVIEW. Before this conditional statement, each contract
+    // was string | undefined. After the conditional statement it can
+    // only be string. So I'm typecasting here.
+    return {
+      V3_FACTORY: V3_FACTORY[chainId] as string,
+      V3_LOOT_SINGLETON: V3_LOOT_SINGLETON[chainId] as string,
+      V3_SHARE_SINGLETON: V3_SHARE_SINGLETON[chainId] as string,
+      GNOSIS_MULTISEND: GNOSIS_MULTISEND[chainId] as string,
+      POSTER: POSTER[chainId] as string,
+    };
+  }
+  console.log('v3Contracts', v3Contracts);
+  console.log('chainId', chainId);
+  throw new Error('Could not find V3 singletons for this network');
+};
+
+export const assembleTxArgs = (
+  formValues: Record<string, unknown>,
+  chainId: ValidNetwork
+) => {
   const tokenName = formValues[FORM_KEYS.TOKEN_NAME];
   const tokenSymbol = formValues[FORM_KEYS.TOKEN_SYMBOL];
 
@@ -166,9 +214,18 @@ export const assembleTxArgs = (formValues: Record<string, unknown>) => {
       'assembleSummonTx recieved arguments in the wrong shape or type'
     );
   }
+
+  const { V3_LOOT_SINGLETON, V3_SHARE_SINGLETON, GNOSIS_MULTISEND, POSTER } =
+    handleKeychains(chainId);
   const initParams = encodeValues(
     ['string', 'string', 'address', 'address', 'address'],
-    [tokenName, tokenSymbol, SHARE_SINGLETON, LOOT_SINGLETON, GNOSIS_MULTISEND]
+    [
+      tokenName,
+      tokenSymbol,
+      V3_SHARE_SINGLETON,
+      V3_LOOT_SINGLETON,
+      GNOSIS_MULTISEND,
+    ]
   );
   const initActions = [
     tokenConfigTX(formValues),
@@ -176,7 +233,7 @@ export const assembleTxArgs = (formValues: Record<string, unknown>) => {
     shamanConfigTX(formValues),
     shareConfigTX(formValues),
     lootConfigTX(formValues),
-    metadataConfigTX(formValues),
+    metadataConfigTX(formValues, POSTER),
   ];
   const args = [initParams, initActions, getNonce()];
 
@@ -185,16 +242,24 @@ export const assembleTxArgs = (formValues: Record<string, unknown>) => {
 
 export const summon = async (
   provider: providers.Web3Provider,
-  formValues: Record<string, unknown>
+  formValues: Record<string, unknown>,
+  chainId: ValidNetwork
 ) => {
   try {
+    const baalSummoner = CONTRACTS.V3_FACTORY[chainId];
+    if (!baalSummoner) {
+      console.log('chainId', chainId);
+      console.log('baalSummoner', baalSummoner);
+      throw new Error('Could not find V3 summoner for this network');
+    }
+
     const contract = new ethers.Contract(
-      BAAL_FACTORY,
+      baalSummoner,
       LOCAL_ABI.BAAL_FACTORY,
       provider.getSigner()
     );
-    const args = assembleTxArgs(formValues);
-    console.log('args', args);
+
+    const args = assembleTxArgs(formValues, chainId);
     return await contract.functions.summonBaalAndSafe(...args);
   } catch (error) {
     console.log(error);

@@ -1,4 +1,4 @@
-query findLatestTx(
+query findLatestTxByDao(
   $where: EventTransaction_filter! = {}
   $skip: Int! = 0
   $first: Int! = 1
@@ -14,5 +14,15 @@ query findLatestTx(
   ) {
     id
     createdAt
+  }
+}
+
+query findLatestTx($id: ID!) {
+  transaction: eventTransaction(id: $id) {
+    id
+    createdAt
+    dao {
+      id
+    }
   }
 }

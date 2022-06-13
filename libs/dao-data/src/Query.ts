@@ -53,6 +53,9 @@ import {
   FindLatestTxDocument,
   FindLatestTxQuery,
   FindLatestTxQueryVariables,
+  FindLatestTxByDaoDocument,
+  FindLatestTxByDaoQuery,
+  FindLatestTxByDaoQueryVariables,
 } from './subgraph/queries/transactions.generated';
 import {
   transformMembershipList,
@@ -317,7 +320,7 @@ export default class Query {
     }
   }
 
-  public async findLatestTransaction({
+  public async findLatestTransactionByDao({
     networkId,
     dao,
   }: {
@@ -332,12 +335,40 @@ export default class Query {
     }
 
     try {
+      return await graphFetch<
+        FindLatestTxQuery,
+        FindLatestTxByDaoQueryVariables
+      >(FindLatestTxDocument, url, networkId, {
+        where: { dao },
+      });
+    } catch (err) {
+      return {
+        error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
+      };
+    }
+  }
+
+  public async findTransaction({
+    networkId,
+    txHash,
+  }: {
+    networkId: keyof Keychain;
+    txHash: string;
+  }): Promise<QueryResult<FindLatestTxQuery>> {
+    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    if (!url) {
+      return {
+        error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
+      };
+    }
+
+    try {
       return await graphFetch<FindLatestTxQuery, FindLatestTxQueryVariables>(
         FindLatestTxDocument,
         url,
         networkId,
         {
-          where: { dao },
+          id: txHash,
         }
       );
     } catch (err) {

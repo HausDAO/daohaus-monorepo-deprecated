@@ -5,13 +5,13 @@ export type ButtonColorTargets = {
   bg: string;
   border?: string;
   hoverText?: string;
-  hoverBg: string;
+  hoverBg?: string;
   hoverBorder?: string;
   focusText?: string;
-  focusBg: string;
+  focusBg?: string;
   focusBorder?: string;
   disabledText?: string;
-  disabledBg: string;
+  disabledBg?: string;
   disabledBorder?: string;
 };
 declare module 'styled-components' {
@@ -46,8 +46,11 @@ declare module 'styled-components' {
       bg: string;
     };
     checkbox: {
+      bg: string;
       border: string;
       activeBorder: string;
+      disabledBg: string;
+      disabledBorder: string;
     };
     select: {
       bg: string;

@@ -5,7 +5,7 @@ import { font } from '../../../theme/global/font';
 export const ButtonBase = styled.button`
   background-color: ${({ theme }) => theme.button.primary.bg};
   border: 0.1rem solid
-    ${({ theme }: { theme: Theme }) => theme.button.primary.border};
+    ${({ theme }: { theme: Theme }) => theme.button.primary.bg};
   color: ${({ theme }: { theme: Theme }) => theme.button.primary.text};
   min-width: 8.5rem;
   height: 4.8rem;
@@ -21,7 +21,7 @@ export const ButtonBase = styled.button`
     background-color: ${({ theme }: { theme: Theme }) =>
       theme.button.primary.hoverBg};
     border: 0.1rem solid
-      ${({ theme }: { theme: Theme }) => theme.button.primary.hoverBorder};
+      ${({ theme }: { theme: Theme }) => theme.button.primary.hoverBg};
   }
 
   :focus {
@@ -35,7 +35,7 @@ export const ButtonBase = styled.button`
     background-color: ${({ theme }: { theme: Theme }) =>
       theme.button.primary.disabledBg};
     border: 0.1rem solid
-      ${({ theme }: { theme: Theme }) => theme.button.primary.disabledBorder};
+      ${({ theme }: { theme: Theme }) => theme.button.primary.disabledBg};
     cursor: not-allowed;
   }
 
@@ -43,26 +43,28 @@ export const ButtonBase = styled.button`
     background-color: ${({ theme }: { theme: Theme }) =>
       theme.button.secondary.bg};
     border: 0.1rem solid
-      ${({ theme }: { theme: Theme }) => theme.button.secondary.border};
+      ${({ theme }: { theme: Theme }) => theme.button.secondary.bg};
     color: ${({ theme }: { theme: Theme }) => theme.button.secondary.text};
+
     :hover {
       background-color: ${({ theme }: { theme: Theme }) =>
         theme.button.secondary.hoverBg};
       border: 0.1rem solid
-        ${({ theme }: { theme: Theme }) => theme.button.secondary.hoverBorder};
+        ${({ theme }: { theme: Theme }) => theme.button.secondary.hoverBg};
     }
+
     :focus {
       background-color: ${({ theme }: { theme: Theme }) =>
         theme.button.secondary.focusBg};
       border: 0.1rem solid
         ${({ theme }: { theme: Theme }) => theme.button.secondary.focusBorder};
     }
+
     :disabled {
       background-color: ${({ theme }: { theme: Theme }) =>
         theme.button.secondary.disabledBg};
       border: 0.1rem solid
-        ${({ theme }: { theme: Theme }) =>
-          theme.button.secondary.disabledBorder};
+        ${({ theme }: { theme: Theme }) => theme.button.secondary.disabledBg};
       cursor: not-allowed;
     }
   }
@@ -75,8 +77,6 @@ export const ButtonBase = styled.button`
     color: ${({ theme }: { theme: Theme }) => theme.button.tertiary.text};
 
     :hover {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.button.tertiary.hoverBg};
       border: 0.1rem solid
         ${({ theme }: { theme: Theme }) => theme.button.tertiary.hoverBorder};
       color: ${({ theme }: { theme: Theme }) =>
@@ -84,8 +84,6 @@ export const ButtonBase = styled.button`
     }
 
     :focus {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.button.tertiary.focusBg};
       border: 0.1rem solid
         ${({ theme }: { theme: Theme }) => theme.button.tertiary.focusBorder};
       color: ${({ theme }: { theme: Theme }) =>
@@ -93,8 +91,6 @@ export const ButtonBase = styled.button`
     }
 
     :disabled {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.button.tertiary.disabledBg};
       border: 0.1rem solid
         ${({ theme }: { theme: Theme }) => theme.button.tertiary.disabledBorder};
       color: ${({ theme }: { theme: Theme }) =>

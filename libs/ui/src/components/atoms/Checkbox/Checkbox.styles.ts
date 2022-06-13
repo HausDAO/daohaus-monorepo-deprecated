@@ -14,7 +14,7 @@ export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: transparent;
+  background-color: ${({ theme }: { theme: Theme }) => theme.checkbox.bg};
   border: 2px solid
     ${(props) =>
       props.checked

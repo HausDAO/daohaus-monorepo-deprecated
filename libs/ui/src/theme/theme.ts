@@ -24,7 +24,7 @@ import { FieldTheme, FieldThemeDark } from './atoms/field';
 
 export const defaultDarkTheme: Theme = {
   themeName: 'dark',
-  bgColor: secondaryDark.bg,
+  bgColor: neutralDark.bg,
   fontColor: secondaryDark.textHighContrast,
   primary: primaryDark.bgSolid,
   error: utilityDark.danger,
@@ -46,8 +46,11 @@ export const defaultDarkTheme: Theme = {
     bg: secondaryDark.bgSubtle,
   },
   checkbox: {
-    border: secondaryDark.textHighContrast,
+    bg: secondaryDark.elementBg,
+    border: secondaryDark.elementBorderSubtle,
     activeBorder: primaryDark.bgSolid,
+    disabledBg: neutralDark.bgSubtle,
+    disabledBorder: neutralDark.elementBorderSubtle,
   },
   select: {
     bg: secondaryDark.elementBg,
@@ -70,19 +73,17 @@ export const defaultDarkTheme: Theme = {
       disabledBg: grayDark.gray9,
     },
   },
-
-  //  Update this to secondary button style once we update colors
   radio: {
     item: {
-      bg: indigoDark.indigo3,
-      activeBg: amberDark.amber9,
-      disabledBg: 'rgba(255, 255, 255, 0.034)',
-      disabledBorder: 'rgba(255, 255, 255, 0.124)',
-      border: indigoDark.indigo6,
+      bg: secondaryDark.elementBg,
+      border: secondaryDark.elementBorderSubtle,
+      activeBg: primaryDark.bgSolid,
+      disabledBg: neutralDark.bgSubtle,
+      disabledBorder: neutralDark.elementBorderSubtle,
     },
     indicator: {
-      bg: amberDark.amber6,
-      disabledBg: slateDark.slate1,
+      bg: primaryDark.elementBorderSubtle,
+      disabledBg: neutral.bg,
     },
   },
 };
@@ -111,8 +112,11 @@ export const defaultLightTheme: Theme = {
     bg: secondary.bgSubtle,
   },
   checkbox: {
-    border: secondary.textHighContrast,
+    bg: secondary.elementBg,
+    border: secondary.elementBorderSubtle,
     activeBorder: primary.bgSolid,
+    disabledBg: neutral.bgSubtle,
+    disabledBorder: neutral.elementBorderSubtle,
   },
   select: {
     bg: secondary.elementBg,
@@ -127,25 +131,25 @@ export const defaultLightTheme: Theme = {
     bar: {
       bg: secondary.elementBorderSubtle,
       activeBg: primary.elementBorderSubtle,
-      disabledBg: grayDark.gray6,
+      disabledBg: neutral.elementBorderSubtle,
     },
     thumb: {
-      bg: secondaryDark.bgSolid,
-      activeBg: primaryDark.bgSolid,
-      disabledBg: grayDark.gray9,
+      bg: secondary.bgSolid,
+      activeBg: primary.bgSolid,
+      disabledBg: neutral.bgSolid,
     },
   },
   radio: {
     item: {
-      bg: indigoDark.indigo3,
-      activeBg: amberDark.amber9,
-      disabledBg: 'rgba(255, 255, 255, 0.034)',
-      disabledBorder: 'rgba(255, 255, 255, 0.124)',
-      border: indigoDark.indigo6,
+      bg: secondary.elementBg,
+      border: secondary.elementBorderSubtle,
+      activeBg: primary.bgSolid,
+      disabledBg: neutral.bgSubtle,
+      disabledBorder: neutral.elementBorderSubtle,
     },
     indicator: {
-      bg: amberDark.amber6,
-      disabledBg: slateDark.slate1,
+      bg: primary.elementBorderSubtle,
+      disabledBg: neutral.bg,
     },
   },
 };

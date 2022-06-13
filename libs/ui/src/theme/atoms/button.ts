@@ -18,65 +18,52 @@ export const PrimaryDarkButton: ButtonColorTargets = {
 };
 
 export const SecondaryDarkButton: ButtonColorTargets = {
-  bg: secondaryDark.elementBg,
+  bg: secondaryDark.elementBorderSubtle,
   text: secondaryDark.textHighContrast,
-  border: secondaryDark.elementBgHover,
-  hoverBg: secondaryDark.elementBorderSubtle,
-  focusBg: secondaryDark.elementBgHover,
-  focusBorder: secondaryDark.textLowContrast,
+  hoverBg: secondaryDark.elementBorder,
+  focusBg: secondaryDark.elementBorder,
+  focusBorder: secondaryDark.elementBorderHover,
   disabledBg: secondaryDark.elementBg,
 };
 
 export const TertiaryDarkButton: ButtonColorTargets = {
   bg: utilityDark.transparent,
   text: primaryDark.textLowContrast,
-  border: primaryDark.bgSolid,
-  hoverBg: secondaryDark.elementBg,
+  border: primaryDark.textLowContrast,
   hoverText: primaryDark.bgSolidHover,
-  hoverBorder: primaryDark.bgSolid,
-  focusBg: utilityDark.transparent,
-  focusText: primaryDark.bgSolidHover,
+  hoverBorder: primaryDark.bgSolidHover,
+  focusText: primaryDark.textHighContrast,
   focusBorder: primaryDark.textHighContrast,
-  disabledBg: utilityDark.transparent,
-  disabledText: primaryDark.elementBorderHover,
-  disabledBorder: primaryDark.elementBorderHover,
+  disabledText: primaryDark.elementBorderSubtle,
+  disabledBorder: primaryDark.elementBorderSubtle,
 };
 
 export const PrimaryLightButton: ButtonColorTargets = {
   bg: primary.bgSolid,
-  text: secondary.textHighContrast,
-  border: primary.bgSolid,
+  text: primary.bg,
   hoverBg: primary.bgSolidHover,
-  hoverBorder: primary.bgSolidHover,
   focusBg: primary.bgSolidHover,
   focusBorder: primary.textLowContrast,
-  disabledBg: primary.elementBorderHover,
-  disabledBorder: primary.elementBorderHover,
+  disabledBg: primary.elementBorderSubtle,
 };
 
 export const SecondaryLightButton: ButtonColorTargets = {
-  bg: secondary.elementBgHover,
+  bg: secondary.elementBorderSubtle,
   text: secondary.textHighContrast,
-  border: secondary.elementBgHover,
-  hoverBg: secondary.elementBorderSubtle,
-  hoverBorder: secondary.elementBorderSubtle,
-  focusBg: secondary.elementBgHover,
-  focusBorder: secondary.textLowContrast,
+  hoverBg: secondary.elementBorder,
+  focusBg: secondary.elementBorder,
+  focusBorder: secondary.elementBorderHover,
   disabledBg: secondary.elementBg,
-  disabledBorder: secondary.elementBgHover,
 };
 
 export const TertiaryLightButton: ButtonColorTargets = {
   bg: utility.transparent,
   text: primary.textLowContrast,
-  border: primary.bgSolid,
-  hoverBg: secondary.elementBg,
+  border: primary.textLowContrast,
   hoverText: primary.bgSolidHover,
-  hoverBorder: primary.bgSolid,
-  focusBg: utility.transparent,
-  focusText: primary.bgSolidHover,
+  hoverBorder: primary.bgSolidHover,
+  focusText: primary.textHighContrast,
   focusBorder: primary.textHighContrast,
-  disabledBg: utility.transparent,
-  disabledText: primary.elementBorderHover,
-  disabledBorder: primary.elementBorderHover,
+  disabledText: primary.elementBorderSubtle,
+  disabledBorder: primary.elementBorderSubtle,
 };

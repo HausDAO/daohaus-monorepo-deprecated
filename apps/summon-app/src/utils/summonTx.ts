@@ -1,4 +1,3 @@
-// REFACTOR CONSTANTS TO ENDPOINTS
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import {
   CONTRACTS,

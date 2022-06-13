@@ -4,11 +4,14 @@ import { Input } from '../../atoms';
 import { FieldWrapper } from '../FieldWrapper/FieldWrapper';
 
 export const WrappedInput = (props: Field) => {
-  const { id } = props;
+  const { id, registerOptions } = props;
   const { register } = useFormContext();
+  const registration = registerOptions
+    ? register(id, registerOptions)
+    : register(id);
   return (
     <FieldWrapper {...props}>
-      <Input {...register(id)} {...props} />
+      <Input {...registration} {...props} />
     </FieldWrapper>
   );
 };

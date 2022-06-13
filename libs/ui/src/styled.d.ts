@@ -70,5 +70,18 @@ declare module 'styled-components' {
         disabledBg: string;
       };
     };
+    radio: {
+      item: {
+        bg: string;
+        border: string;
+        activeBg: string;
+        disabledBg: string;
+        disabledBorder: string;
+      };
+      indicator: {
+        bg: string;
+        disabledBg: string;
+      };
+    };
   }
 }

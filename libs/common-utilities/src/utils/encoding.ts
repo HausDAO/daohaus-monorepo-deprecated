@@ -30,3 +30,13 @@ export const encodeFunction = (
     };
   }
 };
+
+export const getNonce = (length = 24) => {
+  let text = '';
+  const possible = '0123456789';
+  for (let i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
+};
+

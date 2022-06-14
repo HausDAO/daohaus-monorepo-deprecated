@@ -28,6 +28,8 @@ import {
 import {
   Dao_Filter,
   Dao_OrderBy,
+  EventTransaction_Filter,
+  EventTransaction_OrderBy,
   Member_Filter,
   Member_OrderBy,
   Proposal_Filter,
@@ -50,12 +52,12 @@ import {
   ListProposalsQueryVariables,
 } from './subgraph/queries/proposals.generated';
 import {
-  FindLatestTxDocument,
-  FindLatestTxQuery,
-  FindLatestTxQueryVariables,
-  FindLatestTxByDaoDocument,
-  FindLatestTxByDaoQuery,
-  FindLatestTxByDaoQueryVariables,
+  FindTxDocument,
+  FindTxQuery,
+  FindTxQueryVariables,
+  ListTxsDocument,
+  ListTxsQuery,
+  ListTxsQueryVariables,
 } from './subgraph/queries/transactions.generated';
 import {
   transformMembershipList,
@@ -195,6 +197,42 @@ export default class Query {
     }
   }
 
+  public async listTransactions({
+    networkId,
+    ordering = {
+      orderBy: 'createdAt',
+      orderDirection: 'desc',
+    },
+    filter,
+  }: ListQueryArguments<
+    EventTransaction_OrderBy,
+    EventTransaction_Filter
+  >): Promise<QueryResult<ListTxsQuery>> {
+    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    if (!url) {
+      return {
+        error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
+      };
+    }
+
+    try {
+      return await graphFetch<ListTxsQuery, ListTxsQueryVariables>(
+        ListTxsDocument,
+        url,
+        networkId,
+        {
+          where: filter,
+          orderBy: ordering.orderBy,
+          orderDirection: ordering.orderDirection,
+        }
+      );
+    } catch (err) {
+      return {
+        error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
+      };
+    }
+  }
+
   /*
   Find queries
 */
@@ -320,41 +358,13 @@ export default class Query {
     }
   }
 
-  public async findLatestTransactionByDao({
-    networkId,
-    dao,
-  }: {
-    networkId: keyof Keychain;
-    dao: string;
-  }): Promise<QueryResult<FindLatestTxQuery>> {
-    const url = this._endpoints['V3_SUBGRAPH'][networkId];
-    if (!url) {
-      return {
-        error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
-      };
-    }
-
-    try {
-      return await graphFetch<
-        FindLatestTxQuery,
-        FindLatestTxByDaoQueryVariables
-      >(FindLatestTxDocument, url, networkId, {
-        where: { dao },
-      });
-    } catch (err) {
-      return {
-        error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
-      };
-    }
-  }
-
   public async findTransaction({
     networkId,
     txHash,
   }: {
     networkId: keyof Keychain;
     txHash: string;
-  }): Promise<QueryResult<FindLatestTxQuery>> {
+  }): Promise<QueryResult<FindTxQuery>> {
     const url = this._endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
@@ -363,8 +373,8 @@ export default class Query {
     }
 
     try {
-      return await graphFetch<FindLatestTxQuery, FindLatestTxQueryVariables>(
-        FindLatestTxDocument,
+      return await graphFetch<FindTxQuery, FindTxQueryVariables>(
+        FindTxDocument,
         url,
         networkId,
         {

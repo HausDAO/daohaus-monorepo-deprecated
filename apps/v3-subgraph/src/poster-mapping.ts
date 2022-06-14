@@ -26,9 +26,8 @@ export function handleNewPost(event: NewPost): void {
   if (
     event.params.tag.toHexString() == constants.DAOHAUS_METADATA_SUMMONER_TAG
   ) {
-    // to validate it's from the factory we need to look at event.transaction.to
-    // but would need to store all potential factory addresses
-    // only danger without is a bunch of metadata records not attached to a dao
     parser.createDaoMetaSummoning(object, event.params.user, event);
   }
 }
+
+// {}

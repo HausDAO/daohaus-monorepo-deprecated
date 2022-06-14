@@ -1,9 +1,9 @@
-query findLatestTxByDao(
+query listTxs(
   $where: EventTransaction_filter! = {}
   $skip: Int! = 0
-  $first: Int! = 1
+  $first: Int! = 100
   $orderBy: EventTransaction_orderBy! = createdAt
-  $orderDirection: OrderDirection! = desc
+  $orderDirection: OrderDirection! = asc
 ) {
   transactions: eventTransactions(
     where: $where
@@ -14,10 +14,13 @@ query findLatestTxByDao(
   ) {
     id
     createdAt
+    dao {
+      id
+    }
   }
 }
 
-query findLatestTx($id: ID!) {
+query findTx($id: ID!) {
   transaction: eventTransaction(id: $id) {
     id
     createdAt

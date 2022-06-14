@@ -11,5 +11,3 @@ export namespace constants {
   export const DAOHAUS_METADATA_SUMMONER_TAG =
     '0x698d4b118c7bb81089255a1f6e345977b5ade76ad9bb1cb127f2e18ec8b255b2';
 }
-
-// daohaus.member.metadata

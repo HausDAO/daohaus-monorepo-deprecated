@@ -6,19 +6,19 @@ import { font } from '../../../theme/global/font';
 
 export const BaseInput = styled.input`
   background-color: ${({ theme }: { theme: Theme }) => theme.field.bg};
-  color: ${({ theme }: { theme: Theme }) => theme.fontColor};
-  font-size: ${field.fontSize};
-  line-height: 150%;
-  font-weight: ${field.fontWeight};
-  font-family: ${field.fontFamily};
-  height: 4.8rem;
-  max-width: ${field.size.md};
-  width: 100%;
   border: 1px solid ${({ theme }: { theme: Theme }) => theme.field.border};
   border-radius: ${field.borderRadius};
+  color: ${({ theme }: { theme: Theme }) => theme.fontColor};
+  font-size: ${field.fontSize};
+  font-weight: ${field.fontWeight};
+  font-family: ${field.fontFamily};
+  line-height: 150%;
   letter-spacing: 1.5px;
   padding: 1.2rem 1.8rem;
   transition: ${field.transition};
+  height: 4.8rem;
+  width: 100%;
+  max-width: ${field.size.md};
 
   ::placeholder {
     color: ${({ theme }: { theme: Theme }) => theme.field.placeholderText};
@@ -87,6 +87,7 @@ export const WithIcon = styled.div`
   display: inline-block;
   width: 100%;
   max-width: ${field.size.md};
+
   svg {
     position: absolute;
     color: ${({ theme }: { theme: Theme }) => theme.fontColor};

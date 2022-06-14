@@ -21,6 +21,15 @@ TextAreaDisabled.args = {
   disabled: true,
 };
 
+export const TextAreaSuccess = Template.bind({});
+TextAreaSuccess.args = {
+  placeholder: 'Success',
+  success: {
+    type: 'success',
+    message: 'This should not be visible',
+  },
+};
+
 export const TextAreaWarning = Template.bind({});
 TextAreaWarning.args = {
   placeholder: 'Warning',

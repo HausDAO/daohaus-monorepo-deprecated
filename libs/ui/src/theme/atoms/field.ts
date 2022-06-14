@@ -7,27 +7,39 @@ import {
 
 export type FieldColorTarget = {
   bg: string;
-  focus: string;
+  border: string;
+  hoverBg: string;
+  hoverBorder: string;
+  focusBg: string;
+  focusBorder: string;
   placeholderText: string;
-  disabled: string;
-  disabledColor: string;
+  disabledBg: string;
+  disabledBorder: string;
   disabledPlaceholder: string;
 };
 
 export const FieldTheme: FieldColorTarget = {
   bg: secondary.elementBg,
-  focus: secondary.elementBgHover,
-  placeholderText: secondary.elementBorderHover,
-  disabled: neutral.elementBgActive,
-  disabledColor: neutral.textLowContrast,
+  border: secondary.elementBg,
+  placeholderText: secondary.textLowContrast,
+  hoverBg: secondary.elementBgHover,
+  hoverBorder: secondary.elementBgHover,
+  focusBg: secondary.elementBg,
+  focusBorder: secondary.elementBgActive,
+  disabledBg: neutral.elementBgActive,
+  disabledBorder: neutral.elementBgActive,
   disabledPlaceholder: neutral.bgSolidHover,
 };
 
 export const FieldThemeDark: FieldColorTarget = {
   bg: secondaryDark.elementBg,
-  focus: secondaryDark.elementBgHover,
+  border: secondaryDark.elementBg,
   placeholderText: secondaryDark.textLowContrast,
-  disabled: neutralDark.elementBgActive,
-  disabledColor: neutralDark.textLowContrast,
+  hoverBg: secondaryDark.elementBgHover,
+  hoverBorder: secondaryDark.elementBgHover,
+  focusBg: secondaryDark.elementBg,
+  focusBorder: secondaryDark.elementBorderSubtle,
+  disabledBg: neutralDark.elementBgActive,
+  disabledBorder: neutralDark.elementBgActive,
   disabledPlaceholder: neutralDark.bgSolidHover,
 };

@@ -28,10 +28,14 @@ declare module 'styled-components' {
     info: string;
     field: {
       bg: string;
-      focus: string;
+      border: string;
       placeholderText: string;
-      disabled: string;
-      disabledColor: string;
+      hoverBg: string;
+      hoverBorder: string;
+      focusBg: string;
+      focusBorder: string;
+      disabledBg: string;
+      disabledBorder: string;
       disabledPlaceholder: string;
     };
     button: {
@@ -80,6 +84,7 @@ declare module 'styled-components' {
         activeBg: string;
         disabledBg: string;
         disabledBorder: string;
+        disabledActive: string;
       };
       indicator: {
         bg: string;

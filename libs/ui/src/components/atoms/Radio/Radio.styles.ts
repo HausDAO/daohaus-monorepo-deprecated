@@ -27,7 +27,7 @@ export const RadioIndicator = styled(RadioGroupPrimitive.Indicator)`
     border-radius: 50%;
 
     background-color: ${({ theme }: { theme: Theme }) =>
-      theme.radio.indicator.disabledBg};
+      theme.radio.indicator.bg};
   }
 
   &[data-disabled] {
@@ -63,8 +63,10 @@ export const RadioItem = styled(RadioGroupPrimitive.Item)`
       ${({ theme }: { theme: Theme }) => theme.radio.item.disabledBorder};
     cursor: not-allowed;
     &[data-state='checked'] {
-      background-color: ${({ theme }: { theme: Theme }) => theme.disabled};
-      border: 2px solid ${({ theme }: { theme: Theme }) => theme.disabled};
+      background-color: ${({ theme }: { theme: Theme }) =>
+        theme.radio.item.disabledActive};
+      border: 2px solid
+        ${({ theme }: { theme: Theme }) => theme.radio.item.disabledActive};
     }
   }
 `;

@@ -52,6 +52,20 @@ export const defaultDarkTheme: Theme = {
     disabledBg: neutralDark.bgSubtle,
     disabledBorder: neutralDark.elementBorderSubtle,
   },
+  radio: {
+    item: {
+      bg: secondaryDark.elementBg,
+      border: secondaryDark.elementBorderSubtle,
+      activeBg: primaryDark.bgSolid,
+      disabledBg: neutralDark.bgSubtle,
+      disabledBorder: neutralDark.elementBorderSubtle,
+      disabledActive: neutralDark.bgSolid,
+    },
+    indicator: {
+      bg: primaryDark.elementBg,
+      disabledBg: neutralDark.bg,
+    },
+  },
   select: {
     bg: secondaryDark.elementBg,
     text: secondaryDark.textLowContrast,
@@ -71,19 +85,6 @@ export const defaultDarkTheme: Theme = {
       bg: secondaryDark.bgSolid,
       activeBg: primaryDark.bgSolid,
       disabledBg: grayDark.gray9,
-    },
-  },
-  radio: {
-    item: {
-      bg: secondaryDark.elementBg,
-      border: secondaryDark.elementBorderSubtle,
-      activeBg: primaryDark.bgSolid,
-      disabledBg: neutralDark.bgSubtle,
-      disabledBorder: neutralDark.elementBorderSubtle,
-    },
-    indicator: {
-      bg: primaryDark.elementBorderSubtle,
-      disabledBg: neutral.bg,
     },
   },
 };
@@ -118,14 +119,19 @@ export const defaultLightTheme: Theme = {
     disabledBg: neutral.bgSubtle,
     disabledBorder: neutral.elementBorderSubtle,
   },
-  select: {
-    bg: secondary.elementBg,
-    text: secondary.textLowContrast,
-    borderColor: utility.transparent,
-  },
-  spinner: {
-    topColor: primary.bgSolid,
-    bottomColor: primary.elementBgHover,
+  radio: {
+    item: {
+      bg: secondary.elementBg,
+      border: secondary.elementBorderSubtle,
+      activeBg: primary.bgSolid,
+      disabledBg: neutral.bgSubtle,
+      disabledBorder: neutral.elementBorderSubtle,
+      disabledActive: neutral.bgSolid,
+    },
+    indicator: {
+      bg: primary.elementBg,
+      disabledBg: neutral.bg,
+    },
   },
   switch: {
     bar: {
@@ -139,17 +145,13 @@ export const defaultLightTheme: Theme = {
       disabledBg: neutral.bgSolid,
     },
   },
-  radio: {
-    item: {
-      bg: secondary.elementBg,
-      border: secondary.elementBorderSubtle,
-      activeBg: primary.bgSolid,
-      disabledBg: neutral.bgSubtle,
-      disabledBorder: neutral.elementBorderSubtle,
-    },
-    indicator: {
-      bg: primary.elementBorderSubtle,
-      disabledBg: neutral.bg,
-    },
+  select: {
+    bg: secondary.elementBg,
+    text: secondary.textLowContrast,
+    borderColor: utility.transparent,
+  },
+  spinner: {
+    topColor: primary.bgSolid,
+    bottomColor: primary.elementBgHover,
   },
 };

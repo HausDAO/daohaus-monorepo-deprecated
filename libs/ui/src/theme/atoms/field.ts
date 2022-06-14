@@ -15,6 +15,7 @@ export type FieldColorTarget = {
   placeholderText: string;
   disabledBg: string;
   disabledBorder: string;
+  disabledColor: string;
   disabledPlaceholder: string;
 };
 
@@ -28,6 +29,7 @@ export const FieldTheme: FieldColorTarget = {
   focusBorder: secondary.elementBgActive,
   disabledBg: neutral.elementBgActive,
   disabledBorder: neutral.elementBgActive,
+  disabledColor: neutral.textLowContrast,
   disabledPlaceholder: neutral.bgSolidHover,
 };
 
@@ -41,5 +43,6 @@ export const FieldThemeDark: FieldColorTarget = {
   focusBorder: secondaryDark.elementBorderSubtle,
   disabledBg: neutralDark.elementBgActive,
   disabledBorder: neutralDark.elementBgActive,
+  disabledColor: neutralDark.textLowContrast,
   disabledPlaceholder: neutralDark.bgSolidHover,
 };

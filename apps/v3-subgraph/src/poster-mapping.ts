@@ -29,5 +29,3 @@ export function handleNewPost(event: NewPost): void {
     parser.createDaoMetaSummoning(object, event.params.user, event);
   }
 }
-
-// {}

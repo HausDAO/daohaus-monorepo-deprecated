@@ -29,40 +29,6 @@ export type TX = {
 
 export type TxRecord = Record<string, TX>;
 
-export const executeTx = async (
-  tx: TX,
-  // Review, does not appear that ethers returns a type for
-  // tx.hash or tx.wait. Need to use any for now.
-  ethersTx: any,
-  setTransactions: ReactSetter<TxRecord>
-) => {
-  const { lifeCycleFns } = tx;
-  try {
-    lifeCycleFns?.onTxHash?.(ethersTx.hash);
-    setTransactions((prevState) => ({
-      ...prevState,
-      [ethersTx.hash]: { ...tx, status: 'loading' },
-    }));
-    const reciept = await ethersTx.wait();
-    setTransactions((prevState) => ({
-      ...prevState,
-      [ethersTx.hash]: { ...tx, status: 'success' },
-    }));
-    lifeCycleFns?.onTxSuccess?.(reciept);
-    return {
-      reciept,
-      txHash: ethersTx.hash,
-    };
-  } catch (error) {
-    console.error(error);
-    lifeCycleFns?.onTxError?.(error);
-    setTransactions((prevState) => ({
-      ...prevState,
-      [ethersTx?.hash]: { ...tx, status: 'error' },
-    }));
-  }
-};
-
 type PollFetch<T> = (...args: any) => Promise<QueryResult<T> | undefined>;
 type PollTest<T> = (result?: QueryResult<T>) => boolean;
 
@@ -128,7 +94,6 @@ export const pollLastTX: PollFetch<FindTxQuery> = async ({
 };
 
 const testLastTx = (result: QueryResult<FindTxQuery> | undefined) => {
-  console.log('test');
   if (result?.data?.transaction) {
     return true;
   }
@@ -145,7 +110,7 @@ const standardGraphPoll: Poll<FindTxQuery> = async ({
   onPollTimeout,
   maxTries = 12,
 }) => {
-  console.log('Start Poll');
+  console.log('START POLL');
   let count = 0;
   const pollId = setInterval(async () => {
     if (count < maxTries) {
@@ -159,9 +124,8 @@ const standardGraphPoll: Poll<FindTxQuery> = async ({
           onPollSuccess?.();
           return result;
         }
-
-        count += 1;
         console.log('count', count);
+        count += 1;
       } catch (error) {
         onPollError?.(error);
         clearInterval(pollId);
@@ -175,19 +139,60 @@ const standardGraphPoll: Poll<FindTxQuery> = async ({
   }, interval);
 };
 
-const testPoll = () => {
-  standardGraphPoll({
-    poll: pollLastTX,
-    test: testLastTx,
-    variables: {
-      chainId: '0x5',
-      txHash:
-        '0x5e5e6a5405b19b3a49097603af778ba8e78c2daff4ecd770e30badd53142d9c0',
-    },
-  });
-};
+export const executeTx = async (
+  tx: TX,
+  // Review, does not appear that ethers returns a type for
+  // tx.hash or tx.wait. Need to use any for now.
+  ethersTx: any,
+  setTransactions: ReactSetter<TxRecord>,
+  chainId: ValidNetwork
+) => {
+  const { lifeCycleFns } = tx;
+  const txHash = ethersTx.hash as string | undefined;
 
-testPoll();
+  if (!txHash) return;
+  try {
+    lifeCycleFns?.onTxHash?.(ethersTx.hash);
+    setTransactions((prevState) => ({
+      ...prevState,
+      [ethersTx.hash]: { ...tx, status: 'loading' },
+    }));
+    const reciept = await ethersTx.wait();
+    // Review made an optimization here. Don't fire poll until after TX resolves
+    setTransactions((prevState) => ({
+      ...prevState,
+      [ethersTx.hash]: { ...tx, status: 'polling' },
+    }));
+    lifeCycleFns?.onTxSuccess?.(reciept);
+
+    standardGraphPoll({
+      poll: pollLastTX,
+      test: testLastTx,
+      variables: {
+        chainId,
+        txHash,
+      },
+      onPollSuccess() {
+        lifeCycleFns?.onPollSuccess?.();
+        setTransactions((prevState) => ({
+          ...prevState,
+          [ethersTx.hash]: { ...tx, status: 'success' },
+        }));
+      },
+    });
+    return {
+      reciept,
+      txHash: ethersTx.hash,
+    };
+  } catch (error) {
+    console.error(error);
+    lifeCycleFns?.onTxError?.(error);
+    setTransactions((prevState) => ({
+      ...prevState,
+      [ethersTx?.hash]: { ...tx, status: 'error' },
+    }));
+  }
+};
 
 export const handleFireTx = async ({
   tx,
@@ -209,5 +214,5 @@ export const handleFireTx = async ({
     provider.getSigner().connectUnchecked()
   );
   const ethersTx = await contract.functions[txName](...args);
-  executeTx(tx, ethersTx, setTransactions);
+  executeTx(tx, ethersTx, setTransactions, chainId);
 };

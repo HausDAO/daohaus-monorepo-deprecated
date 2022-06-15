@@ -81,6 +81,19 @@ export const defaultDarkTheme: Theme = {
   },
 
   //  Update this to secondary button style once we update colors
+  radio: {
+    item: {
+      bg: indigoDark.indigo3,
+      activeBg: amberDark.amber9,
+      disabledBg: 'rgba(255, 255, 255, 0.034)',
+      disabledBorder: 'rgba(255, 255, 255, 0.124)',
+      border: indigoDark.indigo6,
+    },
+    indicator: {
+      bg: amberDark.amber6,
+      disabledBg: slateDark.slate1,
+    },
+  },
 };
 
 export const defaultLightTheme: Theme = {
@@ -136,6 +149,19 @@ export const defaultLightTheme: Theme = {
       bg: indigoDark.indigo9,
       activeBg: amberDark.amber9,
       disabledBg: grayDark.gray9,
+    },
+  },
+  radio: {
+    item: {
+      bg: indigoDark.indigo3,
+      activeBg: amberDark.amber9,
+      disabledBg: 'rgba(255, 255, 255, 0.034)',
+      disabledBorder: 'rgba(255, 255, 255, 0.124)',
+      border: indigoDark.indigo6,
+    },
+    indicator: {
+      bg: amberDark.amber6,
+      disabledBg: slateDark.slate1,
     },
   },
 };

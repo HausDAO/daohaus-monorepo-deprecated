@@ -1,14 +1,14 @@
 import { ethers } from 'ethers';
 import { ABI } from '../types';
 
-export const encodeWithTypes = (
+export const encodeValues = (
   typesArray: string[],
   valueArray: (string | number)[]
 ): string => {
   return ethers.utils.defaultAbiCoder.encode(typesArray, valueArray);
 };
 
-export const safeEncodeHexFunction = (
+export const encodeFunction = (
   abi: ABI,
   fnName: string,
   functionArgs: ReadonlyArray<unknown>
@@ -30,3 +30,13 @@ export const safeEncodeHexFunction = (
     };
   }
 };
+
+export const getNonce = (length = 24) => {
+  let text = '';
+  const possible = '0123456789';
+  for (let i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
+};
+

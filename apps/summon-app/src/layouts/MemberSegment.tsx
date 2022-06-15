@@ -5,15 +5,14 @@ import { ParSm, WrappedTextArea } from '@daohaus/ui';
 
 import { FormSegment, TextAreaSection } from '../layouts/FormLayouts';
 import { transformMemberData, validateMemberData } from '../utils/common';
-
-const MEMBERS = 'members';
+import { FORM_KEYS } from '../utils/formKeys';
 
 export const MembersSegment = () => {
   const {
     watch,
     formState: { errors, touchedFields },
   } = useFormContext();
-  const { members } = watch();
+  const members = watch(FORM_KEYS.MEMBERS);
 
   const [amtMembers, setAmtMembers] = useState(0);
   const [helperText, setHelperText] = useState('');
@@ -25,7 +24,7 @@ export const MembersSegment = () => {
       setHelperText('');
       return;
     }
-    if (!errors?.[MEMBERS] && touchedFields[MEMBERS]) {
+    if (!errors?.[FORM_KEYS.MEMBERS] && touchedFields[FORM_KEYS.MEMBERS]) {
       setHelperText('Seems like a valid response');
     }
   }, [members, errors, touchedFields]);
@@ -40,7 +39,7 @@ export const MembersSegment = () => {
           <WrappedTextArea
             label="Addresses & Stake Amounts"
             placeholder="0x00000000000000000000000000 30 10"
-            id={MEMBERS}
+            id={FORM_KEYS.MEMBERS}
             full
             number
             required

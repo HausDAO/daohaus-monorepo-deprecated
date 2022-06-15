@@ -1,6 +1,8 @@
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
+import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+import { isValidNetwork } from '@daohaus/common-utilities';
 import {
   Bold,
   Button,
@@ -18,8 +20,7 @@ import { StakeTokensSegment } from '../layouts/StakeTokenSegment';
 import { TimingSegment } from '../layouts/TimingSegment';
 import { FORM_KEYS } from '../utils/formKeys';
 import { summon } from '../utils/summonTx';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { isValidNetwork } from '@daohaus/common-utilities';
+import { FormValues } from '../types/form';
 
 const Main = styled.main`
   display: flex;
@@ -42,9 +43,8 @@ const Main = styled.main`
 export const SummonerForm = () => {
   const { provider, chainId } = useHausConnect();
   const methods = useForm({ mode: 'onTouched' });
-  const handleFormSubmit = async (formValues: Record<string, unknown>) => {
+  const handleFormSubmit: SubmitHandler<FormValues> = async (formValues) => {
     if (!provider || !chainId || !isValidNetwork(chainId)) return;
-    console.log('formValues', formValues);
     summon(provider, formValues, chainId);
   };
 

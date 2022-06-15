@@ -11,9 +11,10 @@ import {
   ValidNetwork,
 } from '@daohaus/common-utilities';
 import { ethers, providers } from 'ethers';
+import { FormValues } from '../types/form';
 import { FORM_KEYS } from './formKeys';
 
-const tokenConfigTX = (formValues: Record<string, unknown>) => {
+const tokenConfigTX = (formValues: FormValues) => {
   const pauseVoteToken = !formValues.votingTransferable;
   const pauseNvToken = !formValues.votingTransferable;
 
@@ -23,17 +24,19 @@ const tokenConfigTX = (formValues: Record<string, unknown>) => {
   ]);
 };
 
-const governanceConfigTX = (formValues: Record<string, unknown>) => {
-  const votingSeconds = formValues[FORM_KEYS.VOTING_SECONDS];
-  const graceSeconds = formValues[FORM_KEYS.GRACE_SECONDS];
-  const newOffering = formValues[FORM_KEYS.OFFERING];
-  const minRetention = formValues[FORM_KEYS.MIN_RETENTION];
-  const quorum = formValues[FORM_KEYS.QUORUM];
-  const sponsorThreshold = formValues[FORM_KEYS.SPONSOR_THRESHOLD];
+const governanceConfigTX = (formValues: FormValues) => {
+  const {
+    votingPeriodInSeconds,
+    gracePeriodInSeconds,
+    newOffering,
+    quorum,
+    sponsorThreshold,
+    minRetention,
+  } = formValues;
 
   if (
-    !isNumberish(votingSeconds) ||
-    !isNumberish(graceSeconds) ||
+    !isNumberish(votingPeriodInSeconds) ||
+    !isNumberish(gracePeriodInSeconds) ||
     !isNumberish(newOffering) ||
     !isNumberish(quorum) ||
     !isNumberish(sponsorThreshold) ||
@@ -47,8 +50,8 @@ const governanceConfigTX = (formValues: Record<string, unknown>) => {
   const encodedValues = encodeValues(
     ['uint32', 'uint32', 'uint256', 'uint256', 'uint256', 'uint256'],
     [
-      votingSeconds,
-      graceSeconds,
+      votingPeriodInSeconds,
+      gracePeriodInSeconds,
       newOffering,
       quorum,
       sponsorThreshold,
@@ -58,23 +61,17 @@ const governanceConfigTX = (formValues: Record<string, unknown>) => {
   return encodeFunction(LOCAL_ABI.BAAL, 'setGovernanceConfig', [encodedValues]);
 };
 
-export const shamanConfigTX = (formValues: Record<string, unknown>) => {
-  // Review. Typecasting here as validation will not allow the form to be submittied
-  // without anything other than the shape seen below.
-  // React Hook Form only allows us to shape the functions with Record<string, unknown>
+export const shamanConfigTX = (formValues: FormValues) => {
+  const { shamans } = formValues;
 
-  const shamanData = formValues[FORM_KEYS.SHAMANS] as
-    | Record<string, unknown>
-    | '';
-
-  if (shamanData === '') {
+  if (shamans === '' || !shamans) {
     return encodeFunction(LOCAL_ABI.BAAL, 'setShamans', [[], []]);
   }
   if (
-    !isArray(shamanData?.shamanAddresses) ||
-    shamanData.shamanAddresses.some((addr) => !isString(addr)) ||
-    !isArray(shamanData?.shamanPermissions) ||
-    shamanData.shamanPermissions.some((addr) => !isNumberish(addr))
+    !isArray(shamans?.shamanAddresses) ||
+    shamans.shamanAddresses.some((addr) => !isString(addr)) ||
+    !isArray(shamans?.shamanPermissions) ||
+    shamans.shamanPermissions.some((addr) => !isNumberish(addr))
   ) {
     console.log('ERROR: Form Values', formValues);
     throw new Error(
@@ -82,23 +79,20 @@ export const shamanConfigTX = (formValues: Record<string, unknown>) => {
     );
   }
   return encodeFunction(LOCAL_ABI.BAAL, 'setShamans', [
-    shamanData.shamanAddresses,
-    shamanData.shamanPermissions,
+    shamans.shamanAddresses,
+    shamans.shamanPermissions,
   ]);
 };
 
-export const shareConfigTX = (formValues: Record<string, unknown>) => {
-  // Review. Typecasting here as validation will not allow the form to be submittied
-  // without anything other than the shape seen below.
-  // React Hook Form only allows us to shape the functions with Record<string, unknown>
-
-  const memberData = formValues[FORM_KEYS.MEMBERS] as Record<string, unknown>;
+export const shareConfigTX = (formValues: FormValues) => {
+  const { members } = formValues;
 
   if (
-    !isArray(memberData?.memberAddresses) ||
-    memberData.memberAddresses.some((addr) => !isString(addr)) ||
-    !isArray(memberData?.memberShares) ||
-    memberData.memberShares.some((shares) => !isNumberish(shares))
+    !members ||
+    !isArray(members?.memberAddresses) ||
+    members.memberAddresses.some((addr) => !isString(addr)) ||
+    !isArray(members?.memberShares) ||
+    members.memberShares.some((shares) => !isNumberish(shares))
   ) {
     console.log('ERROR: Form Values', formValues);
     throw new Error(
@@ -106,27 +100,23 @@ export const shareConfigTX = (formValues: Record<string, unknown>) => {
     );
   }
 
-  const wholeShareAmts = memberData.memberShares as string[];
-  const sharesInBaseUnits = wholeShareAmts.map((shares) =>
-    toBaseUnits(shares.toString())
-  );
+  const wholeShareAmts = members.memberShares;
+  const sharesInBaseUnits = wholeShareAmts.map((shares) => toBaseUnits(shares));
   return encodeFunction(LOCAL_ABI.BAAL, 'mintShares', [
-    memberData.memberAddresses,
+    members.memberAddresses,
     sharesInBaseUnits,
   ]);
 };
 
-export const lootConfigTX = (formValues: Record<string, unknown>) => {
-  const memberData = (formValues[FORM_KEYS.MEMBERS] || {}) as Record<
-    string,
-    unknown
-  >;
+export const lootConfigTX = (formValues: FormValues) => {
+  const { members } = formValues;
 
   if (
-    !isArray(memberData?.memberAddresses) ||
-    memberData.memberAddresses.some((addr) => !isString(addr)) ||
-    !isArray(memberData?.memberLoot) ||
-    memberData.memberLoot.some((loot) => !isNumberish(loot))
+    !members ||
+    !isArray(members?.memberAddresses) ||
+    members.memberAddresses.some((addr) => !isString(addr)) ||
+    !isArray(members?.memberShares) ||
+    members.memberShares.some((shares) => !isNumberish(shares))
   ) {
     console.log('ERROR: Form Values', formValues);
     throw new Error(
@@ -134,21 +124,18 @@ export const lootConfigTX = (formValues: Record<string, unknown>) => {
     );
   }
 
-  const wholeLootAmts = memberData.memberLoot as (string | number)[];
+  const wholeLootAmts = members.memberLoot;
   const lootInBaseUnits = wholeLootAmts.map((loot) =>
     toBaseUnits(loot.toString())
   );
   return encodeFunction(LOCAL_ABI.BAAL, 'mintLoot', [
-    memberData.memberAddresses,
+    members.memberAddresses,
     lootInBaseUnits,
   ]);
 };
 
-const metadataConfigTX = (
-  formValues: Record<string, unknown>,
-  posterAddress: string
-) => {
-  const daoName = formValues[FORM_KEYS.DAO_NAME];
+const metadataConfigTX = (formValues: FormValues, posterAddress: string) => {
+  const { daoName } = formValues;
   if (!isString(daoName)) {
     console.log('ERROR: Form Values', formValues);
     throw new Error('metadataTX recieved arguments in the wrong shape or type');
@@ -183,15 +170,12 @@ const handleKeychains = (chainId: ValidNetwork) => {
   ];
 
   if (v3Contracts.every((contract) => contract[chainId])) {
-    // REVIEW. Before this conditional statement, each contract
-    // was string | undefined. After the conditional statement it can
-    // only be string. So I'm typecasting here.
     return {
-      V3_FACTORY: V3_FACTORY[chainId] as string,
-      V3_LOOT_SINGLETON: V3_LOOT_SINGLETON[chainId] as string,
-      V3_SHARE_SINGLETON: V3_SHARE_SINGLETON[chainId] as string,
-      GNOSIS_MULTISEND: GNOSIS_MULTISEND[chainId] as string,
-      POSTER: POSTER[chainId] as string,
+      V3_FACTORY: V3_FACTORY[chainId] || '',
+      V3_LOOT_SINGLETON: V3_LOOT_SINGLETON[chainId] || '',
+      V3_SHARE_SINGLETON: V3_SHARE_SINGLETON[chainId] || '',
+      GNOSIS_MULTISEND: GNOSIS_MULTISEND[chainId] || '',
+      POSTER: POSTER[chainId] || '',
     };
   }
   console.log('v3Contracts', v3Contracts);

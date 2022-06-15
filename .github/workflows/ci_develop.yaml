@@ -10,6 +10,11 @@ on:
 
 env:
   BASE: ${{ github.ref == 'refs/heads/develop' && 'origin/develop~1' || 'origin/develop' }}
+env:
+  SKYNET_JWT: ${{ secrets.SKYNET_JWT }}
+  DAOHAUS_SUMMON_SKYNET_SEED: ${{ secrets.DAOHAUS_SUMMON_SKYNET_DEVELOP_SEED }}
+  DAOHAUS_HUB_SKYNET_SEED: ${{ secrets.DAOHAUS_HUB_SKYNET_DEVELOP_SEED }}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -43,3 +48,8 @@ jobs:
         run: NODE_OPTIONS=--experimental-vm-modules nx affected:test --base $BASE
       - name: Build mono
         run: nx affected:build --base $BASE
+      - name: Deploy mono
+        if: ${{ github.ref == 'refs/heads/develop' }}
+        run: |
+          echo '//registry.npmjs.org/:_authToken=${{secrets.OTP}}' > .npmrc
+          nx affected --exclude ui,dao-data,common-utilities,abi-utilities,baal-contract-service,daohaus-connect-feature --target deploy --base $BASE --otp ${{ secrets.OTP }}

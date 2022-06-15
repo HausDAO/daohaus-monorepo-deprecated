@@ -93,10 +93,20 @@ declare module 'styled-components' {
       item: {
         bg: string;
         border: string;
-        activeBg: string;
+        hoverBg: string;
+        hoverBorder: string;
+        focusBg: string;
+        focusBorder: string;
         disabledBg: string;
         disabledBorder: string;
-        disabledActive: string;
+        activeBg: string;
+        activeBorder: string;
+        activeHoverBg: string;
+        activeHoverBorder: string;
+        activeFocusBg: string;
+        activeFocusBorder: string;
+        activeDisabledBg: string;
+        activeDisabledBorder: string;
       };
       indicator: {
         bg: string;

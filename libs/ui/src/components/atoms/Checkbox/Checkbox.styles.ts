@@ -10,16 +10,16 @@ export const Container = styled.div`
   margin-bottom: 12px;
 `;
 
-// TODO Add hover and focus
 export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
-  display: flex;
   align-items: center;
-  justify-content: center;
   background-color: ${({ theme }: { theme: Theme }) => theme.checkbox.bg};
   border: 2px solid ${({ theme }: { theme: Theme }) => theme.checkbox.border};
   border-radius: 1px;
-  width: 18px;
+  cursor: pointer;
+  display: flex;
   height: 18px;
+  justify-content: center;
+  width: 18px;
 
   :hover {
     background-color: ${({ theme }: { theme: Theme }) =>
@@ -41,6 +41,7 @@ export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
       theme.checkbox.disabledBg};
     border: 2px solid
       ${({ theme }: { theme: Theme }) => theme.checkbox.disabledBorder};
+    cursor: not-allowed;
   }
 
   &[data-state='checked'] {
@@ -69,6 +70,7 @@ export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
         theme.checkbox.activeDisabledBg};
       border: 2px solid
         ${({ theme }: { theme: Theme }) => theme.checkbox.activeDisabledBorder};
+      cursor: not-allowed;
     }
   }
 `;
@@ -83,8 +85,8 @@ export const StyledIndicator = styled(CheckboxPrimitive.Indicator)`
 `;
 
 export const LabelContainer = styled.label`
-  display: flex;
   align-items: center;
+  display: flex;
   margin-left: 19px;
   label {
     margin-right: 10px;
@@ -95,8 +97,8 @@ export const LabelContainer = styled.label`
 `;
 
 export const RequiredAsterisk = styled.span`
-  margin-right: 8px;
-  font-weight: ${font.weight.bold};
   color: ${({ theme }: { theme: Theme }) => theme.warning};
+  font-weight: ${font.weight.bold};
+  margin-right: 8px;
   transform: translateY(-0.25rem);
 `;

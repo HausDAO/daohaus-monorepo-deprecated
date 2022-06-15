@@ -11,23 +11,87 @@ export const Container = styled.div`
 
 export const RadioGroup = RadioGroupPrimitive.Root;
 
-export const RadioIndicator = styled(RadioGroupPrimitive.Indicator)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
+export const RadioItem = styled(RadioGroupPrimitive.Item)`
+  all: unset;
+  background-color: ${({ theme }: { theme: Theme }) => theme.radio.item.bg};
+  border: 2px solid ${({ theme }: { theme: Theme }) => theme.radio.item.border};
+  border-radius: 100%;
+  cursor: pointer;
+  height: 2rem;
   position: relative;
+  width: 2rem;
+
+  :hover {
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.radio.item.hoverBg};
+    border: 2px solid
+      ${({ theme }: { theme: Theme }) => theme.radio.item.hoverBorder};
+  }
+
+  :focus {
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.radio.item.focusBg};
+    border: 2px solid
+      ${({ theme }: { theme: Theme }) => theme.radio.item.focusBorder};
+    outline: none;
+  }
+
+  :disabled {
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.radio.item.disabledBg};
+    border: 2px solid
+      ${({ theme }: { theme: Theme }) => theme.radio.item.disabledBorder};
+    cursor: not-allowed;
+  }
+
+  &[data-state='checked'] {
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.radio.item.activeBg};
+    border: 2px solid
+      ${({ theme }: { theme: Theme }) => theme.radio.item.activeBg};
+
+    :hover {
+      background-color: ${({ theme }: { theme: Theme }) =>
+        theme.radio.item.activeHoverBg};
+      border: 2px solid
+        ${({ theme }: { theme: Theme }) => theme.radio.item.activeHoverBorder};
+    }
+
+    :focus {
+      background-color: ${({ theme }: { theme: Theme }) =>
+        theme.radio.item.activeFocusBg};
+      border: 2px solid
+        ${({ theme }: { theme: Theme }) => theme.radio.item.activeFocusBorder};
+      outline: none;
+    }
+
+    :disabled {
+      background-color: ${({ theme }: { theme: Theme }) =>
+        theme.radio.item.activeDisabledBg};
+      border: 2px solid
+        ${({ theme }: { theme: Theme }) =>
+          theme.radio.item.activeDisabledBorder};
+      cursor: not-allowed;
+    }
+  }
+`;
+
+export const RadioIndicator = styled(RadioGroupPrimitive.Indicator)`
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  position: relative;
+  width: 100%;
 
   &::after {
-    content: '';
-    display: block;
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-
     background-color: ${({ theme }: { theme: Theme }) =>
       theme.radio.indicator.bg};
+    border-radius: 50%;
+    content: '';
+    display: block;
+    height: 1rem;
+    width: 1rem;
   }
 
   &[data-disabled] {
@@ -38,48 +102,15 @@ export const RadioIndicator = styled(RadioGroupPrimitive.Indicator)`
   }
 `;
 
-// TODO Add Hover & Focus
-
-export const RadioItem = styled(RadioGroupPrimitive.Item)`
-  all: unset;
-  cursor: pointer;
-  width: 2rem;
-  height: 2rem;
-
-  background-color: ${({ theme }: { theme: Theme }) => theme.radio.item.bg};
-  border: 2px solid ${({ theme }: { theme: Theme }) => theme.radio.item.border};
-  border-radius: 100%;
-  position: relative;
-
-  &[data-state='checked'] {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.radio.item.activeBg};
-    border: 2px solid
-      ${({ theme }: { theme: Theme }) => theme.radio.item.activeBg};
-  }
-
-  :disabled {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.radio.item.disabledBg};
-    border: 2px solid
-      ${({ theme }: { theme: Theme }) => theme.radio.item.disabledBorder};
-    cursor: not-allowed;
-    &[data-state='checked'] {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.radio.item.disabledActive};
-      border: 2px solid
-        ${({ theme }: { theme: Theme }) => theme.radio.item.disabledActive};
-    }
-  }
-`;
-
 export const LabelContainer = styled.label`
-  display: flex;
   align-items: center;
+  display: flex;
   margin-left: 1.9rem;
+
   label {
     margin-right: 0.1rem;
   }
+
   svg {
     transform: translateY(0.1rem);
   }

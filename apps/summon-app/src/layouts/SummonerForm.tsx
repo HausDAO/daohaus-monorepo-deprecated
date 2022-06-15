@@ -2,7 +2,12 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { CONTRACTS, isValidNetwork, ArgType } from '@daohaus/common-utilities';
+import {
+  CONTRACTS,
+  isValidNetwork,
+  ArgType,
+  ReactSetter,
+} from '@daohaus/common-utilities';
 import {
   Bold,
   Button,
@@ -23,6 +28,8 @@ import { assembleTxArgs } from '../utils/summonTx';
 import { FormValues } from '../types/form';
 import { useTxBuilder } from '../app/TXBuilder';
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
+import { useState } from 'react';
+import { SummonStates } from '../app/App';
 
 const Main = styled.main`
   display: flex;
@@ -42,7 +49,14 @@ const Main = styled.main`
   }
 `;
 
-export const SummonerForm = () => {
+type SummonFormProps = {
+  setSummonState: ReactSetter<SummonStates>;
+  setTxHash: ReactSetter<string>;
+};
+export const SummonerForm = ({
+  setSummonState,
+  setTxHash,
+}: SummonFormProps) => {
   const { chainId } = useHausConnect();
   const { fireTransaction } = useTxBuilder();
 
@@ -59,8 +73,11 @@ export const SummonerForm = () => {
       keychain: CONTRACTS.V3_FACTORY,
       lifeCycleFns: {
         onTxHash(txHash) {
-          console.log('fired');
-          console.log(txHash);
+          setSummonState('loading');
+          setTxHash(txHash);
+        },
+        onPollSuccess() {
+          setSummonState('success');
         },
       },
     });

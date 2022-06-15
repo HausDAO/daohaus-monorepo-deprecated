@@ -5,15 +5,14 @@ import { ParSm, TemporaryLink, WrappedTextArea } from '@daohaus/ui';
 
 import { FormSegment, TextAreaSection } from '../layouts/FormLayouts';
 import { transformShamans, validateShamanData } from '../utils/common';
-
-const SHAMANS = 'shamans';
+import { FORM_KEYS } from '../utils/formKeys';
 
 export const ShamanSegment = () => {
   const {
     watch,
     formState: { errors, touchedFields },
   } = useFormContext();
-  const { shamans } = watch();
+  const shamans = watch(FORM_KEYS.SHAMANS);
 
   const [amtShamans, setAmtShamans] = useState(0);
   const [helperText, setHelperText] = useState('');
@@ -25,7 +24,7 @@ export const ShamanSegment = () => {
       setHelperText('');
       return;
     }
-    if (!errors?.[SHAMANS] && touchedFields[SHAMANS]) {
+    if (!errors?.[FORM_KEYS.SHAMANS] && touchedFields[FORM_KEYS.SHAMANS]) {
       setHelperText('Seems like a valid response');
     }
   }, [shamans, errors, touchedFields]);
@@ -41,7 +40,7 @@ export const ShamanSegment = () => {
           <WrappedTextArea
             label="Addresses & Permissions"
             placeholder="0x00000000000000000000000000 3"
-            id={SHAMANS}
+            id={FORM_KEYS.SHAMANS}
             full
             number
             helperText={helperText}

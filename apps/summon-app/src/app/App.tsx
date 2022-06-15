@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 
-import { DaoHausNav } from '@daohaus/daohaus-connect-feature';
+import { DaoHausNav, useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { SummonerForm } from '../layouts/SummonerForm';
+import { TXBuilder } from './TXBuilder';
+import { ChainId } from 'caip';
 
 const TemporaryLayout = styled.div`
   width: 100%;
@@ -10,11 +12,14 @@ const TemporaryLayout = styled.div`
 `;
 
 export const App = () => {
+  const { provider, chainId } = useHausConnect();
   return (
-    <TemporaryLayout>
-      <DaoHausNav />
-      <SummonerForm />
-    </TemporaryLayout>
+    <TXBuilder provider={provider} chainId={chainId}>
+      <TemporaryLayout>
+        <DaoHausNav />
+        <SummonerForm />
+      </TemporaryLayout>
+    </TXBuilder>
   );
 };
 

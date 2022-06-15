@@ -217,6 +217,7 @@ export const assembleTxArgs = (
     lootConfigTX(formValues),
     metadataConfigTX(formValues, POSTER),
   ];
+
   const args = [initParams, initActions, getNonce()];
 
   return args;

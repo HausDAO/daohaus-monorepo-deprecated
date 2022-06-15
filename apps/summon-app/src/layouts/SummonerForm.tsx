@@ -2,7 +2,7 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { isValidNetwork } from '@daohaus/common-utilities';
+import { CONTRACTS, isValidNetwork, ArgType } from '@daohaus/common-utilities';
 import {
   Bold,
   Button,
@@ -19,8 +19,10 @@ import { ShamanSegment } from '../layouts/ShamanSegment';
 import { StakeTokensSegment } from '../layouts/StakeTokenSegment';
 import { TimingSegment } from '../layouts/TimingSegment';
 import { FORM_KEYS } from '../utils/formKeys';
-import { summon } from '../utils/summonTx';
+import { assembleTxArgs, summon } from '../utils/summonTx';
 import { FormValues } from '../types/form';
+import { useTxBuilder } from '../app/TXBuilder';
+import { LOCAL_ABI } from '@daohaus/abi-utilities';
 
 const Main = styled.main`
   display: flex;
@@ -41,11 +43,27 @@ const Main = styled.main`
 `;
 
 export const SummonerForm = () => {
-  const { provider, chainId } = useHausConnect();
+  const { chainId } = useHausConnect();
+  const { fireTransaction } = useTxBuilder();
+
   const methods = useForm({ mode: 'onTouched' });
+
   const handleFormSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    if (!provider || !chainId || !isValidNetwork(chainId)) return;
-    summon(provider, formValues, chainId);
+    if (!chainId || !isValidNetwork(chainId)) return;
+
+    const args = assembleTxArgs(formValues, chainId);
+    fireTransaction({
+      txName: 'summonBaalAndSafe',
+      abi: LOCAL_ABI.BAAL_FACTORY,
+      args: args as ArgType[],
+      keychain: CONTRACTS.V3_FACTORY,
+      lifeCycleFns: {
+        onTxHash(txHash) {
+          console.log('fired');
+          console.log(txHash);
+        },
+      },
+    });
   };
 
   return (

@@ -1,6 +1,8 @@
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
+import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+import { isValidNetwork } from '@daohaus/common-utilities';
 import {
   Bold,
   Button,
@@ -16,6 +18,9 @@ import { MembersSegment } from '../layouts/MemberSegment';
 import { ShamanSegment } from '../layouts/ShamanSegment';
 import { StakeTokensSegment } from '../layouts/StakeTokenSegment';
 import { TimingSegment } from '../layouts/TimingSegment';
+import { FORM_KEYS } from '../utils/formKeys';
+import { summon } from '../utils/summonTx';
+import { FormValues } from '../types/form';
 
 const Main = styled.main`
   display: flex;
@@ -36,9 +41,11 @@ const Main = styled.main`
 `;
 
 export const SummonerForm = () => {
+  const { provider, chainId } = useHausConnect();
   const methods = useForm({ mode: 'onTouched' });
-  const handleFormSubmit = async (formValues: Record<string, unknown>) => {
-    /// TX TOWN!!!!!!!
+  const handleFormSubmit: SubmitHandler<FormValues> = async (formValues) => {
+    if (!provider || !chainId || !isValidNetwork(chainId)) return;
+    summon(provider, formValues, chainId);
   };
 
   return (
@@ -59,7 +66,7 @@ export const SummonerForm = () => {
           </div>
           <div>
             <WrappedInput
-              id="daoName"
+              id={FORM_KEYS.DAO_NAME}
               placeholder="Braid Guild"
               full
               registerOptions={{ required: 'DAO name is required' }}

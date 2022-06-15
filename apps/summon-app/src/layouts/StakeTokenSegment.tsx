@@ -4,14 +4,16 @@ import { WrappedInput, WrappedSwitch } from '@daohaus/ui';
 
 import { FormSegment, SplitColumn } from './FormLayouts';
 import { FORM_COPY } from '../utils/content';
+import { FORM_KEYS } from '../utils/formKeys';
 
 export const StakeTokensSegment = () => {
   const { watch } = useFormContext();
   const formValues = watch();
-  const votingTransferableLabel = formValues?.votingTransferable
+
+  const votingTransferableLabel = formValues?.[FORM_KEYS.VOTE_TOKEN_TRANSFER]
     ? 'Transferable'
     : 'Not Transferable';
-  const nvTransferableLabel = formValues?.nvTransferable
+  const nvTransferableLabel = formValues?.[FORM_KEYS.NV_TOKEN_TRANSFER]
     ? 'Transferable'
     : 'Not Transferable';
 
@@ -26,7 +28,7 @@ export const StakeTokensSegment = () => {
               rowID: 'tokenNaming',
               left: (
                 <WrappedInput
-                  id="tokenName"
+                  id={FORM_KEYS.TOKEN_NAME}
                   label="Name"
                   placeholder="Voting Stake"
                   required
@@ -41,7 +43,7 @@ export const StakeTokensSegment = () => {
               ),
               right: (
                 <WrappedInput
-                  id="tokenSymbol"
+                  id={FORM_KEYS.TOKEN_SYMBOL}
                   label="Symbol"
                   placeholder="vSTK"
                   full
@@ -61,22 +63,24 @@ export const StakeTokensSegment = () => {
               rowID: 'tokenTransfer',
               left: (
                 <WrappedSwitch
-                  id="votingTransferable"
+                  id={FORM_KEYS.VOTE_TOKEN_TRANSFER}
                   label="Voting Stake Transferable?"
                   switches={[
                     {
                       fieldLabel: votingTransferableLabel,
+                      defaultChecked: false,
                     },
                   ]}
                 />
               ),
               right: (
                 <WrappedSwitch
-                  id="nvTransferable"
+                  id={FORM_KEYS.NV_TOKEN_TRANSFER}
                   label="Non-Voting Transferable?"
                   switches={[
                     {
                       fieldLabel: nvTransferableLabel,
+                      defaultChecked: false,
                     },
                   ]}
                 />

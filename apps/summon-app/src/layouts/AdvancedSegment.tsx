@@ -1,6 +1,7 @@
 import { WrappedInput } from '@daohaus/ui';
 
 import { FormSegment, SplitColumn } from '../layouts/FormLayouts';
+import { FORM_KEYS } from '../utils/formKeys';
 
 export const AdvancedSegment = () => {
   return (
@@ -14,7 +15,7 @@ export const AdvancedSegment = () => {
               rowID: 'advanced1',
               left: (
                 <WrappedInput
-                  id="quorum"
+                  id={FORM_KEYS.QUORUM}
                   label="Quorum %"
                   required
                   defaultValue="80"
@@ -23,7 +24,7 @@ export const AdvancedSegment = () => {
               ),
               right: (
                 <WrappedInput
-                  id="minRetention"
+                  id={FORM_KEYS.MIN_RETENTION}
                   label="Min Retention %"
                   defaultValue="66"
                   required
@@ -35,7 +36,7 @@ export const AdvancedSegment = () => {
               rowID: 'advanced2',
               left: (
                 <WrappedInput
-                  id="sponsorThreshold"
+                  id={FORM_KEYS.SPONSOR_THRESHOLD}
                   label="Sponsor Threshold"
                   defaultValue="0"
                   required
@@ -44,7 +45,7 @@ export const AdvancedSegment = () => {
               ),
               right: (
                 <WrappedInput
-                  id="newOffering"
+                  id={FORM_KEYS.OFFERING}
                   label="New Offering (ETH)"
                   defaultValue="0"
                   required

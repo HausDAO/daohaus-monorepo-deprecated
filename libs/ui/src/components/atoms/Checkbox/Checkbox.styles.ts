@@ -10,21 +10,66 @@ export const Container = styled.div`
   margin-bottom: 12px;
 `;
 
+// TODO Add hover and focus
 export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: ${({ theme }: { theme: Theme }) => theme.checkbox.bg};
-  border: 2px solid
-    ${(props) =>
-      props.checked
-        ? props.theme.checkbox.activeBorder
-        : props.theme.checkbox.border};
+  border: 2px solid ${({ theme }: { theme: Theme }) => theme.checkbox.border};
   border-radius: 1px;
   width: 18px;
   height: 18px;
+
+  :hover {
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.checkbox.hoverBg};
+    border: 2px solid
+      ${({ theme }: { theme: Theme }) => theme.checkbox.hoverBorder};
+  }
+
+  :focus {
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.checkbox.focusBg};
+    border: 2px solid
+      ${({ theme }: { theme: Theme }) => theme.checkbox.focusBorder};
+    outline: none;
+  }
+
   :disabled {
-    border: 2px solid ${({ theme }: { theme: Theme }) => theme.disabled};
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.checkbox.disabledBg};
+    border: 2px solid
+      ${({ theme }: { theme: Theme }) => theme.checkbox.disabledBorder};
+  }
+
+  &[data-state='checked'] {
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.checkbox.activeBg};
+    border: 2px solid
+      ${({ theme }: { theme: Theme }) => theme.checkbox.activeBorder};
+
+    :hover {
+      background-color: ${({ theme }: { theme: Theme }) =>
+        theme.checkbox.activeHoverBg};
+      border: 2px solid
+        ${({ theme }: { theme: Theme }) => theme.checkbox.activeHoverBorder};
+    }
+
+    :focus {
+      background-color: ${({ theme }: { theme: Theme }) =>
+        theme.checkbox.activeFocusBg};
+      border: 2px solid
+        ${({ theme }: { theme: Theme }) => theme.checkbox.activeFocusBorder};
+      outline: none;
+    }
+
+    :disabled {
+      background-color: ${({ theme }: { theme: Theme }) =>
+        theme.checkbox.activeDisabledBg};
+      border: 2px solid
+        ${({ theme }: { theme: Theme }) => theme.checkbox.activeDisabledBorder};
+    }
   }
 `;
 
@@ -33,7 +78,7 @@ export const StyledIndicator = styled(CheckboxPrimitive.Indicator)`
   font-size: 2rem;
   padding-top: 3px;
   :disabled {
-    color: ${({ theme }: { theme: Theme }) => theme.disabled};
+    color: ${({ theme }: { theme: Theme }) => theme.checkbox.disabledBg};
   }
 `;
 

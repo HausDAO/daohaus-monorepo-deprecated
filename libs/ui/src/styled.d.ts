@@ -35,6 +35,7 @@ declare module 'styled-components' {
       focusBg: string;
       focusBorder: string;
       disabledBg: string;
+      disabledColor: string;
       disabledBorder: string;
       disabledPlaceholder: string;
     };
@@ -52,9 +53,20 @@ declare module 'styled-components' {
     checkbox: {
       bg: string;
       border: string;
-      activeBorder: string;
+      hoverBg: string;
+      hoverBorder: string;
+      focusBg: string;
+      focusBorder: string;
       disabledBg: string;
       disabledBorder: string;
+      activeBg: string;
+      activeBorder: string;
+      activeHoverBg: string;
+      activeHoverBorder: string;
+      activeFocusBg: string;
+      activeFocusBorder: string;
+      activeDisabledBg: string;
+      activeDisabledBorder: string;
     };
     select: {
       bg: string;

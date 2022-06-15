@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { field } from '../../../theme/component/fieldFamily';
 import { Theme } from '../../../types/theming';
 
+// TODO Add Hover & Focus
+
 export const WithIcon = styled.div`
   position: relative;
   width: 100%;
@@ -61,7 +63,8 @@ export const BaseSelect = styled.select`
   }
 
   :disabled {
-    background-color: ${({ theme }: { theme: Theme }) => theme.field.disabled};
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.field.disabledBg};
     cursor: not-allowed;
     font-style: italic;
     color: ${({ theme }: { theme: Theme }) => theme.field.disabledColor};

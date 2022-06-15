@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Theme } from '../../../types/theming';
 import { field } from '../../../theme/component/fieldFamily';
 
+// TODO Remove ability to resize
 export const BaseTextArea = styled.textarea`
   background-color: ${({ theme }: { theme: Theme }) => theme.field.bg};
   border: 1px solid ${({ theme }: { theme: Theme }) => theme.field.border};

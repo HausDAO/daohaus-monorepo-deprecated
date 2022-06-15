@@ -48,9 +48,20 @@ export const defaultDarkTheme: Theme = {
   checkbox: {
     bg: secondaryDark.elementBg,
     border: secondaryDark.elementBorderSubtle,
-    activeBorder: primaryDark.bgSolid,
+    hoverBg: secondaryDark.elementBgHover,
+    hoverBorder: secondaryDark.elementBorderSubtle,
+    focusBg: secondaryDark.elementBg,
+    focusBorder: secondaryDark.elementBorder,
     disabledBg: neutralDark.bgSubtle,
     disabledBorder: neutralDark.elementBorderSubtle,
+    activeBg: primaryDark.elementBg,
+    activeBorder: primaryDark.bgSolid,
+    activeHoverBg: primaryDark.elementBgHover,
+    activeHoverBorder: primaryDark.bgSolid,
+    activeFocusBg: primaryDark.elementBg,
+    activeFocusBorder: primaryDark.bgSolidHover,
+    activeDisabledBg: neutral.bgSubtle,
+    activeDisabledBorder: neutral.bgSolid,
   },
   radio: {
     item: {
@@ -115,9 +126,20 @@ export const defaultLightTheme: Theme = {
   checkbox: {
     bg: secondary.elementBg,
     border: secondary.elementBorderSubtle,
-    activeBorder: primary.bgSolid,
+    hoverBg: secondary.elementBgHover,
+    hoverBorder: secondary.elementBorderSubtle,
+    focusBg: secondary.elementBg,
+    focusBorder: secondary.elementBorderSubtle,
     disabledBg: neutral.bgSubtle,
     disabledBorder: neutral.elementBorderSubtle,
+    activeBg: primary.elementBg,
+    activeBorder: primary.bgSolid,
+    activeHoverBg: primary.elementBgHover,
+    activeHoverBorder: primary.bgSolid,
+    activeFocusBg: primary.elementBg,
+    activeFocusBorder: primary.bgSolidHover,
+    activeDisabledBg: neutral.bgSubtle,
+    activeDisabledBorder: neutral.bgSolid,
   },
   radio: {
     item: {

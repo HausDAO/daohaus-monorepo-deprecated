@@ -38,6 +38,8 @@ export const RadioIndicator = styled(RadioGroupPrimitive.Indicator)`
   }
 `;
 
+// TODO Add Hover & Focus
+
 export const RadioItem = styled(RadioGroupPrimitive.Item)`
   all: unset;
   cursor: pointer;

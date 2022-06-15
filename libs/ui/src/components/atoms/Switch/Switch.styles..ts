@@ -10,6 +10,7 @@ export const Container = styled.div`
   padding-bottom: 12px;
 `;
 
+// TODO Add hover and focus
 export const SwitchBase = styled(SwitchPrimitive.Root)`
   all: unset;
   cursor: pointer;

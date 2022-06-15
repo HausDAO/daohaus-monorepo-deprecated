@@ -1,39 +1,8 @@
-import { ethers, providers } from 'ethers';
-import {
-  createContext,
-  useState,
-  useMemo,
-  useContext,
-  ReactNode,
-  Children,
-} from 'react';
-import {
-  ABI,
-  ArgType,
-  isValidNetwork,
-  Keychain,
-  ValidNetwork,
-} from '@daohaus/common-utilities';
+import { providers } from 'ethers';
+import { createContext, useState, useMemo, useContext, ReactNode } from 'react';
+import { isValidNetwork } from '@daohaus/common-utilities';
+import { handleFireTx, TX, TxRecord } from '../utils/txBuilderUtils';
 
-type TxStates = 'idle' | 'submitting' | 'polling' | 'failed' | 'success';
-
-type TX = {
-  txName: string;
-  status?: TxStates;
-  abi: ABI;
-  args: ArgType[];
-  keychain: Keychain;
-  lifeCycleFns?: {
-    onTxHash?: (txHash: string) => void;
-    onTxError?: (error: unknown) => void;
-    onTxSuccess?: (txHash: string) => void;
-    onPollFire?: () => void;
-    onPollError?: (error: unknown) => void;
-    onPollSuccess?: () => void;
-  };
-};
-
-type TxRecord = Record<string, TX>;
 type TxContext = {
   transactions: TxRecord;
   txAmt: number;
@@ -58,56 +27,9 @@ export const TXBuilder = ({ chainId, provider, children }: BuilderProps) => {
     return Object.values(transactions).length;
   }, [transactions]);
 
-  const _executeTx = async (
-    tx: TX,
-    // Review, does not appear that ethers returns a type for
-    // tx.hash or tx.wait. Need to use any for now.
-    ethersTx: any
-  ) => {
-    const { lifeCycleFns } = tx;
-    try {
-      lifeCycleFns?.onTxHash?.(ethersTx.hash);
-      setTransactions((prevState) => ({
-        ...prevState,
-        [ethersTx.hash]: { ...tx, status: 'loading' },
-      }));
-      const reciept = await ethersTx.wait();
-      setTransactions((prevState) => ({
-        ...prevState,
-        [ethersTx.hash]: { ...tx, status: 'success' },
-      }));
-      lifeCycleFns?.onTxSuccess?.(reciept);
-      return {
-        reciept,
-        txHash: ethersTx.hash,
-      };
-    } catch (error) {
-      console.error(error);
-      lifeCycleFns?.onTxError?.(error);
-      setTransactions((prevState) => ({
-        ...prevState,
-        [ethersTx?.hash]: { ...tx, status: 'error' },
-      }));
-    }
-  };
-
   const fireTransaction = async (tx: TX) => {
-    const { abi, keychain, args, lifeCycleFns, txName, status = 'idle' } = tx;
-
     if (!chainId || !isValidNetwork(chainId) || !provider) return;
-
-    const networkAddress = keychain[chainId];
-
-    //TODO handle Error
-
-    if (!networkAddress) return;
-    const contract = new ethers.Contract(
-      networkAddress,
-      abi,
-      provider.getSigner().connectUnchecked()
-    );
-    const ethersTx = await contract.functions[txName](...args);
-    _executeTx(tx, ethersTx);
+    handleFireTx({ tx, chainId, provider, setTransactions });
   };
 
   return (

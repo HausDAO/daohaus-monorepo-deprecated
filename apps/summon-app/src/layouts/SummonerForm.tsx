@@ -19,7 +19,7 @@ import { ShamanSegment } from '../layouts/ShamanSegment';
 import { StakeTokensSegment } from '../layouts/StakeTokenSegment';
 import { TimingSegment } from '../layouts/TimingSegment';
 import { FORM_KEYS } from '../utils/formKeys';
-import { assembleTxArgs, summon } from '../utils/summonTx';
+import { assembleTxArgs } from '../utils/summonTx';
 import { FormValues } from '../types/form';
 import { useTxBuilder } from '../app/TXBuilder';
 import { LOCAL_ABI } from '@daohaus/abi-utilities';

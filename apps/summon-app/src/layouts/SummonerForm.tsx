@@ -28,26 +28,9 @@ import { assembleTxArgs } from '../utils/summonTx';
 import { FormValues } from '../types/form';
 import { useTxBuilder } from '../app/TXBuilder';
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
-import { useState } from 'react';
+
 import { SummonStates } from '../app/App';
-
-const Main = styled.main`
-  display: flex;
-  justify-content: center;
-  margin-top: 4rem;
-
-  .form-column {
-    width: 58rem;
-    height: 2rem;
-  }
-  .title-section {
-    margin-bottom: 16rem;
-  }
-  .top-divider {
-    margin-top: 3rem;
-    margin-bottom: 2.4rem;
-  }
-`;
+import { CenterLayout } from './primitives';
 
 type SummonFormProps = {
   setSummonState: ReactSetter<SummonStates>;
@@ -84,10 +67,10 @@ export const SummonerForm = ({
   };
 
   return (
-    <Main>
+    <CenterLayout>
       <FormProvider {...methods}>
         <form
-          className="form-column"
+          className="main-column"
           onSubmit={methods.handleSubmit(handleFormSubmit)}
           noValidate
         >
@@ -118,6 +101,6 @@ export const SummonerForm = ({
           </Button>
         </form>
       </FormProvider>
-    </Main>
+    </CenterLayout>
   );
 };

@@ -1,6 +1,8 @@
-import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
-import { Bold, H1, ParMd, TemporaryLink } from '@daohaus/ui';
 import React from 'react';
+
+import { Bold, H1, ParMd, TemporaryLink } from '@daohaus/ui';
+import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
+
 import { CenterLayout } from './primitives';
 
 type LoadingProps = {
@@ -18,7 +20,7 @@ export const SummonerLoading = ({ txHash }: LoadingProps) => {
           Visit <TemporaryLink>Docs</TemporaryLink> for Help
         </ParMd>
         <ParMd>DAO contract deployment in progress.</ParMd>
-        <ExplorerLink>Watch Transaction</ExplorerLink>
+        <ExplorerLink address={txHash}>Watch Transaction</ExplorerLink>
       </div>
     </CenterLayout>
   );

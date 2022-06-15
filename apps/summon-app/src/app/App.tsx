@@ -5,6 +5,7 @@ import { SummonerForm } from '../layouts/SummonerForm';
 import { TXBuilder } from './TXBuilder';
 import { ChainId } from 'caip';
 import { useState } from 'react';
+import { SummonerLoading } from '../layouts/SummonerLoading';
 
 const TemporaryLayout = styled.div`
   width: 100%;
@@ -25,9 +26,7 @@ export const App = () => {
         {summonState === 'idle' && (
           <SummonerForm setSummonState={setSummonState} setTxHash={setTxHash} />
         )}
-        {summonState === 'loading' && (
-          <SummonerLoading setSummonState={setSummonState} txHash={txHash} />
-        )}
+        {summonState === 'loading' && <SummonerLoading txHash={txHash} />}
         {/* {summonState === 'success' && } */}
         {/* {summonState === 'error' && } */}
       </TemporaryLayout>

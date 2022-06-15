@@ -31,11 +31,13 @@ import { LOCAL_ABI } from '@daohaus/abi-utilities';
 
 import { SummonStates } from '../app/App';
 import { CenterLayout } from './primitives';
+import { BaalFactoryContract } from '@daohaus/baal-contract-service';
 
 type SummonFormProps = {
   setSummonState: ReactSetter<SummonStates>;
   setTxHash: ReactSetter<string>;
 };
+
 export const SummonerForm = ({
   setSummonState,
   setTxHash,
@@ -49,6 +51,7 @@ export const SummonerForm = ({
     if (!chainId || !isValidNetwork(chainId)) return;
 
     const args = assembleTxArgs(formValues, chainId);
+
     fireTransaction({
       txName: 'summonBaalAndSafe',
       abi: LOCAL_ABI.BAAL_FACTORY,

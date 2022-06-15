@@ -110,7 +110,6 @@ const standardGraphPoll: Poll<FindTxQuery> = async ({
   onPollTimeout,
   maxTries = 12,
 }) => {
-  console.log('START POLL');
   let count = 0;
   const pollId = setInterval(async () => {
     if (count < maxTries) {
@@ -194,7 +193,7 @@ export const executeTx = async (
   }
 };
 
-export const handleFireTx = async ({
+export async function handleFireTx({
   tx,
   chainId,
   provider,
@@ -204,7 +203,7 @@ export const handleFireTx = async ({
   chainId: ValidNetwork;
   provider: providers.Web3Provider;
   setTransactions: ReactSetter<TxRecord>;
-}) => {
+}) {
   const { abi, keychain, args, txName } = tx;
   const networkAddress = keychain[chainId];
   if (!networkAddress) return;
@@ -213,6 +212,7 @@ export const handleFireTx = async ({
     abi,
     provider.getSigner().connectUnchecked()
   );
+
   const ethersTx = await contract.functions[txName](...args);
   executeTx(tx, ethersTx, setTransactions, chainId);
-};
+}

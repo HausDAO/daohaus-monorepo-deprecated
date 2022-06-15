@@ -33,13 +33,15 @@ export const TXBuilder = ({ chainId, provider, children }: BuilderProps) => {
   const txAmt = useMemo(() => {
     return Object.values(transactions).length;
   }, [transactions]);
+
   useEffect(() => {
     console.log('transactions', transactions);
   }, [transactions]);
-  const fireTransaction = async (tx: TX) => {
+
+  async function fireTransaction(tx: TX) {
     if (!chainId || !isValidNetwork(chainId) || !provider) return;
     handleFireTx({ tx, chainId, provider, setTransactions });
-  };
+  }
 
   return (
     <TxBuilderContext.Provider value={{ transactions, fireTransaction, txAmt }}>

@@ -17,7 +17,7 @@ export type ButtonProps = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   IconLeft?: IconType;
   IconRight?: IconType;
-  type?: 'button' | 'submit' | 'reset' | undefined;
+  type?: 'button' | 'submit' | 'reset';
 };
 
 type Ref =

@@ -33,7 +33,7 @@ export type SummonStates = 'idle' | 'loading' | 'success' | 'error';
 export const App = () => {
   const { provider, chainId } = useHausConnect();
 
-  const [summonState, setSummonState] = useState<SummonStates>('loading');
+  const [summonState, setSummonState] = useState<SummonStates>('idle');
   const [txHash, setTxHash] = useState<string>('');
 
   return (
@@ -49,7 +49,6 @@ export const App = () => {
           )}
           {summonState === 'loading' && <SummonerLoading txHash={txHash} />}
           {summonState === 'success' && <H1>Success!</H1>}
-          {/* {summonState === 'error' && } */}
         </CenterLayout>
         <footer>
           <div className="logo-box">

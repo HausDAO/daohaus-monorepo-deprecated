@@ -24,7 +24,9 @@ export const SummonerLoading = ({ txHash }: LoadingProps) => {
       </BlockImageContainer>
       <InfoSection>
         <ParMd className="info">DAO contract deployment in progress.</ParMd>
-        <ExplorerLink address={txHash}>Watch Transaction</ExplorerLink>
+        <ExplorerLink address={txHash} type="tx">
+          Watch Transaction
+        </ExplorerLink>
       </InfoSection>
     </div>
   );

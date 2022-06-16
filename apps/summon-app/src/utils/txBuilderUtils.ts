@@ -31,8 +31,7 @@ export type TxRecord = Record<string, TX>;
 
 // TS Challenge
 
-// using any type here to match the args from
-// Query result. Need to be able to have a generic poll
+// Need to be able to have a generic poll
 // that we can pass in any shape of argume
 // eslint-disable-next-line
 type PollFetch<T> = (...args: any) => Promise<QueryResult<T> | undefined>;

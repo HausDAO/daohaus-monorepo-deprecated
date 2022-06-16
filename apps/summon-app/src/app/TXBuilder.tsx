@@ -1,12 +1,5 @@
 import { providers } from 'ethers';
-import {
-  createContext,
-  useState,
-  useMemo,
-  useContext,
-  ReactNode,
-  useEffect,
-} from 'react';
+import { createContext, useState, useMemo, useContext, ReactNode } from 'react';
 import { isValidNetwork } from '@daohaus/common-utilities';
 import { handleFireTx, TX, TxRecord } from '../utils/txBuilderUtils';
 
@@ -32,10 +25,6 @@ export const TXBuilder = ({ chainId, provider, children }: BuilderProps) => {
   const [transactions, setTransactions] = useState<TxRecord>({});
   const txAmt = useMemo(() => {
     return Object.values(transactions).length;
-  }, [transactions]);
-
-  useEffect(() => {
-    console.log('transactions', transactions);
   }, [transactions]);
 
   async function fireTransaction(tx: TX) {

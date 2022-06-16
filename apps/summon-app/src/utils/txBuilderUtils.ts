@@ -120,15 +120,12 @@ const standardGraphPoll: Poll<FindTxQuery> = async ({
     if (count < maxTries) {
       try {
         const result = await poll(variables);
-        console.log('fetch result', result);
         const testPassed = test(result);
-        console.log('test result', testPassed);
         if (testPassed) {
           clearInterval(pollId);
           onPollSuccess?.();
           return result;
         }
-        console.log('count', count);
         count += 1;
       } catch (error) {
         onPollError?.(error);

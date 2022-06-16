@@ -63,7 +63,7 @@ export const pollLastTX: PollFetch<FindTxQuery> = async ({
   txHash: string;
 }) => {
   try {
-    // Review debating whether this query needs to be inside HAUS class
+    // REVIEW debating whether this query needs to be inside HAUS class
     // Sort of annoying that I have to initialize with network config
     // for every query. hardcoding to DH defaults for now.
     // let's discuss.

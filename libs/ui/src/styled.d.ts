@@ -3,13 +3,13 @@ import 'styled-components';
 export type ButtonColorTargets = {
   text: string;
   bg: string;
-  border?: string;
+  border: string;
   hoverText?: string;
   hoverBg?: string;
-  hoverBorder?: string;
+  hoverBorder: string;
   focusText?: string;
   focusBg?: string;
-  focusBorder?: string;
+  focusBorder: string;
   disabledText?: string;
   disabledBg?: string;
   disabledBorder?: string;

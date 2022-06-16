@@ -12,13 +12,13 @@ export const BaseInput = styled.input`
   font-size: ${field.fontSize};
   font-weight: ${field.fontWeight};
   font-family: ${field.fontFamily};
+  height: 4.8rem;
   line-height: 150%;
   letter-spacing: 1.5px;
+  max-width: ${field.size.md};
   padding: 1.2rem 1.8rem;
   transition: ${field.transition};
-  height: 4.8rem;
   width: 100%;
-  max-width: ${field.size.md};
 
   ::placeholder {
     color: ${({ theme }: { theme: Theme }) => theme.field.placeholderText};
@@ -45,6 +45,7 @@ export const BaseInput = styled.input`
     color: ${({ theme }: { theme: Theme }) => theme.field.disabledPlaceholder};
     cursor: not-allowed;
     font-style: italic;
+
     ::placeholder {
       color: ${({ theme }: { theme: Theme }) =>
         theme.field.disabledPlaceholder};
@@ -83,16 +84,16 @@ export const BaseInput = styled.input`
 `;
 
 export const WithIcon = styled.div`
-  position: relative;
   display: inline-block;
-  width: 100%;
+  position: relative;
   max-width: ${field.size.md};
+  width: 100%;
 
   svg {
-    position: absolute;
     color: ${({ theme }: { theme: Theme }) => theme.fontColor};
-    top: 1.4rem;
+    position: absolute;
     right: 2rem;
+    top: 1.4rem;
   }
 
   input {

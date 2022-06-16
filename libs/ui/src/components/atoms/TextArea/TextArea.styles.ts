@@ -12,13 +12,13 @@ export const BaseTextArea = styled.textarea`
   font-size: ${field.fontSize};
   font-weight: ${field.fontWeight};
   font-family: ${field.fontFamily};
+  height: 7.688rem;
   line-height: 150%;
   letter-spacing: 1.5px;
-  padding: 1.2rem 1.8rem;
-  height: 7.688rem;
-  width: 100%;
   max-width: ${field.size.lg};
+  padding: 1.2rem 1.8rem;
   transition: ${field.transition};
+  width: 100%;
 
   ::placeholder {
     color: ${({ theme }: { theme: Theme }) => theme.field.placeholderText};
@@ -44,6 +44,7 @@ export const BaseTextArea = styled.textarea`
       ${({ theme }: { theme: Theme }) => theme.field.disabledBorder};
     cursor: not-allowed;
     font-style: italic;
+
     ::placeholder {
       color: ${({ theme }: { theme: Theme }) =>
         theme.field.disabledPlaceholder};

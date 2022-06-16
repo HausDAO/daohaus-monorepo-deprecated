@@ -5,23 +5,23 @@ import { font } from '../../../theme/global/font';
 export const ButtonBase = styled.button`
   background-color: ${({ theme }) => theme.button.primary.bg};
   border: 0.1rem solid
-    ${({ theme }: { theme: Theme }) => theme.button.primary.bg};
+    ${({ theme }: { theme: Theme }) => theme.button.primary.border};
+  border-radius: 0.4rem;
   color: ${({ theme }: { theme: Theme }) => theme.button.primary.text};
-  min-width: 8.5rem;
-  height: 4.8rem;
+  cursor: pointer;
   font-size: ${font.size.md};
   font-weight: ${font.weight.bold};
+  height: 4.8rem;
   letter-spacing: 1.8px;
-  border-radius: 0.4rem;
+  min-width: 8.5rem;
   padding: 1.2rem;
-  cursor: pointer;
   transition: 0.2s all;
 
   :hover {
     background-color: ${({ theme }: { theme: Theme }) =>
       theme.button.primary.hoverBg};
     border: 0.1rem solid
-      ${({ theme }: { theme: Theme }) => theme.button.primary.hoverBg};
+      ${({ theme }: { theme: Theme }) => theme.button.primary.hoverBorder};
   }
 
   :focus {
@@ -35,7 +35,7 @@ export const ButtonBase = styled.button`
     background-color: ${({ theme }: { theme: Theme }) =>
       theme.button.primary.disabledBg};
     border: 0.1rem solid
-      ${({ theme }: { theme: Theme }) => theme.button.primary.disabledBg};
+      ${({ theme }: { theme: Theme }) => theme.button.primary.disabledBorder};
     cursor: not-allowed;
   }
 
@@ -50,7 +50,7 @@ export const ButtonBase = styled.button`
       background-color: ${({ theme }: { theme: Theme }) =>
         theme.button.secondary.hoverBg};
       border: 0.1rem solid
-        ${({ theme }: { theme: Theme }) => theme.button.secondary.hoverBg};
+        ${({ theme }: { theme: Theme }) => theme.button.secondary.hoverBorder};
     }
 
     :focus {
@@ -64,7 +64,8 @@ export const ButtonBase = styled.button`
       background-color: ${({ theme }: { theme: Theme }) =>
         theme.button.secondary.disabledBg};
       border: 0.1rem solid
-        ${({ theme }: { theme: Theme }) => theme.button.secondary.disabledBg};
+        ${({ theme }: { theme: Theme }) =>
+          theme.button.secondary.disabledBorder};
       cursor: not-allowed;
     }
   }
@@ -100,16 +101,16 @@ export const ButtonBase = styled.button`
   }
 
   &.sm {
-    min-width: 6.6rem;
-    height: 3.6rem;
-    padding: 0.9rem;
     font-size: ${font.size.xs};
+    height: 3.6rem;
+    min-width: 6.6rem;
+    padding: 0.9rem;
   }
 
   &.lg {
-    min-width: 10.7rem;
-    height: 6rem;
     font-size: ${font.size.lg};
+    height: 6rem;
+    min-width: 10.7rem;
     padding: 1.5rem;
   }
 
@@ -127,27 +128,33 @@ export const ButtonBase = styled.button`
 `;
 
 export const WithIcon = styled.div`
-  display: flex;
   align-items: center;
+  display: flex;
+
   svg {
     width: 2.1rem;
     height: 2.1rem;
     color: ${({ theme }: { theme: Theme }) => theme.button.primary.text};
+
     &.secondary {
       color: ${({ theme }: { theme: Theme }) => theme.button.secondary.text};
     }
+
     &.tertiary {
       color: ${({ theme }: { theme: Theme }) => theme.button.tertiary.text};
     }
+
     &.sm {
-      width: 1.5rem;
       height: 1.5rem;
       margin-right: 0.8rem;
+      width: 1.5rem;
     }
   }
+
   svg.icon-left {
     margin-right: 1rem;
   }
+
   svg.icon-right {
     margin-left: 0.5rem;
   }

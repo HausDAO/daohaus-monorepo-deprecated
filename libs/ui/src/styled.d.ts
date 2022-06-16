@@ -82,11 +82,25 @@ declare module 'styled-components' {
         bg: string;
         activeBg: string;
         disabledBg: string;
+        activeDisabledBg: string;
       };
       thumb: {
         bg: string;
-        activeBg: string;
+        border: string;
+        hoverBg: string;
+        hoverBorder: string;
+        focusBg: string;
+        focusBorder: string;
         disabledBg: string;
+        disabledBorder: string;
+        activeBg: string;
+        activeBorder: string;
+        activeHoverBg: string;
+        activeHoverBorder: string;
+        activeFocusBg: string;
+        activeFocusBorder: string;
+        activeDisabledBg: string;
+        activeDisabledBorder: string;
       };
     };
     radio: {

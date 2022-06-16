@@ -73,7 +73,7 @@ export const Switch = React.forwardRef(
           onCheckedChange={onCheckedChange}
           disabled={disabled}
         >
-          <SwitchSlider className={classes} ref={ref} />
+          <SwitchSlider ref={ref} />
         </SwitchBase>
         <LabelContainer>
           <Label id={id} className={classes}>

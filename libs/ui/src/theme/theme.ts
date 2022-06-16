@@ -1,4 +1,3 @@
-import { grayDark } from '@radix-ui/colors';
 import { Theme } from '../types/theming';
 
 import {

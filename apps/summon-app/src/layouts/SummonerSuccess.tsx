@@ -22,15 +22,15 @@ export const SummonerSuccess = ({
   return (
     <div className="main-column">
       <H1>
-        <Bold>Summoning a Baal</Bold>
+        <Bold>DAO Summoned</Bold>
       </H1>
       <ParMd>
         Visit <TemporaryLink>Docs</TemporaryLink> for Help
       </ParMd>
       <HausBlockLoading loading={false} />
       <InfoSection>
-        <ParMd className="info">DAO contract deployment in progress.</ParMd>
-        <ExplorerLink address={daoAddress}>Your DAO address</ExplorerLink>
+        <ParMd className="info">DAO contract:</ParMd>
+        <ExplorerLink address={daoAddress}>{daoAddress}</ExplorerLink>
       </InfoSection>
       <Button secondary onClick={handleResetSummon}>
         Summon Another DAO

@@ -111,12 +111,12 @@ export const BlockImageContainer = styled.div`
   margin-bottom: 2.4rem;
   .img-block {
     display: flex;
-    height: 20rem;
-    width: 20rem;
+    height: 12rem;
+    width: 12rem;
   }
   img {
-    height: 20rem;
-    width: 20rem;
+    height: 12rem;
+    width: 12rem;
   }
 `;
 

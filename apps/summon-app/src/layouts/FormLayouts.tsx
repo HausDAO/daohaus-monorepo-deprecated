@@ -108,10 +108,21 @@ export const BlockImageContainer = styled.div`
   align-items: flex-end;
   height: 26rem;
   width: 100%;
+  margin-bottom: 2.4rem;
+  .img-block {
+    display: flex;
+    height: 20rem;
+    width: 20rem;
+  }
+  img {
+    height: 20rem;
+    width: 20rem;
+  }
 `;
 
 export const InfoSection = styled.div`
-  p {
+  p,
+  a {
     margin-bottom: 1.6rem;
   }
 `;

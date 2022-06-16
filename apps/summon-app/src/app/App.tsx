@@ -1,14 +1,15 @@
 import styled from 'styled-components';
-
-import { DaoHausNav, useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { SummonerForm } from '../layouts/SummonerForm';
-import { TXBuilder } from './TXBuilder';
-
 import { useState } from 'react';
+
+import { ParMd, TemporaryLink } from '@daohaus/ui';
+import { DaoHausNav, useHausConnect } from '@daohaus/daohaus-connect-feature';
+
+import { TXBuilder } from './TXBuilder';
+import { SummonerForm } from '../layouts/SummonerForm';
 import { SummonerLoading } from '../layouts/SummonerLoading';
 import hausCastle from '../assets/hausCastle.svg';
 import { CenterLayout } from '../layouts/FormLayouts';
-import { H1, ParMd, TemporaryLink } from '@daohaus/ui';
+import { SummonerSuccess } from '../layouts/SummonerSuccess';
 
 const TemporaryLayout = styled.div`
   width: 100%;
@@ -33,8 +34,9 @@ export type SummonStates = 'idle' | 'loading' | 'success' | 'error';
 export const App = () => {
   const { provider, chainId } = useHausConnect();
 
-  const [summonState, setSummonState] = useState<SummonStates>('idle');
+  const [summonState, setSummonState] = useState<SummonStates>('success');
   const [txHash, setTxHash] = useState<string>('');
+  const [daoAddress, setDaoAddress] = useState<string>('');
 
   return (
     <TXBuilder provider={provider} chainId={chainId}>
@@ -45,10 +47,16 @@ export const App = () => {
             <SummonerForm
               setSummonState={setSummonState}
               setTxHash={setTxHash}
+              setDaoAddress={setDaoAddress}
             />
           )}
           {summonState === 'loading' && <SummonerLoading txHash={txHash} />}
-          {summonState === 'success' && <H1>Success!</H1>}
+          {summonState === 'success' && (
+            <SummonerSuccess
+              daoAddress={daoAddress}
+              setSummonState={setSummonState}
+            />
+          )}
         </CenterLayout>
         <footer>
           <div className="logo-box">

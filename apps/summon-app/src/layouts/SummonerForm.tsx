@@ -6,6 +6,7 @@ import {
   isValidNetwork,
   ReactSetter,
 } from '@daohaus/common-utilities';
+import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import {
   Bold,
   Button,
@@ -25,17 +26,18 @@ import { FORM_KEYS } from '../utils/formKeys';
 import { assembleTxArgs } from '../utils/summonTx';
 import { FormValues } from '../types/form';
 import { useTxBuilder } from '../app/TXBuilder';
-import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import { SummonStates } from '../app/App';
 
 type SummonFormProps = {
   setSummonState: ReactSetter<SummonStates>;
   setTxHash: ReactSetter<string>;
+  setDaoAddress: ReactSetter<string>;
 };
 
 export const SummonerForm = ({
   setSummonState,
   setTxHash,
+  setDaoAddress,
 }: SummonFormProps) => {
   const { chainId } = useHausConnect();
   const { fireTransaction } = useTxBuilder();
@@ -58,8 +60,13 @@ export const SummonerForm = ({
           setTxHash(txHash);
         },
         onPollSuccess(result) {
-          setSummonState('success');
+          const daoAddress = result?.data?.transaction?.dao?.id;
           console.log(result);
+
+          if (daoAddress) {
+            setSummonState('success');
+            setDaoAddress(daoAddress);
+          }
         },
       },
     });

@@ -1,8 +1,8 @@
 import { Bold, H1, ParMd, TemporaryLink } from '@daohaus/ui';
 import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
 
-import { BlockImageContainer, InfoSection } from './FormLayouts';
-import hausBlock from '../assets/hausBlock.svg';
+import { InfoSection } from './FormLayouts';
+import { HausBlockLoading } from '../components/HausBlockLoading/HausBlockLoading';
 
 type LoadingProps = {
   txHash: string;
@@ -17,11 +17,7 @@ export const SummonerLoading = ({ txHash }: LoadingProps) => {
       <ParMd>
         Visit <TemporaryLink>Docs</TemporaryLink> for Help
       </ParMd>
-      <BlockImageContainer>
-        <div>
-          <img src={hausBlock} alt="daohaus block pattern" />
-        </div>
-      </BlockImageContainer>
+      <HausBlockLoading loading={true} />
       <InfoSection>
         <ParMd className="info">DAO contract deployment in progress.</ParMd>
         <ExplorerLink address={txHash} type="tx">

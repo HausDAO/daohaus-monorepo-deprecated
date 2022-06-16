@@ -29,6 +29,12 @@ export type TX = {
 
 export type TxRecord = Record<string, TX>;
 
+// TS Challenge
+
+// using any type here to match the args from
+// Query result. Need to be able to have a generic poll
+// that we can pass in any shape of argume
+// eslint-disable-next-line
 type PollFetch<T> = (...args: any) => Promise<QueryResult<T> | undefined>;
 type PollTest<T> = (result?: QueryResult<T>) => boolean;
 
@@ -140,27 +146,30 @@ const standardGraphPoll: Poll<FindTxQuery> = async ({
 
 export const executeTx = async (
   tx: TX,
-  // Review, does not appear that ethers returns a type for
-  // tx.hash or tx.wait. Need to use any for now.
-  ethersTx: any,
+  // TS Challenge
+
+  // Could not find a reasonable solution to this.
+  // Ethers return any. Could possibly pass a generic to
+  // from a typechain generated Contract client
+  // Leaving this for now as we're seeing dimishing returns here.
+  ethersTx: { hash: string; wait: () => Promise<string> },
   setTransactions: ReactSetter<TxRecord>,
   chainId: ValidNetwork
 ) => {
   const { lifeCycleFns } = tx;
-  const txHash = ethersTx.hash as string | undefined;
+  const txHash = ethersTx.hash;
 
-  if (!txHash) return;
   try {
     lifeCycleFns?.onTxHash?.(ethersTx.hash);
     setTransactions((prevState) => ({
       ...prevState,
-      [ethersTx.hash]: { ...tx, status: 'loading' },
+      txHash: { ...tx, status: 'idle' },
     }));
     const reciept = await ethersTx.wait();
 
     setTransactions((prevState) => ({
       ...prevState,
-      [ethersTx.hash]: { ...tx, status: 'polling' },
+      txHash: { ...tx, status: 'polling' },
     }));
     lifeCycleFns?.onTxSuccess?.(reciept);
 
@@ -188,7 +197,7 @@ export const executeTx = async (
     lifeCycleFns?.onTxError?.(error);
     setTransactions((prevState) => ({
       ...prevState,
-      [ethersTx?.hash]: { ...tx, status: 'error' },
+      txHash: { ...tx, status: 'failed' },
     }));
   }
 };
@@ -214,5 +223,5 @@ export async function handleFireTx({
   );
 
   const ethersTx = await contract.functions[txName](...args);
-  executeTx(tx, ethersTx, setTransactions, chainId);
+  return executeTx(tx, ethersTx, setTransactions, chainId);
 }

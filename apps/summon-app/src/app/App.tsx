@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
-import {
-  DaoHausNav,
-  ExplorerLink,
-  useHausConnect,
-} from '@daohaus/daohaus-connect-feature';
+import { DaoHausNav, useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { SummonerForm } from '../layouts/SummonerForm';
 import { TXBuilder } from './TXBuilder';
 
@@ -12,7 +8,7 @@ import { useState } from 'react';
 import { SummonerLoading } from '../layouts/SummonerLoading';
 import hausCastle from '../assets/hausCastle.svg';
 import { CenterLayout } from '../layouts/FormLayouts';
-import { ParMd, TemporaryLink } from '@daohaus/ui';
+import { H1, ParMd, TemporaryLink } from '@daohaus/ui';
 
 const TemporaryLayout = styled.div`
   width: 100%;
@@ -52,7 +48,7 @@ export const App = () => {
             />
           )}
           {summonState === 'loading' && <SummonerLoading txHash={txHash} />}
-          {/* {summonState === 'success' && } */}
+          {summonState === 'success' && <H1>Success!</H1>}
           {/* {summonState === 'error' && } */}
         </CenterLayout>
         <footer>

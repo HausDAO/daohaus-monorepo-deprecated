@@ -10,7 +10,6 @@ export const Container = styled.div`
   padding-bottom: 12px;
 `;
 
-// TODO Add hover and focus
 export const SwitchBase = styled(SwitchPrimitive.Root)`
   all: unset;
   background-color: ${({ theme }: { theme: Theme }) => theme.switch.bar.bg};
@@ -76,11 +75,11 @@ export const SwitchSlider = styled(SwitchPrimitive.Thumb)`
   }
 
   &[data-state='checked'] {
-    transform: translateX(27px);
     background-color: ${({ theme }: { theme: Theme }) =>
       theme.switch.thumb.activeBg};
     border: 2px solid
       ${({ theme }: { theme: Theme }) => theme.switch.thumb.activeBorder};
+    transform: translateX(27px);
 
     :hover {
       background-color: ${({ theme }: { theme: Theme }) =>

@@ -69,8 +69,8 @@ declare module 'styled-components' {
       activeDisabledBorder: string;
     };
     select: {
-      bg: string;
       text: string;
+      bg: string;
       borderColor: string;
     };
     spinner: {

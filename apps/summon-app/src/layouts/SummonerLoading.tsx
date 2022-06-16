@@ -1,9 +1,8 @@
-import React from 'react';
-
 import { Bold, H1, ParMd, TemporaryLink } from '@daohaus/ui';
 import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
 
-import { CenterLayout } from './primitives';
+import { BlockImageContainer, InfoSection } from './FormLayouts';
+import hausBlock from '../assets/hausBlock.svg';
 
 type LoadingProps = {
   txHash: string;
@@ -11,17 +10,22 @@ type LoadingProps = {
 
 export const SummonerLoading = ({ txHash }: LoadingProps) => {
   return (
-    <CenterLayout>
-      <div className="main-column">
-        <H1>
-          <Bold>Summoning a Baal</Bold>
-        </H1>
-        <ParMd>
-          Visit <TemporaryLink>Docs</TemporaryLink> for Help
-        </ParMd>
-        <ParMd>DAO contract deployment in progress.</ParMd>
+    <div className="main-column">
+      <H1>
+        <Bold>Summoning a Baal</Bold>
+      </H1>
+      <ParMd>
+        Visit <TemporaryLink>Docs</TemporaryLink> for Help
+      </ParMd>
+      <BlockImageContainer>
+        <div>
+          <img src={hausBlock} alt="daohaus block pattern" />
+        </div>
+      </BlockImageContainer>
+      <InfoSection>
+        <ParMd className="info">DAO contract deployment in progress.</ParMd>
         <ExplorerLink address={txHash}>Watch Transaction</ExplorerLink>
-      </div>
-    </CenterLayout>
+      </InfoSection>
+    </div>
   );
 };

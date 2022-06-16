@@ -157,7 +157,7 @@ export const executeTx = async (
       [ethersTx.hash]: { ...tx, status: 'loading' },
     }));
     const reciept = await ethersTx.wait();
-    // Review made an optimization here. Don't fire poll until after TX resolves
+
     setTransactions((prevState) => ({
       ...prevState,
       [ethersTx.hash]: { ...tx, status: 'polling' },

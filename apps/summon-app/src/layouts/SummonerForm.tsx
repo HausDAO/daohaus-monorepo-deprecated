@@ -1,11 +1,9 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
-import styled from 'styled-components';
 
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import {
   CONTRACTS,
   isValidNetwork,
-  ArgType,
   ReactSetter,
 } from '@daohaus/common-utilities';
 import {
@@ -30,8 +28,6 @@ import { useTxBuilder } from '../app/TXBuilder';
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 
 import { SummonStates } from '../app/App';
-import { CenterLayout } from './primitives';
-import { BaalFactoryContract } from '@daohaus/baal-contract-service';
 
 type SummonFormProps = {
   setSummonState: ReactSetter<SummonStates>;
@@ -55,7 +51,7 @@ export const SummonerForm = ({
     fireTransaction({
       txName: 'summonBaalAndSafe',
       abi: LOCAL_ABI.BAAL_FACTORY,
-      args: args as ArgType[],
+      args: args,
       keychain: CONTRACTS.V3_FACTORY,
       lifeCycleFns: {
         onTxHash(txHash) {
@@ -70,40 +66,38 @@ export const SummonerForm = ({
   };
 
   return (
-    <CenterLayout>
-      <FormProvider {...methods}>
-        <form
-          className="main-column"
-          onSubmit={methods.handleSubmit(handleFormSubmit)}
-          noValidate
-        >
-          <div className="title-section">
-            <H1>
-              <Bold>Summon a Baal.</Bold>
-            </H1>
-            <ParMd>
-              Visit <TemporaryLink>Docs</TemporaryLink> for Help
-            </ParMd>
-          </div>
-          <div>
-            <WrappedInput
-              id={FORM_KEYS.DAO_NAME}
-              placeholder="Braid Guild"
-              full
-              registerOptions={{ required: 'DAO name is required' }}
-            />
-            <Divider className="top-divider" />
-          </div>
-          <StakeTokensSegment />
-          <TimingSegment />
-          <AdvancedSegment />
-          <ShamanSegment />
-          <MembersSegment />
-          <Button fullWidth lg type="submit">
-            Summon DAO
-          </Button>
-        </form>
-      </FormProvider>
-    </CenterLayout>
+    <FormProvider {...methods}>
+      <form
+        className="main-column"
+        onSubmit={methods.handleSubmit(handleFormSubmit)}
+        noValidate
+      >
+        <div className="title-section">
+          <H1>
+            <Bold>Summon a Baal.</Bold>
+          </H1>
+          <ParMd>
+            Visit <TemporaryLink>Docs</TemporaryLink> for Help
+          </ParMd>
+        </div>
+        <div>
+          <WrappedInput
+            id={FORM_KEYS.DAO_NAME}
+            placeholder="Braid Guild"
+            full
+            registerOptions={{ required: 'DAO name is required' }}
+          />
+          <Divider className="top-divider" />
+        </div>
+        <StakeTokensSegment />
+        <TimingSegment />
+        <AdvancedSegment />
+        <ShamanSegment />
+        <MembersSegment />
+        <Button fullWidth lg type="submit">
+          Summon DAO
+        </Button>
+      </form>
+    </FormProvider>
   );
 };

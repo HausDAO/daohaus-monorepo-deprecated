@@ -1,5 +1,6 @@
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import {
+  ArgType,
   CONTRACTS,
   encodeFunction,
   encodeValues,
@@ -10,6 +11,7 @@ import {
   toBaseUnits,
   ValidNetwork,
 } from '@daohaus/common-utilities';
+
 import { ethers, providers } from 'ethers';
 import { FormValues } from '../types/form';
 import { FORM_KEYS } from './formKeys';
@@ -18,10 +20,14 @@ const tokenConfigTX = (formValues: FormValues) => {
   const pauseVoteToken = !formValues.votingTransferable;
   const pauseNvToken = !formValues.votingTransferable;
 
-  return encodeFunction(LOCAL_ABI.BAAL, 'setAdminConfig', [
+  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'setAdminConfig', [
     pauseVoteToken,
     pauseNvToken,
   ]);
+  if (isString(encoded)) {
+    return encoded;
+  }
+  throw new Error('Encoding Error');
 };
 
 const governanceConfigTX = (formValues: FormValues) => {
@@ -42,7 +48,6 @@ const governanceConfigTX = (formValues: FormValues) => {
     !isNumberish(sponsorThreshold) ||
     !isNumberish(minRetention)
   ) {
-    console.log('ERROR: Form Values', formValues);
     throw new Error(
       'governanceConfigTX recieved arguments in the wrong shape or type'
     );
@@ -58,14 +63,24 @@ const governanceConfigTX = (formValues: FormValues) => {
       minRetention,
     ]
   );
-  return encodeFunction(LOCAL_ABI.BAAL, 'setGovernanceConfig', [encodedValues]);
+  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'setGovernanceConfig', [
+    encodedValues,
+  ]);
+  if (isString(encoded)) {
+    return encoded;
+  }
+  throw new Error('Encoding Error');
 };
 
 export const shamanConfigTX = (formValues: FormValues) => {
   const { shamans } = formValues;
 
   if (shamans === '' || !shamans) {
-    return encodeFunction(LOCAL_ABI.BAAL, 'setShamans', [[], []]);
+    const encoded = encodeFunction(LOCAL_ABI.BAAL, 'setShamans', [[], []]);
+    if (isString(encoded)) {
+      return encoded;
+    }
+    throw new Error('Encoding Error');
   }
   if (
     !isArray(shamans?.shamanAddresses) ||
@@ -78,10 +93,14 @@ export const shamanConfigTX = (formValues: FormValues) => {
       'shamanConfigTX recieved arguments in the wrong shape or type'
     );
   }
-  return encodeFunction(LOCAL_ABI.BAAL, 'setShamans', [
+  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'setShamans', [
     shamans.shamanAddresses,
     shamans.shamanPermissions,
   ]);
+  if (isString(encoded)) {
+    return encoded;
+  }
+  throw new Error('Encoding Error');
 };
 
 export const shareConfigTX = (formValues: FormValues) => {
@@ -102,10 +121,15 @@ export const shareConfigTX = (formValues: FormValues) => {
 
   const wholeShareAmts = members.memberShares;
   const sharesInBaseUnits = wholeShareAmts.map((shares) => toBaseUnits(shares));
-  return encodeFunction(LOCAL_ABI.BAAL, 'mintShares', [
+  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'mintShares', [
     members.memberAddresses,
     sharesInBaseUnits,
   ]);
+
+  if (isString(encoded)) {
+    return encoded;
+  }
+  throw new Error('Encoding Error');
 };
 
 export const lootConfigTX = (formValues: FormValues) => {
@@ -128,10 +152,14 @@ export const lootConfigTX = (formValues: FormValues) => {
   const lootInBaseUnits = wholeLootAmts.map((loot) =>
     toBaseUnits(loot.toString())
   );
-  return encodeFunction(LOCAL_ABI.BAAL, 'mintLoot', [
+  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'mintLoot', [
     members.memberAddresses,
     lootInBaseUnits,
   ]);
+  if (isString(encoded)) {
+    return encoded;
+  }
+  throw new Error('Encoding Error');
 };
 
 const metadataConfigTX = (formValues: FormValues, posterAddress: string) => {
@@ -146,11 +174,15 @@ const metadataConfigTX = (formValues: FormValues, posterAddress: string) => {
     'daohaus.metadata.summoner',
   ]);
 
-  return encodeFunction(LOCAL_ABI.BAAL, 'executeAsBaal', [
+  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'executeAsBaal', [
     posterAddress,
     0,
     METADATA,
   ]);
+  if (isString(encoded)) {
+    return encoded;
+  }
+  throw new Error('Encoding Error');
 };
 
 const handleKeychains = (chainId: ValidNetwork) => {
@@ -186,12 +218,13 @@ const handleKeychains = (chainId: ValidNetwork) => {
 export const assembleTxArgs = (
   formValues: Record<string, unknown>,
   chainId: ValidNetwork
-) => {
+): ArgType[] => {
   const tokenName = formValues[FORM_KEYS.TOKEN_NAME];
   const tokenSymbol = formValues[FORM_KEYS.TOKEN_SYMBOL];
 
   if (!isString(tokenName) || !isString(tokenSymbol)) {
     console.log('ERROR: Form Values', formValues);
+
     throw new Error(
       'assembleSummonTx recieved arguments in the wrong shape or type'
     );

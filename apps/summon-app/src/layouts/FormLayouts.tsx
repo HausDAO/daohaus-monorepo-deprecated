@@ -86,3 +86,32 @@ export const TextAreaSection = styled.div`
     margin-bottom: 2rem;
   }
 `;
+export const CenterLayout = styled.main`
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+  .main-column {
+    width: 58rem;
+  }
+  .title-section {
+    margin-bottom: 16rem;
+  }
+  .top-divider {
+    margin-top: 3rem;
+    margin-bottom: 2.4rem;
+  }
+`;
+
+export const BlockImageContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: 26rem;
+  width: 100%;
+`;
+
+export const InfoSection = styled.div`
+  p {
+    margin-bottom: 1.6rem;
+  }
+`;

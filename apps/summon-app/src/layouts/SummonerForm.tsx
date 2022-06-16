@@ -26,7 +26,6 @@ import { assembleTxArgs } from '../utils/summonTx';
 import { FormValues } from '../types/form';
 import { useTxBuilder } from '../app/TXBuilder';
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
-
 import { SummonStates } from '../app/App';
 
 type SummonFormProps = {
@@ -58,8 +57,9 @@ export const SummonerForm = ({
           setSummonState('loading');
           setTxHash(txHash);
         },
-        onPollSuccess() {
+        onPollSuccess(result) {
           setSummonState('success');
+          console.log(result);
         },
       },
     });

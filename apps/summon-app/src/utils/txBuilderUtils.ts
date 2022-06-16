@@ -23,7 +23,7 @@ export type TX = {
     onTxSuccess?: (txHash: string) => void;
     onPollFire?: () => void;
     onPollError?: (error: unknown) => void;
-    onPollSuccess?: () => void;
+    onPollSuccess?: (result: QueryResult<FindTxQuery> | undefined) => void;
   };
 };
 
@@ -48,7 +48,7 @@ type Poll<T> = ({
   test: PollTest<T>;
   interval?: number;
   variables: Parameters<typeof poll>;
-  onPollSuccess?: () => void;
+  onPollSuccess?: (result: QueryResult<FindTxQuery> | undefined) => void;
   onPollError?: (error: unknown) => void;
   onPollTimeout?: (error: unknown) => void;
   maxTries?: number;
@@ -120,10 +120,13 @@ const standardGraphPoll: Poll<FindTxQuery> = async ({
     if (count < maxTries) {
       try {
         const result = await poll(variables);
+        console.log('result', result);
         const testPassed = test(result);
         if (testPassed) {
+          console.log('TEST PASSED');
+          console.log('result', result);
+          onPollSuccess?.(result);
           clearInterval(pollId);
-          onPollSuccess?.();
           return result;
         }
         count += 1;
@@ -176,8 +179,8 @@ export const executeTx = async (
         chainId,
         txHash,
       },
-      onPollSuccess() {
-        lifeCycleFns?.onPollSuccess?.();
+      onPollSuccess(result) {
+        lifeCycleFns?.onPollSuccess?.(result);
         setTransactions((prevState) => ({
           ...prevState,
           [txHash]: { ...tx, status: 'success' },

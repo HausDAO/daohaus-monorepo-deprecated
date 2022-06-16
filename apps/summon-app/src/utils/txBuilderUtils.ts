@@ -162,13 +162,13 @@ export const executeTx = async (
     lifeCycleFns?.onTxHash?.(ethersTx.hash);
     setTransactions((prevState) => ({
       ...prevState,
-      txHash: { ...tx, status: 'idle' },
+      [txHash]: { ...tx, status: 'idle' },
     }));
     const reciept = await ethersTx.wait();
 
     setTransactions((prevState) => ({
       ...prevState,
-      txHash: { ...tx, status: 'polling' },
+      [txHash]: { ...tx, status: 'polling' },
     }));
     lifeCycleFns?.onTxSuccess?.(reciept);
 
@@ -183,20 +183,20 @@ export const executeTx = async (
         lifeCycleFns?.onPollSuccess?.();
         setTransactions((prevState) => ({
           ...prevState,
-          [ethersTx.hash]: { ...tx, status: 'success' },
+          [txHash]: { ...tx, status: 'success' },
         }));
       },
     });
     return {
       reciept,
-      txHash: ethersTx.hash,
+      txHash,
     };
   } catch (error) {
     console.error(error);
     lifeCycleFns?.onTxError?.(error);
     setTransactions((prevState) => ({
       ...prevState,
-      txHash: { ...tx, status: 'failed' },
+      [txHash]: { ...tx, status: 'failed' },
     }));
   }
 };

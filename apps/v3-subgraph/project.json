@@ -24,7 +24,7 @@
         "cwd": "apps/v3-subgraph"
       }
     },
-    "deploy": {
+    "deployLocal": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "graph deploy v3-subgraph --node http://127.0.0.1:8020 --ipfs http://localhost:5001",

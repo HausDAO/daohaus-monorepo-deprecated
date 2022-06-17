@@ -2,12 +2,16 @@ import { NewPost } from '../generated/Poster/Poster';
 import { log } from '@graphprotocol/graph-ts';
 import { parser } from './util/parser';
 import { constants } from './util/constants';
+import { validators } from './util/validators';
 
 // event NewPost(address indexed user, string content, string indexed tag);
 export function handleNewPost(event: NewPost): void {
   log.info('^^^handleNewPost tag, {}', [event.params.tag.toHexString()]);
 
-  let validTags: string[] = [constants.DAOHAUS_METADATA_SUMMONER_TAG];
+  let validTags = [
+    constants.DAOHAUS_SUMMONER_DAO_PROFILE_TAG,
+    constants.DAOHAUS_SHARES_DAO_PROFILE_TAG,
+  ];
   let validTag = validTags.includes(event.params.tag.toHexString());
   if (!validTag) {
     log.info('^^^invalidTag', []);
@@ -24,8 +28,25 @@ export function handleNewPost(event: NewPost): void {
   let object = result.object;
 
   if (
-    event.params.tag.toHexString() == constants.DAOHAUS_METADATA_SUMMONER_TAG
+    event.params.tag.toHexString() == constants.DAOHAUS_SUMMONER_DAO_PROFILE_TAG
   ) {
-    parser.createDaoMetaSummoning(object, event.params.user, event);
+    log.info('&&& creating poster summon record', [event.params.content]);
+    parser.createDaoProfileSummoning(object, event.params.user, event);
+    return;
+  }
+
+  let daoId = parser.getStringFromJson(object, 'dao');
+  if (daoId.error != 'none') {
+    log.error('no daoId', []);
+    return;
+  }
+
+  if (
+    event.params.tag.toHexString() ==
+      constants.DAOHAUS_SHARES_DAO_PROFILE_TAG &&
+    validators.isShareholder(event.params.user, daoId.data)
+  ) {
+    parser.createDaoProfile(object, daoId.data, event);
+    return;
   }
 }

@@ -30,7 +30,7 @@ export function handleNewPost(event: NewPost): void {
   if (
     event.params.tag.toHexString() == constants.DAOHAUS_SUMMONER_DAO_PROFILE_TAG
   ) {
-    log.info('&&& creating poster summon record', [event.params.content]);
+    log.info('&&& creating summon record', [event.params.content]);
     parser.createDaoProfileSummoning(object, event.params.user, event);
     return;
   }

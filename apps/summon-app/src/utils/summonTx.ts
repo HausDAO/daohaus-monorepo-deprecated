@@ -170,7 +170,7 @@ const metadataConfigTX = (formValues: FormValues, posterAddress: string) => {
 
   const METADATA = encodeFunction(LOCAL_ABI.POSTER, 'post', [
     JSON.stringify({ name: daoName }),
-    'daohaus.metadata.summoner',
+    'daohaus.summoner.daoProfile',
   ]);
 
   const encoded = encodeFunction(LOCAL_ABI.BAAL, 'executeAsBaal', [
@@ -209,8 +209,7 @@ const handleKeychains = (chainId: ValidNetwork) => {
       POSTER: POSTER[chainId] || '',
     };
   }
-  console.log('v3Contracts', v3Contracts);
-  console.log('chainId', chainId);
+
   throw new Error('Could not find V3 singletons for this network');
 };
 

@@ -16,6 +16,7 @@ export const TimingSegment = ({ formDisabled }: { formDisabled: boolean }) => {
                 label="Voting Period"
                 id={FORM_KEYS.VOTING_PERIOD}
                 full
+                disabled={formDisabled}
                 placeholder="0"
                 required
               />
@@ -25,6 +26,7 @@ export const TimingSegment = ({ formDisabled }: { formDisabled: boolean }) => {
                 label="Grace Period"
                 id={FORM_KEYS.GRACE_PERIOD}
                 full
+                disabled={formDisabled}
                 placeholder="0"
                 required
               />

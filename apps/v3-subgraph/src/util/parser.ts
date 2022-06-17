@@ -101,7 +101,10 @@ export namespace parser {
     entity.save();
 
     let dao = Dao.load(daoAddress.toHexString());
+    log.info('looking for dao, {}', [daoAddress.toHexString()]);
     if (dao) {
+      log.info('found dao {}, name: {}', [dao.id, name.data]);
+
       dao.name = name.data;
 
       dao.save();

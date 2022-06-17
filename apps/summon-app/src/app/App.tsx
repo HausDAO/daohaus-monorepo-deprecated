@@ -10,6 +10,7 @@ import { SummonerLoading } from '../layouts/SummonerLoading';
 import hausCastle from '../assets/hausCastle.svg';
 import { CenterLayout } from '../layouts/FormLayouts';
 import { SummonerSuccess } from '../layouts/SummonerSuccess';
+import { SummonError } from '../layouts/SummonError';
 
 const TemporaryLayout = styled.div`
   width: 100%;
@@ -37,6 +38,7 @@ export const App = () => {
   const [summonState, setSummonState] = useState<SummonStates>('idle');
   const [txHash, setTxHash] = useState<string>('');
   const [daoAddress, setDaoAddress] = useState<string>('');
+  const [errMsg, setErrMsg] = useState<string>('');
 
   return (
     <TXBuilder provider={provider} chainId={chainId}>
@@ -48,6 +50,7 @@ export const App = () => {
               setSummonState={setSummonState}
               setTxHash={setTxHash}
               setDaoAddress={setDaoAddress}
+              setErrMsg={setErrMsg}
             />
           )}
           {summonState === 'loading' && <SummonerLoading txHash={txHash} />}
@@ -55,6 +58,13 @@ export const App = () => {
             <SummonerSuccess
               daoAddress={daoAddress}
               setSummonState={setSummonState}
+            />
+          )}
+          {summonState === 'error' && (
+            <SummonError
+              errMsg={errMsg}
+              setSummonState={setSummonState}
+              daoAddress={daoAddress}
             />
           )}
         </CenterLayout>

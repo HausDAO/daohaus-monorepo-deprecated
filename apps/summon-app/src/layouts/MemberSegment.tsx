@@ -6,6 +6,7 @@ import { ParSm, WrappedTextArea } from '@daohaus/ui';
 import { FormSegment, TextAreaSection } from '../layouts/FormLayouts';
 import { transformMemberData, validateMemberData } from '../utils/common';
 import { FORM_KEYS } from '../utils/formKeys';
+import { INFO_COPY } from '../utils/content';
 
 export const MembersSegment = ({ formDisabled }: { formDisabled: boolean }) => {
   const {
@@ -40,6 +41,7 @@ export const MembersSegment = ({ formDisabled }: { formDisabled: boolean }) => {
             label="Addresses & Stake Amounts"
             placeholder="0x00000000000000000000000000 30 10"
             id={FORM_KEYS.MEMBERS}
+            info={INFO_COPY.MEMBERS}
             full
             number
             required

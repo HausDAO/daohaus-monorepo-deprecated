@@ -6,6 +6,7 @@ import { ParSm, TemporaryLink, WrappedTextArea } from '@daohaus/ui';
 import { FormSegment, TextAreaSection } from '../layouts/FormLayouts';
 import { transformShamans, validateShamanData } from '../utils/common';
 import { FORM_KEYS } from '../utils/formKeys';
+import { INFO_COPY } from '../utils/content';
 
 export const ShamanSegment = ({ formDisabled }: { formDisabled: boolean }) => {
   const {
@@ -42,6 +43,7 @@ export const ShamanSegment = ({ formDisabled }: { formDisabled: boolean }) => {
             placeholder="0x00000000000000000000000000 3"
             id={FORM_KEYS.SHAMANS}
             full
+            info={INFO_COPY.SHAMAN}
             number
             disabled={formDisabled}
             helperText={helperText}

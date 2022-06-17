@@ -28,6 +28,7 @@ import { FormValues } from '../types/form';
 import { useTxBuilder } from '../app/TXBuilder';
 import { SummonStates } from '../app/App';
 import { useState } from 'react';
+import { ConnectBox } from '../components/ConnectBox/ConnectBox';
 
 type SummonFormProps = {
   setSummonState: ReactSetter<SummonStates>;
@@ -42,7 +43,7 @@ export const SummonerForm = ({
   setDaoAddress,
   setErrMsg,
 }: SummonFormProps) => {
-  const { chainId } = useHausConnect();
+  const { chainId, isConnected } = useHausConnect();
   const { fireTransaction } = useTxBuilder();
   const methods = useForm({ mode: 'onTouched' });
   const {
@@ -136,6 +137,7 @@ export const SummonerForm = ({
         <AdvancedSegment formDisabled={formDisabled} />
         <ShamanSegment formDisabled={formDisabled} />
         <MembersSegment formDisabled={formDisabled} />
+        {!isConnected && <ConnectBox />}
         <Button fullWidth lg type="submit" disabled={submitDisabled}>
           Summon DAO
         </Button>

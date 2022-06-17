@@ -114,9 +114,6 @@ const Profile = () => {
         <Underline>
           <ParMd>Edit ENS Profile</ParMd>
         </Underline>
-        <Underline>
-          <ParMd>Edit Preferences</ParMd>
-        </Underline>
       </div>
     </ProfileContainer>
   );

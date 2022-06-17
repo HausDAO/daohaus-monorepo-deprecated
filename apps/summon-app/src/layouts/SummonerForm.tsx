@@ -85,7 +85,6 @@ export const SummonerForm = ({
             }
           },
           onTxError(error) {
-            console.log('error', error);
             error instanceof Error
               ? setErrMsg(error.message)
               : setErrMsg('Unknown Tx Error: Error Summoning Ball');

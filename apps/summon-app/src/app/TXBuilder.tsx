@@ -28,7 +28,6 @@ export const TXBuilder = ({ chainId, provider, children }: BuilderProps) => {
   }, [transactions]);
 
   async function fireTransaction(tx: TX) {
-    console.log('fired');
     if (!chainId || !isValidNetwork(chainId) || !provider) {
       tx?.lifeCycleFns?.onTxError?.(
         Error('Invalid Network or no Web3 Wallet detected')

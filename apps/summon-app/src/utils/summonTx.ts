@@ -12,7 +12,6 @@ import {
   ValidNetwork,
 } from '@daohaus/common-utilities';
 
-import { ethers, providers } from 'ethers';
 import { FormValues } from '../types/form';
 import { FORM_KEYS } from './formKeys';
 
@@ -254,30 +253,4 @@ export const assembleTxArgs = (
   const args = [initParams, initActions, getNonce()];
 
   return args;
-};
-
-export const summon = async (
-  provider: providers.Web3Provider,
-  formValues: Record<string, unknown>,
-  chainId: ValidNetwork
-) => {
-  try {
-    const baalSummoner = CONTRACTS.V3_FACTORY[chainId];
-    if (!baalSummoner) {
-      console.log('chainId', chainId);
-      console.log('baalSummoner', baalSummoner);
-      throw new Error('Could not find V3 summoner for this network');
-    }
-
-    const contract = new ethers.Contract(
-      baalSummoner,
-      LOCAL_ABI.BAAL_FACTORY,
-      provider.getSigner()
-    );
-
-    const args = assembleTxArgs(formValues, chainId);
-    return await contract.functions.summonBaalAndSafe(...args);
-  } catch (error) {
-    console.log(error);
-  }
 };

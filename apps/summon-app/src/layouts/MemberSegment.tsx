@@ -7,7 +7,7 @@ import { FormSegment, TextAreaSection } from '../layouts/FormLayouts';
 import { transformMemberData, validateMemberData } from '../utils/common';
 import { FORM_KEYS } from '../utils/formKeys';
 
-export const MembersSegment = () => {
+export const MembersSegment = ({ formDisabled }: { formDisabled: boolean }) => {
   const {
     watch,
     formState: { errors, touchedFields },
@@ -43,6 +43,7 @@ export const MembersSegment = () => {
             full
             number
             required
+            disabled={formDisabled}
             helperText={helperText}
             registerOptions={{
               setValueAs: transformMemberData,

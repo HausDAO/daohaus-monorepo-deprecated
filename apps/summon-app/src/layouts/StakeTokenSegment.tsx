@@ -6,7 +6,11 @@ import { FormSegment, SplitColumn } from './FormLayouts';
 import { FORM_COPY } from '../utils/content';
 import { FORM_KEYS } from '../utils/formKeys';
 
-export const StakeTokensSegment = () => {
+export const StakeTokensSegment = ({
+  formDisabled,
+}: {
+  formDisabled: boolean;
+}) => {
   const { watch } = useFormContext();
   const formValues = watch();
 
@@ -32,6 +36,7 @@ export const StakeTokensSegment = () => {
                   label="Name"
                   placeholder="Voting Stake"
                   required
+                  disabled={formDisabled}
                   registerOptions={{
                     required: 'Token name is required',
                     maxLength: {
@@ -48,6 +53,7 @@ export const StakeTokensSegment = () => {
                   placeholder="vSTK"
                   full
                   required
+                  disabled={formDisabled}
                   registerOptions={{
                     required: 'Token name is required',
                     maxLength: {
@@ -65,6 +71,7 @@ export const StakeTokensSegment = () => {
                 <WrappedSwitch
                   id={FORM_KEYS.VOTE_TOKEN_TRANSFER}
                   label="Voting Stake Transferable?"
+                  disabled={formDisabled}
                   switches={[
                     {
                       fieldLabel: votingTransferableLabel,
@@ -77,6 +84,7 @@ export const StakeTokensSegment = () => {
                 <WrappedSwitch
                   id={FORM_KEYS.NV_TOKEN_TRANSFER}
                   label="Non-Voting Transferable?"
+                  disabled={formDisabled}
                   switches={[
                     {
                       fieldLabel: nvTransferableLabel,

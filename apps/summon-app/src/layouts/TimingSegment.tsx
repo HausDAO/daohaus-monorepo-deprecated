@@ -2,7 +2,7 @@ import { TimePicker } from '../components/TimePicker/TimePicker';
 import { FormSegment, SplitColumn } from '../layouts/FormLayouts';
 import { FORM_KEYS } from '../utils/formKeys';
 
-export const TimingSegment = () => {
+export const TimingSegment = ({ formDisabled }: { formDisabled: boolean }) => {
   return (
     <FormSegment
       title="Proposal Timing"

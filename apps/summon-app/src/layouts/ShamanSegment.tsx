@@ -7,7 +7,7 @@ import { FormSegment, TextAreaSection } from '../layouts/FormLayouts';
 import { transformShamans, validateShamanData } from '../utils/common';
 import { FORM_KEYS } from '../utils/formKeys';
 
-export const ShamanSegment = () => {
+export const ShamanSegment = ({ formDisabled }: { formDisabled: boolean }) => {
   const {
     watch,
     formState: { errors, touchedFields },
@@ -43,6 +43,7 @@ export const ShamanSegment = () => {
             id={FORM_KEYS.SHAMANS}
             full
             number
+            disabled={formDisabled}
             helperText={helperText}
             registerOptions={{
               setValueAs: transformShamans,

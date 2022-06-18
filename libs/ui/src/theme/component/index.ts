@@ -1,2 +1,2 @@
 export * from './fieldFamily';
-export * from './button';
+export * from '../atoms/button';

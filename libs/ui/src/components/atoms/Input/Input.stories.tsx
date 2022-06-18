@@ -19,11 +19,22 @@ InputWithIcon.args = {
   placeholder: 'Placeholder',
   icon: BsSearch,
 };
+
 export const InputDisabled = Template.bind({});
 InputDisabled.args = {
   placeholder: 'Disabled',
   disabled: true,
 };
+
+export const InputSuccess = Template.bind({});
+InputSuccess.args = {
+  placeholder: 'Success',
+  success: {
+    type: 'success',
+    message: 'This should not be visible',
+  },
+};
+
 export const InputWarning = Template.bind({});
 InputWarning.args = {
   placeholder: 'Warning',
@@ -32,6 +43,7 @@ InputWarning.args = {
     message: 'This should not be visible',
   },
 };
+
 export const InputError = Template.bind({});
 InputError.args = {
   placeholder: 'Error',
@@ -40,6 +52,7 @@ InputError.args = {
     message: 'This should not be visible',
   },
 };
+
 export const NumberInput = Template.bind({});
 NumberInput.args = {
   placeholder: '0123456789',

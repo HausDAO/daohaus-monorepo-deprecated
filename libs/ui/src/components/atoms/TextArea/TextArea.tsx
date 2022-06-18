@@ -16,10 +16,11 @@ type Ref =
   | undefined;
 
 export const TextArea = React.forwardRef((props: TextAreaProps, ref: Ref) => {
-  const { full, warning, error, className, height } = props;
+  const { full, warning, error, success, className, height } = props;
 
   const classes = classNames({
     full,
+    success,
     warning,
     error,
   });

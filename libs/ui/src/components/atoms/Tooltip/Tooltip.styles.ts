@@ -13,7 +13,7 @@ export const TooltipTrigger = styled(TooltipPrimitive.Trigger)`
   border: none;
 
   svg {
-    color: ${({ theme }: { theme: Theme }) => theme.warning};
+    color: ${({ theme }: { theme: Theme }) => theme.secondary};
   }
 `;
 

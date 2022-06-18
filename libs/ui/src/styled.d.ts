@@ -20,6 +20,7 @@ declare module 'styled-components' {
     bgColor: string;
     fontColor: string;
     primary: string;
+    secondary: string;
     error: string;
     warning: string;
     success: string;

@@ -5,8 +5,8 @@ export const breakpoints = {
   lg: '1250px',
 };
 export const widthQuery = {
-  xs: `(max-width: ${breakpoints.xs}px)`,
-  sm: `(max-width: ${breakpoints.sm}px)`,
-  md: `(max-width: ${breakpoints.md}px)`,
-  lg: `(max-width: ${breakpoints.lg}px)`,
+  xs: `(max-width: ${breakpoints.xs})`,
+  sm: `(max-width: ${breakpoints.sm})`,
+  md: `(max-width: ${breakpoints.md})`,
+  lg: `(max-width: ${breakpoints.lg})`,
 };

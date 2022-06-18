@@ -14,7 +14,7 @@ export const GlobalStyles = createGlobalStyle`
     }
   }
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale; 
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 
   #root {

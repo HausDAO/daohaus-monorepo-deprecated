@@ -8,14 +8,25 @@ type SwitchComponentProps = SwitchProps & {
   fieldLabel: string;
   id?: string;
   className?: string;
+  disabled?: boolean;
 };
 type SwitchWrapperProps = PrimitiveWrapper & {
   switches: SwitchComponentProps[];
+  disabled?: boolean;
 };
 
 export const WrappedSwitch = (props: SwitchWrapperProps) => {
-  const { id, helperText, info, label, error, success, warning, switches } =
-    props;
+  const {
+    id,
+    helperText,
+    info,
+    label,
+    error,
+    success,
+    warning,
+    switches,
+    disabled,
+  } = props;
   const { control } = useFormContext();
   return (
     <FieldWrapper
@@ -41,6 +52,7 @@ export const WrappedSwitch = (props: SwitchWrapperProps) => {
                   {...switchProps}
                   switchOn={field.value}
                   onCheckedChange={field.onChange}
+                  disabled={disabled}
                   ref={field.ref}
                 />
               );

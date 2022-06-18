@@ -18,6 +18,7 @@ type ExplorerLinkProps = {
   Icon?: IconType;
   address?: string;
   className?: string;
+  type?: string;
 };
 
 export const ExplorerLink = ({
@@ -26,18 +27,19 @@ export const ExplorerLink = ({
   address,
   Icon = RiExternalLinkLine,
   className,
+  type,
 }: ExplorerLinkProps) => {
   const { chainId: contextChainId } = useHausConnect();
 
   const explorerLink = useMemo(() => {
     if (chainId) {
-      return generateExplorerLink({ chainId, address });
+      return generateExplorerLink({ chainId, address, type });
     }
     if (contextChainId && isValidNetwork(contextChainId)) {
-      return generateExplorerLink({ chainId: contextChainId, address });
+      return generateExplorerLink({ chainId: contextChainId, address, type });
     }
     return '/';
-  }, [contextChainId, chainId, address]);
+  }, [contextChainId, chainId, address, type]);
 
   return (
     <TemporaryLink

@@ -3,10 +3,14 @@ import { useFormContext } from 'react-hook-form';
 import { WrappedInput, WrappedSwitch } from '@daohaus/ui';
 
 import { FormSegment, SplitColumn } from './FormLayouts';
-import { FORM_COPY } from '../utils/content';
+import { FORM_COPY, INFO_COPY } from '../utils/content';
 import { FORM_KEYS } from '../utils/formKeys';
 
-export const StakeTokensSegment = () => {
+export const StakeTokensSegment = ({
+  formDisabled,
+}: {
+  formDisabled: boolean;
+}) => {
   const { watch } = useFormContext();
   const formValues = watch();
 
@@ -31,7 +35,9 @@ export const StakeTokensSegment = () => {
                   id={FORM_KEYS.TOKEN_NAME}
                   label="Name"
                   placeholder="Voting Stake"
+                  info={INFO_COPY.VOTING_STK}
                   required
+                  disabled={formDisabled}
                   registerOptions={{
                     required: 'Token name is required',
                     maxLength: {
@@ -46,8 +52,10 @@ export const StakeTokensSegment = () => {
                   id={FORM_KEYS.TOKEN_SYMBOL}
                   label="Symbol"
                   placeholder="vSTK"
+                  info={INFO_COPY.TOKEN_SYMBOL}
                   full
                   required
+                  disabled={formDisabled}
                   registerOptions={{
                     required: 'Token name is required',
                     maxLength: {
@@ -65,6 +73,8 @@ export const StakeTokensSegment = () => {
                 <WrappedSwitch
                   id={FORM_KEYS.VOTE_TOKEN_TRANSFER}
                   label="Voting Stake Transferable?"
+                  info={INFO_COPY.STAKE_TRANSFER}
+                  disabled={formDisabled}
                   switches={[
                     {
                       fieldLabel: votingTransferableLabel,
@@ -77,6 +87,8 @@ export const StakeTokensSegment = () => {
                 <WrappedSwitch
                   id={FORM_KEYS.NV_TOKEN_TRANSFER}
                   label="Non-Voting Transferable?"
+                  disabled={formDisabled}
+                  info={INFO_COPY.NV_STAKE_TRANSFER}
                   switches={[
                     {
                       fieldLabel: nvTransferableLabel,

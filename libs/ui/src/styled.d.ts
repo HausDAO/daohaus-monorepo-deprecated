@@ -1,30 +1,19 @@
 import 'styled-components';
 
-export type CheckboxColorTargets = {
-  bg: string;
-  border: string;
-  activeBorder: string;
-  disabled: string;
-};
-
 export type ButtonColorTargets = {
-  bg: string;
   text: string;
+  bg: string;
   border: string;
-  hoverBg: string;
-  hoverText: string;
+  hoverText?: string;
+  hoverBg?: string;
   hoverBorder: string;
-  focusBg: string;
-  focusText: string;
+  focusText?: string;
+  focusBg?: string;
   focusBorder: string;
-  activeBg: string;
-  activeText: string;
-  activeBorder: string;
-  disabledBg: string;
-  disabledText: string;
-  disabledBorder: string;
+  disabledText?: string;
+  disabledBg?: string;
+  disabledBorder?: string;
 };
-
 declare module 'styled-components' {
   export interface DefaultTheme {
     themeName: string;
@@ -39,10 +28,15 @@ declare module 'styled-components' {
     info: string;
     field: {
       bg: string;
-      focus: string;
+      border: string;
       placeholderText: string;
-      disabled: string;
+      hoverBg: string;
+      hoverBorder: string;
+      focusBg: string;
+      focusBorder: string;
+      disabledBg: string;
       disabledColor: string;
+      disabledBorder: string;
       disabledPlaceholder: string;
     };
     button: {
@@ -57,12 +51,26 @@ declare module 'styled-components' {
       bg: string;
     };
     checkbox: {
+      bg: string;
       border: string;
+      hoverBg: string;
+      hoverBorder: string;
+      focusBg: string;
+      focusBorder: string;
+      disabledBg: string;
+      disabledBorder: string;
+      activeBg: string;
       activeBorder: string;
+      activeHoverBg: string;
+      activeHoverBorder: string;
+      activeFocusBg: string;
+      activeFocusBorder: string;
+      activeDisabledBg: string;
+      activeDisabledBorder: string;
     };
     select: {
-      bg: string;
       text: string;
+      bg: string;
       borderColor: string;
     };
     spinner: {
@@ -74,20 +82,45 @@ declare module 'styled-components' {
         bg: string;
         activeBg: string;
         disabledBg: string;
+        activeDisabledBg: string;
       };
       thumb: {
         bg: string;
-        activeBg: string;
+        border: string;
+        hoverBg: string;
+        hoverBorder: string;
+        focusBg: string;
+        focusBorder: string;
         disabledBg: string;
+        disabledBorder: string;
+        activeBg: string;
+        activeBorder: string;
+        activeHoverBg: string;
+        activeHoverBorder: string;
+        activeFocusBg: string;
+        activeFocusBorder: string;
+        activeDisabledBg: string;
+        activeDisabledBorder: string;
       };
     };
     radio: {
       item: {
         bg: string;
         border: string;
-        activeBg: string;
+        hoverBg: string;
+        hoverBorder: string;
+        focusBg: string;
+        focusBorder: string;
         disabledBg: string;
         disabledBorder: string;
+        activeBg: string;
+        activeBorder: string;
+        activeHoverBg: string;
+        activeHoverBorder: string;
+        activeFocusBg: string;
+        activeFocusBorder: string;
+        activeDisabledBg: string;
+        activeDisabledBorder: string;
       };
       indicator: {
         bg: string;

@@ -12,6 +12,8 @@ export const BaseTextArea = styled.textarea`
   font-family: ${field.fontFamily};
   height: 7.688rem;
   max-width: ${field.size.lg};
+  height: ${({ height }: { height?: string }) => height || '12rem'};
+
   width: 100%;
   border: 1px solid ${({ theme }: { theme: Theme }) => theme.bgColor};
   border-radius: ${field.borderRadius};

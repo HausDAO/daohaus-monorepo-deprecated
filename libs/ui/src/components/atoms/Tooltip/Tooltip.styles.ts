@@ -24,6 +24,7 @@ export const TooltipContent = styled(TooltipPrimitive.Content)`
   padding: 1.2rem 1.5rem;
   font-size: ${font.size.md};
   line-height: 2.4rem;
+  max-width: 30rem;
   color: ${({ theme }: { theme: Theme }) => theme.fontColor};
   &[data-state='delayed-open'] {
     animation: ${fadeIn} 0.15s ease-in forwards;

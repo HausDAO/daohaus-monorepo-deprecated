@@ -1,9 +1,14 @@
 import { WrappedInput } from '@daohaus/ui';
 
 import { FormSegment, SplitColumn } from '../layouts/FormLayouts';
+import { INFO_COPY } from '../utils/content';
 import { FORM_KEYS } from '../utils/formKeys';
 
-export const AdvancedSegment = () => {
+export const AdvancedSegment = ({
+  formDisabled,
+}: {
+  formDisabled: boolean;
+}) => {
   return (
     <FormSegment
       title="Advanced Governance"
@@ -18,7 +23,9 @@ export const AdvancedSegment = () => {
                   id={FORM_KEYS.QUORUM}
                   label="Quorum %"
                   required
+                  info={INFO_COPY.QUORUM}
                   defaultValue="80"
+                  disabled={formDisabled}
                   registerOptions={{ required: 'This value is required' }}
                 />
               ),
@@ -27,7 +34,9 @@ export const AdvancedSegment = () => {
                   id={FORM_KEYS.MIN_RETENTION}
                   label="Min Retention %"
                   defaultValue="66"
+                  info={INFO_COPY.MIN_RETENTION}
                   required
+                  disabled={formDisabled}
                   registerOptions={{ required: 'This value is required' }}
                 />
               ),
@@ -40,6 +49,8 @@ export const AdvancedSegment = () => {
                   label="Sponsor Threshold"
                   defaultValue="0"
                   required
+                  info={INFO_COPY.SPONSOR_THRESHOLD}
+                  disabled={formDisabled}
                   registerOptions={{ required: 'This value is required' }}
                 />
               ),
@@ -49,6 +60,8 @@ export const AdvancedSegment = () => {
                   label="New Offering (ETH)"
                   defaultValue="0"
                   required
+                  info={INFO_COPY.NEW_OFFERING}
+                  disabled={formDisabled}
                   registerOptions={{ required: 'This value is required' }}
                 />
               ),

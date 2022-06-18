@@ -1,10 +1,9 @@
-import React, { useEffect, useState, MouseEvent } from 'react';
+import React, { MouseEvent } from 'react';
+import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import styled from 'styled-components';
 import { BiCopy } from 'react-icons/bi';
 import { H5, H6, Underline, ParLg, ParMd } from '@daohaus/ui';
 import { AvatarLg } from '../components/Avatar';
-import { networks } from '../constants';
-import { Haus } from '@daohaus/dao-data';
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -30,50 +29,20 @@ const NameContainer = styled.div`
 `;
 
 const Profile = () => {
-  const [profile, setProfile] = useState({
-    image: '',
-    name: '',
-    description: '',
-    emoji: '',
-    background: '',
-  });
+  const { profile } = useHausConnect();
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     navigator.clipboard.writeText(`stub.eth`);
   };
 
-  const getProfile = async () => {
-    const haus = Haus.create(networks);
-    try {
-      const profile = await haus.profile.get(
-        '0xEAC5F0d4A9a45E1f9FdD0e7e2882e9f60E301156'
-      );
-      if (profile) {
-        setProfile({
-          name: profile.name || '',
-          image: profile.image || '',
-          description: profile.description || '',
-          emoji: profile.emoji || '',
-          background: profile.image || '',
-        });
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    getProfile();
-  }, []);
-
   return (
     <ProfileContainer>
-      <AvatarLg src={profile.image} alt="profile image" />
+      <AvatarLg src={profile?.image || ''} alt="profile image" />
       <div>
         <NameContainer>
-          <H5>{profile.name}</H5>
+          <H5>{profile?.name || ''}</H5>
           <ParLg as="span" role="img" aria-label="profile emoji">
-            {profile.emoji}
+            {profile?.emoji || ''}
           </ParLg>
         </NameContainer>
         <NameContainer>

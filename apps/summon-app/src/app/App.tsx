@@ -15,7 +15,7 @@ import { SummonError } from '../layouts/SummonError';
 const TemporaryLayout = styled.div`
   width: 100%;
   padding-top: 2.7rem;
-  padding-right: 4rem;
+  padding: 4rem;
   footer {
     margin-top: 17rem;
     padding-bottom: 5rem;

@@ -1,4 +1,4 @@
-import { Divider, H5, ParMd } from '@daohaus/ui';
+import { Divider, H5, ParMd, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
 
 type SegmentType = {
@@ -64,6 +64,13 @@ const StyledRow = styled.div`
   .left-section,
   .right-section {
     width: 24rem;
+    @media ${widthQuery.sm} {
+      width: 100%;
+      margin-bottom: 1.6rem;
+    }
+  }
+  @media ${widthQuery.sm} {
+    flex-direction: column;
   }
 `;
 
@@ -95,6 +102,9 @@ export const CenterLayout = styled.main`
   }
   .title-section {
     margin-bottom: 16rem;
+    @media ${widthQuery.sm} {
+      margin-bottom: 4rem;
+    }
   }
   .top-divider {
     margin-top: 3rem;

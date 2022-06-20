@@ -3,16 +3,20 @@ import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import styled from 'styled-components';
 import { BiCopy } from 'react-icons/bi';
 import { H5, H6, Underline, ParLg, ParMd } from '@daohaus/ui';
-import { AvatarLg } from '../components/Avatar';
+import { Avatar, TemporaryLink } from '@daohaus/ui';
 
 const ProfileContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 2.6rem;
 `;
-const StyledAnchor = styled.a`
+const StyledAnchor = styled(TemporaryLink)`
   text-decoration: none;
   color: white;
+  :hover {
+    text-decoration: underline;
+    color: white;
+  }
 `;
 
 const CopyIcon = styled(BiCopy)`
@@ -26,6 +30,11 @@ const CopyIcon = styled(BiCopy)`
 const NameContainer = styled.div`
   display: flex;
   align-items: center;
+`;
+
+const AvatarLg = styled(Avatar)`
+  height: 16rem;
+  width: 16rem;
 `;
 
 const Profile = () => {
@@ -62,9 +71,6 @@ const Profile = () => {
         </StyledAnchor>
         <Underline>
           <ParMd>Edit ENS Profile</ParMd>
-        </Underline>
-        <Underline>
-          <ParMd>Edit Preferences</ParMd>
         </Underline>
       </div>
     </ProfileContainer>

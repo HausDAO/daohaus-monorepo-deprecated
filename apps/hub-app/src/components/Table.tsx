@@ -2,7 +2,8 @@ import React from 'react';
 import { useTable, Column } from 'react-table';
 import styled from 'styled-components';
 import { amberDark, crimsonDark } from '@radix-ui/colors';
-import { AvatarSm } from '../components/Avatar';
+import { Avatar } from '@daohaus/ui';
+import { BiGhost } from 'react-icons/bi';
 
 interface EData {
   name: string;
@@ -95,7 +96,7 @@ export const DataTable = () => {
         Cell: ({ value }: { value: string }) => {
           return (
             <FirstCell>
-              <AvatarSm />
+              <Avatar size="sm" fallback={<BiGhost />} />
               {value}
             </FirstCell>
           );

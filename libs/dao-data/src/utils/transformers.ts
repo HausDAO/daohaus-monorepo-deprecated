@@ -1,6 +1,5 @@
 import { votingPowerPercentage } from '@daohaus/common-utilities';
 import { ListMembershipsQuery } from '../subgraph/queries/members.generated';
-import { Proposal } from '../subgraph/schema.generated';
 import {
   TransformedProposal,
   TransformedMembership,
@@ -9,18 +8,16 @@ import {
   BasicProfile,
   TokenBalance,
   DaoTokenBalances,
+  QueryProposal,
 } from '../types';
-import { getProposalStatus, ProposalForStatusCheck } from './proposalsStatus';
+import { getProposalStatus } from './proposalsStatus';
 
 export const transformProposal = (
-  proposal: Partial<Proposal> | undefined
+  proposal: QueryProposal
 ): TransformedProposal => {
-  if (!proposal) {
-    return {};
-  }
   return {
     ...proposal,
-    status: getProposalStatus(proposal as ProposalForStatusCheck),
+    status: getProposalStatus(proposal),
   };
 };
 
@@ -65,7 +62,7 @@ export const transformMembershipList = (
         (member) => {
           return {
             dao: member.dao.id,
-            name: member.dao.metaData?.name,
+            name: member.dao.name,
             safeAddress: member.dao.safeAddress,
             activeProposalCount: member.dao.activeProposals?.length || 0,
             activeMemberCount: member.dao.activeMemberCount,

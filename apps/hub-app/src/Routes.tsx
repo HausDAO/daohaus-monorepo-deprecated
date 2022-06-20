@@ -1,21 +1,15 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Routes as RoutesDom, Route } from 'react-router-dom';
 
 import HomePage from './pages/HomePage';
 
 const Routes = () => {
   return (
-    <Switch>
-      <Route path="/">
-        <HomePage />
-      </Route>
-      <Route path="/dashboard">
-        <HomePage />
-      </Route>
-      <Route path="/explore">
-        <HomePage />
-      </Route>
-    </Switch>
+    <RoutesDom>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/dashboard" element={<HomePage />} />
+      <Route path="/explore" element={<HomePage />} />
+    </RoutesDom>
   );
 };
 

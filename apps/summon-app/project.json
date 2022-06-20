@@ -70,7 +70,7 @@
     "deploy": {
       "executor": "@alexkeating/nx-skynet:deploy",
       "options": {
-        "uploadDir": "dist/apps/hub-app",
+        "uploadDir": "dist/apps/summon-app",
         "registrySeedVarName": "DAOHAUS_SUMMON_SKYNET_SEED",
         "registryDataKey": "skylink.txt",
         "portalUrl": "https://skynetfree.net",

@@ -137,7 +137,16 @@ export const loadProfile = async ({
     }
   } catch (error) {
     console.error(error);
-    setProfile(null);
+    type BasicProfileImage = {
+      original: {
+        src: string;
+        width: number;
+        height: number;
+        mimeType: string;
+        size: number;
+      };
+    };
+    setProfile({ displayName: '', address: '', ens: '' });
   } finally {
     if (shouldUpdate) {
       setProfileLoading(false);

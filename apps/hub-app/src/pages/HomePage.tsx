@@ -42,6 +42,7 @@ const ProfileContainer = styled.div`
 
   @media (min-width: ${widthBreakpoint.mobileLg}px) {
     flex-direction: row;
+    justify-content: space-around;
   }
 `;
 
@@ -69,8 +70,8 @@ const HomePage = () => {
       <SideTopRight />
       <Header />
       <ProfileContainer>
-        {isConnected && !isProfileLoading ? <Profile /> : <ConnectCard />}
         <BodyNav />
+        {isConnected && !isProfileLoading ? <Profile /> : <ConnectCard />}
       </ProfileContainer>
       <Body>
         <TableControl />

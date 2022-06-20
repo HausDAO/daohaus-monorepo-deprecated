@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { crimsonDark, crimsonDarkA } from '@radix-ui/colors';
 import { widthBreakpoint, font } from '@daohaus/ui';
+import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 const LinkContainer = styled.div`
   padding: 1rem;
@@ -20,6 +21,11 @@ const LinkContainer = styled.div`
 const BodyNavContainer = styled.div`
   display: flex;
   gap: 1rem;
+
+  @media (min-width: ${widthBreakpoint.mobileLg}px) {
+    align-items: center;
+    justify-content: center;
+  }
 `;
 const StyledLink = styled(Link)`
   text-decoration-color: ${crimsonDark.crimson11};
@@ -44,10 +50,11 @@ const NavLink = ({ children, path }: NavLinkProps) => {
 };
 
 export const BodyNav = () => {
+  const { isConnected } = useHausConnect();
   return (
     <BodyNavContainer>
       <NavLink path="/explore">Explore</NavLink>
-      <NavLink path="/dashboard">Dashboard</NavLink>
+      {!isConnected && <NavLink path="/dashboard">Dashboard</NavLink>}
     </BodyNavContainer>
   );
 };

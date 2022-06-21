@@ -1,5 +1,12 @@
 import { Bytes, log } from '@graphprotocol/graph-ts';
-import { Dao, Proposal, RageQuit, Shaman, Vote } from '../generated/schema';
+import {
+  Dao,
+  Proposal,
+  RageQuit,
+  Record,
+  Shaman,
+  Vote,
+} from '../generated/schema';
 
 import {
   CancelProposal,
@@ -46,6 +53,20 @@ export function handleSetupComplete(event: SetupComplete): void {
   dao.totalLoot = event.params.totalLoot;
 
   log.info('handleSetupComplete loot: {}', [dao.totalLoot.toString()]);
+
+  let daoProfile = Record.load(daoId.concat('-record-summon'));
+  if (daoProfile) {
+    let result = parser.getResultFromJson(daoProfile.content);
+    if (result.error != 'none') {
+      log.error('no content', []);
+      return;
+    }
+    let object = result.object;
+
+    let name = parser.getStringFromJson(object, 'name');
+
+    dao.name = name.data;
+  }
 
   dao.save();
 }

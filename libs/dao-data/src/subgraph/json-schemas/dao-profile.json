@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/HausDAO/daohaus-monorepo/develop/libs/dao-data/src/subgraph/json-schema/dao-profile.json",
+  "title": "DAO Profile",
+  "description": "A basic profile of metadata for a DAO",
+  "type": "object",
+  "properties": {
+    "daoId": {
+      "description": "The unique identifier and contract address for a DAO",
+      "type": "ethereumAddress"
+    },
+    "name": {
+      "description": "Name of the DAO",
+      "type": "string"
+    },
+    "description": {
+      "description": "Short description of the DAO",
+      "type": "string"
+    },
+    "longDescription": {
+      "description": "Long description of the DAO",
+      "type": "markdown"
+    },
+    "avatarImg": {
+      "description": "Avatar image of the DAO",
+      "type": "ipfsHash"
+    },
+    "tags": {
+      "description": "Tags for the DAO",
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "links": {
+      "type": "object",
+      "properties": {
+        "website": "string",
+        "github": "string",
+        "telegram": "string",
+        "discord": "string",
+        "twitter": "string",
+        "other": "string"
+      }
+    }
+  },
+  "required": ["daoId", "name"]
+}

@@ -77,11 +77,7 @@ export namespace parser {
     if (daoAddress === null) {
       return false;
     }
-    let entityId = daoAddress
-      .toHexString()
-      .concat('-record-')
-      .concat(event.block.timestamp.toString())
-      .concat(event.logIndex.toString());
+    let entityId = daoAddress.toHexString().concat('-record-summon');
 
     let entity = new Record(entityId);
 
@@ -99,16 +95,6 @@ export namespace parser {
     entity.content = event.params.content;
 
     entity.save();
-
-    let dao = Dao.load(daoAddress.toHexString());
-    log.info('looking for dao, {}', [daoAddress.toHexString()]);
-    if (dao) {
-      log.info('found dao {}, name: {}', [dao.id, name.data]);
-
-      dao.name = name.data;
-
-      dao.save();
-    }
 
     return true;
   }

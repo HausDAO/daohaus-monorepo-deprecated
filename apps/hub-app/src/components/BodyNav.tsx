@@ -33,6 +33,7 @@ const StyledLink = styled(Link)`
   color: ${crimsonDark.crimson12};
   text-underline-offset: 0.7rem;
 `;
+
 type NavLinkProps = {
   children: React.ReactNode;
   path: string;

@@ -37,6 +37,7 @@ export const StakeTokensSegment = ({
                   placeholder="Voting Stake"
                   info={INFO_COPY.VOTING_STK}
                   required
+                  full
                   disabled={formDisabled}
                   registerOptions={{
                     required: 'Token name is required',

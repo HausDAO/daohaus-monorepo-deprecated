@@ -99,6 +99,7 @@ const ConnectDropdown = styled(Dropdown)`
   display: flex;
   justify-content: flex-end;
 `;
+
 const WarningButton = styled(Button)`
   @media ${widthQuery.sm} {
     &.sm {

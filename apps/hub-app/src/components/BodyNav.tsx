@@ -27,6 +27,7 @@ const BodyNavContainer = styled.div`
     justify-content: center;
   }
 `;
+
 const StyledLink = styled(Link)`
   text-decoration-color: ${crimsonDark.crimson11};
   color: ${crimsonDark.crimson12};

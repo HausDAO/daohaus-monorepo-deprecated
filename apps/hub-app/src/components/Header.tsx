@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Button, Dropdown, ParMd } from '@daohaus/ui';
+import {
+  Button,
+  Dropdown,
+  ParMd,
+  useBreakpoint,
+  widthQuery,
+} from '@daohaus/ui';
 import { ConnectButton } from '@daohaus/daohaus-connect-feature';
 import { BiCommand, BiChevronDown } from 'react-icons/bi';
 import { crimsonDarkA, crimsonDark } from '@radix-ui/colors';
@@ -61,6 +67,7 @@ const StyledCommand = styled(BiCommand)`
 `;
 
 const Header = () => {
+  const isSm = useBreakpoint(widthQuery.sm);
   return (
     <HeaderContainer>
       <Dropdown
@@ -77,7 +84,7 @@ const Header = () => {
         ]}
         width="4rem"
       />
-      <ConnectButton />
+      <ConnectButton isSm={isSm} />
     </HeaderContainer>
   );
 };

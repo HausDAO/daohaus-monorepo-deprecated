@@ -1,24 +1,26 @@
 import { BiError } from 'react-icons/bi';
+import styled from 'styled-components';
 
 import {
   getNetworkName,
   Keychain,
   NetworkType,
 } from '@daohaus/common-utilities';
-import { Button, Dropdown, DropdownItem, ParXs } from '@daohaus/ui';
+import { Button, Dropdown, DropdownItem, ParXs, widthQuery } from '@daohaus/ui';
 
 import { useHausConnect } from '../../HausConnectContext';
 
-export const NetworkButton = () => {
+export const NetworkButton = ({ isSm }: { isSm: boolean }) => {
   const { isDaoScope, validNetwork, isConnected } = useHausConnect();
+
   if (!isConnected) return null;
 
   if (
     isDaoScope /*AND user's network is different from DAO's network (in DAO context)*/
   )
-    return <NotDaoNetwork />;
+    return <NotDaoNetwork isSm={isSm} />;
 
-  if (!validNetwork) return <NotSupportedNetwork />;
+  if (!validNetwork) return <NotSupportedNetwork isSm={isSm} />;
 
   return null;
 };
@@ -35,14 +37,19 @@ export const getNetworkPanels = (
       key: network.chainId,
       type: 'clickable',
       content: (
-        <Button secondary fullWidth leftAlign onClick={handleNetworkSwitch}>
+        <WarningButton
+          secondary
+          fullWidth
+          leftAlign
+          onClick={handleNetworkSwitch}
+        >
           {network.name}
-        </Button>
+        </WarningButton>
       ),
     };
   });
 
-export const NotDaoNetwork = () => {
+export const NotDaoNetwork = ({ isSm }: { isSm: boolean }) => {
   //  In the future, this will come from the dao context
   const { switchNetwork } = useHausConnect();
   const sampleDaoNetworkId = '0x1';
@@ -50,26 +57,36 @@ export const NotDaoNetwork = () => {
   const handleSwitchNetwork = () => {
     switchNetwork(sampleDaoNetworkId);
   };
+
   return (
-    <Button tertiary IconLeft={BiError} onClick={handleSwitchNetwork}>
-      Switch to {getNetworkName(sampleDaoNetworkId)}
-    </Button>
+    <WarningButton
+      tertiary
+      IconLeft={BiError}
+      onClick={handleSwitchNetwork}
+      sm={isSm}
+    >
+      {isSm ? '' : `Switch to ${getNetworkName(sampleDaoNetworkId)}`}
+    </WarningButton>
   );
 };
 
-export const NotSupportedNetwork = () => {
+export const NotSupportedNetwork = ({ isSm }: { isSm: boolean }) => {
   const { switchNetwork, networks } = useHausConnect();
 
+  const innerButton = isSm ? (
+    <WarningButton tertiary sm IconLeft={BiError} />
+  ) : (
+    <WarningButton tertiary IconLeft={BiError}>
+      Network Unavailable
+    </WarningButton>
+  );
+
   return (
-    <Dropdown
+    <ConnectDropdown
       align="end"
       spacing="0.7rem"
       width="25.25rem"
-      trigger={
-        <Button tertiary IconLeft={BiError}>
-          Network Unavailable
-        </Button>
-      }
+      trigger={innerButton}
       items={[
         { type: 'label', content: <ParXs>Switch to available network</ParXs> },
         ...getNetworkPanels(networks, switchNetwork),
@@ -77,3 +94,20 @@ export const NotSupportedNetwork = () => {
     />
   );
 };
+
+const ConnectDropdown = styled(Dropdown)`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const WarningButton = styled(Button)`
+  @media ${widthQuery.sm} {
+    &.sm {
+      min-width: 0;
+      display: flex;
+    }
+    svg.icon-left {
+      margin-right: 0;
+    }
+  }
+`;

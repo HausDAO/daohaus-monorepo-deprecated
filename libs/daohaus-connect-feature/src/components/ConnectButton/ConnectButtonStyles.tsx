@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { violet } from '@radix-ui/colors';
+import { widthQuery } from '@daohaus/ui';
 
 export const TemporaryAvatar = styled.div`
   width: 3rem;
@@ -24,4 +25,7 @@ export const Container = styled.div`
 `;
 export const ButtonContainer = styled.div`
   width: 20rem;
+  @media ${widthQuery.sm} {
+    width: fit-content;
+  }
 `;

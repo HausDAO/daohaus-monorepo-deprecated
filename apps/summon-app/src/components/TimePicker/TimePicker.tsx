@@ -5,7 +5,7 @@ import { hoursToSeconds, minutesToSeconds } from 'date-fns/esm';
 import { Field, OptionType, WrappedInputSelect } from '@daohaus/ui';
 import { isNumberString } from '@daohaus/common-utilities';
 
-//  REFACTOR TO MOLECULES AFTER REVIEW
+//  REFACTOR TO MOLECULES AFTER SUMMONER REVIEW
 
 const defaultOptions = [
   { name: 'Days', value: 'days' },

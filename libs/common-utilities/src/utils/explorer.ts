@@ -4,7 +4,9 @@ import { ValidNetwork } from '../types';
 export const generateExplorerLink = ({
   chainId,
   address,
+  type = 'address',
 }: {
   chainId: ValidNetwork;
   address?: string;
-}) => `${ENDPOINTS['EXPLORER'][chainId]}${'/address/' + address || ''}`;
+  type?: string;
+}) => `${ENDPOINTS['EXPLORER'][chainId]}/${type}/${address || ''}`;

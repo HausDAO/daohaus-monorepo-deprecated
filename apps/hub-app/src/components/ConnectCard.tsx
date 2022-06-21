@@ -60,7 +60,7 @@ const ConnectCard = () => {
         <Bold>Connect Wallet to view Dashboard</Bold>
       </ParMd>
       <ParSm>
-        View your DAOs,active proposals, and navigate to vote and interact
+        View your DAOs, active proposals, and navigate to vote and interact
       </ParSm>
       <ConnectWalletButton />
     </Container>

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$schema": "http://json-schema.org/schema#",
   "$id": "https://raw.githubusercontent.com/HausDAO/daohaus-monorepo/develop/libs/dao-data/src/subgraph/json-schema/dao-profile.json",
   "title": "DAO Profile",
   "description": "A basic profile of metadata for a DAO",
@@ -7,7 +7,8 @@
   "properties": {
     "daoId": {
       "description": "The unique identifier and contract address for a DAO",
-      "type": "ethereumAddress"
+      "type": "string",
+      "pattern": "^0x[a-fA-F0-9]{40}$"
     },
     "name": {
       "description": "Name of the DAO",
@@ -19,11 +20,11 @@
     },
     "longDescription": {
       "description": "Long description of the DAO",
-      "type": "markdown"
+      "type": "string"
     },
     "avatarImg": {
       "description": "Avatar image of the DAO",
-      "type": "ipfsHash"
+      "pattern": "Qm[1-9A-Za-z]{44}"
     },
     "tags": {
       "description": "Tags for the DAO",
@@ -37,12 +38,24 @@
     "links": {
       "type": "object",
       "properties": {
-        "website": "string",
-        "github": "string",
-        "telegram": "string",
-        "discord": "string",
-        "twitter": "string",
-        "other": "string"
+        "website": {
+          "type": "string"
+        },
+        "github": {
+          "type": "string"
+        },
+        "telegram": {
+          "type": "string"
+        },
+        "discord": {
+          "type": "string"
+        },
+        "twitter": {
+          "type": "string"
+        },
+        "other": {
+          "type": "string"
+        }
       }
     }
   },

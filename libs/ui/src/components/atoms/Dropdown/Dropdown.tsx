@@ -4,7 +4,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from './Dropdown.style';
+} from './Dropdown.styles';
 import React from 'react';
 import { v4 as uuid } from 'uuid';
 import { useTheme } from 'styled-components';

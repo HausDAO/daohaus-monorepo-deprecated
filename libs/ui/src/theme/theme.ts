@@ -33,6 +33,10 @@ export const defaultDarkTheme: Theme = {
   disabled: neutralDark.bgSolid,
   transparent: utilityDark.transparent,
   info: utilityDark.info,
+  card: {
+    bg: secondaryDark.elementBg,
+    border: secondaryDark.elementBorder,
+  },
   field: FieldThemeDark,
   button: {
     primary: PrimaryDarkButton,
@@ -136,6 +140,10 @@ export const defaultLightTheme: Theme = {
   info: utility.info,
   transparent: utility.transparent,
   disabled: neutral.bgSolid,
+  card: {
+    bg: secondary.elementBg,
+    border: secondary.elementBorder,
+  },
   field: FieldTheme,
   button: {
     primary: PrimaryLightButton,

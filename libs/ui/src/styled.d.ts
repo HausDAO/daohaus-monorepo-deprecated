@@ -27,6 +27,10 @@ declare module 'styled-components' {
     disabled: string;
     transparent: string;
     info: string;
+    card: {
+      bg: string;
+      border: string;
+    };
     field: {
       bg: string;
       border: string;

@@ -5,7 +5,7 @@ import {
   RiCheckboxCircleFill,
 } from 'react-icons/ri';
 
-import { Icon, ParSm } from '../../atoms';
+import { Icon, ParSm, Card, Link } from '../../atoms';
 import {
   ToastProvider,
   ToastViewport,
@@ -20,18 +20,46 @@ import {
   CloseIcon,
 } from './Toast.styles';
 
-export type ToastProps = {
+type ToastProps = {
   title: string;
   description?: string;
   duration?: number;
-  providerLabel: string;
-  isError?: string | React.ReactNode;
-  children?: React.ReactNode;
+  providerLabel?: string;
+  isError?: boolean;
+  isWarning?: boolean;
+  actionAltText?: string;
+  ariaLabelClose?: string;
+  toastLinks?: ToastLinksProps;
+};
+
+type ToastLinksProps = {
+  leftLink?: {
+    path: string;
+    text: string;
+  };
+  rightLink?: {
+    path: string;
+    text: string;
+  };
 };
 
 export const Toast = ({
   title = 'Title goes here',
   description = 'Description Goes here and has more detail/text than the title',
+  isError = false,
+  isWarning = false,
+  duration = 5000,
+  providerLabel = 'Test Provider label',
+  toastLinks = {
+    leftLink: {
+      path: 'www.coinbase.com',
+      text: 'Coin Base',
+    },
+    rightLink: {
+      path: 'www.opensea.io',
+      text: 'Open Sea',
+    },
+  },
 }: ToastProps) => {
   const [open, setOpen] = React.useState(false);
   const eventDateRef = React.useRef(new Date());
@@ -61,35 +89,43 @@ export const Toast = ({
       >
         Add to calendar
       </button>
-      <ToastRoot open={open} onOpenChange={setOpen}>
-        <ToastHeaderContainer>
-          <ToastIcon>
-            <RiCheckboxCircleFill />
-          </ToastIcon>
-          <ToastCopyContainer>
-            <ToastTitle asChild>
-              <ParSm>{title}</ParSm>
-            </ToastTitle>
-            {description && (
-              <ToastDescription asChild>
-                <ParSm>{description}</ParSm>
-              </ToastDescription>
-            )}
-          </ToastCopyContainer>
-          <ToastClose asChild aria-label="Close">
-            <CloseIcon>
-              <RiCloseFill aria-hidden />
-            </CloseIcon>
-          </ToastClose>
-        </ToastHeaderContainer>
-        <ToastAction asChild altText="Goto schedule to undo">
-          <div>
-            <button>left</button>
-            <button>Right</button>
-          </div>
-        </ToastAction>
+      <ToastRoot open={open} onOpenChange={setOpen} asChild>
+        <Card>
+          <ToastHeaderContainer>
+            <ToastIcon>
+              <RiCheckboxCircleFill />
+            </ToastIcon>
+            <ToastCopyContainer>
+              <ToastTitle asChild>
+                <ParSm>{title}</ParSm>
+              </ToastTitle>
+              {description && (
+                <ToastDescription asChild>
+                  <ParSm>{description}</ParSm>
+                </ToastDescription>
+              )}
+            </ToastCopyContainer>
+            <ToastClose asChild aria-label="Close">
+              <CloseIcon>
+                <RiCloseFill aria-hidden />
+              </CloseIcon>
+            </ToastClose>
+          </ToastHeaderContainer>
+          {toastLinks && <ToastLinks {...toastLinks} />}
+        </Card>
       </ToastRoot>
       <ToastViewport />
     </ToastProvider>
+  );
+};
+
+const ToastLinks = ({ leftLink, rightLink }: ToastLinksProps) => {
+  return (
+    <ToastAction asChild altText="Goto schedule to undo">
+      <div>
+        {leftLink && <Link href={leftLink.path}>{leftLink.text}</Link>}
+        {rightLink && <Link href={rightLink.path}>{rightLink.text}</Link>}
+      </div>
+    </ToastAction>
   );
 };

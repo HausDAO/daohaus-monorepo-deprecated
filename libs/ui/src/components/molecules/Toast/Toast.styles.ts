@@ -45,11 +45,6 @@ export const ToastViewport = styled(ToastPrimitive.Viewport)`
 `;
 
 export const ToastRoot = styled(ToastPrimitive.Root)`
-  background-color: ${({ theme }: { theme: Theme }) => theme.card.bg};
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.card.border};
-  color: ${({ theme }: { theme: Theme }) => theme.fontColor};
-  border-radius: 8px;
-  padding: 20px;
   display: flex;
   flex-direction: column;
 
@@ -90,8 +85,10 @@ export const ToastCopyContainer = styled.div`
 export const ToastAction = styled(ToastPrimitive.Action)`
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
 `;
 
 export const CloseIcon = styled.div`
+  cursor: pointer;
   font-size: 17px;
 `;

@@ -24,6 +24,8 @@ const swipeOut = keyframes({
 });
 
 export const ToastProvider = ToastPrimitive.Provider;
+export const ToastTitle = ToastPrimitive.Title;
+export const ToastDescription = ToastPrimitive.Description;
 export const ToastClose = ToastPrimitive.Close;
 
 export const ToastViewport = styled(ToastPrimitive.Viewport)`
@@ -43,16 +45,13 @@ export const ToastViewport = styled(ToastPrimitive.Viewport)`
 `;
 
 export const ToastRoot = styled(ToastPrimitive.Root)`
-  background-color: ${({ theme }: { theme: Theme }) => theme.tooltip.bg};
+  background-color: ${({ theme }: { theme: Theme }) => theme.card.bg};
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.card.border};
+  color: ${({ theme }: { theme: Theme }) => theme.fontColor};
   border-radius: 8px;
-  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
-    hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
-  padding: 15px;
-  display: grid;
-  grid-template-areas: 'title action" "description action';
-  grid-template-columns: 'auto max-content';
-  column-gap: 15px;
-  align-items: 'center';
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
 
   @media (prefers-reduced-motion: no-preference) {
     &[data-state='open'] {
@@ -74,22 +73,25 @@ export const ToastRoot = styled(ToastPrimitive.Root)`
   } ;
 `;
 
-export const ToastTitle = styled(ToastPrimitive.Title)`
-  grid-area: 'title';
-  margin-bottom: 5px;
-  font-weight: 500;
-  color: ${({ theme }: { theme: Theme }) => theme.fontColor};
-  font-size: 15px;
+export const ToastHeaderContainer = styled.div`
+  display: flex;
 `;
 
-export const ToastDescription = styled(ToastPrimitive.Description)`
-  grid-area: 'description';
-  margin: 0;
-  color: ${({ theme }: { theme: Theme }) => theme.fontColor};
-  font-size: 13px;
-  line-height: 1.3;
+export const ToastIcon = styled.span`
+  color: ${({ theme }: { theme: Theme }) => theme.success};
+  font-size: 24px;
+  margin-right: 1rem;
+`;
+
+export const ToastCopyContainer = styled.div`
+  display: inline-block;
 `;
 
 export const ToastAction = styled(ToastPrimitive.Action)`
-  grid-area: 'action';
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const CloseIcon = styled.div`
+  font-size: 17px;
 `;

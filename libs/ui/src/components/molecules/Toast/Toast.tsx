@@ -1,27 +1,37 @@
 import React from 'react';
 import {
+  RiCloseFill,
+  RiCloseCircleFill,
+  RiCheckboxCircleFill,
+} from 'react-icons/ri';
+
+import { Icon, ParSm } from '../../atoms';
+import {
   ToastProvider,
   ToastViewport,
+  ToastHeaderContainer,
+  ToastCopyContainer,
   ToastRoot,
+  ToastIcon,
   ToastTitle,
   ToastDescription,
   ToastAction,
   ToastClose,
+  CloseIcon,
 } from './Toast.styles';
 
 export type ToastProps = {
-  content?: string | React.ReactNode;
-  side?: 'top' | 'right' | 'bottom' | 'left';
-  triggerEl?: React.ReactNode;
-  offset?: number;
-  delay?: number;
+  title: string;
+  description?: string;
+  duration?: number;
+  providerLabel: string;
+  isError?: string | React.ReactNode;
+  children?: React.ReactNode;
 };
 
 export const Toast = ({
-  content = 'Content goes here',
-  side = 'right',
-  offset = 18,
-  delay = 400,
+  title = 'Title goes here',
+  description = 'Description Goes here and has more detail/text than the title',
 }: ToastProps) => {
   const [open, setOpen] = React.useState(false);
   const eventDateRef = React.useRef(new Date());
@@ -35,13 +45,6 @@ export const Toast = ({
     const now = new Date();
     const inOneWeek = now.setDate(now.getDate() + 7);
     return new Date(inOneWeek);
-  }
-
-  function prettyDate(date: Date) {
-    return new Intl.DateTimeFormat('en-US', {
-      dateStyle: 'full',
-      timeStyle: 'short',
-    }).format(date);
   }
 
   return (
@@ -59,16 +62,32 @@ export const Toast = ({
         Add to calendar
       </button>
       <ToastRoot open={open} onOpenChange={setOpen}>
-        <ToastTitle>Scheduled: Catch up</ToastTitle>
-        <ToastDescription asChild>
-          <time dateTime={eventDateRef.current.toISOString()}>
-            {prettyDate(eventDateRef.current)}
-          </time>
-        </ToastDescription>
+        <ToastHeaderContainer>
+          <ToastIcon>
+            <RiCheckboxCircleFill />
+          </ToastIcon>
+          <ToastCopyContainer>
+            <ToastTitle asChild>
+              <ParSm>{title}</ParSm>
+            </ToastTitle>
+            {description && (
+              <ToastDescription asChild>
+                <ParSm>{description}</ParSm>
+              </ToastDescription>
+            )}
+          </ToastCopyContainer>
+          <ToastClose asChild aria-label="Close">
+            <CloseIcon>
+              <RiCloseFill aria-hidden />
+            </CloseIcon>
+          </ToastClose>
+        </ToastHeaderContainer>
         <ToastAction asChild altText="Goto schedule to undo">
-          <button>Undo</button>
+          <div>
+            <button>left</button>
+            <button>Right</button>
+          </div>
         </ToastAction>
-        <ToastClose>Dismiss</ToastClose>
       </ToastRoot>
       <ToastViewport />
     </ToastProvider>

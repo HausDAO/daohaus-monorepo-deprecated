@@ -1,11 +1,13 @@
 import React from 'react';
 import {
   RiCloseFill,
-  RiCloseCircleFill,
   RiCheckboxCircleFill,
+  RiErrorWarningFill,
+  RiCloseCircleFill,
 } from 'react-icons/ri';
 
-import { Icon, ParSm, Card, Link } from '../../atoms';
+import { ParSm, Card, Link } from '../../atoms';
+
 import {
   ToastProvider,
   ToastViewport,
@@ -25,8 +27,7 @@ type ToastProps = {
   description?: string;
   duration?: number;
   providerLabel?: string;
-  isError?: boolean;
-  isWarning?: boolean;
+  toastType?: 'success' | 'warning' | 'error';
   actionAltText?: string;
   ariaLabelClose?: string;
   toastLinks?: ToastLinksProps;
@@ -46,10 +47,7 @@ type ToastLinksProps = {
 export const Toast = ({
   title = 'Title goes here',
   description = 'Description Goes here and has more detail/text than the title',
-  isError = false,
-  isWarning = false,
-  duration = 5000,
-  providerLabel = 'Test Provider label',
+  toastType = 'error',
   toastLinks = {
     leftLink: {
       path: 'www.coinbase.com',
@@ -92,9 +90,7 @@ export const Toast = ({
       <ToastRoot open={open} onOpenChange={setOpen} asChild>
         <Card>
           <ToastHeaderContainer>
-            <ToastIcon>
-              <RiCheckboxCircleFill />
-            </ToastIcon>
+            {getEnumIcons(toastType)}
             <ToastCopyContainer>
               <ToastTitle asChild>
                 <ParSm>{title}</ParSm>
@@ -129,3 +125,14 @@ const ToastLinks = ({ leftLink, rightLink }: ToastLinksProps) => {
     </ToastAction>
   );
 };
+
+// Creating enum object for Icons
+const EnumIconsObject = {
+  success: <RiCheckboxCircleFill />,
+  warning: <RiErrorWarningFill />,
+  error: <RiCloseCircleFill />,
+};
+
+function getEnumIcons(state: 'success' | 'warning' | 'error') {
+  return <ToastIcon toastType={state}>{EnumIconsObject[state]}</ToastIcon>;
+}

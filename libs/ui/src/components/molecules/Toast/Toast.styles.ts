@@ -72,8 +72,10 @@ export const ToastHeaderContainer = styled.div`
   display: flex;
 `;
 
-export const ToastIcon = styled.span`
-  color: ${({ theme }: { theme: Theme }) => theme.success};
+export const ToastIcon = styled.span<{
+  toastType: 'success' | 'warning' | 'error';
+}>`
+  color: ${(props) => props.theme[props.toastType]};
   font-size: 24px;
   margin-right: 1rem;
 `;

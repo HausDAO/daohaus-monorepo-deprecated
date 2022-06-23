@@ -5,6 +5,7 @@ import { BaseCard } from './Card.styles';
 export type CardProps = {
   children: ReactNode;
   className?: string;
+  cardType?: 'default' | 'success' | 'warning' | 'error';
 };
 
 type Ref =
@@ -13,6 +14,12 @@ type Ref =
   | null
   | undefined;
 
-export const Card = React.forwardRef((props: CardProps, ref: Ref) => {
-  return <BaseCard className={props.className}>{props.children}</BaseCard>;
-});
+export const Card = React.forwardRef(
+  ({ cardType = 'default', className, children }: CardProps, ref: Ref) => {
+    return (
+      <BaseCard cardType={cardType} className={className}>
+        {children}
+      </BaseCard>
+    );
+  }
+);

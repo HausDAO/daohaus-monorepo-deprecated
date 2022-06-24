@@ -1,27 +1,37 @@
 import { useState } from 'react';
+import classNames from 'classnames';
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
 import styled, { useTheme } from 'styled-components';
+
 import { getNetworkName, truncateAddress } from '@daohaus/common-utilities';
 import { Button, Dropdown, ParMd, ParXs, ProfileAvatar } from '@daohaus/ui';
 
 import { useHausConnect } from '../../HausConnectContext';
 import { ExplorerLink } from '../ExplorerLink';
-export const UserConnectedDropdown = () => {
+
+export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
   const { disconnect, address, chainId, profile, validNetwork } =
     useHausConnect();
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);
-
+  const classes = classNames({ 'mobile-connect-btn': isSm });
   return (
-    <Dropdown
+    <ConnectDropdown
       spacing="0.7rem"
-      width="25rem"
+      width={isSm ? 'fit-content' : '25rem'}
       align="end"
       open={open}
       onOpenChange={setOpen}
+      className={'user-connect-dropdown'}
       trigger={
-        <Button avatar fullWidth IconRight={open ? BiChevronUp : BiChevronDown}>
+        <Button
+          avatar
+          fullWidth={!isSm}
+          sm={isSm}
+          IconRight={open ? BiChevronUp : BiChevronDown}
+          className={classes}
+        >
           <Container>
             <ProfileAvatar
               image={profile?.image}
@@ -30,10 +40,12 @@ export const UserConnectedDropdown = () => {
               className="user-avatar"
             />
             <div className="interior">
-              <ParMd color={theme.button.primary.text}>
-                {profile?.displayName ||
-                  (address && truncateAddress(address.toLowerCase()))}
-              </ParMd>
+              {!isSm && (
+                <ParMd color={theme.button.primary.text}>
+                  {profile?.displayName ||
+                    (address && truncateAddress(address.toLowerCase()))}
+                </ParMd>
+              )}
               <ParXs color={theme.button.primary.text}>
                 {chainId && validNetwork
                   ? `@${getNetworkName(chainId)}`
@@ -81,6 +93,11 @@ export const UserConnectedDropdown = () => {
     />
   );
 };
+
+const ConnectDropdown = styled(Dropdown)`
+  display: flex;
+  justify-content: flex-end;
+`;
 
 const Container = styled.div`
   display: flex;

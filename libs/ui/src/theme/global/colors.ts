@@ -122,16 +122,34 @@ export const neutralDark = {
 
 export const utility = {
   success: green.green9,
+  successText: green.green12,
+  successBg: green.green3,
+  successBorder: green.green7,
   warning: orange.orange9,
+  warningText: orange.orange12,
+  warningBg: orange.orange3,
+  warningBorder: orange.orange7,
   danger: red.red9,
+  dangerText: red.red12,
+  dangerBg: red.red3,
+  dangerBorder: red.red7,
   info: blue.blue9,
   transparent: 'transparent',
 };
 
 export const utilityDark = {
   success: greenDark.green9,
+  successText: greenDark.green12,
+  successBg: greenDark.green3,
+  successBorder: greenDark.green7,
   warning: orangeDark.orange9,
+  warningText: orangeDark.orange12,
+  warningBg: orangeDark.orange3,
+  warningBorder: orangeDark.orange7,
   danger: redDark.red9,
+  dangerText: redDark.red12,
+  dangerBg: redDark.red3,
+  dangerBorder: redDark.red7,
   info: blueDark.blue9,
   transparent: 'transparent',
 };

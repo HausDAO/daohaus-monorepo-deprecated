@@ -1,7 +1,8 @@
 import React, { RefObject } from 'react';
-import { ButtonBase, WithIcon } from './Button.styles';
 import classNames from 'classnames';
 import { IconType } from 'react-icons';
+
+import { ButtonBase, WithIcon } from './Button.styles';
 
 export type ButtonProps = {
   children?: React.ReactNode;

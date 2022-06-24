@@ -1,11 +1,14 @@
 import React, { ReactNode, RefObject } from 'react';
+import classNames from 'classnames';
 
 import { BaseCard } from './Card.styles';
 
 export type CardProps = {
   children: ReactNode;
   className?: string;
-  cardType?: 'default' | 'success' | 'warning' | 'error';
+  success?: boolean;
+  warning?: boolean;
+  error?: boolean;
 };
 
 type Ref =
@@ -15,11 +18,10 @@ type Ref =
   | undefined;
 
 export const Card = React.forwardRef(
-  ({ cardType = 'default', className, children }: CardProps, ref: Ref) => {
+  ({ success, warning, error, className, children }: CardProps, ref: Ref) => {
+    const cardClasses = classNames({ success, warning, error });
     return (
-      <BaseCard cardType={cardType} className={className}>
-        {children}
-      </BaseCard>
+      <BaseCard className={`${cardClasses} ${className}`}>{children}</BaseCard>
     );
   }
 );

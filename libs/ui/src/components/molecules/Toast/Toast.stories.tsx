@@ -12,15 +12,58 @@ const Template: ComponentStory<typeof Toast> = (args) => <Toast {...args} />;
 export const AtomToast = Template.bind({});
 
 AtomToast.args = {
-  // content: "Oh boy! It's content!",
+  title: 'Title goes here',
+  description: 'Description Goes here and has more detail/text than the title',
+  toastLinks: {
+    leftLink: {
+      path: 'https://daohaus.club/',
+      text: 'DAO Haus',
+    },
+    rightLink: {
+      path: 'https://daohaus.club/docs/',
+      text: 'DAO Haus Docs',
+    },
+  },
 };
 
-export const SuccessToast = Template.bind({});
-SuccessToast.args = {
-  // content: 'Oh boy! Large Icons!',
+export const ToastNoLinks = Template.bind({});
+ToastNoLinks.args = {
+  title: 'Title goes here',
+  description: 'Description Goes here and has more detail/text than the title',
 };
 
 export const ErrorToast = Template.bind({});
 ErrorToast.args = {
-  // content: "Oh-eeee! That's a custom icon!",
+  title: 'Title goes here',
+  description: 'Description Goes here and has more detail/text than the title',
+  iconType: 'error',
+  error: true,
+  toastLinks: {
+    leftLink: {
+      path: 'https://daohaus.club/',
+      text: 'DAO Haus',
+    },
+    rightLink: {
+      path: 'https://daohaus.club/docs/',
+      text: 'DAO Haus Docs',
+    },
+  },
+};
+
+export const WarningToast = Template.bind({});
+WarningToast.args = {
+  title: 'Title goes here',
+  description: 'Description Goes here and has more detail/text than the title',
+  iconType: 'warning',
+  warning: true,
+  toastLinks: {
+    leftLink: {
+      path: 'https://daohaus.club/',
+      text: 'DAO Haus',
+    },
+    rightLink: {
+      path: 'https://daohaus.club/docs/',
+      text: 'DAO Haus Docs',
+    },
+  },
 };

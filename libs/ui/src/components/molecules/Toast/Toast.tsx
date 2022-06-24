@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import {
   RiCloseFill,
   RiCheckboxCircleFill,
@@ -7,7 +8,6 @@ import {
 } from 'react-icons/ri';
 
 import { ParSm, Card, Link } from '../../atoms';
-
 import {
   ToastProvider,
   ToastViewport,
@@ -27,7 +27,10 @@ type ToastProps = {
   description?: string;
   duration?: number;
   providerLabel?: string;
-  toastType?: 'success' | 'warning' | 'error';
+  success?: boolean;
+  warning?: boolean;
+  error?: boolean;
+  iconType?: 'success' | 'warning' | 'error';
   actionAltText?: string;
   ariaLabelClose?: string;
   toastLinks?: ToastLinksProps;
@@ -44,21 +47,9 @@ type ToastLinksProps = {
   };
 };
 
-export const Toast = ({
-  title = 'Title goes here',
-  description = 'Description Goes here and has more detail/text than the title',
-  toastType = 'error',
-  toastLinks = {
-    leftLink: {
-      path: 'www.coinbase.com',
-      text: 'Coin Base',
-    },
-    rightLink: {
-      path: 'www.opensea.io',
-      text: 'Open Sea',
-    },
-  },
-}: ToastProps) => {
+export const Toast = (props: ToastProps) => {
+  const { title, description, iconType, success, warning, error, toastLinks } =
+    props;
   const [open, setOpen] = React.useState(false);
   const eventDateRef = React.useRef(new Date());
   const timerRef = React.useRef(0);
@@ -87,10 +78,10 @@ export const Toast = ({
       >
         Add to calendar
       </button>
-      <ToastRoot open={open} onOpenChange={setOpen} asChild>
-        <Card>
+      <ToastRoot open={true} onOpenChange={setOpen} asChild>
+        <Card success={success} warning={warning} error={error}>
           <ToastHeaderContainer>
-            {getEnumIcons(toastType)}
+            {getEnumIcons(iconType || 'success')}
             <ToastCopyContainer>
               <ToastTitle asChild>
                 <ParSm>{title}</ParSm>
@@ -115,6 +106,7 @@ export const Toast = ({
   );
 };
 
+// If Toast contains links
 const ToastLinks = ({ leftLink, rightLink }: ToastLinksProps) => {
   return (
     <ToastAction asChild altText="Goto schedule to undo">
@@ -126,7 +118,7 @@ const ToastLinks = ({ leftLink, rightLink }: ToastLinksProps) => {
   );
 };
 
-// Creating enum object for Icons
+// Creating enum object of Icons
 const EnumIconsObject = {
   success: <RiCheckboxCircleFill />,
   warning: <RiErrorWarningFill />,

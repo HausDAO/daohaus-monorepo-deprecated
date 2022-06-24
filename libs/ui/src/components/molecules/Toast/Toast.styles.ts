@@ -6,6 +6,11 @@ import { fadeIn } from '../../../animations/general';
 import { Theme } from '../../../types/theming';
 import { border } from '../../../theme/global/border';
 
+export const ToastProvider = ToastPrimitive.Provider;
+export const ToastTitle = ToastPrimitive.Title;
+export const ToastDescription = ToastPrimitive.Description;
+export const ToastClose = ToastPrimitive.Close;
+
 const VIEWPORT_PADDING = 25;
 
 const hide = keyframes`
@@ -22,11 +27,6 @@ const swipeOut = keyframes({
   from: { transform: 'translateX(var(--radix-toast-swipe-end-x))' },
   to: { transform: `translateX(calc(100% + ${VIEWPORT_PADDING}px))` },
 });
-
-export const ToastProvider = ToastPrimitive.Provider;
-export const ToastTitle = ToastPrimitive.Title;
-export const ToastDescription = ToastPrimitive.Description;
-export const ToastClose = ToastPrimitive.Close;
 
 export const ToastViewport = styled(ToastPrimitive.Viewport)`
   position: fixed;

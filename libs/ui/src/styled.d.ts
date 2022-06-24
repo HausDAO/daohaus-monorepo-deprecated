@@ -30,6 +30,15 @@ declare module 'styled-components' {
     card: {
       bg: string;
       border: string;
+      successText: string;
+      successBg: string;
+      successBorder: string;
+      warningText: string;
+      warningBg: string;
+      warningBorder: string;
+      errorText: string;
+      errorBg: string;
+      errorBorder: string;
     };
     field: {
       bg: string;

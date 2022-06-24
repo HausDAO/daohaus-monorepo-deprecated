@@ -7,11 +7,13 @@ export default {
   component: Toast,
 } as ComponentMeta<typeof Toast>;
 
-const Template: ComponentStory<typeof Toast> = (args) => <Toast {...args} />;
-
+const Template: ComponentStory<typeof Toast> = (args) => {
+  return <Toast {...args} />;
+};
 export const AtomToast = Template.bind({});
 
 AtomToast.args = {
+  open: true,
   title: 'Title goes here',
   description: 'Description Goes here and has more detail/text than the title',
   toastLinks: {
@@ -28,12 +30,14 @@ AtomToast.args = {
 
 export const ToastNoLinks = Template.bind({});
 ToastNoLinks.args = {
+  open: true,
   title: 'Title goes here',
   description: 'Description Goes here and has more detail/text than the title',
 };
 
 export const ErrorToast = Template.bind({});
 ErrorToast.args = {
+  open: true,
   title: 'Title goes here',
   description: 'Description Goes here and has more detail/text than the title',
   iconType: 'error',
@@ -52,6 +56,7 @@ ErrorToast.args = {
 
 export const WarningToast = Template.bind({});
 WarningToast.args = {
+  open: true,
   title: 'Title goes here',
   description: 'Description Goes here and has more detail/text than the title',
   iconType: 'warning',

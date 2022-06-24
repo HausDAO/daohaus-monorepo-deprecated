@@ -1,5 +1,10 @@
+import {
+  ToastProps,
+  ToastProviderProps,
+  ToastViewportProps,
+} from '@radix-ui/react-toast';
+import { type } from 'os';
 import React from 'react';
-import classNames from 'classnames';
 import {
   RiCloseFill,
   RiCheckboxCircleFill,
@@ -22,21 +27,21 @@ import {
   CloseIcon,
 } from './Toast.styles';
 
-type ToastProps = {
-  title: string;
-  description?: string;
-  duration?: number;
-  providerLabel?: string;
-  success?: boolean;
-  warning?: boolean;
-  error?: boolean;
-  iconType?: 'success' | 'warning' | 'error';
-  actionAltText?: string;
-  ariaLabelClose?: string;
-  toastLinks?: ToastLinksProps;
-};
+type CustomToastProps = ToastProps &
+  ToastProviderProps &
+  ToastViewportProps & {
+    title: string;
+    description?: string;
+    success?: boolean;
+    warning?: boolean;
+    error?: boolean;
+    iconType?: IconType;
+    ariaLabelClose?: string;
+    toastLinks?: ToastLinksProps;
+  };
 
 type ToastLinksProps = {
+  actionAltText?: string;
   leftLink?: {
     path: string;
     text: string;
@@ -47,38 +52,44 @@ type ToastLinksProps = {
   };
 };
 
-export const Toast = (props: ToastProps) => {
-  const { title, description, iconType, success, warning, error, toastLinks } =
-    props;
-  const [open, setOpen] = React.useState(false);
-  const eventDateRef = React.useRef(new Date());
-  const timerRef = React.useRef(0);
+type IconType = 'success' | 'warning' | 'error';
+type SwipeDirection = 'up' | 'down' | 'left' | 'right';
 
-  React.useEffect(() => {
-    return () => clearTimeout(timerRef.current);
-  }, []);
-
-  function oneWeekAway() {
-    const now = new Date();
-    const inOneWeek = now.setDate(now.getDate() + 7);
-    return new Date(inOneWeek);
-  }
+export const Toast = (props: CustomToastProps) => {
+  const {
+    title,
+    description,
+    type,
+    defaultOpen,
+    open,
+    onOpenChange,
+    duration,
+    label,
+    swipeDirection,
+    swipeThreshold,
+    hotkey,
+    success,
+    warning,
+    error,
+    iconType,
+    ariaLabelClose,
+    toastLinks,
+  } = props;
 
   return (
-    <ToastProvider swipeDirection="right">
-      <button
-        onClick={() => {
-          setOpen(false);
-          window.clearTimeout(timerRef.current);
-          timerRef.current = window.setTimeout(() => {
-            eventDateRef.current = oneWeekAway();
-            setOpen(true);
-          }, 100);
-        }}
+    <ToastProvider
+      duration={duration}
+      label={label}
+      swipeDirection={swipeDirection}
+      swipeThreshold={swipeThreshold}
+    >
+      <ToastRoot
+        type={type}
+        open={open}
+        onOpenChange={onOpenChange}
+        defaultOpen={defaultOpen}
+        asChild
       >
-        Add to calendar
-      </button>
-      <ToastRoot open={true} onOpenChange={setOpen} asChild>
         <Card success={success} warning={warning} error={error}>
           <ToastHeaderContainer>
             {getEnumIcons(iconType || 'success')}
@@ -92,7 +103,7 @@ export const Toast = (props: ToastProps) => {
                 </ToastDescription>
               )}
             </ToastCopyContainer>
-            <ToastClose asChild aria-label="Close">
+            <ToastClose asChild aria-label={ariaLabelClose || 'Close'}>
               <CloseIcon>
                 <RiCloseFill aria-hidden />
               </CloseIcon>
@@ -101,15 +112,19 @@ export const Toast = (props: ToastProps) => {
           {toastLinks && <ToastLinks {...toastLinks} />}
         </Card>
       </ToastRoot>
-      <ToastViewport />
+      <ToastViewport label={label} hotkey={hotkey} />
     </ToastProvider>
   );
 };
 
 // If Toast contains links
-const ToastLinks = ({ leftLink, rightLink }: ToastLinksProps) => {
+const ToastLinks = ({
+  leftLink,
+  rightLink,
+  actionAltText,
+}: ToastLinksProps) => {
   return (
-    <ToastAction asChild altText="Goto schedule to undo">
+    <ToastAction asChild altText={actionAltText || 'Related Link(s)'}>
       <div>
         {leftLink && <Link href={leftLink.path}>{leftLink.text}</Link>}
         {rightLink && <Link href={rightLink.path}>{rightLink.text}</Link>}

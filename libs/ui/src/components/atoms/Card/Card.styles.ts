@@ -6,7 +6,9 @@ export const BaseCard = styled.div`
   background-color: ${({ theme }: { theme: Theme }) => theme.card.bg};
   border: 1px solid ${({ theme }: { theme: Theme }) => theme.card.border};
   border-radius: 0.8rem;
+  height: auto;
   padding: 2rem;
+  width: auto;
 
   &.success {
     background-color: ${({ theme }: { theme: Theme }) => theme.card.successBg};

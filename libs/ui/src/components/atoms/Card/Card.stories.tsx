@@ -5,9 +5,9 @@ export default {
   title: 'Atoms/Card',
   component: Card,
 } as ComponentMeta<typeof Card>;
-const Template: ComponentStory<typeof Card> = (args) => (
-  <Card>{args.children}</Card>
-);
+const Template: ComponentStory<typeof Card> = (args) => {
+  return <Card>{args.children}</Card>;
+};
 
 export const AtomCard = Template.bind({});
 

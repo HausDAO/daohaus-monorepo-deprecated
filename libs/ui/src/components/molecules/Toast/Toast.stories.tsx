@@ -1,4 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { useState } from 'react';
+import { Button } from '../../atoms';
 
 import { Toast } from './Toast';
 
@@ -7,8 +9,14 @@ export default {
   component: Toast,
 } as ComponentMeta<typeof Toast>;
 
-const Template: ComponentStory<typeof Toast> = (args) => {
-  return <Toast {...args} />;
+const Template: ComponentStory<typeof Toast> = ({ open, ...args }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div>
+      <Button onClick={() => setIsOpen(!isOpen)}>Cheers!</Button>
+      <Toast open={isOpen} {...args} />
+    </div>
+  );
 };
 export const AtomToast = Template.bind({});
 

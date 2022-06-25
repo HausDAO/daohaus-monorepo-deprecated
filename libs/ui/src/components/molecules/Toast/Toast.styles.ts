@@ -1,11 +1,6 @@
 import * as ToastPrimitive from '@radix-ui/react-toast';
 import styled, { keyframes } from 'styled-components';
 
-import { font } from '../../../theme/global/font';
-import { fadeIn } from '../../../animations/general';
-import { Theme } from '../../../types/theming';
-import { border } from '../../../theme/global/border';
-
 export const ToastProvider = ToastPrimitive.Provider;
 export const ToastTitle = ToastPrimitive.Title;
 export const ToastDescription = ToastPrimitive.Description;

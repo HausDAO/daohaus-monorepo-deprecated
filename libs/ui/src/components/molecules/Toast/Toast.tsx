@@ -3,8 +3,6 @@ import {
   ToastProviderProps,
   ToastViewportProps,
 } from '@radix-ui/react-toast';
-import { type } from 'os';
-import React from 'react';
 import {
   RiCloseFill,
   RiCheckboxCircleFill,
@@ -53,7 +51,6 @@ type ToastLinksProps = {
 };
 
 type IconType = 'success' | 'warning' | 'error';
-type SwipeDirection = 'up' | 'down' | 'left' | 'right';
 
 export const Toast = (props: CustomToastProps) => {
   const {

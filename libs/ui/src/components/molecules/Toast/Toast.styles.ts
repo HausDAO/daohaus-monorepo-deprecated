@@ -81,7 +81,8 @@ export const ToastIcon = styled.span<{
 `;
 
 export const ToastCopyContainer = styled.div`
-  display: inline-block;
+  display: block;
+  width: 100%;
 `;
 
 export const ToastAction = styled(ToastPrimitive.Action)`

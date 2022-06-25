@@ -40,9 +40,7 @@ query listMemberships(
     dao {
       id
       totalShares
-      metaData {
-        name
-      }
+      name
       activeMemberCount
       proposalCount
       safeAddress

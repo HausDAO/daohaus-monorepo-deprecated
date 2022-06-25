@@ -1,4 +1,5 @@
 import { Keychain, NetworkType, ValidNetwork } from '../types';
+import { isString } from '../utils';
 
 export const VALID_NETWORKS = {
   '0x1': true,
@@ -11,10 +12,10 @@ export const VALID_NETWORKS = {
 };
 
 export const isValidNetwork = (
-  str: string,
+  str: unknown,
   networks?: Keychain<unknown>
 ): str is ValidNetwork =>
-  networks
+  isString(str) && networks
     ? networks[str as ValidNetwork] !== undefined
     : VALID_NETWORKS[str as ValidNetwork] !== undefined;
 

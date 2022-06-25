@@ -70,7 +70,7 @@ export const validateShamanData = (
 ) => {
   if (shamanData === '') return true;
   const { shamanAddresses, shamanPermissions } = shamanData;
-  console.log('shamanData', shamanData);
+
   if (!isArray(shamanAddresses) || !isArray(shamanPermissions))
     return VAL_MSG.formattingError;
   if (!shamanAddresses.every((address) => isAddress(address)))

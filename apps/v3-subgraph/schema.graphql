@@ -30,7 +30,7 @@ type Dao @entity {
   members: [Member!] @derivedFrom(field: "dao")
   rageQuits: [RageQuit!] @derivedFrom(field: "dao")
   shaman: [Shaman!] @derivedFrom(field: "dao")
-  metaData: MetaData @derivedFrom(field: "dao")
+  records: [Record!] @derivedFrom(field: "dao")
   eventTransactions: EventTransaction @derivedFrom(field: "dao")
 }
 
@@ -89,13 +89,15 @@ type Vote @entity {
   member: Member!
 }
 
-type MetaData @entity {
+type Record @entity {
   id: ID!
   createdAt: String!
   createdBy: Bytes!
-  dao: Dao
-  name: String
-  rawContent: String!
+  dao: Dao!
+  tag: Bytes!
+  table: String!
+  contentType: String!
+  content: String!
 }
 
 type Member @entity {

@@ -6,6 +6,7 @@ import { Field } from '../../../types/formAndField';
 
 export type TextAreaProps = Field & {
   className?: string;
+  height?: string;
 };
 
 type Ref =
@@ -15,10 +16,11 @@ type Ref =
   | undefined;
 
 export const TextArea = React.forwardRef((props: TextAreaProps, ref: Ref) => {
-  const { full, warning, error, className } = props;
+  const { full, warning, error, success, className, height } = props;
 
   const classes = classNames({
     full,
+    success,
     warning,
     error,
   });
@@ -29,6 +31,7 @@ export const TextArea = React.forwardRef((props: TextAreaProps, ref: Ref) => {
       className={`${classes} ${className}`}
       ref={ref}
       rows={10}
+      height={height}
     />
   );
 });

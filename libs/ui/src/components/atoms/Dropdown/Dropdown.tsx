@@ -31,7 +31,7 @@ type DropdownProps = {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 };
-// TODO aria
+
 export const Dropdown = ({
   trigger,
   items,

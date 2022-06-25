@@ -8,6 +8,7 @@ export const InputSelectBox = styled.div`
   display: flex;
   width: 100%;
   max-width: ${field.size.md};
+
   .select {
     max-width: 10rem;
     padding: 0 0.8rem;
@@ -17,7 +18,6 @@ export const InputSelectBox = styled.div`
     font-weight: ${font.weight.bold};
     background-color: ${({ theme }: { theme: Theme }) =>
       theme.button.secondary.bg};
-
     color: ${({ theme }: { theme: Theme }) => theme.button.secondary.text};
 
     :hover {
@@ -25,20 +25,18 @@ export const InputSelectBox = styled.div`
         theme.button.secondary.hoverBg};
     }
 
-    :active {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.button.secondary.activeBg};
-    }
     :focus {
       background-color: ${({ theme }: { theme: Theme }) =>
         theme.button.secondary.focusBg};
     }
+
     :disabled {
       background-color: ${({ theme }: { theme: Theme }) =>
         theme.button.secondary.disabledBg};
       cursor: not-allowed;
     }
   }
+
   .select-box {
     max-width: 10rem;
     svg {
@@ -47,10 +45,12 @@ export const InputSelectBox = styled.div`
         theme.button.secondary.disabledText};
     }
   }
+
   .input {
     border-right: none;
     border-radius: ${field.borderRadius} 0 0 ${field.borderRadius};
   }
+
   &.long {
     max-width: ${field.size.lg};
   }

@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import { RiCheckLine, RiAsterisk } from 'react-icons/ri';
 import { CheckboxProps } from '@radix-ui/react-checkbox';
 
+import { Label } from '../Label/Label';
+import { Icon } from '../Icon';
 import {
   StyledCheckbox,
   StyledIndicator,
@@ -11,8 +13,6 @@ import {
   LabelContainer,
   RequiredAsterisk,
 } from './Checkbox.styles';
-import { Label } from '../Label/Label';
-import { Icon } from '../Icon';
 
 type Ref =
   | RefObject<HTMLButtonElement>

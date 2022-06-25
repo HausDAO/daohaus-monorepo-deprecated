@@ -7,6 +7,7 @@ import {
 import { Dao, TokenLookup } from '../generated/schema';
 import { addTransaction } from './util/transactions';
 import { constants } from './util/constants';
+import { log } from '@graphprotocol/graph-ts';
 
 export function handleSummonBaal(event: SummonBaal): void {
   BaalTemplate.create(event.params.baal);

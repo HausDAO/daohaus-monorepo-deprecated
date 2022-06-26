@@ -25,7 +25,7 @@ import { TimingSegment } from '../layouts/TimingSegment';
 import { FORM_KEYS } from '../utils/formKeys';
 import { assembleTxArgs } from '../utils/summonTx';
 import { FormValues } from '../types/form';
-import { useTxBuilder } from '../app/TXBuilder';
+import { useTxBuilder } from '@daohaus-monorepo/tx-builder-feature';
 import { SummonStates } from '../app/App';
 import { useState } from 'react';
 import { ConnectBox } from '../components/ConnectBox/ConnectBox';
@@ -58,11 +58,12 @@ export const SummonerForm = ({
       setSummonState('error');
       return;
     }
+    console.log('fired');
     setIsSubmitting(true);
     try {
       const args = assembleTxArgs(formValues, chainId);
 
-      await fireTransaction({
+      fireTransaction({
         txName: 'summonBaalAndSafe',
         abi: LOCAL_ABI.BAAL_FACTORY,
         args: args,
@@ -102,8 +103,9 @@ export const SummonerForm = ({
       error instanceof Error
         ? setErrMsg(error.message)
         : setErrMsg('Unknown Summon Error');
+    } finally {
+      setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   };
 
   return (

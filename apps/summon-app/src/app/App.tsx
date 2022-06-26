@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { ParMd, TemporaryLink } from '@daohaus/ui';
 import { DaoHausNav, useHausConnect } from '@daohaus/daohaus-connect-feature';
 
-import { TXBuilder } from './TXBuilder';
+import { TXBuilder } from '@daohaus-monorepo/tx-builder-feature';
 import { SummonerForm } from '../layouts/SummonerForm';
 import { SummonerLoading } from '../layouts/SummonerLoading';
 import hausCastle from '../assets/hausCastle.svg';

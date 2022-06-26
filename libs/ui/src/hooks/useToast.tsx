@@ -18,6 +18,7 @@ export const useToast = () => {
       iconType: 'error',
     });
   };
+
   const successToast = ({
     title,
     description,

@@ -144,11 +144,6 @@ export const SummonerForm = ({
         onSubmit={methods.handleSubmit(handleFormSubmit)}
         noValidate
       >
-        <Button
-          onClick={() => successToast({ title: 'testToast', description: 'T' })}
-        >
-          Test Toast
-        </Button>
         <div className="title-section">
           <H1>
             <Bold>Summon a Baal.</Bold>

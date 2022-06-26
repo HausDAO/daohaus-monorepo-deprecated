@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-import { ParMd, TemporaryLink } from '@daohaus/ui';
+import { ParMd, TemporaryLink, useBreakpoint, widthQuery } from '@daohaus/ui';
 import { DaoHausNav, useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 import { TXBuilder } from './TXBuilder';
@@ -15,7 +15,7 @@ import { SummonError } from '../layouts/SummonError';
 const TemporaryLayout = styled.div`
   width: 100%;
   padding-top: 2.7rem;
-  padding-right: 4rem;
+  padding: 4rem;
   footer {
     margin-top: 17rem;
     padding-bottom: 5rem;
@@ -34,7 +34,7 @@ const TemporaryLayout = styled.div`
 export type SummonStates = 'idle' | 'loading' | 'success' | 'error';
 export const App = () => {
   const { provider, chainId } = useHausConnect();
-
+  const isViewportSm = useBreakpoint(widthQuery.sm);
   const [summonState, setSummonState] = useState<SummonStates>('idle');
   const [txHash, setTxHash] = useState<string>('');
   const [daoAddress, setDaoAddress] = useState<string>('');

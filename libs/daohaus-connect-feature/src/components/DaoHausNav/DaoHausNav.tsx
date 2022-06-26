@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useBreakpoint, widthQuery } from '@daohaus/ui';
 import { ConnectButton } from '../ConnectButton';
 import { NetworkButton } from '../NetworkButton';
 
@@ -11,13 +12,14 @@ const StyledNav = styled.nav`
 `;
 
 export const DaoHausNav = () => {
+  const isSm = useBreakpoint(widthQuery.sm);
   return (
     <StyledNav>
       <div>
-        <NetworkButton />
+        <NetworkButton isSm={isSm} />
       </div>
       <div className="connect-box">
-        <ConnectButton />
+        <ConnectButton isSm={isSm} />
       </div>
     </StyledNav>
   );

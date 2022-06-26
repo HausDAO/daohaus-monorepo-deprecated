@@ -58,7 +58,7 @@ export const SummonerForm = ({
       setSummonState('error');
       return;
     }
-    console.log('fired');
+
     setIsSubmitting(true);
     try {
       const args = assembleTxArgs(formValues, chainId);

@@ -59,7 +59,7 @@ export const HausThemeProvider = ({
       value={{ theme, setTheme, toggleLightDark, setToast }}
     >
       <ThemeProvider theme={theme}>
-        <ToastProvider duration={toast?.duration || 3000}>
+        <ToastProvider duration={toast?.duration || 2000}>
           <>
             {toast && <Toast {...toast} onOpenChange={handleOpenChange} />}
             {children}

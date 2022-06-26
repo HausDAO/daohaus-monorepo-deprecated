@@ -1,10 +1,12 @@
 import { createContext, useState, useEffect, ReactNode } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from './global/globalStyles';
+
+import { ReactSetter } from '@daohaus/common-utilities';
+
 import { defaultDarkTheme, defaultLightTheme } from './theme';
 import { Theme } from '../types/theming';
 import './global/fonts.css';
-import { ReactSetter } from '@daohaus/common-utilities';
 import { Toast } from '../components';
 import { ToastProvider } from '../components/molecules/Toast/Toast.styles';
 import { CustomToastProps } from '../types/toastTypes';

@@ -88,6 +88,7 @@ export const pollLastTX: PollFetch<FindTxQuery> = async ({
     return result;
   } catch (error) {
     console.error(error);
+    return;
   }
 };
 
@@ -123,15 +124,18 @@ const standardGraphPoll: Poll<FindTxQuery> = async ({
           return result;
         }
         count += 1;
+        return;
       } catch (error) {
         onPollError?.(error);
         clearInterval(pollId);
+        return;
       }
     } else {
       const error = new Error(
         'Transcaction Poll ran out of tries. There could be issues with the subgraph.'
       );
-      onPollTimeout ? onPollTimeout?.(error) : onPollError?.(error);
+      onPollTimeout?.(error);
+      return;
     }
   }, interval);
 };
@@ -191,6 +195,7 @@ export const executeTx = async (
       ...prevState,
       [txHash]: { ...tx, status: 'failed' },
     }));
+    return;
   }
 };
 

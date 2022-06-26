@@ -5,8 +5,9 @@ import { defaultDarkTheme, defaultLightTheme } from './theme';
 import { Theme } from '../types/theming';
 import './global/fonts.css';
 import { ReactSetter } from '@daohaus/common-utilities';
-import { CustomToastProps, Toast } from '../components';
+import { Toast } from '../components';
 import { ToastProvider } from '../components/molecules/Toast/Toast.styles';
+import { CustomToastProps } from '../types/toastTypes';
 
 type HausUI = {
   theme: Theme;

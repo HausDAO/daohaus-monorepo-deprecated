@@ -25,7 +25,7 @@ import {
   CloseIcon,
 } from './Toast.styles';
 
-type CustomToastProps = ToastProps &
+export type CustomToastProps = ToastProps &
   ToastProviderProps &
   ToastViewportProps & {
     title: string;
@@ -38,7 +38,7 @@ type CustomToastProps = ToastProps &
     toastLinks?: ToastLinksProps;
   };
 
-type ToastLinksProps = {
+export type ToastLinksProps = {
   actionAltText?: string;
   leftLink?: {
     path: string;

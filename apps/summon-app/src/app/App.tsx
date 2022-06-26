@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-import { ParMd, TemporaryLink } from '@daohaus/ui';
+import { Button, ParMd, TemporaryLink, useToast } from '@daohaus/ui';
 import { DaoHausNav, useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 import { TXBuilder } from './TXBuilder';
@@ -39,11 +39,20 @@ export const App = () => {
   const [txHash, setTxHash] = useState<string>('');
   const [daoAddress, setDaoAddress] = useState<string>('');
   const [errMsg, setErrMsg] = useState<string>('');
+  const { setToast } = useToast();
 
+  const testToast = () => {
+    setToast({
+      title: 'Test Toast',
+      description: 'This is a test toast',
+      error: true,
+    });
+  };
   return (
     <TXBuilder provider={provider} chainId={chainId}>
       <TemporaryLayout>
         <DaoHausNav />
+        <Button onClick={testToast}>Test Toast</Button>
         <CenterLayout>
           {summonState === 'idle' && (
             <SummonerForm

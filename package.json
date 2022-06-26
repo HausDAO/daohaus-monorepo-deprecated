@@ -119,5 +119,8 @@
     "typechain": "^8.0.0",
     "typescript": "4.6.4",
     "url-loader": "^3.0.0"
+  },
+  "resolutions": {
+    "esbuild": "0.14.44"
   }
 }

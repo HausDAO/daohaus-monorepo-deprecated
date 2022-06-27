@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { crimsonDark, crimsonDarkA } from '@radix-ui/colors';
+import { amberDark } from '@radix-ui/colors';
 import { breakpoints, font } from '@daohaus/ui';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 const LinkContainer = styled.div`
   padding: 1rem;
-  border: 1px solid ${crimsonDark.crimson5};
+  border: 1px solid ${amberDark.amber9};
   border-radius: 0.8rem;
-  background: ${crimsonDarkA.crimsonA3};
+  background: ${amberDark.amber3};
 
-  @media (min-width: ${breakpoints.xs}px) {
+  @media (min-width: ${breakpoints.xs}) {
     border: none;
     font-size: ${font.size.xl};
     background: none;
@@ -22,15 +22,15 @@ const BodyNavContainer = styled.div`
   display: flex;
   gap: 1rem;
 
-  @media (min-width: ${breakpoints.xs}px) {
+  @media (min-width: ${breakpoints.xs}) {
     align-items: center;
     justify-content: center;
   }
 `;
 
 const StyledLink = styled(Link)`
-  text-decoration-color: ${crimsonDark.crimson11};
-  color: ${crimsonDark.crimson12};
+  text-decoration-color: ${amberDark.amber10};
+  color: ${amberDark.amber9};
   text-underline-offset: 0.7rem;
 `;
 

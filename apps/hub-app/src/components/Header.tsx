@@ -9,12 +9,7 @@ import {
 } from '@daohaus/ui';
 import { ConnectButton } from '@daohaus/daohaus-connect-feature';
 import { BiCommand, BiChevronDown } from 'react-icons/bi';
-import {
-  crimsonDarkA,
-  crimsonDark,
-  indigoDark,
-  amberDark,
-} from '@radix-ui/colors';
+import { indigoDark, amberDark } from '@radix-ui/colors';
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -75,9 +70,10 @@ const Header = () => {
   return (
     <HeaderContainer>
       <Dropdown
+        bg={indigoDark.indigo3}
         trigger={
           <StyledButton IconRight={StyledChevron} IconLeft={StyledCommand}>
-            Hub
+            HUB
           </StyledButton>
         }
         items={[

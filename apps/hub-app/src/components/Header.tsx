@@ -17,7 +17,7 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   grid-area: header;
   width: 100%;
-  background: ${crimsonDark.crimson2};
+  /* background: ${crimsonDark.crimson2}; */
 `;
 
 const StyledParMd = styled(ParMd)`

@@ -9,6 +9,7 @@ const ProfileContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 2.6rem;
+  background: ;
 `;
 const StyledAnchor = styled(TemporaryLink)`
   text-decoration: none;

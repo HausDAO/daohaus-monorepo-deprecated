@@ -8,7 +8,7 @@ import Header from '../components/Header';
 import Profile from '../components/Profile';
 import { DataTable } from '../components/Table';
 import TableControl from '../components/TableControl';
-import { crimsonDark } from '@radix-ui/colors';
+import { crimsonDark, indigoDark } from '@radix-ui/colors';
 
 const Layout = styled.div`
   width: 100%;
@@ -39,7 +39,7 @@ const ProfileContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 2.6rem;
-  /* background: ${crimsonDark.crimson2}; */
+  background: ${indigoDark.indigo2};
 
   @media (min-width: ${breakpoints.xs}px) {
     flex-direction: row;
@@ -49,13 +49,13 @@ const ProfileContainer = styled.div`
 
 const SideTopLeft = styled.div`
   grid-area: sidebarTopLeft;
-  background: ${crimsonDark.crimson2};
+  /* background: ${crimsonDark.crimson2}; */
   width: 100%;
 `;
 
 const SideTopRight = styled.div`
   grid-area: sidebarTopRight;
-  background: ${crimsonDark.crimson2};
+  /* background: ${crimsonDark.crimson2}; */
   width: 100%;
 `;
 

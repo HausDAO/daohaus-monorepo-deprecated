@@ -32,6 +32,8 @@ export const HausThemeContext = createContext<HausUI>({
   setToast: (): void => undefined,
 });
 
+const DEFAULT_TOAST_DURATION = 2000;
+
 export const HausThemeProvider = ({
   children,
   defaultDark = defaultDarkTheme,
@@ -62,7 +64,7 @@ export const HausThemeProvider = ({
       value={{ theme, setTheme, toggleLightDark, setToast }}
     >
       <ThemeProvider theme={theme}>
-        <ToastProvider duration={toast?.duration || 2000}>
+        <ToastProvider duration={toast?.duration || DEFAULT_TOAST_DURATION}>
           <>
             {toast && <Toast {...toast} onOpenChange={handleOpenChange} />}
             {children}

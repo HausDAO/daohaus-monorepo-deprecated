@@ -19,12 +19,13 @@ const Layout = styled.div`
   overflow-y: scroll;
   gap: 0rem 0rem;
   display: grid;
+
   grid-template:
     'sidebarTopLeft header sidebarTopRight' 9.6rem
     'sidebarTopLeft profile sidebarTopRight' minmax(auto, 26rem)
     'sidebar body aside' 1fr / 1fr minmax(auto, 35rem) 1fr;
 
-  @media (min-width: ${breakpoints.xs}px) {
+  @media (min-width: ${breakpoints.xs}) {
     grid-template:
       'sidebarTopLeft header sidebarTopRight' 9.6rem
       'sidebarTopLeft profile sidebarTopRight' minmax(auto, 26rem)
@@ -38,7 +39,7 @@ const ProfileContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 2.6rem;
-  background: ${crimsonDark.crimson2};
+  /* background: ${crimsonDark.crimson2}; */
 
   @media (min-width: ${breakpoints.xs}px) {
     flex-direction: row;

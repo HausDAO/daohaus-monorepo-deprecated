@@ -11,7 +11,7 @@ const LinkContainer = styled.div`
   border-radius: 0.8rem;
   background: ${crimsonDarkA.crimsonA3};
 
-  @media (min-width: ${breakpoints.xs}px) {
+  @media (min-width: ${breakpoints.xs}) {
     border: none;
     font-size: ${font.size.xl};
     background: none;
@@ -22,7 +22,7 @@ const BodyNavContainer = styled.div`
   display: flex;
   gap: 1rem;
 
-  @media (min-width: ${breakpoints.xs}px) {
+  @media (min-width: ${breakpoints.xs}) {
     align-items: center;
     justify-content: center;
   }

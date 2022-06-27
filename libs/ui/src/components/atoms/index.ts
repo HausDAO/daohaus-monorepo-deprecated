@@ -13,3 +13,4 @@ export * from './Spinner';
 export * from './Divider';
 export * from './Switch';
 export * from './Icon';
+export * from './Card';

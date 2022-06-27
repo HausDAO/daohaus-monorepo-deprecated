@@ -1,16 +1,9 @@
-import React, { useEffect, useState, MouseEvent } from 'react';
+import React, { MouseEvent } from 'react';
+import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import styled from 'styled-components';
 import { BiCopy } from 'react-icons/bi';
 import { H5, H6, Underline, ParLg, ParMd } from '@daohaus/ui';
 import { Avatar, TemporaryLink } from '@daohaus/ui';
-import { networks } from '../constants';
-import { Haus } from '@daohaus/dao-data';
-import { BiGhost } from 'react-icons/bi';
-
-const StyledGhost = styled(BiGhost)`
-  height: 6.4rem;
-  width: 6.4rem;
-`;
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -45,56 +38,23 @@ const AvatarLg = styled(Avatar)`
 `;
 
 const Profile = () => {
-  const [profile, setProfile] = useState({
-    image: '',
-    name: '',
-    description: '',
-    emoji: '',
-    background: '',
-  });
+  const { profile } = useHausConnect();
   const handleClick = (e: MouseEvent<HTMLDivElement>) => {
     e.preventDefault();
     navigator.clipboard.writeText(`stub.eth`);
   };
 
-  const getProfile = async () => {
-    const haus = Haus.create(networks);
-    try {
-      const profile = await haus.profile.get(
-        '0xEAC5F0d4A9a45E1f9FdD0e7e2882e9f60E301156'
-      );
-      if (profile) {
-        setProfile({
-          name: profile.name || '',
-          image: profile.image || '',
-          description: profile.description || '',
-          emoji: profile.emoji || '',
-          background: profile.image || '',
-        });
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-    getProfile();
-  }, []);
-
   return (
     <ProfileContainer>
-      <AvatarLg
-        size="lg"
-        src={profile.image}
-        alt="profile image"
-        fallback={<StyledGhost />}
-      />
+      <AvatarLg src={profile?.image || ''} alt="profile image" />
       <div>
         <NameContainer>
-          <H5>{profile.name}</H5>
-          <ParLg as="span" role="img" aria-label="profile emoji">
-            {profile.emoji}
-          </ParLg>
+          {profile?.name && <H5>{profile?.name || ''}</H5>}
+          {profile?.emoji && (
+            <ParLg as="span" role="img" aria-label="profile emoji">
+              {profile?.emoji || ''}
+            </ParLg>
+          )}
         </NameContainer>
         <NameContainer>
           <H6>stub.eth</H6>

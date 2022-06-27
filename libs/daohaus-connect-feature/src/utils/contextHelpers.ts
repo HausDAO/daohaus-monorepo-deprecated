@@ -137,7 +137,7 @@ export const loadProfile = async ({
     }
   } catch (error) {
     console.error(error);
-    setProfile(null);
+    setProfile({ displayName: '', address: '', ens: '' });
   } finally {
     if (shouldUpdate) {
       setProfileLoading(false);

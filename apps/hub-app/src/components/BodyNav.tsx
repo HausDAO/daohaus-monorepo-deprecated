@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { crimsonDark, crimsonDarkA } from '@radix-ui/colors';
-import { widthBreakpoint, font } from '@daohaus/ui';
+import { breakpoints, font } from '@daohaus/ui';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 const LinkContainer = styled.div`
@@ -11,7 +11,7 @@ const LinkContainer = styled.div`
   border-radius: 0.8rem;
   background: ${crimsonDarkA.crimsonA3};
 
-  @media (min-width: ${widthBreakpoint.mobileLg}px) {
+  @media (min-width: ${breakpoints.xs}px) {
     border: none;
     font-size: ${font.size.xl};
     background: none;
@@ -22,7 +22,7 @@ const BodyNavContainer = styled.div`
   display: flex;
   gap: 1rem;
 
-  @media (min-width: ${widthBreakpoint.mobileLg}px) {
+  @media (min-width: ${breakpoints.xs}px) {
     align-items: center;
     justify-content: center;
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { widthBreakpoint } from '@daohaus/ui';
+import { breakpoints } from '@daohaus/ui';
 import styled from 'styled-components';
 import { BodyNav } from '../components/BodyNav';
 import ConnectCard from '../components/ConnectCard';
@@ -24,7 +24,7 @@ const Layout = styled.div`
     'sidebarTopLeft profile sidebarTopRight' minmax(auto, 26rem)
     'sidebar body aside' 1fr / 1fr minmax(auto, 35rem) 1fr;
 
-  @media (min-width: ${widthBreakpoint.mobileLg}px) {
+  @media (min-width: ${breakpoints.xs}px) {
     grid-template:
       'sidebarTopLeft header sidebarTopRight' 9.6rem
       'sidebarTopLeft profile sidebarTopRight' minmax(auto, 26rem)
@@ -40,7 +40,7 @@ const ProfileContainer = styled.div`
   gap: 2.6rem;
   background: ${crimsonDark.crimson2};
 
-  @media (min-width: ${widthBreakpoint.mobileLg}px) {
+  @media (min-width: ${breakpoints.xs}px) {
     flex-direction: row;
     justify-content: space-around;
   }

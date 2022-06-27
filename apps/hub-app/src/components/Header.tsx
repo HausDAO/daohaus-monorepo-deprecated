@@ -82,7 +82,7 @@ const Header = () => {
             content: <StyledParMd>Summon</StyledParMd>,
           },
         ]}
-        width="18rem"
+        width="4rem"
       />
       <ConnectButton isSm={isSm} />
     </HeaderContainer>

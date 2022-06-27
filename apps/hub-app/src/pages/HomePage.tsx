@@ -1,5 +1,9 @@
 import React from 'react';
+import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+import { breakpoints } from '@daohaus/ui';
 import styled from 'styled-components';
+import { BodyNav } from '../components/BodyNav';
+import ConnectCard from '../components/ConnectCard';
 import Header from '../components/Header';
 import Profile from '../components/Profile';
 import { DataTable } from '../components/Table';
@@ -18,15 +22,28 @@ const Layout = styled.div`
   grid-template:
     'sidebarTopLeft header sidebarTopRight' 9.6rem
     'sidebarTopLeft profile sidebarTopRight' minmax(auto, 26rem)
-    'sidebar body aside' 1fr / minmax(2.6rem, 1fr) minmax(auto, 120rem) minmax(2.6rem, 1fr);
+    'sidebar body aside' 1fr / 1fr minmax(auto, 35rem) 1fr;
+
+  @media (min-width: ${breakpoints.xs}px) {
+    grid-template:
+      'sidebarTopLeft header sidebarTopRight' 9.6rem
+      'sidebarTopLeft profile sidebarTopRight' minmax(auto, 26rem)
+      'sidebar body aside' 1fr / minmax(2.6rem, 1fr) minmax(auto, 120rem) minmax(2.6rem, 1fr);
+  }
 `;
 
 const ProfileContainer = styled.div`
   grid-area: profile;
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  justify-content: center;
   gap: 2.6rem;
   background: ${crimsonDark.crimson2};
+
+  @media (min-width: ${breakpoints.xs}px) {
+    flex-direction: row;
+    justify-content: space-around;
+  }
 `;
 
 const SideTopLeft = styled.div`
@@ -45,14 +62,16 @@ const Body = styled.div`
   grid-area: body;
 `;
 
-const App = () => {
+const HomePage = () => {
+  const { isProfileLoading, isConnected } = useHausConnect();
   return (
     <Layout>
       <SideTopLeft />
       <SideTopRight />
       <Header />
       <ProfileContainer>
-        <Profile />
+        <BodyNav />
+        {isConnected && !isProfileLoading ? <Profile /> : <ConnectCard />}
       </ProfileContainer>
       <Body>
         <TableControl />
@@ -62,4 +81,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default HomePage;

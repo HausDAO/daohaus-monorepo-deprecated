@@ -4,15 +4,15 @@ import { BiSearch } from 'react-icons/bi';
 import { RiFilterFill } from 'react-icons/ri';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 import { ParSm } from '@daohaus/ui';
-import { amberDark, crimsonDark } from '@radix-ui/colors';
+import { amberDark, indigoDark } from '@radix-ui/colors';
 
 const IconFilter = styled(RiFilterFill)`
   height: 1.8rem;
   width: 1.8rem;
   display: flex;
-  fill: ${amberDark.amber9};
+  fill: ${indigoDark.indigo10};
   :hover {
-    fill: ${amberDark.amber9};
+    fill: ${indigoDark.indigo10};
   }
 `;
 
@@ -20,16 +20,16 @@ const IconGrid = styled(BsFillGrid3X3GapFill)`
   height: 1.8rem;
   width: 1.8rem;
   display: flex;
-  fill: ${amberDark.amber9};
+  fill: ${indigoDark.indigo10};
   :hover {
-    fill: ${amberDark.amber9};
+    fill: ${indigoDark.indigo10};
   }
 `;
 
 const IconSearch = styled(BiSearch)`
-  fill: ${crimsonDark.crimson11};
+  fill: ${indigoDark.indigo11};
   :hover {
-    fill: ${crimsonDark.crimson11};
+    fill: ${indigoDark.indigo11};
   }
 `;
 
@@ -48,14 +48,14 @@ const FlexContainer = styled.div`
 `;
 
 const StyledInput = styled(Input)`
-  background: ${crimsonDark.crimson3};
-  color: ${crimsonDark.crimson11};
+  background: ${indigoDark.indigo3};
+  color: ${indigoDark.indigo11};
   ::placeholder {
-    color: ${crimsonDark.crimson11};
+    color: ${indigoDark.indigo11};
   }
   :focus {
-    background: ${crimsonDark.crimson3};
-    color: ${crimsonDark.crimson11};
+    background: ${indigoDark.indigo3};
+    color: ${indigoDark.indigo11};
   }
 `;
 
@@ -70,11 +70,11 @@ const TableControl = () => {
 
       <FlexContainer>
         <IconFilter />
-        <ParSm>Filters</ParSm>
+        <ParSm color={indigoDark.indigo11}>Filters</ParSm>
       </FlexContainer>
       <FlexContainer>
         <IconGrid />
-        <ParSm>Grid</ParSm>
+        <ParSm color={indigoDark.indigo11}>Grid</ParSm>
       </FlexContainer>
     </Layout>
   );

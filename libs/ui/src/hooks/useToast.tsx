@@ -33,7 +33,6 @@ export const useToast = () => {
       iconType: 'success',
     });
   };
-
   const warningToast = ({
     title,
     description,

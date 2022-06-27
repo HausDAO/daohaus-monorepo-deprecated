@@ -14,6 +14,7 @@ import {
   H1,
   ParMd,
   TemporaryLink,
+  useToast,
   WrappedInput,
 } from '@daohaus/ui';
 
@@ -49,6 +50,8 @@ export const SummonerForm = ({
   const {
     formState: { isValid },
   } = methods;
+  const { errorToast, successToast } = useToast();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
   const formDisabled = isSubmitting;
@@ -62,7 +65,7 @@ export const SummonerForm = ({
     try {
       const args = assembleTxArgs(formValues, chainId);
 
-      await fireTransaction({
+      fireTransaction({
         txName: 'summonBaalAndSafe',
         abi: LOCAL_ABI.BAAL_FACTORY,
         args: args,
@@ -75,6 +78,10 @@ export const SummonerForm = ({
           onPollSuccess(result) {
             const daoAddress = result?.data?.transaction?.dao?.id;
             if (daoAddress) {
+              successToast({
+                title: 'DAO Summoned',
+                description: 'Your Moloch V3 has been summoned!',
+              });
               setSummonState('success');
               setDaoAddress(daoAddress);
             } else {
@@ -82,28 +89,52 @@ export const SummonerForm = ({
               setErrMsg(
                 'Subgraph Poll did not include a DAO address. Check Transaction receipt below for Summon data'
               );
+              errorToast({
+                title: 'Summon Error',
+                description: 'No DAO address found',
+              });
             }
           },
           onTxError(error) {
-            error instanceof Error
-              ? setErrMsg(error.message)
-              : setErrMsg('Unknown Tx Error: Error Summoning Ball');
-            setSummonState('error');
+            if (error instanceof Error) {
+              setErrMsg(error.message);
+              errorToast({ title: 'Summon Error', description: error.message });
+            } else {
+              setErrMsg('Unknown error');
+              errorToast({
+                title: 'Summon Error',
+                description: 'Unknown error',
+              });
+            }
           },
           onPollError(error) {
-            error instanceof Error
-              ? setErrMsg(error.message)
-              : setErrMsg('Unknown Tx Error: Error Summoning Ball');
-            setSummonState('error');
+            if (error instanceof Error) {
+              setErrMsg(error.message);
+              errorToast({ title: 'Summon Error', description: error.message });
+            } else {
+              setErrMsg('Unknown error');
+              errorToast({
+                title: 'Summon Error',
+                description: 'Unknown error',
+              });
+            }
           },
         },
       });
     } catch (error) {
-      error instanceof Error
-        ? setErrMsg(error.message)
-        : setErrMsg('Unknown Summon Error');
+      if (error instanceof Error) {
+        setErrMsg(error.message);
+        errorToast({ title: 'Summon Error', description: error.message });
+      } else {
+        setErrMsg('Unknown error');
+        errorToast({
+          title: 'Summon Error',
+          description: 'Unknown error',
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
     }
-    setIsSubmitting(false);
   };
 
   return (

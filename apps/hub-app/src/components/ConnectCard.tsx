@@ -2,17 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { FiMoreHorizontal } from 'react-icons/fi';
-import {
-  Button,
-  H5,
-  H6,
-  Underline,
-  ParLg,
-  ParMd,
-  ParSm,
-  Bold,
-  Spinner,
-} from '@daohaus/ui';
+import { Button, ParMd, ParSm, Bold, Spinner } from '@daohaus/ui';
 import { amberDark, crimsonDark, crimsonDarkA } from '@radix-ui/colors';
 
 const Container = styled.div`

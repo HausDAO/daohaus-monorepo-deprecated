@@ -49,10 +49,12 @@ const Profile = () => {
       <AvatarLg src={profile?.image || ''} alt="profile image" />
       <div>
         <NameContainer>
-          <H5>{profile?.name || ''}</H5>
-          <ParLg as="span" role="img" aria-label="profile emoji">
-            {profile?.emoji || ''}
-          </ParLg>
+          {profile?.name && <H5>{profile?.name || ''}</H5>}
+          {profile?.emoji && (
+            <ParLg as="span" role="img" aria-label="profile emoji">
+              {profile?.emoji || ''}
+            </ParLg>
+          )}
         </NameContainer>
         <NameContainer>
           <H6>stub.eth</H6>

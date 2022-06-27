@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@daohaus-monorepo/tx-builder-feature": [
+      "@daohaus/tx-builder-feature": [
         "libs/tx-builder-feature/src/index.ts"
       ],
       "@daohaus/abi-utilities": ["libs/abi-utilities/src/index.ts"],

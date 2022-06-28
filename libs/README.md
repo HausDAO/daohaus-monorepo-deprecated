@@ -24,11 +24,13 @@ This library includes a [Storybook](https://storybook.js.org/) as well and is in
 
 [DAOhaus Connect](./libs/daohaus-connect-feature) is our first feature library. Our feature libraries are a step beyond our component library, and either include additional functionality or leverage the DAO Data SDK to create "smart components." DAOhaus Connect provides a drop-in component for handling wallet connection, and includes additional functionality such as notifying users of unsupported networks, switching networks, and displaying basic [Ceramic profile](https://ceramic.network/) data if the user has one set.
 
-This is used throughout our applications and is designed to be leveraged by the larger DAOhaus community as a portal into the DAOhaus ecosystem.s
+This is used throughout our applications and is designed to be leveraged by the larger DAOhaus community as a portal into the DAOhaus ecosystem.
 
 ## Tx Builder
 
 [Tx Builder](./libs/tx-builder-feature) is a feature library that provides a React component specifically intended to help users build transactions. Transactions are at the core of our platform, so we designed this library to provide helper utilities for this purpose. This library is an evolution of the patterns utilized in DAOhaus v2.
+
+The core element is that its a React Context that bundles together generic transaction calls with subgraph polling within the function. This provides lifecycle methods that we can use to control UI based on synchronized events from within the React component.
 
 ## Helm Chart Infrasstruction Playbook
 

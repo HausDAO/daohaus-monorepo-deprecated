@@ -65,6 +65,7 @@ const Body = styled.div`
 
 const HomePage = () => {
   const { isProfileLoading, isConnected } = useHausConnect();
+
   return (
     <Layout>
       <SideTopLeft />

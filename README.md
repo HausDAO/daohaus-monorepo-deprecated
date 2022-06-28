@@ -125,3 +125,41 @@ nx run hub-app:build
 ```
 
 ## Nx Generators
+
+We've created _generators_ that leverage `nx` with predetermined option flags.
+
+### React App
+
+Our stack uses [Vite](https://vitejs.dev/) as our React build tool. This generator will scaffold a new React app, such as a frontend app, using `vite` and `styled-components`.
+
+`nx g @nxext/react:application --name <name of app> --pascalCaseFiles true --routing true --style styled-components`
+
+TypeScript is enabled and included by default.
+
+### React Library
+
+Our stack uses [Vite](https://vitejs.dev/) as our React build tool. This generator will scaffold a new React library (such as a component library) with `vite` and `styled-components`.
+
+- `nx g @nxext/react:library --name here --importPath @daohaus/<package_name> --buildable true --publishable true --style styled-components`
+
+TypeScript is enabled and included by default.
+
+Notes: - use the `--publishable` flag for external libraries - use the `--buildable` flag for internal libraries
+
+### TypeScript Library
+
+- `nx g @nrwl/js:lib <lib_name> --importPath @daohaus/<package_name> --publishable true`
+
+Notes: - use the `--publishable` flag for external libraries - use the `--buildable` flag for internal libraries
+
+### Node Application
+
+- `nx g @nrwl/node:application <app_name>`
+
+### Lamdba Application
+
+- `nx generate @ns3/nx-serverless:app <name> --plugin @ns3/nx-serverless/plugin`
+
+### Common Issues
+
+- Sometimes vite applications will have trouble finding dependencies with a depth greater than 1. To resolve this create a custom vite config like the one mentioned in [this](https://github.com/aleclarson/vite-tsconfig-paths/issues/12#issuecomment-1081160667) issue, and update the build and serve commands in the project.json to point to the new vite config path. Now your issues should be resolved.

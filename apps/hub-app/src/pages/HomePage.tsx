@@ -6,7 +6,6 @@ import { BodyNav } from '../components/BodyNav';
 import ConnectCard from '../components/ConnectCard';
 import Header from '../components/Header';
 import Profile from '../components/Profile';
-import { DataTable } from '../components/Table';
 import TableControl from '../components/TableControl';
 import { crimsonDark, indigoDark } from '@radix-ui/colors';
 import { DaoCard } from '../components/DaoCard';
@@ -77,7 +76,18 @@ const HomePage = () => {
       </ProfileContainer>
       <Body>
         <TableControl />
-        <DaoCard isDelegate={true} unreadProposalAmt={4} />
+        <DaoCard
+          isDelegate={true}
+          unreadProposalAmt={4}
+          daoName="Uber Complex Meta Governance"
+          amtMembers={100}
+          amtToken={68}
+          tokenSymbol="ETH"
+          amtProposals={36}
+          amtPower={12.6}
+          networkName="Gnosis Chain"
+          contractName="Moloch"
+        />
         {/* <DataTable /> */}
       </Body>
     </Layout>

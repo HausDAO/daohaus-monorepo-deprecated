@@ -35,6 +35,9 @@ export const defaultDarkTheme: Theme = {
   info: utilityDark.info,
   card: {
     bg: secondaryDark.elementBg,
+    //  REVIEW ROWDY
+    //  Had to add change card border style to match the design.
+    //  Let's figure out to rectify this with design.
     border: secondaryDark.elementBgActive,
     successText: utilityDark.successText,
     successBg: utilityDark.successBg,

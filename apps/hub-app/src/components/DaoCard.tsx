@@ -1,8 +1,11 @@
-import { charLimit } from '@daohaus/common-utilities';
-import { Avatar, border, H1, ParLg, ParMd, ParSm } from '@daohaus/ui';
-import { blueDark } from '@radix-ui/colors';
 import React from 'react';
+
 import styled from 'styled-components';
+
+import { charLimit } from '@daohaus/common-utilities';
+import { Avatar, Button, ExtraLight, ParLg, ParMd } from '@daohaus/ui';
+import { Tag } from './Tag';
+import { AlertCircle } from './AlertCircle';
 
 const StyledDaoCard = styled.div`
   background-color: ${(props) => props.theme.card.bg};
@@ -21,51 +24,56 @@ const StyledDaoCard = styled.div`
   .alert-box {
     position: relative;
   }
-`;
-
-// COMPONMENT LIBRARY
-// TAGS are going to need their own component and system for coloring them
-const Tag = styled(ParSm)`
-  display: flex;
-  height: fit-content;
-  padding: 0.2rem.5rem;
-  // REVIEW TEMPRORARY COLORS UNTIL WE MAKE TAG SYSTEM
-  background-color: ${blueDark.blue3};
-  color: ${blueDark.blue11};
-  border-radius: ${border.radius};
+  .stats-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2.4rem;
+    p {
+      margin-bottom: 0.6rem;
+    }
+  }
+  .tag-box {
+    margin-bottom: 2.4rem;
+    p {
+      margin-right: 1.5rem;
+    }
+  }
 `;
 
 // COMPONENT LIBRARY
 // Calling this AlertCircle. It's the circle that alerts
 // about the DAO's proposal status.
-const AlertBox = styled.div`
-  position: absolute;
-  top: 0;
-  right: -1.2rem;
-  border-radius: 100px;
-  height: 3.6rem;
-  width: 3.6rem;
-  display: flex;
-  flex-direction: center;
-  align-items: center;
-  justify-content: center;
-  // REVIEW TEMPRORARY COLORS UNTIL WE MAKE CIRCLE SYSTEM
-  background-color: ${blueDark.blue6};
-  p {
-    font-weight: 700;
-  }
-`;
 
 type DaoCardProps = {
   isDelegate: boolean;
   unreadProposalAmt: number;
+  daoName: string;
+  amtMembers: number;
+  amtToken: number;
+  tokenSymbol: string;
+  amtProposals: number;
+  amtPower: number;
+  networkName: string;
+  contractName: string;
 };
 
 const DAOCardTitle = styled(ParLg)`
   font-weight: 900;
+  margin-bottom: 1.9rem;
 `;
 
-export const DaoCard = ({ isDelegate, unreadProposalAmt }: DaoCardProps) => {
+export const DaoCard = ({
+  isDelegate,
+  unreadProposalAmt,
+  daoName,
+  amtMembers,
+  amtToken,
+  amtProposals,
+  amtPower,
+  tokenSymbol,
+  networkName,
+  contractName,
+}: DaoCardProps) => {
   return (
     <StyledDaoCard>
       <div className="top-box">
@@ -75,20 +83,28 @@ export const DaoCard = ({ isDelegate, unreadProposalAmt }: DaoCardProps) => {
         </div>
         {isDelegate && <Tag>Delegate</Tag>}
       </div>
-      <DAOCardTitle>
-        {charLimit('Uber Complex Meta Governance', 21)}{' '}
-      </DAOCardTitle>
+      <DAOCardTitle>{charLimit(daoName, 21)} </DAOCardTitle>
+      <div className="stats-box">
+        <ParMd>
+          {amtMembers} <ExtraLight>Members</ExtraLight>
+        </ParMd>
+        <ParMd>
+          {amtToken} <ExtraLight>{tokenSymbol}</ExtraLight>
+        </ParMd>
+        <ParMd>
+          {amtProposals} <ExtraLight>Proposals</ExtraLight>
+        </ParMd>
+        <ParMd>
+          {amtPower} <ExtraLight>Power</ExtraLight>
+        </ParMd>
+      </div>
+      <div className="tag-box">
+        <Tag>{networkName}</Tag>
+        <Tag>{contractName}</Tag>
+      </div>
+      <div>
+        <Button secondary>Go</Button>
+      </div>
     </StyledDaoCard>
-  );
-};
-
-type AlertCircleProps = {
-  number: number;
-};
-export const AlertCircle = ({ number }: AlertCircleProps) => {
-  return (
-    <AlertBox>
-      <ParMd>{number}</ParMd>
-    </AlertBox>
   );
 };

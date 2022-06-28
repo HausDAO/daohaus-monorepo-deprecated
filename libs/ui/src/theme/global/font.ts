@@ -14,6 +14,7 @@ export const font = {
     xxxxl: '4.8rem',
   },
   weight: {
+    extraLight: 200,
     light: 300,
     reg: 400,
     med: 500,

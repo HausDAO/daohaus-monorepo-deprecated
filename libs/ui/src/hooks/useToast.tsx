@@ -4,7 +4,13 @@ import { HausThemeContext } from '../theme';
 export const useToast = () => {
   const { setToast } = useContext(HausThemeContext);
 
-  const errorToast = (title: string, description?: string): void => {
+  const errorToast = ({
+    title,
+    description,
+  }: {
+    title: string;
+    description?: string;
+  }): void => {
     setToast({
       title,
       description,
@@ -12,7 +18,14 @@ export const useToast = () => {
       iconType: 'error',
     });
   };
-  const successToast = (title: string, description?: string): void => {
+
+  const successToast = ({
+    title,
+    description,
+  }: {
+    title: string;
+    description?: string;
+  }): void => {
     setToast({
       title,
       description,
@@ -20,7 +33,13 @@ export const useToast = () => {
       iconType: 'success',
     });
   };
-  const warningToast = (title: string, description?: string): void => {
+  const warningToast = ({
+    title,
+    description,
+  }: {
+    title: string;
+    description?: string;
+  }): void => {
     setToast({
       title,
       description,

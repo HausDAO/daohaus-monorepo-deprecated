@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-import { Button, ParMd, TemporaryLink, useToast } from '@daohaus/ui';
+import { ParMd, TemporaryLink } from '@daohaus/ui';
 import { DaoHausNav, useHausConnect } from '@daohaus/daohaus-connect-feature';
 
-import { TXBuilder } from './TXBuilder';
+import { TXBuilder } from '@daohaus/tx-builder-feature';
 import { SummonerForm } from '../layouts/SummonerForm';
 import { SummonerLoading } from '../layouts/SummonerLoading';
 import hausCastle from '../assets/hausCastle.svg';
@@ -39,20 +39,11 @@ export const App = () => {
   const [txHash, setTxHash] = useState<string>('');
   const [daoAddress, setDaoAddress] = useState<string>('');
   const [errMsg, setErrMsg] = useState<string>('');
-  const { setToast } = useToast();
 
-  const testToast = () => {
-    setToast({
-      title: 'Test Toast',
-      description: 'This is a test toast',
-      error: true,
-    });
-  };
   return (
     <TXBuilder provider={provider} chainId={chainId}>
       <TemporaryLayout>
         <DaoHausNav />
-        <Button onClick={testToast}>Test Toast</Button>
         <CenterLayout>
           {summonState === 'idle' && (
             <SummonerForm

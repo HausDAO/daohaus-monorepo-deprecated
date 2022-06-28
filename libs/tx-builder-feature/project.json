@@ -1,0 +1,33 @@
+{
+  "root": "libs/tx-builder-feature",
+  "sourceRoot": "libs/tx-builder-feature/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nxext/vite:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/tx-builder-feature",
+        "configFile": "@nxext/vite/plugins/vite-package",
+        "frameworkConfigFile": "@nxext/react/plugins/vite",
+        "entryFile": "src/index.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/tx-builder-feature/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/tx-builder-feature"],
+      "options": {
+        "jestConfig": "libs/tx-builder-feature/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

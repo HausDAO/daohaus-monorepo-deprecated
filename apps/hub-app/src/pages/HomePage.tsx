@@ -46,7 +46,8 @@ const ProfileContainer = styled.div`
     justify-content: space-around;
   }
 `;
-
+// JP
+// This is the data we'll need to standardize.
 const sampleDaoData = [
   {
     isDelegate: true,
@@ -79,7 +80,7 @@ const Body = styled.div`
 `;
 
 const HomePage = () => {
-  const [daoData, setData] = useState(sampleDaoData);
+  const [daoData] = useState(sampleDaoData);
   const { isProfileLoading, isConnected } = useHausConnect();
 
   return (

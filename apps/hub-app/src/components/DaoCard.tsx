@@ -1,3 +1,4 @@
+import { charLimit } from '@daohaus/common-utilities';
 import { Avatar, border, H1, ParLg, ParMd, ParSm } from '@daohaus/ui';
 import { blueDark } from '@radix-ui/colors';
 import React from 'react';
@@ -74,7 +75,9 @@ export const DaoCard = ({ isDelegate, unreadProposalAmt }: DaoCardProps) => {
         </div>
         {isDelegate && <Tag>Delegate</Tag>}
       </div>
-      <DAOCardTitle>Uber Complex Meta Governance</DAOCardTitle>
+      <DAOCardTitle>
+        {charLimit('Uber Complex Meta Governance', 21)}{' '}
+      </DAOCardTitle>
     </StyledDaoCard>
   );
 };

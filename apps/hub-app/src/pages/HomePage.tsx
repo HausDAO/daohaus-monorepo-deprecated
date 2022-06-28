@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { breakpoints } from '@daohaus/ui';
 import styled from 'styled-components';
@@ -47,6 +47,21 @@ const ProfileContainer = styled.div`
   }
 `;
 
+const sampleDaoData = [
+  {
+    isDelegate: true,
+    unreadProposalAmt: 4,
+    daoName: 'Uber Complex Meta Governance',
+    amtMembers: 100,
+    amtToken: 68,
+    tokenSymbol: 'ETH',
+    amtProposals: 36,
+    amtPower: 12.6,
+    networkName: 'Gnosis Chain',
+    contractName: 'Moloch V3',
+  },
+];
+
 const SideTopLeft = styled.div`
   grid-area: sidebarTopLeft;
   /* background: ${crimsonDark.crimson2}; */
@@ -64,6 +79,7 @@ const Body = styled.div`
 `;
 
 const HomePage = () => {
+  const [daoData, setData] = useState(sampleDaoData);
   const { isProfileLoading, isConnected } = useHausConnect();
 
   return (
@@ -77,18 +93,9 @@ const HomePage = () => {
       </ProfileContainer>
       <Body>
         <TableControl />
-        <DaoCard
-          isDelegate={true}
-          unreadProposalAmt={4}
-          daoName="Uber Complex Meta Governance"
-          amtMembers={100}
-          amtToken={68}
-          tokenSymbol="ETH"
-          amtProposals={36}
-          amtPower={12.6}
-          networkName="Gnosis Chain"
-          contractName="Moloch"
-        />
+        {daoData.map((dao, index) => (
+          <DaoCard key={`${dao.daoName}-${index}`} {...dao} />
+        ))}
         {/* <DataTable /> */}
       </Body>
     </Layout>

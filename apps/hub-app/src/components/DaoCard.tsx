@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { charLimit } from '@daohaus/common-utilities';
-import { Avatar, Button, ExtraLight, ParLg, ParMd } from '@daohaus/ui';
+import { Avatar, Bold, Button, ParLg, ParMd } from '@daohaus/ui';
 import { Tag } from './Tag';
 import { AlertCircle } from './AlertCircle';
 
@@ -38,6 +38,10 @@ const StyledDaoCard = styled.div`
       margin-right: 1.5rem;
     }
   }
+  .dao-title {
+    font-weight: 700;
+    margin-bottom: 1.9rem;
+  }
 `;
 
 // COMPONENT LIBRARY
@@ -56,11 +60,6 @@ type DaoCardProps = {
   networkName: string;
   contractName: string;
 };
-
-const DAOCardTitle = styled(ParLg)`
-  font-weight: 900;
-  margin-bottom: 1.9rem;
-`;
 
 export const DaoCard = ({
   isDelegate,
@@ -83,19 +82,19 @@ export const DaoCard = ({
         </div>
         {isDelegate && <Tag>Delegate</Tag>}
       </div>
-      <DAOCardTitle>{charLimit(daoName, 21)} </DAOCardTitle>
+      <ParLg className="dao-title">{charLimit(daoName, 21)} </ParLg>
       <div className="stats-box">
         <ParMd>
-          {amtMembers} <ExtraLight>Members</ExtraLight>
+          <Bold>{amtMembers}</Bold> Members
         </ParMd>
         <ParMd>
-          {amtToken} <ExtraLight>{tokenSymbol}</ExtraLight>
+          <Bold>{amtToken}</Bold> {tokenSymbol}
         </ParMd>
         <ParMd>
-          {amtProposals} <ExtraLight>Proposals</ExtraLight>
+          <Bold>{amtProposals}</Bold> Proposals
         </ParMd>
         <ParMd>
-          {amtPower} <ExtraLight>Power</ExtraLight>
+          <Bold>{amtPower}</Bold> Power
         </ParMd>
       </div>
       <div className="tag-box">

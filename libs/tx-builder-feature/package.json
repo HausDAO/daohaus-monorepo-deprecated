@@ -1,0 +1,12 @@
+{
+  "name": "@daohaus/tx-builder-feature",
+  "version": "0.0.1",
+  "main": "./tx-builder-feature.umd.js",
+  "module": "./tx-builder-feature.es.js",
+  "exports": {
+    ".": {
+      "import": "./tx-builder-feature.es.js",
+      "require": "./tx-builder-feature.umd.js"
+    }
+  }
+}

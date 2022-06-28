@@ -9,6 +9,7 @@ import Profile from '../components/Profile';
 import { DataTable } from '../components/Table';
 import TableControl from '../components/TableControl';
 import { crimsonDark, indigoDark } from '@radix-ui/colors';
+import { DaoCard } from '../components/DaoCard';
 
 const Layout = styled.div`
   width: 100%;
@@ -76,7 +77,8 @@ const HomePage = () => {
       </ProfileContainer>
       <Body>
         <TableControl />
-        <DataTable />
+        <DaoCard isDelegate={true} unreadProposalAmt={4} />
+        {/* <DataTable /> */}
       </Body>
     </Layout>
   );

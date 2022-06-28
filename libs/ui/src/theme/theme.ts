@@ -35,7 +35,7 @@ export const defaultDarkTheme: Theme = {
   info: utilityDark.info,
   card: {
     bg: secondaryDark.elementBg,
-    border: secondaryDark.elementBorder,
+    border: secondaryDark.elementBgActive,
     successText: utilityDark.successText,
     successBg: utilityDark.successBg,
     successBorder: utilityDark.successBorder,

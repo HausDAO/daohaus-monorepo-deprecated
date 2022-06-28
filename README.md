@@ -1,90 +1,78 @@
-# DAOhaus Monorepo
+# DAOhaus v3 Monorepo
 
-This project was generated using [Nx](https://nx.dev).
+DAOhaus is a no-code platform for summoning and managing Moloch DAOs. We've worked to reimagine our platform into multiple apps, libraries, and microservices. We're using a monorepo to streamline the development of all of these elements, and we used [Nx](https://nx.dev) to scaffold our monorepo.
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+If you've a bug to report or want to contributes, jump to the 🙏 We need your help to make DAOhaus even better section below for more information.
 
-🔎 **Smart, Fast and Extensible Build System**
+If you'd like to join our community, we coordinate on [Discord](https://discord.gg/gWH4vt3tWE).
 
-## Adding capabilities to your workspace
+## Packages
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+Our monorepo follows the [recommended Nx structure](https://nx.dev/structure/applications-and-libraries) with `apps` and `libs` folders. The `apps` folder contains our core applications, subgraphs, and infrastructure jobs. The `libs` has our utilities, librarires, and infrastructure resources.
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+### Apps
 
-Below are our core plugins:
+Our applications in the `apps` folder are our DAO infrastructure and leverage our libraries, subgraphs, and contracts. Currently, we have two categories for these applications:
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
+- **User Interfaces**: These are our applications that are used to interact with DAOs.
+  - Hub App
+  - Summoner App
+- **Deployed Infrastructure**: These are our jobs and subgraphs and are deployed to provide functionality leveraged throughout our other applications.
+  - DAO Producer Job
+  - v3 Subgraph
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+#### [Hub App](./apps/hub-app)
 
-## Generate an application
+- Vite React application with Typescript
 
-Run `nx g @nrwl/react:app my-app` to generate an application.
+Entry point: `apps/hub-app`
 
-> You can use any of the plugins above to generate applications as well.
+#### [Summoner App](./apps/summon-app/)
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+- Vite React application with Typescript
 
-## Generate a library
+Entry point: `apps/summon-app`
 
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
+#### [DAO Producer Job](./apps/dao-producer-job)
 
-> You can also use any of the plugins above to generate libraries as well.
+Entry point: `apps/dao-producer-job`
 
-Libraries are shareable across libraries and applications. They can be imported from `@daohaus-monorepo/mylib`.
+#### [v3 Subgraph](./apps/v3-subgraph/)
 
-## Development server
+Entry point: `apps/v3-subgraph`
 
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+Entry point: `apps/summoner-app`
 
-## Code scaffolding
+### Libs
 
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
+Our libraries in the `libs` folder are structured to be consumed by our apps as well as used by external developers using our tooling. Currently, we have three categories of libraries:
 
-## Build
+- **Utility Libraries**: These are libraries that are used to provide foundational utility that can be composed and integrated into applications.
+  - Helm Chart Infrastructure Playbook
+  - DAO Data SDK
+  - Component Library
+- **Feature Libraries**: These compose together other libraries such as the _DAO Data SDK_ and the _Component Library_ to create "smart components" that can be integrated into applications.
+  - DAOhaus Connect
+  - Tx Builder
 
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+#### [DAO Data SDK](./libs/dao-data-sdk)
 
-## Running unit tests
+Entry point: `libs/dao-data-sdk`
 
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
+#### [Component Library (UI)](./libs/ui)
 
-Run `nx affected:test` to execute the unit tests affected by a change.
+Entry point: `libs/ui`
 
-## Running end-to-end tests
+#### [DAOhaus Connect](./libs/daohaus-connect-feature)
 
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
+Entry point: `libs/daohaus-connect-feature`
 
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
+#### [Tx Builder](./libs/tx-builder-feature)
 
-## Understand your workspace
+Entry point: `libs/tx-builder-feature`
 
-Run `nx graph` to see a diagram of the dependencies of your projects.
+#### [Helm Chart Infrastructure Playbook](./libs/infra-chart)
 
-## Further help
+Entry point: `libs/infra-chart`
 
-Visit the [Nx Documentation](https://nx.dev) to learn more.
-
-## ☁ Nx Cloud
-
-### Distributed Computation Caching & Distributed Task Execution
-
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
-
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
-
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
-
-Visit [Nx Cloud](https://nx.app/) to learn more.
+## Getting Started

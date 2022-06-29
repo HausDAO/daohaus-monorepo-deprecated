@@ -25,7 +25,7 @@
         "cwd": "libs/infra-chart"
       }
     },
-    "deploy": {
+    "deployStaging": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
         "command": "helm install -f ./daohaus/values.yaml test ./daohaus",

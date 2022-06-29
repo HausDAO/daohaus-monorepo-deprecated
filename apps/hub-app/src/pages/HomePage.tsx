@@ -9,7 +9,7 @@ import Profile from '../components/Profile';
 
 import { crimsonDark, indigoDark } from '@radix-ui/colors';
 import { sampleDaoData } from '../utils/temp';
-import { ListType, TemporaryDAOType } from '../utils/appSpecificTypes';
+import { TemporaryDAOType } from '../utils/appSpecificTypes';
 import { HomeDashboard } from '../components/HomeDashboard';
 import { HomeNotConnected } from './homeNotConnected';
 
@@ -68,11 +68,6 @@ const SideTopRight = styled.div`
 const HomePage = () => {
   const { isProfileLoading, isConnected } = useHausConnect();
   const [daoData] = useState<TemporaryDAOType[]>(sampleDaoData);
-  const [listType, setListType] = useState<ListType>('cards');
-
-  const toggleListType = () => {
-    listType === 'cards' ? setListType('table') : setListType('cards');
-  };
 
   return (
     <Layout>
@@ -83,15 +78,7 @@ const HomePage = () => {
         <BodyNav />
         {isConnected && !isProfileLoading ? <Profile /> : <ConnectCard />}
       </ProfileContainer>
-      {isConnected ? (
-        <HomeDashboard
-          listType={listType}
-          daoData={daoData}
-          toggleListType={toggleListType}
-        />
-      ) : (
-        <HomeNotConnected />
-      )}
+      {isConnected ? <HomeDashboard daoData={daoData} /> : <HomeNotConnected />}
     </Layout>
   );
 };

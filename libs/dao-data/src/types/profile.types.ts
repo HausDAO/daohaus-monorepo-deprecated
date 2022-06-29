@@ -22,4 +22,5 @@ export type AccountProfile = {
   name?: string;
   description?: string;
   emoji?: string;
+  daos?: unknown;
 };

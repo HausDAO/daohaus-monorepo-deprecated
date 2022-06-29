@@ -3,9 +3,6 @@ import { ENDPOINTS, Keychain, KeychainList } from '@daohaus/common-utilities';
 import {
   ListQueryArguments,
   QueryResult,
-  CrossNetworkQueryArguments,
-  Ordering,
-  TransformedMembershipsQuery,
   DaoTokenBalances,
   TokenBalance,
   TransformedProposalQuery,
@@ -20,9 +17,6 @@ import {
   FindMemberQuery,
   FindMemberQueryVariables,
   ListMembersDocument,
-  ListMembershipsDocument,
-  ListMembershipsQuery,
-  ListMembershipsQueryVariables,
   ListMembersQuery,
   ListMembersQueryVariables,
 } from './subgraph/queries/members.generated';
@@ -61,7 +55,6 @@ import {
   ListTxsQueryVariables,
 } from './subgraph/queries/transactions.generated';
 import {
-  transformMembershipList,
   transformProposal,
   transformTokenBalances,
 } from './utils/transformers';
@@ -70,7 +63,7 @@ import { HausError } from './HausError';
 import { createPaging, defaultPagination, paginateResponse } from './utils';
 
 export default class Query {
-  private _endpoints: KeychainList;
+  public _endpoints: KeychainList;
 
   constructor() {
     this._endpoints = ENDPOINTS;
@@ -460,75 +453,6 @@ export default class Query {
       return {
         error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
       };
-    }
-  }
-
-  /**
-   * Queries scoped to user address
-   */
-  public async listDaosByMember({
-    memberAddress,
-    networkIds,
-    includeTokens = false,
-  }: CrossNetworkQueryArguments): Promise<
-    QueryResult<TransformedMembershipsQuery>
-  > {
-    const promises: Promise<QueryResult<ListMembershipsQuery>>[] = [];
-    const filter = { memberAddress: memberAddress };
-    const ordering: Ordering<Member_OrderBy> = {
-      orderBy: 'createdAt',
-      orderDirection: 'desc',
-    };
-
-    networkIds.forEach((networkId: keyof Keychain) => {
-      const url = this._endpoints['V3_SUBGRAPH'][networkId];
-
-      if (url) {
-        promises.push(
-          graphFetch<ListMembershipsQuery, ListMembershipsQueryVariables>(
-            ListMembershipsDocument,
-            url,
-            networkId,
-            {
-              where: filter,
-              orderBy: ordering.orderBy,
-              orderDirection: ordering.orderDirection,
-            }
-          )
-        );
-      }
-    });
-
-    const memberData = await Promise.all(promises);
-    const transformedList = transformMembershipList(memberData);
-
-    if (includeTokens) {
-      const tokenPromises: Promise<QueryResult<DaoTokenBalances>>[] = [];
-      transformedList.forEach((dao) => {
-        if (dao.networkId) {
-          tokenPromises.push(
-            this.listTokenBalances({
-              networkId: dao.networkId,
-              safeAddress: dao.safeAddress,
-            })
-          );
-        }
-      });
-
-      const tokenData = await Promise.all(tokenPromises);
-
-      const dataWithTokens = transformedList.map((dao) => {
-        return {
-          ...dao,
-          ...tokenData.find(
-            (dataRes) => dataRes.data?.safeAddress === dao.safeAddress
-          )?.data,
-        };
-      });
-
-      return { data: { daos: dataWithTokens } };
-    } else {
-      return { data: { daos: transformedList } };
     }
   }
 

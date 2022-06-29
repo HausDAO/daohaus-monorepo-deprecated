@@ -11,6 +11,7 @@ class Haus {
     this.options = options;
     this.query = new Query();
     this.profile = new Profile(
+      this.query,
       this.options.providers,
       this.options.ceramicNode
     );

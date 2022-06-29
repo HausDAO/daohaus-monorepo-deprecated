@@ -1,4 +1,5 @@
 import { CheckboxProps } from '@radix-ui/react-checkbox';
+import { RegisterOptions } from 'react-hook-form';
 
 export type ErrorMessage = {
   type: 'error';
@@ -29,12 +30,14 @@ export type Field = {
   id: string;
   label?: string;
   type?: string;
+  className?: string;
   placeholder?: string;
   helperText?: string;
   required?: boolean;
   info?: string;
   disabled?: boolean;
   disabledPlaceholder?: boolean;
+  defaultValue?: string;
   number?: boolean;
   address?: boolean;
   long?: boolean;
@@ -44,6 +47,7 @@ export type Field = {
   success?: SuccessMessage;
   rows?: number;
   cols?: number;
+  registerOptions?: RegisterOptions;
 };
 
 // TODO Refine based on Radix Checkbox Type & Wrapper
@@ -58,5 +62,8 @@ export type OptionType = {
 export type SelectProps = Field & {
   defaultValue?: string;
   options: OptionType[];
-  inputSelect?: boolean;
+  containerClassName?: string;
 };
+
+export type InputSelectProps = Field &
+  SelectProps & { selectId: string; selectPlaceholder?: string };

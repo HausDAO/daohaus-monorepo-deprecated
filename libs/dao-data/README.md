@@ -19,7 +19,3 @@ Run `NODE_OPTIONS=--experimental-vm-modules nx run dao-data:test` to execute the
 2. When there is a new schema or new qury files are added, new types should be generated
 
    run `nx generate-gql-types dao-data` to create type fiels for each query file in `src/subgraph/queries`
-
-### TODO
-
-- generate types on publishing

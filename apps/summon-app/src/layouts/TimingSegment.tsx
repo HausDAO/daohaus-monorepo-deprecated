@@ -1,7 +1,9 @@
-import { WrappedInput } from '@daohaus/ui';
+import { TimePicker } from '../components/TimePicker/TimePicker';
 import { FormSegment, SplitColumn } from '../layouts/FormLayouts';
+import { INFO_COPY } from '../utils/content';
+import { FORM_KEYS } from '../utils/formKeys';
 
-export const TimingSegment = () => {
+export const TimingSegment = ({ formDisabled }: { formDisabled: boolean }) => {
   return (
     <FormSegment
       title="Proposal Timing"
@@ -11,17 +13,25 @@ export const TimingSegment = () => {
           singleRow={{
             rowID: 'timing',
             left: (
-              <WrappedInput
+              <TimePicker
                 label="Voting Period"
-                id="votingPeriod"
-                placeholder="Wait for Input Select"
+                id={FORM_KEYS.VOTING_PERIOD}
+                full
+                info={INFO_COPY.VOTING_PERIOD}
+                disabled={formDisabled}
+                placeholder="0"
+                required
               />
             ),
             right: (
-              <WrappedInput
+              <TimePicker
                 label="Grace Period"
-                id="gracePeriod"
-                placeholder="Wait for Input-Select"
+                id={FORM_KEYS.GRACE_PERIOD}
+                info={INFO_COPY.GRACE_PERIOD}
+                full
+                disabled={formDisabled}
+                placeholder="0"
+                required
               />
             ),
           }}

@@ -6,6 +6,7 @@ const sizes: Record<string, string> = {
   sm: '3rem',
   md: '4rem',
   lg: '5rem',
+  xl: '6rem',
 };
 const handleSizing = (size: string) => (sizes[size] ? sizes[size] : size);
 

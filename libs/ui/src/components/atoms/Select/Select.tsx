@@ -16,43 +16,39 @@ export const Select = forwardRef(
     {
       options,
       defaultValue,
-      inputSelect,
       long,
       full,
       placeholder,
       disabled,
       error,
       warning,
-
+      className,
+      containerClassName,
       ...props
     }: SelectProps,
     ref: Ref
   ) => {
     const theme = useTheme();
     const wrapperClasses = classNames({
-      'input-select': inputSelect,
       long,
       full,
     });
     const classes = classNames({
-      'input-select': inputSelect,
       long,
       full,
       error,
       warning,
     });
     return (
-      <WithIcon className={wrapperClasses}>
+      <WithIcon className={`${containerClassName} ${wrapperClasses}`}>
         <BaseSelect
+          {...props}
           ref={ref}
-          className={classes}
+          className={`${className} ${classes}`}
           defaultValue={defaultValue}
           disabled={disabled}
-          {...props}
         >
-          {placeholder && (
-            <StyledOption value="">--{placeholder}--</StyledOption>
-          )}
+          {placeholder && <StyledOption value="">{placeholder}</StyledOption>}
           {options.map((option) => (
             <StyledOption key={option.key || option.value} value={option.value}>
               {option.name}

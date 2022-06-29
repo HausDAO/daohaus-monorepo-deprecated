@@ -1,7 +1,7 @@
 type Dao @entity {
   "unique identifier and primary key of the entity"
   id: ID!
-  "block timestamp when the dao contract was deployed"
+  "timestamp of the block when the dao was summoned"
   createdAt: String!
   "transaction hash of the dao contract deployment"
   transactionHashSummon: Bytes!
@@ -57,9 +57,7 @@ type Dao @entity {
   rageQuits: [RageQuit!] @derivedFrom(field: "dao")
   "shaman scoped to this dao"
   shaman: [Shaman!] @derivedFrom(field: "dao")
-  "metadata scoped to this dao"
-  metaData: MetaData @derivedFrom(field: "dao")
-  "transactions scoped to this dao"
+  records: [Record!] @derivedFrom(field: "dao")
   eventTransactions: EventTransaction @derivedFrom(field: "dao")
 }
 
@@ -122,7 +120,7 @@ type Proposal @entity {
   yesBalance: BigInt!
   "amount of current shares that have voted no"
   noBalance: BigInt!
-  "minimum % of shares that must vote yes for it to pass"
+  "is currently paasing quorum and has more yes votes than no votes"
   currentlyPassing: Boolean!
   "highest share+loot count during any individual yes vote"
   maxTotalSharesAndLootAtYesVote: BigInt!
@@ -165,6 +163,17 @@ type Vote @entity {
   proposal: Proposal!
   "related/voting member"
   member: Member!
+}
+
+type Record @entity {
+  id: ID!
+  createdAt: String!
+  createdBy: Bytes!
+  dao: Dao!
+  tag: Bytes!
+  table: String!
+  contentType: String!
+  content: String!
 }
 
 type Member @entity {
@@ -234,13 +243,4 @@ type TokenLookup @entity {
   id: ID!
   "related DAO"
   dao: Bytes!
-}
-
-type MetaData @entity {
-  id: ID!
-  createdAt: String!
-  createdBy: Bytes!
-  dao: Dao
-  name: String
-  rawContent: String!
 }

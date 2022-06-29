@@ -1,9 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Button, Dropdown, ParMd } from '@daohaus/ui';
+import {
+  Button,
+  Dropdown,
+  ParMd,
+  useBreakpoint,
+  widthQuery,
+} from '@daohaus/ui';
 import { ConnectButton } from '@daohaus/daohaus-connect-feature';
 import { BiCommand, BiChevronDown } from 'react-icons/bi';
-import { crimsonDarkA, crimsonDark } from '@radix-ui/colors';
+import { indigoDark, amberDark } from '@radix-ui/colors';
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -11,7 +17,6 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   grid-area: header;
   width: 100%;
-  background: ${crimsonDark.crimson2};
 `;
 
 const StyledParMd = styled(ParMd)`
@@ -19,54 +24,56 @@ const StyledParMd = styled(ParMd)`
 `;
 
 const StyledButton = styled(Button)`
-  background-color: ${crimsonDarkA.crimsonA3};
+  background-color: ${indigoDark.indigo3};
   color: white;
   border-radius: 0.4rem;
   border: none;
   width: 100%;
   :hover {
-    background-color: ${crimsonDarkA.crimsonA5};
+    background-color: ${indigoDark.indigo5};
     color: white;
     border: none;
   }
   :focus {
-    background-color: ${crimsonDarkA.crimsonA5};
+    background-color: ${indigoDark.indigo5};
     color: white;
     border: none;
   }
   :active {
-    background-color: ${crimsonDarkA.crimsonA5};
+    background-color: ${indigoDark.indigo5};
     color: white;
     border: none;
   }
   :disabled {
-    background-color: ${crimsonDarkA.crimsonA1};
+    background-color: ${indigoDark.indigo1};
     color: white;
     border: none;
   }
 `;
 
 const StyledChevron = styled(BiChevronDown)`
-  fill: ${crimsonDark.crimson9};
+  fill: ${amberDark.amber9};
   :hover {
-    fill: ${crimsonDark.crimson9};
+    fill: ${amberDark.amber9};
   }
 `;
 
 const StyledCommand = styled(BiCommand)`
-  fill: ${crimsonDark.crimson9};
+  fill: ${amberDark.amber9};
   :hover {
-    fill: ${crimsonDark.crimson9};
+    fill: ${amberDark.amber9};
   }
 `;
 
 const Header = () => {
+  const isSm = useBreakpoint(widthQuery.sm);
   return (
     <HeaderContainer>
       <Dropdown
+        bg={indigoDark.indigo3}
         trigger={
           <StyledButton IconRight={StyledChevron} IconLeft={StyledCommand}>
-            Hub
+            HUB
           </StyledButton>
         }
         items={[
@@ -75,9 +82,8 @@ const Header = () => {
             content: <StyledParMd>Summon</StyledParMd>,
           },
         ]}
-        width="18rem"
       />
-      <ConnectButton />
+      <ConnectButton isSm={isSm} />
     </HeaderContainer>
   );
 };

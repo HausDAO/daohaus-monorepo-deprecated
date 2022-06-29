@@ -27,67 +27,38 @@ export interface Block_Height {
 
 export interface Dao {
   __typename?: 'Dao';
-  /** count of share or loot holding members */
   activeMemberCount: Scalars['BigInt'];
-  /** block timestamp when the dao contract was deployed */
+  /** timestamp of the block when the dao was summoned */
   createdAt: Scalars['String'];
-  /** transactions scoped to this dao */
   eventTransactions?: Maybe<EventTransaction>;
-  /** length in seconds of the current grace period */
   gracePeriod: Scalars['BigInt'];
   /** unique identifier and primary key of the entity */
   id: Scalars['ID'];
-  /** ID of the last sponsored proposal */
   latestSponsoredProposalId: Scalars['BigInt'];
-  /** contract address of the loot erc20 token */
   lootAddress: Scalars['Bytes'];
-  /** indicates if loot transferability is on/off */
   lootPaused: Scalars['Boolean'];
-  /** name of the erc20 loot token */
   lootTokenName?: Maybe<Scalars['String']>;
-  /** symbol of the erc20 loot token */
   lootTokenSymbol?: Maybe<Scalars['String']>;
-  /** members scoped to this dao */
   members?: Maybe<Array<Member>>;
-  /** metadata scoped to this dao */
-  metaData?: Maybe<MetaData>;
-  /** auto-fails a proposal if more than (1- minRetentionPercent) * total shares exit before processing */
   minRetentionPercent: Scalars['BigInt'];
-  /** name of the DAO */
   name?: Maybe<Scalars['String']>;
-  /** count of proposal submitted */
   proposalCount: Scalars['BigInt'];
-  /** amount of network token required as tribute to submit a proposal */
   proposalOffering: Scalars['BigInt'];
-  /** proposals scoped to this dao */
   proposals?: Maybe<Array<Proposal>>;
-  /** minimum % of shares that must vote yes for it to pass */
   quorumPercent: Scalars['BigInt'];
-  /** rage quits scoped to this dao */
   rageQuits?: Maybe<Array<RageQuit>>;
-  /** contract address of the gnosis safe treasury */
+  records?: Maybe<Array<Record>>;
   safeAddress: Scalars['Bytes'];
-  /** shaman scoped to this dao */
   shaman?: Maybe<Array<Shaman>>;
-  /** name of the erc20 shares token */
   shareTokenName?: Maybe<Scalars['String']>;
-  /** symbol of the erc20 shares token */
   shareTokenSymbol?: Maybe<Scalars['String']>;
-  /** contract address of the shares erc20 token */
   sharesAddress: Scalars['Bytes'];
-  /** indicates if shares transferability is on/off */
   sharesPaused: Scalars['Boolean'];
-  /** amount of shares needed to automatically sponsor a proposal */
   sponsorThreshold: Scalars['BigInt'];
-  /** total circulating loot tokens */
   totalLoot: Scalars['BigInt'];
-  /** total circulating shares tokens */
   totalShares: Scalars['BigInt'];
-  /** transaction hash of the dao contract deployment */
   transactionHashSummon: Scalars['Bytes'];
-  /** length in seconds of the current voting period */
   votingPeriod: Scalars['BigInt'];
-  /** length in seconds of the current voting period and grace period */
   votingPlusGraceDuration: Scalars['BigInt'];
 }
 
@@ -116,6 +87,15 @@ export interface DaoRageQuitsArgs {
   orderDirection?: InputMaybe<OrderDirection>;
   skip?: InputMaybe<Scalars['Int']>;
   where?: InputMaybe<RageQuit_Filter>;
+}
+
+
+export interface DaoRecordsArgs {
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Record_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  where?: InputMaybe<Record_Filter>;
 }
 
 
@@ -400,7 +380,6 @@ export type Dao_OrderBy =
   | 'lootTokenName'
   | 'lootTokenSymbol'
   | 'members'
-  | 'metaData'
   | 'minRetentionPercent'
   | 'name'
   | 'proposalCount'
@@ -408,6 +387,7 @@ export type Dao_OrderBy =
   | 'proposals'
   | 'quorumPercent'
   | 'rageQuits'
+  | 'records'
   | 'safeAddress'
   | 'shaman'
   | 'shareTokenName'
@@ -423,11 +403,8 @@ export type Dao_OrderBy =
 
 export interface EventTransaction {
   __typename?: 'EventTransaction';
-  /** block timestamp of the transaction */
   createdAt: Scalars['String'];
-  /** related DAO */
   dao: Dao;
-  /** unique identifier and primary key of the entity */
   id: Scalars['ID'];
 }
 
@@ -491,23 +468,14 @@ export type EventTransaction_OrderBy =
 
 export interface Member {
   __typename?: 'Member';
-  /** block timestamp when the member entity was created (when the address first recieved shares or loot) */
   createdAt: Scalars['String'];
-  /** related dao */
   dao: Dao;
-  /** amount of shares this address has delegated to it */
   delegateShares: Scalars['BigInt'];
-  /** address the member is delegating to */
   delegatingTo: Scalars['Bytes'];
-  /** unique identifier and primary key of the entity */
   id: Scalars['ID'];
-  /** current loot held by the member */
   loot: Scalars['BigInt'];
-  /** address of the member */
   memberAddress: Scalars['Bytes'];
-  /** current shares held by the member */
   shares: Scalars['BigInt'];
-  /** related votes */
   votes?: Maybe<Array<Vote>>;
 }
 
@@ -620,123 +588,6 @@ export type Member_OrderBy =
   | 'shares'
   | 'votes';
 
-export interface MetaData {
-  __typename?: 'MetaData';
-  createdAt: Scalars['String'];
-  createdBy: Scalars['Bytes'];
-  dao?: Maybe<Dao>;
-  id: Scalars['ID'];
-  name?: Maybe<Scalars['String']>;
-  rawContent: Scalars['String'];
-}
-
-export interface MetaData_Filter {
-  /** Filter for the block changed event. */
-  _change_block?: InputMaybe<BlockChangedFilter>;
-  createdAt?: InputMaybe<Scalars['String']>;
-  createdAt_contains?: InputMaybe<Scalars['String']>;
-  createdAt_contains_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_ends_with?: InputMaybe<Scalars['String']>;
-  createdAt_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_gt?: InputMaybe<Scalars['String']>;
-  createdAt_gte?: InputMaybe<Scalars['String']>;
-  createdAt_in?: InputMaybe<Array<Scalars['String']>>;
-  createdAt_lt?: InputMaybe<Scalars['String']>;
-  createdAt_lte?: InputMaybe<Scalars['String']>;
-  createdAt_not?: InputMaybe<Scalars['String']>;
-  createdAt_not_contains?: InputMaybe<Scalars['String']>;
-  createdAt_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_not_ends_with?: InputMaybe<Scalars['String']>;
-  createdAt_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_not_in?: InputMaybe<Array<Scalars['String']>>;
-  createdAt_not_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  createdBy?: InputMaybe<Scalars['Bytes']>;
-  createdBy_contains?: InputMaybe<Scalars['Bytes']>;
-  createdBy_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  createdBy_not?: InputMaybe<Scalars['Bytes']>;
-  createdBy_not_contains?: InputMaybe<Scalars['Bytes']>;
-  createdBy_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  dao?: InputMaybe<Scalars['String']>;
-  dao_contains?: InputMaybe<Scalars['String']>;
-  dao_contains_nocase?: InputMaybe<Scalars['String']>;
-  dao_ends_with?: InputMaybe<Scalars['String']>;
-  dao_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  dao_gt?: InputMaybe<Scalars['String']>;
-  dao_gte?: InputMaybe<Scalars['String']>;
-  dao_in?: InputMaybe<Array<Scalars['String']>>;
-  dao_lt?: InputMaybe<Scalars['String']>;
-  dao_lte?: InputMaybe<Scalars['String']>;
-  dao_not?: InputMaybe<Scalars['String']>;
-  dao_not_contains?: InputMaybe<Scalars['String']>;
-  dao_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  dao_not_ends_with?: InputMaybe<Scalars['String']>;
-  dao_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  dao_not_in?: InputMaybe<Array<Scalars['String']>>;
-  dao_not_starts_with?: InputMaybe<Scalars['String']>;
-  dao_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  dao_starts_with?: InputMaybe<Scalars['String']>;
-  dao_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['ID']>;
-  id_gt?: InputMaybe<Scalars['ID']>;
-  id_gte?: InputMaybe<Scalars['ID']>;
-  id_in?: InputMaybe<Array<Scalars['ID']>>;
-  id_lt?: InputMaybe<Scalars['ID']>;
-  id_lte?: InputMaybe<Scalars['ID']>;
-  id_not?: InputMaybe<Scalars['ID']>;
-  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  name?: InputMaybe<Scalars['String']>;
-  name_contains?: InputMaybe<Scalars['String']>;
-  name_contains_nocase?: InputMaybe<Scalars['String']>;
-  name_ends_with?: InputMaybe<Scalars['String']>;
-  name_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  name_gt?: InputMaybe<Scalars['String']>;
-  name_gte?: InputMaybe<Scalars['String']>;
-  name_in?: InputMaybe<Array<Scalars['String']>>;
-  name_lt?: InputMaybe<Scalars['String']>;
-  name_lte?: InputMaybe<Scalars['String']>;
-  name_not?: InputMaybe<Scalars['String']>;
-  name_not_contains?: InputMaybe<Scalars['String']>;
-  name_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  name_not_ends_with?: InputMaybe<Scalars['String']>;
-  name_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  name_not_in?: InputMaybe<Array<Scalars['String']>>;
-  name_not_starts_with?: InputMaybe<Scalars['String']>;
-  name_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  name_starts_with?: InputMaybe<Scalars['String']>;
-  name_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  rawContent?: InputMaybe<Scalars['String']>;
-  rawContent_contains?: InputMaybe<Scalars['String']>;
-  rawContent_contains_nocase?: InputMaybe<Scalars['String']>;
-  rawContent_ends_with?: InputMaybe<Scalars['String']>;
-  rawContent_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  rawContent_gt?: InputMaybe<Scalars['String']>;
-  rawContent_gte?: InputMaybe<Scalars['String']>;
-  rawContent_in?: InputMaybe<Array<Scalars['String']>>;
-  rawContent_lt?: InputMaybe<Scalars['String']>;
-  rawContent_lte?: InputMaybe<Scalars['String']>;
-  rawContent_not?: InputMaybe<Scalars['String']>;
-  rawContent_not_contains?: InputMaybe<Scalars['String']>;
-  rawContent_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  rawContent_not_ends_with?: InputMaybe<Scalars['String']>;
-  rawContent_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  rawContent_not_in?: InputMaybe<Array<Scalars['String']>>;
-  rawContent_not_starts_with?: InputMaybe<Scalars['String']>;
-  rawContent_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  rawContent_starts_with?: InputMaybe<Scalars['String']>;
-  rawContent_starts_with_nocase?: InputMaybe<Scalars['String']>;
-}
-
-export type MetaData_OrderBy =
-  | 'createdAt'
-  | 'createdBy'
-  | 'dao'
-  | 'id'
-  | 'name'
-  | 'rawContent';
-
 /** Defines the order direction, either ascending or descending */
 export type OrderDirection =
   | 'asc'
@@ -744,92 +595,47 @@ export type OrderDirection =
 
 export interface Proposal {
   __typename?: 'Proposal';
-  /** indicates if the proposal is processed */
   actionFailed: Scalars['Boolean'];
-  /** estimated gas needed to execute the proposal actions */
   actionGasEstimate: Scalars['BigInt'];
-  /** indicates if the proposal is cancelled */
   cancelled: Scalars['Boolean'];
-  /** proposal content URI derived from the details field */
   contentURI?: Maybe<Scalars['String']>;
-  /** proposal Content URI type (ipfs hash, url) derived from the details field */
   contentURIType?: Maybe<Scalars['String']>;
-  /** block timestamp when the proposal was submitted */
   createdAt: Scalars['String'];
-  /** address that submitted the proposal */
   createdBy: Scalars['Bytes'];
-  /** minimum % of shares that must vote yes for it to pass */
   currentlyPassing: Scalars['Boolean'];
-  /** related DAO entity */
   dao: Dao;
-  /** proposal description derived from the details field */
   description?: Maybe<Scalars['String']>;
-  /** string with human readable description of the proposal */
   details: Scalars['String'];
-  /** unix timestamp after which proposal should be considered invalid and skipped */
   expiration: Scalars['BigInt'];
-  /** unix timestamp of when the grace period ends */
   graceEnds: Scalars['BigInt'];
-  /** duration in seconds of the grace period for this proposal in seconds */
   gracePeriod: Scalars['BigInt'];
-  /** unique identifier and primary key of the entity */
   id: Scalars['ID'];
-  /** highest share+loot count during any individual yes vote */
   maxTotalSharesAndLootAtYesVote: Scalars['BigInt'];
-  /** amount of current shares that have voted no */
   noBalance: Scalars['BigInt'];
-  /** number of current no votes */
   noVotes: Scalars['BigInt'];
-  /** indicates if the proposal passed */
   passed: Scalars['Boolean'];
-  /** id of the previous proposal, set at sponsorship */
   prevProposalId: Scalars['BigInt'];
-  /** indicates if the proposal is processed */
   processed: Scalars['Boolean'];
-  /** raw transaction data that will be executed if the proposal passes */
   proposalData: Scalars['Bytes'];
-  /** hash of raw transaction data that will be executed if the proposal passes */
   proposalDataHash: Scalars['Bytes'];
-  /** id of the proposal */
   proposalId: Scalars['BigInt'];
-  /** amount of native token that was provided as tribute when the proposal was submitted */
   proposalOffering: Scalars['BigInt'];
-  /** proposal type derived from the details field */
   proposalType: Scalars['String'];
-  /** indicates if the proposal was automatically sponsored */
   selfSponsor: Scalars['Boolean'];
-  /** address that sponsored the proposal */
   sponsor: Scalars['Bytes'];
-  /** indicates if the proposal is sponsored */
   sponsored: Scalars['Boolean'];
-  /** proposal title derived from the details field */
   title?: Maybe<Scalars['String']>;
-  /** applicant submitting the tribute proposal */
   tributeEscrowRecipient?: Maybe<Scalars['Bytes']>;
-  /** amount of tribute token offered */
   tributeOffered?: Maybe<Scalars['BigInt']>;
-  /**
-   * The following tribute fields will only have values if the proposal was submitted through the trbute minion contract.
-   *  token address in tribute proposals.
-   */
   tributeToken?: Maybe<Scalars['Bytes']>;
-  /** decimal places of the tribute token */
   tributeTokenDecimals?: Maybe<Scalars['BigInt']>;
-  /** symbol of the tribute token */
   tributeTokenSymbol?: Maybe<Scalars['String']>;
-  /** votes scoped to this proposal */
   votes?: Maybe<Array<Vote>>;
-  /** unix timestamp of when the voting period ends */
   votingEnds: Scalars['BigInt'];
-  /** duration of the voting period for this proposal in seconds */
   votingPeriod: Scalars['BigInt'];
-  /** duration in seconds of the grace and voting periods for this proposal in seconds */
   votingPlusGraceDuration: Scalars['BigInt'];
-  /** unix timestamp of when the voting period starts */
   votingStarts: Scalars['BigInt'];
-  /** amount of current shares that have voted yes */
   yesBalance: Scalars['BigInt'];
-  /** number of current yes votes */
   yesVotes: Scalars['BigInt'];
 }
 
@@ -1297,12 +1103,12 @@ export interface Query {
   eventTransactions: Array<EventTransaction>;
   member?: Maybe<Member>;
   members: Array<Member>;
-  metaData?: Maybe<MetaData>;
-  metaDatas: Array<MetaData>;
   proposal?: Maybe<Proposal>;
   proposals: Array<Proposal>;
   rageQuit?: Maybe<RageQuit>;
   rageQuits: Array<RageQuit>;
+  record?: Maybe<Record>;
+  records: Array<Record>;
   shaman?: Maybe<Shaman>;
   shamans: Array<Shaman>;
   tokenLookup?: Maybe<TokenLookup>;
@@ -1371,24 +1177,6 @@ export interface QueryMembersArgs {
 }
 
 
-export interface QueryMetaDataArgs {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-}
-
-
-export interface QueryMetaDatasArgs {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<MetaData_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<MetaData_Filter>;
-}
-
-
 export interface QueryProposalArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
@@ -1422,6 +1210,24 @@ export interface QueryRageQuitsArgs {
   skip?: InputMaybe<Scalars['Int']>;
   subgraphError?: _SubgraphErrorPolicy_;
   where?: InputMaybe<RageQuit_Filter>;
+}
+
+
+export interface QueryRecordArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface QueryRecordsArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Record_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Record_Filter>;
 }
 
 
@@ -1480,21 +1286,13 @@ export interface QueryVotesArgs {
 
 export interface RageQuit {
   __typename?: 'RageQuit';
-  /** block timestamp when the member rage quit */
   createdAt: Scalars['String'];
-  /** related DAO */
   dao: Dao;
-  /** unique identifier and primary key of the entity */
   id: Scalars['ID'];
-  /** number of loot rage quit */
   loot: Scalars['BigInt'];
-  /** related member */
   member: Member;
-  /** number of shares rage quit */
   shares: Scalars['BigInt'];
-  /** address the tokens where rage quit to */
   to: Scalars['Bytes'];
-  /** list of treasury token addresses requested in the rage quit */
   tokens: Array<Scalars['Bytes']>;
 }
 
@@ -1609,17 +1407,159 @@ export type RageQuit_OrderBy =
   | 'to'
   | 'tokens';
 
+export interface Record {
+  __typename?: 'Record';
+  content: Scalars['String'];
+  contentType: Scalars['String'];
+  createdAt: Scalars['String'];
+  createdBy: Scalars['Bytes'];
+  dao: Dao;
+  id: Scalars['ID'];
+  table: Scalars['String'];
+  tag: Scalars['Bytes'];
+}
+
+export interface Record_Filter {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  content?: InputMaybe<Scalars['String']>;
+  contentType?: InputMaybe<Scalars['String']>;
+  contentType_contains?: InputMaybe<Scalars['String']>;
+  contentType_contains_nocase?: InputMaybe<Scalars['String']>;
+  contentType_ends_with?: InputMaybe<Scalars['String']>;
+  contentType_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  contentType_gt?: InputMaybe<Scalars['String']>;
+  contentType_gte?: InputMaybe<Scalars['String']>;
+  contentType_in?: InputMaybe<Array<Scalars['String']>>;
+  contentType_lt?: InputMaybe<Scalars['String']>;
+  contentType_lte?: InputMaybe<Scalars['String']>;
+  contentType_not?: InputMaybe<Scalars['String']>;
+  contentType_not_contains?: InputMaybe<Scalars['String']>;
+  contentType_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  contentType_not_ends_with?: InputMaybe<Scalars['String']>;
+  contentType_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  contentType_not_in?: InputMaybe<Array<Scalars['String']>>;
+  contentType_not_starts_with?: InputMaybe<Scalars['String']>;
+  contentType_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  contentType_starts_with?: InputMaybe<Scalars['String']>;
+  contentType_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  content_contains?: InputMaybe<Scalars['String']>;
+  content_contains_nocase?: InputMaybe<Scalars['String']>;
+  content_ends_with?: InputMaybe<Scalars['String']>;
+  content_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  content_gt?: InputMaybe<Scalars['String']>;
+  content_gte?: InputMaybe<Scalars['String']>;
+  content_in?: InputMaybe<Array<Scalars['String']>>;
+  content_lt?: InputMaybe<Scalars['String']>;
+  content_lte?: InputMaybe<Scalars['String']>;
+  content_not?: InputMaybe<Scalars['String']>;
+  content_not_contains?: InputMaybe<Scalars['String']>;
+  content_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  content_not_ends_with?: InputMaybe<Scalars['String']>;
+  content_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  content_not_in?: InputMaybe<Array<Scalars['String']>>;
+  content_not_starts_with?: InputMaybe<Scalars['String']>;
+  content_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  content_starts_with?: InputMaybe<Scalars['String']>;
+  content_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['String']>;
+  createdAt_contains?: InputMaybe<Scalars['String']>;
+  createdAt_contains_nocase?: InputMaybe<Scalars['String']>;
+  createdAt_ends_with?: InputMaybe<Scalars['String']>;
+  createdAt_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  createdAt_gt?: InputMaybe<Scalars['String']>;
+  createdAt_gte?: InputMaybe<Scalars['String']>;
+  createdAt_in?: InputMaybe<Array<Scalars['String']>>;
+  createdAt_lt?: InputMaybe<Scalars['String']>;
+  createdAt_lte?: InputMaybe<Scalars['String']>;
+  createdAt_not?: InputMaybe<Scalars['String']>;
+  createdAt_not_contains?: InputMaybe<Scalars['String']>;
+  createdAt_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  createdAt_not_ends_with?: InputMaybe<Scalars['String']>;
+  createdAt_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  createdAt_not_in?: InputMaybe<Array<Scalars['String']>>;
+  createdAt_not_starts_with?: InputMaybe<Scalars['String']>;
+  createdAt_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  createdAt_starts_with?: InputMaybe<Scalars['String']>;
+  createdAt_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  createdBy?: InputMaybe<Scalars['Bytes']>;
+  createdBy_contains?: InputMaybe<Scalars['Bytes']>;
+  createdBy_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  createdBy_not?: InputMaybe<Scalars['Bytes']>;
+  createdBy_not_contains?: InputMaybe<Scalars['Bytes']>;
+  createdBy_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  dao?: InputMaybe<Scalars['String']>;
+  dao_contains?: InputMaybe<Scalars['String']>;
+  dao_contains_nocase?: InputMaybe<Scalars['String']>;
+  dao_ends_with?: InputMaybe<Scalars['String']>;
+  dao_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  dao_gt?: InputMaybe<Scalars['String']>;
+  dao_gte?: InputMaybe<Scalars['String']>;
+  dao_in?: InputMaybe<Array<Scalars['String']>>;
+  dao_lt?: InputMaybe<Scalars['String']>;
+  dao_lte?: InputMaybe<Scalars['String']>;
+  dao_not?: InputMaybe<Scalars['String']>;
+  dao_not_contains?: InputMaybe<Scalars['String']>;
+  dao_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  dao_not_ends_with?: InputMaybe<Scalars['String']>;
+  dao_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  dao_not_in?: InputMaybe<Array<Scalars['String']>>;
+  dao_not_starts_with?: InputMaybe<Scalars['String']>;
+  dao_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  dao_starts_with?: InputMaybe<Scalars['String']>;
+  dao_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  table?: InputMaybe<Scalars['String']>;
+  table_contains?: InputMaybe<Scalars['String']>;
+  table_contains_nocase?: InputMaybe<Scalars['String']>;
+  table_ends_with?: InputMaybe<Scalars['String']>;
+  table_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  table_gt?: InputMaybe<Scalars['String']>;
+  table_gte?: InputMaybe<Scalars['String']>;
+  table_in?: InputMaybe<Array<Scalars['String']>>;
+  table_lt?: InputMaybe<Scalars['String']>;
+  table_lte?: InputMaybe<Scalars['String']>;
+  table_not?: InputMaybe<Scalars['String']>;
+  table_not_contains?: InputMaybe<Scalars['String']>;
+  table_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  table_not_ends_with?: InputMaybe<Scalars['String']>;
+  table_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  table_not_in?: InputMaybe<Array<Scalars['String']>>;
+  table_not_starts_with?: InputMaybe<Scalars['String']>;
+  table_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  table_starts_with?: InputMaybe<Scalars['String']>;
+  table_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  tag?: InputMaybe<Scalars['Bytes']>;
+  tag_contains?: InputMaybe<Scalars['Bytes']>;
+  tag_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  tag_not?: InputMaybe<Scalars['Bytes']>;
+  tag_not_contains?: InputMaybe<Scalars['Bytes']>;
+  tag_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+}
+
+export type Record_OrderBy =
+  | 'content'
+  | 'contentType'
+  | 'createdAt'
+  | 'createdBy'
+  | 'dao'
+  | 'id'
+  | 'table'
+  | 'tag';
+
 export interface Shaman {
   __typename?: 'Shaman';
-  /** block timestamp when the shaman was added */
   createdAt: Scalars['String'];
-  /** related DAO */
   dao: Dao;
-  /** unique identifier and primary key of the entity */
   id: Scalars['ID'];
-  /** permission level of the shaman (0-7) */
   permissions: Scalars['BigInt'];
-  /** address of the shaman */
   shamanAddress: Scalars['Bytes'];
 }
 
@@ -1707,12 +1647,12 @@ export interface Subscription {
   eventTransactions: Array<EventTransaction>;
   member?: Maybe<Member>;
   members: Array<Member>;
-  metaData?: Maybe<MetaData>;
-  metaDatas: Array<MetaData>;
   proposal?: Maybe<Proposal>;
   proposals: Array<Proposal>;
   rageQuit?: Maybe<RageQuit>;
   rageQuits: Array<RageQuit>;
+  record?: Maybe<Record>;
+  records: Array<Record>;
   shaman?: Maybe<Shaman>;
   shamans: Array<Shaman>;
   tokenLookup?: Maybe<TokenLookup>;
@@ -1781,24 +1721,6 @@ export interface SubscriptionMembersArgs {
 }
 
 
-export interface SubscriptionMetaDataArgs {
-  block?: InputMaybe<Block_Height>;
-  id: Scalars['ID'];
-  subgraphError?: _SubgraphErrorPolicy_;
-}
-
-
-export interface SubscriptionMetaDatasArgs {
-  block?: InputMaybe<Block_Height>;
-  first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<MetaData_OrderBy>;
-  orderDirection?: InputMaybe<OrderDirection>;
-  skip?: InputMaybe<Scalars['Int']>;
-  subgraphError?: _SubgraphErrorPolicy_;
-  where?: InputMaybe<MetaData_Filter>;
-}
-
-
 export interface SubscriptionProposalArgs {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
@@ -1832,6 +1754,24 @@ export interface SubscriptionRageQuitsArgs {
   skip?: InputMaybe<Scalars['Int']>;
   subgraphError?: _SubgraphErrorPolicy_;
   where?: InputMaybe<RageQuit_Filter>;
+}
+
+
+export interface SubscriptionRecordArgs {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+}
+
+
+export interface SubscriptionRecordsArgs {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Record_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Record_Filter>;
 }
 
 
@@ -1890,9 +1830,7 @@ export interface SubscriptionVotesArgs {
 
 export interface TokenLookup {
   __typename?: 'TokenLookup';
-  /** related DAO */
   dao: Scalars['Bytes'];
-  /** unique identifier and primary key of the entity (share or loot token address) */
   id: Scalars['ID'];
 }
 
@@ -1921,19 +1859,12 @@ export type TokenLookup_OrderBy =
 
 export interface Vote {
   __typename?: 'Vote';
-  /** indicates yes vote/no vote */
   approved: Scalars['Boolean'];
-  /** shares balance of the voting member at the time of the vote */
   balance: Scalars['BigInt'];
-  /** block timestamp when the vote was submitted */
   createdAt: Scalars['String'];
-  /** contract address of the DAO related to this vote */
   daoAddress: Scalars['Bytes'];
-  /** unique identifier and primary key of the entity */
   id: Scalars['ID'];
-  /** related/voting member */
   member: Member;
-  /** related proposal */
   proposal: Proposal;
 }
 

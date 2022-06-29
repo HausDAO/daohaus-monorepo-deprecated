@@ -1,4 +1,5 @@
 import { Haus } from '../src/index';
+import { statusFilter } from '../src/utils';
 
 describe('haus', () => {
   const rpcConfig = {
@@ -13,6 +14,7 @@ describe('haus', () => {
 
   it('can fetch a list of daos - offset', async () => {
     const networkId = '0x5';
+    const dao = '0x3ebd5cf78cb8e100b88f96adbd836bb1ae9a05ca';
 
     const res = await haus.query.listDaos({
       networkId,

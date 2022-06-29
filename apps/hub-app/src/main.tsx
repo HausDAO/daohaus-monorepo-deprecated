@@ -4,14 +4,14 @@ import { HashRouter } from 'react-router-dom';
 import { HausThemeProvider } from '@daohaus/ui';
 import { HausConnectProvider } from '@daohaus/daohaus-connect-feature';
 
-import App from './pages/App';
+import Routes from './Routes';
 
 ReactDOM.render(
   <StrictMode>
     <HausThemeProvider>
       <HashRouter>
         <HausConnectProvider>
-          <App />
+          <Routes />
         </HausConnectProvider>
       </HashRouter>
     </HausThemeProvider>

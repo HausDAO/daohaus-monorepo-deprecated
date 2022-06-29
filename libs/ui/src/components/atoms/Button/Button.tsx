@@ -1,7 +1,8 @@
 import React, { RefObject } from 'react';
-import { ButtonBase, WithIcon } from './Button.styles';
 import classNames from 'classnames';
 import { IconType } from 'react-icons';
+
+import { ButtonBase, WithIcon } from './Button.styles';
 
 export type ButtonProps = {
   children?: React.ReactNode;
@@ -17,6 +18,7 @@ export type ButtonProps = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   IconLeft?: IconType;
   IconRight?: IconType;
+  type?: 'button' | 'submit' | 'reset';
 };
 
 type Ref =
@@ -38,6 +40,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
     className,
     IconLeft,
     IconRight,
+    type,
   } = props;
   const classes = classNames({
     secondary,
@@ -51,7 +54,12 @@ export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
   if (IconLeft || IconRight) {
     const iconClasses = classNames({ secondary, tertiary, sm, lg });
     return (
-      <ButtonBase {...props} className={`${classes} ${className}`} ref={ref}>
+      <ButtonBase
+        {...props}
+        className={`${classes} ${className}`}
+        ref={ref}
+        type={type}
+      >
         <WithIcon>
           {IconLeft && <IconLeft className={`${iconClasses} icon-left`} />}
           {children}
@@ -61,7 +69,12 @@ export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
     );
   }
   return (
-    <ButtonBase {...props} className={`${classes} ${className}`} ref={ref}>
+    <ButtonBase
+      {...props}
+      className={`${classes} ${className}`}
+      ref={ref}
+      type={type}
+    >
       {children}
     </ButtonBase>
   );

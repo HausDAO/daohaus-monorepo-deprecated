@@ -67,10 +67,10 @@ export const HausConnectProvider = ({
   networks = supportedNetworks,
   handleModalEvents,
 }: ConnectProviderProps) => {
-  const [isConnecting, setConnecting] = useState(false);
+  const [isConnecting, setConnecting] = useState(true);
   const [{ provider, chainId, address }, setWalletState] =
     useState<WalletStateType>({});
-  const [profile, setProfile] = useState<UserProfile>(null);
+  const [profile, setProfile] = useState<UserProfile>({ address: address || "", ens: null });
   const [isProfileLoading, setProfileLoading] = useState(false);
   const isConnected = useMemo(
     () => !!provider && !!address && !!chainId,

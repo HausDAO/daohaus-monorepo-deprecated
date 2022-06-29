@@ -6,12 +6,12 @@ import { BodyNav } from '../components/BodyNav';
 import ConnectCard from '../components/ConnectCard';
 import Header from '../components/Header';
 import Profile from '../components/Profile';
-import TableControl from '../components/TableControl';
+
 import { crimsonDark, indigoDark } from '@radix-ui/colors';
-import { DaoCards } from '../components/DaoCards';
-import { DataTable } from '../components/Table';
 import { sampleDaoData } from '../utils/temp';
 import { ListType, TemporaryDAOType } from '../utils/appSpecificTypes';
+import { HomeDashboard } from '../components/HomeDashboard';
+import { HomeNotConnected } from './homeNotConnected';
 
 const Layout = styled.div`
   width: 100%;
@@ -65,13 +65,9 @@ const SideTopRight = styled.div`
   width: 100%;
 `;
 
-const Body = styled.div`
-  grid-area: body;
-`;
-
 const HomePage = () => {
-  const [daoData] = useState<TemporaryDAOType[]>(sampleDaoData);
   const { isProfileLoading, isConnected } = useHausConnect();
+  const [daoData] = useState<TemporaryDAOType[]>(sampleDaoData);
   const [listType, setListType] = useState<ListType>('cards');
 
   const toggleListType = () => {
@@ -87,11 +83,15 @@ const HomePage = () => {
         <BodyNav />
         {isConnected && !isProfileLoading ? <Profile /> : <ConnectCard />}
       </ProfileContainer>
-      <Body>
-        <TableControl listType={listType} toggleListType={toggleListType} />
-        {listType === 'cards' && <DaoCards daoData={daoData} />}
-        {listType === 'table' && <DataTable />}
-      </Body>
+      {isConnected ? (
+        <HomeDashboard
+          listType={listType}
+          daoData={daoData}
+          toggleListType={toggleListType}
+        />
+      ) : (
+        <HomeNotConnected />
+      )}
     </Layout>
   );
 };

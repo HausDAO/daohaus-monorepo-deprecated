@@ -6,7 +6,7 @@ import { BodyNav } from '../components/BodyNav';
 import Header from '../components/Header';
 import Profile from '../components/Profile';
 
-import { crimsonDark, indigoDark } from '@radix-ui/colors';
+import { indigoDark } from '@radix-ui/colors';
 import { sampleDaoData } from '../utils/temp';
 import { TemporaryDAOType } from '../utils/appSpecificTypes';
 import { HomeDashboard } from '../components/HomeDashboard';
@@ -54,20 +54,18 @@ const ProfileContainer = styled.div`
 
 const SideTopLeft = styled.div`
   grid-area: sidebarTopLeft;
-  /* background: ${crimsonDark.crimson2}; */
   width: 100%;
 `;
 
 const SideTopRight = styled.div`
   grid-area: sidebarTopRight;
-  /* background: ${crimsonDark.crimson2}; */
   width: 100%;
 `;
 
 const HomePage = () => {
-  const { isProfileLoading } = useHausConnect();
+  const { isProfileLoading, isConnected } = useHausConnect();
   const [daoData] = useState<TemporaryDAOType[]>(sampleDaoData);
-  const isConnected = false;
+
   return (
     <Layout>
       <SideTopLeft />

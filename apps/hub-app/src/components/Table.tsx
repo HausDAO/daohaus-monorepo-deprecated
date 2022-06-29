@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTable, Column } from 'react-table';
 import styled from 'styled-components';
-import { amberDark, indigoDark } from '@radix-ui/colors';
+import { indigoDark } from '@radix-ui/colors';
 import { Avatar } from '@daohaus/ui';
 import { BiGhost } from 'react-icons/bi';
 

@@ -63,10 +63,10 @@ import { HausError } from './HausError';
 import { createPaging, defaultPagination, paginateResponse } from './utils';
 
 export default class Query {
-  public _endpoints: KeychainList;
+  public endpoints: KeychainList;
 
   constructor() {
-    this._endpoints = ENDPOINTS;
+    this.endpoints = ENDPOINTS;
   }
 
   /*
@@ -86,7 +86,7 @@ export default class Query {
   }: ListQueryArguments<Dao_OrderBy, Dao_Filter>): Promise<
     IListQueryResults<Dao_OrderBy, Dao_Filter, ListDaosQuery['daos']>
   > {
-    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       throw new HausError({ type: 'INVALID_NETWORK_ERROR' });
     }
@@ -131,7 +131,7 @@ export default class Query {
     // TODO
     // // return paged results to add some extras to the return
     // // all loop in different ticket
-    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
         error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
@@ -192,7 +192,7 @@ export default class Query {
   }: ListQueryArguments<Proposal_OrderBy, Proposal_Filter>): Promise<
     QueryResult<TransformedProposalListQuery>
   > {
-    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
         error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
@@ -238,7 +238,7 @@ export default class Query {
   }: ListQueryArguments<Member_OrderBy, Member_Filter>): Promise<
     QueryResult<ListMembersQuery>
   > {
-    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
         error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
@@ -276,7 +276,7 @@ export default class Query {
     EventTransaction_OrderBy,
     EventTransaction_Filter
   >): Promise<QueryResult<ListTxsQuery>> {
-    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
         error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
@@ -313,7 +313,7 @@ export default class Query {
     dao: string;
     includeTokens?: boolean;
   }): Promise<QueryResult<FindDaoQuery | DaoWithTokenDataQuery>> {
-    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
         error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
@@ -364,7 +364,7 @@ export default class Query {
     dao: string;
     memberAddress: string;
   }): Promise<QueryResult<FindMemberQuery>> {
-    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
         error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
@@ -396,7 +396,7 @@ export default class Query {
     dao: string;
     proposalId: string;
   }): Promise<QueryResult<TransformedProposalQuery>> {
-    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
         error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
@@ -433,7 +433,7 @@ export default class Query {
     networkId: keyof Keychain;
     txHash: string;
   }): Promise<QueryResult<FindTxQuery>> {
-    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
         error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
@@ -467,7 +467,7 @@ export default class Query {
     networkId: keyof Keychain;
     safeAddress: string;
   }): Promise<QueryResult<DaoTokenBalances>> {
-    const url = this._endpoints['GNOSIS_API'][networkId];
+    const url = this.endpoints['GNOSIS_API'][networkId];
     if (!url) {
       return {
         error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),

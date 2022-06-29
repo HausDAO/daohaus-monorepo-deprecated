@@ -2,8 +2,7 @@ import { Core } from '@self.id/core';
 import { Caip10Link } from '@ceramicnetwork/stream-caip10-link';
 import { ethers } from 'ethers';
 
-import { ENDPOINTS, Keychain } from '@daohaus/common-utilities';
-
+import { Keychain } from '@daohaus/common-utilities';
 import {
   AccountProfile,
   BasicProfile,
@@ -45,13 +44,13 @@ export default class Profile {
     let profile = transformProfile(address, ens, basicProfile);
 
     if (includeDaosOptions) {
-      const daos = await this.listDaosByMember({
+      const daoRes = await this.listDaosByMember({
         memberAddress: address,
         networkIds: includeDaosOptions.networkIds,
         includeTokens: includeDaosOptions.includeTokens,
       });
 
-      profile = { ...profile, daos };
+      profile = { ...profile, daos: daoRes.data?.daos };
     }
 
     return profile;
@@ -103,7 +102,7 @@ export default class Profile {
     };
 
     networkIds.forEach((networkId: keyof Keychain) => {
-      const url = this.query._endpoints['V3_SUBGRAPH'][networkId];
+      const url = this.query.endpoints['V3_SUBGRAPH'][networkId];
 
       if (url) {
         promises.push(

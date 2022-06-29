@@ -8,10 +8,10 @@ import { AccountProfile, BasicProfile } from './types';
 import { transformProfile } from './utils/transformers';
 
 export default class Profile {
-  providers: Keychain;
+  providers?: Keychain;
   ceramicNode: string;
 
-  constructor(providers: Keychain, node?: string) {
+  constructor(providers?: Keychain, node?: string) {
     this.providers = providers;
     this.ceramicNode = node || '';
   }
@@ -44,12 +44,12 @@ export default class Profile {
   }
 
   private async getEns(address: string): Promise<string | null> {
-    const provider = new ethers.providers.JsonRpcProvider(
-      this.providers['0x1']
-    );
-    try {
+    if (this.providers && this.providers['0x1']) {
+      const provider = new ethers.providers.JsonRpcProvider(
+        this.providers['0x1']
+      );
       return await provider.lookupAddress(address);
-    } catch {
+    } else {
       return null;
     }
   }

@@ -33,6 +33,22 @@ export const defaultDarkTheme: Theme = {
   disabled: neutralDark.bgSolid,
   transparent: utilityDark.transparent,
   info: utilityDark.info,
+  card: {
+    bg: secondaryDark.elementBg,
+    //  REVIEW ROWDY
+    //  Had to add change card border style to match the design.
+    //  Let's figure out to rectify this with design.
+    border: secondaryDark.elementBgActive,
+    successText: utilityDark.successText,
+    successBg: utilityDark.successBg,
+    successBorder: utilityDark.successBorder,
+    warningText: utilityDark.warningText,
+    warningBg: utilityDark.warningBg,
+    warningBorder: utilityDark.warningBorder,
+    errorText: utilityDark.dangerText,
+    errorBg: utilityDark.dangerBg,
+    errorBorder: utilityDark.dangerBorder,
+  },
   field: FieldThemeDark,
   button: {
     primary: PrimaryDarkButton,
@@ -136,6 +152,19 @@ export const defaultLightTheme: Theme = {
   info: utility.info,
   transparent: utility.transparent,
   disabled: neutral.bgSolid,
+  card: {
+    bg: secondary.elementBg,
+    border: secondary.elementBorder,
+    successText: utility.successText,
+    successBg: utility.successBg,
+    successBorder: utility.successBorder,
+    warningText: utility.warningText,
+    warningBg: utility.warningBg,
+    warningBorder: utility.warningBorder,
+    errorText: utility.dangerText,
+    errorBg: utility.dangerBg,
+    errorBorder: utility.dangerBorder,
+  },
   field: FieldTheme,
   button: {
     primary: PrimaryLightButton,

@@ -1,4 +1,4 @@
-import { StyledLabel } from './Label.style';
+import { StyledLabel } from './Label.styles';
 
 type LabelProps = {
   id?: string;

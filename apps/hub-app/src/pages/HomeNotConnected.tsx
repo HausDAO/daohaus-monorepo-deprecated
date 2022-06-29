@@ -24,6 +24,7 @@ const ViewBox = styled.div`
   }
   .tag-line {
     font-size: 3.6rem;
+    font-weight: 700;
     margin-bottom: 2.4rem;
   }
 

@@ -20,7 +20,7 @@ const ViewBox = styled.div`
   }
   .hero {
     font-size: 6.5rem;
-    font-weight: 700;
+    font-weight: 900;
   }
   .tag-line {
     font-size: 3.6rem;
@@ -67,7 +67,7 @@ const ViewBox = styled.div`
     }
   }
   @media ${widthQuery.xs} {
-    background-position: -20% 90%;
+    background-position: 10% 250%;
   }
 `;
 

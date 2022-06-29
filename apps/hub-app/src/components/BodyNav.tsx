@@ -1,15 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useMatch, LinkProps } from 'react-router-dom';
 import styled from 'styled-components';
-import { amberDark } from '@radix-ui/colors';
+import { amberDark, indigoDark } from '@radix-ui/colors';
 import { breakpoints, font } from '@daohaus/ui';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+
+type StyledLinkProps = {
+  selected?: boolean;
+} & LinkProps;
+
+type NavLinkProps = {
+  children: React.ReactNode;
+  path: string;
+  selected?: boolean;
+};
 
 const LinkContainer = styled.div`
   padding: 1rem;
-  border: 1px solid ${amberDark.amber9};
+  border: 1px solid ${amberDark.amber5};
   border-radius: 0.8rem;
-  background: ${amberDark.amber3};
+  background: ${indigoDark.indigo2};
 
   @media (min-width: ${breakpoints.xs}) {
     border: none;
@@ -29,19 +38,14 @@ const BodyNavContainer = styled.div`
 `;
 
 // Add selected
-const StyledLink = styled(Link)`
+const StyledLink = styled(Link)<StyledLinkProps>`
   text-decoration-color: ${amberDark.amber10};
   color: ${amberDark.amber9};
   text-underline-offset: 0.7rem;
+  display: ${({ selected }) => (selected ? 'none' : 'flex')};
 `;
 
-type NavLinkProps = {
-  children: React.ReactNode;
-  path: string;
-};
-
-const NavLink = ({ children, path }: NavLinkProps) => {
-  const selected = path;
+const NavLink = ({ children, path, selected }: NavLinkProps) => {
   return (
     <StyledLink
       to={{
@@ -55,11 +59,19 @@ const NavLink = ({ children, path }: NavLinkProps) => {
 };
 
 export const BodyNav = () => {
-  const { isConnected } = useHausConnect();
+  const match = useMatch('/explore');
+  console.log('match');
+  console.log(match);
+  const isHome = !match;
+  const isExplore = !!match;
   return (
     <BodyNavContainer>
-      <NavLink path="/">Home</NavLink>
-      <NavLink path="/explore">Explore DAOs</NavLink>
+      <NavLink path="/" selected={isHome}>
+        Home
+      </NavLink>
+      <NavLink path="/explore" selected={isExplore}>
+        Explore
+      </NavLink>
     </BodyNavContainer>
   );
 };

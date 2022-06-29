@@ -22,7 +22,7 @@ const Layout = styled.div`
 
   grid-template:
     'sidebarTopLeft header sidebarTopRight' 9.6rem
-    'sidebarTopLeft profile sidebarTopRight' minmax(auto, 26rem)
+    'sidebarTopLeft profile sidebarTopRight' minmax(auto, 9.6rem)
     'sidebar body aside' 1fr / 1fr minmax(auto, 35rem) 1fr;
 
   @media (min-width: ${breakpoints.xs}) {
@@ -36,15 +36,11 @@ const Layout = styled.div`
 const ProfileContainer = styled.div`
   grid-area: profile;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   gap: 2.6rem;
   background: ${indigoDark.indigo2};
-
-  @media (min-width: ${breakpoints.xs}) {
-    flex-direction: row;
-    justify-content: space-between;
-  }
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 // JP
 // This is the data we'll need to standardize.

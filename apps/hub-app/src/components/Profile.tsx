@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import styled from 'styled-components';
-import { H5, ParLg, ParMd, Dropdown } from '@daohaus/ui';
+import { breakpoints, H5, ParLg, ParMd, Dropdown } from '@daohaus/ui';
 import { Avatar, Button, Link as ExternalLink } from '@daohaus/ui';
 import { indigoDark } from '@radix-ui/colors';
 import { SELF_ID_URL } from '../constants';
@@ -14,10 +14,22 @@ const ProfileContainer = styled.div`
   gap: 1.2rem;
 `;
 
+const StyledAvatar = styled(Avatar)`
+  display: none;
+
+  @media (min-width: ${breakpoints.xs}) {
+    display: flex;
+  }
+`;
+
 const NameContainer = styled.div`
-  display: flex;
   align-items: center;
   gap: 1rem;
+  display: none;
+
+  @media (min-width: ${breakpoints.xs}) {
+    display: flex;
+  }
 `;
 
 const StyledChevron = styled(BiChevronDown)`
@@ -37,6 +49,10 @@ const StyledButton = styled(Button)`
   border-radius: 0.4rem;
   border: none;
   width: 100%;
+  height: 4rem;
+  font-size: 1.6rem;
+  padding: 0.8rem;
+
   :hover {
     background-color: ${indigoDark.indigo5};
     color: white;
@@ -57,6 +73,10 @@ const StyledButton = styled(Button)`
     color: white;
     border: none;
   }
+
+  @media (min-width: ${breakpoints.xs}) {
+    height: 5rem;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -71,7 +91,7 @@ export const HeaderProfile = () => {
   const { profile } = useHausConnect();
   return (
     <ProfileContainer>
-      <Avatar src={profile?.image || ''} size="lg" alt="profile image" />
+      <StyledAvatar src={profile?.image || ''} size="lg" alt="profile image" />
       <div>
         <NameContainer>
           {profile?.name && <H5>{profile?.name || ''}</H5>}

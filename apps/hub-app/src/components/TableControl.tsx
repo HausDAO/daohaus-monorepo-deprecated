@@ -1,10 +1,11 @@
-import { Input } from '@daohaus/ui';
+import { Button, Input } from '@daohaus/ui';
 import styled from 'styled-components';
 import { BiSearch } from 'react-icons/bi';
 import { RiFilterFill } from 'react-icons/ri';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 import { ParSm } from '@daohaus/ui';
 import { amberDark, indigoDark } from '@radix-ui/colors';
+import { ListType } from '../utils/appSpecificTypes';
 
 const IconFilter = styled(RiFilterFill)`
   height: 1.8rem;
@@ -59,7 +60,12 @@ const StyledInput = styled(Input)`
   }
 `;
 
-const TableControl = () => {
+type TableControlProps = {
+  listType: ListType;
+  toggleListType: () => void;
+};
+
+const TableControl = ({ listType, toggleListType }: TableControlProps) => {
   return (
     <Layout>
       <StyledInput
@@ -72,10 +78,13 @@ const TableControl = () => {
         <IconFilter />
         <ParSm color={indigoDark.indigo11}>Filters</ParSm>
       </FlexContainer>
-      <FlexContainer>
+      {/* <FlexContainer>
         <IconGrid />
         <ParSm color={indigoDark.indigo11}>Grid</ParSm>
-      </FlexContainer>
+      </FlexContainer> */}
+      <Button secondary onClick={toggleListType} IconLeft={IconGrid}>
+        {listType === 'table' ? 'Card View' : 'List View'}
+      </Button>
     </Layout>
   );
 };

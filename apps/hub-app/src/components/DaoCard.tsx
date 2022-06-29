@@ -1,11 +1,10 @@
-import React from 'react';
-
 import styled from 'styled-components';
 
 import { charLimit } from '@daohaus/common-utilities';
 import { Avatar, Bold, Button, ParLg, ParMd } from '@daohaus/ui';
 import { Tag } from './Tag';
 import { AlertCircle } from './AlertCircle';
+import { TemporaryDAOType } from '../utils/appSpecificTypes';
 
 const StyledDaoCard = styled.div`
   background-color: ${(props) => props.theme.card.bg};
@@ -13,7 +12,7 @@ const StyledDaoCard = styled.div`
   flex-direction: column;
   width: 100%;
   max-width: 36rem;
-  min-width: 28rem;
+  min-width: 26rem;
   border: 1px solid ${(props) => props.theme.card.border};
   padding: 2.4rem;
   .top-box {
@@ -48,57 +47,44 @@ const StyledDaoCard = styled.div`
 // Calling this AlertCircle. It's the circle that alerts
 // about the DAO's proposal status.
 
-type DaoCardProps = {
-  isDelegate: boolean;
-  unreadProposalAmt: number;
-  daoName: string;
-  amtMembers: number;
-  amtToken: number;
-  tokenSymbol: string;
-  amtProposals: number;
-  amtPower: number;
-  networkName: string;
-  contractName: string;
-};
-
 export const DaoCard = ({
   isDelegate,
-  unreadProposalAmt,
   daoName,
-  amtMembers,
-  amtToken,
-  amtProposals,
-  amtPower,
+  members,
+  vaults,
+  activeProposals,
+  totalProposals,
+  power,
   tokenSymbol,
-  networkName,
+  network,
   contractName,
-}: DaoCardProps) => {
+}: TemporaryDAOType) => {
   return (
-    <StyledDaoCard>
+    <StyledDaoCard className="dao-card">
       <div className="top-box">
         <div className="alert-box">
           <Avatar size="xl" />
-          {unreadProposalAmt > 0 && <AlertCircle number={unreadProposalAmt} />}
+          {activeProposals > 0 && <AlertCircle number={activeProposals} />}
         </div>
         {isDelegate && <Tag>Delegate</Tag>}
       </div>
       <ParLg className="dao-title">{charLimit(daoName, 21)} </ParLg>
       <div className="stats-box">
         <ParMd>
-          <Bold>{amtMembers}</Bold> Members
+          <Bold>{members}</Bold> Members
         </ParMd>
         <ParMd>
-          <Bold>{amtToken}</Bold> {tokenSymbol}
+          <Bold>{vaults}</Bold> {tokenSymbol}
         </ParMd>
         <ParMd>
-          <Bold>{amtProposals}</Bold> Proposals
+          <Bold>{totalProposals}</Bold> Proposals
         </ParMd>
         <ParMd>
-          <Bold>{amtPower}</Bold> Power
+          <Bold>{power}</Bold> Power
         </ParMd>
       </div>
       <div className="tag-box">
-        <Tag>{networkName}</Tag>
+        <Tag>{network}</Tag>
         <Tag>{contractName}</Tag>
       </div>
       <div>

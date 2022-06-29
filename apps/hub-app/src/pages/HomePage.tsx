@@ -3,7 +3,6 @@ import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { breakpoints } from '@daohaus/ui';
 import styled from 'styled-components';
 import { BodyNav } from '../components/BodyNav';
-import ConnectCard from '../components/ConnectCard';
 import Header from '../components/Header';
 import Profile from '../components/Profile';
 
@@ -11,7 +10,7 @@ import { crimsonDark, indigoDark } from '@radix-ui/colors';
 import { sampleDaoData } from '../utils/temp';
 import { TemporaryDAOType } from '../utils/appSpecificTypes';
 import { HomeDashboard } from '../components/HomeDashboard';
-import { HomeNotConnected } from './homeNotConnected';
+import { HomeNotConnected } from './HomeNotConnected';
 
 const Layout = styled.div`
   width: 100%;
@@ -66,9 +65,9 @@ const SideTopRight = styled.div`
 `;
 
 const HomePage = () => {
-  const { isProfileLoading, isConnected } = useHausConnect();
+  const { isProfileLoading } = useHausConnect();
   const [daoData] = useState<TemporaryDAOType[]>(sampleDaoData);
-
+  const isConnected = false;
   return (
     <Layout>
       <SideTopLeft />
@@ -76,7 +75,7 @@ const HomePage = () => {
       <Header />
       <ProfileContainer>
         <BodyNav />
-        {isConnected && !isProfileLoading ? <Profile /> : <ConnectCard />}
+        {isConnected && !isProfileLoading && <Profile />}
       </ProfileContainer>
       {isConnected ? <HomeDashboard daoData={daoData} /> : <HomeNotConnected />}
     </Layout>

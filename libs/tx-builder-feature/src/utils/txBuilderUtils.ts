@@ -62,25 +62,7 @@ export const pollLastTX: PollFetch<FindTxQuery> = async ({
   txHash: string;
 }) => {
   try {
-    // REVIEW debating whether this query needs to be inside HAUS class
-    // Sort of annoying that I have to initialize with network config
-    // for every query. hardcoding to DH defaults for now.
-    // let's discuss.
-    const TEMPORARY_RPC = {
-      '0x64': 'https://rpc.gnosischain.com/',
-      '0xa': 'https://mainnet.optimism.io',
-      '0x89': 'https://polygon-rpc.com/',
-      '0xa4b1': 'https://arb1.arbitrum.io/rpc',
-      '0xa4ec': 'https://forno.celo.org',
-    };
-
-    const temporarySupportedNetworks = addKeychain(
-      ENDPOINTS['EXPLORER'],
-      'explorer',
-      addKeychain(TEMPORARY_RPC, 'rpc')
-    );
-
-    const haus = Haus.create(temporarySupportedNetworks);
+    const haus = Haus.create();
     const result = await haus.query.findTransaction({
       networkId: chainId,
       txHash,

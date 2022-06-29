@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { breakpoints } from '@daohaus/ui';
 import styled from 'styled-components';
@@ -6,9 +6,12 @@ import { BodyNav } from '../components/BodyNav';
 import ConnectCard from '../components/ConnectCard';
 import Header from '../components/Header';
 import Profile from '../components/Profile';
-import { DataTable } from '../components/Table';
 import TableControl from '../components/TableControl';
 import { crimsonDark, indigoDark } from '@radix-ui/colors';
+import { DaoCards } from '../components/DaoCards';
+import { DataTable } from '../components/Table';
+import { sampleDaoData } from '../utils/temp';
+import { ListType, TemporaryDAOType } from '../utils/appSpecificTypes';
 
 const Layout = styled.div`
   width: 100%;
@@ -16,7 +19,10 @@ const Layout = styled.div`
   min-height: 100%;
   min-width: 100%;
   overflow-x: hidden;
-  overflow-y: scroll;
+  // REVIEW
+  // SWITCH TO SCROLL WHEN NEEDED
+  // WAS CAUSING DOUBLE SCROLL BARS
+  overflow-y: auto;
   gap: 0rem 0rem;
   display: grid;
 
@@ -64,7 +70,14 @@ const Body = styled.div`
 `;
 
 const HomePage = () => {
+  const [daoData] = useState<TemporaryDAOType[]>(sampleDaoData);
   const { isProfileLoading, isConnected } = useHausConnect();
+  const [listType, setListType] = useState<ListType>('cards');
+
+  const toggleListType = () => {
+    listType === 'cards' ? setListType('table') : setListType('cards');
+  };
+
   return (
     <Layout>
       <SideTopLeft />
@@ -75,8 +88,9 @@ const HomePage = () => {
         {isConnected && !isProfileLoading ? <Profile /> : <ConnectCard />}
       </ProfileContainer>
       <Body>
-        <TableControl />
-        <DataTable />
+        <TableControl listType={listType} toggleListType={toggleListType} />
+        {listType === 'cards' && <DaoCards daoData={daoData} />}
+        {listType === 'table' && <DataTable />}
       </Body>
     </Layout>
   );

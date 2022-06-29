@@ -85,6 +85,10 @@ export const DataXl = styled(Data)`
   font-size: ${font.size.xl};
 `;
 ///////////////////////FONT-MODS/////////////////////
+export const ExtraLight = styled.span`
+  font-weight: ${font.weight.extraLight};
+`;
+
 export const Light = styled.span`
   font-weight: ${font.weight.light};
 `;

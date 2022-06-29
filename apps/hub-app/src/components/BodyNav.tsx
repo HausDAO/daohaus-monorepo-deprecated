@@ -24,10 +24,11 @@ const BodyNavContainer = styled.div`
 
   @media (min-width: ${breakpoints.xs}) {
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
   }
 `;
 
+// Add selected
 const StyledLink = styled(Link)`
   text-decoration-color: ${amberDark.amber10};
   color: ${amberDark.amber9};
@@ -40,11 +41,13 @@ type NavLinkProps = {
 };
 
 const NavLink = ({ children, path }: NavLinkProps) => {
+  const selected = path;
   return (
     <StyledLink
       to={{
         pathname: path,
       }}
+      selected={selected}
     >
       <LinkContainer>{children}</LinkContainer>
     </StyledLink>
@@ -55,8 +58,8 @@ export const BodyNav = () => {
   const { isConnected } = useHausConnect();
   return (
     <BodyNavContainer>
-      <NavLink path="/explore">Explore</NavLink>
-      {!isConnected && <NavLink path="/dashboard">Dashboard</NavLink>}
+      <NavLink path="/">Home</NavLink>
+      <NavLink path="/explore">Explore DAOs</NavLink>
     </BodyNavContainer>
   );
 };

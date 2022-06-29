@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { BodyNav } from '../components/BodyNav';
 import ConnectCard from '../components/ConnectCard';
 import Header from '../components/Header';
-import Profile from '../components/Profile';
+import { HeaderProfile } from '../components/Profile';
 import TableControl from '../components/TableControl';
 import { crimsonDark, indigoDark } from '@radix-ui/colors';
 import { DaoCard } from '../components/DaoCard';
@@ -41,9 +41,9 @@ const ProfileContainer = styled.div`
   gap: 2.6rem;
   background: ${indigoDark.indigo2};
 
-  @media (min-width: ${breakpoints.xs}px) {
+  @media (min-width: ${breakpoints.xs}) {
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
   }
 `;
 // JP
@@ -90,7 +90,7 @@ const HomePage = () => {
       <Header />
       <ProfileContainer>
         <BodyNav />
-        {isConnected && !isProfileLoading ? <Profile /> : <ConnectCard />}
+        {isConnected && !isProfileLoading ? <HeaderProfile /> : <ConnectCard />}
       </ProfileContainer>
       <Body>
         <TableControl />

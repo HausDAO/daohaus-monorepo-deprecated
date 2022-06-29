@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { breakpoints } from '@daohaus/ui';
 import styled from 'styled-components';
@@ -6,9 +6,9 @@ import { BodyNav } from '../components/BodyNav';
 import ConnectCard from '../components/ConnectCard';
 import Header from '../components/Header';
 import Profile from '../components/Profile';
-import { DataTable } from '../components/Table';
 import TableControl from '../components/TableControl';
 import { crimsonDark, indigoDark } from '@radix-ui/colors';
+import { DaoCard } from '../components/DaoCard';
 
 const Layout = styled.div`
   width: 100%;
@@ -46,6 +46,22 @@ const ProfileContainer = styled.div`
     justify-content: space-around;
   }
 `;
+// JP
+// This is the data we'll need to standardize.
+const sampleDaoData = [
+  {
+    isDelegate: true,
+    unreadProposalAmt: 4,
+    daoName: 'Uber Complex Meta Governance',
+    amtMembers: 100,
+    amtToken: 68,
+    tokenSymbol: 'ETH',
+    amtProposals: 36,
+    amtPower: 12.6,
+    networkName: 'Gnosis Chain',
+    contractName: 'Moloch V3',
+  },
+];
 
 const SideTopLeft = styled.div`
   grid-area: sidebarTopLeft;
@@ -64,7 +80,9 @@ const Body = styled.div`
 `;
 
 const HomePage = () => {
+  const [daoData] = useState(sampleDaoData);
   const { isProfileLoading, isConnected } = useHausConnect();
+
   return (
     <Layout>
       <SideTopLeft />
@@ -76,7 +94,10 @@ const HomePage = () => {
       </ProfileContainer>
       <Body>
         <TableControl />
-        <DataTable />
+        {daoData.map((dao, index) => (
+          <DaoCard key={`${dao.daoName}-${index}`} {...dao} />
+        ))}
+        {/* <DataTable /> */}
       </Body>
     </Layout>
   );

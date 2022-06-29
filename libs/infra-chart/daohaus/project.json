@@ -8,7 +8,13 @@
       "options": {
         "command": "helm dependency build ./daohaus",
         "cwd": "libs/infra-chart"
-      }
+      },
+      "dependsOn": [
+        {
+          "target": "add",
+          "projects": "self"
+        }
+      ]
     },
     "dependencyUpdate": {
       "executor": "@nrwl/workspace:run-commands",
@@ -17,7 +23,6 @@
         "cwd": "libs/infra-chart"
       }
     },
-
     "dryRun": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
@@ -30,13 +35,7 @@
       "options": {
         "command": "helm install -f ./daohaus/values.yaml test ./daohaus",
         "cwd": "libs/infra-chart"
-      },
-      "dependsOn": [
-        {
-          "target": "add",
-          "projects": "self"
-        }
-      ]
+      }
     },
     "add": {
       "executor": "@nrwl/workspace:run-commands",

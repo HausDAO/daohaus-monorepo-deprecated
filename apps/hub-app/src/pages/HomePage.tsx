@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { breakpoints } from '@daohaus/ui';
 import styled from 'styled-components';

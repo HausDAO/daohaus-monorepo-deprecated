@@ -1,16 +1,17 @@
 {
-  "root": "libs/common-utilities",
-  "sourceRoot": "libs/common-utilities/src",
+  "root": "libs/tx-builder-feature",
+  "sourceRoot": "libs/tx-builder-feature/src",
   "projectType": "library",
+  "tags": [],
   "targets": {
     "build": {
-      "executor": "@nrwl/js:tsc",
+      "executor": "@nxext/vite:package",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/common-utilities",
-        "main": "libs/common-utilities/src/index.ts",
-        "tsConfig": "libs/common-utilities/tsconfig.lib.json",
-        "assets": ["libs/common-utilities/*.md"],
+        "outputPath": "dist/libs/tx-builder-feature",
+        "configFile": "@nxext/vite/plugins/vite-package",
+        "frameworkConfigFile": "@nxext/react/plugins/vite",
+        "entryFile": "src/index.ts",
         "generatePackageJson": true
       }
     },
@@ -18,14 +19,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/common-utilities/**/*.ts"]
+        "lintFilePatterns": ["libs/tx-builder-feature/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/common-utilities"],
+      "outputs": ["coverage/libs/tx-builder-feature"],
       "options": {
-        "jestConfig": "libs/common-utilities/jest.config.js",
+        "jestConfig": "libs/tx-builder-feature/jest.config.js",
         "passWithNoTests": true
       }
     },
@@ -36,6 +37,5 @@
         "access": "public"
       }
     }
-  },
-  "tags": []
+  }
 }

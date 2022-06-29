@@ -1,9 +1,4 @@
 import {
-  ToastProps,
-  ToastProviderProps,
-  ToastViewportProps,
-} from '@radix-ui/react-toast';
-import {
   RiCloseFill,
   RiCheckboxCircleFill,
   RiErrorWarningFill,
@@ -24,33 +19,7 @@ import {
   ToastClose,
   CloseIcon,
 } from './Toast.styles';
-
-type CustomToastProps = ToastProps &
-  ToastProviderProps &
-  ToastViewportProps & {
-    title: string;
-    description?: string;
-    success?: boolean;
-    warning?: boolean;
-    error?: boolean;
-    iconType?: IconType;
-    ariaLabelClose?: string;
-    toastLinks?: ToastLinksProps;
-  };
-
-type ToastLinksProps = {
-  actionAltText?: string;
-  leftLink?: {
-    path: string;
-    text: string;
-  };
-  rightLink?: {
-    path: string;
-    text: string;
-  };
-};
-
-type IconType = 'success' | 'warning' | 'error';
+import { CustomToastProps, ToastLinksProps } from '../../../types/toastTypes';
 
 export const Toast = (props: CustomToastProps) => {
   const {

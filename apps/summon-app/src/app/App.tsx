@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-import { ParMd, TemporaryLink, useBreakpoint, widthQuery } from '@daohaus/ui';
+import { ParMd, TemporaryLink } from '@daohaus/ui';
 import { DaoHausNav, useHausConnect } from '@daohaus/daohaus-connect-feature';
 
-import { TXBuilder } from './TXBuilder';
+import { TXBuilder } from '@daohaus/tx-builder-feature';
 import { SummonerForm } from '../layouts/SummonerForm';
 import { SummonerLoading } from '../layouts/SummonerLoading';
 import hausCastle from '../assets/hausCastle.svg';
@@ -34,7 +34,7 @@ const TemporaryLayout = styled.div`
 export type SummonStates = 'idle' | 'loading' | 'success' | 'error';
 export const App = () => {
   const { provider, chainId } = useHausConnect();
-  const isViewportSm = useBreakpoint(widthQuery.sm);
+
   const [summonState, setSummonState] = useState<SummonStates>('idle');
   const [txHash, setTxHash] = useState<string>('');
   const [daoAddress, setDaoAddress] = useState<string>('');

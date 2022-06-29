@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTable, Column } from 'react-table';
 import styled from 'styled-components';
-import { amberDark, crimsonDark } from '@radix-ui/colors';
+import { indigoDark } from '@radix-ui/colors';
 import { Avatar } from '@daohaus/ui';
 import { BiGhost } from 'react-icons/bi';
 
@@ -25,8 +25,8 @@ const Table = styled.table`
 const Thead = styled.thead``;
 
 const Th = styled.th`
-  color: ${crimsonDark.crimson11};
-  border-bottom: 1px solid ${crimsonDark.crimson5};
+  color: ${indigoDark.indigo11};
+  border-bottom: 1px solid ${indigoDark.indigo5};
   padding: 0.5rem;
 `;
 
@@ -40,7 +40,7 @@ const Td = styled.td`
 const TBody = styled.tbody``;
 
 const Highlight = styled.p`
-  color: ${amberDark.amber9};
+  color: ${indigoDark.indigo9};
 `;
 
 const FirstHeader = styled.p`

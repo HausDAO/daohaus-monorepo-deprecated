@@ -11,7 +11,8 @@
         "outputPath": "dist/libs/daohaus-connect-feature",
         "configFile": "@nxext/vite/plugins/vite-package",
         "frameworkConfigFile": "@nxext/react/plugins/vite",
-        "entryFile": "src/index.ts"
+        "entryFile": "src/index.ts",
+        "generatePackageJson": true
       }
     },
     "lint": {
@@ -29,6 +30,13 @@
       "options": {
         "jestConfig": "libs/daohaus-connect-feature/jest.config.js",
         "passWithNoTests": true
+      }
+    },
+    "deploy": {
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "tag": "alpha",
+        "access": "public"
       }
     }
   }

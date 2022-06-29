@@ -30,6 +30,7 @@ fragment proposalFields on Proposal {
   prevProposalId
   proposalDataHash
   proposalData
+  actionGasEstimate
   details
   title
   description
@@ -42,6 +43,7 @@ fragment proposalFields on Proposal {
   votingPeriod
   votingStarts
   votingEnds
+  gracePeriod
   graceEnds
   expiration
   cancelled

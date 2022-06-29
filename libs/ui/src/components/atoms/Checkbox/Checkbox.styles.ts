@@ -1,9 +1,8 @@
 import styled from 'styled-components';
+import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 
 import { font } from '../../../theme/global/font';
 import { Theme } from '../../../types/theming';
-
-import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
 
 export const Container = styled.div`
   align-items: center;
@@ -12,20 +11,67 @@ export const Container = styled.div`
 `;
 
 export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
-  display: flex;
   align-items: center;
-  justify-content: center;
-  background-color: transparent;
-  border: 2px solid
-    ${(props) =>
-      props.checked
-        ? props.theme.checkbox.activeBorder
-        : props.theme.checkbox.border};
+  background-color: ${({ theme }: { theme: Theme }) => theme.checkbox.bg};
+  border: 2px solid ${({ theme }: { theme: Theme }) => theme.checkbox.border};
   border-radius: 1px;
-  width: 18px;
+  cursor: pointer;
+  display: flex;
   height: 18px;
+  justify-content: center;
+  width: 18px;
+
+  :hover {
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.checkbox.hoverBg};
+    border: 2px solid
+      ${({ theme }: { theme: Theme }) => theme.checkbox.hoverBorder};
+  }
+
+  :focus {
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.checkbox.focusBg};
+    border: 2px solid
+      ${({ theme }: { theme: Theme }) => theme.checkbox.focusBorder};
+    outline: none;
+  }
+
   :disabled {
-    border 2px solid ${({ theme }: { theme: Theme }) => theme.disabled}
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.checkbox.disabledBg};
+    border: 2px solid
+      ${({ theme }: { theme: Theme }) => theme.checkbox.disabledBorder};
+    cursor: not-allowed;
+  }
+
+  &[data-state='checked'] {
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.checkbox.activeBg};
+    border: 2px solid
+      ${({ theme }: { theme: Theme }) => theme.checkbox.activeBorder};
+
+    :hover {
+      background-color: ${({ theme }: { theme: Theme }) =>
+        theme.checkbox.activeHoverBg};
+      border: 2px solid
+        ${({ theme }: { theme: Theme }) => theme.checkbox.activeHoverBorder};
+    }
+
+    :focus {
+      background-color: ${({ theme }: { theme: Theme }) =>
+        theme.checkbox.activeFocusBg};
+      border: 2px solid
+        ${({ theme }: { theme: Theme }) => theme.checkbox.activeFocusBorder};
+      outline: none;
+    }
+
+    :disabled {
+      background-color: ${({ theme }: { theme: Theme }) =>
+        theme.checkbox.activeDisabledBg};
+      border: 2px solid
+        ${({ theme }: { theme: Theme }) => theme.checkbox.activeDisabledBorder};
+      cursor: not-allowed;
+    }
   }
 `;
 
@@ -34,13 +80,13 @@ export const StyledIndicator = styled(CheckboxPrimitive.Indicator)`
   font-size: 2rem;
   padding-top: 3px;
   :disabled {
-    color: ${({ theme }: { theme: Theme }) => theme.disabled};
+    color: ${({ theme }: { theme: Theme }) => theme.checkbox.disabledBg};
   }
 `;
 
 export const LabelContainer = styled.label`
-  display: flex;
   align-items: center;
+  display: flex;
   margin-left: 19px;
   label {
     margin-right: 10px;
@@ -51,8 +97,8 @@ export const LabelContainer = styled.label`
 `;
 
 export const RequiredAsterisk = styled.span`
-  margin-right: 8px;
-  font-weight: ${font.weight.bold};
   color: ${({ theme }: { theme: Theme }) => theme.warning};
+  font-weight: ${font.weight.bold};
+  margin-right: 8px;
   transform: translateY(-0.25rem);
 `;

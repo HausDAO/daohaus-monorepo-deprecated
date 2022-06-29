@@ -10,21 +10,26 @@ export const TooltipProvider = TooltipPrimitive.Provider;
 export const TooltipRoot = TooltipPrimitive.Root;
 export const TooltipTrigger = styled(TooltipPrimitive.Trigger)`
   background-color: ${({ theme }: { theme: Theme }) => theme.bgColor};
-  svg {
-    color: ${({ theme }: { theme: Theme }) => theme.warning};
-  }
   border: none;
+
+  svg {
+    color: ${({ theme }: { theme: Theme }) => theme.secondary};
+  }
 `;
+
 export const TooltipArrow = styled(TooltipPrimitive.Arrow)`
   fill: ${({ theme }: { theme: Theme }) => theme.tooltip.bg};
 `;
+
 export const TooltipContent = styled(TooltipPrimitive.Content)`
   background-color: ${({ theme }: { theme: Theme }) => theme.tooltip.bg};
   border-radius: ${border.radius};
-  padding: 1.2rem 1.5rem;
+  color: ${({ theme }: { theme: Theme }) => theme.fontColor};
   font-size: ${font.size.md};
   line-height: 2.4rem;
-  color: ${({ theme }: { theme: Theme }) => theme.fontColor};
+  max-width: 30rem;
+  padding: 1.2rem 1.5rem;
+
   &[data-state='delayed-open'] {
     animation: ${fadeIn} 0.15s ease-in forwards;
   }

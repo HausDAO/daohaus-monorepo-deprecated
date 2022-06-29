@@ -1,5 +1,7 @@
 type Dao @entity {
+  "unique identifier and primary key of the entity"
   id: ID!
+  "timestamp of the block when the dao was summoned"
   createdAt: String!
   transactionHashSummon: Bytes!
   lootAddress: Bytes!
@@ -9,6 +11,7 @@ type Dao @entity {
   sharesPaused: Boolean!
   gracePeriod: BigInt!
   votingPeriod: BigInt!
+  votingPlusGraceDuration: BigInt!
   proposalOffering: BigInt!
   quorumPercent: BigInt!
   sponsorThreshold: BigInt!
@@ -27,7 +30,7 @@ type Dao @entity {
   members: [Member!] @derivedFrom(field: "dao")
   rageQuits: [RageQuit!] @derivedFrom(field: "dao")
   shaman: [Shaman!] @derivedFrom(field: "dao")
-  metaData: MetaData @derivedFrom(field: "dao")
+  records: [Record!] @derivedFrom(field: "dao")
   eventTransactions: EventTransaction @derivedFrom(field: "dao")
 }
 
@@ -42,6 +45,8 @@ type Proposal @entity {
   votingPeriod: BigInt!
   votingStarts: BigInt!
   votingEnds: BigInt!
+  gracePeriod: BigInt!
+  votingPlusGraceDuration: BigInt!
   graceEnds: BigInt!
   proposalData: Bytes!
   expiration: BigInt!
@@ -59,6 +64,7 @@ type Proposal @entity {
   noVotes: BigInt!
   yesBalance: BigInt!
   noBalance: BigInt!
+  currentlyPassing: Boolean!
   maxTotalSharesAndLootAtYesVote: BigInt!
   tributeToken: Bytes
   tributeOffered: BigInt
@@ -83,13 +89,15 @@ type Vote @entity {
   member: Member!
 }
 
-type MetaData @entity {
+type Record @entity {
   id: ID!
   createdAt: String!
   createdBy: Bytes!
-  dao: Dao
-  name: String
-  rawContent: String!
+  dao: Dao!
+  tag: Bytes!
+  table: String!
+  contentType: String!
+  content: String!
 }
 
 type Member @entity {

@@ -1,5 +1,12 @@
 import { Bytes, log } from '@graphprotocol/graph-ts';
-import { Dao, Proposal, RageQuit, Shaman, Vote } from '../generated/schema';
+import {
+  Dao,
+  Proposal,
+  RageQuit,
+  Record,
+  Shaman,
+  Vote,
+} from '../generated/schema';
 
 import {
   CancelProposal,
@@ -31,16 +38,35 @@ export function handleSetupComplete(event: SetupComplete): void {
   dao.sharesPaused = event.params.sharesPaused;
   dao.gracePeriod = event.params.gracePeriod;
   dao.votingPeriod = event.params.votingPeriod;
+  dao.votingPlusGraceDuration = event.params.votingPeriod.plus(
+    event.params.gracePeriod
+  );
   dao.proposalOffering = event.params.proposalOffering;
   dao.quorumPercent = event.params.quorumPercent;
   dao.sponsorThreshold = event.params.sponsorThreshold;
   dao.minRetentionPercent = event.params.minRetentionPercent;
   dao.shareTokenName = event.params.name;
   dao.shareTokenSymbol = event.params.symbol;
+  dao.lootTokenName = event.params.name.concat(' LOOT');
+  dao.lootTokenSymbol = event.params.symbol.concat('-LOOT');
   dao.totalShares = event.params.totalShares;
   dao.totalLoot = event.params.totalLoot;
 
   log.info('handleSetupComplete loot: {}', [dao.totalLoot.toString()]);
+
+  let daoProfile = Record.load(daoId.concat('-record-summon'));
+  if (daoProfile) {
+    let result = parser.getResultFromJson(daoProfile.content);
+    if (result.error != 'none') {
+      log.error('no content', []);
+      return;
+    }
+    let object = result.object;
+
+    let name = parser.getStringFromJson(object, 'name');
+
+    dao.name = name.data;
+  }
 
   dao.save();
 }
@@ -54,6 +80,7 @@ export function handleGovernanceConfigSet(event: GovernanceConfigSet): void {
 
   dao.votingPeriod = event.params.voting;
   dao.gracePeriod = event.params.grace;
+  dao.votingPlusGraceDuration = event.params.voting.plus(event.params.grace);
   dao.proposalOffering = event.params.newOffering;
   dao.quorumPercent = event.params.quorum;
   dao.sponsorThreshold = event.params.sponsor;
@@ -136,6 +163,10 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   proposal.proposalDataHash = event.params.proposalDataHash;
   proposal.proposalData = event.params.proposalData;
   proposal.votingPeriod = event.params.votingPeriod;
+  proposal.gracePeriod = dao.gracePeriod;
+  proposal.votingPlusGraceDuration = event.params.votingPeriod.plus(
+    dao.gracePeriod
+  );
   proposal.expiration = event.params.expiration;
   proposal.actionGasEstimate = event.params.baalGas;
   proposal.sponsored = event.params.selfSponsor;
@@ -143,6 +174,7 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   proposal.processed = false;
   proposal.actionFailed = false;
   proposal.passed = false;
+  proposal.currentlyPassing = false;
   proposal.proposalOffering = event.transaction.value;
   proposal.maxTotalSharesAndLootAtYesVote = constants.BIGINT_ZERO;
   proposal.selfSponsor = event.params.selfSponsor;
@@ -326,6 +358,7 @@ export function handleSubmitVote(event: SubmitVote): void {
     proposal.noVotes = proposal.noVotes.plus(constants.BIGINT_ONE);
     proposal.noBalance = proposal.noBalance.plus(event.params.balance);
   }
+  proposal.currentlyPassing = proposal.yesBalance > proposal.noBalance;
 
   vote.save();
   proposal.save();

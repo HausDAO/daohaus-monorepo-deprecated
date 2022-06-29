@@ -9,7 +9,7 @@ import {
   Address,
 } from '@graphprotocol/graph-ts';
 import { NewPost } from '../../generated/Poster/Poster';
-import { Dao, MetaData, Proposal } from '../../generated/schema';
+import { Dao, Record } from '../../generated/schema';
 
 class JsonStringResult {
   data: string;
@@ -69,7 +69,7 @@ export namespace parser {
     return result;
   }
 
-  export function createDaoMetaSummoning(
+  export function createDaoProfileSummoning(
     object: TypedMap<string, JSONValue>,
     daoAddress: Bytes | null,
     event: NewPost
@@ -77,31 +77,66 @@ export namespace parser {
     if (daoAddress === null) {
       return false;
     }
-    let entityId = daoAddress
-      .toHexString()
-      .concat('-content-')
-      .concat(event.block.timestamp.toString());
-    let entity = new MetaData(entityId);
+    let entityId = daoAddress.toHexString().concat('-record-summon');
+
+    let entity = new Record(entityId);
 
     let name = parser.getStringFromJson(object, 'name');
     if (name.error != 'none') {
       return false;
     }
-    entity.name = name.data;
 
     entity.createdAt = event.block.timestamp.toString();
     entity.createdBy = daoAddress;
     entity.dao = daoAddress.toHexString();
-    entity.rawContent = event.params.content;
+    entity.tag = event.params.tag;
+    entity.table = 'daoProfile';
+    entity.contentType = 'json';
+    entity.content = event.params.content;
 
     entity.save();
 
-    let dao = Dao.load(daoAddress.toHexString());
-    if (dao) {
-      dao.name = name.data;
+    return true;
+  }
 
-      dao.save();
+  export function createDaoProfile(
+    object: TypedMap<string, JSONValue>,
+    daoAddress: string,
+    event: NewPost
+  ): boolean {
+    if (daoAddress === null) {
+      return false;
     }
+
+    let dao = Dao.load(daoAddress);
+    if (!dao) {
+      return false;
+    }
+
+    let name = parser.getStringFromJson(object, 'name');
+    if (name.error != 'none') {
+      return false;
+    }
+
+    dao.name = name.data;
+    dao.save();
+
+    let entityId = daoAddress
+      .concat('-record-')
+      .concat(event.block.timestamp.toString())
+      .concat(event.logIndex.toString());
+
+    let entity = new Record(entityId);
+
+    entity.createdAt = event.block.timestamp.toString();
+    entity.createdBy = event.params.user;
+    entity.dao = daoAddress;
+    entity.tag = event.params.tag;
+    entity.table = 'daoProfile';
+    entity.contentType = 'json';
+    entity.content = event.params.content;
+
+    entity.save();
 
     return true;
   }

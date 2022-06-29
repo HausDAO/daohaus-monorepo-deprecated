@@ -15,7 +15,7 @@ export type WalletStateType = {
   chainId?: string | null | undefined;
   address?: string | null | undefined;
 };
-export type UserProfile = (AccountProfile & { displayName?: string }) | null;
+export type UserProfile = (AccountProfile & { displayName?: string });
 export type ModalOptions = Partial<ICoreOptions>;
 
 export type NetworkConfig = {

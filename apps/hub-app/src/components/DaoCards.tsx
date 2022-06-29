@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { TemporaryDAOType } from '../pages/HomePage';
+import { TemporaryDAOType } from '../utils/appSpecificTypes';
 import { DaoCard } from './DaoCard';
 
 type CardsProps = {

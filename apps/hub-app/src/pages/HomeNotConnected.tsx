@@ -67,25 +67,7 @@ const ViewBox = styled.div`
     }
   }
   @media ${widthQuery.xs} {
-    height: 70rem;
-    background-size: auto 60rem;
     background-position: -20% 90%;
-    .text-section {
-      max-width: 28rem;
-    }
-    .hero {
-      font-size: 6rem;
-    }
-    .tag-line {
-      font-size: 1.6rem;
-      margin-bottom: 1.6rem;
-    }
-    .connect {
-      font-size: 1.6rem;
-    }
-    li {
-      font-size: 1.6rem;
-    }
   }
 `;
 

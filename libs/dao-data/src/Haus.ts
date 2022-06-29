@@ -10,10 +10,13 @@ class Haus {
   private constructor(options: IHausOptions) {
     this.options = options;
     this.query = new Query();
-    this.profile = new Profile(options.providers, options.ceramicNode);
+    this.profile = new Profile(
+      this.options.providers,
+      this.options.ceramicNode
+    );
   }
 
-  static create(options: IHausOptions): Haus {
+  static create(options: IHausOptions = {}): Haus {
     const hausSdk = new Haus(options);
     return hausSdk;
   }

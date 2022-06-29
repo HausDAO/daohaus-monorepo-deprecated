@@ -9,7 +9,7 @@ describe('haus', () => {
   let haus: Haus;
 
   beforeAll(async () => {
-    haus = await Haus.create(rpcConfig);
+    haus = await Haus.create({ providers: rpcConfig });
   });
 
   it('can fetch all daos for an account', async () => {

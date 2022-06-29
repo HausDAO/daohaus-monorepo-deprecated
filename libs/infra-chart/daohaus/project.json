@@ -30,7 +30,13 @@
       "options": {
         "command": "helm install -f ./daohaus/values.yaml test ./daohaus",
         "cwd": "libs/infra-chart"
-      }
+      },
+      "dependsOn": [
+        {
+          "target": "add",
+          "projects": "self"
+        }
+      ]
     },
     "add": {
       "executor": "@nrwl/workspace:run-commands",

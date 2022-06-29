@@ -9,6 +9,7 @@ import Profile from '../components/Profile';
 import TableControl from '../components/TableControl';
 import { crimsonDark, indigoDark } from '@radix-ui/colors';
 import { DaoCard } from '../components/DaoCard';
+import { DaoCards } from '../components/DaoCards';
 
 const Layout = styled.div`
   width: 100%;
@@ -61,7 +62,56 @@ const sampleDaoData = [
     networkName: 'Gnosis Chain',
     contractName: 'Moloch V3',
   },
+  {
+    isDelegate: true,
+    unreadProposalAmt: 4,
+    daoName: 'Uber Complex Meta Governance',
+    amtMembers: 100,
+    amtToken: 68,
+    tokenSymbol: 'ETH',
+    amtProposals: 36,
+    amtPower: 12.6,
+    networkName: 'Gnosis Chain',
+    contractName: 'Moloch V3',
+  },
+  {
+    isDelegate: true,
+    unreadProposalAmt: 4,
+    daoName: 'Uber Complex Meta Governance',
+    amtMembers: 100,
+    amtToken: 68,
+    tokenSymbol: 'ETH',
+    amtProposals: 36,
+    amtPower: 12.6,
+    networkName: 'Gnosis Chain',
+    contractName: 'Moloch V3',
+  },
+  {
+    isDelegate: true,
+    unreadProposalAmt: 4,
+    daoName: 'Uber Complex Meta Governance',
+    amtMembers: 100,
+    amtToken: 68,
+    tokenSymbol: 'ETH',
+    amtProposals: 36,
+    amtPower: 12.6,
+    networkName: 'Gnosis Chain',
+    contractName: 'Moloch V3',
+  },
 ];
+
+export type TemporaryDAOType = {
+  isDelegate: boolean;
+  unreadProposalAmt: number;
+  daoName: string;
+  amtMembers: number;
+  amtToken: number;
+  tokenSymbol: string;
+  amtProposals: number;
+  amtPower: number;
+  networkName: string;
+  contractName: string;
+};
 
 const SideTopLeft = styled.div`
   grid-area: sidebarTopLeft;
@@ -80,8 +130,13 @@ const Body = styled.div`
 `;
 
 const HomePage = () => {
-  const [daoData] = useState(sampleDaoData);
+  const [daoData] = useState<TemporaryDAOType[]>(sampleDaoData);
   const { isProfileLoading, isConnected } = useHausConnect();
+  const [listType, setListType] = useState<'cards' | 'table'>('cards');
+
+  const toggleListType = () => {
+    listType === 'cards' ? setListType('table') : setListType('cards');
+  };
 
   return (
     <Layout>
@@ -94,9 +149,8 @@ const HomePage = () => {
       </ProfileContainer>
       <Body>
         <TableControl />
-        {daoData.map((dao, index) => (
-          <DaoCard key={`${dao.daoName}-${index}`} {...dao} />
-        ))}
+        {listType === 'cards' && <DaoCards daoData={daoData} />}
+
         {/* <DataTable /> */}
       </Body>
     </Layout>

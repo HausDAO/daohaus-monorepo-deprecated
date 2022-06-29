@@ -1,5 +1,3 @@
-import React from 'react';
-
 import styled from 'styled-components';
 
 import { charLimit } from '@daohaus/common-utilities';
@@ -13,7 +11,7 @@ const StyledDaoCard = styled.div`
   flex-direction: column;
   width: 100%;
   max-width: 36rem;
-  min-width: 28rem;
+  min-width: 26rem;
   border: 1px solid ${(props) => props.theme.card.border};
   padding: 2.4rem;
   .top-box {
@@ -74,7 +72,7 @@ export const DaoCard = ({
   contractName,
 }: DaoCardProps) => {
   return (
-    <StyledDaoCard>
+    <StyledDaoCard className="dao-card">
       <div className="top-box">
         <div className="alert-box">
           <Avatar size="xl" />

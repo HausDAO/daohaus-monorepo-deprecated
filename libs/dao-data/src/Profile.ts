@@ -3,24 +3,63 @@ import { Caip10Link } from '@ceramicnetwork/stream-caip10-link';
 import { ethers } from 'ethers';
 
 import { Keychain } from '@daohaus/common-utilities';
-
-import { AccountProfile, BasicProfile } from './types';
-import { transformProfile } from './utils/transformers';
+import {
+  AccountProfile,
+  BasicProfile,
+  ICrossNetworkMemberListArguments,
+  DaoTokenBalances,
+  ListMembershipsDocument,
+  ListMembershipsQuery,
+  ListMembershipsQueryVariables,
+  Member_OrderBy,
+  IFindQueryResult,
+  ITransformedMembershipsQuery,
+} from './types';
+import {
+  transformMembershipList,
+  transformProfile,
+} from './utils/transformers';
+import { graphFetch } from './utils';
+import Query from './Query';
+import { Member_Filter } from './types';
 
 export default class Profile {
-  providers: Keychain;
+  query: Query;
+  providers?: Keychain;
   ceramicNode: string;
 
-  constructor(providers: Keychain, node?: string) {
+  constructor(query: Query, providers?: Keychain, node?: string) {
+    this.query = query;
     this.providers = providers;
     this.ceramicNode = node || '';
   }
 
-  public async get(address: string): Promise<AccountProfile> {
+  public async get({
+    address,
+    includeDaosOptions,
+  }: {
+    address: string;
+    includeDaosOptions?: Omit<
+      ICrossNetworkMemberListArguments<Member_OrderBy, Member_Filter>,
+      'memberAddress'
+    >;
+  }): Promise<AccountProfile> {
     const ens = await this.getEns(address);
     const basicProfile = await this.getBasicProfile('0x1', address);
 
-    return transformProfile(address, ens, basicProfile);
+    let profile = transformProfile(address, ens, basicProfile);
+
+    if (includeDaosOptions) {
+      const daoRes = await this.listDaosByMember({
+        memberAddress: address,
+        networkIds: includeDaosOptions['networkIds'],
+        includeTokens: includeDaosOptions['includeTokens'],
+      });
+
+      profile = { ...profile, daos: daoRes.data?.daos };
+    }
+
+    return profile;
   }
 
   private async getBasicProfile(
@@ -35,22 +74,88 @@ export default class Profile {
       `${address.toLowerCase()}@eip155:${Number(chain)}`
     );
 
-    const profile = core.get('basicProfile', link.did || '');
+    const profile = await core.get('basicProfile', link.did || '');
     if (Object.keys(profile).length === 0) {
       return {};
     }
 
-    return {};
+    return profile;
   }
 
   private async getEns(address: string): Promise<string | null> {
-    const provider = new ethers.providers.JsonRpcProvider(
-      this.providers['0x1']
-    );
-    try {
+    if (this.providers && this.providers['0x1']) {
+      const provider = new ethers.providers.JsonRpcProvider(
+        this.providers['0x1']
+      );
       return await provider.lookupAddress(address);
-    } catch {
+    } else {
       return null;
+    }
+  }
+
+  public async listDaosByMember({
+    memberAddress,
+    filter = { memberAddress: memberAddress },
+    ordering = {
+      orderBy: 'createdAt',
+      orderDirection: 'desc',
+    },
+    networkIds,
+    includeTokens = false,
+  }: ICrossNetworkMemberListArguments<Member_OrderBy, Member_Filter>): Promise<
+    IFindQueryResult<ITransformedMembershipsQuery>
+  > {
+    const promises: Promise<IFindQueryResult<ListMembershipsQuery>>[] = [];
+
+    networkIds.forEach((networkId: keyof Keychain) => {
+      const url = this.query.endpoints['V3_SUBGRAPH'][networkId];
+
+      if (url) {
+        promises.push(
+          graphFetch<ListMembershipsQuery, ListMembershipsQueryVariables>(
+            ListMembershipsDocument,
+            url,
+            networkId,
+            {
+              where: filter,
+              orderBy: ordering.orderBy,
+              orderDirection: ordering.orderDirection,
+            }
+          )
+        );
+      }
+    });
+
+    const memberData = await Promise.all(promises);
+    const transformedList = transformMembershipList(memberData);
+
+    if (includeTokens) {
+      const tokenPromises: Promise<IFindQueryResult<DaoTokenBalances>>[] = [];
+      transformedList.forEach((dao) => {
+        if (dao.networkId) {
+          tokenPromises.push(
+            this.query.listTokenBalances({
+              networkId: dao.networkId,
+              safeAddress: dao.safeAddress,
+            })
+          );
+        }
+      });
+
+      const tokenData = await Promise.all(tokenPromises);
+
+      const dataWithTokens = transformedList.map((dao) => {
+        return {
+          ...dao,
+          ...tokenData.find(
+            (dataRes) => dataRes.data?.safeAddress === dao.safeAddress
+          )?.data,
+        };
+      });
+
+      return { data: { daos: dataWithTokens } };
+    } else {
+      return { data: { daos: transformedList } };
     }
   }
 }

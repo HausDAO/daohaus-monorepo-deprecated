@@ -24,12 +24,11 @@ ToastNoLinks.args = {
   description: 'Description Goes here and has more detail/text than the title',
 };
 
-export const ErrorToast = Template.bind({});
-ErrorToast.args = {
+export const SuccessToast = Template.bind({});
+SuccessToast.args = {
   title: 'Title goes here',
   description: 'Description Goes here and has more detail/text than the title',
-  iconType: 'error',
-  error: true,
+  toastType: 'success',
   toastLinks: {
     leftLink: {
       path: 'https://daohaus.club/',
@@ -44,10 +43,28 @@ ErrorToast.args = {
 
 export const WarningToast = Template.bind({});
 WarningToast.args = {
+  open: true,
   title: 'Title goes here',
   description: 'Description Goes here and has more detail/text than the title',
-  iconType: 'warning',
-  warning: true,
+  toastType: 'warning',
+  toastLinks: {
+    leftLink: {
+      path: 'https://daohaus.club/',
+      text: 'DAO Haus',
+    },
+    rightLink: {
+      path: 'https://daohaus.club/docs/',
+      text: 'DAO Haus Docs',
+    },
+  },
+};
+
+export const DangerToast = Template.bind({});
+DangerToast.args = {
+  open: true,
+  title: 'Title goes here',
+  description: 'Description Goes here and has more detail/text than the title',
+  toastType: 'error',
   toastLinks: {
     leftLink: {
       path: 'https://daohaus.club/',

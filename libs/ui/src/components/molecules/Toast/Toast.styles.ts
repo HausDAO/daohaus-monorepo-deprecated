@@ -2,6 +2,7 @@ import * as ToastPrimitive from '@radix-ui/react-toast';
 import styled, { keyframes } from 'styled-components';
 
 import { Theme } from '../../../types/theming';
+import { ToastType } from 'libs/ui/src/types/toastTypes';
 
 export const ToastProvider = ToastPrimitive.Provider;
 export const ToastTitle = ToastPrimitive.Title;
@@ -94,9 +95,9 @@ export const ToastHeaderContainer = styled.div`
 `;
 
 export const ToastIcon = styled.span<{
-  iconType: 'success' | 'warning' | 'error';
+  iconType: ToastType;
 }>`
-  color: ${(props) => props.theme[props.iconType]};
+  color: ${(props) => props.theme.toast.icon[props.iconType]};
   font-size: 24px;
   margin-right: 1rem;
 `;

@@ -18,7 +18,11 @@ import {
   ToastClose,
   CloseIcon,
 } from './Toast.styles';
-import { CustomToastProps, ToastLinksProps } from '../../../types/toastTypes';
+import {
+  CustomToastProps,
+  ToastLinksProps,
+  ToastType,
+} from '../../../types/toastTypes';
 
 export const Toast = (props: CustomToastProps) => {
   const {
@@ -32,7 +36,6 @@ export const Toast = (props: CustomToastProps) => {
     label,
     hotkey,
     toastType = 'default',
-    iconType = 'success',
     ariaLabelClose,
     toastLinks,
   } = props;
@@ -44,10 +47,10 @@ export const Toast = (props: CustomToastProps) => {
         open={open}
         onOpenChange={onOpenChange}
         defaultOpen={defaultOpen}
-        className={iconType}
+        className={toastType}
       >
         <ToastHeaderContainer>
-          {getEnumIcons(iconType)}
+          {getEnumIcons(toastType)}
           <ToastCopyContainer>
             <ToastTitle asChild>
               <ParSm>{title}</ParSm>
@@ -89,12 +92,13 @@ const ToastLinks = ({
 
 // Creating enum object of Icons
 const EnumIconsObject = {
+  default: <RiCheckboxCircleFill />,
   success: <RiCheckboxCircleFill />,
   warning: <RiErrorWarningFill />,
   error: <RiCloseCircleFill />,
 };
 
-function getEnumIcons(toastType: 'success' | 'warning' | 'error') {
+function getEnumIcons(toastType: ToastType) {
   return (
     <ToastIcon iconType={toastType}>{EnumIconsObject[toastType]}</ToastIcon>
   );

@@ -154,10 +154,10 @@ export const defaultDarkTheme: Theme = {
     errorBg: utilityDark.dangerBg,
     errorBorder: utilityDark.dangerBorder,
     icon: {
-      default: utilityDark.successBg,
-      success: utilityDark.successBg,
-      warning: utilityDark.warningBg,
-      error: utilityDark.dangerBg,
+      default: utilityDark.success,
+      success: utilityDark.success,
+      warning: utilityDark.warning,
+      error: utilityDark.danger,
     },
   },
 };
@@ -295,10 +295,10 @@ export const defaultLightTheme: Theme = {
     errorBg: utility.dangerBg,
     errorBorder: utility.dangerBorder,
     icon: {
-      default: utility.successBg,
-      success: utility.successBg,
-      warning: utility.warningBg,
-      error: utility.dangerBg,
+      default: utility.success,
+      success: utility.success,
+      warning: utility.warning,
+      error: utility.danger,
     },
   },
 };

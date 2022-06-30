@@ -22,7 +22,7 @@ import {
   CustomToastProps,
   ToastLinksProps,
   ToastType,
-} from '../../../types/toastTypes';
+} from '../../../types/toast.types';
 
 export const Toast = (props: CustomToastProps) => {
   const {
@@ -36,7 +36,7 @@ export const Toast = (props: CustomToastProps) => {
     label,
     hotkey,
     toastType = 'default',
-    ariaLabelClose,
+    ariaLabelClose = 'Close',
     toastLinks,
   } = props;
 
@@ -45,6 +45,7 @@ export const Toast = (props: CustomToastProps) => {
       <ToastRoot
         type={type}
         open={open}
+        duration={duration}
         onOpenChange={onOpenChange}
         defaultOpen={defaultOpen}
         className={toastType}
@@ -61,7 +62,7 @@ export const Toast = (props: CustomToastProps) => {
               </ToastDescription>
             )}
           </ToastCopyContainer>
-          <ToastClose asChild aria-label={'Close'}>
+          <ToastClose asChild aria-label={ariaLabelClose}>
             <CloseIcon>
               <RiCloseFill aria-hidden />
             </CloseIcon>

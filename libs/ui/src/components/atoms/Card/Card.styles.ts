@@ -1,14 +1,13 @@
 import styled from 'styled-components';
 
 import { Theme } from '../../../types/theming';
+import { border } from '../../../theme/global/border';
 
 export const BaseCard = styled.div`
   background-color: ${({ theme }: { theme: Theme }) => theme.card.bg};
   border: 1px solid ${({ theme }: { theme: Theme }) => theme.card.border};
-  border-radius: 0.8rem;
-  height: auto;
+  border-radius: ${border.cardRadius};
   padding: 2rem;
-  width: auto;
 
   :hover {
     background-color: ${({ theme }: { theme: Theme }) => theme.card.hoverBg};
@@ -21,6 +20,7 @@ export const BaseCard = styled.div`
     outline: none;
   }
 
+  /* We might not need this */
   :disabled {
     background-color: ${({ theme }: { theme: Theme }) => theme.card.disabledBg};
     border: 1px solid

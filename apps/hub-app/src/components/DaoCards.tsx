@@ -1,4 +1,4 @@
-import { TransformedMembership } from '@daohaus/dao-data';
+import { ITransformedMembership } from '@daohaus/dao-data';
 import { breakpoints } from '@daohaus/ui';
 import styled from 'styled-components';
 import { DaoCard } from './DaoCard';
@@ -13,7 +13,11 @@ const CardListBox = styled.div`
     justify-content: flex-start;
   }
 `;
-export const DaoCards = ({ daoData }: { daoData: TransformedMembership[] }) => {
+export const DaoCards = ({
+  daoData,
+}: {
+  daoData: ITransformedMembership[];
+}) => {
   return (
     <CardListBox>
       {daoData.map((dao, index) => (

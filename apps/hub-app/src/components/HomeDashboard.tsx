@@ -1,4 +1,4 @@
-import { TransformedMembership } from '@daohaus/dao-data';
+import { ITransformedMembership } from '@daohaus/dao-data';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { ListType } from '../utils/appSpecificTypes';
@@ -14,7 +14,7 @@ const Body = styled.div`
 `;
 
 type DashProps = {
-  daoData: TransformedMembership[];
+  daoData: ITransformedMembership[];
 };
 
 export const HomeDashboard = ({ daoData }: DashProps) => {

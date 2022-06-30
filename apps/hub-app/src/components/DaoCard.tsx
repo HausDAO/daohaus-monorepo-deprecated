@@ -4,7 +4,7 @@ import { charLimit } from '@daohaus/common-utilities';
 import { Avatar, Bold, border, Button, ParLg, ParMd } from '@daohaus/ui';
 import { Tag } from './Tag';
 import { AlertCircle } from './AlertCircle';
-import { TransformedMembership } from '@daohaus/dao-data';
+import { ITransformedMembership } from '@daohaus/dao-data';
 
 const StyledDaoCard = styled.div`
   background-color: ${(props) => props.theme.card.bg};
@@ -54,12 +54,12 @@ export const DaoCard = ({
   activeMemberCount,
   fiatTotal,
   activeProposalCount,
-  // totalProposals,
+  totalProposalCount,
   votingPower,
   name,
   networkId,
-}: // contractName,
-TransformedMembership) => {
+  contractType,
+}: ITransformedMembership) => {
   return (
     <StyledDaoCard className="dao-card">
       <div className="top-box">
@@ -81,16 +81,16 @@ TransformedMembership) => {
         <ParMd>
           <Bold>{fiatTotal}</Bold> USD
         </ParMd>
-        {/* <ParMd>
-          <Bold>{totalProposals}</Bold> Proposals
-        </ParMd> */}
+        <ParMd>
+          <Bold>{totalProposalCount}</Bold> Proposals
+        </ParMd>
         <ParMd>
           <Bold>{votingPower}</Bold>% Voting Power
         </ParMd>
       </div>
       <div className="tag-box">
         <Tag>{networkId}</Tag>
-        <Tag>Moloch V3</Tag>
+        <Tag>{contractType}</Tag>
       </div>
       <div>
         <Button secondary>Go</Button>

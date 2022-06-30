@@ -22,11 +22,3 @@ export const PROPOSAL_STATUS: { [index: string]: ProposalStatus } = {
   actionFailed: 'Processing Failed',
   unknown: 'Unknown',
 };
-
-// unborn - not needed
-// unsponsored
-// cancelled
-// voting
-// grace
-// defeated - after grace/no > yes - counts as processed
-//

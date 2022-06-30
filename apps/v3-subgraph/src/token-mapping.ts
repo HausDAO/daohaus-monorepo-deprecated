@@ -233,6 +233,3 @@ export function handleDelegateVotesChanged(event: DelegateVotesChanged): void {
   member.save();
   addTransaction(event.block, event.transaction, event.address);
 }
-
-// so then a member can vote if delegatingTo === memberAddress && shares > 0 || delegatedShares > 0
-// vote weight is shares + delegateShares

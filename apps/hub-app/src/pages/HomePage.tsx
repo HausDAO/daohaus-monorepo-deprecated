@@ -46,7 +46,7 @@ const ProfileContainer = styled.div`
   gap: 2.6rem;
   background: ${indigoDark.indigo2};
 
-  @media (min-width: ${breakpoints.xs}px) {
+  @media (min-width: ${breakpoints.xs}) {
     flex-direction: row;
     justify-content: space-around;
   }

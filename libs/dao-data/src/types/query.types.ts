@@ -14,9 +14,14 @@ export interface IListQueryArguments<TOrderBy extends string, Variables> {
   paging?: Paging;
 }
 
-export interface ICrossNetworkQueryArguments {
+export interface ICrossNetworkMemberListArguments<
+  TOrderBy extends string,
+  Variables
+> {
   networkIds: Array<keyof Keychain>;
   memberAddress: string;
+  filter?: Variables;
+  ordering?: Ordering<TOrderBy>;
   includeTokens?: boolean;
 }
 

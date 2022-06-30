@@ -28,17 +28,16 @@ describe('haus', () => {
     expect(res.error).toBeUndefined();
     expect(res.items.length).toBe(2);
     expect(nextPageRes.items.length).toBe(2);
-    expect(res.nextPaging).toBeTruthy();
     expect(res.previousPaging).toBeFalsy();
     expect(nextPageRes.previousPaging).toBeTruthy();
 
     expect(res.items[0].id).toEqual(previousPageRes.items[0].id);
   });
 
-  it('can fetch a list of proposals - cursor', async () => {
+  it('can fetch a list of members - cursor', async () => {
     const networkId = '0x5';
 
-    const res = await haus.query.listProposals({
+    const res = await haus.query.listMembers({
       networkId,
       paging: {
         pageSize: 1,

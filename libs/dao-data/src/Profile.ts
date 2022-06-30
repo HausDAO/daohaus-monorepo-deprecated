@@ -6,13 +6,12 @@ import { Keychain } from '@daohaus/common-utilities';
 import {
   AccountProfile,
   BasicProfile,
-  ICrossNetworkQueryArguments,
+  ICrossNetworkMemberListArguments,
   DaoTokenBalances,
   ListMembershipsDocument,
   ListMembershipsQuery,
   ListMembershipsQueryVariables,
   Member_OrderBy,
-  Ordering,
   IFindQueryResult,
   ITransformedMembershipsQuery,
 } from './types';
@@ -22,6 +21,7 @@ import {
 } from './utils/transformers';
 import { graphFetch } from './utils';
 import Query from './Query';
+import { Member_Filter } from './types';
 
 export default class Profile {
   query: Query;
@@ -34,10 +34,16 @@ export default class Profile {
     this.ceramicNode = node || '';
   }
 
-  public async get(
-    address: string,
-    includeDaosOptions?: Omit<ICrossNetworkQueryArguments, 'memberAddress'>
-  ): Promise<AccountProfile> {
+  public async get({
+    address,
+    includeDaosOptions,
+  }: {
+    address: string;
+    includeDaosOptions?: Omit<
+      ICrossNetworkMemberListArguments<Member_OrderBy, Member_Filter>,
+      'memberAddress'
+    >;
+  }): Promise<AccountProfile> {
     const ens = await this.getEns(address);
     const basicProfile = await this.getBasicProfile('0x1', address);
 
@@ -46,8 +52,8 @@ export default class Profile {
     if (includeDaosOptions) {
       const daoRes = await this.listDaosByMember({
         memberAddress: address,
-        networkIds: includeDaosOptions.networkIds,
-        includeTokens: includeDaosOptions.includeTokens,
+        networkIds: includeDaosOptions['networkIds'],
+        includeTokens: includeDaosOptions['includeTokens'],
       });
 
       profile = { ...profile, daos: daoRes.data?.daos };
@@ -89,17 +95,17 @@ export default class Profile {
 
   public async listDaosByMember({
     memberAddress,
+    filter = { memberAddress: memberAddress },
+    ordering = {
+      orderBy: 'createdAt',
+      orderDirection: 'desc',
+    },
     networkIds,
     includeTokens = false,
-  }: ICrossNetworkQueryArguments): Promise<
+  }: ICrossNetworkMemberListArguments<Member_OrderBy, Member_Filter>): Promise<
     IFindQueryResult<ITransformedMembershipsQuery>
   > {
     const promises: Promise<IFindQueryResult<ListMembershipsQuery>>[] = [];
-    const filter = { memberAddress: memberAddress };
-    const ordering: Ordering<Member_OrderBy> = {
-      orderBy: 'createdAt',
-      orderDirection: 'desc',
-    };
 
     networkIds.forEach((networkId: keyof Keychain) => {
       const url = this.query.endpoints['V3_SUBGRAPH'][networkId];

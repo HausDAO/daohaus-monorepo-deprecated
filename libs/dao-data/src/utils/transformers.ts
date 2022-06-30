@@ -65,6 +65,7 @@ export const transformMembershipList = (
             name: member.dao.name,
             safeAddress: member.dao.safeAddress,
             activeProposalCount: member.dao.activeProposals?.length || 0,
+            totalProposalCount: member.dao.proposalCount,
             activeMemberCount: member.dao.activeMemberCount,
             votingPower: votingPowerPercentage(
               member.dao.totalShares,
@@ -78,6 +79,7 @@ export const transformMembershipList = (
                 : undefined,
             isDelegate: Number(member.delegateShares) > 0,
             memberAddress: member.memberAddress,
+            contractType: 'Moloch V3',
           };
         }
       );

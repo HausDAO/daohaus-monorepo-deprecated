@@ -4,7 +4,7 @@ import { breakpoints } from '@daohaus/ui';
 import styled from 'styled-components';
 import { BodyNav } from '../components/BodyNav';
 import Header from '../components/Header';
-import Profile from '../components/Profile';
+import { HeaderProfile } from '../components/Profile';
 
 import { indigoDark } from '@radix-ui/colors';
 import { sampleDaoData } from '../utils/temp';
@@ -27,7 +27,7 @@ const Layout = styled.div`
 
   grid-template:
     'sidebarTopLeft header sidebarTopRight' 9.6rem
-    'sidebarTopLeft profile sidebarTopRight' minmax(auto, 26rem)
+    'sidebarTopLeft profile sidebarTopRight' minmax(auto, 9.6rem)
     'sidebar body aside' 1fr / 1fr minmax(auto, 35rem) 1fr;
 
   @media (min-width: ${breakpoints.xs}) {
@@ -41,15 +41,11 @@ const Layout = styled.div`
 const ProfileContainer = styled.div`
   grid-area: profile;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   gap: 2.6rem;
   background: ${indigoDark.indigo2};
-
-  @media (min-width: ${breakpoints.xs}) {
-    flex-direction: row;
-    justify-content: space-around;
-  }
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 const SideTopLeft = styled.div`
@@ -73,7 +69,7 @@ const HomePage = () => {
       <Header />
       <ProfileContainer>
         <BodyNav />
-        {isConnected && !isProfileLoading && <Profile />}
+        {isConnected && !isProfileLoading && <HeaderProfile />}
       </ProfileContainer>
       {isConnected ? <HomeDashboard daoData={daoData} /> : <HomeNotConnected />}
     </Layout>

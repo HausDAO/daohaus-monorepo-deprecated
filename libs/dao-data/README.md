@@ -1,6 +1,6 @@
 # DAO Data SDK
 
-Our [DAO Data SDK](./libs/dao-data-sdk) is a library that provides a set of functions for interacting with the DAO data. This includes querying subgraphs, querying our jobs, and other tools.
+Our **DAO Data SDK** is a library that provides a set of functions for interacting with the DAO data. This includes querying subgraphs, querying our jobs, and other tools.
 
 This library was generated with [Nx](https://nx.dev).
 

@@ -14,6 +14,10 @@ Our libraries in the `libs` folder are structured to be consumed by our apps as 
 
 Our [DAO Data SDK](./libs/dao-data-sdk) is a library that provides a set of functions for interacting with the DAO data. This includes querying subgraphs, querying our jobs, and other tools.
 
+## Common Utilities
+
+Our [Common Utiltities](./libs/common-utilities) is a set of helper tools and utilities that are used throughout our libraries and apps. This includes things that are commonly shared across packages, and various utilities and helper functions.
+
 ## Component Library (UI)
 
 Our [Component Library (UI)](./libs/ui) is a set of React components with TypeScript leveraging [Radix UI](https://www.radix-ui.com/) primitives. This library roughly follows [Atomic Design principles](https://bradfrost.com/blog/post/atomic-web-design/), and are intended to be composed together to build application UI.

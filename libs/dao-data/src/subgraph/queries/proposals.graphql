@@ -61,6 +61,10 @@ fragment proposalFields on Proposal {
   tributeTokenSymbol
   tributeTokenDecimals
   tributeEscrowRecipient
+  dao {
+    totalShares
+    quorumPercent
+  }
   votes {
     id
     createdAt

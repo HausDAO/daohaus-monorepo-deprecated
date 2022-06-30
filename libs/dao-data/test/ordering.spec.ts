@@ -1,81 +1,23 @@
 import { Haus } from '../src/index';
 
 describe('haus', () => {
-  const rpcConfig = {
-    '0x5': 'https://<somekey>.rinkeby.rpc.rivet.cloud',
-    '0x64': 'https://rpc.gnosischain.com',
-  };
   let haus: Haus;
 
   beforeAll(async () => {
-    haus = await Haus.create(rpcConfig);
+    haus = await Haus.create();
   });
-  it('can order daos by createdAt desc', async () => {
+  it('can order daos by id desc', async () => {
     const networkId = '0x5';
 
-    const res = await haus.query.listDaos({ networkId });
+    const res = await haus.query.listDaos({
+      networkId,
+      // paging: { paginationType: 'offset', pageSize: 2, offset: 0 },
+    });
 
     expect(res.error).toBeUndefined();
     if (res.data) {
-      expect(Number(res?.data?.daos[0].createdAt)).toBeGreaterThan(
+      expect(Number(res?.data?.daos[0].createdAt)).toBeLessThan(
         Number(res?.data?.daos[1].createdAt)
-      );
-    }
-  });
-
-  it('can order daos by createdAt asc', async () => {
-    const networkId = '0x5';
-
-    const res = await haus.query.listDaos({
-      networkId,
-      ordering: {
-        orderBy: 'createdAt',
-        orderDirection: 'asc',
-      },
-    });
-
-    expect(res.error).toBeUndefined();
-    if (res.data) {
-      expect(Number(res?.data?.daos[1].createdAt)).toBeGreaterThan(
-        Number(res?.data?.daos[0].createdAt)
-      );
-    }
-  });
-
-  it('can order daos by totalShares asc', async () => {
-    const networkId = '0x5';
-
-    const res = await haus.query.listDaos({
-      networkId,
-      ordering: {
-        orderBy: 'totalShares',
-        orderDirection: 'asc',
-      },
-    });
-
-    expect(res.error).toBeUndefined();
-    if (res.data) {
-      expect(Number(res?.data?.daos[1].totalShares)).toBeGreaterThan(
-        Number(res?.data?.daos[0].totalShares)
-      );
-    }
-  });
-
-  it('can order daos by totalShares desc', async () => {
-    const networkId = '0x5';
-
-    const res = await haus.query.listDaos({
-      networkId,
-      ordering: {
-        orderBy: 'totalShares',
-        orderDirection: 'desc',
-      },
-    });
-
-    expect(res.error).toBeUndefined();
-    if (res.data) {
-      expect(Number(res?.data?.daos[0].totalShares)).toBeGreaterThan(
-        Number(res?.data?.daos[1].totalShares)
       );
     }
   });

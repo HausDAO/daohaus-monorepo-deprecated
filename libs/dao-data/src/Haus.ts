@@ -1,20 +1,24 @@
-import { Keychain } from '@daohaus/common-utilities';
+import { IHausOptions } from './types';
 import Profile from './Profile';
 import Query from './Query';
 
 class Haus {
-  providers!: Keychain;
+  options: IHausOptions;
   query: Query;
   profile: Profile;
 
-  private constructor(providers: Keychain, ceramicNode?: string) {
-    this.providers = providers;
+  private constructor(options: IHausOptions) {
+    this.options = options;
     this.query = new Query();
-    this.profile = new Profile(providers, ceramicNode);
+    this.profile = new Profile(
+      this.query,
+      this.options.providers,
+      this.options.ceramicNode
+    );
   }
 
-  static create(networkConfig: Keychain): Haus {
-    const hausSdk = new Haus(networkConfig);
+  static create(options: IHausOptions = {}): Haus {
+    const hausSdk = new Haus(options);
     return hausSdk;
   }
 }

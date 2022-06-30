@@ -138,6 +138,25 @@ export const defaultDarkTheme: Theme = {
       activeDisabledBorder: neutralDark.bgSolid,
     },
   },
+  toast: {
+    bg: secondaryDark.elementBg,
+    border: secondaryDark.elementBgActive,
+    successText: utilityDark.successText,
+    successBg: utilityDark.successBg,
+    successBorder: utilityDark.successBorder,
+    warningText: utilityDark.warningText,
+    warningBg: utilityDark.warningBg,
+    warningBorder: utilityDark.warningBorder,
+    errorText: utilityDark.dangerText,
+    errorBg: utilityDark.dangerBg,
+    errorBorder: utilityDark.dangerBorder,
+    icon: {
+      default: utilityDark.successBg,
+      success: utilityDark.successBg,
+      warning: utilityDark.warningBg,
+      error: utilityDark.dangerBg,
+    },
+  },
 };
 
 export const defaultLightTheme: Theme = {
@@ -219,6 +238,15 @@ export const defaultLightTheme: Theme = {
       disabledBg: neutral.bg,
     },
   },
+  select: {
+    bg: secondary.elementBg,
+    text: secondary.textLowContrast,
+    borderColor: utility.transparent,
+  },
+  spinner: {
+    topColor: primary.bgSolid,
+    bottomColor: primary.elementBgHover,
+  },
   switch: {
     bar: {
       bg: secondary.elementBorderSubtle,
@@ -245,13 +273,23 @@ export const defaultLightTheme: Theme = {
       activeDisabledBorder: neutral.bgSolid,
     },
   },
-  select: {
+  toast: {
     bg: secondary.elementBg,
-    text: secondary.textLowContrast,
-    borderColor: utility.transparent,
-  },
-  spinner: {
-    topColor: primary.bgSolid,
-    bottomColor: primary.elementBgHover,
+    border: secondary.elementBgActive,
+    successText: utility.successText,
+    successBg: utility.successBg,
+    successBorder: utility.successBorder,
+    warningText: utility.warningText,
+    warningBg: utility.warningBg,
+    warningBorder: utility.warningBorder,
+    errorText: utility.dangerText,
+    errorBg: utility.dangerBg,
+    errorBorder: utility.dangerBorder,
+    icon: {
+      default: utility.successBg,
+      success: utility.successBg,
+      warning: utility.warningBg,
+      error: utility.dangerBg,
+    },
   },
 };

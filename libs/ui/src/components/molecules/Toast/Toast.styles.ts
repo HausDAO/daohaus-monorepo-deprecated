@@ -1,6 +1,8 @@
 import * as ToastPrimitive from '@radix-ui/react-toast';
 import styled, { keyframes } from 'styled-components';
 
+import { Theme } from '../../../types/theming';
+
 export const ToastProvider = ToastPrimitive.Provider;
 export const ToastTitle = ToastPrimitive.Title;
 export const ToastDescription = ToastPrimitive.Description;
@@ -42,6 +44,30 @@ export const ToastViewport = styled(ToastPrimitive.Viewport)`
 export const ToastRoot = styled(ToastPrimitive.Root)`
   display: flex;
   flex-direction: column;
+  background-color: ${({ theme }: { theme: Theme }) => theme.card.bg};
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.card.border};
+  border-radius: 0.8rem;
+  height: auto;
+  padding: 2rem;
+  width: auto;
+
+  &.success {
+    background-color: ${({ theme }: { theme: Theme }) => theme.card.successBg};
+    border: 0.1rem solid
+      ${({ theme }: { theme: Theme }) => theme.card.successBorder};
+  }
+
+  &.warning {
+    background-color: ${({ theme }: { theme: Theme }) => theme.card.warningBg};
+    border: 0.1rem solid
+      ${({ theme }: { theme: Theme }) => theme.card.warningBorder};
+  }
+
+  &.error {
+    background-color: ${({ theme }: { theme: Theme }) => theme.card.errorBg};
+    border: 0.1rem solid
+      ${({ theme }: { theme: Theme }) => theme.card.errorBorder};
+  }
 
   @media (prefers-reduced-motion: no-preference) {
     &[data-state='open'] {
@@ -68,7 +94,7 @@ export const ToastHeaderContainer = styled.div`
 `;
 
 export const ToastIcon = styled.span<{
-  toastType: 'success' | 'warning' | 'error';
+  toastType: 'default' | 'success' | 'warning' | 'error';
 }>`
   color: ${(props) => props.theme[props.toastType]};
   font-size: 24px;

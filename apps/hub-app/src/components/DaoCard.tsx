@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { charLimit } from '@daohaus/common-utilities';
-import { Avatar, Bold, Button, ParLg, ParMd } from '@daohaus/ui';
+import { Avatar, Bold, border, Button, ParLg, ParMd } from '@daohaus/ui';
 import { Tag } from './Tag';
 import { AlertCircle } from './AlertCircle';
 import { TemporaryDAOType } from '../utils/appSpecificTypes';
@@ -15,6 +15,7 @@ const StyledDaoCard = styled.div`
   min-width: 26rem;
   border: 1px solid ${(props) => props.theme.card.border};
   padding: 2.4rem;
+  border-radius: ${border.radius};
   .top-box {
     display: flex;
     justify-content: space-between;

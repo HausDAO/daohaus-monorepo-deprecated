@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { breakpoints } from '@daohaus/ui';
 import styled from 'styled-components';
@@ -7,10 +7,10 @@ import Header from '../components/Header';
 import { HeaderProfile } from '../components/Profile';
 
 import { indigoDark } from '@radix-ui/colors';
-import { sampleDaoData } from '../utils/temp';
-import { TemporaryDAOType } from '../utils/appSpecificTypes';
 import { HomeDashboard } from '../components/HomeDashboard';
 import { HomeNotConnected } from './HomeNotConnected';
+import { Haus, TransformedMembership } from '@daohaus/dao-data';
+import { addKeychain, ENDPOINTS } from '@daohaus/common-utilities';
 
 const Layout = styled.div`
   width: 100%;
@@ -58,9 +58,50 @@ const SideTopRight = styled.div`
   width: 100%;
 `;
 
+const temporaryInitHaus = () => {
+  const TEMPORARY_RPC = {
+    '0x1': `https://${import.meta.env.VITE_RIVET_KEY}.eth.rpc.rivet.cloud/`,
+    '0x4': `https://${import.meta.env.VITE_RIVET_KEY}.rinkeby.rpc.rivet.cloud/`,
+    '0x2a': `https://kovan.infura.io/v3/${
+      import.meta.env.VITE_INFURA_PROJECT_ID
+    }`,
+    '0x64': 'https://rpc.gnosischain.com/',
+    '0xa': 'https://mainnet.optimism.io',
+    '0x89': 'https://polygon-rpc.com/',
+    '0xa4b1': 'https://arb1.arbitrum.io/rpc',
+    '0xa4ec': 'https://forno.celo.org',
+  };
+
+  const temporarySupportedNetworks = addKeychain(
+    ENDPOINTS.EXPLORER,
+    'explorer',
+    addKeychain(TEMPORARY_RPC, 'rpc')
+  );
+
+  return Haus.create(temporarySupportedNetworks);
+};
+
 const HomePage = () => {
-  const { isProfileLoading, isConnected } = useHausConnect();
-  const [daoData] = useState<TemporaryDAOType[]>(sampleDaoData);
+  const { isProfileLoading, isConnected, address } = useHausConnect();
+  const [daoData, setDaoData] = useState<TransformedMembership[]>([]);
+
+  useEffect(() => {
+    const getDaos = async (address: string) => {
+      const haus = temporaryInitHaus();
+      const query = await haus.query.listDaosByMember({
+        memberAddress: address,
+        networkIds: ['0x5'],
+        includeTokens: true,
+      });
+
+      if (query.data?.daos) {
+        setDaoData(query.data.daos);
+      }
+    };
+
+    if (!address) return;
+    getDaos(address);
+  }, [address]);
 
   return (
     <Layout>

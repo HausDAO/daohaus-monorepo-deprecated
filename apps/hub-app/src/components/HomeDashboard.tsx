@@ -1,6 +1,7 @@
+import { TransformedMembership } from '@daohaus/dao-data';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { ListType, TemporaryDAOType } from '../utils/appSpecificTypes';
+import { ListType } from '../utils/appSpecificTypes';
 import { DaoCards } from './DaoCards';
 import { DataTable } from './Table';
 import TableControl from './TableControl';
@@ -13,7 +14,7 @@ const Body = styled.div`
 `;
 
 type DashProps = {
-  daoData: TemporaryDAOType[];
+  daoData: TransformedMembership[];
 };
 
 export const HomeDashboard = ({ daoData }: DashProps) => {

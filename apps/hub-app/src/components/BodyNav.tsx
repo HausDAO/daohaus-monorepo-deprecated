@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useMatch, LinkProps } from 'react-router-dom';
+import { GiHamburgerMenu } from 'react-icons/gi';
 import styled from 'styled-components';
 import { amberDark, indigoDark } from '@radix-ui/colors';
 import { breakpoints, font } from '@daohaus/ui';
@@ -15,10 +16,13 @@ type NavLinkProps = {
 };
 
 const LinkContainer = styled.div`
+  display: flex;
   padding: 1rem;
   border: 1px solid ${amberDark.amber5};
   border-radius: 0.8rem;
   background: ${indigoDark.indigo2};
+  align-items: center;
+  gap: 0.5rem;
 
   @media (min-width: ${breakpoints.xs}) {
     border: none;
@@ -37,12 +41,26 @@ const BodyNavContainer = styled.div`
   }
 `;
 
+const StyledHamburgerMenu = styled(GiHamburgerMenu)`
+  @media (min-width: ${breakpoints.xs}) {
+    display: none;
+  }
+`;
+
 // Add selected
 const StyledLink = styled(Link)<StyledLinkProps>`
-  text-decoration-color: ${amberDark.amber10};
+  text-decoration: none;
   color: ${amberDark.amber9};
-  text-underline-offset: 0.7rem;
   display: ${({ selected }) => (selected ? 'none' : 'flex')};
+
+  @media (min-width: ${breakpoints.xs}) {
+    text-decoration: underline;
+    text-decoration-color: ${amberDark.amber10};
+    text-underline-offset: 0.7rem;
+    display: block;
+    color: ${({ selected }) =>
+      selected ? indigoDark.indigo12 : amberDark.amber10};
+  }
 `;
 
 const NavLink = ({ children, path, selected }: NavLinkProps) => {
@@ -67,9 +85,11 @@ export const BodyNav = () => {
   return (
     <BodyNavContainer>
       <NavLink path="/" selected={isHome}>
+        <StyledHamburgerMenu />
         Home
       </NavLink>
       <NavLink path="/explore" selected={isExplore}>
+        <StyledHamburgerMenu />
         Explore
       </NavLink>
     </BodyNavContainer>

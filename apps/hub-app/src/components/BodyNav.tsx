@@ -78,8 +78,6 @@ const NavLink = ({ children, path, selected }: NavLinkProps) => {
 
 export const BodyNav = () => {
   const match = useMatch('/explore');
-  console.log('match');
-  console.log(match);
   const isHome = !match;
   const isExplore = !!match;
   return (

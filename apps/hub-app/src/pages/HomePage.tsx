@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { breakpoints } from '@daohaus/ui';
 import styled from 'styled-components';
 import { BodyNav } from '../components/BodyNav';
-import ConnectCard from '../components/ConnectCard';
 import Header from '../components/Header';
 import { HeaderProfile } from '../components/Profile';
-import TableControl from '../components/TableControl';
-import { crimsonDark, indigoDark } from '@radix-ui/colors';
-import { DaoCards } from '../components/DaoCards';
-import { DataTable } from '../components/Table';
+
+import { indigoDark } from '@radix-ui/colors';
 import { sampleDaoData } from '../utils/temp';
-import { ListType, TemporaryDAOType } from '../utils/appSpecificTypes';
+import { TemporaryDAOType } from '../utils/appSpecificTypes';
+import { HomeDashboard } from '../components/HomeDashboard';
+import { HomeNotConnected } from './HomeNotConnected';
 
 const Layout = styled.div`
   width: 100%;
@@ -51,28 +50,17 @@ const ProfileContainer = styled.div`
 
 const SideTopLeft = styled.div`
   grid-area: sidebarTopLeft;
-  /* background: ${crimsonDark.crimson2}; */
   width: 100%;
 `;
 
 const SideTopRight = styled.div`
   grid-area: sidebarTopRight;
-  /* background: ${crimsonDark.crimson2}; */
   width: 100%;
 `;
 
-const Body = styled.div`
-  grid-area: body;
-`;
-
 const HomePage = () => {
-  const [daoData] = useState<TemporaryDAOType[]>(sampleDaoData);
   const { isProfileLoading, isConnected } = useHausConnect();
-  const [listType, setListType] = useState<ListType>('cards');
-
-  const toggleListType = () => {
-    listType === 'cards' ? setListType('table') : setListType('cards');
-  };
+  const [daoData] = useState<TemporaryDAOType[]>(sampleDaoData);
 
   return (
     <Layout>
@@ -81,13 +69,9 @@ const HomePage = () => {
       <Header />
       <ProfileContainer>
         <BodyNav />
-        {isConnected && !isProfileLoading ? <HeaderProfile /> : <ConnectCard />}
+        {isConnected && !isProfileLoading && <HeaderProfile />}
       </ProfileContainer>
-      <Body>
-        <TableControl listType={listType} toggleListType={toggleListType} />
-        {listType === 'cards' && <DaoCards daoData={daoData} />}
-        {listType === 'table' && <DataTable />}
-      </Body>
+      {isConnected ? <HomeDashboard daoData={daoData} /> : <HomeNotConnected />}
     </Layout>
   );
 };

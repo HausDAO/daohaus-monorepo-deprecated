@@ -6,15 +6,15 @@ import { Keychain } from '@daohaus/common-utilities';
 import {
   AccountProfile,
   BasicProfile,
-  CrossNetworkQueryArguments,
+  ICrossNetworkQueryArguments,
   DaoTokenBalances,
   ListMembershipsDocument,
   ListMembershipsQuery,
   ListMembershipsQueryVariables,
   Member_OrderBy,
   Ordering,
-  QueryResult,
-  TransformedMembershipsQuery,
+  IFindQueryResult,
+  ITransformedMembershipsQuery,
 } from './types';
 import {
   transformMembershipList,
@@ -36,7 +36,7 @@ export default class Profile {
 
   public async get(
     address: string,
-    includeDaosOptions?: Omit<CrossNetworkQueryArguments, 'memberAddress'>
+    includeDaosOptions?: Omit<ICrossNetworkQueryArguments, 'memberAddress'>
   ): Promise<AccountProfile> {
     const ens = await this.getEns(address);
     const basicProfile = await this.getBasicProfile('0x1', address);
@@ -91,10 +91,10 @@ export default class Profile {
     memberAddress,
     networkIds,
     includeTokens = false,
-  }: CrossNetworkQueryArguments): Promise<
-    QueryResult<TransformedMembershipsQuery>
+  }: ICrossNetworkQueryArguments): Promise<
+    IFindQueryResult<ITransformedMembershipsQuery>
   > {
-    const promises: Promise<QueryResult<ListMembershipsQuery>>[] = [];
+    const promises: Promise<IFindQueryResult<ListMembershipsQuery>>[] = [];
     const filter = { memberAddress: memberAddress };
     const ordering: Ordering<Member_OrderBy> = {
       orderBy: 'createdAt',
@@ -124,7 +124,7 @@ export default class Profile {
     const transformedList = transformMembershipList(memberData);
 
     if (includeTokens) {
-      const tokenPromises: Promise<QueryResult<DaoTokenBalances>>[] = [];
+      const tokenPromises: Promise<IFindQueryResult<DaoTokenBalances>>[] = [];
       transformedList.forEach((dao) => {
         if (dao.networkId) {
           tokenPromises.push(

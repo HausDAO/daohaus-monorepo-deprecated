@@ -1,5 +1,4 @@
 import { Haus } from '../src/index';
-import { statusFilter } from '../src/utils';
 
 describe('haus', () => {
   let haus: Haus;
@@ -10,20 +9,36 @@ describe('haus', () => {
 
   it('can fetch a list of daos - offset', async () => {
     const networkId = '0x5';
-    const dao = '0x3ebd5cf78cb8e100b88f96adbd836bb1ae9a05ca';
 
     const res = await haus.query.listDaos({
       networkId,
+      paging: { offset: 0, pageSize: 2 },
+    });
+
+    const nextPageRes = await haus.query.listDaos({
+      networkId,
+      paging: res.nextPaging,
+    });
+
+    const previousPageRes = await haus.query.listDaos({
+      networkId,
+      paging: res.previousPaging,
     });
 
     expect(res.error).toBeUndefined();
-    expect(res?.data?.daos.length).toBe(1);
+    expect(res.items.length).toBe(2);
+    expect(nextPageRes.items.length).toBe(2);
+    expect(res.nextPaging).toBeTruthy();
+    expect(res.previousPaging).toBeFalsy();
+    expect(nextPageRes.previousPaging).toBeTruthy();
+
+    expect(res.items[0].id).toEqual(previousPageRes.items[0].id);
   });
 
-  it('can fetch a list of daos - cursor', async () => {
+  it('can fetch a list of proposals - cursor', async () => {
     const networkId = '0x5';
 
-    const res = await haus.query.listDaos({
+    const res = await haus.query.listProposals({
       networkId,
       paging: {
         pageSize: 1,
@@ -31,7 +46,13 @@ describe('haus', () => {
       },
     });
 
+    const nextPageRes = await haus.query.listProposals({
+      networkId,
+      paging: res.nextPaging,
+    });
+
     expect(res.error).toBeUndefined();
-    expect(res?.data?.daos.length).toBe(1);
+    expect(res.items.length).toBe(1);
+    expect(nextPageRes.items.length).toBe(1);
   });
 });

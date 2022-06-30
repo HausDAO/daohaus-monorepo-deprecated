@@ -5,7 +5,7 @@ import { DocumentNode } from 'graphql';
 import { Keychain } from '@daohaus/common-utilities';
 import { request } from 'graphql-request';
 
-import { QueryResult, QueryVariables } from '..';
+import { IFindQueryResult, QueryVariables } from '..';
 import { HausError } from '../HausError';
 
 type RequestDocument = string | DocumentNode;
@@ -15,7 +15,7 @@ export const graphFetch = async <T = unknown, V = QueryVariables>(
   url: string,
   networkId: keyof Keychain,
   variables?: V
-): Promise<QueryResult<T>> => {
+): Promise<IFindQueryResult<T>> => {
   const res = await request<T, V>(url, document, cleanVariables(variables));
   return { data: res, networkId };
 };

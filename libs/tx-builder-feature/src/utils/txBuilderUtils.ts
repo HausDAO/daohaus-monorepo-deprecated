@@ -8,7 +8,7 @@ import {
   ReactSetter,
   ValidNetwork,
 } from '@daohaus/common-utilities';
-import { FindTxQuery, Haus, QueryResult } from '@daohaus/dao-data';
+import { FindTxQuery, Haus, IFindQueryResult } from '@daohaus/dao-data';
 
 export type TxStates = 'idle' | 'submitting' | 'polling' | 'failed' | 'success';
 export type TX = {
@@ -23,7 +23,7 @@ export type TX = {
     onTxSuccess?: (txHash: string) => void;
     onPollFire?: () => void;
     onPollError?: (error: unknown) => void;
-    onPollSuccess?: (result: QueryResult<FindTxQuery> | undefined) => void;
+    onPollSuccess?: (result: IFindQueryResult<FindTxQuery> | undefined) => void;
   };
 };
 
@@ -34,8 +34,8 @@ export type TxRecord = Record<string, TX>;
 // Need to be able to have a generic poll
 // that we can pass in any shape of argume
 // eslint-disable-next-line
-type PollFetch<T> = (...args: any) => Promise<QueryResult<T> | undefined>;
-type PollTest<T> = (result?: QueryResult<T>) => boolean;
+type PollFetch<T> = (...args: any) => Promise<IFindQueryResult<T> | undefined>;
+type PollTest<T> = (result?: IFindQueryResult<T>) => boolean;
 
 type Poll<T> = ({
   poll,
@@ -48,7 +48,7 @@ type Poll<T> = ({
   test: PollTest<T>;
   interval?: number;
   variables: Parameters<typeof poll>;
-  onPollSuccess?: (result: QueryResult<FindTxQuery> | undefined) => void;
+  onPollSuccess?: (result: IFindQueryResult<FindTxQuery> | undefined) => void;
   onPollError?: (error: unknown) => void;
   onPollTimeout?: (error: unknown) => void;
   maxTries?: number;
@@ -74,7 +74,7 @@ export const pollLastTX: PollFetch<FindTxQuery> = async ({
   }
 };
 
-const testLastTx = (result: QueryResult<FindTxQuery> | undefined) => {
+const testLastTx = (result: IFindQueryResult<FindTxQuery> | undefined) => {
   if (result?.data?.transaction) {
     return true;
   }

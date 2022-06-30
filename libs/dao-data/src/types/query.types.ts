@@ -7,14 +7,14 @@ import { OrderDirection } from '../subgraph/schema.generated';
 /**
  * Query related types
  */
-export interface ListQueryArguments<TOrderBy extends string, Variables> {
+export interface IListQueryArguments<TOrderBy extends string, Variables> {
   networkId: keyof Keychain;
   filter?: Variables;
   ordering?: Ordering<TOrderBy>;
   paging?: Paging;
 }
 
-export interface CrossNetworkQueryArguments {
+export interface ICrossNetworkQueryArguments {
   networkIds: Array<keyof Keychain>;
   memberAddress: string;
   includeTokens?: boolean;
@@ -33,6 +33,7 @@ export type Paging = {
   pageSize: number;
   offset?: number;
   lastId?: string;
+  previousPageLastId?: string;
 };
 
 export interface IListQueryResults<
@@ -41,7 +42,7 @@ export interface IListQueryResults<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   Data = any
 > {
-  items?: Data;
+  items: Data;
   error?: HausError;
   networkId?: keyof Keychain;
   filter?: Variables;
@@ -51,27 +52,24 @@ export interface IListQueryResults<
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export interface QueryResult<Data = any> {
+export interface IFindQueryResult<Data = any> {
   data?: Data;
   error?: HausError;
   networkId?: keyof Keychain;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // queryOptions: any;
-  // nextPage: Function,
 }
 
 export type QueryProposal = ListProposalsQuery['proposals'][number];
-export interface TransformedProposal extends QueryProposal {
+export interface ITransformedProposal extends QueryProposal {
   status?: string;
 }
-export interface TransformedProposalQuery {
-  proposal: TransformedProposal | undefined;
+export interface ITransformedProposalQuery {
+  proposal: ITransformedProposal | undefined;
 }
-export interface TransformedProposalListQuery {
-  proposals: TransformedProposal[];
+export interface ITransformedProposalListQuery {
+  proposals: ITransformedProposal[];
 }
 
-export type TransformedMembership = {
+export interface ITransformedMembership {
   dao: string;
   name?: string;
   safeAddress: string;
@@ -84,9 +82,9 @@ export type TransformedMembership = {
   memberAddress: string;
   fiatTotal?: number;
   tokenBalances?: TokenBalance[];
-};
-export interface TransformedMembershipsQuery {
-  daos: TransformedMembership[];
+}
+export interface ITransformedMembershipsQuery {
+  daos: ITransformedMembership[];
 }
 export type TokenInfo = {
   decimals: number;
@@ -104,17 +102,17 @@ export type TokenBalance = {
   fiatConversion: string;
   fiatCode: string;
 };
-export interface DaoTokenBalances {
+export type DaoTokenBalances = {
   safeAddress: string;
   fiatTotal: number;
   tokenBalances: TokenBalance[];
-}
+};
 
 export type QueryDao = FindDaoQuery['dao'];
 export type DaoWithTokenData = {
   fiatTotal: number;
   tokenBalances: TokenBalance[];
 } & QueryDao;
-export interface DaoWithTokenDataQuery {
+export type DaoWithTokenDataQuery = {
   dao: DaoWithTokenData;
-}
+};

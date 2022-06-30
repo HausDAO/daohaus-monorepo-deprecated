@@ -1,7 +1,10 @@
 import { Paging } from '../types';
 
+// TODO: Set to 100
+export const DEFAULT_RECORDS_PER_PAGE = 2;
+
 export const defaultPagination: Paging = {
-  pageSize: 1,
+  pageSize: 2,
   offset: 0,
 };
 
@@ -26,16 +29,38 @@ export const createPaging = <T extends ILightEntity>(
     nextPaging: hasNextPage
       ? {
           pageSize: paging.pageSize,
-          offset: paging.offset && paging.offset + paging.pageSize,
-          lastId: paging.lastId && pageItems.slice(-1)[0]?.id,
+          offset: getNextOffset(paging),
+          lastId: getNextLastId(paging, pageItems),
         }
       : undefined,
-    previousPaging:
-      paging.offset !== undefined && paging.offset > 0
-        ? {
-            pageSize: paging.pageSize,
-            offset: paging.offset - paging.pageSize,
-          }
-        : undefined,
+    previousPaging: hasPreviousOffsetPage(paging)
+      ? {
+          pageSize: paging.pageSize,
+          offset: getPreviousOffset(paging),
+        }
+      : undefined,
   };
+};
+
+const hasPreviousOffsetPage = (paging: Paging): boolean =>
+  paging.offset !== undefined && paging.offset > 0;
+
+const getNextOffset = (paging: Paging): number | undefined => {
+  return paging.offset !== undefined
+    ? paging.offset + paging.pageSize
+    : paging.offset;
+};
+
+const getPreviousOffset = (paging: Paging): number | undefined => {
+  if (paging.offset !== undefined) {
+    return paging.offset - paging.pageSize;
+  }
+  return paging.offset;
+};
+
+const getNextLastId = (
+  paging: Paging,
+  pageItems: ILightEntity[]
+): string | undefined => {
+  return paging.lastId !== undefined ? pageItems.slice(-1)[0]?.id : undefined;
 };

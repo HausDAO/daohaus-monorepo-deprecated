@@ -1,4 +1,4 @@
-import { TransformedMembershipsQuery } from './query.types';
+import { ITransformedMembershipsQuery } from './query.types';
 
 type BasicProfileImage = {
   original: {
@@ -24,5 +24,5 @@ export type AccountProfile = {
   name?: string;
   description?: string;
   emoji?: string;
-  daos?: TransformedMembershipsQuery['daos'];
+  daos?: ITransformedMembershipsQuery['daos'];
 };

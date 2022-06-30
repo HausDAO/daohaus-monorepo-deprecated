@@ -16,7 +16,7 @@ describe('haus', () => {
 
     expect(res.error).toBeUndefined();
     if (res.data) {
-      expect(Number(res?.data?.daos[0].createdAt)).toBeGreaterThan(
+      expect(Number(res?.data?.daos[0].createdAt)).toBeLessThan(
         Number(res?.data?.daos[1].createdAt)
       );
     }

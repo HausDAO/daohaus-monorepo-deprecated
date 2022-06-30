@@ -8,7 +8,10 @@ import Header from '../components/Header';
 import { HeaderProfile } from '../components/Profile';
 import TableControl from '../components/TableControl';
 import { crimsonDark, indigoDark } from '@radix-ui/colors';
-import { DaoCard } from '../components/DaoCard';
+import { DaoCards } from '../components/DaoCards';
+import { DataTable } from '../components/Table';
+import { sampleDaoData } from '../utils/temp';
+import { ListType, TemporaryDAOType } from '../utils/appSpecificTypes';
 
 const Layout = styled.div`
   width: 100%;
@@ -16,7 +19,10 @@ const Layout = styled.div`
   min-height: 100%;
   min-width: 100%;
   overflow-x: hidden;
-  overflow-y: scroll;
+  // REVIEW
+  // SWITCH TO SCROLL WHEN NEEDED
+  // WAS CAUSING DOUBLE SCROLL BARS
+  overflow-y: auto;
   gap: 0rem 0rem;
   display: grid;
 
@@ -42,22 +48,6 @@ const ProfileContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
-// JP
-// This is the data we'll need to standardize.
-const sampleDaoData = [
-  {
-    isDelegate: true,
-    unreadProposalAmt: 4,
-    daoName: 'Uber Complex Meta Governance',
-    amtMembers: 100,
-    amtToken: 68,
-    tokenSymbol: 'ETH',
-    amtProposals: 36,
-    amtPower: 12.6,
-    networkName: 'Gnosis Chain',
-    contractName: 'Moloch V3',
-  },
-];
 
 const SideTopLeft = styled.div`
   grid-area: sidebarTopLeft;
@@ -76,8 +66,13 @@ const Body = styled.div`
 `;
 
 const HomePage = () => {
-  const [daoData] = useState(sampleDaoData);
+  const [daoData] = useState<TemporaryDAOType[]>(sampleDaoData);
   const { isProfileLoading, isConnected } = useHausConnect();
+  const [listType, setListType] = useState<ListType>('cards');
+
+  const toggleListType = () => {
+    listType === 'cards' ? setListType('table') : setListType('cards');
+  };
 
   return (
     <Layout>
@@ -89,11 +84,9 @@ const HomePage = () => {
         {isConnected && !isProfileLoading ? <HeaderProfile /> : <ConnectCard />}
       </ProfileContainer>
       <Body>
-        <TableControl />
-        {daoData.map((dao, index) => (
-          <DaoCard key={`${dao.daoName}-${index}`} {...dao} />
-        ))}
-        {/* <DataTable /> */}
+        <TableControl listType={listType} toggleListType={toggleListType} />
+        {listType === 'cards' && <DaoCards daoData={daoData} />}
+        {listType === 'table' && <DataTable />}
       </Body>
     </Layout>
   );

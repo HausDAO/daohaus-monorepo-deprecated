@@ -68,12 +68,12 @@ export default class Profile {
       `${address.toLowerCase()}@eip155:${Number(chain)}`
     );
 
-    const profile = core.get('basicProfile', link.did || '');
+    const profile = await core.get('basicProfile', link.did || '');
     if (Object.keys(profile).length === 0) {
       return {};
     }
 
-    return {};
+    return profile;
   }
 
   private async getEns(address: string): Promise<string | null> {

@@ -34,11 +34,14 @@ export const defaultDarkTheme: Theme = {
   transparent: utilityDark.transparent,
   info: utilityDark.info,
   card: {
-    bg: secondaryDark.elementBg,
-    //  REVIEW ROWDY
-    //  Had to add change card border style to match the design.
-    //  Let's figure out to rectify this with design.
+    bg: secondaryDark.bgSubtle,
     border: secondaryDark.elementBgActive,
+    hoverBg: secondaryDark.elementBg,
+    hoverBorder: secondaryDark.elementBorderSubtle,
+    focusBg: secondaryDark.bgSubtle,
+    focusBorder: secondaryDark.elementBorder,
+    disabledBg: neutralDark.bgSubtle,
+    disabledBorder: neutralDark.elementBgActive,
     successText: utilityDark.successText,
     successBg: utilityDark.successBg,
     successBorder: utilityDark.successBorder,
@@ -174,6 +177,12 @@ export const defaultLightTheme: Theme = {
   card: {
     bg: secondary.elementBg,
     border: secondary.elementBorder,
+    hoverBg: secondary.elementBgHover,
+    hoverBorder: secondary.elementBorderSubtle,
+    focusBg: secondary.elementBg,
+    focusBorder: secondary.elementBorder,
+    disabledBg: neutral.bgSubtle,
+    disabledBorder: neutral.elementBorderSubtle,
     successText: utility.successText,
     successBg: utility.successBg,
     successBorder: utility.successBorder,

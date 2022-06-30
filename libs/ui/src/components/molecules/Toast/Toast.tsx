@@ -32,6 +32,7 @@ export const Toast = (props: CustomToastProps) => {
     label,
     hotkey,
     toastType = 'default',
+    iconType = 'success',
     ariaLabelClose,
     toastLinks,
   } = props;
@@ -43,10 +44,10 @@ export const Toast = (props: CustomToastProps) => {
         open={open}
         onOpenChange={onOpenChange}
         defaultOpen={defaultOpen}
-        className={toastType}
+        className={iconType}
       >
         <ToastHeaderContainer>
-          {getEnumIcons(toastType)}
+          {getEnumIcons(iconType)}
           <ToastCopyContainer>
             <ToastTitle asChild>
               <ParSm>{title}</ParSm>
@@ -88,12 +89,13 @@ const ToastLinks = ({
 
 // Creating enum object of Icons
 const EnumIconsObject = {
-  default: <RiCheckboxCircleFill />,
   success: <RiCheckboxCircleFill />,
   warning: <RiErrorWarningFill />,
   error: <RiCloseCircleFill />,
 };
 
-function getEnumIcons(state: 'default' | 'success' | 'warning' | 'error') {
-  return <ToastIcon toastType={state}>{EnumIconsObject[state]}</ToastIcon>;
+function getEnumIcons(toastType: 'success' | 'warning' | 'error') {
+  return (
+    <ToastIcon iconType={toastType}>{EnumIconsObject[toastType]}</ToastIcon>
+  );
 }

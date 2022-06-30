@@ -44,29 +44,29 @@ export const ToastViewport = styled(ToastPrimitive.Viewport)`
 export const ToastRoot = styled(ToastPrimitive.Root)`
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme }: { theme: Theme }) => theme.card.bg};
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.card.border};
+  background-color: ${({ theme }: { theme: Theme }) => theme.toast.bg};
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.toast.border};
   border-radius: 0.8rem;
   height: auto;
   padding: 2rem;
   width: auto;
 
   &.success {
-    background-color: ${({ theme }: { theme: Theme }) => theme.card.successBg};
+    background-color: ${({ theme }: { theme: Theme }) => theme.toast.successBg};
     border: 0.1rem solid
-      ${({ theme }: { theme: Theme }) => theme.card.successBorder};
+      ${({ theme }: { theme: Theme }) => theme.toast.successBorder};
   }
 
   &.warning {
-    background-color: ${({ theme }: { theme: Theme }) => theme.card.warningBg};
+    background-color: ${({ theme }: { theme: Theme }) => theme.toast.warningBg};
     border: 0.1rem solid
-      ${({ theme }: { theme: Theme }) => theme.card.warningBorder};
+      ${({ theme }: { theme: Theme }) => theme.toast.warningBorder};
   }
 
   &.error {
-    background-color: ${({ theme }: { theme: Theme }) => theme.card.errorBg};
+    background-color: ${({ theme }: { theme: Theme }) => theme.toast.errorBg};
     border: 0.1rem solid
-      ${({ theme }: { theme: Theme }) => theme.card.errorBorder};
+      ${({ theme }: { theme: Theme }) => theme.toast.errorBorder};
   }
 
   @media (prefers-reduced-motion: no-preference) {
@@ -94,9 +94,9 @@ export const ToastHeaderContainer = styled.div`
 `;
 
 export const ToastIcon = styled.span<{
-  toastType: 'default' | 'success' | 'warning' | 'error';
+  iconType: 'success' | 'warning' | 'error';
 }>`
-  color: ${(props) => props.theme[props.toastType]};
+  color: ${(props) => props.theme[props.iconType]};
   font-size: 24px;
   margin-right: 1rem;
 `;

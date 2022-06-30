@@ -358,7 +358,11 @@ export function handleSubmitVote(event: SubmitVote): void {
     proposal.noVotes = proposal.noVotes.plus(constants.BIGINT_ONE);
     proposal.noBalance = proposal.noBalance.plus(event.params.balance);
   }
-  proposal.currentlyPassing = proposal.yesBalance > proposal.noBalance;
+  let hasQuorum =
+    proposal.yesBalance.times(constants.BIGINT_ONE_HUNDRED) >
+    dao.quorumPercent.times(dao.totalShares);
+  proposal.currentlyPassing =
+    proposal.yesBalance > proposal.noBalance && hasQuorum;
 
   vote.save();
   proposal.save();

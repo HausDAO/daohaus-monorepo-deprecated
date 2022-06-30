@@ -1,27 +1,22 @@
 import { ENDPOINTS, Keychain, KeychainList } from '@daohaus/common-utilities';
 
 import {
-  ListQueryArguments,
-  QueryResult,
-  CrossNetworkQueryArguments,
-  Ordering,
-  TransformedMembershipsQuery,
+  IListQueryArguments,
+  IFindQueryResult,
   DaoTokenBalances,
   TokenBalance,
-  TransformedProposalQuery,
-  TransformedProposalListQuery,
+  ITransformedProposalQuery,
+  ITransformedProposalListQuery,
   DaoWithTokenDataQuery,
+  IListQueryResults,
 } from './types';
 import * as fetch from './utils';
-import { graphFetch } from './utils/requests';
+import { graphFetch, graphFetchList } from './utils/requests';
 import {
   FindMemberDocument,
   FindMemberQuery,
   FindMemberQueryVariables,
   ListMembersDocument,
-  ListMembershipsDocument,
-  ListMembershipsQuery,
-  ListMembershipsQueryVariables,
   ListMembersQuery,
   ListMembersQueryVariables,
 } from './subgraph/queries/members.generated';
@@ -60,18 +55,18 @@ import {
   ListTxsQueryVariables,
 } from './subgraph/queries/transactions.generated';
 import {
-  transformMembershipList,
   transformProposal,
   transformTokenBalances,
 } from './utils/transformers';
 import { ethers } from 'ethers';
 import { HausError } from './HausError';
+import { createPaging, DEFAULT_RECORDS_PER_PAGE } from './utils';
 
 export default class Query {
-  private _endpoints: KeychainList;
+  public endpoints: KeychainList;
 
   constructor() {
-    this._endpoints = ENDPOINTS;
+    this.endpoints = ENDPOINTS;
   }
 
   /*
@@ -79,158 +74,187 @@ export default class Query {
 */
   public async listDaos({
     networkId,
+    filter,
     ordering = {
-      orderBy: 'createdAt',
+      orderBy: 'id',
       orderDirection: 'desc',
     },
-    filter,
-  }: ListQueryArguments<Dao_OrderBy, Dao_Filter>): Promise<
-    QueryResult<ListDaosQuery>
+    paging = {
+      pageSize: DEFAULT_RECORDS_PER_PAGE,
+      offset: 0,
+    },
+  }: IListQueryArguments<Dao_OrderBy, Dao_Filter>): Promise<
+    IListQueryResults<Dao_OrderBy, Dao_Filter, ListDaosQuery['daos']>
   > {
-    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
-      return {
-        error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
-        data: { daos: [] },
-      };
+      throw new HausError({ type: 'INVALID_NETWORK_ERROR' });
     }
 
-    try {
-      return await graphFetch<ListDaosQuery, ListDaosQueryVariables>(
-        ListDaosDocument,
-        url,
-        networkId,
-        {
-          where: filter,
-          orderBy: ordering.orderBy,
-          orderDirection: ordering.orderDirection,
-        }
-      );
-    } catch (err) {
-      return {
-        error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
-        data: { daos: [] },
-      };
-    }
+    const res = await graphFetchList<ListDaosQuery, ListDaosQueryVariables>(
+      ListDaosDocument,
+      url,
+      {
+        where: { ...filter, id_gt: paging.lastId || '' },
+        orderBy: paging.lastId ? 'id' : ordering.orderBy,
+        orderDirection: paging.lastId ? 'asc' : ordering.orderDirection,
+        first: paging.pageSize + 1,
+        skip: paging.offset,
+      }
+    );
+
+    const pagingUpdates = createPaging(res['daos'], paging);
+
+    return {
+      networkId,
+      filter,
+      ordering,
+      nextPaging: pagingUpdates.nextPaging,
+      previousPaging: pagingUpdates.previousPaging,
+      items: pagingUpdates.pageItems,
+    };
   }
 
   public async listProposals({
     networkId,
+    filter,
     ordering = {
-      orderBy: 'createdAt',
+      orderBy: 'id',
       orderDirection: 'desc',
     },
-    filter,
-  }: ListQueryArguments<Proposal_OrderBy, Proposal_Filter>): Promise<
-    QueryResult<TransformedProposalListQuery>
+    paging = {
+      pageSize: DEFAULT_RECORDS_PER_PAGE,
+      offset: 0,
+    },
+  }: IListQueryArguments<Proposal_OrderBy, Proposal_Filter>): Promise<
+    IListQueryResults<
+      Proposal_OrderBy,
+      Proposal_Filter,
+      ITransformedProposalListQuery['proposals']
+    >
   > {
-    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
-      return {
-        error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
-        data: { proposals: [] },
-      };
+      throw new HausError({ type: 'INVALID_NETWORK_ERROR' });
     }
 
-    try {
-      const queryResult = await graphFetch<
-        ListProposalsQuery,
-        ListProposalsQueryVariables
-      >(ListProposalsDocument, url, networkId, {
-        where: filter,
-        orderBy: ordering.orderBy,
-        orderDirection: ordering.orderDirection,
-      });
+    const res = await graphFetchList<
+      ListProposalsQuery,
+      ListProposalsQueryVariables
+    >(ListProposalsDocument, url, {
+      where: { ...filter, id_gt: paging.lastId || '' },
+      orderBy: paging.lastId ? 'id' : ordering.orderBy,
+      orderDirection: paging.lastId ? 'asc' : ordering.orderDirection,
+      first: paging.pageSize + 1,
+      skip: paging.offset,
+    });
 
-      const proposals = queryResult.data?.proposals
-        ? queryResult.data?.proposals.map((prop) => transformProposal(prop))
-        : [];
+    const pagingUpdates = createPaging(res['proposals'], paging);
 
-      return {
-        ...queryResult,
-        data: {
-          proposals,
-        },
-      };
-    } catch (err) {
-      return {
-        error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
-        data: { proposals: [] },
-      };
-    }
+    return {
+      networkId,
+      filter,
+      ordering,
+      nextPaging: pagingUpdates.nextPaging,
+      previousPaging: pagingUpdates.previousPaging,
+      items: pagingUpdates.pageItems.map((prop) => transformProposal(prop)),
+    };
   }
 
   public async listMembers({
     networkId,
+    filter,
     ordering = {
-      orderBy: 'createdAt',
+      orderBy: 'id',
       orderDirection: 'desc',
     },
-    filter,
-  }: ListQueryArguments<Member_OrderBy, Member_Filter>): Promise<
-    QueryResult<ListMembersQuery>
+    paging = {
+      pageSize: DEFAULT_RECORDS_PER_PAGE,
+      offset: 0,
+    },
+  }: IListQueryArguments<Member_OrderBy, Member_Filter>): Promise<
+    IListQueryResults<
+      Member_OrderBy,
+      Member_Filter,
+      ListMembersQuery['members']
+    >
   > {
-    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
-      return {
-        error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
-        data: { members: [] },
-      };
+      throw new HausError({ type: 'INVALID_NETWORK_ERROR' });
     }
 
-    try {
-      return await graphFetch<ListMembersQuery, ListMembersQueryVariables>(
-        ListMembersDocument,
-        url,
-        networkId,
-        {
-          where: filter,
-          orderBy: ordering.orderBy,
-          orderDirection: ordering.orderDirection,
-        }
-      );
-    } catch (err) {
-      return {
-        error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
-        data: { members: [] },
-      };
-    }
+    const res = await graphFetchList<
+      ListMembersQuery,
+      ListMembersQueryVariables
+    >(ListMembersDocument, url, {
+      where: { ...filter, id_gt: paging.lastId || '' },
+      orderBy: paging.lastId ? 'id' : ordering.orderBy,
+      orderDirection: paging.lastId ? 'asc' : ordering.orderDirection,
+      first: paging.pageSize + 1,
+      skip: paging.offset,
+    });
+
+    const pagingUpdates = createPaging(res['members'], paging);
+
+    return {
+      networkId,
+      filter,
+      ordering,
+      nextPaging: pagingUpdates.nextPaging,
+      previousPaging: pagingUpdates.previousPaging,
+      items: pagingUpdates.pageItems,
+    };
   }
 
   public async listTransactions({
     networkId,
+    filter,
     ordering = {
       orderBy: 'createdAt',
       orderDirection: 'desc',
     },
-    filter,
-  }: ListQueryArguments<
+    paging = {
+      pageSize: DEFAULT_RECORDS_PER_PAGE,
+      offset: 0,
+    },
+  }: IListQueryArguments<
     EventTransaction_OrderBy,
     EventTransaction_Filter
-  >): Promise<QueryResult<ListTxsQuery>> {
-    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+  >): Promise<
+    IListQueryResults<
+      EventTransaction_OrderBy,
+      EventTransaction_Filter,
+      ListTxsQuery['transactions']
+    >
+  > {
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
-      return {
-        error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
-      };
+      throw new HausError({ type: 'INVALID_NETWORK_ERROR' });
     }
 
-    try {
-      return await graphFetch<ListTxsQuery, ListTxsQueryVariables>(
-        ListTxsDocument,
-        url,
-        networkId,
-        {
-          where: filter,
-          orderBy: ordering.orderBy,
-          orderDirection: ordering.orderDirection,
-        }
-      );
-    } catch (err) {
-      return {
-        error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
-      };
-    }
+    const res = await graphFetchList<ListTxsQuery, ListTxsQueryVariables>(
+      ListTxsDocument,
+      url,
+      {
+        where: { ...filter, id_gt: paging.lastId || '' },
+        orderBy: paging.lastId ? 'id' : ordering.orderBy,
+        orderDirection: paging.lastId ? 'asc' : ordering.orderDirection,
+        first: paging.pageSize + 1,
+        skip: paging.offset,
+      }
+    );
+
+    const pagingUpdates = createPaging(res['transactions'], paging);
+
+    return {
+      networkId,
+      filter,
+      ordering,
+      nextPaging: pagingUpdates.nextPaging,
+      previousPaging: pagingUpdates.previousPaging,
+      items: pagingUpdates.pageItems,
+    };
   }
 
   /*
@@ -244,8 +268,8 @@ export default class Query {
     networkId: keyof Keychain;
     dao: string;
     includeTokens?: boolean;
-  }): Promise<QueryResult<FindDaoQuery | DaoWithTokenDataQuery>> {
-    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+  }): Promise<IFindQueryResult<FindDaoQuery | DaoWithTokenDataQuery>> {
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
         error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
@@ -295,8 +319,8 @@ export default class Query {
     networkId: keyof Keychain;
     dao: string;
     memberAddress: string;
-  }): Promise<QueryResult<FindMemberQuery>> {
-    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+  }): Promise<IFindQueryResult<FindMemberQuery>> {
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
         error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
@@ -327,8 +351,8 @@ export default class Query {
     networkId: keyof Keychain;
     dao: string;
     proposalId: string;
-  }): Promise<QueryResult<TransformedProposalQuery>> {
-    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+  }): Promise<IFindQueryResult<ITransformedProposalQuery>> {
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
         error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
@@ -364,8 +388,8 @@ export default class Query {
   }: {
     networkId: keyof Keychain;
     txHash: string;
-  }): Promise<QueryResult<FindTxQuery>> {
-    const url = this._endpoints['V3_SUBGRAPH'][networkId];
+  }): Promise<IFindQueryResult<FindTxQuery>> {
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
         error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
@@ -389,75 +413,6 @@ export default class Query {
   }
 
   /**
-   * Queries scoped to user address
-   */
-  public async listDaosByMember({
-    memberAddress,
-    networkIds,
-    includeTokens = false,
-  }: CrossNetworkQueryArguments): Promise<
-    QueryResult<TransformedMembershipsQuery>
-  > {
-    const promises: Promise<QueryResult<ListMembershipsQuery>>[] = [];
-    const filter = { memberAddress: memberAddress };
-    const ordering: Ordering<Member_OrderBy> = {
-      orderBy: 'createdAt',
-      orderDirection: 'desc',
-    };
-
-    networkIds.forEach((networkId: keyof Keychain) => {
-      const url = this._endpoints['V3_SUBGRAPH'][networkId];
-
-      if (url) {
-        promises.push(
-          graphFetch<ListMembershipsQuery, ListMembershipsQueryVariables>(
-            ListMembershipsDocument,
-            url,
-            networkId,
-            {
-              where: filter,
-              orderBy: ordering.orderBy,
-              orderDirection: ordering.orderDirection,
-            }
-          )
-        );
-      }
-    });
-
-    const memberData = await Promise.all(promises);
-    const transformedList = transformMembershipList(memberData);
-
-    if (includeTokens) {
-      const tokenPromises: Promise<QueryResult<DaoTokenBalances>>[] = [];
-      transformedList.forEach((dao) => {
-        if (dao.networkId) {
-          tokenPromises.push(
-            this.listTokenBalances({
-              networkId: dao.networkId,
-              safeAddress: dao.safeAddress,
-            })
-          );
-        }
-      });
-
-      const tokenData = await Promise.all(tokenPromises);
-
-      const dataWithTokens = transformedList.map((dao) => {
-        return {
-          ...dao,
-          ...tokenData.find(
-            (dataRes) => dataRes.data?.safeAddress === dao.safeAddress
-          )?.data,
-        };
-      });
-
-      return { data: { daos: dataWithTokens } };
-    } else {
-      return { data: { daos: transformedList } };
-    }
-  }
-
-  /**
    * Token queries
    */
 
@@ -467,8 +422,8 @@ export default class Query {
   }: {
     networkId: keyof Keychain;
     safeAddress: string;
-  }): Promise<QueryResult<DaoTokenBalances>> {
-    const url = this._endpoints['GNOSIS_API'][networkId];
+  }): Promise<IFindQueryResult<DaoTokenBalances>> {
+    const url = this.endpoints['GNOSIS_API'][networkId];
     if (!url) {
       return {
         error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),

@@ -18,7 +18,7 @@ To run this locally, clone the monorepo and use `nx run ui:storybook` to run the
 
 ## Usage
 
-DAOhaus UI provides a theme Context Provider as well as a set of UI components that can be imported and used to build app UI.Start by importing the `HausThemeProvider` from the `@daohaus/ui` package at your app's root component, such as `main.tsx`:
+DAOhaus UI provides a theme Context Provider as well as a set of UI components that can be imported and used to build app UI.Start by importing the `HausThemeProvider` from the `@daohaus/ui` package at your app's `root` component, such as `main.tsx`:
 
 ### HausThemeProvider Context Provider
 

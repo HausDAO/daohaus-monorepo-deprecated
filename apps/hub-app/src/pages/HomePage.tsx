@@ -85,7 +85,7 @@ const HomePage = () => {
         memberAddress: address,
         networkIds: Object.keys(filterNetworks) as ValidNetwork[],
         includeTokens: true,
-        filter: filterDelegate || undefined,
+        // filter: filterDelegate || undefined,
       });
 
       if (query.data?.daos) {

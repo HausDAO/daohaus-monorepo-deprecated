@@ -96,7 +96,7 @@ const FilterDropdown = ({
               secondary
               fullWidth
               leftAlign
-              value=""
+              value={filterKey.isDelegate}
               onClick={toggleDelegateFilter}
               IconRight={
                 filterDelegate === filterKey.isDelegate
@@ -118,7 +118,7 @@ const FilterDropdown = ({
               secondary
               fullWidth
               leftAlign
-              value="iAmDelegating"
+              value={filterKey.isDelagating}
               onClick={toggleDelegateFilter}
               IconRight={
                 filterDelegate === filterKey.isDelagating

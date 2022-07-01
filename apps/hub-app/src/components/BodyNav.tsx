@@ -1,15 +1,28 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useMatch, LinkProps } from 'react-router-dom';
+import { GiHamburgerMenu } from 'react-icons/gi';
 import styled from 'styled-components';
-import { amberDark } from '@radix-ui/colors';
+import { amberDark, indigoDark } from '@radix-ui/colors';
 import { breakpoints, font } from '@daohaus/ui';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+
+type StyledLinkProps = {
+  selected?: boolean;
+} & LinkProps;
+
+type NavLinkProps = {
+  children: React.ReactNode;
+  path: string;
+  selected?: boolean;
+};
 
 const LinkContainer = styled.div`
+  display: flex;
   padding: 1rem;
-  border: 1px solid ${amberDark.amber9};
+  border: 1px solid ${amberDark.amber5};
   border-radius: 0.8rem;
-  background: ${amberDark.amber3};
+  background: ${indigoDark.indigo2};
+  align-items: center;
+  gap: 0.5rem;
 
   @media (min-width: ${breakpoints.xs}) {
     border: none;
@@ -24,27 +37,39 @@ const BodyNavContainer = styled.div`
 
   @media (min-width: ${breakpoints.xs}) {
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
   }
 `;
 
-const StyledLink = styled(Link)`
-  text-decoration-color: ${amberDark.amber10};
-  color: ${amberDark.amber9};
-  text-underline-offset: 0.7rem;
+const StyledHamburgerMenu = styled(GiHamburgerMenu)`
+  @media (min-width: ${breakpoints.xs}) {
+    display: none;
+  }
 `;
 
-type NavLinkProps = {
-  children: React.ReactNode;
-  path: string;
-};
+// Add selected
+const StyledLink = styled(Link)<StyledLinkProps>`
+  text-decoration: none;
+  color: ${amberDark.amber9};
+  display: ${({ selected }) => (selected ? 'none' : 'flex')};
 
-const NavLink = ({ children, path }: NavLinkProps) => {
+  @media (min-width: ${breakpoints.xs}) {
+    text-decoration: underline;
+    text-decoration-color: ${amberDark.amber10};
+    text-underline-offset: 0.7rem;
+    display: block;
+    color: ${({ selected }) =>
+      selected ? indigoDark.indigo12 : amberDark.amber10};
+  }
+`;
+
+const NavLink = ({ children, path, selected }: NavLinkProps) => {
   return (
     <StyledLink
       to={{
         pathname: path,
       }}
+      selected={selected}
     >
       <LinkContainer>{children}</LinkContainer>
     </StyledLink>
@@ -52,11 +77,19 @@ const NavLink = ({ children, path }: NavLinkProps) => {
 };
 
 export const BodyNav = () => {
-  const { isConnected } = useHausConnect();
+  const match = useMatch('/explore');
+  const isHome = !match;
+  const isExplore = !!match;
   return (
     <BodyNavContainer>
-      <NavLink path="/explore">Explore</NavLink>
-      {!isConnected && <NavLink path="/dashboard">Dashboard</NavLink>}
+      <NavLink path="/" selected={isHome}>
+        <StyledHamburgerMenu />
+        Home
+      </NavLink>
+      <NavLink path="/explore" selected={isExplore}>
+        <StyledHamburgerMenu />
+        Explore
+      </NavLink>
     </BodyNavContainer>
   );
 };

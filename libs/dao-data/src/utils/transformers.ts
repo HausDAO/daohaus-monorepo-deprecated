@@ -1,9 +1,9 @@
 import { votingPowerPercentage } from '@daohaus/common-utilities';
 import { ListMembershipsQuery } from '../subgraph/queries/members.generated';
 import {
-  TransformedProposal,
-  TransformedMembership,
-  QueryResult,
+  ITransformedProposal,
+  ITransformedMembership,
+  IFindQueryResult,
   AccountProfile,
   BasicProfile,
   TokenBalance,
@@ -14,7 +14,7 @@ import { getProposalStatus } from './proposalsStatus';
 
 export const transformProposal = (
   proposal: QueryProposal
-): TransformedProposal => {
+): ITransformedProposal => {
   return {
     ...proposal,
     status: getProposalStatus(proposal),
@@ -54,21 +54,23 @@ export const transformTokenBalances = (
 };
 
 export const transformMembershipList = (
-  memberships: QueryResult<ListMembershipsQuery>[]
-): TransformedMembership[] => {
-  return memberships.reduce((list: TransformedMembership[], network) => {
+  memberships: IFindQueryResult<ListMembershipsQuery>[]
+): ITransformedMembership[] => {
+  return memberships.reduce((list: ITransformedMembership[], network) => {
     if (network?.data?.members) {
-      const daos: TransformedMembership[] = network?.data?.members.map(
+      const daos: ITransformedMembership[] = network?.data?.members.map(
         (member) => {
           return {
             dao: member.dao.id,
             name: member.dao.name,
             safeAddress: member.dao.safeAddress,
             activeProposalCount: member.dao.activeProposals?.length || 0,
+            totalProposalCount: member.dao.proposalCount,
             activeMemberCount: member.dao.activeMemberCount,
             votingPower: votingPowerPercentage(
               member.dao.totalShares,
-              member.shares
+              member.shares,
+              member.delegateShares
             ),
             networkId: network.networkId,
             delegate:
@@ -77,6 +79,7 @@ export const transformMembershipList = (
                 : undefined,
             isDelegate: Number(member.delegateShares) > 0,
             memberAddress: member.memberAddress,
+            contractType: 'Moloch V3',
           };
         }
       );

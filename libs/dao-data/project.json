@@ -28,6 +28,13 @@
         "passWithNoTests": true
       }
     },
+    "deploy": {
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "tag": "alpha",
+        "access": "public"
+      }
+    },
     "generate-gql-schema": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {

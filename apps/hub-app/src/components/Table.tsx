@@ -7,15 +7,15 @@ import { Avatar } from '@daohaus/ui';
 import { BiGhost } from 'react-icons/bi';
 
 interface DaoData {
-  name?: string | JSX.Element;
-  activeProposalCount: number;
+  name: string;
+  activeProposalCount: number | string;
   activeMemberCount: string;
   votingPower: number;
   networkId?: keyof Keychain;
-  delegate?: string;
-  memberAddress: string;
-  fiatTotal?: number;
-  totalProposalCount: string;
+  delegate: string | undefined;
+  memberAddress?: string;
+  fiatTotal: number;
+  totalProposalCount?: string;
 }
 
 interface IDaoTableData {
@@ -63,9 +63,9 @@ const FirstCell = styled.p`
 `;
 
 export const DataTable = ({ daoData }: IDaoTableData) => {
-  const tableData = React.useMemo(
+  const tableData = React.useMemo<DaoData[]>(
     () =>
-      daoData.map((dao: DaoData) => ({
+      daoData.map((dao) => ({
         name: dao.name,
         activeProposalCount: dao.activeProposalCount,
         fiatTotal: dao.fiatTotal,
@@ -81,7 +81,7 @@ export const DataTable = ({ daoData }: IDaoTableData) => {
     () => [
       {
         accessor: 'name', // accessor is the "key" in the data
-        Cell: ({ value }: { value: string }) => {
+        Cell: ({ value }: { value: string | number }) => {
           return (
             <FirstCell>
               <Avatar size="sm" fallback={<BiGhost />} />
@@ -96,7 +96,7 @@ export const DataTable = ({ daoData }: IDaoTableData) => {
       {
         Header: 'Active Proposals',
         accessor: 'activeProposalCount',
-        Cell: ({ value }: { value: string }) => {
+        Cell: ({ value }: { value: string | number }) => {
           return <Highlight>{value}</Highlight>;
         },
       },
@@ -119,13 +119,14 @@ export const DataTable = ({ daoData }: IDaoTableData) => {
       {
         Header: 'Delegate',
         accessor: 'delegate',
-        Cell: ({ value }: { value: string }) => {
+        Cell: ({ value }: { value: string | undefined }) => {
           return <Highlight>{value}</Highlight>;
         },
       },
     ],
     []
   );
+
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns: exampleColumns,

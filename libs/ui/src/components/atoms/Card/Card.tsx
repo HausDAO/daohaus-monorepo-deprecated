@@ -1,5 +1,4 @@
 import React, { ReactNode, RefObject } from 'react';
-import classNames from 'classnames';
 
 import { BaseCard } from './Card.styles';
 
@@ -17,15 +16,8 @@ type Ref =
   | null
   | undefined;
 
-/*
- * TODO Finish Card once design is completed
- * Github Issue 258 (Pending Design).
- */
 export const Card = React.forwardRef(
-  ({ success, warning, error, className, children }: CardProps, ref: Ref) => {
-    const cardClasses = classNames({ success, warning, error });
-    return (
-      <BaseCard className={`${cardClasses} ${className}`}>{children}</BaseCard>
-    );
+  ({ className, children }: CardProps, ref: Ref) => {
+    return <BaseCard className={className}>{children}</BaseCard>;
   }
 );

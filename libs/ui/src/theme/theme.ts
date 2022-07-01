@@ -34,11 +34,14 @@ export const defaultDarkTheme: Theme = {
   transparent: utilityDark.transparent,
   info: utilityDark.info,
   card: {
-    bg: secondaryDark.elementBg,
-    //  REVIEW ROWDY
-    //  Had to add change card border style to match the design.
-    //  Let's figure out to rectify this with design.
+    bg: secondaryDark.bgSubtle,
     border: secondaryDark.elementBgActive,
+    hoverBg: secondaryDark.elementBg,
+    hoverBorder: secondaryDark.elementBorderSubtle,
+    focusBg: secondaryDark.bgSubtle,
+    focusBorder: secondaryDark.elementBorder,
+    disabledBg: neutralDark.bgSubtle,
+    disabledBorder: neutralDark.elementBgActive,
     successText: utilityDark.successText,
     successBg: utilityDark.successBg,
     successBorder: utilityDark.successBorder,
@@ -138,6 +141,25 @@ export const defaultDarkTheme: Theme = {
       activeDisabledBorder: neutralDark.bgSolid,
     },
   },
+  toast: {
+    bg: secondaryDark.elementBg,
+    border: secondaryDark.elementBgActive,
+    successText: utilityDark.successText,
+    successBg: utilityDark.successBg,
+    successBorder: utilityDark.successBorder,
+    warningText: utilityDark.warningText,
+    warningBg: utilityDark.warningBg,
+    warningBorder: utilityDark.warningBorder,
+    errorText: utilityDark.dangerText,
+    errorBg: utilityDark.dangerBg,
+    errorBorder: utilityDark.dangerBorder,
+    icon: {
+      default: utilityDark.success,
+      success: utilityDark.success,
+      warning: utilityDark.warning,
+      error: utilityDark.danger,
+    },
+  },
 };
 
 export const defaultLightTheme: Theme = {
@@ -155,6 +177,12 @@ export const defaultLightTheme: Theme = {
   card: {
     bg: secondary.elementBg,
     border: secondary.elementBorder,
+    hoverBg: secondary.elementBgHover,
+    hoverBorder: secondary.elementBorderSubtle,
+    focusBg: secondary.elementBg,
+    focusBorder: secondary.elementBorder,
+    disabledBg: neutral.bgSubtle,
+    disabledBorder: neutral.elementBorderSubtle,
     successText: utility.successText,
     successBg: utility.successBg,
     successBorder: utility.successBorder,
@@ -219,6 +247,15 @@ export const defaultLightTheme: Theme = {
       disabledBg: neutral.bg,
     },
   },
+  select: {
+    bg: secondary.elementBg,
+    text: secondary.textLowContrast,
+    borderColor: utility.transparent,
+  },
+  spinner: {
+    topColor: primary.bgSolid,
+    bottomColor: primary.elementBgHover,
+  },
   switch: {
     bar: {
       bg: secondary.elementBorderSubtle,
@@ -245,13 +282,23 @@ export const defaultLightTheme: Theme = {
       activeDisabledBorder: neutral.bgSolid,
     },
   },
-  select: {
+  toast: {
     bg: secondary.elementBg,
-    text: secondary.textLowContrast,
-    borderColor: utility.transparent,
-  },
-  spinner: {
-    topColor: primary.bgSolid,
-    bottomColor: primary.elementBgHover,
+    border: secondary.elementBgActive,
+    successText: utility.successText,
+    successBg: utility.successBg,
+    successBorder: utility.successBorder,
+    warningText: utility.warningText,
+    warningBg: utility.warningBg,
+    warningBorder: utility.warningBorder,
+    errorText: utility.dangerText,
+    errorBg: utility.dangerBg,
+    errorBorder: utility.dangerBorder,
+    icon: {
+      default: utility.success,
+      success: utility.success,
+      warning: utility.warning,
+      error: utility.danger,
+    },
   },
 };

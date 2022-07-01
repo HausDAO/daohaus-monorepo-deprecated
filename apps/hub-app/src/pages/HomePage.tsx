@@ -78,7 +78,7 @@ const HomePage = () => {
       const haus = temporaryInitHaus();
       const query = await haus.profile.listDaosByMember({
         memberAddress: address,
-        networkIds: ['0x5'],
+        networkIds: Object.keys(filterNetworks),
         includeTokens: true,
       });
 
@@ -89,7 +89,7 @@ const HomePage = () => {
 
     if (!address) return;
     getDaos(address);
-  }, [address]);
+  }, [address, filterNetworks]);
 
   const toggleNetworkFilter = (event: MouseEvent<HTMLButtonElement>) => {
     const network = event.currentTarget.value;

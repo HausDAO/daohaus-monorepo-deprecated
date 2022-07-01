@@ -32,7 +32,7 @@ export const BaseTag = styled.div<{
   }
 
   :focus {
-    background-color: ${darkTagColors.blue3};
+    background-color: ${({ tagColor }) => `${darkTagColors[`${tagColor}3`]}`};
     border: 1px solid ${({ tagColor }) => `${darkTagColors[`${tagColor}5`]}`};
     outline: none;
   }
@@ -43,5 +43,30 @@ export const BaseTag = styled.div<{
     border: 1px solid
       ${({ theme }: { theme: Theme }) => theme.card.disabledBorder};
     cursor: not-allowed;
+  }
+`;
+
+export const WithIcon = styled.div`
+  align-items: center;
+  display: flex;
+
+  svg {
+    width: 2.1rem;
+    height: 2.1rem;
+    color: ${({ theme }: { theme: Theme }) => theme.button.primary.text};
+
+    &.sm {
+      height: 1.5rem;
+      margin-right: 0.8rem;
+      width: 1.5rem;
+    }
+  }
+
+  svg.icon-left {
+    margin-right: 1rem;
+  }
+
+  svg.icon-right {
+    margin-left: 0.5rem;
   }
 `;

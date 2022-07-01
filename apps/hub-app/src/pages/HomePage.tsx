@@ -71,6 +71,8 @@ const HomePage = () => {
       {}
     )
   );
+  const [filterDelegate, setFilterDelegate] = useState<string>('');
+
   useEffect(() => {
     const getDaos = async (address: string) => {
       const haus = temporaryInitHaus();
@@ -104,6 +106,10 @@ const HomePage = () => {
     }
   };
 
+  const toggleDelegateFilter = (event: MouseEvent<HTMLButtonElement>) => {
+    setFilterDelegate(event.currentTarget.value);
+  };
+
   return (
     <Layout>
       <SideTopLeft />
@@ -118,6 +124,8 @@ const HomePage = () => {
           daoData={daoData}
           filterNetworks={filterNetworks}
           toggleNetworkFilter={toggleNetworkFilter}
+          filterDelegate={filterDelegate}
+          toggleDelegateFilter={toggleDelegateFilter}
         />
       ) : (
         <HomeNotConnected />

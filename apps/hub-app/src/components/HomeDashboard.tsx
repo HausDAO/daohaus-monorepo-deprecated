@@ -17,15 +17,18 @@ type DashProps = {
   daoData: ITransformedMembership[];
   filterNetworks: Record<string, string>;
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
+  filterDelegate: string;
+  toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
 export const HomeDashboard = ({
   daoData,
   filterNetworks,
   toggleNetworkFilter,
+  filterDelegate,
+  toggleDelegateFilter,
 }: DashProps) => {
   const [listType, setListType] = useState<ListType>('cards');
-
   const toggleListType = () => {
     listType === 'cards' ? setListType('table') : setListType('cards');
   };
@@ -37,6 +40,8 @@ export const HomeDashboard = ({
         toggleListType={toggleListType}
         filterNetworks={filterNetworks}
         toggleNetworkFilter={toggleNetworkFilter}
+        filterDelegate={filterDelegate}
+        toggleDelegateFilter={toggleDelegateFilter}
       />
       {listType === 'cards' && <DaoCards daoData={daoData} />}
       {listType === 'table' && <DataTable />}

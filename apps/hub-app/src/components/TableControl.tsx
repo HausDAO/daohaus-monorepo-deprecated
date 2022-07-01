@@ -63,6 +63,8 @@ type TableControlProps = {
   toggleListType: () => void;
   filterNetworks: Record<string, string>;
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
+  filterDelegate: string;
+  toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
 const TableControl = ({
@@ -70,6 +72,8 @@ const TableControl = ({
   toggleListType,
   filterNetworks,
   toggleNetworkFilter,
+  filterDelegate,
+  toggleDelegateFilter,
 }: TableControlProps) => {
   return (
     <Layout>
@@ -81,6 +85,8 @@ const TableControl = ({
       <FilterDropdown
         filterNetworks={filterNetworks}
         toggleNetworkFilter={toggleNetworkFilter}
+        filterDelegate={filterDelegate}
+        toggleDelegateFilter={toggleDelegateFilter}
       />
       <Button secondary onClick={toggleListType} IconLeft={IconGrid}>
         {listType === 'table' ? 'Card View' : 'List View'}
@@ -100,14 +106,18 @@ const DropdownButton = styled(Button)`
 type FilterDropdownProps = {
   filterNetworks: Record<string, string>;
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
+  filterDelegate: string;
+  toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
 const FilterDropdown = ({
   filterNetworks,
   toggleNetworkFilter,
+  filterDelegate,
+  toggleDelegateFilter,
 }: FilterDropdownProps) => {
   const theme = useTheme();
-
+  console.log('filterDelegate', filterDelegate);
   const networkButtons = Object.values(networkData).map(
     (network): DropdownItem => {
       const isActive = filterNetworks[network.chainId];
@@ -151,16 +161,36 @@ const FilterDropdown = ({
         {
           type: 'clickable',
           content: (
-            <DropdownButton secondary fullWidth leftAlign>
-              I am a Delegate
+            <DropdownButton
+              secondary
+              fullWidth
+              leftAlign
+              value="iAmDelegate"
+              onClick={toggleDelegateFilter}
+              IconRight={
+                filterDelegate === 'iAmDelegate' ? AiOutlineCheck : undefined
+              }
+              className={filterDelegate === 'iAmDelegate' ? 'selected' : ''}
+            >
+              <div style={{ width: '100%' }}>I am a Delegate</div>
             </DropdownButton>
           ),
         },
         {
           type: 'clickable',
           content: (
-            <DropdownButton secondary fullWidth leftAlign>
-              I have a Delegate
+            <DropdownButton
+              secondary
+              fullWidth
+              leftAlign
+              value="iAmDelegating"
+              onClick={toggleDelegateFilter}
+              IconRight={
+                filterDelegate === 'iAmDelegating' ? AiOutlineCheck : undefined
+              }
+              className={filterDelegate === 'iAmDelegating' ? 'selected' : ''}
+            >
+              <div style={{ width: '100%' }}>I have a Delegate</div>
             </DropdownButton>
           ),
         },

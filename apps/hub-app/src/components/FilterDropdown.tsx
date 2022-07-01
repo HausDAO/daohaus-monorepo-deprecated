@@ -7,8 +7,6 @@ import { Button, Dropdown, DropdownItem, Theme } from '@daohaus/ui';
 import { ParSm } from '@daohaus/ui';
 import { networkData } from '@daohaus/common-utilities';
 import { indigoDark } from '@radix-ui/colors';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { Member_Filter } from '@daohaus/dao-data';
 import { FILTER_TYPE } from '../utils/constants';
 
 const DropdownButton = styled(Button)`
@@ -30,7 +28,7 @@ const IconFilter = styled(RiFilterFill)`
 type FilterDropdownProps = {
   filterNetworks: Record<string, string>;
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
-  filterDelegate: Member_Filter | '';
+  filterDelegate: string;
   toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
@@ -41,7 +39,6 @@ const FilterDropdown = ({
   toggleDelegateFilter,
 }: FilterDropdownProps) => {
   const theme = useTheme();
-  const { address } = useHausConnect();
 
   const networkButtons = Object.values(networkData).map(
     (network): DropdownItem => {

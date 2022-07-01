@@ -9,7 +9,7 @@ import { HeaderProfile } from '../components/Profile';
 import { indigoDark } from '@radix-ui/colors';
 import { HomeDashboard } from '../components/HomeDashboard';
 import { HomeNotConnected } from './HomeNotConnected';
-import { Haus, ITransformedMembership, Member_Filter } from '@daohaus/dao-data';
+import { Haus, ITransformedMembership } from '@daohaus/dao-data';
 import {
   isValidNetwork,
   networkData,
@@ -75,7 +75,7 @@ const HomePage = () => {
       {}
     )
   );
-  const [filterDelegate, setFilterDelegate] = useState<Member_Filter | ''>('');
+  const [filterDelegate, setFilterDelegate] = useState<string | ''>('');
 
   useEffect(() => {
     const getDaos = async (address: string) => {
@@ -112,9 +112,7 @@ const HomePage = () => {
 
   const toggleDelegateFilter = (event: MouseEvent<HTMLButtonElement>) => {
     setFilterDelegate((prevState) =>
-      prevState === event.currentTarget.value
-        ? ''
-        : (event.currentTarget.value as Member_Filter)
+      prevState === event.currentTarget.value ? '' : event.currentTarget.value
     );
   };
 

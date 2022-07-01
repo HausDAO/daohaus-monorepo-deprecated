@@ -1,15 +1,21 @@
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
+import { indigoDark } from '@radix-ui/colors';
+import styled from 'styled-components';
+
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { breakpoints } from '@daohaus/ui';
-import styled from 'styled-components';
-import { BodyNav } from '../components/BodyNav';
-import Header from '../components/Header';
-import { HeaderProfile } from '../components/Profile';
+import { Haus, ITransformedMembership } from '@daohaus/dao-data';
 
-import { indigoDark } from '@radix-ui/colors';
+import { HeaderProfile } from '../components/Profile';
+import Header from '../components/Header';
+import { BodyNav } from '../components/BodyNav';
 import { HomeDashboard } from '../components/HomeDashboard';
 import { HomeNotConnected } from './HomeNotConnected';
-import { Haus, ITransformedMembership } from '@daohaus/dao-data';
+import {
+  isValidNetwork,
+  networkData,
+  ValidNetwork,
+} from '@daohaus/common-utilities';
 
 const Layout = styled.div`
   width: 100%;
@@ -64,14 +70,22 @@ const temporaryInitHaus = () => {
 const HomePage = () => {
   const { isProfileLoading, isConnected, address } = useHausConnect();
   const [daoData, setDaoData] = useState<ITransformedMembership[]>([]);
+  const [filterNetworks, setFilterNetworks] = useState<Record<string, string>>(
+    Object.keys(networkData).reduce(
+      (acc, networkId) => ({ [networkId]: networkId }),
+      {}
+    )
+  );
+  const [filterDelegate, setFilterDelegate] = useState<string | ''>('');
 
   useEffect(() => {
     const getDaos = async (address: string) => {
       const haus = temporaryInitHaus();
       const query = await haus.profile.listDaosByMember({
         memberAddress: address,
-        networkIds: ['0x5'],
+        networkIds: Object.keys(filterNetworks) as ValidNetwork[],
         includeTokens: true,
+        // TODO: add delegate filter
       });
 
       if (query.data?.daos) {
@@ -81,7 +95,28 @@ const HomePage = () => {
 
     if (!address) return;
     getDaos(address);
-  }, [address]);
+  }, [address, filterNetworks, filterDelegate]);
+
+  const toggleNetworkFilter = (event: MouseEvent<HTMLButtonElement>) => {
+    const network = event.currentTarget.value;
+    if (network && isValidNetwork(network)) {
+      filterNetworks[network]
+        ? setFilterNetworks((prevState) => {
+            delete prevState[network];
+            return { ...prevState };
+          })
+        : setFilterNetworks((prevState) => ({
+            ...prevState,
+            [network]: network,
+          }));
+    }
+  };
+
+  const toggleDelegateFilter = (event: MouseEvent<HTMLButtonElement>) => {
+    setFilterDelegate((prevState) =>
+      prevState === event.currentTarget.value ? '' : event.currentTarget.value
+    );
+  };
 
   return (
     <Layout>
@@ -92,7 +127,17 @@ const HomePage = () => {
         <BodyNav />
         {isConnected && !isProfileLoading && <HeaderProfile />}
       </ProfileContainer>
-      {isConnected ? <HomeDashboard daoData={daoData} /> : <HomeNotConnected />}
+      {isConnected ? (
+        <HomeDashboard
+          daoData={daoData}
+          filterNetworks={filterNetworks}
+          toggleNetworkFilter={toggleNetworkFilter}
+          filterDelegate={filterDelegate}
+          toggleDelegateFilter={toggleDelegateFilter}
+        />
+      ) : (
+        <HomeNotConnected />
+      )}
     </Layout>
   );
 };

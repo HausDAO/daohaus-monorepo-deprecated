@@ -1,5 +1,5 @@
 import { ITransformedMembership } from '@daohaus/dao-data';
-import { useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import styled from 'styled-components';
 import { ListType } from '../utils/appSpecificTypes';
 import { DaoCards } from './DaoCards';
@@ -15,18 +15,34 @@ const Body = styled.div`
 
 type DashProps = {
   daoData: ITransformedMembership[];
+  filterNetworks: Record<string, string>;
+  toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
+  filterDelegate: string;
+  toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
-export const HomeDashboard = ({ daoData }: DashProps) => {
+export const HomeDashboard = ({
+  daoData,
+  filterNetworks,
+  toggleNetworkFilter,
+  filterDelegate,
+  toggleDelegateFilter,
+}: DashProps) => {
   const [listType, setListType] = useState<ListType>('cards');
-
   const toggleListType = () => {
     listType === 'cards' ? setListType('table') : setListType('cards');
   };
 
   return (
     <Body>
-      <TableControl listType={listType} toggleListType={toggleListType} />
+      <TableControl
+        listType={listType}
+        toggleListType={toggleListType}
+        filterNetworks={filterNetworks}
+        toggleNetworkFilter={toggleNetworkFilter}
+        filterDelegate={filterDelegate}
+        toggleDelegateFilter={toggleDelegateFilter}
+      />
       {listType === 'cards' && <DaoCards daoData={daoData} />}
       {listType === 'table' && <DataTable />}
     </Body>

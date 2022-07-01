@@ -1,4 +1,5 @@
 import React from 'react';
+import { Keychain } from '@daohaus/common-utilities';
 import { useTable, Column } from 'react-table';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
@@ -6,8 +7,20 @@ import { Avatar } from '@daohaus/ui';
 import { BiGhost } from 'react-icons/bi';
 import { ITransformedMembership } from '@daohaus/dao-data';
 
+interface DaoData {
+  name?: string;
+  activeProposalCount: number;
+  activeMemberCount: string;
+  votingPower: number;
+  networkId?: keyof Keychain;
+  delegate?: string;
+  memberAddress: string;
+  fiatTotal?: number;
+  totalProposalCount: string;
+}
+
 interface IDaoTableData {
-  daoData: ITransformedMembership[];
+  daoData: DaoData[];
 }
 
 const Table = styled.table`
@@ -51,10 +64,9 @@ const FirstCell = styled.p`
 `;
 
 export const DataTable = ({ daoData }: IDaoTableData) => {
-  console.log('daoData', daoData);
   const tableData = React.useMemo(
     () =>
-      daoData.map((dao) => ({
+      daoData.map((dao: DaoData) => ({
         name: dao.name,
         activeProposalCount: dao.activeProposalCount,
         fiatTotal: dao.fiatTotal,
@@ -66,12 +78,11 @@ export const DataTable = ({ daoData }: IDaoTableData) => {
     [daoData]
   );
 
-  //TODO improve these types -- there are unused ones in ITransformedMembership here so it throws
-  const exampleColumns = React.useMemo(
+  const exampleColumns = React.useMemo<Column<DaoData>[]>(
     () => [
       {
         accessor: 'name', // accessor is the "key" in the data
-        Cell: ({ value }: { value: any }) => {
+        Cell: ({ value }: { value:string }) => {
           return (
             <FirstCell>
               <Avatar size="sm" fallback={<BiGhost />} />
@@ -86,7 +97,7 @@ export const DataTable = ({ daoData }: IDaoTableData) => {
       {
         Header: 'Active Proposals',
         accessor: 'activeProposalCount',
-        Cell: ({ value }: { value: any }) => {
+        Cell: ({ value }: { value:string }) => {
           return <Highlight>{value}</Highlight>;
         },
       },
@@ -109,7 +120,7 @@ export const DataTable = ({ daoData }: IDaoTableData) => {
       {
         Header: 'Delegate',
         accessor: 'delegate',
-        Cell: ({ value }: { value: any }) => {
+        Cell: ({ value }: { value:string }) => {
           return <Highlight>{value}</Highlight>;
         },
       },

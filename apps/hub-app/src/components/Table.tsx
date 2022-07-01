@@ -65,7 +65,8 @@ export const DataTable = ({ daoData }: IDaoTableData) => {
     [daoData]
   );
 
-  const exampleColumns = React.useMemo<Column<ITransformedMembership>[]>(
+  //TODO improve these types -- there are unused ones in ITransformedMembership here so it throws
+  const exampleColumns = React.useMemo(
     () => [
       {
         accessor: 'name', // accessor is the "key" in the data

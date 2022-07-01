@@ -38,7 +38,7 @@ const Layout = styled.div`
   @media (min-width: ${breakpoints.xs}) {
     grid-template:
       'sidebarTopLeft header sidebarTopRight' 9.6rem
-      'sidebarTopLeft profile sidebarTopRight' minmax(auto, 26rem)
+      'sidebarTopLeft profile sidebarTopRight' minmax(auto, 9.6rem)
       'sidebar body aside' 1fr / minmax(2.6rem, 1fr) minmax(auto, 120rem) minmax(2.6rem, 1fr);
   }
 `;
@@ -51,6 +51,7 @@ const ProfileContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding: 0 2rem;
 `;
 
 const SideTopLeft = styled.div`

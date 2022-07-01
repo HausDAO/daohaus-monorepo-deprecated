@@ -1,11 +1,7 @@
+import { ITransformedMembership } from '@daohaus/dao-data';
 import { breakpoints } from '@daohaus/ui';
 import styled from 'styled-components';
-import { TemporaryDAOType } from '../utils/appSpecificTypes';
 import { DaoCard } from './DaoCard';
-
-type CardsProps = {
-  daoData: TemporaryDAOType[];
-};
 
 const CardListBox = styled.div`
   display: flex;
@@ -17,11 +13,15 @@ const CardListBox = styled.div`
     justify-content: flex-start;
   }
 `;
-export const DaoCards = ({ daoData }: CardsProps) => {
+export const DaoCards = ({
+  daoData,
+}: {
+  daoData: ITransformedMembership[];
+}) => {
   return (
     <CardListBox>
       {daoData.map((dao, index) => (
-        <DaoCard key={`${dao.daoName}-${index}`} {...dao} />
+        <DaoCard key={dao.dao} {...dao} />
       ))}
     </CardListBox>
   );

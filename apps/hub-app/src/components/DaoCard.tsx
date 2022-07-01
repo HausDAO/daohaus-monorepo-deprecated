@@ -4,7 +4,7 @@ import { charLimit } from '@daohaus/common-utilities';
 import { Avatar, Bold, border, Button, ParLg, ParMd } from '@daohaus/ui';
 import { Tag } from './Tag';
 import { AlertCircle } from './AlertCircle';
-import { TemporaryDAOType } from '../utils/appSpecificTypes';
+import { ITransformedMembership } from '@daohaus/dao-data';
 
 const StyledDaoCard = styled.div`
   background-color: ${(props) => props.theme.card.bg};
@@ -50,43 +50,47 @@ const StyledDaoCard = styled.div`
 
 export const DaoCard = ({
   isDelegate,
-  daoName,
-  members,
-  vaults,
-  activeProposals,
-  totalProposals,
-  power,
-  tokenSymbol,
-  network,
-  contractName,
-}: TemporaryDAOType) => {
+  dao,
+  activeMemberCount,
+  fiatTotal,
+  activeProposalCount,
+  totalProposalCount,
+  votingPower,
+  name,
+  networkId,
+  contractType,
+}: ITransformedMembership) => {
   return (
     <StyledDaoCard className="dao-card">
       <div className="top-box">
         <div className="alert-box">
           <Avatar size="xl" />
-          {activeProposals > 0 && <AlertCircle number={activeProposals} />}
+          {activeProposalCount > 0 && (
+            <AlertCircle number={activeProposalCount} />
+          )}
         </div>
         {isDelegate && <Tag>Delegate</Tag>}
       </div>
-      <ParLg className="dao-title">{charLimit(daoName, 21)} </ParLg>
+      <ParLg className="dao-title">
+        {name ? charLimit(name, 21) : charLimit(dao, 21)}{' '}
+      </ParLg>
       <div className="stats-box">
         <ParMd>
-          <Bold>{members}</Bold> Members
+          <Bold>{activeMemberCount}</Bold> Members
         </ParMd>
         <ParMd>
-          <Bold>{vaults}</Bold> {tokenSymbol}
+          <Bold>{fiatTotal}</Bold> USD
         </ParMd>
         <ParMd>
-          <Bold>{totalProposals}</Bold> Proposals
+          <Bold>{totalProposalCount}</Bold> Proposals
         </ParMd>
         <ParMd>
-          <Bold>{power}</Bold> Power
+          <Bold>{votingPower}</Bold>% Voting Power
         </ParMd>
       </div>
       <div className="tag-box">
-        <Tag>{network}</Tag>
-        <Tag>{contractName}</Tag>
+        <Tag>{networkId}</Tag>
+        <Tag>{contractType}</Tag>
       </div>
       <div>
         <Button secondary>Go</Button>

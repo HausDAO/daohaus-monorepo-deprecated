@@ -1,11 +1,15 @@
-import { Button, Input } from '@daohaus/ui';
-import styled from 'styled-components';
+import { Button, Dropdown, DropdownItem, Input, Theme } from '@daohaus/ui';
+import styled, { useTheme } from 'styled-components';
 import { BiSearch } from 'react-icons/bi';
 import { RiFilterFill } from 'react-icons/ri';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
+import { AiOutlineCheck } from 'react-icons/ai';
+
 import { ParSm } from '@daohaus/ui';
-import { amberDark, indigoDark } from '@radix-ui/colors';
+import { indigoDark } from '@radix-ui/colors';
 import { ListType } from '../utils/appSpecificTypes';
+import { MouseEvent, useState } from 'react';
+import { isValidNetwork, networkData } from '@daohaus/common-utilities';
 
 const IconFilter = styled(RiFilterFill)`
   height: 1.8rem;
@@ -42,12 +46,6 @@ const Layout = styled.div`
   padding-bottom: 3.6rem;
 `;
 
-const FlexContainer = styled.div`
-  display: flex;
-  gap: 0.7rem;
-  color: ${amberDark.amber9};
-`;
-
 const StyledInput = styled(Input)`
   background: ${indigoDark.indigo3};
   color: ${indigoDark.indigo11};
@@ -73,15 +71,7 @@ const TableControl = ({ listType, toggleListType }: TableControlProps) => {
         id="table-search"
         placeholder="Search 3 Daos"
       />
-
-      <FlexContainer>
-        <IconFilter />
-        <ParSm color={indigoDark.indigo11}>Filters</ParSm>
-      </FlexContainer>
-      {/* <FlexContainer>
-        <IconGrid />
-        <ParSm color={indigoDark.indigo11}>Grid</ParSm>
-      </FlexContainer> */}
+      <FilterDropdown />
       <Button secondary onClick={toggleListType} IconLeft={IconGrid}>
         {listType === 'table' ? 'Card View' : 'List View'}
       </Button>
@@ -90,3 +80,108 @@ const TableControl = ({ listType, toggleListType }: TableControlProps) => {
 };
 
 export default TableControl;
+
+const DropdownButton = styled(Button)`
+  &.selected {
+    background-color: ${(props: { theme: Theme }) => props.theme.secondary};
+  }
+`;
+
+const FilterDropdown = () => {
+  const [filterNetworks, setFilterNetworks] = useState<Record<string, string>>(
+    {}
+  );
+  const theme = useTheme();
+
+  const toggleNetworkFilter = (event: MouseEvent<HTMLButtonElement>) => {
+    const network = event.currentTarget.value;
+    if (network && isValidNetwork(network)) {
+      filterNetworks[network]
+        ? setFilterNetworks((prevState) => {
+            delete prevState[network];
+            return { ...prevState };
+          })
+        : setFilterNetworks((prevState) => ({
+            ...prevState,
+            [network]: network,
+          }));
+    }
+  };
+
+  const networkButtons = Object.values(networkData).map(
+    (network): DropdownItem => {
+      console.log('RENDER');
+      const isActive = filterNetworks[network.chainId];
+      console.log('filterNetworks', filterNetworks);
+      console.log('network.chainId', network.chainId);
+      console.log('isActive ', isActive);
+      return {
+        type: 'clickable',
+        content: (
+          <DropdownButton
+            key={network.chainId}
+            value={network.chainId}
+            onClick={toggleNetworkFilter}
+            className={isActive ? 'selected' : ''}
+            secondary
+            fullWidth
+            leftAlign
+            IconRight={isActive ? AiOutlineCheck : undefined}
+          >
+            <div style={{ width: '100%' }}>{network.name}</div>
+          </DropdownButton>
+        ),
+      };
+    }
+  );
+
+  return (
+    <Dropdown
+      width="25rem"
+      spacing=".6rem"
+      bg={theme.button.secondary.bg}
+      trigger={
+        <Button secondary IconLeft={IconFilter}>
+          Filters
+        </Button>
+      }
+      items={[
+        { type: 'label', content: <ParSm>Networks</ParSm> },
+        ...networkButtons,
+        //   type: 'clickable',
+        //   content: (
+        //     <DropdownButton
+        //       secondary
+        //       fullWidth
+        //       leftAlign
+        //       value="0x5"
+        //       onClick={toggleNetworkFilter}
+        //     >
+        //       Goerli
+        //     </DropdownButton>
+        //   ),
+        // },
+        {
+          type: 'label',
+          content: <ParSm>Delegation</ParSm>,
+        },
+        {
+          type: 'clickable',
+          content: (
+            <DropdownButton secondary fullWidth leftAlign>
+              I am a Delegate
+            </DropdownButton>
+          ),
+        },
+        {
+          type: 'clickable',
+          content: (
+            <DropdownButton secondary fullWidth leftAlign>
+              I have a Delegate
+            </DropdownButton>
+          ),
+        },
+      ]}
+    />
+  );
+};

@@ -86,9 +86,9 @@ export interface ITransformedMembership {
   isDelegate: boolean;
   memberAddress: string;
   fiatTotal?: number;
-  tokenBalances?: TokenBalance[];
   totalProposalCount: string;
   contractType: string;
+  tokenBalances?: TokenBalance[];
 }
 export interface ITransformedMembershipsQuery {
   daos: ITransformedMembership[];

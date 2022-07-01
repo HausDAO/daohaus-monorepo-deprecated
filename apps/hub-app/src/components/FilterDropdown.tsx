@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { MouseEvent, useMemo } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { RiFilterFill } from 'react-icons/ri';
@@ -6,6 +6,9 @@ import { RiFilterFill } from 'react-icons/ri';
 import { Button, Dropdown, DropdownItem, Theme } from '@daohaus/ui';
 import { ParSm } from '@daohaus/ui';
 import { networkData } from '@daohaus/common-utilities';
+import { indigoDark } from '@radix-ui/colors';
+import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+import { Member_Filter } from '@daohaus/dao-data';
 
 const DropdownButton = styled(Button)`
   &.selected {
@@ -17,12 +20,16 @@ const IconFilter = styled(RiFilterFill)`
   height: 1.8rem;
   width: 1.8rem;
   display: flex;
+  fill: ${indigoDark.indigo10};
+  :hover {
+    fill: ${indigoDark.indigo10};
+  }
 `;
 
 type FilterDropdownProps = {
   filterNetworks: Record<string, string>;
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
-  filterDelegate: string;
+  filterDelegate: Member_Filter | '';
   toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
@@ -33,7 +40,14 @@ const FilterDropdown = ({
   toggleDelegateFilter,
 }: FilterDropdownProps) => {
   const theme = useTheme();
-
+  const { address } = useHausConnect();
+  const filterKey = useMemo(
+    () => ({
+      isDelegate: `{ memberAddress: ${address}, delegateShares_gt: '0' }`,
+      isDelagating: `{ memberAddress: ${address}, delegatingTo_not: ${address} }`,
+    }),
+    [address]
+  );
   const networkButtons = Object.values(networkData).map(
     (network): DropdownItem => {
       const isActive = filterNetworks[network.chainId];
@@ -82,12 +96,16 @@ const FilterDropdown = ({
               secondary
               fullWidth
               leftAlign
-              value="iAmDelegate"
+              value=""
               onClick={toggleDelegateFilter}
               IconRight={
-                filterDelegate === 'iAmDelegate' ? AiOutlineCheck : undefined
+                filterDelegate === filterKey.isDelegate
+                  ? AiOutlineCheck
+                  : undefined
               }
-              className={filterDelegate === 'iAmDelegate' ? 'selected' : ''}
+              className={
+                filterDelegate === filterKey.isDelegate ? 'selected' : ''
+              }
             >
               <div style={{ width: '100%' }}>I am a Delegate</div>
             </DropdownButton>
@@ -103,9 +121,13 @@ const FilterDropdown = ({
               value="iAmDelegating"
               onClick={toggleDelegateFilter}
               IconRight={
-                filterDelegate === 'iAmDelegating' ? AiOutlineCheck : undefined
+                filterDelegate === filterKey.isDelagating
+                  ? AiOutlineCheck
+                  : undefined
               }
-              className={filterDelegate === 'iAmDelegating' ? 'selected' : ''}
+              className={
+                filterDelegate === filterKey.isDelagating ? 'selected' : ''
+              }
             >
               <div style={{ width: '100%' }}>I have a Delegate</div>
             </DropdownButton>

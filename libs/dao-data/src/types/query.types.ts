@@ -18,7 +18,7 @@ export interface ICrossNetworkMemberListArguments<
   TOrderBy extends string,
   Variables
 > {
-  networkIds: Array<string>;
+  networkIds: Array<keyof Keychain>;
   memberAddress: string;
   filter?: Variables;
   ordering?: Ordering<TOrderBy>;

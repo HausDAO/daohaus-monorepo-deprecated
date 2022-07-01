@@ -9,8 +9,13 @@ import { HeaderProfile } from '../components/Profile';
 import { indigoDark } from '@radix-ui/colors';
 import { HomeDashboard } from '../components/HomeDashboard';
 import { HomeNotConnected } from './HomeNotConnected';
-import { Haus, ITransformedMembership } from '@daohaus/dao-data';
-import { isValidNetwork, networkData } from '@daohaus/common-utilities';
+import { Haus, ITransformedMembership, Member_Filter } from '@daohaus/dao-data';
+import {
+  isValidNetwork,
+  networkData,
+  ValidNetwork,
+} from '@daohaus/common-utilities';
+import { Variables } from 'graphql-request';
 
 const Layout = styled.div`
   width: 100%;
@@ -71,15 +76,16 @@ const HomePage = () => {
       {}
     )
   );
-  const [filterDelegate, setFilterDelegate] = useState<string>('');
+  const [filterDelegate, setFilterDelegate] = useState<Member_Filter | ''>('');
 
   useEffect(() => {
     const getDaos = async (address: string) => {
       const haus = temporaryInitHaus();
       const query = await haus.profile.listDaosByMember({
         memberAddress: address,
-        networkIds: Object.keys(filterNetworks),
+        networkIds: Object.keys(filterNetworks) as ValidNetwork[],
         includeTokens: true,
+        filter: filterDelegate || undefined,
       });
 
       if (query.data?.daos) {
@@ -89,7 +95,7 @@ const HomePage = () => {
 
     if (!address) return;
     getDaos(address);
-  }, [address, filterNetworks]);
+  }, [address, filterNetworks, filterDelegate]);
 
   const toggleNetworkFilter = (event: MouseEvent<HTMLButtonElement>) => {
     const network = event.currentTarget.value;
@@ -108,7 +114,9 @@ const HomePage = () => {
 
   const toggleDelegateFilter = (event: MouseEvent<HTMLButtonElement>) => {
     setFilterDelegate((prevState) =>
-      prevState === event.currentTarget.value ? '' : event.currentTarget.value
+      prevState === event.currentTarget.value
+        ? ''
+        : (event.currentTarget.value as Member_Filter)
     );
   };
 

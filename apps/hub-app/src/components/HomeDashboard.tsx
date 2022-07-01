@@ -1,4 +1,4 @@
-import { ITransformedMembership } from '@daohaus/dao-data';
+import { ITransformedMembership, Member_Filter } from '@daohaus/dao-data';
 import { MouseEvent, useState } from 'react';
 import styled from 'styled-components';
 import { ListType } from '../utils/appSpecificTypes';
@@ -17,7 +17,7 @@ type DashProps = {
   daoData: ITransformedMembership[];
   filterNetworks: Record<string, string>;
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
-  filterDelegate: string;
+  filterDelegate: Member_Filter | '';
   toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 

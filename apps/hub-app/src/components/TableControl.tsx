@@ -7,6 +7,7 @@ import { indigoDark } from '@radix-ui/colors';
 import { ListType } from '../utils/appSpecificTypes';
 import { MouseEvent } from 'react';
 import FilterDropdown from './FilterDropdown';
+import { Member_Filter } from '@daohaus/dao-data';
 
 const IconGrid = styled(BsFillGrid3X3GapFill)`
   height: 1.8rem;
@@ -54,7 +55,7 @@ type TableControlProps = {
   toggleListType: () => void;
   filterNetworks: Record<string, string>;
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
-  filterDelegate: string;
+  filterDelegate: Member_Filter | '';
   toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 

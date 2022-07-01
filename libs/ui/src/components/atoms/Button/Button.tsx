@@ -19,6 +19,7 @@ export type ButtonProps = {
   IconLeft?: IconType;
   IconRight?: IconType;
   type?: 'button' | 'submit' | 'reset';
+  value?: string;
 };
 
 type Ref =
@@ -41,6 +42,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
     IconLeft,
     IconRight,
     type,
+    value,
   } = props;
   const classes = classNames({
     secondary,
@@ -59,6 +61,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
         className={`${classes} ${className}`}
         ref={ref}
         type={type}
+        value={value}
       >
         <WithIcon>
           {IconLeft && <IconLeft className={`${iconClasses} icon-left`} />}

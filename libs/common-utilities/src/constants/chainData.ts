@@ -20,47 +20,11 @@ export const isValidNetwork = (
     : VALID_NETWORKS[str as ValidNetwork] !== undefined;
 
 export const networkData: Keychain<NetworkType> = {
-  '0x1': {
-    chainId: '0x1',
-    networkId: 1,
-    name: 'Mainnet',
-    symbol: 'ETH',
-  },
   '0x5': {
     chainId: '0x5',
     networkId: 5,
     name: 'Goerli',
     symbol: 'ETH',
-  },
-  '0x64': {
-    chainId: '0x64',
-    networkId: 100,
-    name: 'Gnosis Chain',
-    symbol: 'xDAI',
-  },
-  '0xa': {
-    chainId: '0xa',
-    networkId: 10,
-    name: 'Optimism Mainnet',
-    symbol: 'ETH',
-  },
-  '0x89': {
-    chainId: '0x89',
-    networkId: 137,
-    name: 'Polygon',
-    symbol: 'MATIC',
-  },
-  '0xa4b1': {
-    chainId: '0xa4b1',
-    networkId: 42161,
-    name: 'Arbitrum',
-    symbol: 'ETH',
-  },
-  '0xa4ec': {
-    chainId: '0xa4ec',
-    networkId: 42220,
-    name: 'Celo',
-    symbol: 'CELO',
   },
 };
 

@@ -82,7 +82,7 @@ export interface ITransformedMembership {
   activeMemberCount: string;
   votingPower: number;
   networkId?: keyof Keychain;
-  delegate?: string | undefined;
+  delegate?: string;
   isDelegate: boolean;
   memberAddress: string;
   fiatTotal?: number;

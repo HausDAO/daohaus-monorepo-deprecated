@@ -51,6 +51,7 @@ const FirstCell = styled.p`
 `;
 
 export const DataTable = ({ daoData }: IDaoTableData) => {
+  console.log('daoData', daoData);
   const tableData = React.useMemo(
     () =>
       daoData.map((dao) => ({
@@ -108,7 +109,7 @@ export const DataTable = ({ daoData }: IDaoTableData) => {
       {
         Header: 'Delegate',
         accessor: 'delegate',
-        Cell: ({ value }: { value: string }) => {
+        Cell: ({ value }: { value: any }) => {
           return <Highlight>{value}</Highlight>;
         },
       },

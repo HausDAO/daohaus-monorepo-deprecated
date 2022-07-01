@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { charLimit } from '@daohaus/common-utilities';
-import { Avatar, Bold, border, Button, ParLg, ParMd } from '@daohaus/ui';
+import { Avatar, Bold, border, ParLg, ParMd } from '@daohaus/ui';
 import { Tag } from './Tag';
 import { AlertCircle } from './AlertCircle';
 import { ITransformedMembership } from '@daohaus/dao-data';

@@ -84,6 +84,7 @@ const HomePage = () => {
         memberAddress: address,
         networkIds: Object.keys(filterNetworks) as ValidNetwork[],
         includeTokens: true,
+        // TODO: add delegate filter
       });
 
       if (query.data?.daos) {

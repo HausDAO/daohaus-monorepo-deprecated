@@ -1,90 +1,165 @@
-# DAOhaus Monorepo
+# DAOhaus v3 Monorepo
 
-This project was generated using [Nx](https://nx.dev).
+DAOhaus is a no-code platform for summoning and managing Moloch DAOs. We've worked to reimagine our platform into multiple apps, libraries, and microservices. We're using a monorepo to streamline the development of all of these elements, and we used [Nx](https://nx.dev) to scaffold our monorepo.
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="450"></p>
+If you'd like to join our community, we coordinate on [Discord](https://discord.gg/gWH4vt3tWE).
 
-🔎 **Smart, Fast and Extensible Build System**
+## Packages
 
-## Adding capabilities to your workspace
+Our monorepo follows the [recommended Nx structure](https://nx.dev/structure/applications-and-libraries) with `apps` and `libs` folders. The `apps` folder contains our core applications, subgraphs, and infrastructure jobs. The `libs` has our utilities, librarires, and infrastructure resources.
 
-Nx supports many plugins which add capabilities for developing different types of applications and different tools.
+### Apps
 
-These capabilities include generating applications, libraries, etc as well as the devtools to test, and build projects as well.
+Our applications in the `apps` folder are our DAO infrastructure and leverage our libraries, subgraphs, and contracts. Currently, we have two categories for these applications:
 
-Below are our core plugins:
+- **User Interfaces**: These are our applications that are used to interact with DAOs.
+  - Hub App
+  - Summoner App
+- **Deployed Infrastructure**: These are our jobs and subgraphs and are deployed to provide functionality leveraged throughout our other applications.
+  - DAO Producer Job
+  - v3 Subgraph
 
-- [React](https://reactjs.org)
-  - `npm install --save-dev @nrwl/react`
-- Web (no framework frontends)
-  - `npm install --save-dev @nrwl/web`
-- [Angular](https://angular.io)
-  - `npm install --save-dev @nrwl/angular`
-- [Nest](https://nestjs.com)
-  - `npm install --save-dev @nrwl/nest`
-- [Express](https://expressjs.com)
-  - `npm install --save-dev @nrwl/express`
-- [Node](https://nodejs.org)
-  - `npm install --save-dev @nrwl/node`
+#### [Hub App](./apps/hub-app)
 
-There are also many [community plugins](https://nx.dev/community) you could add.
+- Vite React application with Typescript
 
-## Generate an application
+Entry point: `apps/hub-app`
 
-Run `nx g @nrwl/react:app my-app` to generate an application.
+#### [Summoner App](./apps/summon-app/)
 
-> You can use any of the plugins above to generate applications as well.
+- Vite React application with Typescript
 
-When using Nx, you can create multiple applications and libraries in the same workspace.
+Entry point: `apps/summon-app`
 
-## Generate a library
+#### [DAO Producer Job](./apps/jobs/dao-producer-job)
 
-Run `nx g @nrwl/react:lib my-lib` to generate a library.
+Entry point: `apps/dao-producer-job`
 
-> You can also use any of the plugins above to generate libraries as well.
+#### [v3 Subgraph](./apps/v3-subgraph/)
 
-Libraries are shareable across libraries and applications. They can be imported from `@daohaus-monorepo/mylib`.
+Entry point: `apps/v3-subgraph`
 
-## Development server
+Entry point: `apps/summoner-app`
 
-Run `nx serve my-app` for a dev server. Navigate to http://localhost:4200/. The app will automatically reload if you change any of the source files.
+### Libs
 
-## Code scaffolding
+Our libraries in the `libs` folder are structured to be consumed by our apps as well as used by external developers using our tooling. Currently, we have three categories of libraries:
 
-Run `nx g @nrwl/react:component my-component --project=my-app` to generate a new component.
+- **Utility Libraries**: These are libraries that are used to provide foundational utility that can be composed and integrated into applications.
+  - Helm Chart Infrastructure Playbook
+  - DAO Data SDK
+  - Component Library
+- **Feature Libraries**: These compose together other libraries such as the _DAO Data SDK_ and the _Component Library_ to create "smart components" that can be integrated into applications.
+  - DAOhaus Connect
+  - Tx Builder
 
-## Build
+#### [DAO Data SDK](./libs/dao-data)
 
-Run `nx build my-app` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Entry point: `libs/dao-data-sdk`
 
-## Running unit tests
+#### [Component Library (UI)](./libs/ui)
 
-Run `nx test my-app` to execute the unit tests via [Jest](https://jestjs.io).
+Entry point: `libs/ui`
 
-Run `nx affected:test` to execute the unit tests affected by a change.
+#### [DAOhaus Connect](./libs/daohaus-connect-feature)
 
-## Running end-to-end tests
+Entry point: `libs/daohaus-connect-feature`
 
-Run `ng e2e my-app` to execute the end-to-end tests via [Cypress](https://www.cypress.io).
+#### [Tx Builder](./libs/tx-builder-feature)
 
-Run `nx affected:e2e` to execute the end-to-end tests affected by a change.
+Entry point: `libs/tx-builder-feature`
 
-## Understand your workspace
+#### [Helm Chart Infrastructure Playbook](./libs/infra-chart)
 
-Run `nx graph` to see a diagram of the dependencies of your projects.
+Entry point: `libs/infra-chart`
 
-## Further help
+## Getting Started
 
-Visit the [Nx Documentation](https://nx.dev) to learn more.
+Our monorepos use [Nx](https://nx.dev/) as a build system and for scaffolding. If this your first time using Nx, you'll have to install it globally on your system:
+`npm install -g nx`
 
-## ☁ Nx Cloud
+Here is a basic guide. Each package README (and `project.json`) will have more details about commands within each package.
 
-### Distributed Computation Caching & Distributed Task Execution
+```bash
 
-<p style="text-align: center;"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-cloud-card.png"></p>
+`git clone git@github.com:HausDAO/daohaus-monorepo.git` or `git@github.com:HausDAO/daohaus-monorepo.git`
 
-Nx Cloud pairs with Nx in order to enable you to build and test code more rapidly, by up to 10 times. Even teams that are new to Nx can connect to Nx Cloud and start saving time instantly.
+# clone the entire monorepo at the top level on the develop branch
 
-Teams using Nx gain the advantage of building full-stack applications with their preferred framework alongside Nx’s advanced code generation and project dependency graph, plus a unified experience for both frontend and backend developers.
+`yarn`
+# run yarn to install all of the packages and dependencies
 
-Visit [Nx Cloud](https://nx.app/) to learn more.
+```
+
+Once cloned and everything is installed, you'll be able to run each package! Package-level commands are run with `nx run` instead of `yarn` -- this may be new if you're used to working in a different monorepo structure. Each package has similar command structure, but some packages have additional commands.
+
+The package-level commands can be found in each package's `project.json`.
+
+```bash
+
+# run a specific package locally (usually on localhost:3000)
+# such as the component library or frontend applications
+
+nx run app-name:serve
+
+# example to run the Hub app:
+
+nx run hub-app:serve
+
+# lint a specific package
+
+nx run app-name:lint
+
+# example to lint the Hub app:
+
+nx run hub-app:lint
+
+# build a specific package:
+
+nx run app-name:build
+
+# example to build the Hub app:
+
+nx run hub-app:build
+
+```
+
+## Nx Generators
+
+We've created _generators_ that leverage `nx` with predetermined option flags.
+
+### React App
+
+Our stack uses [Vite](https://vitejs.dev/) as our React build tool. This generator will scaffold a new React app, such as a frontend app, using `vite` and `styled-components`.
+
+`nx g @nxext/react:application --name <name of app> --pascalCaseFiles true --routing true --style styled-components`
+
+TypeScript is enabled and included by default.
+
+### React Library
+
+Our stack uses [Vite](https://vitejs.dev/) as our React build tool. This generator will scaffold a new React library (such as a component library) with `vite` and `styled-components`.
+
+- `nx g @nxext/react:library --name here --importPath @daohaus/<package_name> --buildable true --publishable true --style styled-components`
+
+TypeScript is enabled and included by default.
+
+Notes: - use the `--publishable` flag for external libraries - use the `--buildable` flag for internal libraries
+
+### TypeScript Library
+
+- `nx g @nrwl/js:lib <lib_name> --importPath @daohaus/<package_name> --publishable true`
+
+Notes: - use the `--publishable` flag for external libraries - use the `--buildable` flag for internal libraries
+
+### Node Application
+
+- `nx g @nrwl/node:application <app_name>`
+
+### Lamdba Application
+
+- `nx generate @ns3/nx-serverless:app <name> --plugin @ns3/nx-serverless/plugin`
+
+### Common Issues
+
+- Sometimes vite applications will have trouble finding dependencies with a depth greater than 1. To resolve this create a custom vite config like the one mentioned in [this](https://github.com/aleclarson/vite-tsconfig-paths/issues/12#issuecomment-1081160667) issue, and update the build and serve commands in the project.json to point to the new vite config path. Now your issues should be resolved.

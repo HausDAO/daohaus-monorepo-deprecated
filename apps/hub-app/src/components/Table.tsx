@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
 import { Avatar } from '@daohaus/ui';
 import { BiGhost } from 'react-icons/bi';
-
+import { ITransformedMembership } from '@daohaus/dao-data';
 interface EData {
   name: string;
   activeProposals: string;
@@ -13,6 +13,10 @@ interface EData {
   power: string;
   network: string;
   delegate: string;
+}
+
+interface IDaoTableData {
+  daoData: ITransformedMembership[];
 }
 
 const Table = styled.table`
@@ -55,12 +59,13 @@ const FirstCell = styled.p`
   align-items: center;
 `;
 
-export const DataTable = () => {
-  const exampleData = React.useMemo<EData[]>(
+export const DataTable = ({ daoData }: IDaoTableData) => {
+  console.log('daoData', daoData);
+  const tableData = React.useMemo<ITransformedMembership[]>(
     () => [
       {
         name: 'AntiMetaMetaGovernanceDao',
-        activeProposals: '4',
+        activeProposalCount: '4',
         vaults: '324 ETH',
         members: '121',
         power: '3.1%',
@@ -89,7 +94,7 @@ export const DataTable = () => {
     []
   );
 
-  const exampleColumns = React.useMemo<Column<EData>[]>(
+  const exampleColumns = React.useMemo<Column<ITransformedMembership>[]>(
     () => [
       {
         accessor: 'name', // accessor is the "key" in the data
@@ -141,7 +146,7 @@ export const DataTable = () => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns: exampleColumns,
-      data: exampleData,
+      data: tableData,
     });
 
   return (

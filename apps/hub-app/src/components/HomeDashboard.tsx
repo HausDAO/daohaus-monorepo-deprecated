@@ -44,7 +44,7 @@ export const HomeDashboard = ({
         toggleDelegateFilter={toggleDelegateFilter}
       />
       {listType === 'cards' && <DaoCards daoData={daoData} />}
-      {listType === 'table' && <DataTable />}
+      {listType === 'table' && <DataTable daoData={daoData} />}
     </Body>
   );
 };

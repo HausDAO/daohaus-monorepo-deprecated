@@ -29,7 +29,6 @@ export const isProposalInGrace = (proposal: QueryProposal): boolean => {
   return Number(proposal.votingEnds) < now && Number(proposal.graceEnds) > now;
 };
 
-// TODO - more testing here and in filters. likely need some checkes on unsponsored/cancelled
 export const isProposalExpired = (proposal: QueryProposal): boolean =>
   Number(proposal.expiration) > 0 &&
   !proposal.processed &&
@@ -46,7 +45,16 @@ export const proposalNeedsProcessing = (proposal: QueryProposal): boolean =>
 
 export const isProposalFailed = (proposal: QueryProposal): boolean =>
   nowInSeconds() > Number(proposal.graceEnds) &&
-  Number(proposal.yesBalance) < Number(proposal.noBalance);
+  !proposal.cancelled &&
+  (!passedQuorum(proposal) ||
+    Number(proposal.yesBalance) < Number(proposal.noBalance));
+
+export const passedQuorum = (proposal: QueryProposal): boolean => {
+  return (
+    Number(proposal.yesBalance) * 100 >
+    Number(proposal.dao.quorumPercent) * Number(proposal.dao.totalShares)
+  );
+};
 
 export const getProposalStatus = (proposal: QueryProposal): ProposalStatus => {
   if (isProposalUnsponsored(proposal)) {

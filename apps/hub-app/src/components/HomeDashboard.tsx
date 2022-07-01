@@ -116,7 +116,6 @@ const Desktop = ({
     <>
       {listType === 'cards' && <DaoCards daoData={daoData} />}
       {listType === 'table' && <DataTable daoData={daoData} />}
-    </Body>
     </>
   );
 };

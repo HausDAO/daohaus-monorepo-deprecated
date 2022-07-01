@@ -69,7 +69,7 @@ export const DataTable = ({ daoData }: IDaoTableData) => {
     () => [
       {
         accessor: 'name', // accessor is the "key" in the data
-        Cell: ({ value }: { value: string }) => {
+        Cell: ({ value }: { value }) => {
           return (
             <FirstCell>
               <Avatar size="sm" fallback={<BiGhost />} />
@@ -84,7 +84,7 @@ export const DataTable = ({ daoData }: IDaoTableData) => {
       {
         Header: 'Active Proposals',
         accessor: 'activeProposalCount',
-        Cell: ({ value }: { value: string }) => {
+        Cell: ({ value }: { value }) => {
           return <Highlight>{value}</Highlight>;
         },
       },

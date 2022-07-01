@@ -51,5 +51,4 @@ jobs:
       - name: Deploy mono
         if: ${{ github.ref == 'refs/heads/develop' }}
         run: |
-          echo '//registry.npmjs.org/:_authToken=${{secrets.OTP}}' > .npmrc
-          nx affected --exclude ui,dao-data,common-utilities,abi-utilities,baal-contract-service,daohaus-connect-feature --target deploy --base $BASE --otp ${{ secrets.OTP }}
+          nx affected --target deployStaging --base $BASE

@@ -8,10 +8,13 @@ describe('haus', () => {
   let haus: Haus;
 
   beforeAll(async () => {
-    haus = await Haus.create(rpcConfig);
+    haus = await Haus.create({ providers: rpcConfig });
   });
   it('should init', () => {
-    expect(haus.providers['0x5']).toEqual(rpcConfig['0x5']);
+    expect(haus.options.providers).toBeTruthy();
+    if (haus.options.providers) {
+      expect(haus.options.providers['0x5']).toEqual(rpcConfig['0x5']);
+    }
   });
 
   it('should have a query class', () => {

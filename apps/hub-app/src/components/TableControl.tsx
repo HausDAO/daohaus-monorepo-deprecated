@@ -1,21 +1,12 @@
 import { Button, Input } from '@daohaus/ui';
 import styled from 'styled-components';
 import { BiSearch } from 'react-icons/bi';
-import { RiFilterFill } from 'react-icons/ri';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
-import { ParSm } from '@daohaus/ui';
-import { amberDark, indigoDark } from '@radix-ui/colors';
-import { ListType } from '../utils/appSpecificTypes';
 
-const IconFilter = styled(RiFilterFill)`
-  height: 1.8rem;
-  width: 1.8rem;
-  display: flex;
-  fill: ${indigoDark.indigo10};
-  :hover {
-    fill: ${indigoDark.indigo10};
-  }
-`;
+import { indigoDark } from '@radix-ui/colors';
+import { ListType } from '../utils/appSpecificTypes';
+import { MouseEvent } from 'react';
+import FilterDropdown from './FilterDropdown';
 
 const IconGrid = styled(BsFillGrid3X3GapFill)`
   height: 1.8rem;
@@ -40,12 +31,10 @@ const Layout = styled.div`
   gap: 2.4rem;
   padding-top: 3.6rem;
   padding-bottom: 3.6rem;
-`;
 
-const FlexContainer = styled.div`
-  display: flex;
-  gap: 0.7rem;
-  color: ${amberDark.amber9};
+  .list-type-toggle {
+    transform: translateX(-13.5rem);
+  }
 `;
 
 const StyledInput = styled(Input)`
@@ -63,9 +52,20 @@ const StyledInput = styled(Input)`
 type TableControlProps = {
   listType: ListType;
   toggleListType: () => void;
+  filterNetworks: Record<string, string>;
+  toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
+  filterDelegate: string;
+  toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
-const TableControl = ({ listType, toggleListType }: TableControlProps) => {
+const TableControl = ({
+  listType,
+  toggleListType,
+  filterNetworks,
+  toggleNetworkFilter,
+  filterDelegate,
+  toggleDelegateFilter,
+}: TableControlProps) => {
   return (
     <Layout>
       <StyledInput
@@ -73,16 +73,18 @@ const TableControl = ({ listType, toggleListType }: TableControlProps) => {
         id="table-search"
         placeholder="Search 3 Daos"
       />
-
-      <FlexContainer>
-        <IconFilter />
-        <ParSm color={indigoDark.indigo11}>Filters</ParSm>
-      </FlexContainer>
-      {/* <FlexContainer>
-        <IconGrid />
-        <ParSm color={indigoDark.indigo11}>Grid</ParSm>
-      </FlexContainer> */}
-      <Button secondary onClick={toggleListType} IconLeft={IconGrid}>
+      <FilterDropdown
+        filterNetworks={filterNetworks}
+        toggleNetworkFilter={toggleNetworkFilter}
+        filterDelegate={filterDelegate}
+        toggleDelegateFilter={toggleDelegateFilter}
+      />
+      <Button
+        secondary
+        onClick={toggleListType}
+        IconLeft={IconGrid}
+        className="list-type-toggle"
+      >
         {listType === 'table' ? 'Card View' : 'List View'}
       </Button>
     </Layout>

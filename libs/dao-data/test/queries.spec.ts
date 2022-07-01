@@ -1,29 +1,57 @@
 import { Haus } from '../src/index';
-import { statusFilter } from '../src/utils';
 
 describe('haus', () => {
-  const rpcConfig = {
-    '0x5': `https://${process.env['RIVET_KEY']}.rinkeby.rpc.rivet.cloud`,
-    '0x64': 'https://rpc.gnosischain.com',
-  };
   let haus: Haus;
 
   beforeAll(async () => {
-    haus = await Haus.create(rpcConfig);
+    haus = await Haus.create();
   });
 
-  it('can fetch a filtered list of dao proposals', async () => {
+  it('can fetch a list of daos - offset', async () => {
     const networkId = '0x5';
-    const dao = '0x3ebd5cf78cb8e100b88f96adbd836bb1ae9a05ca';
 
-    const statusFilterVaribles = statusFilter('Expired', '500');
-
-    const res = await haus.query.listProposals({
+    const res = await haus.query.listDaos({
       networkId,
-      filter: { dao: dao, ...statusFilterVaribles },
+      paging: { offset: 0, pageSize: 2 },
+    });
+
+    const nextPageRes = await haus.query.listDaos({
+      networkId,
+      paging: res.nextPaging,
+    });
+
+    const previousPageRes = await haus.query.listDaos({
+      networkId,
+      paging: res.previousPaging,
     });
 
     expect(res.error).toBeUndefined();
-    expect(res?.data?.proposals.length).toBe(3);
+    expect(res.items.length).toBe(2);
+    expect(nextPageRes.items.length).toBe(2);
+    expect(res.previousPaging).toBeFalsy();
+    expect(nextPageRes.previousPaging).toBeTruthy();
+
+    expect(res.items[0].id).toEqual(previousPageRes.items[0].id);
+  });
+
+  it('can fetch a list of members - cursor', async () => {
+    const networkId = '0x5';
+
+    const res = await haus.query.listMembers({
+      networkId,
+      paging: {
+        pageSize: 1,
+        lastId: '0',
+      },
+    });
+
+    const nextPageRes = await haus.query.listProposals({
+      networkId,
+      paging: res.nextPaging,
+    });
+
+    expect(res.error).toBeUndefined();
+    expect(res.items.length).toBe(1);
+    expect(nextPageRes.items.length).toBe(1);
   });
 });

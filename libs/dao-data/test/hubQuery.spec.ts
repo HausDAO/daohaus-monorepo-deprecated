@@ -9,7 +9,7 @@ describe('haus', () => {
   let haus: Haus;
 
   beforeAll(async () => {
-    haus = await Haus.create(rpcConfig);
+    haus = await Haus.create({ providers: rpcConfig });
   });
 
   it('can fetch all daos for an account', async () => {
@@ -17,7 +17,7 @@ describe('haus', () => {
     const memberAddress =
       '0xf100041473280b594d78ab5fa4c44ba81edd367b'.toLowerCase();
 
-    const res = await haus.query.listDaosByMember({
+    const res = await haus.profile.listDaosByMember({
       memberAddress,
       networkIds,
     });
@@ -29,7 +29,7 @@ describe('haus', () => {
     const networkIds: (keyof Keychain)[] = ['0x5'];
     const memberAddress = '0xf100041473280b594d78ab5fa4c44ba81edd367b';
 
-    const res = await haus.query.listDaosByMember({
+    const res = await haus.profile.listDaosByMember({
       memberAddress,
       networkIds,
       includeTokens: true,

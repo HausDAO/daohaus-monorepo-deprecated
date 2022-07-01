@@ -5,15 +5,6 @@ import { indigoDark } from '@radix-ui/colors';
 import { Avatar } from '@daohaus/ui';
 import { BiGhost } from 'react-icons/bi';
 import { ITransformedMembership } from '@daohaus/dao-data';
-interface EData {
-  name: string;
-  activeProposals: string;
-  vaults: string;
-  members: string;
-  power: string;
-  network: string;
-  delegate: string;
-}
 
 interface IDaoTableData {
   daoData: ITransformedMembership[];
@@ -60,16 +51,15 @@ const FirstCell = styled.p`
 `;
 
 export const DataTable = ({ daoData }: IDaoTableData) => {
-  console.log('daoData', daoData);
   const tableData = React.useMemo(
     () =>
       daoData.map((dao: ITransformedMembership) => ({
         name: dao.name,
         activeProposalCount: dao.activeProposalCount,
-        vaults: '324 ETH',
-        members: dao.activeMemberCount,
-        power: dao.votingPower,
-        network: dao.networkId,
+        fiatTotal: dao.fiatTotal,
+        activeMemberCount: dao.activeMemberCount,
+        votingPower: dao.votingPower,
+        networkId: dao.networkId,
         delegate: dao.delegate === undefined ? 'No Delegate' : dao.delegate,
       })),
     [daoData]
@@ -100,19 +90,19 @@ export const DataTable = ({ daoData }: IDaoTableData) => {
       },
       {
         Header: 'Vaults',
-        accessor: 'vaults',
+        accessor: 'fiatTotal',
       },
       {
         Header: 'Members',
-        accessor: 'members',
+        accessor: 'activeMemberCount',
       },
       {
         Header: 'Power',
-        accessor: 'power',
+        accessor: 'votingPower',
       },
       {
         Header: 'Network',
-        accessor: 'network',
+        accessor: 'networkId',
       },
       {
         Header: 'Delegate',

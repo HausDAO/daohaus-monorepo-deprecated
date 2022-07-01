@@ -2,7 +2,6 @@ import { ITransformedMembership } from '@daohaus/dao-data';
 import { ParMd, Spinner, useBreakpoint, widthQuery } from '@daohaus/ui';
 import { MouseEvent, useState } from 'react';
 import styled from 'styled-components';
-
 import { ListType } from '../utils/appSpecificTypes';
 import { DaoCards } from './DaoCards';
 import { DataTable } from './Table';
@@ -16,8 +15,8 @@ const Body = styled.div`
 `;
 
 type DashProps = {
-  // daoData: ITransformedMembership[] | any;
-  daoData: any;
+  daoData: ITransformedMembership[];
+  // daoData: any;
   filterNetworks: Record<string, string>;
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
   filterDelegate: string;

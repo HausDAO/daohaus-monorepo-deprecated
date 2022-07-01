@@ -53,7 +53,7 @@ const FirstCell = styled.p`
 export const DataTable = ({ daoData }: IDaoTableData) => {
   const tableData = React.useMemo(
     () =>
-      daoData.map((dao: ITransformedMembership) => ({
+      daoData.map((dao) => ({
         name: dao.name,
         activeProposalCount: dao.activeProposalCount,
         fiatTotal: dao.fiatTotal,

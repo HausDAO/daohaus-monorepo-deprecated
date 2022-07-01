@@ -31,7 +31,7 @@ Entry point: `apps/hub-app`
 
 Entry point: `apps/summon-app`
 
-#### [DAO Producer Job](./apps/dao-producer-job)
+#### [DAO Producer Job](./apps/jobs/dao-producer-job)
 
 Entry point: `apps/dao-producer-job`
 
@@ -53,7 +53,7 @@ Our libraries in the `libs` folder are structured to be consumed by our apps as 
   - DAOhaus Connect
   - Tx Builder
 
-#### [DAO Data SDK](./libs/dao-data-sdk)
+#### [DAO Data SDK](./libs/dao-data)
 
 Entry point: `libs/dao-data-sdk`
 

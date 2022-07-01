@@ -12,7 +12,7 @@ This library was generated with [Nx](https://nx.dev).
 
 When this package is published on `npm` we'll have instructions on how to include it in your apps. If you're using this from inside the monorepo, you can import directly from the package.
 
-The package name for importing is `@daohaus/daohaus-connect-feature`. If you've pulled down the entire monorepo you can reference it via this namespace, such as `import { HausConnectProvider } from '@daohaus/daohaus-connect-feature'``.
+The package name for importing is `@daohaus/daohaus-connect-feature`. If you've pulled down the entire monorepo you can reference it via this namespace, such as `import { HausConnectProvider } from '@daohaus/daohaus-connect-feature'`.
 
 ## Usage
 

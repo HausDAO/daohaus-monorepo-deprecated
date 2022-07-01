@@ -1,15 +1,16 @@
 import { MouseEvent, useEffect, useState } from 'react';
+import { indigoDark } from '@radix-ui/colors';
+import styled from 'styled-components';
+
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { breakpoints } from '@daohaus/ui';
-import styled from 'styled-components';
-import { BodyNav } from '../components/BodyNav';
-import Header from '../components/Header';
-import { HeaderProfile } from '../components/Profile';
+import { Haus, ITransformedMembership } from '@daohaus/dao-data';
 
-import { indigoDark } from '@radix-ui/colors';
+import { HeaderProfile } from '../components/Profile';
+import Header from '../components/Header';
+import { BodyNav } from '../components/BodyNav';
 import { HomeDashboard } from '../components/HomeDashboard';
 import { HomeNotConnected } from './HomeNotConnected';
-import { Haus, ITransformedMembership } from '@daohaus/dao-data';
 import {
   isValidNetwork,
   networkData,

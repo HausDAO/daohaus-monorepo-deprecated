@@ -9,7 +9,7 @@ import { Theme } from '../types/theming';
 import './global/fonts.css';
 import { Toast } from '../components';
 import { ToastProvider } from '../components/molecules/Toast/Toast.styles';
-import { CustomToastProps } from '../types/toastTypes';
+import { CustomToastProps } from '../types/toast.types';
 
 type HausUI = {
   theme: Theme;

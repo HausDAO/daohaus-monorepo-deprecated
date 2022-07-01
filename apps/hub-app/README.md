@@ -27,7 +27,7 @@ When users connect to Hub, they'll be able to view the following:
     - Delegate
       - Hub also indicates if the connected user is a delegate of the DAO
 
-The core purpose of the Hub is for users to have a landing page for viewing data for DAOs that they're in.
+Hub is for users to have a landing page for viewing data for DAOs that they're in.
 
 ## Running Locally
 

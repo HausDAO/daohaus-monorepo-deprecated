@@ -30,6 +30,12 @@ declare module 'styled-components' {
     card: {
       bg: string;
       border: string;
+      hoverBg: string;
+      hoverBorder: string;
+      focusBg: string;
+      focusBorder: string;
+      disabledBg: string;
+      disabledBorder: string;
       successText: string;
       successBg: string;
       successBorder: string;
@@ -139,6 +145,25 @@ declare module 'styled-components' {
       indicator: {
         bg: string;
         disabledBg: string;
+      };
+    };
+    toast: {
+      bg: string;
+      border: string;
+      successText: string;
+      successBg: string;
+      successBorder: string;
+      warningText: string;
+      warningBg: string;
+      warningBorder: string;
+      errorText: string;
+      errorBg: string;
+      errorBorder: string;
+      icon: {
+        default: string;
+        success: string;
+        warning: string;
+        error: string;
       };
     };
   }

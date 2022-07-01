@@ -16,17 +16,14 @@ export type ToastLinksProps = {
   };
 };
 
-type IconType = 'success' | 'warning' | 'error';
+export type ToastType = 'default' | 'success' | 'warning' | 'error';
 
 export type CustomToastProps = ToastProps &
   ToastProviderProps &
   ToastViewportProps & {
     title: string;
     description?: string;
-    success?: boolean;
-    warning?: boolean;
-    error?: boolean;
-    iconType?: IconType;
+    toastType?: ToastType;
     ariaLabelClose?: string;
     toastLinks?: ToastLinksProps;
   };

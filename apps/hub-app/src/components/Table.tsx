@@ -5,10 +5,9 @@ import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
 import { Avatar } from '@daohaus/ui';
 import { BiGhost } from 'react-icons/bi';
-import { ITransformedMembership } from '@daohaus/dao-data';
 
 interface DaoData {
-  name?: string;
+  name?: string | JSX.Element;
   activeProposalCount: number;
   activeMemberCount: string;
   votingPower: number;
@@ -82,7 +81,7 @@ export const DataTable = ({ daoData }: IDaoTableData) => {
     () => [
       {
         accessor: 'name', // accessor is the "key" in the data
-        Cell: ({ value }: { value:string }) => {
+        Cell: ({ value }: { value: string }) => {
           return (
             <FirstCell>
               <Avatar size="sm" fallback={<BiGhost />} />
@@ -97,7 +96,7 @@ export const DataTable = ({ daoData }: IDaoTableData) => {
       {
         Header: 'Active Proposals',
         accessor: 'activeProposalCount',
-        Cell: ({ value }: { value:string }) => {
+        Cell: ({ value }: { value: string }) => {
           return <Highlight>{value}</Highlight>;
         },
       },
@@ -120,7 +119,7 @@ export const DataTable = ({ daoData }: IDaoTableData) => {
       {
         Header: 'Delegate',
         accessor: 'delegate',
-        Cell: ({ value }: { value:string }) => {
+        Cell: ({ value }: { value: string }) => {
           return <Highlight>{value}</Highlight>;
         },
       },

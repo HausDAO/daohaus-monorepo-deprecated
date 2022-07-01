@@ -13,6 +13,17 @@ const Template: ComponentStory<typeof Tag> = (args) => {
 export const AtomTag = Template.bind({});
 
 AtomTag.args = {
-  tagColor: 'green',
+  children: <p>Content in a Tag</p>,
+};
+
+export const BlueAtomTag = Template.bind({});
+BlueAtomTag.args = {
+  tagColor: 'blue',
+  children: <p>Content in a Tag</p>,
+};
+
+export const VioletAtomTag = Template.bind({});
+VioletAtomTag.args = {
+  tagColor: 'violet',
   children: <p>Content in a Tag</p>,
 };

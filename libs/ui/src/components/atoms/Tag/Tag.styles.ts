@@ -18,22 +18,22 @@ export const BaseTag = styled.div<{
 }>`
   display: inline-flex;
   align-items: center;
-  background-color: ${darkTagColors.blue3};
-  border: 1px solid ${darkTagColors.blue3};
+  background-color: ${({ tagColor }) => `${darkTagColors[`${tagColor}3`]}`};
+  border: 1px solid ${({ tagColor }) => `${darkTagColors[`${tagColor}3`]}`};
   border-radius: ${border.radius};
-  color: ${darkTagColors.blue11};
+  color: ${({ tagColor }) => `${darkTagColors[`${tagColor}11`]}`};
   min-height: 2.6rem;
   min-width: 5.2rem;
   padding: 0.2rem 0.5rem;
 
   :hover {
-    background-color: ${darkTagColors.blue4};
-    border: 1px solid ${darkTagColors.blue4};
+    background-color: ${({ tagColor }) => `${darkTagColors[`${tagColor}3`]}`};
+    border: 1px solid ${({ tagColor }) => `${darkTagColors[`${tagColor}4`]}`};
   }
 
   :focus {
     background-color: ${darkTagColors.blue3};
-    border: 1px solid ${darkTagColors.blue5};
+    border: 1px solid ${({ tagColor }) => `${darkTagColors[`${tagColor}5`]}`};
     outline: none;
   }
 

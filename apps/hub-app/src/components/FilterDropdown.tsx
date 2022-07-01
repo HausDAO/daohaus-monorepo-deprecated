@@ -1,4 +1,4 @@
-import { MouseEvent, useMemo } from 'react';
+import { MouseEvent } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { RiFilterFill } from 'react-icons/ri';
@@ -9,6 +9,7 @@ import { networkData } from '@daohaus/common-utilities';
 import { indigoDark } from '@radix-ui/colors';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { Member_Filter } from '@daohaus/dao-data';
+import { FILTER_TYPE } from '../utils/constants';
 
 const DropdownButton = styled(Button)`
   &.selected {
@@ -41,13 +42,7 @@ const FilterDropdown = ({
 }: FilterDropdownProps) => {
   const theme = useTheme();
   const { address } = useHausConnect();
-  const filterKey = useMemo(
-    () => ({
-      isDelegate: `{ memberAddress: ${address}, delegateShares_gt: '0' }`,
-      isDelagating: `{ memberAddress: ${address}, delegatingTo_not: ${address} }`,
-    }),
-    [address]
-  );
+
   const networkButtons = Object.values(networkData).map(
     (network): DropdownItem => {
       const isActive = filterNetworks[network.chainId];
@@ -96,15 +91,15 @@ const FilterDropdown = ({
               secondary
               fullWidth
               leftAlign
-              value={filterKey.isDelegate}
+              value={FILTER_TYPE.DELEGATING}
               onClick={toggleDelegateFilter}
               IconRight={
-                filterDelegate === filterKey.isDelegate
+                filterDelegate === FILTER_TYPE.DELEGATING
                   ? AiOutlineCheck
                   : undefined
               }
               className={
-                filterDelegate === filterKey.isDelegate ? 'selected' : ''
+                filterDelegate === FILTER_TYPE.DELEGATING ? 'selected' : ''
               }
             >
               <div style={{ width: '100%' }}>I am a Delegate</div>
@@ -118,15 +113,15 @@ const FilterDropdown = ({
               secondary
               fullWidth
               leftAlign
-              value={filterKey.isDelagating}
+              value={FILTER_TYPE.DELEGATING_TO}
               onClick={toggleDelegateFilter}
               IconRight={
-                filterDelegate === filterKey.isDelagating
+                filterDelegate === FILTER_TYPE.DELEGATING_TO
                   ? AiOutlineCheck
                   : undefined
               }
               className={
-                filterDelegate === filterKey.isDelagating ? 'selected' : ''
+                filterDelegate === FILTER_TYPE.DELEGATING_TO ? 'selected' : ''
               }
             >
               <div style={{ width: '100%' }}>I have a Delegate</div>

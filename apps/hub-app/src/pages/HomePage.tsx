@@ -15,7 +15,6 @@ import {
   networkData,
   ValidNetwork,
 } from '@daohaus/common-utilities';
-import { Variables } from 'graphql-request';
 
 const Layout = styled.div`
   width: 100%;
@@ -85,7 +84,6 @@ const HomePage = () => {
         memberAddress: address,
         networkIds: Object.keys(filterNetworks) as ValidNetwork[],
         includeTokens: true,
-        // filter: filterDelegate || undefined,
       });
 
       if (query.data?.daos) {

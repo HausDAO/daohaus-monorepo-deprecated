@@ -44,6 +44,10 @@ const Layout = styled.div`
   gap: 2.4rem;
   padding-top: 3.6rem;
   padding-bottom: 3.6rem;
+
+  .list-type-toggle {
+    transform: translateX(-13.5rem);
+  }
 `;
 
 const StyledInput = styled(Input)`
@@ -88,7 +92,12 @@ const TableControl = ({
         filterDelegate={filterDelegate}
         toggleDelegateFilter={toggleDelegateFilter}
       />
-      <Button secondary onClick={toggleListType} IconLeft={IconGrid}>
+      <Button
+        secondary
+        onClick={toggleListType}
+        IconLeft={IconGrid}
+        className="list-type-toggle"
+      >
         {listType === 'table' ? 'Card View' : 'List View'}
       </Button>
     </Layout>

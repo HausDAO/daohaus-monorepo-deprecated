@@ -107,7 +107,9 @@ const HomePage = () => {
   };
 
   const toggleDelegateFilter = (event: MouseEvent<HTMLButtonElement>) => {
-    setFilterDelegate(event.currentTarget.value);
+    setFilterDelegate((prevState) =>
+      prevState === event.currentTarget.value ? '' : event.currentTarget.value
+    );
   };
 
   return (

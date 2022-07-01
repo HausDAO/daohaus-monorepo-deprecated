@@ -66,7 +66,7 @@ const TableControl = ({
   filterDelegate,
   toggleDelegateFilter,
 }: TableControlProps) => {
-  const isMobile = !useBreakpoint(widthQuery.sm);
+  const isMobile = useBreakpoint(widthQuery.sm);
   return (
     <Layout>
       <StyledInput
@@ -80,7 +80,7 @@ const TableControl = ({
         filterDelegate={filterDelegate}
         toggleDelegateFilter={toggleDelegateFilter}
       />
-      {!isMobile || (
+      {isMobile || (
         <Button
           secondary
           onClick={toggleListType}

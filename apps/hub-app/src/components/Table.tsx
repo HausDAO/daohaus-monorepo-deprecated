@@ -61,37 +61,18 @@ const FirstCell = styled.p`
 
 export const DataTable = ({ daoData }: IDaoTableData) => {
   console.log('daoData', daoData);
-  const tableData = React.useMemo<ITransformedMembership[]>(
-    () => [
-      {
-        name: 'AntiMetaMetaGovernanceDao',
-        activeProposalCount: '4',
+  const tableData = React.useMemo(
+    () =>
+      daoData.map((dao: ITransformedMembership) => ({
+        name: dao.name,
+        activeProposalCount: dao.activeProposalCount,
         vaults: '324 ETH',
-        members: '121',
-        power: '3.1%',
-        network: 'Ethereum',
-        delegate: 'billie.eth',
-      },
-      {
-        name: 'PeaceCamp',
-        activeProposals: '1',
-        vaults: '4.8 ETH',
-        members: '42',
-        power: '12.6%',
-        network: 'Gnosis',
-        delegate: '--',
-      },
-      {
-        name: 'UberComplexDao',
-        activeProposals: '2',
-        vaults: '650 ETH',
-        members: '23.5k',
-        power: '0.8%',
-        network: 'Polygon',
-        delegate: '--',
-      },
-    ],
-    []
+        members: dao.activeMemberCount,
+        power: dao.votingPower,
+        network: dao.networkId,
+        delegate: dao.delegate === undefined ? 'No Delegate' : dao.delegate,
+      })),
+    [daoData]
   );
 
   const exampleColumns = React.useMemo<Column<ITransformedMembership>[]>(
@@ -112,7 +93,7 @@ export const DataTable = ({ daoData }: IDaoTableData) => {
       },
       {
         Header: 'Active Proposals',
-        accessor: 'activeProposals',
+        accessor: 'activeProposalCount',
         Cell: ({ value }: { value: string }) => {
           return <Highlight>{value}</Highlight>;
         },

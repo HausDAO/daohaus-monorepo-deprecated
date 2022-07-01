@@ -1,6 +1,8 @@
 import { ITransformedMembership } from '@daohaus/dao-data';
+import { useBreakpoint, widthQuery } from '@daohaus/ui';
 import { MouseEvent, useState } from 'react';
 import styled from 'styled-components';
+import { isMobile } from 'web3modal';
 import { ListType } from '../utils/appSpecificTypes';
 import { DaoCards } from './DaoCards';
 import { DataTable } from './Table';
@@ -29,6 +31,7 @@ export const HomeDashboard = ({
   toggleDelegateFilter,
 }: DashProps) => {
   const [listType, setListType] = useState<ListType>('cards');
+  const isMobile = useBreakpoint(widthQuery.sm);
   const toggleListType = () => {
     listType === 'cards' ? setListType('table') : setListType('cards');
   };
@@ -43,8 +46,29 @@ export const HomeDashboard = ({
         filterDelegate={filterDelegate}
         toggleDelegateFilter={toggleDelegateFilter}
       />
+      {isMobile ? (
+        <Mobile daoData={daoData} />
+      ) : (
+        <Desktop daoData={daoData} listType={listType} />
+      )}
+    </Body>
+  );
+};
+
+const Mobile = ({ daoData }: { daoData: ITransformedMembership[] }) => (
+  <DaoCards daoData={daoData} />
+);
+const Desktop = ({
+  daoData,
+  listType,
+}: {
+  daoData: ITransformedMembership[];
+  listType: ListType;
+}) => {
+  return (
+    <>
       {listType === 'cards' && <DaoCards daoData={daoData} />}
       {listType === 'table' && <DataTable />}
-    </Body>
+    </>
   );
 };

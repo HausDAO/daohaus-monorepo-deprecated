@@ -5,6 +5,7 @@ import { Avatar, Bold, border, Button, ParLg, ParMd } from '@daohaus/ui';
 import { Tag } from './Tag';
 import { AlertCircle } from './AlertCircle';
 import { ITransformedMembership } from '@daohaus/dao-data';
+import FallBackDAOImage from '../assets/fallback-dao-logo.svg';
 
 const StyledDaoCard = styled.div`
   background-color: ${(props) => props.theme.card.bg};
@@ -64,7 +65,7 @@ export const DaoCard = ({
     <StyledDaoCard className="dao-card">
       <div className="top-box">
         <div className="alert-box">
-          <Avatar size="xl" />
+          <Avatar size="xl" src={FallBackDAOImage} />
           {activeProposalCount > 0 && (
             <AlertCircle number={activeProposalCount} />
           )}

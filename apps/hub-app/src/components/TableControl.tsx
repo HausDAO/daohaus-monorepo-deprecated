@@ -152,6 +152,7 @@ const FilterDropdown = ({
 
   return (
     <Dropdown
+      align="end"
       width="25rem"
       spacing=".6rem"
       bg={theme.button.secondary.bg}

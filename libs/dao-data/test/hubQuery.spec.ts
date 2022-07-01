@@ -22,6 +22,8 @@ describe('haus', () => {
       networkIds,
     });
 
+    console.log('res?.data?.daos', res?.data?.daos);
+
     expect(res?.data?.daos.length).toBeGreaterThan(1);
   });
 

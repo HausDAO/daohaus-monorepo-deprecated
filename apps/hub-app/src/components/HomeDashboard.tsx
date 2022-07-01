@@ -2,7 +2,7 @@ import { ITransformedMembership } from '@daohaus/dao-data';
 import { useBreakpoint, widthQuery } from '@daohaus/ui';
 import { MouseEvent, useState } from 'react';
 import styled from 'styled-components';
-import { isMobile } from 'web3modal';
+
 import { ListType } from '../utils/appSpecificTypes';
 import { DaoCards } from './DaoCards';
 import { DataTable } from './Table';

@@ -93,9 +93,9 @@ export const DaoCard = ({
         <Tag>{networkId}</Tag>
         <Tag>{contractType}</Tag>
       </div>
-      <div>
+      {/* <div>
         <Button secondary>Go</Button>
-      </div>
+      </div> */}
     </StyledDaoCard>
   );
 };

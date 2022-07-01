@@ -16,7 +16,8 @@ const Body = styled.div`
 `;
 
 type DashProps = {
-  daoData: ITransformedMembership[];
+  // daoData: ITransformedMembership[] | any;
+  daoData: any;
   filterNetworks: Record<string, string>;
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
   filterDelegate: string;
@@ -115,7 +116,7 @@ const Desktop = ({
   return (
     <>
       {listType === 'cards' && <DaoCards daoData={daoData} />}
-      {listType === 'table' && <DataTable />}
+      {listType === 'table' && <DataTable daoData={daoData} />}
     </>
   );
 };

@@ -10,7 +10,7 @@ This app utilizes several of our libraries, including _DAOhaus Connect_, _TX Bui
 
 ## Alpha Features
 
-At the core, the Summoner Alpha app is a tool for summoning Baal DAOs.
+The Summoner Alpha app is a tool for summoning Baal DAOs.
 
 ## Running Locally
 

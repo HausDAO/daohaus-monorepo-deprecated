@@ -82,7 +82,6 @@ const HomePage = () => {
     if (!address) return;
     getDaos(address);
   }, [address]);
-
   return (
     <Layout>
       <SideTopLeft />

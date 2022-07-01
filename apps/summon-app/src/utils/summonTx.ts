@@ -248,8 +248,8 @@ export const assembleTxArgs = (
     lootConfigTX(formValues),
     metadataConfigTX(formValues, POSTER),
   ];
-
   const args = [initParams, initActions, getNonce()];
+  console.log('args', args);
 
   return args;
 };

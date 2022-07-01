@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { breakpoints } from '@daohaus/ui';
 import styled from 'styled-components';
@@ -7,10 +7,9 @@ import Header from '../components/Header';
 import { HeaderProfile } from '../components/Profile';
 
 import { indigoDark } from '@radix-ui/colors';
-import { sampleDaoData } from '../utils/temp';
-import { TemporaryDAOType } from '../utils/appSpecificTypes';
 import { HomeDashboard } from '../components/HomeDashboard';
 import { HomeNotConnected } from './HomeNotConnected';
+import { Haus, ITransformedMembership } from '@daohaus/dao-data';
 
 const Layout = styled.div`
   width: 100%;
@@ -58,9 +57,31 @@ const SideTopRight = styled.div`
   width: 100%;
 `;
 
+const temporaryInitHaus = () => {
+  return Haus.create();
+};
+
 const HomePage = () => {
-  const { isProfileLoading, isConnected } = useHausConnect();
-  const [daoData] = useState<TemporaryDAOType[]>(sampleDaoData);
+  const { isProfileLoading, isConnected, address } = useHausConnect();
+  const [daoData, setDaoData] = useState<ITransformedMembership[]>([]);
+
+  useEffect(() => {
+    const getDaos = async (address: string) => {
+      const haus = temporaryInitHaus();
+      const query = await haus.profile.listDaosByMember({
+        memberAddress: address,
+        networkIds: ['0x5'],
+        includeTokens: true,
+      });
+
+      if (query.data?.daos) {
+        setDaoData(query.data.daos);
+      }
+    };
+
+    if (!address) return;
+    getDaos(address);
+  }, [address]);
 
   return (
     <Layout>

@@ -1,4 +1,4 @@
-import { Button, Input } from '@daohaus/ui';
+import { Button, Input, useBreakpoint, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
 import { BiSearch } from 'react-icons/bi';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
@@ -66,6 +66,7 @@ const TableControl = ({
   filterDelegate,
   toggleDelegateFilter,
 }: TableControlProps) => {
+  const isMobile = useBreakpoint(widthQuery.sm);
   return (
     <Layout>
       <StyledInput
@@ -79,14 +80,16 @@ const TableControl = ({
         filterDelegate={filterDelegate}
         toggleDelegateFilter={toggleDelegateFilter}
       />
-      <Button
-        secondary
-        onClick={toggleListType}
-        IconLeft={IconGrid}
-        className="list-type-toggle"
-      >
-        {listType === 'table' ? 'Card View' : 'List View'}
-      </Button>
+      {isMobile || (
+        <Button
+          secondary
+          onClick={toggleListType}
+          IconLeft={IconGrid}
+          className="list-type-toggle"
+        >
+          {listType === 'table' ? 'Card View' : 'List View'}
+        </Button>
+      )}
     </Layout>
   );
 };

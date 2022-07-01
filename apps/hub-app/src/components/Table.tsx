@@ -19,7 +19,7 @@ interface DaoData {
 }
 
 interface IDaoTableData {
-  daoData: DaoData[];
+  daoData: DaoData[] | any;
 }
 
 const Table = styled.table`
@@ -65,7 +65,7 @@ const FirstCell = styled.p`
 export const DataTable = ({ daoData }: IDaoTableData) => {
   const tableData = React.useMemo<DaoData[]>(
     () =>
-      daoData.map((dao) => ({
+      daoData.map((dao: DaoData) => ({
         name: dao.name,
         activeProposalCount: dao.activeProposalCount,
         fiatTotal: dao.fiatTotal,

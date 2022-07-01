@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { breakpoints } from '@daohaus/ui';
 import styled from 'styled-components';
@@ -10,6 +10,7 @@ import { indigoDark } from '@radix-ui/colors';
 import { HomeDashboard } from '../components/HomeDashboard';
 import { HomeNotConnected } from './HomeNotConnected';
 import { Haus, ITransformedMembership } from '@daohaus/dao-data';
+import { isValidNetwork, networkData } from '@daohaus/common-utilities';
 
 const Layout = styled.div`
   width: 100%;
@@ -64,7 +65,12 @@ const temporaryInitHaus = () => {
 const HomePage = () => {
   const { isProfileLoading, isConnected, address } = useHausConnect();
   const [daoData, setDaoData] = useState<ITransformedMembership[]>([]);
-
+  const [filterNetworks, setFilterNetworks] = useState<Record<string, string>>(
+    Object.keys(networkData).reduce(
+      (acc, networkId) => ({ [networkId]: networkId }),
+      {}
+    )
+  );
   useEffect(() => {
     const getDaos = async (address: string) => {
       const haus = temporaryInitHaus();
@@ -83,6 +89,21 @@ const HomePage = () => {
     getDaos(address);
   }, [address]);
 
+  const toggleNetworkFilter = (event: MouseEvent<HTMLButtonElement>) => {
+    const network = event.currentTarget.value;
+    if (network && isValidNetwork(network)) {
+      filterNetworks[network]
+        ? setFilterNetworks((prevState) => {
+            delete prevState[network];
+            return { ...prevState };
+          })
+        : setFilterNetworks((prevState) => ({
+            ...prevState,
+            [network]: network,
+          }));
+    }
+  };
+
   return (
     <Layout>
       <SideTopLeft />
@@ -92,7 +113,15 @@ const HomePage = () => {
         <BodyNav />
         {isConnected && !isProfileLoading && <HeaderProfile />}
       </ProfileContainer>
-      {isConnected ? <HomeDashboard daoData={daoData} /> : <HomeNotConnected />}
+      {isConnected ? (
+        <HomeDashboard
+          daoData={daoData}
+          filterNetworks={filterNetworks}
+          toggleNetworkFilter={toggleNetworkFilter}
+        />
+      ) : (
+        <HomeNotConnected />
+      )}
     </Layout>
   );
 };

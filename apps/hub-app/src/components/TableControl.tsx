@@ -8,8 +8,8 @@ import { AiOutlineCheck } from 'react-icons/ai';
 import { ParSm } from '@daohaus/ui';
 import { indigoDark } from '@radix-ui/colors';
 import { ListType } from '../utils/appSpecificTypes';
-import { MouseEvent, useState } from 'react';
-import { isValidNetwork, networkData } from '@daohaus/common-utilities';
+import { MouseEvent } from 'react';
+import { networkData } from '@daohaus/common-utilities';
 
 const IconFilter = styled(RiFilterFill)`
   height: 1.8rem;
@@ -61,9 +61,16 @@ const StyledInput = styled(Input)`
 type TableControlProps = {
   listType: ListType;
   toggleListType: () => void;
+  filterNetworks: Record<string, string>;
+  toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
-const TableControl = ({ listType, toggleListType }: TableControlProps) => {
+const TableControl = ({
+  listType,
+  toggleListType,
+  filterNetworks,
+  toggleNetworkFilter,
+}: TableControlProps) => {
   return (
     <Layout>
       <StyledInput
@@ -71,7 +78,10 @@ const TableControl = ({ listType, toggleListType }: TableControlProps) => {
         id="table-search"
         placeholder="Search 3 Daos"
       />
-      <FilterDropdown />
+      <FilterDropdown
+        filterNetworks={filterNetworks}
+        toggleNetworkFilter={toggleNetworkFilter}
+      />
       <Button secondary onClick={toggleListType} IconLeft={IconGrid}>
         {listType === 'table' ? 'Card View' : 'List View'}
       </Button>
@@ -87,34 +97,20 @@ const DropdownButton = styled(Button)`
   }
 `;
 
-const FilterDropdown = () => {
-  const [filterNetworks, setFilterNetworks] = useState<Record<string, string>>(
-    {}
-  );
-  const theme = useTheme();
+type FilterDropdownProps = {
+  filterNetworks: Record<string, string>;
+  toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
+};
 
-  const toggleNetworkFilter = (event: MouseEvent<HTMLButtonElement>) => {
-    const network = event.currentTarget.value;
-    if (network && isValidNetwork(network)) {
-      filterNetworks[network]
-        ? setFilterNetworks((prevState) => {
-            delete prevState[network];
-            return { ...prevState };
-          })
-        : setFilterNetworks((prevState) => ({
-            ...prevState,
-            [network]: network,
-          }));
-    }
-  };
+const FilterDropdown = ({
+  filterNetworks,
+  toggleNetworkFilter,
+}: FilterDropdownProps) => {
+  const theme = useTheme();
 
   const networkButtons = Object.values(networkData).map(
     (network): DropdownItem => {
-      console.log('RENDER');
       const isActive = filterNetworks[network.chainId];
-      console.log('filterNetworks', filterNetworks);
-      console.log('network.chainId', network.chainId);
-      console.log('isActive ', isActive);
       return {
         type: 'clickable',
         content: (
@@ -148,19 +144,6 @@ const FilterDropdown = () => {
       items={[
         { type: 'label', content: <ParSm>Networks</ParSm> },
         ...networkButtons,
-        //   type: 'clickable',
-        //   content: (
-        //     <DropdownButton
-        //       secondary
-        //       fullWidth
-        //       leftAlign
-        //       value="0x5"
-        //       onClick={toggleNetworkFilter}
-        //     >
-        //       Goerli
-        //     </DropdownButton>
-        //   ),
-        // },
         {
           type: 'label',
           content: <ParSm>Delegation</ParSm>,

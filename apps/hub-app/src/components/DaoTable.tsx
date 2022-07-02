@@ -63,8 +63,7 @@ const FirstCell = styled.p`
   align-items: center;
 `;
 
-export const DataTable = ({ daoData }: IDaoTableData) => {
-  console.log('daoData', daoData);
+export const DaoTable = ({ daoData }: IDaoTableData) => {
   const tableData = React.useMemo<ITransformedMembership[]>(
     () =>
       daoData.map((dao: ITransformedMembership) => ({

@@ -16,7 +16,6 @@ const Body = styled.div`
 
 type DashProps = {
   daoData: ITransformedMembership[];
-  // daoData: any;
   filterNetworks: Record<string, string>;
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
   filterDelegate: string;

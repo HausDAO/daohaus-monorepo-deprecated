@@ -6,20 +6,7 @@ import { indigoDark } from '@radix-ui/colors';
 import { Avatar } from '@daohaus/ui';
 import { BiGhost } from 'react-icons/bi';
 
-// interface DaoData {
-//   name: string;
-//   activeProposalCount: number | string;
-//   activeMemberCount: string;
-//   votingPower: number;
-//   networkId?: keyof Keychain;
-//   delegate: string | undefined;
-//   memberAddress?: string;
-//   fiatTotal: number;
-//   totalProposalCount?: string;
-// }
-
 interface IDaoTableData {
-  // daoData: DaoData[];
   daoData: ITransformedMembership[];
 }
 

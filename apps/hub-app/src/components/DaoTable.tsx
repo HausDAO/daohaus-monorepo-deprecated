@@ -1,25 +1,13 @@
 import React from 'react';
-import { Keychain } from '@daohaus/common-utilities';
+import { ITransformedMembership } from '@daohaus/dao-data';
 import { useTable, Column } from 'react-table';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
 import { Avatar } from '@daohaus/ui';
 import { BiGhost } from 'react-icons/bi';
 
-interface DaoData {
-  name: string;
-  activeProposalCount: number | string;
-  activeMemberCount: string;
-  votingPower: number;
-  networkId?: keyof Keychain;
-  delegate: string | undefined;
-  memberAddress?: string;
-  fiatTotal: number;
-  totalProposalCount?: string;
-}
-
 interface IDaoTableData {
-  daoData: DaoData[] | any;
+  daoData: ITransformedMembership[];
 }
 
 const Table = styled.table`
@@ -62,10 +50,10 @@ const FirstCell = styled.p`
   align-items: center;
 `;
 
-export const DataTable = ({ daoData }: IDaoTableData) => {
-  const tableData = React.useMemo<DaoData[]>(
+export const DaoTable = ({ daoData }: IDaoTableData) => {
+  const tableData = React.useMemo<ITransformedMembership[]>(
     () =>
-      daoData.map((dao: DaoData) => ({
+      daoData.map((dao: ITransformedMembership) => ({
         name: dao.name,
         activeProposalCount: dao.activeProposalCount,
         fiatTotal: dao.fiatTotal,
@@ -73,15 +61,21 @@ export const DataTable = ({ daoData }: IDaoTableData) => {
         votingPower: dao.votingPower,
         networkId: dao.networkId,
         delegate: dao.delegate === undefined ? 'No Delegate' : dao.delegate,
+        memberAddress: dao.memberAddress,
+        safeAddress: dao.safeAddress,
+        dao: dao.dao,
+        isDelegate: dao.isDelegate,
+        totalProposalCount: dao.totalProposalCount,
+        contractType: dao.contractType,
       })),
     [daoData]
   );
 
-  const exampleColumns = React.useMemo<Column<DaoData>[]>(
+  const exampleColumns = React.useMemo<Column<ITransformedMembership>[]>(
     () => [
       {
         accessor: 'name', // accessor is the "key" in the data
-        Cell: ({ value }: { value: string | number }) => {
+        Cell: ({ value }: { value: string | undefined }) => {
           return (
             <FirstCell>
               <Avatar size="sm" fallback={<BiGhost />} />

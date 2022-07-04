@@ -1,4 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { RiCheckLine, RiCloseLine } from 'react-icons/ri';
+
 import { Tag } from './Tag';
 
 export default {
@@ -26,4 +28,26 @@ export const VioletAtomTag = Template.bind({});
 VioletAtomTag.args = {
   tagColor: 'violet',
   children: <p>Content in a Tag</p>,
+};
+
+export const IconLeftAtomTag = Template.bind({});
+IconLeftAtomTag.args = {
+  tagColor: 'violet',
+  children: <p>Content in a Tag</p>,
+  IconLeft: RiCloseLine,
+};
+
+export const IconRightAtomTag = Template.bind({});
+IconRightAtomTag.args = {
+  tagColor: 'violet',
+  children: <p>Content in a Tag</p>,
+  IconRight: RiCheckLine,
+};
+
+export const IconBothAtomTag = Template.bind({});
+IconBothAtomTag.args = {
+  tagColor: 'violet',
+  children: <p>Content in a Tag</p>,
+  IconLeft: RiCloseLine,
+  IconRight: RiCheckLine,
 };

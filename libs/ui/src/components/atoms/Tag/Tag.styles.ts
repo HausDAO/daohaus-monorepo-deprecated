@@ -44,22 +44,11 @@ export const BaseTag = styled.div<{
       ${({ theme }: { theme: Theme }) => theme.card.disabledBorder};
     cursor: not-allowed;
   }
-`;
-
-export const WithIcon = styled.div`
-  align-items: center;
-  display: flex;
 
   svg {
-    width: 2.1rem;
-    height: 2.1rem;
-    color: ${({ theme }: { theme: Theme }) => theme.button.primary.text};
-
-    &.sm {
-      height: 1.5rem;
-      margin-right: 0.8rem;
-      width: 1.5rem;
-    }
+    width: 1.2rem;
+    height: 1.2rem;
+    color: ${({ tagColor }) => `${darkTagColors[`${tagColor}11`]}`};
   }
 
   svg.icon-left {

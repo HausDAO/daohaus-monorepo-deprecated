@@ -2,10 +2,9 @@ import { ITransformedMembership } from '@daohaus/dao-data';
 import { ParMd, Spinner, useBreakpoint, widthQuery } from '@daohaus/ui';
 import { MouseEvent, useState } from 'react';
 import styled from 'styled-components';
-
 import { ListType } from '../utils/appSpecificTypes';
 import { DaoCards } from './DaoCards';
-import { DataTable } from './Table';
+import { DaoTable } from './DaoTable';
 import TableControl from './TableControl';
 
 // Refactored this to be a component that we might be able to reuse
@@ -16,8 +15,7 @@ const Body = styled.div`
 `;
 
 type DashProps = {
-  // daoData: ITransformedMembership[] | any;
-  daoData: any;
+  daoData: ITransformedMembership[];
   filterNetworks: Record<string, string>;
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
   filterDelegate: string;
@@ -116,7 +114,7 @@ const Desktop = ({
   return (
     <>
       {listType === 'cards' && <DaoCards daoData={daoData} />}
-      {listType === 'table' && <DataTable daoData={daoData} />}
+      {listType === 'table' && <DaoTable daoData={daoData} />}
     </>
   );
 };

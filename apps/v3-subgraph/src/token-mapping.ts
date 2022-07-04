@@ -222,16 +222,16 @@ export function handleDelegateChanged(event: DelegateChanged): void {
     delegatingToMember.save();
   }
 
-  if (event.params.fromDelegate !== event.params.delegator) {
-    let delegatingFromMemberId = dao.id
-      .concat('-member-')
-      .concat(event.params.fromDelegate.toHexString());
-    let delegatingFromMember = Member.load(delegatingFromMemberId);
-    if (delegatingFromMember === null) {
-      log.info('handleDelegateChanged no delegatingFromMemberId: {}', [
-        delegatingFromMemberId,
-      ]);
-    } else {
+  let delegatingFromMemberId = dao.id
+    .concat('-member-')
+    .concat(event.params.fromDelegate.toHexString());
+  let delegatingFromMember = Member.load(delegatingFromMemberId);
+  if (delegatingFromMember === null) {
+    log.info('handleDelegateChanged no delegatingFromMemberId: {}', [
+      delegatingFromMemberId,
+    ]);
+  } else {
+    if (delegatingFromMember.delegateOfCount != constants.BIGINT_ZERO) {
       delegatingFromMember.delegateOfCount =
         delegatingFromMember.delegateOfCount.minus(constants.BIGINT_ONE);
       delegatingFromMember.save();

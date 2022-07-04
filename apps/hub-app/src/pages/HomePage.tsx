@@ -38,7 +38,7 @@ const Layout = styled.div`
   @media (min-width: ${breakpoints.xs}) {
     grid-template:
       'sidebarTopLeft header sidebarTopRight' 9.6rem
-      'sidebarTopLeft profile sidebarTopRight' minmax(auto, 26rem)
+      'sidebarTopLeft profile sidebarTopRight' minmax(auto, 9.6rem)
       'sidebar body aside' 1fr / minmax(2.6rem, 1fr) minmax(auto, 120rem) minmax(2.6rem, 1fr);
   }
 `;
@@ -51,6 +51,7 @@ const ProfileContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding: 0 2rem;
 `;
 
 const SideTopLeft = styled.div`
@@ -77,19 +78,29 @@ const HomePage = () => {
     )
   );
   const [filterDelegate, setFilterDelegate] = useState<string | ''>('');
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const getDaos = async (address: string) => {
-      const haus = temporaryInitHaus();
-      const query = await haus.profile.listDaosByMember({
-        memberAddress: address,
-        networkIds: Object.keys(filterNetworks) as ValidNetwork[],
-        includeTokens: true,
-        // TODO: add delegate filter
-      });
+      setLoading(true);
+      try {
+        const haus = temporaryInitHaus();
+        const query = await haus.profile.listDaosByMember({
+          memberAddress: address,
+          networkIds: Object.keys(filterNetworks) as ValidNetwork[],
+          includeTokens: true,
+          // TODO: add delegate filter
+        });
 
-      if (query.data?.daos) {
-        setDaoData(query.data.daos);
+        if (query.data?.daos) {
+          setDaoData(query.data.daos);
+        }
+      } catch (error) {
+        error instanceof Error
+          ? console.error(error.message)
+          : console.error('Well, shit...');
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -134,6 +145,7 @@ const HomePage = () => {
           toggleNetworkFilter={toggleNetworkFilter}
           filterDelegate={filterDelegate}
           toggleDelegateFilter={toggleDelegateFilter}
+          loading={loading}
         />
       ) : (
         <HomeNotConnected />

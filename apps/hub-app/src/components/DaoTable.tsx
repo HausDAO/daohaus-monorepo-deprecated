@@ -1,18 +1,13 @@
 import React from 'react';
+import { ITransformedMembership } from '@daohaus/dao-data';
 import { useTable, Column } from 'react-table';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
 import { Avatar } from '@daohaus/ui';
 import { BiGhost } from 'react-icons/bi';
 
-interface EData {
-  name: string;
-  activeProposals: string;
-  vaults: string;
-  members: string;
-  power: string;
-  network: string;
-  delegate: string;
+interface IDaoTableData {
+  daoData: ITransformedMembership[];
 }
 
 const Table = styled.table`
@@ -55,45 +50,32 @@ const FirstCell = styled.p`
   align-items: center;
 `;
 
-export const DataTable = () => {
-  const exampleData = React.useMemo<EData[]>(
-    () => [
-      {
-        name: 'AntiMetaMetaGovernanceDao',
-        activeProposals: '4',
-        vaults: '324 ETH',
-        members: '121',
-        power: '3.1%',
-        network: 'Ethereum',
-        delegate: 'billie.eth',
-      },
-      {
-        name: 'PeaceCamp',
-        activeProposals: '1',
-        vaults: '4.8 ETH',
-        members: '42',
-        power: '12.6%',
-        network: 'Gnosis',
-        delegate: '--',
-      },
-      {
-        name: 'UberComplexDao',
-        activeProposals: '2',
-        vaults: '650 ETH',
-        members: '23.5k',
-        power: '0.8%',
-        network: 'Polygon',
-        delegate: '--',
-      },
-    ],
-    []
+export const DaoTable = ({ daoData }: IDaoTableData) => {
+  const tableData = React.useMemo<ITransformedMembership[]>(
+    () =>
+      daoData.map((dao: ITransformedMembership) => ({
+        name: dao.name,
+        activeProposalCount: dao.activeProposalCount,
+        fiatTotal: dao.fiatTotal,
+        activeMemberCount: dao.activeMemberCount,
+        votingPower: dao.votingPower,
+        networkId: dao.networkId,
+        delegate: dao.delegate === undefined ? 'No Delegate' : dao.delegate,
+        memberAddress: dao.memberAddress,
+        safeAddress: dao.safeAddress,
+        dao: dao.dao,
+        isDelegate: dao.isDelegate,
+        totalProposalCount: dao.totalProposalCount,
+        contractType: dao.contractType,
+      })),
+    [daoData]
   );
 
-  const exampleColumns = React.useMemo<Column<EData>[]>(
+  const exampleColumns = React.useMemo<Column<ITransformedMembership>[]>(
     () => [
       {
         accessor: 'name', // accessor is the "key" in the data
-        Cell: ({ value }: { value: string }) => {
+        Cell: ({ value }: { value: string | undefined }) => {
           return (
             <FirstCell>
               <Avatar size="sm" fallback={<BiGhost />} />
@@ -107,41 +89,42 @@ export const DataTable = () => {
       },
       {
         Header: 'Active Proposals',
-        accessor: 'activeProposals',
-        Cell: ({ value }: { value: string }) => {
+        accessor: 'activeProposalCount',
+        Cell: ({ value }: { value: string | number }) => {
           return <Highlight>{value}</Highlight>;
         },
       },
       {
         Header: 'Vaults',
-        accessor: 'vaults',
+        accessor: 'fiatTotal',
       },
       {
         Header: 'Members',
-        accessor: 'members',
+        accessor: 'activeMemberCount',
       },
       {
         Header: 'Power',
-        accessor: 'power',
+        accessor: 'votingPower',
       },
       {
         Header: 'Network',
-        accessor: 'network',
+        accessor: 'networkId',
       },
       {
         Header: 'Delegate',
         accessor: 'delegate',
-        Cell: ({ value }: { value: string }) => {
+        Cell: ({ value }: { value: string | undefined }) => {
           return <Highlight>{value}</Highlight>;
         },
       },
     ],
     []
   );
+
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns: exampleColumns,
-      data: exampleData,
+      data: tableData,
     });
 
   return (

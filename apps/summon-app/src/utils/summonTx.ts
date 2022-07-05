@@ -235,8 +235,8 @@ export const assembleTxArgs = (
     [
       tokenName,
       tokenSymbol,
-      V3_SHARE_SINGLETON,
       V3_LOOT_SINGLETON,
+      V3_SHARE_SINGLETON,
       GNOSIS_MULTISEND,
     ]
   );

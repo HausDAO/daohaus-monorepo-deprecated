@@ -1,10 +1,12 @@
 import React from 'react';
 import { ITransformedMembership } from '@daohaus/dao-data';
-import { useTable, Column } from 'react-table';
+import { useTable, Column, UseTableRowProps } from 'react-table';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
 import { Avatar } from '@daohaus/ui';
 import { BiGhost } from 'react-icons/bi';
+import { truncateAddress } from '@daohaus/common-utilities';
+import { Tag } from './Tag';
 
 interface IDaoTableData {
   daoData: ITransformedMembership[];
@@ -43,7 +45,7 @@ const FirstHeader = styled.p`
   padding-left: 1.6rem;
 `;
 
-const FirstCell = styled.p`
+const FirstCell = styled.div`
   text-align: left;
   display: flex;
   gap: 1.2rem;
@@ -60,7 +62,7 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
         activeMemberCount: dao.activeMemberCount,
         votingPower: dao.votingPower,
         networkId: dao.networkId,
-        delegate: dao.delegate === undefined ? 'No Delegate' : dao.delegate,
+        delegatingTo: dao.delegatingTo,
         memberAddress: dao.memberAddress,
         safeAddress: dao.safeAddress,
         dao: dao.dao,
@@ -75,11 +77,18 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
     () => [
       {
         accessor: 'name', // accessor is the "key" in the data
-        Cell: ({ value }: { value: string | undefined }) => {
+        Cell: ({
+          value,
+          row,
+        }: {
+          value: string | undefined;
+          row: UseTableRowProps<ITransformedMembership>;
+        }) => {
           return (
             <FirstCell>
               <Avatar size="sm" fallback={<BiGhost />} />
               {value}
+              {row.original.isDelegate && <Tag>Delegate</Tag>}
             </FirstCell>
           );
         },
@@ -112,9 +121,13 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
       },
       {
         Header: 'Delegate',
-        accessor: 'delegate',
+        accessor: 'delegatingTo',
         Cell: ({ value }: { value: string | undefined }) => {
-          return <Highlight>{value}</Highlight>;
+          return (
+            <Highlight>
+              {value === undefined ? '--' : truncateAddress(value)}
+            </Highlight>
+          );
         },
       },
     ],

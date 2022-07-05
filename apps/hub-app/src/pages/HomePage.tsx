@@ -16,7 +16,7 @@ import {
   networkData,
   ValidNetwork,
 } from '@daohaus/common-utilities';
-import { FILTER_TYPE } from '../utils/constants';
+import { getDelegateFilter } from '../utils/queryHelpers';
 
 const Layout = styled.div`
   width: 100%;
@@ -87,19 +87,11 @@ const HomePage = () => {
       try {
         const haus = temporaryInitHaus();
 
-        let filter;
-        if (filterDelegate === FILTER_TYPE.DELEGATING) {
-          filter = { delegateOfCount_gt: '0' };
-        }
-        if (filterDelegate === FILTER_TYPE.DELEGATING_TO) {
-          filter = { delegatingTo_not: address };
-        }
-
         const query = await haus.profile.listDaosByMember({
           memberAddress: address,
           networkIds: Object.keys(filterNetworks) as ValidNetwork[],
           includeTokens: true,
-          filter,
+          filter: getDelegateFilter(filterDelegate, address),
         });
 
         if (query.data?.daos) {

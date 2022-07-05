@@ -107,6 +107,8 @@ export default class Profile {
   > {
     const promises: Promise<IFindQueryResult<ListMembershipsQuery>>[] = [];
 
+    // if (filter)
+
     networkIds.forEach((networkId: keyof Keychain) => {
       const url = this.query.endpoints['V3_SUBGRAPH'][networkId];
 

@@ -95,7 +95,7 @@ export default class Profile {
 
   public async listDaosByMember({
     memberAddress,
-    filter = { memberAddress: memberAddress },
+    filter,
     ordering = {
       orderBy: 'createdAt',
       orderDirection: 'desc',
@@ -107,6 +107,8 @@ export default class Profile {
   > {
     const promises: Promise<IFindQueryResult<ListMembershipsQuery>>[] = [];
 
+    // if (filter)
+
     networkIds.forEach((networkId: keyof Keychain) => {
       const url = this.query.endpoints['V3_SUBGRAPH'][networkId];
 
@@ -117,7 +119,7 @@ export default class Profile {
             url,
             networkId,
             {
-              where: filter,
+              where: { memberAddress: memberAddress, ...filter },
               orderBy: ordering.orderBy,
               orderDirection: ordering.orderDirection,
             }

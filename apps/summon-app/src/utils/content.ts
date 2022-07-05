@@ -38,7 +38,7 @@ export const INFO_COPY = {
   GRACE_PERIOD:
     'The time period between a proposal’s approval and its execution. This provides time for members to ragequit their shares, before the approved proposal is executed.',
   QUORUM:
-    'The minimum percentage of DAO members (voting stake) needed to approve a proposal for it to be executed. This percentage can greatly affect DAO operations, and it the DAO can change it with a proposal.',
+    'The minimum percentage of DAO members (voting stake) needed to approve a proposal for it to be executed. This percentage can greatly affect DAO operations, though the DAO can change it with a proposal after summoning with a proposal.',
   MIN_RETENTION:
     'If less than this percentage of DAO members (voting and non-voting stake) remain in the DAO after the Grace period for a given proposal, that proposal will not be executed.',
   SPONSOR_THRESHOLD:
@@ -48,5 +48,5 @@ export const INFO_COPY = {
   SHAMAN:
     'Input shaman list with contract address and permission level per row using spaces. ex: \n0x00000000000000 2 \n0x00000000000000 1.',
   MEMBERS:
-    'Input member list with member address, voting stake amount, and non-voting stake amount per row. ex: \n 0x00000000000000 20 10 \n 0x00000000000000 10 20.',
+    'Input member list with member address, voting stake amount, and non-voting stake amount per row using spaces. ex: \n 0x00000000000000 20 10 \n 0x00000000000000 10 20.',
 };

@@ -69,14 +69,14 @@ export const transformMembershipList = (
             activeMemberCount: member.dao.activeMemberCount,
             votingPower: votingPowerPercentage(
               member.dao.totalShares,
-              member.shares
+              member.delegateShares
             ),
             networkId: network.networkId,
-            delegate:
+            delegatingTo:
               member.delegatingTo !== member.memberAddress
                 ? member.delegatingTo
                 : undefined,
-            isDelegate: Number(member.delegateShares) > 0,
+            isDelegate: Number(member.delegateOfCount) > 0,
             memberAddress: member.memberAddress,
             contractType: 'Moloch V3',
           };

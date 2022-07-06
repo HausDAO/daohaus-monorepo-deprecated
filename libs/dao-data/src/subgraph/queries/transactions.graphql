@@ -14,9 +14,7 @@ query listTxs(
   ) {
     id
     createdAt
-    dao {
-      id
-    }
+    daoAddress
   }
 }
 
@@ -24,8 +22,6 @@ query findTx($id: ID!) {
   transaction: eventTransaction(id: $id) {
     id
     createdAt
-    dao {
-      id
-    }
+    daoAddress
   }
 }

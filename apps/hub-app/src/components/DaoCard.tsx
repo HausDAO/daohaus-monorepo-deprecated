@@ -73,10 +73,10 @@ export const DaoCard = ({
       </ParLg>
       <div className="stats-box">
         <ParMd>
-          <Bold>{activeMemberCount}</Bold> Members
+          <Bold>{readableNumber({ amount: activeMemberCount })}</Bold> Members
         </ParMd>
         <ParMd>
-          <Bold>{fiatTotal}</Bold> USD
+          <Bold>{readableNumber({ amount: 0.3, maxDecimals: 2 })}</Bold> USD
         </ParMd>
         <ParMd>
           <Bold>{totalProposalCount}</Bold> Proposals
@@ -99,5 +99,14 @@ export const DaoCard = ({
 const testUnits = () => {
   console.log(readableNumber({ amount: 10000000, decimals: 0 }));
   console.log(readableNumber({ amount: '10000000', decimals: 0 }));
+  console.log(readableNumber({ amount: '10000000', decimals: 0, unit: 'ETH' }));
+  console.log(
+    readableNumber({
+      amount: '1',
+      decimals: 0,
+      unit: 'Voting Power',
+      separator: '%',
+    })
+  );
 };
 testUnits();

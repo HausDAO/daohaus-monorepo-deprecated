@@ -16,13 +16,15 @@ export const toWholeUnits = (amount: string, decimals = 18) =>
 export const readableNumber = ({
   amount,
   unit,
-  decimals = 1,
+  decimals,
   separator = '',
+  maxDecimals,
 }: {
   amount: number | string;
   unit?: string;
   decimals?: number;
   separator?: string;
+  maxDecimals?: number;
 }) => {
   if (typeof amount === 'string' && isNumberish(amount)) {
     amount = Number(amount);
@@ -32,17 +34,21 @@ export const readableNumber = ({
   }
   if (amount == null) return null;
   if (amount > 0 && amount < 1) {
-    return `${Number(amount.toFixed(4))} ${unit}`;
+    return unit
+      ? `${Number(amount.toFixed(maxDecimals || decimals || 4))} ${unit}`
+      : Number(amount.toFixed(maxDecimals || decimals || 4));
   }
   if (unit) {
     return `${humanFormat(amount, {
       unit: ` ${unit}`,
       decimals,
+      maxDecimals,
       separator,
     })}`;
   }
   return `${humanFormat(amount, {
     decimals,
+    maxDecimals,
     separator,
   })}`;
 };

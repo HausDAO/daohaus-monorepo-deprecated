@@ -1,6 +1,7 @@
 type HumanFormatOptions = {
   unit?: string;
   decimals?: number;
+  maxDecimals?: number;
   separator?: string;
 };
 

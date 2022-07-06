@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { charLimit } from '@daohaus/common-utilities';
+import { charLimit, readableNumber } from '@daohaus/common-utilities';
 import { Avatar, Bold, border, ParLg, ParMd } from '@daohaus/ui';
 import { Tag } from './Tag';
 import { AlertCircle } from './AlertCircle';
@@ -44,10 +44,6 @@ const StyledDaoCard = styled.div`
     margin-bottom: 1.9rem;
   }
 `;
-
-// COMPONENT LIBRARY
-// Calling this AlertCircle. It's the circle that alerts
-// about the DAO's proposal status.
 
 export const DaoCard = ({
   isDelegate,
@@ -99,3 +95,9 @@ export const DaoCard = ({
     </StyledDaoCard>
   );
 };
+
+const testUnits = () => {
+  console.log(readableNumber({ amount: 10000000, decimals: 0 }));
+  console.log(readableNumber({ amount: '10000000', decimals: 0 }));
+};
+testUnits();

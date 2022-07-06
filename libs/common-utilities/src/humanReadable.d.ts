@@ -1,5 +1,3 @@
-// import 'human-format'
-
 type HumanFormatOptions = {
   unit?: string;
   decimals?: number;

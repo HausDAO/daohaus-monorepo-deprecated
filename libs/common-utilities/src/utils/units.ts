@@ -1,6 +1,10 @@
 import { utils } from 'ethers';
 
-// unstable custom typings.
+// TS CHALLENGE
+
+// unstable custom typings that only suits our needs
+// create a .d.ts file for the human-format library
+// and make a PR to merge it into their library
 import humanFormat from 'human-format';
 
 export const toBaseUnits = (amount: string, decimals = 18) =>

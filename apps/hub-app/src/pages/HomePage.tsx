@@ -17,6 +17,7 @@ import {
   ValidNetwork,
 } from '@daohaus/common-utilities';
 import { getDelegateFilter } from '../utils/queryHelpers';
+import { DEFAULT_SORT_KEY, SORT_FIELDS } from '../utils/constants';
 
 const Layout = styled.div`
   width: 100%;
@@ -79,6 +80,7 @@ const HomePage = () => {
     )
   );
   const [filterDelegate, setFilterDelegate] = useState<string | ''>('');
+  const [sortBy, setSortBy] = useState<string>(DEFAULT_SORT_KEY);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -110,6 +112,34 @@ const HomePage = () => {
     getDaos(address);
   }, [address, filterNetworks, filterDelegate]);
 
+  useEffect(() => {
+    const sortDaos = async () => {
+      setLoading(true);
+      console.log('sortBy', sortBy);
+
+      const sorted = daoData.sort((a, b): number => {
+        if (a[SORT_FIELDS[sortBy].value] > b[SORT_FIELDS[sortBy].value]) {
+          return 1;
+        } else if (
+          a[SORT_FIELDS[sortBy].value] < b[SORT_FIELDS[sortBy].value]
+        ) {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+
+      console.log('sorted', sorted);
+
+      setDaoData(sorted);
+
+      setLoading(false);
+    };
+
+    if (!sortBy || !daoData.length) return;
+    sortDaos();
+  }, [sortBy, daoData]);
+
   const toggleNetworkFilter = (event: MouseEvent<HTMLButtonElement>) => {
     const network = event.currentTarget.value;
     if (network && isValidNetwork(network)) {
@@ -131,6 +161,14 @@ const HomePage = () => {
     );
   };
 
+  const toggleSortBy = (event: MouseEvent<HTMLButtonElement>) => {
+    setSortBy((prevState) =>
+      prevState === event.currentTarget.value
+        ? DEFAULT_SORT_KEY
+        : event.currentTarget.value
+    );
+  };
+
   return (
     <Layout>
       <SideTopLeft />
@@ -147,6 +185,8 @@ const HomePage = () => {
           toggleNetworkFilter={toggleNetworkFilter}
           filterDelegate={filterDelegate}
           toggleDelegateFilter={toggleDelegateFilter}
+          sortBy={sortBy}
+          toggleSortBy={toggleSortBy}
           loading={loading}
         />
       ) : (

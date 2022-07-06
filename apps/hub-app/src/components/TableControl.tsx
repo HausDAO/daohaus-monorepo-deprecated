@@ -7,6 +7,7 @@ import { indigoDark } from '@radix-ui/colors';
 import { ListType } from '../utils/appSpecificTypes';
 import { MouseEvent } from 'react';
 import FilterDropdown from './FilterDropdown';
+import SortDropdown from './SortDropdown';
 
 const IconGrid = styled(BsFillGrid3X3GapFill)`
   height: 1.8rem;
@@ -56,6 +57,8 @@ type TableControlProps = {
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
   filterDelegate: string;
   toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
+  sortBy: string;
+  toggleSortBy: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
 const TableControl = ({
@@ -65,8 +68,11 @@ const TableControl = ({
   toggleNetworkFilter,
   filterDelegate,
   toggleDelegateFilter,
+  sortBy,
+  toggleSortBy,
 }: TableControlProps) => {
   const isMobile = useBreakpoint(widthQuery.sm);
+
   return (
     <Layout>
       <StyledInput
@@ -90,6 +96,7 @@ const TableControl = ({
           {listType === 'table' ? 'Card View' : 'List View'}
         </Button>
       )}
+      <SortDropdown sortBy={sortBy} toggleSortBy={toggleSortBy} />
     </Layout>
   );
 };

@@ -20,6 +20,8 @@ type DashProps = {
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
   filterDelegate: string;
   toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
+  sortBy: string;
+  toggleSortBy: (event: MouseEvent<HTMLButtonElement>) => void;
   loading: boolean;
 };
 
@@ -29,6 +31,8 @@ export const HomeDashboard = ({
   toggleNetworkFilter,
   filterDelegate,
   toggleDelegateFilter,
+  sortBy,
+  toggleSortBy,
   loading,
 }: DashProps) => {
   const [listType, setListType] = useState<ListType>('cards');
@@ -37,6 +41,8 @@ export const HomeDashboard = ({
     listType === 'cards' ? setListType('table') : setListType('cards');
   };
   const noDaos = !daoData.length && !loading;
+
+  console.log('home ', daoData);
   if (loading) {
     return (
       <Body
@@ -69,6 +75,8 @@ export const HomeDashboard = ({
           toggleNetworkFilter={toggleNetworkFilter}
           filterDelegate={filterDelegate}
           toggleDelegateFilter={toggleDelegateFilter}
+          sortBy={sortBy}
+          toggleSortBy={toggleSortBy}
         />
         <NoDaosFound />
       </Body>
@@ -84,6 +92,8 @@ export const HomeDashboard = ({
         toggleNetworkFilter={toggleNetworkFilter}
         filterDelegate={filterDelegate}
         toggleDelegateFilter={toggleDelegateFilter}
+        sortBy={sortBy}
+        toggleSortBy={toggleSortBy}
       />
       {isMobile ? (
         <Mobile daoData={daoData} />

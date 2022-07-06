@@ -191,9 +191,14 @@ type Member @entity {
   loot: BigInt!
   "address the member is delegating to"
   delegatingTo: Bytes!
-  "amount of shares this address has delegated to it"
+  "subgraph id of member the address is delegating to"
+  delegatingToMember: Member
+  "total amount of shares this address votes with (thier own plus delegated shares)"
   delegateShares: BigInt!
+  "members this member is delegating too"
+  delegateOf: [Member!] @derivedFrom(field: "delegatingToMember")
   "related votes"
+  delegateOfCount: BigInt!
   votes: [Vote!] @derivedFrom(field: "member")
 }
 

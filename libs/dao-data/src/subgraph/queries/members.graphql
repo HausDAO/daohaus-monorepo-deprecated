@@ -64,6 +64,7 @@ fragment memberFields on Member {
   loot
   delegatingTo
   delegateShares
+  delegateOfCount
   votes {
     createdAt
     approved

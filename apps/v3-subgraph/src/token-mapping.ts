@@ -21,6 +21,7 @@ function mintShares(event: Transfer, dao: Dao, memberId: string): void {
     member.delegatingTo = event.params.to;
     member.shares = constants.BIGINT_ZERO;
     member.loot = constants.BIGINT_ZERO;
+    member.delegateOfCount = constants.BIGINT_ZERO;
   }
   let memberInitialSharesAndLoot = member.shares.plus(member.loot);
 
@@ -65,6 +66,7 @@ function mintLoot(event: LootTransfer, dao: Dao, memberId: string): void {
     member.delegatingTo = event.params.to;
     member.shares = constants.BIGINT_ZERO;
     member.loot = constants.BIGINT_ZERO;
+    member.delegateOfCount = constants.BIGINT_ZERO;
   }
   let memberInitialSharesAndLoot = member.shares.plus(member.loot);
 
@@ -201,7 +203,41 @@ export function handleDelegateChanged(event: DelegateChanged): void {
     return;
   }
   member.delegatingTo = event.params.toDelegate;
+
+  let delegatingToMemberId = dao.id
+    .concat('-member-')
+    .concat(event.params.toDelegate.toHexString());
+
+  member.delegatingToMember = delegatingToMemberId;
   member.save();
+
+  let delegatingToMember = Member.load(delegatingToMemberId);
+  if (delegatingToMember === null) {
+    log.info('handleDelegateChanged no delegatingToMember: {}', [
+      delegatingToMemberId,
+    ]);
+  } else {
+    delegatingToMember.delegateOfCount =
+      delegatingToMember.delegateOfCount.plus(constants.BIGINT_ONE);
+    delegatingToMember.save();
+  }
+
+  let delegatingFromMemberId = dao.id
+    .concat('-member-')
+    .concat(event.params.fromDelegate.toHexString());
+  let delegatingFromMember = Member.load(delegatingFromMemberId);
+  if (delegatingFromMember === null) {
+    log.info('handleDelegateChanged no delegatingFromMemberId: {}', [
+      delegatingFromMemberId,
+    ]);
+  } else {
+    if (delegatingFromMember.delegateOfCount != constants.BIGINT_ZERO) {
+      delegatingFromMember.delegateOfCount =
+        delegatingFromMember.delegateOfCount.minus(constants.BIGINT_ONE);
+      delegatingFromMember.save();
+    }
+  }
+
   addTransaction(event.block, event.transaction, event.address);
 }
 
@@ -228,6 +264,7 @@ export function handleDelegateVotesChanged(event: DelegateVotesChanged): void {
     member.delegatingTo = event.params.delegate;
     member.shares = constants.BIGINT_ZERO;
     member.loot = constants.BIGINT_ZERO;
+    member.delegateOfCount = constants.BIGINT_ZERO;
   }
   member.delegateShares = event.params.newBalance;
   member.save();

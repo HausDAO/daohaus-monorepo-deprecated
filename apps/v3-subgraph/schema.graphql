@@ -52,7 +52,8 @@ type Dao @entity {
   "proposals scoped to this dao"
   proposals: [Proposal!] @derivedFrom(field: "dao")
   "members scoped to this dao"
-  members: [Member!] @derivedFrom(field: "dao")
+  # members: [Member!]! @derivedFrom(field: "dao")
+  members: [Member!]!
   "rage quits scoped to this dao"
   rageQuits: [RageQuit!] @derivedFrom(field: "dao")
   "shaman scoped to this dao"

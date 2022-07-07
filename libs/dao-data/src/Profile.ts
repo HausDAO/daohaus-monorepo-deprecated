@@ -14,6 +14,8 @@ import {
   Member_OrderBy,
   IFindQueryResult,
   ITransformedMembershipsQuery,
+  Dao_OrderBy,
+  Member_Filter,
 } from './types';
 import {
   transformMembershipList,
@@ -21,7 +23,7 @@ import {
 } from './utils/transformers';
 import { graphFetch } from './utils';
 import Query from './Query';
-import { Member_Filter } from './types';
+import { Dao_Filter } from './types';
 
 export default class Profile {
   query: Query;
@@ -95,19 +97,20 @@ export default class Profile {
 
   public async listDaosByMember({
     memberAddress,
-    filter,
+    daoFilter,
+    memberFilter,
     ordering = {
       orderBy: 'createdAt',
       orderDirection: 'desc',
     },
     networkIds,
     includeTokens = false,
-  }: ICrossNetworkMemberListArguments<Member_OrderBy, Member_Filter>): Promise<
-    IFindQueryResult<ITransformedMembershipsQuery>
-  > {
+  }: ICrossNetworkMemberListArguments<
+    Dao_OrderBy,
+    Dao_Filter,
+    Member_Filter
+  >): Promise<IFindQueryResult<ITransformedMembershipsQuery>> {
     const promises: Promise<IFindQueryResult<ListMembershipsQuery>>[] = [];
-
-    // if (filter)
 
     networkIds.forEach((networkId: keyof Keychain) => {
       const url = this.query.endpoints['V3_SUBGRAPH'][networkId];
@@ -119,7 +122,11 @@ export default class Profile {
             url,
             networkId,
             {
-              where: { memberAddress: memberAddress, ...filter },
+              where: {
+                members_: { memberAddress: memberAddress, ...memberFilter },
+                ...daoFilter,
+              },
+              memberWhere: { memberAddress },
               orderBy: ordering.orderBy,
               orderDirection: ordering.orderDirection,
             }
@@ -129,6 +136,7 @@ export default class Profile {
     });
 
     const memberData = await Promise.all(promises);
+
     const transformedList = transformMembershipList(memberData);
 
     if (includeTokens) {

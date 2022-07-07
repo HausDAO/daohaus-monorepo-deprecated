@@ -22,40 +22,6 @@ query findMember($id: ID!) {
   }
 }
 
-query listMemberships(
-  $where: Member_filter! = {}
-  $skip: Int! = 0
-  $first: Int! = 100
-  $orderBy: Member_orderBy! = id
-  $orderDirection: OrderDirection! = asc
-) {
-  members: members(
-    where: $where
-    skip: $skip
-    first: $first
-    orderBy: $orderBy
-    orderDirection: $orderDirection
-  ) {
-    ...memberFields
-    dao {
-      id
-      totalShares
-      name
-      activeMemberCount
-      proposalCount
-      safeAddress
-      activeProposals: proposals(
-        first: 101
-        orderBy: createdAt
-        orderDirection: desc
-        where: { cancelled: false, processed: false, actionFailed: false }
-      ) {
-        id
-      }
-    }
-  }
-}
-
 fragment memberFields on Member {
   id
   createdAt

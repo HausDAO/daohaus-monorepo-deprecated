@@ -94,6 +94,10 @@ const HomePage = () => {
           networkIds: Object.keys(filterNetworks) as ValidNetwork[],
           includeTokens: true,
           filter: getDelegateFilter(filterDelegate, address),
+          ordering: {
+            orderBy: 'createdAt',
+            orderDirection: 'desc',
+          },
         });
 
         if (query.data?.daos) {
@@ -110,35 +114,7 @@ const HomePage = () => {
 
     if (!address) return;
     getDaos(address);
-  }, [address, filterNetworks, filterDelegate]);
-
-  useEffect(() => {
-    const sortDaos = async () => {
-      setLoading(true);
-      console.log('sortBy', sortBy);
-
-      const sorted = daoData.sort((a, b): number => {
-        if (a[SORT_FIELDS[sortBy].value] > b[SORT_FIELDS[sortBy].value]) {
-          return 1;
-        } else if (
-          a[SORT_FIELDS[sortBy].value] < b[SORT_FIELDS[sortBy].value]
-        ) {
-          return -1;
-        } else {
-          return 0;
-        }
-      });
-
-      console.log('sorted', sorted);
-
-      setDaoData(sorted);
-
-      setLoading(false);
-    };
-
-    if (!sortBy || !daoData.length) return;
-    sortDaos();
-  }, [sortBy, daoData]);
+  }, [address, filterNetworks, filterDelegate, sortBy]);
 
   const toggleNetworkFilter = (event: MouseEvent<HTMLButtonElement>) => {
     const network = event.currentTarget.value;

@@ -17,7 +17,7 @@ export const readableNumber = ({
   amount,
   unit,
   decimals,
-  separator = '',
+  separator = ' ',
   maxDecimals,
 }: {
   amount: number | string;
@@ -35,20 +35,23 @@ export const readableNumber = ({
   if (amount == null) return null;
   if (amount > 0 && amount < 1) {
     return unit
-      ? `${Number(amount.toFixed(maxDecimals || decimals || 4))} ${unit}`
+      ? `${Number(
+          amount.toFixed(maxDecimals || decimals || 4)
+        )}${separator}${unit}`
       : Number(amount.toFixed(maxDecimals || decimals || 4));
   }
   if (unit) {
     return `${humanFormat(amount, {
-      unit: ` ${unit}`,
       decimals,
       maxDecimals,
-      separator,
-    })}`;
+    })}${separator}${unit}`;
   }
   return `${humanFormat(amount, {
     decimals,
     maxDecimals,
-    separator,
-  })}`;
+  })}${separator}`;
+};
+
+export const toDollars = (amount: string | number) => {
+  return `$ ${readableNumber({ amount: amount, decimals: 2 })}`;
 };

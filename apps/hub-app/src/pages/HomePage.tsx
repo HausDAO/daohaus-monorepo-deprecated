@@ -75,7 +75,7 @@ const HomePage = () => {
   const [daoData, setDaoData] = useState<ITransformedMembership[]>([]);
   const [filterNetworks, setFilterNetworks] = useState<Record<string, string>>(
     Object.keys(networkData).reduce(
-      (acc, networkId) => ({ [networkId]: networkId }),
+      (acc, networkId) => ({ ...acc, [networkId]: networkId }),
       {}
     )
   );

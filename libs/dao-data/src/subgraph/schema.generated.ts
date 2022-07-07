@@ -439,7 +439,8 @@ export interface EventTransaction {
   /** block timestamp of the transaction */
   createdAt: Scalars['String'];
   /** related DAO */
-  dao: Dao;
+  dao?: Maybe<Dao>;
+  daoAddress?: Maybe<Scalars['Bytes']>;
   /** unique identifier and primary key of the entity */
   id: Scalars['ID'];
 }
@@ -468,6 +469,12 @@ export interface EventTransaction_Filter {
   createdAt_starts_with?: InputMaybe<Scalars['String']>;
   createdAt_starts_with_nocase?: InputMaybe<Scalars['String']>;
   dao?: InputMaybe<Scalars['String']>;
+  daoAddress?: InputMaybe<Scalars['Bytes']>;
+  daoAddress_contains?: InputMaybe<Scalars['Bytes']>;
+  daoAddress_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  daoAddress_not?: InputMaybe<Scalars['Bytes']>;
+  daoAddress_not_contains?: InputMaybe<Scalars['Bytes']>;
+  daoAddress_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   dao_?: InputMaybe<Dao_Filter>;
   dao_contains?: InputMaybe<Scalars['String']>;
   dao_contains_nocase?: InputMaybe<Scalars['String']>;
@@ -501,6 +508,7 @@ export interface EventTransaction_Filter {
 export type EventTransaction_OrderBy =
   | 'createdAt'
   | 'dao'
+  | 'daoAddress'
   | 'id';
 
 export interface Member {

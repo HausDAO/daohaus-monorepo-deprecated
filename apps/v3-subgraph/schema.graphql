@@ -240,7 +240,8 @@ type EventTransaction @entity {
   "block timestamp of the transaction"
   createdAt: String!
   "related DAO"
-  dao: Dao!
+  dao: Dao
+  daoAddress: Bytes
 }
 
 type TokenLookup @entity {

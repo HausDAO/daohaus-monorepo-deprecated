@@ -467,7 +467,8 @@ type EventTransaction {
   createdAt: String!
 
   """related DAO"""
-  dao: Dao!
+  dao: Dao
+  daoAddress: Bytes
 }
 
 input EventTransaction_filter {
@@ -520,6 +521,12 @@ input EventTransaction_filter {
   dao_not_ends_with: String
   dao_not_ends_with_nocase: String
   dao_: Dao_filter
+  daoAddress: Bytes
+  daoAddress_not: Bytes
+  daoAddress_in: [Bytes!]
+  daoAddress_not_in: [Bytes!]
+  daoAddress_contains: Bytes
+  daoAddress_not_contains: Bytes
 
   """Filter for the block changed event."""
   _change_block: BlockChangedFilter
@@ -529,6 +536,7 @@ enum EventTransaction_orderBy {
   id
   createdAt
   dao
+  daoAddress
 }
 
 type Member {

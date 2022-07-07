@@ -77,7 +77,7 @@ export const SummonerForm = ({
             setTxHash(txHash);
           },
           onPollSuccess(result) {
-            const daoAddress = result?.data?.transaction?.dao?.id;
+            const daoAddress = result?.data?.transaction?.daoAddress;
             if (daoAddress) {
               successToast({
                 title: 'DAO Summoned',

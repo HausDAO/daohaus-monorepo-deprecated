@@ -16,7 +16,6 @@ import {
   networkData,
   ValidNetwork,
 } from '@daohaus/common-utilities';
-import { FILTER_TYPE } from '../utils/constants';
 import { getDelegateFilter } from '../utils/queryHelpers';
 
 const Layout = styled.div`

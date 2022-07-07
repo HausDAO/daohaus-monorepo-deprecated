@@ -32,7 +32,7 @@ export const readableNumber = ({
   if (typeof amount === 'string' && !isNumberish(amount)) {
     throw new Error(`${amount} is not a number`);
   }
-  if (amount == null) return null;
+
   if (amount > 0 && amount < 1) {
     return unit
       ? `${Number(
@@ -52,6 +52,6 @@ export const readableNumber = ({
   })}${separator}`;
 };
 
-export const toDollars = (amount: string | number) => {
-  return `$ ${readableNumber({ amount: amount, decimals: 2 })}`;
+export const toDollars = (amount: string | number, separator = ' ') => {
+  return `$${separator}${readableNumber({ amount: amount, decimals: 2 })}`;
 };

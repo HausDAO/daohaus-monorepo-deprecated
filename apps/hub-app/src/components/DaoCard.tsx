@@ -72,41 +72,41 @@ export const DaoCard = ({
         {name ? charLimit(name, 21) : charLimit(dao, 21)}{' '}
       </ParLg>
       <div className="stats-box">
-        <ParMd>
-          <Bold>{readableNumber({ amount: activeMemberCount })}</Bold> Members
-        </ParMd>
-        <ParMd>
-          <Bold>{readableNumber({ amount: 0.3, maxDecimals: 2 })}</Bold> USD
-        </ParMd>
-        <ParMd>
-          <Bold>{totalProposalCount}</Bold> Proposals
-        </ParMd>
-        <ParMd>
-          <Bold>{votingPower}</Bold>% Voting Power
-        </ParMd>
+        {activeMemberCount && (
+          <ParMd>
+            <Bold>{readableNumber({ amount: activeMemberCount })}</Bold> Members
+          </ParMd>
+        )}
+        {fiatTotal != null && (
+          <ParMd>
+            {/* <Bold>{toDollars(fiatTotal)}</Bold> */}
+            <Bold>{readableNumber({ amount: fiatTotal, unit: 'USD' })}</Bold>
+          </ParMd>
+        )}
+        {totalProposalCount && (
+          <ParMd>
+            <Bold>{readableNumber({ amount: totalProposalCount })}</Bold>{' '}
+            Proposals
+          </ParMd>
+        )}
+        {votingPower && (
+          <ParMd>
+            <Bold>
+              {readableNumber({
+                amount: votingPower,
+                unit: '%',
+                separator: '',
+                maxDecimals: 2,
+              })}
+            </Bold>{' '}
+            Voting Power
+          </ParMd>
+        )}
       </div>
       <div className="tag-box">
         <Tag>{networkId}</Tag>
         <Tag>{contractType}</Tag>
       </div>
-      {/* <div>
-        <Button secondary>Go</Button>
-      </div> */}
     </StyledDaoCard>
   );
 };
-
-const testUnits = () => {
-  console.log(readableNumber({ amount: 10000000, decimals: 0 }));
-  console.log(readableNumber({ amount: '10000000', decimals: 0 }));
-  console.log(readableNumber({ amount: '10000000', decimals: 0, unit: 'ETH' }));
-  console.log(
-    readableNumber({
-      amount: '1',
-      decimals: 0,
-      unit: 'Voting Power',
-      separator: '%',
-    })
-  );
-};
-testUnits();

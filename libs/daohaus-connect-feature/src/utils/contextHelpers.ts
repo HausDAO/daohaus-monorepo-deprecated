@@ -152,8 +152,6 @@ export const handleSwitchNetwork = async (
   const chainId =
     typeof _chainId === 'number' ? numberToHex(_chainId) : _chainId;
 
-  console.log(chainId);
-
   if (!isValidNetwork(chainId)) {
     console.error(`No network configuration for chainId: ${chainId}`);
     // handle on error

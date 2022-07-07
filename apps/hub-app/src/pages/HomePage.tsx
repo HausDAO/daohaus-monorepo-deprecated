@@ -66,10 +66,6 @@ const SideTopRight = styled.div`
   width: 100%;
 `;
 
-const temporaryInitHaus = () => {
-  return Haus.create();
-};
-
 const HomePage = () => {
   const { isProfileLoading, isConnected, address } = useHausConnect();
   const [daoData, setDaoData] = useState<ITransformedMembership[]>([]);
@@ -86,7 +82,7 @@ const HomePage = () => {
     const getDaos = async (address: string) => {
       setLoading(true);
       try {
-        const haus = temporaryInitHaus();
+        const haus = Haus.create();
 
         const query = await haus.profile.listDaosByMember({
           memberAddress: address,

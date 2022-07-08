@@ -47,7 +47,7 @@ export interface Dao {
   /** symbol of the erc20 loot token */
   lootTokenSymbol?: Maybe<Scalars['String']>;
   /** members scoped to this dao */
-  members?: Maybe<Array<Member>>;
+  members: Array<Member>;
   /** auto-fails a proposal if more than (1- minRetentionPercent) * total shares exit before processing */
   minRetentionPercent: Scalars['BigInt'];
   /** name of the DAO */
@@ -240,7 +240,13 @@ export interface Dao_Filter {
   lootTokenSymbol_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
   lootTokenSymbol_starts_with?: InputMaybe<Scalars['String']>;
   lootTokenSymbol_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  members?: InputMaybe<Array<Scalars['String']>>;
   members_?: InputMaybe<Member_Filter>;
+  members_contains?: InputMaybe<Array<Scalars['String']>>;
+  members_contains_nocase?: InputMaybe<Array<Scalars['String']>>;
+  members_not?: InputMaybe<Array<Scalars['String']>>;
+  members_not_contains?: InputMaybe<Array<Scalars['String']>>;
+  members_not_contains_nocase?: InputMaybe<Array<Scalars['String']>>;
   minRetentionPercent?: InputMaybe<Scalars['BigInt']>;
   minRetentionPercent_gt?: InputMaybe<Scalars['BigInt']>;
   minRetentionPercent_gte?: InputMaybe<Scalars['BigInt']>;

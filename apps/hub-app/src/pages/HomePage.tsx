@@ -18,6 +18,7 @@ import {
 } from '@daohaus/common-utilities';
 
 import { getDelegateFilter } from '../utils/queryHelpers';
+import { DEFAULT_SORT_KEY, SORT_FIELDS } from '../utils/constants';
 
 const Layout = styled.div`
   width: 100%;
@@ -76,6 +77,7 @@ const HomePage = () => {
     )
   );
   const [filterDelegate, setFilterDelegate] = useState<string | ''>('');
+  const [sortBy, setSortBy] = useState<string>(DEFAULT_SORT_KEY);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -88,7 +90,10 @@ const HomePage = () => {
           memberAddress: address,
           networkIds: Object.keys(filterNetworks) as ValidNetwork[],
           includeTokens: true,
-          filter: getDelegateFilter(filterDelegate, address),
+          // TODO: search filter will go here:
+          // daoFilter: { name_contains_nocase: 'carl' },
+          memberFilter: getDelegateFilter(filterDelegate, address),
+          ordering: SORT_FIELDS[sortBy].ordering,
         });
 
         if (query.data?.daos) {
@@ -105,7 +110,7 @@ const HomePage = () => {
 
     if (!address) return;
     getDaos(address);
-  }, [address, filterNetworks, filterDelegate]);
+  }, [address, filterNetworks, filterDelegate, sortBy]);
 
   const toggleNetworkFilter = (event: MouseEvent<HTMLButtonElement>) => {
     const network = event.currentTarget.value;
@@ -128,6 +133,14 @@ const HomePage = () => {
     );
   };
 
+  const toggleSortBy = (event: MouseEvent<HTMLButtonElement>) => {
+    setSortBy((prevState) =>
+      prevState === event.currentTarget.value
+        ? DEFAULT_SORT_KEY
+        : event.currentTarget.value
+    );
+  };
+
   return (
     <Layout>
       <SideTopLeft />
@@ -144,6 +157,8 @@ const HomePage = () => {
           toggleNetworkFilter={toggleNetworkFilter}
           filterDelegate={filterDelegate}
           toggleDelegateFilter={toggleDelegateFilter}
+          sortBy={sortBy}
+          toggleSortBy={toggleSortBy}
           loading={loading}
         />
       ) : (

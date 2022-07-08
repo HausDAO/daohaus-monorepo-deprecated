@@ -146,7 +146,7 @@ type Dao {
   proposals(skip: Int = 0, first: Int = 100, orderBy: Proposal_orderBy, orderDirection: OrderDirection, where: Proposal_filter): [Proposal!]
 
   """members scoped to this dao"""
-  members(skip: Int = 0, first: Int = 100, orderBy: Member_orderBy, orderDirection: OrderDirection, where: Member_filter): [Member!]
+  members(skip: Int = 0, first: Int = 100, orderBy: Member_orderBy, orderDirection: OrderDirection, where: Member_filter): [Member!]!
 
   """rage quits scoped to this dao"""
   rageQuits(skip: Int = 0, first: Int = 100, orderBy: RageQuit_orderBy, orderDirection: OrderDirection, where: RageQuit_filter): [RageQuit!]
@@ -415,6 +415,12 @@ input Dao_filter {
   name_not_ends_with: String
   name_not_ends_with_nocase: String
   proposals_: Proposal_filter
+  members: [String!]
+  members_not: [String!]
+  members_contains: [String!]
+  members_contains_nocase: [String!]
+  members_not_contains: [String!]
+  members_not_contains_nocase: [String!]
   members_: Member_filter
   rageQuits_: RageQuit_filter
   shaman_: Shaman_filter

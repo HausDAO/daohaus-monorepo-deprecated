@@ -22,6 +22,10 @@ function mintShares(event: Transfer, dao: Dao, memberId: string): void {
     member.shares = constants.BIGINT_ZERO;
     member.loot = constants.BIGINT_ZERO;
     member.delegateOfCount = constants.BIGINT_ZERO;
+
+    let daoMembers = dao.members;
+    daoMembers.push(memberId);
+    dao.members = daoMembers;
   }
   let memberInitialSharesAndLoot = member.shares.plus(member.loot);
 
@@ -67,6 +71,10 @@ function mintLoot(event: LootTransfer, dao: Dao, memberId: string): void {
     member.shares = constants.BIGINT_ZERO;
     member.loot = constants.BIGINT_ZERO;
     member.delegateOfCount = constants.BIGINT_ZERO;
+
+    let daoMembers = dao.members;
+    daoMembers.push(memberId);
+    dao.members = daoMembers;
   }
   let memberInitialSharesAndLoot = member.shares.plus(member.loot);
 
@@ -265,6 +273,11 @@ export function handleDelegateVotesChanged(event: DelegateVotesChanged): void {
     member.shares = constants.BIGINT_ZERO;
     member.loot = constants.BIGINT_ZERO;
     member.delegateOfCount = constants.BIGINT_ZERO;
+
+    let daoMembers = dao.members;
+    daoMembers.push(memberId);
+    dao.members = daoMembers;
+    dao.save();
   }
   member.delegateShares = event.params.newBalance;
   member.save();

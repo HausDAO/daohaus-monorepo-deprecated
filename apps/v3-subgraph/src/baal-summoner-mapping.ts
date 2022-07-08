@@ -37,6 +37,7 @@ export function handleSummonBaal(event: SummonBaal): void {
   dao.minRetentionPercent = constants.BIGINT_ZERO;
   dao.activeMemberCount = constants.BIGINT_ZERO;
   dao.proposalCount = constants.BIGINT_ZERO;
+  dao.members = [];
 
   dao.save();
 

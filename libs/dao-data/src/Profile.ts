@@ -42,7 +42,11 @@ export default class Profile {
   }: {
     address: string;
     includeDaosOptions?: Omit<
-      ICrossNetworkMemberListArguments<Member_OrderBy, Member_Filter>,
+      ICrossNetworkMemberListArguments<
+        Member_OrderBy,
+        Dao_Filter,
+        Member_Filter
+      >,
       'memberAddress'
     >;
   }): Promise<AccountProfile> {

@@ -5,7 +5,11 @@ import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
 import { Avatar } from '@daohaus/ui';
 import { BiGhost } from 'react-icons/bi';
-import { truncateAddress } from '@daohaus/common-utilities';
+import {
+  readableNumber,
+  toDollars,
+  truncateAddress,
+} from '@daohaus/common-utilities';
 import { Tag } from './Tag';
 
 interface IDaoTableData {
@@ -100,20 +104,43 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
         Header: 'Active Proposals',
         accessor: 'activeProposalCount',
         Cell: ({ value }: { value: string | number }) => {
-          return <Highlight>{value}</Highlight>;
+          return (
+            <Highlight>
+              {readableNumber({ amount: value, maxDecimals: 1 })}
+            </Highlight>
+          );
         },
       },
       {
         Header: 'Vaults',
         accessor: 'fiatTotal',
+        Cell: ({ value }: { value?: number }) => {
+          return (
+            <Highlight>{value != null ? toDollars(value, '') : '--'}</Highlight>
+          );
+        },
       },
       {
         Header: 'Members',
         accessor: 'activeMemberCount',
+        Cell: ({ value }: { value: string | number }) => {
+          return (
+            <Highlight>
+              {readableNumber({ amount: value, maxDecimals: 1 })}
+            </Highlight>
+          );
+        },
       },
       {
         Header: 'Power',
         accessor: 'votingPower',
+        Cell: ({ value }: { value: string | number }) => {
+          return (
+            <Highlight>
+              {readableNumber({ amount: value, unit: '%', separator: '' })}
+            </Highlight>
+          );
+        },
       },
       {
         Header: 'Network',

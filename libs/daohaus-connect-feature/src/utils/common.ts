@@ -1,6 +1,9 @@
 export const TEMPORARY_RPC = {
   '0x1': `https://${import.meta.env.VITE_RIVET_KEY}.eth.rpc.rivet.cloud/`,
   '0x4': `https://${import.meta.env.VITE_RIVET_KEY}.rinkeby.rpc.rivet.cloud/`,
+  '0x5': `https://goerli.infura.io/v3/${
+    import.meta.env.VITE_INFURA_PROJECT_ID
+  }`,
   '0x2a': `https://kovan.infura.io/v3/${
     import.meta.env.VITE_INFURA_PROJECT_ID
   }`,

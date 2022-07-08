@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { charLimit } from '@daohaus/common-utilities';
+import { charLimit, readableNumber } from '@daohaus/common-utilities';
 import { Avatar, Bold, border, ParLg, ParMd } from '@daohaus/ui';
 import { Tag } from './Tag';
 import { AlertCircle } from './AlertCircle';
@@ -45,10 +45,6 @@ const StyledDaoCard = styled.div`
   }
 `;
 
-// COMPONENT LIBRARY
-// Calling this AlertCircle. It's the circle that alerts
-// about the DAO's proposal status.
-
 export const DaoCard = ({
   isDelegate,
   dao,
@@ -76,26 +72,40 @@ export const DaoCard = ({
         {name ? charLimit(name, 21) : charLimit(dao, 21)}{' '}
       </ParLg>
       <div className="stats-box">
-        <ParMd>
-          <Bold>{activeMemberCount}</Bold> Members
-        </ParMd>
-        <ParMd>
-          <Bold>{fiatTotal}</Bold> USD
-        </ParMd>
-        <ParMd>
-          <Bold>{totalProposalCount}</Bold> Proposals
-        </ParMd>
-        <ParMd>
-          <Bold>{votingPower}</Bold>% Voting Power
-        </ParMd>
+        {activeMemberCount && (
+          <ParMd>
+            <Bold>{readableNumber({ amount: activeMemberCount })}</Bold> Members
+          </ParMd>
+        )}
+        {fiatTotal != null && (
+          <ParMd>
+            <Bold>{readableNumber({ amount: fiatTotal, unit: 'USD' })}</Bold>
+          </ParMd>
+        )}
+        {totalProposalCount && (
+          <ParMd>
+            <Bold>{readableNumber({ amount: totalProposalCount })}</Bold>{' '}
+            Proposals
+          </ParMd>
+        )}
+        {votingPower && (
+          <ParMd>
+            <Bold>
+              {readableNumber({
+                amount: votingPower,
+                unit: '%',
+                separator: '',
+                maxDecimals: 2,
+              })}
+            </Bold>{' '}
+            Voting Power
+          </ParMd>
+        )}
       </div>
       <div className="tag-box">
         <Tag>{networkId}</Tag>
         <Tag>{contractType}</Tag>
       </div>
-      {/* <div>
-        <Button secondary>Go</Button>
-      </div> */}
     </StyledDaoCard>
   );
 };

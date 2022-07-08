@@ -1,5 +1,4 @@
 import { votingPowerPercentage } from '@daohaus/common-utilities';
-import { ListMembershipsQuery } from '../subgraph/queries/members.generated';
 import {
   ITransformedProposal,
   ITransformedMembership,
@@ -9,6 +8,7 @@ import {
   TokenBalance,
   DaoTokenBalances,
   QueryProposal,
+  ListMembershipsQuery,
 } from '../types';
 import { getProposalStatus } from './proposalsStatus';
 
@@ -59,7 +59,7 @@ export const transformMembershipList = (
   return memberships.reduce((list: ITransformedMembership[], network) => {
     if (network?.data?.daos) {
       const daos: ITransformedMembership[] = network?.data?.daos.map(
-        (dao: ListMembershipsQuery['dao']) => {
+        (dao: ListMembershipsQuery['daos'][number]) => {
           return {
             dao: dao.id,
             name: dao.name,

@@ -42,7 +42,6 @@ export const HomeDashboard = ({
   };
   const noDaos = !daoData.length && !loading;
 
-  console.log('home ', daoData);
   if (loading) {
     return (
       <Body

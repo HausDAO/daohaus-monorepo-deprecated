@@ -7,6 +7,13 @@ import { ParMd } from '@daohaus/ui';
 import { SORT_FIELDS } from '../utils/constants';
 import { BiChevronDown } from 'react-icons/bi';
 
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+  transform: translateX(-13.5rem);
+`;
+
 const DropdownButton = styled(Button)`
   &.selected {
     background-color: ${(props: { theme: Theme }) => props.theme.secondary};
@@ -22,7 +29,7 @@ const SortDropdown = ({ sortBy, toggleSortBy }: FilterDropdownProps) => {
   const theme = useTheme();
 
   return (
-    <>
+    <Container>
       <ParMd>Sorted by</ParMd>
       <Dropdown
         align="end"
@@ -52,7 +59,7 @@ const SortDropdown = ({ sortBy, toggleSortBy }: FilterDropdownProps) => {
           };
         })}
       />
-    </>
+    </Container>
   );
 };
 

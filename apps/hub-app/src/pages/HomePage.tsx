@@ -93,11 +93,10 @@ const HomePage = () => {
           memberAddress: address,
           networkIds: Object.keys(filterNetworks) as ValidNetwork[],
           includeTokens: true,
-          filter: getDelegateFilter(filterDelegate, address),
-          ordering: {
-            orderBy: 'createdAt',
-            orderDirection: 'desc',
-          },
+          // TODO: search filter will go here:
+          // daoFilter: { name_contains_nocase: 'carl' },
+          memberFilter: getDelegateFilter(filterDelegate, address),
+          ordering: SORT_FIELDS[sortBy].ordering,
         });
 
         if (query.data?.daos) {

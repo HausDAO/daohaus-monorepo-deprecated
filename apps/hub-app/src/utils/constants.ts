@@ -1,34 +1,32 @@
-import {
-  ITransformedMembership,
-  Member_OrderBy,
-  Ordering,
-} from '@daohaus/dao-data';
+import { Dao_OrderBy, Ordering } from '@daohaus/dao-data';
 
 export const FILTER_TYPE = {
   DELEGATING: 'delegating',
   DELEGATING_TO: 'delegatingTo',
 };
 
-// export const SORT_FIELDS: [string, string][] = [
-//   ['Active Proposals', 'activeProposalCount'],
-//   ['Vaults', 'memberCount'],
-// ];
-
 export type HubSortOption = {
-  value: keyof ITransformedMembership;
   name: string;
-  // ordering: Ordering<Member_OrderBy>;
+  ordering: Ordering<Dao_OrderBy>;
 };
 
 export const SORT_FIELDS: { [index: string]: HubSortOption } = {
-  ACTIVE_PROPOSAL: {
-    value: 'activeProposalCount',
-    name: 'Active Proposals',
-    // ordering: { orderDirection: 'desc', orderBy: dao_: },
+  PROPOSALS: {
+    name: 'Proposals',
+    ordering: { orderDirection: 'desc', orderBy: 'proposalCount' },
   },
-  VAULT: { value: 'fiatTotal', name: 'Vaults' },
-  MEMBERS: { value: 'activeMemberCount', name: 'Members' },
-  NAME: { value: 'name', name: 'Name' },
+  MEMBERS: {
+    name: 'Members',
+    ordering: { orderDirection: 'desc', orderBy: 'activeMemberCount' },
+  },
+  NEWEST: {
+    name: 'Newest',
+    ordering: { orderDirection: 'desc', orderBy: 'createdAt' },
+  },
+  OLDEST: {
+    name: 'Oldest',
+    ordering: { orderDirection: 'asc', orderBy: 'createdAt' },
+  },
 };
 
-export const DEFAULT_SORT_KEY = 'ACTIVE_PROPOSAL';
+export const DEFAULT_SORT_KEY = 'PROPOSALS';

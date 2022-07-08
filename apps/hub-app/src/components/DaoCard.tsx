@@ -79,7 +79,6 @@ export const DaoCard = ({
         )}
         {fiatTotal != null && (
           <ParMd>
-            {/* <Bold>{toDollars(fiatTotal)}</Bold> */}
             <Bold>{readableNumber({ amount: fiatTotal, unit: 'USD' })}</Bold>
           </ParMd>
         )}

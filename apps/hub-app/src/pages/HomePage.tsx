@@ -16,6 +16,7 @@ import {
   networkData,
   ValidNetwork,
 } from '@daohaus/common-utilities';
+
 import { getDelegateFilter } from '../utils/queryHelpers';
 import { DEFAULT_SORT_KEY, SORT_FIELDS } from '../utils/constants';
 
@@ -66,16 +67,12 @@ const SideTopRight = styled.div`
   width: 100%;
 `;
 
-const temporaryInitHaus = () => {
-  return Haus.create();
-};
-
 const HomePage = () => {
   const { isProfileLoading, isConnected, address } = useHausConnect();
   const [daoData, setDaoData] = useState<ITransformedMembership[]>([]);
   const [filterNetworks, setFilterNetworks] = useState<Record<string, string>>(
     Object.keys(networkData).reduce(
-      (acc, networkId) => ({ [networkId]: networkId }),
+      (acc, networkId) => ({ ...acc, [networkId]: networkId }),
       {}
     )
   );
@@ -87,7 +84,7 @@ const HomePage = () => {
     const getDaos = async (address: string) => {
       setLoading(true);
       try {
-        const haus = temporaryInitHaus();
+        const haus = Haus.create();
 
         const query = await haus.profile.listDaosByMember({
           memberAddress: address,

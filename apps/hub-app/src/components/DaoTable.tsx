@@ -3,8 +3,7 @@ import { ITransformedMembership } from '@daohaus/dao-data';
 import { useTable, Column, UseTableRowProps } from 'react-table';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
-import { Avatar } from '@daohaus/ui';
-import { BiGhost } from 'react-icons/bi';
+import { ProfileAvatar } from '@daohaus/ui';
 import {
   readableNumber,
   toDollars,
@@ -56,11 +55,15 @@ const FirstCell = styled.div`
   align-items: center;
 `;
 
+type HubTableType = Omit<ITransformedMembership, 'name'> & {
+  name: { name?: string; address: string };
+};
+
 export const DaoTable = ({ daoData }: IDaoTableData) => {
-  const tableData = React.useMemo<ITransformedMembership[]>(
+  const tableData = React.useMemo<HubTableType[]>(
     () =>
       daoData.map((dao: ITransformedMembership) => ({
-        name: dao.name,
+        name: { name: dao.name, address: dao.dao },
         activeProposalCount: dao.activeProposalCount,
         fiatTotal: dao.fiatTotal,
         activeMemberCount: dao.activeMemberCount,
@@ -77,7 +80,7 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
     [daoData]
   );
 
-  const exampleColumns = React.useMemo<Column<ITransformedMembership>[]>(
+  const exampleColumns = React.useMemo<Column<HubTableType>[]>(
     () => [
       {
         accessor: 'name', // accessor is the "key" in the data
@@ -85,13 +88,13 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
           value,
           row,
         }: {
-          value: string | undefined;
-          row: UseTableRowProps<ITransformedMembership>;
+          value: { name?: string; address: string };
+          row: UseTableRowProps<HubTableType>;
         }) => {
           return (
             <FirstCell>
-              <Avatar size="sm" fallback={<BiGhost />} />
-              {value}
+              <ProfileAvatar size="sm" address={value.address} />
+              {value.name}
               {row.original.isDelegate && <Tag>Delegate</Tag>}
             </FirstCell>
           );

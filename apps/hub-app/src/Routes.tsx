@@ -7,10 +7,13 @@ import PublicProfilePage from './pages/PublicProfilePage';
 const Routes = () => {
   return (
     <RoutesDom>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/dashboard" element={<HomePage />} />
-      <Route path="/explore" element={<HomePage />} />
-      <Route path="/profile/:address" element={<PublicProfilePage />} />
+      <Route path="/">
+        <Route path="dashboard" element={<HomePage />} />
+        <Route path="explore" element={<HomePage />} />
+        <Route path="profile">
+          <Route path=":address" element={<PublicProfilePage />} />
+        </Route>
+      </Route>
     </RoutesDom>
   );
 };

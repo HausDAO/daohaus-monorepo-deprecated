@@ -1,7 +1,6 @@
 import { MouseEvent, ChangeEvent } from 'react';
-import { Button, Input, useBreakpoint, widthQuery } from '@daohaus/ui';
+import { Button, useBreakpoint, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
-import { BiSearch } from 'react-icons/bi';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 import { indigoDark } from '@radix-ui/colors';
 
@@ -20,13 +19,6 @@ const IconGrid = styled(BsFillGrid3X3GapFill)`
   }
 `;
 
-const IconSearch = styled(BiSearch)`
-  fill: ${indigoDark.indigo11};
-  :hover {
-    fill: ${indigoDark.indigo11};
-  }
-`;
-
 const Layout = styled.div`
   display: flex;
   align-items: center;
@@ -36,18 +28,6 @@ const Layout = styled.div`
 
   .list-type-toggle {
     transform: translateX(-13.5rem);
-  }
-`;
-
-const StyledInput = styled(Input)`
-  background: ${indigoDark.indigo3};
-  color: ${indigoDark.indigo11};
-  ::placeholder {
-    color: ${indigoDark.indigo11};
-  }
-  :focus {
-    background: ${indigoDark.indigo3};
-    color: ${indigoDark.indigo11};
   }
 `;
 

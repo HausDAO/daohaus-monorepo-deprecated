@@ -184,9 +184,9 @@ export const Profile = () => {
               </ParLg>
             )}
           </ProfileNameContainer>
-          {profile && (
+          {profile?.ens && (
             <ParMd as="span">
-              <Bold>alexkeating.eth</Bold>
+              <Bold>{profile?.ens}</Bold>
             </ParMd>
           )}
         </Container>

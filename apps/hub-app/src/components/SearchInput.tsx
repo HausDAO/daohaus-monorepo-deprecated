@@ -35,7 +35,7 @@ const SearchInput = ({ searchTerm, setSearchTerm }: SearchInputProps) => {
       id="table-search"
       placeholder="Search Daos"
       onChange={setSearchTerm}
-      value={searchTerm}
+      defaultValue={searchTerm}
     />
   );
 };

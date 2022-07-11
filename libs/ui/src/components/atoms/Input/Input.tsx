@@ -6,7 +6,7 @@ import React from 'react';
 
 export type InputProps = Field & {
   icon?: IconType;
-  // onChange?: React.ChangeEvent<HTMLInputElement>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
   className?: string;
 };
 type Ref =

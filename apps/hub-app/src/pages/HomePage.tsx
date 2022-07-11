@@ -10,16 +10,19 @@ import useDaoData from '../hooks/useDaoData';
 import { HomeNotConnected } from './HomeNotConnected';
 import { isValidNetwork, networkData } from '@daohaus/common-utilities';
 
+import { DEFAULT_SORT_KEY } from '../utils/constants';
+
 const HomePage = () => {
   const { isConnected } = useHausConnect();
   const { daoData, isLoadingDaoData } = useDaoData();
   const [filterNetworks, setFilterNetworks] = useState<Record<string, string>>(
     Object.keys(networkData).reduce(
-      (acc, networkId) => ({ [networkId]: networkId }),
+      (acc, networkId) => ({ ...acc, [networkId]: networkId }),
       {}
     )
   );
   const [filterDelegate, setFilterDelegate] = useState<string | ''>('');
+  const [sortBy, setSortBy] = useState<string>(DEFAULT_SORT_KEY);
 
   const toggleNetworkFilter = (event: MouseEvent<HTMLButtonElement>) => {
     const network = event.currentTarget.value;
@@ -42,6 +45,14 @@ const HomePage = () => {
     );
   };
 
+  const toggleSortBy = (event: MouseEvent<HTMLButtonElement>) => {
+    setSortBy((prevState) =>
+      prevState === event.currentTarget.value
+        ? DEFAULT_SORT_KEY
+        : event.currentTarget.value
+    );
+  };
+
   return (
     <Layout>
       <SideTopLeft />
@@ -55,6 +66,8 @@ const HomePage = () => {
           toggleNetworkFilter={toggleNetworkFilter}
           filterDelegate={filterDelegate}
           toggleDelegateFilter={toggleDelegateFilter}
+          sortBy={sortBy}
+          toggleSortBy={toggleSortBy}
           loading={isLoadingDaoData}
         />
       ) : (

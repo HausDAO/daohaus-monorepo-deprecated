@@ -20,12 +20,12 @@ const DropdownButton = styled(Button)`
   }
 `;
 
-type SearchDropdownProps = {
+type SortDropdownProps = {
   sortBy: string;
   toggleSortBy: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
-const SortDropdown = ({ sortBy, toggleSortBy }: SearchDropdownProps) => {
+const SortDropdown = ({ sortBy, toggleSortBy }: SortDropdownProps) => {
   const theme = useTheme();
 
   return (

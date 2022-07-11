@@ -1,4 +1,4 @@
-import { MouseEvent, useEffect, useState } from 'react';
+import { MouseEvent, ChangeEvent, useEffect, useState } from 'react';
 import { indigoDark } from '@radix-ui/colors';
 import styled from 'styled-components';
 
@@ -19,6 +19,7 @@ import {
 
 import { getDelegateFilter } from '../utils/queryHelpers';
 import { DEFAULT_SORT_KEY, SORT_FIELDS } from '../utils/constants';
+import useDebounce from '../utils/debounceHook';
 
 const Layout = styled.div`
   width: 100%;
@@ -78,7 +79,10 @@ const HomePage = () => {
   );
   const [filterDelegate, setFilterDelegate] = useState<string | ''>('');
   const [sortBy, setSortBy] = useState<string>(DEFAULT_SORT_KEY);
+  const [searchTerm, setSearchTerm] = useState<string | ''>('');
   const [loading, setLoading] = useState<boolean>(true);
+
+  const debouncedSearchTerm = useDebounce<string>(searchTerm, 1000);
 
   useEffect(() => {
     const getDaos = async (address: string) => {
@@ -90,8 +94,7 @@ const HomePage = () => {
           memberAddress: address,
           networkIds: Object.keys(filterNetworks) as ValidNetwork[],
           includeTokens: true,
-          // TODO: search filter will go here:
-          // daoFilter: { name_contains_nocase: 'carl' },
+          daoFilter: { name_contains_nocase: debouncedSearchTerm },
           memberFilter: getDelegateFilter(filterDelegate, address),
           ordering: SORT_FIELDS[sortBy].ordering,
         });
@@ -110,7 +113,7 @@ const HomePage = () => {
 
     if (!address) return;
     getDaos(address);
-  }, [address, filterNetworks, filterDelegate, sortBy]);
+  }, [address, filterNetworks, filterDelegate, sortBy, debouncedSearchTerm]);
 
   const toggleNetworkFilter = (event: MouseEvent<HTMLButtonElement>) => {
     const network = event.currentTarget.value;
@@ -141,6 +144,12 @@ const HomePage = () => {
     );
   };
 
+  const handleSearchTermChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm((prevState) =>
+      prevState === event.target.value ? '' : event.target.value
+    );
+  };
+
   return (
     <Layout>
       <SideTopLeft />
@@ -159,6 +168,8 @@ const HomePage = () => {
           toggleDelegateFilter={toggleDelegateFilter}
           sortBy={sortBy}
           toggleSortBy={toggleSortBy}
+          searchTerm={searchTerm}
+          setSearchTerm={handleSearchTermChange}
           loading={loading}
         />
       ) : (

@@ -79,17 +79,17 @@ const NavLink = ({ children, path, selected }: NavLinkProps) => {
 export const BodyNav = () => {
   const match = useMatch('/explore');
   const isHome = !match;
-  // const isExplore = !!match;
+  const isExplore = !!match;
   return (
     <BodyNavContainer>
       <NavLink path="/" selected={isHome}>
         <StyledHamburgerMenu />
         Home
       </NavLink>
-      {/* <NavLink path="/explore" selected={isExplore}>
+      <NavLink path="/explore" selected={isExplore}>
         <StyledHamburgerMenu />
         Explore
-      </NavLink> */}
+      </NavLink>
     </BodyNavContainer>
   );
 };

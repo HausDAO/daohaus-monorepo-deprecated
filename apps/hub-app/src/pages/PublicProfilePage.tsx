@@ -69,6 +69,7 @@ const Body = styled.div`
 
 const StyledSpinner = styled(Spinner)`
   width: 0.8rem;
+
   @media (min-width: ${breakpoints.xs}) {
     width: 1.6rem;
   }

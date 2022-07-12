@@ -114,6 +114,8 @@ const HomePage = () => {
           toggleDelegateFilter={toggleDelegateFilter}
           sortBy={sortBy}
           toggleSortBy={toggleSortBy}
+          searchTerm={searchTerm}
+          setSearchTerm={handleSearchTermChange}
           loading={loading}
           searchTerm={searchTerm}
           setSearchTerm={handleSearchTermChange}

@@ -1,13 +1,14 @@
+import { MouseEvent, ChangeEvent } from 'react';
 import { Button, Input, useBreakpoint, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
 import { BiSearch } from 'react-icons/bi';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
-
 import { indigoDark } from '@radix-ui/colors';
-import { ListType } from '../utils/appSpecificTypes';
-import { MouseEvent } from 'react';
+
 import FilterDropdown from './FilterDropdown';
 import SortDropdown from './SortDropdown';
+import { ListType } from '../utils/appSpecificTypes';
+import SearchInput from './SearchInput';
 
 const IconGrid = styled(BsFillGrid3X3GapFill)`
   height: 1.8rem;
@@ -59,6 +60,8 @@ type TableControlProps = {
   toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
   sortBy: string;
   toggleSortBy: (event: MouseEvent<HTMLButtonElement>) => void;
+  searchTerm: string;
+  setSearchTerm: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const TableControl = ({
@@ -70,16 +73,14 @@ const TableControl = ({
   toggleDelegateFilter,
   sortBy,
   toggleSortBy,
+  searchTerm,
+  setSearchTerm,
 }: TableControlProps) => {
   const isMobile = useBreakpoint(widthQuery.sm);
 
   return (
     <Layout>
-      <StyledInput
-        icon={IconSearch}
-        id="table-search"
-        placeholder="Search 3 Daos"
-      />
+      <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <FilterDropdown
         filterNetworks={filterNetworks}
         toggleNetworkFilter={toggleNetworkFilter}

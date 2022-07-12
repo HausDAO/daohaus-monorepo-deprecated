@@ -137,7 +137,7 @@ const PublicProfilePage = () => {
       ) : (
         <>
           <BodyNavArea>
-            <StyledLink to="/dashboard">
+            <StyledLink to="/">
               <Icon>
                 <StyledArrowLeft />
               </Icon>

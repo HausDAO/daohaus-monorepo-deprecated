@@ -88,7 +88,7 @@ const StyledLink = styled(Link)`
 `;
 
 export const HeaderProfile = () => {
-  const { profile } = useHausConnect();
+  const { profile, address } = useHausConnect();
   return (
     <ProfileContainer>
       <StyledAvatar src={profile?.image || ''} size="lg" alt="profile image" />
@@ -117,7 +117,7 @@ export const HeaderProfile = () => {
           {
             type: 'clickable',
             content: (
-              <StyledLink to="/">
+              <StyledLink to={`/profile/${address}`}>
                 <StyledParMd>View Public</StyledParMd>
               </StyledLink>
             ),

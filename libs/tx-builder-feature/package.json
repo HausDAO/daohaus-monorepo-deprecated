@@ -1,6 +1,6 @@
 {
   "name": "@daohaus/tx-builder-feature",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "./tx-builder-feature.umd.js",
   "module": "./tx-builder-feature.es.js",
   "exports": {

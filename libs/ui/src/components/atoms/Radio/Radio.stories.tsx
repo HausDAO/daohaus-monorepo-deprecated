@@ -6,6 +6,9 @@ export default {
   component: Radio,
 } as ComponentMeta<typeof Radio>;
 
+// Setting displayName manually since Storybook displays it as [Object, object]
+Radio.displayName = 'Radio';
+
 const Template: ComponentStory<typeof Radio> = (args) => <Radio {...args} />;
 
 export const AtomRadio = Template.bind({});

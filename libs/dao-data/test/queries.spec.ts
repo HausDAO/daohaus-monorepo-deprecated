@@ -45,7 +45,7 @@ describe('haus', () => {
       },
     });
 
-    const nextPageRes = await haus.query.listProposals({
+    const nextPageRes = await haus.query.listMembers({
       networkId,
       paging: res.nextPaging,
     });

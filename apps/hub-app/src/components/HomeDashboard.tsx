@@ -1,12 +1,12 @@
+import { MouseEvent, useState, ChangeEvent } from 'react';
 import { ITransformedMembership } from '@daohaus/dao-data';
 import { ParMd, Spinner, useBreakpoint, widthQuery } from '@daohaus/ui';
-import { MouseEvent, useState } from 'react';
 import styled from 'styled-components';
 
-import { ListType } from '../utils/appSpecificTypes';
 import { DaoCards } from './DaoCards';
-import { DataTable } from './Table';
+import { DaoTable } from './DaoTable';
 import TableControl from './TableControl';
+import { ListType } from '../utils/appSpecificTypes';
 
 // Refactored this to be a component that we might be able to reuse
 // for explore view and other similar views.
@@ -16,12 +16,15 @@ const Body = styled.div`
 `;
 
 type DashProps = {
-  // daoData: ITransformedMembership[] | any;
-  daoData: any;
+  daoData: ITransformedMembership[];
   filterNetworks: Record<string, string>;
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
   filterDelegate: string;
   toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
+  sortBy: string;
+  toggleSortBy: (event: MouseEvent<HTMLButtonElement>) => void;
+  searchTerm: string;
+  setSearchTerm: (event: ChangeEvent<HTMLInputElement>) => void;
   loading: boolean;
 };
 
@@ -31,6 +34,10 @@ export const HomeDashboard = ({
   toggleNetworkFilter,
   filterDelegate,
   toggleDelegateFilter,
+  sortBy,
+  toggleSortBy,
+  searchTerm,
+  setSearchTerm,
   loading,
 }: DashProps) => {
   const [listType, setListType] = useState<ListType>('cards');
@@ -39,6 +46,7 @@ export const HomeDashboard = ({
     listType === 'cards' ? setListType('table') : setListType('cards');
   };
   const noDaos = !daoData.length && !loading;
+
   if (loading) {
     return (
       <Body
@@ -71,6 +79,10 @@ export const HomeDashboard = ({
           toggleNetworkFilter={toggleNetworkFilter}
           filterDelegate={filterDelegate}
           toggleDelegateFilter={toggleDelegateFilter}
+          sortBy={sortBy}
+          toggleSortBy={toggleSortBy}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
         />
         <NoDaosFound />
       </Body>
@@ -86,6 +98,10 @@ export const HomeDashboard = ({
         toggleNetworkFilter={toggleNetworkFilter}
         filterDelegate={filterDelegate}
         toggleDelegateFilter={toggleDelegateFilter}
+        sortBy={sortBy}
+        toggleSortBy={toggleSortBy}
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
       />
       {isMobile ? (
         <Mobile daoData={daoData} />
@@ -116,7 +132,7 @@ const Desktop = ({
   return (
     <>
       {listType === 'cards' && <DaoCards daoData={daoData} />}
-      {listType === 'table' && <DataTable daoData={daoData} />}
+      {listType === 'table' && <DaoTable daoData={daoData} />}
     </>
   );
 };

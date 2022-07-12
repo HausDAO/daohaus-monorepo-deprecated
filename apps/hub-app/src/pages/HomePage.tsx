@@ -117,8 +117,6 @@ const HomePage = () => {
           searchTerm={searchTerm}
           setSearchTerm={handleSearchTermChange}
           loading={loading}
-          searchTerm={searchTerm}
-          setSearchTerm={handleSearchTermChange}
         />
       ) : (
         <HomeNotConnected />

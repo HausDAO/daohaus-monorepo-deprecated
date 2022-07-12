@@ -6,6 +6,9 @@ export default {
   component: Card,
 } as ComponentMeta<typeof Card>;
 
+// Setting displayName manually since Storybook displays it as [Object, object]
+Card.displayName = 'Card';
+
 const Template: ComponentStory<typeof Card> = (args) => {
   return <Card>{args.children}</Card>;
 };

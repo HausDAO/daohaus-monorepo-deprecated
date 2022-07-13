@@ -1,6 +1,8 @@
 import { widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
 
+// LAYOUT REVIEW There's more to extract here. We need to see how the sub-layouts work first.
+
 export const TextAreaSection = styled.div`
   width: 100%;
   margin-bottom: 3.4rem;

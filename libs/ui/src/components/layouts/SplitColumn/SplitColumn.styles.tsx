@@ -7,15 +7,6 @@ export const StyledSplitColumn = styled.div`
   justify-content: space-between;
   flex-direction: column;
 `;
-type Row = {
-  rowID: string;
-  left: React.ReactNode;
-  right: React.ReactNode;
-};
-type SplitColumnProps = {
-  singleRow?: Row;
-  rows?: Row[];
-};
 
 export const StyledRow = styled.div`
   display: flex;

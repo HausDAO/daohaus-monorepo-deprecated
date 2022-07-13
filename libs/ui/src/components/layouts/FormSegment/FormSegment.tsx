@@ -1,6 +1,8 @@
 import { Divider, H5, ParMd } from '../../atoms';
 import { StyledFormSegment } from './FormSegment.styles';
 
+// REVIEW: No stories until there's a solid form sub-layout
+
 type SegmentType = {
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;

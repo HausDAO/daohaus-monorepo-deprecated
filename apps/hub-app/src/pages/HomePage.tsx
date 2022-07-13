@@ -85,12 +85,8 @@ const HomePage = () => {
     );
   };
 
-  const toggleSortBy = (event: MouseEvent<HTMLButtonElement>) => {
-    setSortBy((prevState) =>
-      prevState === event.currentTarget.value
-        ? DEFAULT_SORT_KEY
-        : event.currentTarget.value
-    );
+  const switchSortBy = (event: ChangeEvent<HTMLSelectElement>) => {
+    setSortBy(event.target.value);
   };
 
   const handleSearchTermChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -113,7 +109,7 @@ const HomePage = () => {
           filterDelegate={filterDelegate}
           toggleDelegateFilter={toggleDelegateFilter}
           sortBy={sortBy}
-          toggleSortBy={toggleSortBy}
+          switchSortBy={switchSortBy}
           searchTerm={searchTerm}
           setSearchTerm={handleSearchTermChange}
           loading={loading}

@@ -4,6 +4,7 @@
     "abi-utilities": "libs/abi-utilities",
     "baal-contract-service": "libs/baal-contract-service",
     "common-utilities": "libs/common-utilities",
+    "core-app": "apps/core-app",
     "dao-data": "libs/dao-data",
     "daohaus-connect-feature": "libs/daohaus-connect-feature",
     "hub-app": "apps/hub-app",

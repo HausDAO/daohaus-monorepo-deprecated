@@ -1,11 +1,6 @@
 import { utils } from 'ethers';
 
-// TS CHALLENGE
-
-// unstable custom typings that only suits our needs
-// create a .d.ts file for the human-format library
-// and make a PR to merge it into their library
-import humanFormat = require('human-format');
+import numeral from 'numeral';
 import { isNumberish } from './typeguards';
 
 export const toBaseUnits = (amount: string, decimals = 18) =>

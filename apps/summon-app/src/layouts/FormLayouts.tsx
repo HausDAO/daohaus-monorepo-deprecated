@@ -1,33 +1,5 @@
-import { Divider, H5, ParMd, widthQuery } from '@daohaus/ui';
+import { widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
-
-type SegmentType = {
-  title?: string | React.ReactNode;
-  description?: string | React.ReactNode;
-  formArea: React.ReactNode;
-};
-
-const StyledFormSegment = styled.section`
-  width: 100%;
-  margin-bottom: 2.4rem;
-  .segment-title {
-    margin-bottom: 3.2rem;
-  }
-  .segment-description {
-    margin-bottom: 3rem;
-  }
-`;
-
-export const FormSegment = ({ title, description, formArea }: SegmentType) => {
-  return (
-    <StyledFormSegment>
-      <H5 className="segment-title">{title}</H5>
-      <ParMd className="segment-description">{description}</ParMd>
-      <div>{formArea}</div>
-      <Divider />
-    </StyledFormSegment>
-  );
-};
 
 const StyledSplitColumn = styled.div`
   display: flex;

@@ -1,8 +1,8 @@
 import { useFormContext } from 'react-hook-form';
 
-import { WrappedInput, WrappedSwitch } from '@daohaus/ui';
+import { FormSegment, WrappedInput, WrappedSwitch } from '@daohaus/ui';
 
-import { FormSegment, SplitColumn } from './FormLayouts';
+import { SplitColumn } from './FormLayouts';
 import { FORM_COPY, INFO_COPY } from '../utils/content';
 import { FORM_KEYS } from '../utils/formKeys';
 

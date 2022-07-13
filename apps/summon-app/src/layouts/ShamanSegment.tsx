@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { ParSm, TemporaryLink, WrappedTextArea } from '@daohaus/ui';
+import {
+  FormSegment,
+  ParSm,
+  TemporaryLink,
+  WrappedTextArea,
+} from '@daohaus/ui';
 
-import { FormSegment, TextAreaSection } from '../layouts/FormLayouts';
+import { TextAreaSection } from '../layouts/FormLayouts';
 import { transformShamans, validateShamanData } from '../utils/common';
 import { FORM_KEYS } from '../utils/formKeys';
 import { INFO_COPY } from '../utils/content';

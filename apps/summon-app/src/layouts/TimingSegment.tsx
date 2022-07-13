@@ -1,5 +1,6 @@
+import { FormSegment } from '@daohaus/ui';
 import { TimePicker } from '../components/TimePicker/TimePicker';
-import { FormSegment, SplitColumn } from '../layouts/FormLayouts';
+import { SplitColumn } from '../layouts/FormLayouts';
 import { INFO_COPY } from '../utils/content';
 import { FORM_KEYS } from '../utils/formKeys';
 

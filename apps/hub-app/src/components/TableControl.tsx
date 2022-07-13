@@ -36,6 +36,7 @@ const Layout = styled.div`
   }
   @media (min-width: ${breakpoints.sm}) {
     align-items: center;
+    justify-content: space-between;
     flex-direction: row;
   }
 `;
@@ -48,7 +49,7 @@ type TableControlProps = {
   filterDelegate: string;
   toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
   sortBy: string;
-  toggleSortBy: (event: MouseEvent<HTMLButtonElement>) => void;
+  switchSortBy: (event: ChangeEvent<HTMLSelectElement>) => void;
   searchTerm: string;
   setSearchTerm: (event: ChangeEvent<HTMLInputElement>) => void;
 };
@@ -61,7 +62,7 @@ const TableControl = ({
   filterDelegate,
   toggleDelegateFilter,
   sortBy,
-  toggleSortBy,
+  switchSortBy,
   searchTerm,
   setSearchTerm,
 }: TableControlProps) => {
@@ -88,7 +89,8 @@ const TableControl = ({
           </Button>
         )}
       </div>
-      <SortDropdown sortBy={sortBy} toggleSortBy={toggleSortBy} />
+
+      <SortDropdown sortBy={sortBy} switchSortBy={switchSortBy} />
     </Layout>
   );
 };

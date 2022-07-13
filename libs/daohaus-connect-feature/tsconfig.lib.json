@@ -1,8 +1,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/out-tsc",
-    "types": ["vite/client", "node"]
+    "outDir": "../../dist",
+    "declaration": true,
+    "types": [
+      "vite/client",
+      "node"
+    ]
   },
   "files": [
     "../../node_modules/@nrwl/react/typings/cssmodule.d.ts",
@@ -18,5 +22,5 @@
     "**/*.spec.jsx",
     "**/*.test.jsx"
   ],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
+  "include": ["**/*.js","**/*.jsx","**/*.ts","**/*.tsx"]
 }

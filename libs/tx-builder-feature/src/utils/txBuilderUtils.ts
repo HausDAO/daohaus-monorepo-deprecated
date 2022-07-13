@@ -1,9 +1,7 @@
 import { ethers, providers } from 'ethers';
 import {
   ABI,
-  addKeychain,
   ArgType,
-  ENDPOINTS,
   Keychain,
   ReactSetter,
   ValidNetwork,

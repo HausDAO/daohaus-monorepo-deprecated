@@ -6,8 +6,6 @@ type HumanFormatOptions = {
 };
 
 declare module 'human-format' {
-  export default function format(
-    amount: number,
-    options?: HumanFormatOptions
-  ): string;
+  function humanFormat(amount: number, options?: HumanFormatOptions): string;
+  export = humanFormat;
 }

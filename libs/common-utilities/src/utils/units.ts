@@ -5,7 +5,7 @@ import { utils } from 'ethers';
 // unstable custom typings that only suits our needs
 // create a .d.ts file for the human-format library
 // and make a PR to merge it into their library
-import humanFormat from 'human-format';
+import humanFormat = require('human-format');
 import { isNumberish } from './typeguards';
 
 export const toBaseUnits = (amount: string, decimals = 18) =>
@@ -34,11 +34,11 @@ export const readableNumber = ({
   }
 
   if (amount > 0 && amount < 1) {
+    const fixedDefault = maxDecimals || decimals || 4;
+
     return unit
-      ? `${Number(
-          amount.toFixed(maxDecimals || decimals || 4)
-        )}${separator}${unit}`
-      : Number(amount.toFixed(maxDecimals || decimals || 4));
+      ? `${Number(amount).toFixed(fixedDefault)}${separator}${unit}`
+      : Number(amount).toFixed(fixedDefault);
   }
   if (unit) {
     return `${humanFormat(amount, {

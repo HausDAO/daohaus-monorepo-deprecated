@@ -1,5 +1,5 @@
 import { MouseEvent, ChangeEvent } from 'react';
-import { Button, useBreakpoint, widthQuery } from '@daohaus/ui';
+import { breakpoints, Button, useBreakpoint, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 import { indigoDark } from '@radix-ui/colors';
@@ -21,13 +21,22 @@ const IconGrid = styled(BsFillGrid3X3GapFill)`
 
 const Layout = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
   gap: 2.4rem;
   padding-top: 3.6rem;
   padding-bottom: 3.6rem;
 
   .list-type-toggle {
-    transform: translateX(-13.5rem);
+    transform: translateX(-11.1rem);
+  }
+  .button-box {
+    display: flex;
+  }
+  @media (min-width: ${breakpoints.sm}) {
+    align-items: center;
+    flex-direction: row;
   }
 `;
 
@@ -61,22 +70,24 @@ const TableControl = ({
   return (
     <Layout>
       <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      <FilterDropdown
-        filterNetworks={filterNetworks}
-        toggleNetworkFilter={toggleNetworkFilter}
-        filterDelegate={filterDelegate}
-        toggleDelegateFilter={toggleDelegateFilter}
-      />
-      {isMobile || (
-        <Button
-          secondary
-          onClick={toggleListType}
-          IconLeft={IconGrid}
-          className="list-type-toggle"
-        >
-          {listType === 'table' ? 'Card View' : 'List View'}
-        </Button>
-      )}
+      <div className="button-box">
+        <FilterDropdown
+          filterNetworks={filterNetworks}
+          toggleNetworkFilter={toggleNetworkFilter}
+          filterDelegate={filterDelegate}
+          toggleDelegateFilter={toggleDelegateFilter}
+        />
+        {isMobile || (
+          <Button
+            secondary
+            onClick={toggleListType}
+            IconLeft={IconGrid}
+            className="list-type-toggle"
+          >
+            {listType === 'table' ? 'Card View' : 'List View'}
+          </Button>
+        )}
+      </div>
       <SortDropdown sortBy={sortBy} toggleSortBy={toggleSortBy} />
     </Layout>
   );

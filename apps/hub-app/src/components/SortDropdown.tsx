@@ -10,8 +10,10 @@ import { BiChevronDown } from 'react-icons/bi';
 const Container = styled.div`
   display: flex;
   align-items: center;
-  gap: 2.4rem;
-  transform: translateX(-13.5rem);
+  right: 0;
+  p {
+    margin-right: 2.4rem;
+  }
 `;
 
 const DropdownButton = styled(Button)`

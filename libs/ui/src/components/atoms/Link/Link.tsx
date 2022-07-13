@@ -1,25 +1,23 @@
 import React from 'react';
+import { RiExternalLinkLine } from 'react-icons/ri';
 
-import { StyledLink } from './Link.styles';
+import { InternalLink, ExternalLink } from './Link.styles';
 
 export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
-  external?: boolean;
+  href: string;
 }
 
-/*
- * TODO Add Stories for links & some sort of Icon for external links
- * Github Issue 233 (Pending Design).
- */
-export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
-  (props, ref) => {
-    const { external, ...rest } = props;
+export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>((props) => {
+  const isHrefExternal = props.href.match(/^http|^https|^www/);
+
+  if (isHrefExternal) {
     return (
-      <StyledLink
-        ref={ref}
-        target={external ? '_blank' : undefined}
-        {...rest}
-        rel={external ? 'noopener noreferer' : undefined}
-      />
+      <ExternalLink href={props.href} target="_blank">
+        {props.children}
+        <RiExternalLinkLine />
+      </ExternalLink>
     );
   }
-);
+
+  return <InternalLink to={props.href}>{props.children}</InternalLink>;
+});

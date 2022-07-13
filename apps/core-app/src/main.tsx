@@ -11,7 +11,7 @@ ReactDOM.render(
     <BrowserRouter>
       <HausThemeProvider>
         <HausConnectProvider>
-          <App title="fuck" />
+          <App />
         </HausConnectProvider>
       </HausThemeProvider>
     </BrowserRouter>

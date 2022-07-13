@@ -4,9 +4,6 @@ import styled from 'styled-components';
 
 const Layout = styled.div`
   width: 100%;
-  flex-direction: column;
-  align-items: center;
-
   .connect {
     padding: 2.6rem 3rem;
   }
@@ -16,7 +13,7 @@ export function App() {
   return (
     <Layout>
       <DaoHausNav />
-      <H1>Fuck</H1>
+      <H1>Header!</H1>
     </Layout>
   );
 }

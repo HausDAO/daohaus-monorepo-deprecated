@@ -1,4 +1,4 @@
-import { Route, Routes, MemoryRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router-dom';
 
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Link } from './Link';

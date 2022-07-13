@@ -14,7 +14,7 @@ import {
   Divider,
   H1,
   ParMd,
-  TemporaryLink,
+  Link,
   useToast,
   WrappedInput,
 } from '@daohaus/ui';
@@ -150,7 +150,7 @@ export const SummonerForm = ({
             <Bold>Summon a Baal.</Bold>
           </H1>
           <ParMd>
-            Visit <TemporaryLink>Docs</TemporaryLink> for Help
+            Visit <Link href="">Docs</Link> for Help
           </ParMd>
         </div>
         <div>

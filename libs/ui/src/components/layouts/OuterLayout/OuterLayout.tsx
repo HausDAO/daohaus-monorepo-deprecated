@@ -1,7 +1,7 @@
 import { widthQuery } from '../../../theme/global/breakpoints';
 import styled from 'styled-components';
 
-export const Layout = styled.div`
+export const OuterLayout = styled.div`
   width: 100%;
   .connect {
     padding: 2.6rem 3rem;

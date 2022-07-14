@@ -5,9 +5,7 @@ import {
   SharesTemplate,
 } from '../generated/templates';
 import { Dao, TokenLookup } from '../generated/schema';
-import { addTransaction } from './util/transactions';
 import { constants } from './util/constants';
-import { log } from '@graphprotocol/graph-ts';
 
 export function handleSummonBaal(event: SummonBaal): void {
   BaalTemplate.create(event.params.baal);
@@ -39,6 +37,7 @@ export function handleSummonBaal(event: SummonBaal): void {
   dao.minRetentionPercent = constants.BIGINT_ZERO;
   dao.activeMemberCount = constants.BIGINT_ZERO;
   dao.proposalCount = constants.BIGINT_ZERO;
+  dao.members = [];
 
   dao.save();
 
@@ -51,6 +50,4 @@ export function handleSummonBaal(event: SummonBaal): void {
   lootTokenLookup.dao = event.params.baal;
 
   lootTokenLookup.save();
-
-  addTransaction(event.block, event.transaction, event.params.baal);
 }

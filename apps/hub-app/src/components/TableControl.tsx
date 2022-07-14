@@ -1,12 +1,13 @@
-import { Button, Input, useBreakpoint, widthQuery } from '@daohaus/ui';
+import { MouseEvent, ChangeEvent } from 'react';
+import { breakpoints, Button, useBreakpoint, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
-import { BiSearch } from 'react-icons/bi';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
-
 import { indigoDark } from '@radix-ui/colors';
-import { ListType } from '../utils/appSpecificTypes';
-import { MouseEvent } from 'react';
+
 import FilterDropdown from './FilterDropdown';
+import SortDropdown from './SortDropdown';
+import { ListType } from '../utils/appSpecificTypes';
+import SearchInput from './SearchInput';
 
 const IconGrid = styled(BsFillGrid3X3GapFill)`
   height: 1.8rem;
@@ -18,34 +19,25 @@ const IconGrid = styled(BsFillGrid3X3GapFill)`
   }
 `;
 
-const IconSearch = styled(BiSearch)`
-  fill: ${indigoDark.indigo11};
-  :hover {
-    fill: ${indigoDark.indigo11};
-  }
-`;
-
 const Layout = styled.div`
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
   gap: 2.4rem;
   padding-top: 3.6rem;
   padding-bottom: 3.6rem;
 
   .list-type-toggle {
-    transform: translateX(-13.5rem);
+    transform: translateX(-11.1rem);
   }
-`;
-
-const StyledInput = styled(Input)`
-  background: ${indigoDark.indigo3};
-  color: ${indigoDark.indigo11};
-  ::placeholder {
-    color: ${indigoDark.indigo11};
+  .button-box {
+    display: flex;
   }
-  :focus {
-    background: ${indigoDark.indigo3};
-    color: ${indigoDark.indigo11};
+  @media (min-width: ${breakpoints.sm}) {
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
   }
 `;
 
@@ -56,6 +48,10 @@ type TableControlProps = {
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
   filterDelegate: string;
   toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
+  sortBy: string;
+  switchSortBy: (event: ChangeEvent<HTMLSelectElement>) => void;
+  searchTerm: string;
+  setSearchTerm: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const TableControl = ({
@@ -65,31 +61,36 @@ const TableControl = ({
   toggleNetworkFilter,
   filterDelegate,
   toggleDelegateFilter,
+  sortBy,
+  switchSortBy,
+  searchTerm,
+  setSearchTerm,
 }: TableControlProps) => {
   const isMobile = useBreakpoint(widthQuery.sm);
+
   return (
     <Layout>
-      <StyledInput
-        icon={IconSearch}
-        id="table-search"
-        placeholder="Search 3 Daos"
-      />
-      <FilterDropdown
-        filterNetworks={filterNetworks}
-        toggleNetworkFilter={toggleNetworkFilter}
-        filterDelegate={filterDelegate}
-        toggleDelegateFilter={toggleDelegateFilter}
-      />
-      {isMobile || (
-        <Button
-          secondary
-          onClick={toggleListType}
-          IconLeft={IconGrid}
-          className="list-type-toggle"
-        >
-          {listType === 'table' ? 'Card View' : 'List View'}
-        </Button>
-      )}
+      <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      <div className="button-box">
+        <FilterDropdown
+          filterNetworks={filterNetworks}
+          toggleNetworkFilter={toggleNetworkFilter}
+          filterDelegate={filterDelegate}
+          toggleDelegateFilter={toggleDelegateFilter}
+        />
+        {isMobile || (
+          <Button
+            secondary
+            onClick={toggleListType}
+            IconLeft={IconGrid}
+            className="list-type-toggle"
+          >
+            {listType === 'table' ? 'Card View' : 'List View'}
+          </Button>
+        )}
+      </div>
+
+      <SortDropdown sortBy={sortBy} switchSortBy={switchSortBy} />
     </Layout>
   );
 };

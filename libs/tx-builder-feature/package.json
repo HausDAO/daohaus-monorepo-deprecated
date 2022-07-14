@@ -1,8 +1,21 @@
 {
   "name": "@daohaus/tx-builder-feature",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "./tx-builder-feature.umd.js",
   "module": "./tx-builder-feature.es.js",
+  "homepage": "https://github.com/HausDAO/daohaus-monorepo#readme",
+  "issues": "https://github.com/HausDAO/daohaus-monorepo/issues?q=is%3Aissue+is%3Aopen",
+  "license": "MIT",
+  "keywords": [
+    "daohaus",
+    "tx-builder-feature",
+    "daohaus transaction builder"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:HausDAO/daohaus-monorepo.git",
+    "directory": "libs/tx-builder-feature"
+  },
   "exports": {
     ".": {
       "import": "./tx-builder-feature.es.js",

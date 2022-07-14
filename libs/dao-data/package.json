@@ -1,5 +1,18 @@
 {
   "name": "@daohaus/dao-data",
-  "version": "0.0.4",
-  "type": "commonjs"
+  "version": "0.0.5",
+  "type": "commonjs",
+  "homepage": "https://github.com/HausDAO/daohaus-monorepo#readme",
+  "issues": "https://github.com/HausDAO/daohaus-monorepo/issues?q=is%3Aissue+is%3Aopen",
+  "license": "MIT",
+  "keywords": [
+    "daohaus",
+    "dao-data",
+    "daohaus data"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:HausDAO/daohaus-monorepo.git",
+    "directory": "libs/dao-data"
+  }
 }

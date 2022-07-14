@@ -14,7 +14,7 @@ import {
   Divider,
   H1,
   ParMd,
-  TemporaryLink,
+  Link,
   useToast,
   WrappedInput,
 } from '@daohaus/ui';
@@ -77,7 +77,7 @@ export const SummonerForm = ({
             setTxHash(txHash);
           },
           onPollSuccess(result) {
-            const daoAddress = result?.data?.transaction?.dao?.id;
+            const daoAddress = result?.data?.transaction?.daoAddress;
             if (daoAddress) {
               successToast({
                 title: 'DAO Summoned',
@@ -150,7 +150,7 @@ export const SummonerForm = ({
             <Bold>Summon a Baal.</Bold>
           </H1>
           <ParMd>
-            Visit <TemporaryLink>Docs</TemporaryLink> for Help
+            Visit <Link href="">Docs</Link> for Help
           </ParMd>
         </div>
         <div>

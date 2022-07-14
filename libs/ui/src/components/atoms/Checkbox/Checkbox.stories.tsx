@@ -8,6 +8,9 @@ export default {
   component: Checkbox,
 } as ComponentMeta<typeof Checkbox>;
 
+// Setting displayName manually since Storybook displays it as [Object, object]
+Checkbox.displayName = 'Checkbox';
+
 const Template: ComponentStory<typeof Checkbox> = (args) => {
   const [checked, setChecked] = useState(args.defaultChecked);
 

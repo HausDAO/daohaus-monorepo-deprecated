@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import styled from 'styled-components';
 import { IconType } from 'react-icons/lib';
 import { RiExternalLinkLine } from 'react-icons/ri';
 
@@ -8,7 +7,7 @@ import {
   isValidNetwork,
   ValidNetwork,
 } from '@daohaus/common-utilities';
-import { TemporaryLink } from '@daohaus/ui';
+import { Link } from '@daohaus/ui';
 
 import { useHausConnect } from '../../HausConnectContext';
 
@@ -42,28 +41,8 @@ export const ExplorerLink = ({
   }, [contextChainId, chainId, address, type]);
 
   return (
-    <TemporaryLink
-      href={explorerLink}
-      className={className}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <WithIcon>
-        <span className="link-text">{children}</span>
-        <Icon />
-      </WithIcon>
-    </TemporaryLink>
+    <Link href={explorerLink} className={className} rel="noopener noreferrer">
+      {children}
+    </Link>
   );
 };
-
-const WithIcon = styled.div`
-  display: flex;
-  align-items: center;
-  .link-text {
-    margin-right: 0.6rem;
-  }
-  svg {
-    height: 1.2rem;
-    width: 1.2rem;
-  }
-`;

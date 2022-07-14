@@ -2,9 +2,12 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Switch } from './Switch';
 
 export default {
-  title: 'Atoms/Form/Switch',
+  title: 'Atoms/Switch',
   component: Switch,
 } as ComponentMeta<typeof Switch>;
+
+// Setting displayName manually since Storybook displays it as [Object, object]
+Switch.displayName = 'Switch';
 
 const Template: ComponentStory<typeof Switch> = (args) => <Switch {...args} />;
 

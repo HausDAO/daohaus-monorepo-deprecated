@@ -1,4 +1,4 @@
-import { BiErrorCircle } from 'react-icons/bi';
+import { RiErrorWarningLine } from 'react-icons/ri';
 
-export const SmTooltipIcon = () => <BiErrorCircle size="1.4rem" />;
-export const LgTooltipIcon = () => <BiErrorCircle size="2rem" />;
+export const SmTooltipIcon = () => <RiErrorWarningLine size="1.4rem" />;
+export const LgTooltipIcon = () => <RiErrorWarningLine size="2rem" />;

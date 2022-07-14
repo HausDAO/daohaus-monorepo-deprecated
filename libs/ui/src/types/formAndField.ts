@@ -1,4 +1,5 @@
 import { CheckboxProps } from '@radix-ui/react-checkbox';
+import { ChangeEventHandler } from 'react';
 import { RegisterOptions } from 'react-hook-form';
 
 export type ErrorMessage = {
@@ -61,6 +62,8 @@ export type OptionType = {
 };
 export type SelectProps = Field & {
   defaultValue?: string;
+  value?: string;
+  onChange?: ChangeEventHandler<HTMLSelectElement>;
   options: OptionType[];
   containerClassName?: string;
 };

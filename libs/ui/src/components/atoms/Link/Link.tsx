@@ -8,25 +8,32 @@ export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
 }
 
 // TODO Better way to do types
-export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>((props) => {
-  const isHrefExternal = props?.href?.match(/^http|^https|^www/);
+export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
+  (props, ref) => {
+    const isHrefExternal = props?.href?.match(/^http|^https|^www/);
 
-  if (isHrefExternal) {
+    if (isHrefExternal) {
+      return (
+        <ExternalLink
+          href={props.href}
+          className={props.className}
+          target={props.target || '_blank'}
+          ref={ref}
+        >
+          {props.children}
+          <RiExternalLinkLine />
+        </ExternalLink>
+      );
+    }
+
     return (
-      <ExternalLink
-        href={props.href}
+      <InternalLink
+        to={props.href || '/'}
         className={props.className}
-        target={props.target || '_blank'}
+        ref={ref}
       >
         {props.children}
-        <RiExternalLinkLine />
-      </ExternalLink>
+      </InternalLink>
     );
   }
-
-  return (
-    <InternalLink to={props.href || '/'} className={props.className}>
-      {props.children}
-    </InternalLink>
-  );
-});
+);

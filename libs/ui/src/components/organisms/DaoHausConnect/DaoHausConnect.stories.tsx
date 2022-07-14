@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { BiError } from 'react-icons/bi';
-import { RiUserAddLine } from 'react-icons/ri';
+import { RiUserAddLine, RiAlertLine } from 'react-icons/ri';
 import { ButtonProps, Button } from '../../atoms/Button/Button';
 import { Bold, ParMd, ParXs } from '../../atoms/Typography';
 import styled from 'styled-components';
@@ -189,7 +189,7 @@ NetworkUnavailableDropdown.args = {
   align: 'end',
   width: '26rem',
   trigger: (
-    <Button IconLeft={BiError} tertiary>
+    <Button IconLeft={RiAlertLine} tertiary>
       Network Unavailable
     </Button>
   ),

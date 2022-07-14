@@ -8,7 +8,7 @@ import {
   isValidNetwork,
   ValidNetwork,
 } from '@daohaus/common-utilities';
-import { TemporaryLink } from '@daohaus/ui';
+import { Link } from '@daohaus/ui';
 
 import { useHausConnect } from '../../HausConnectContext';
 
@@ -42,17 +42,12 @@ export const ExplorerLink = ({
   }, [contextChainId, chainId, address, type]);
 
   return (
-    <TemporaryLink
-      href={explorerLink}
-      className={className}
-      target="_blank"
-      rel="noopener noreferrer"
-    >
+    <Link href={explorerLink} className={className} rel="noopener noreferrer">
       <WithIcon>
         <span className="link-text">{children}</span>
         <Icon />
       </WithIcon>
-    </TemporaryLink>
+    </Link>
   );
 };
 

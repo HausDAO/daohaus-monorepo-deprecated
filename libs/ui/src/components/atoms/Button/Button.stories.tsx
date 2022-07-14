@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { BiChevronDown, BiError } from 'react-icons/bi';
+import { RiArrowDownSLine, RiAlertLine } from 'react-icons/ri';
 import { Button } from './Button';
 
 export default {
@@ -50,18 +50,18 @@ LargeButton.args = {
 export const IconLeftButton = Template.bind({});
 IconLeftButton.args = {
   children: 'Button',
-  IconLeft: BiError,
+  IconLeft: RiAlertLine,
 };
 
 export const IconRightButton = Template.bind({});
 IconRightButton.args = {
   children: 'Button',
-  IconRight: BiChevronDown,
+  IconRight: RiArrowDownSLine,
 };
 
 export const IconBothButton = Template.bind({});
 IconBothButton.args = {
   children: 'Button',
-  IconLeft: BiError,
-  IconRight: BiChevronDown,
+  IconLeft: RiAlertLine,
+  IconRight: RiArrowDownSLine,
 };

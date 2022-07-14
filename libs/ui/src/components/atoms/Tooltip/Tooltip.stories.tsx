@@ -1,12 +1,12 @@
 import { grass } from '@radix-ui/colors';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { BsCheckCircleFill } from 'react-icons/bs';
+import { RiCheckboxCircleFill } from 'react-icons/ri';
 import { H1, ParLg } from '../Typography';
 import { Tooltip } from './Tooltip';
 import { LgTooltipIcon, SmTooltipIcon } from './TooltipTriggers';
 
 export default {
-  title: 'Atoms/Form/Tooltip',
+  title: 'Atoms/Tooltip',
   component: Tooltip,
 } as ComponentMeta<typeof Tooltip>;
 
@@ -41,7 +41,7 @@ LargeIconTooltip.args = {
 export const CustomIconTrigger = Template.bind({});
 CustomIconTrigger.args = {
   content: "Oh-eeee! That's a custom icon!",
-  triggerEl: <BsCheckCircleFill color={grass.grass9} size="2rem" />,
+  triggerEl: <RiCheckboxCircleFill color={grass.grass9} size="2rem" />,
 };
 export const CustomContent = Template.bind({});
 CustomContent.args = {

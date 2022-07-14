@@ -5,34 +5,34 @@ import { InternalLink, ExternalLink } from './Link.styles';
 
 export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
   href: string;
+  externalIcon?: boolean;
 }
 
 // TODO Better way to do types
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
-  (props, ref) => {
-    const isHrefExternal = props?.href?.match(/^http|^https|^www/);
+  (
+    { externalIcon = true, children, href = '/', target = '_blank', className },
+    ref
+  ) => {
+    const isHrefExternal = href?.match(/^http|^https|^www/);
 
     if (isHrefExternal) {
       return (
         <ExternalLink
-          href={props.href}
-          className={props.className}
-          target={props.target || '_blank'}
+          href={href}
+          className={className}
+          target={target}
           ref={ref}
         >
-          {props.children}
-          <RiExternalLinkLine />
+          {children}
+          {externalIcon && <RiExternalLinkLine />}
         </ExternalLink>
       );
     }
 
     return (
-      <InternalLink
-        to={props.href || '/'}
-        className={props.className}
-        ref={ref}
-      >
-        {props.children}
+      <InternalLink to={href} className={className} ref={ref}>
+        {children}
       </InternalLink>
     );
   }

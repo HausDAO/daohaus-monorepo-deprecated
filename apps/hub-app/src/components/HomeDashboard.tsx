@@ -22,7 +22,7 @@ type DashProps = {
   filterDelegate: string;
   toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
   sortBy: string;
-  toggleSortBy: (event: MouseEvent<HTMLButtonElement>) => void;
+  switchSortBy: (event: ChangeEvent<HTMLSelectElement>) => void;
   searchTerm: string;
   setSearchTerm: (event: ChangeEvent<HTMLInputElement>) => void;
   loading: boolean;
@@ -35,7 +35,7 @@ export const HomeDashboard = ({
   filterDelegate,
   toggleDelegateFilter,
   sortBy,
-  toggleSortBy,
+  switchSortBy,
   searchTerm,
   setSearchTerm,
   loading,
@@ -80,7 +80,7 @@ export const HomeDashboard = ({
           filterDelegate={filterDelegate}
           toggleDelegateFilter={toggleDelegateFilter}
           sortBy={sortBy}
-          toggleSortBy={toggleSortBy}
+          switchSortBy={switchSortBy}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
         />
@@ -99,7 +99,7 @@ export const HomeDashboard = ({
         filterDelegate={filterDelegate}
         toggleDelegateFilter={toggleDelegateFilter}
         sortBy={sortBy}
-        toggleSortBy={toggleSortBy}
+        switchSortBy={switchSortBy}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
       />

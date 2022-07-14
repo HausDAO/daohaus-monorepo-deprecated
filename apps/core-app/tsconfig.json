@@ -14,19 +14,19 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "declaration": true,
+    "noEmit": true,
     "jsx": "react-jsx",
-    "types": [
-      "vite/client",
-      "@nxext/react/client"
-    ]
+
+    "types": ["vite/client", "@nxext/react/client"]
   },
   "files": [],
   "include": [],
   "references": [
-    { "path": "./tsconfig.lib.json"},
     {
-      "path": "./.storybook/tsconfig.json"
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
     }
   ]
 }

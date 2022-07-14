@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { Haus, ITransformedMembership } from '@daohaus/dao-data';
 import { networkData, ValidNetwork } from '@daohaus/common-utilities';
-import useDebounce from '../utils/debounceHook';
 
 const temporaryInitHaus = () => {
   return Haus.create();

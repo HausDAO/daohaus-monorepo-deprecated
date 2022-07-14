@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import styled from 'styled-components';
 import { IconType } from 'react-icons/lib';
 import { RiExternalLinkLine } from 'react-icons/ri';
 
@@ -43,22 +42,7 @@ export const ExplorerLink = ({
 
   return (
     <Link href={explorerLink} className={className} rel="noopener noreferrer">
-      <WithIcon>
-        <span className="link-text">{children}</span>
-        <Icon />
-      </WithIcon>
+      {children}
     </Link>
   );
 };
-
-const WithIcon = styled.div`
-  display: flex;
-  align-items: center;
-  .link-text {
-    margin-right: 0.6rem;
-  }
-  svg {
-    height: 1.2rem;
-    width: 1.2rem;
-  }
-`;

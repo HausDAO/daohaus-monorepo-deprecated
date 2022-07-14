@@ -1,7 +1,8 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { BiError } from 'react-icons/bi';
-import { Button } from '../Button/Button';
+import { RiAlertLine } from 'react-icons/ri';
+
 import { ParXs } from '../Typography';
+import { Button } from '../Button/Button';
 import { DropdownItem, Dropdown } from './Dropdown';
 
 export default {
@@ -40,7 +41,7 @@ FullDropdown.args = {
   width: '26rem',
   align: 'end',
   trigger: (
-    <Button IconLeft={BiError} tertiary>
+    <Button IconLeft={RiAlertLine} tertiary>
       Network Unavailable
     </Button>
   ),

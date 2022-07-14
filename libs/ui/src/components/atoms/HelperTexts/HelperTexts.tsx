@@ -1,11 +1,11 @@
-import { ParXs } from '../Typography';
-import { IconType } from 'react-icons';
-import { WithIcon } from './HelperText.styles';
 import React from 'react';
 import { useTheme } from 'styled-components';
-import { Theme } from '../../../types/theming';
+import { IconType } from 'react-icons';
+import { RiCheckboxCircleLine, RiErrorWarningLine } from 'react-icons/ri';
 
-import { BiCheckCircle, BiErrorCircle } from 'react-icons/bi';
+import { Theme } from '../../../types/theming';
+import { WithIcon } from './HelperText.styles';
+import { ParXs } from '../Typography';
 
 export type HelperTextType = {
   color?: string;
@@ -34,7 +34,7 @@ export const SuccessText = ({ children }: SpecialHelperText) => {
   'DefaultTheme' type, despite being initialized with a 'Theme' type.*/
   const theme = useTheme() as Theme;
   return (
-    <HelperText color={theme.success} icon={BiCheckCircle}>
+    <HelperText color={theme.success} icon={RiCheckboxCircleLine}>
       {children}
     </HelperText>
   );
@@ -43,7 +43,7 @@ export const SuccessText = ({ children }: SpecialHelperText) => {
 export const WarningText = ({ children }: SpecialHelperText) => {
   const theme = useTheme() as Theme;
   return (
-    <HelperText color={theme.warning} icon={BiErrorCircle}>
+    <HelperText color={theme.warning} icon={RiErrorWarningLine}>
       {children}
     </HelperText>
   );
@@ -52,7 +52,7 @@ export const WarningText = ({ children }: SpecialHelperText) => {
 export const ErrorText = ({ children }: SpecialHelperText) => {
   const theme = useTheme() as Theme;
   return (
-    <HelperText color={theme.error} icon={BiErrorCircle}>
+    <HelperText color={theme.error} icon={RiErrorWarningLine}>
       {children}
     </HelperText>
   );

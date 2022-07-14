@@ -1,18 +1,25 @@
 import React from 'react';
-import { ITransformedMembership } from '@daohaus/dao-data';
-import { useTable, Column, UseTableRowProps } from 'react-table';
+import { Keychain } from '@daohaus/common-utilities';
+import { useTable, Column } from 'react-table';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
-import { ProfileAvatar } from '@daohaus/ui';
-import {
-  readableNumber,
-  toDollars,
-  truncateAddress,
-} from '@daohaus/common-utilities';
-import { Tag } from './Tag';
+import { Avatar } from '@daohaus/ui';
+import { BiGhost } from 'react-icons/bi';
+
+interface DaoData {
+  name: string;
+  activeProposalCount: number | string;
+  activeMemberCount: string;
+  votingPower: number;
+  networkId?: keyof Keychain;
+  delegate: string | undefined;
+  memberAddress?: string;
+  fiatTotal: number;
+  totalProposalCount?: string;
+}
 
 interface IDaoTableData {
-  daoData: ITransformedMembership[];
+  daoData: DaoData[] | any;
 }
 
 const Table = styled.table`
@@ -48,54 +55,37 @@ const FirstHeader = styled.p`
   padding-left: 1.6rem;
 `;
 
-const FirstCell = styled.div`
+const FirstCell = styled.p`
   text-align: left;
   display: flex;
   gap: 1.2rem;
   align-items: center;
 `;
 
-type HubTableType = Omit<ITransformedMembership, 'name'> & {
-  name: { name?: string; address: string };
-};
-
-export const DaoTable = ({ daoData }: IDaoTableData) => {
-  const tableData = React.useMemo<HubTableType[]>(
+export const DataTable = ({ daoData }: IDaoTableData) => {
+  const tableData = React.useMemo<DaoData[]>(
     () =>
-      daoData.map((dao: ITransformedMembership) => ({
-        name: { name: dao.name, address: dao.dao },
+      daoData.map((dao: DaoData) => ({
+        name: dao.name,
         activeProposalCount: dao.activeProposalCount,
         fiatTotal: dao.fiatTotal,
         activeMemberCount: dao.activeMemberCount,
         votingPower: dao.votingPower,
         networkId: dao.networkId,
-        delegatingTo: dao.delegatingTo,
-        memberAddress: dao.memberAddress,
-        safeAddress: dao.safeAddress,
-        dao: dao.dao,
-        isDelegate: dao.isDelegate,
-        totalProposalCount: dao.totalProposalCount,
-        contractType: dao.contractType,
+        delegate: dao.delegate === undefined ? 'No Delegate' : dao.delegate,
       })),
     [daoData]
   );
 
-  const exampleColumns = React.useMemo<Column<HubTableType>[]>(
+  const exampleColumns = React.useMemo<Column<DaoData>[]>(
     () => [
       {
         accessor: 'name', // accessor is the "key" in the data
-        Cell: ({
-          value,
-          row,
-        }: {
-          value: { name?: string; address: string };
-          row: UseTableRowProps<HubTableType>;
-        }) => {
+        Cell: ({ value }: { value: string | number }) => {
           return (
             <FirstCell>
-              <ProfileAvatar size="sm" address={value.address} />
-              {value.name}
-              {row.original.isDelegate && <Tag>Delegate</Tag>}
+              <Avatar size="sm" fallback={<BiGhost />} />
+              {value}
             </FirstCell>
           );
         },
@@ -107,43 +97,20 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
         Header: 'Active Proposals',
         accessor: 'activeProposalCount',
         Cell: ({ value }: { value: string | number }) => {
-          return (
-            <Highlight>
-              {readableNumber({ amount: value, maxDecimals: 1 })}
-            </Highlight>
-          );
+          return <Highlight>{value}</Highlight>;
         },
       },
       {
         Header: 'Vaults',
         accessor: 'fiatTotal',
-        Cell: ({ value }: { value?: number }) => {
-          return (
-            <Highlight>{value != null ? toDollars(value, '') : '--'}</Highlight>
-          );
-        },
       },
       {
         Header: 'Members',
         accessor: 'activeMemberCount',
-        Cell: ({ value }: { value: string | number }) => {
-          return (
-            <Highlight>
-              {readableNumber({ amount: value, maxDecimals: 1 })}
-            </Highlight>
-          );
-        },
       },
       {
         Header: 'Power',
         accessor: 'votingPower',
-        Cell: ({ value }: { value: string | number }) => {
-          return (
-            <Highlight>
-              {readableNumber({ amount: value, unit: '%', separator: '' })}
-            </Highlight>
-          );
-        },
       },
       {
         Header: 'Network',
@@ -151,13 +118,9 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
       },
       {
         Header: 'Delegate',
-        accessor: 'delegatingTo',
+        accessor: 'delegate',
         Cell: ({ value }: { value: string | undefined }) => {
-          return (
-            <Highlight>
-              {value === undefined ? '--' : truncateAddress(value)}
-            </Highlight>
-          );
+          return <Highlight>{value}</Highlight>;
         },
       },
     ],

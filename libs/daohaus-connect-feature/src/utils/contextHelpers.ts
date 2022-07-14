@@ -149,18 +149,13 @@ export const handleSwitchNetwork = async (
   _chainId: string | number,
   networks: NetworkConfigs
 ) => {
-  const chainId =
+  const chainId: string =
     typeof _chainId === 'number' ? numberToHex(_chainId) : _chainId;
-
-  if (!isValidNetwork(chainId)) {
-    console.error(`No network configuration for chainId: ${chainId}`);
-    // handle on error
-    return;
+  if (!isValidNetwork) {
+    throw new Error(`No network configuration for chainId: ${chainId}`);
   }
   if (!window.ethereum?.isMetaMask) {
-    console.error('Switching chain is only supported in Metamask');
-    // handle on error
-    return;
+    throw new Error('Switching chain is only supported in Metamask');
   }
   await switchChainOnMetaMask(networks, chainId);
 };

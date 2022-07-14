@@ -20,26 +20,6 @@
         "internalType": "address",
         "name": "_gnosisMultisendLibrary",
         "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_gnosisSafeProxyFactory",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_moduleProxyFactory",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_lootSingleton",
-        "type": "address"
-      },
-      {
-        "internalType": "address",
-        "name": "_sharesSingleton",
-        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
@@ -142,32 +122,8 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "lootSingleton",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "sharesSingleton",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
-      {
-        "internalType": "bytes",
-        "name": "initializationParams",
-        "type": "bytes"
-      },
-      {
-        "internalType": "bytes[]",
-        "name": "initializationActions",
-        "type": "bytes[]"
-      },
-      { "internalType": "uint256", "name": "_saltNonce", "type": "uint256" }
+      { "internalType": "address", "name": "_safe", "type": "address" }
     ],
     "name": "summonBaal",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],

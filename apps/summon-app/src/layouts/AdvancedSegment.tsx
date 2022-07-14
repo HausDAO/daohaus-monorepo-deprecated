@@ -25,7 +25,7 @@ export const AdvancedSegment = ({
                   required
                   full
                   info={INFO_COPY.QUORUM}
-                  defaultValue="0"
+                  defaultValue="80"
                   disabled={formDisabled}
                   registerOptions={{ required: 'This value is required' }}
                 />

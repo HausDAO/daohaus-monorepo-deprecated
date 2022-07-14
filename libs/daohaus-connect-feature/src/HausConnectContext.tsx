@@ -70,10 +70,7 @@ export const HausConnectProvider = ({
   const [isConnecting, setConnecting] = useState(true);
   const [{ provider, chainId, address }, setWalletState] =
     useState<WalletStateType>({});
-  const [profile, setProfile] = useState<UserProfile>({
-    address: address || '',
-    ens: null,
-  });
+  const [profile, setProfile] = useState<UserProfile>({ address: address || "", ens: null });
   const [isProfileLoading, setProfileLoading] = useState(false);
   const isConnected = useMemo(
     () => !!provider && !!address && !!chainId,

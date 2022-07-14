@@ -1,5 +1,5 @@
-import { Bytes, ethereum } from '@graphprotocol/graph-ts';
-import { EventTransaction } from '../../generated/schema';
+import { Bytes, ethereum } from "@graphprotocol/graph-ts";
+import { EventTransaction } from "../../generated/schema";
 
 export function addTransaction(
   block: ethereum.Block,
@@ -9,6 +9,5 @@ export function addTransaction(
   let transaction = new EventTransaction(tx.hash.toHex());
   transaction.createdAt = block.timestamp.toString();
   transaction.dao = dao.toHexString();
-  transaction.daoAddress = dao;
   transaction.save();
 }

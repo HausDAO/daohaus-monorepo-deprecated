@@ -69,8 +69,6 @@ export function handleSetupComplete(event: SetupComplete): void {
   }
 
   dao.save();
-
-  addTransaction(event.block, event.transaction, event.address);
 }
 
 // GovernanceConfigSet (uint32 voting, uint32 grace, uint256 newOffering, uint256 quorum, uint256 sponsor, uint256 minRetention)

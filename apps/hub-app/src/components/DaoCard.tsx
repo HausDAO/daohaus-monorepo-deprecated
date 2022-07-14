@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
-import { charLimit, readableNumber } from '@daohaus/common-utilities';
-import { Bold, border, ParLg, ParMd, ProfileAvatar } from '@daohaus/ui';
+import { charLimit } from '@daohaus/common-utilities';
+import { Avatar, Bold, border, ParLg, ParMd } from '@daohaus/ui';
 import { Tag } from './Tag';
 import { AlertCircle } from './AlertCircle';
 import { ITransformedMembership } from '@daohaus/dao-data';
+import FallBackDAOImage from '../assets/fallback-dao-logo.svg';
 
 const StyledDaoCard = styled.div`
   background-color: ${(props) => props.theme.card.bg};
@@ -44,6 +45,10 @@ const StyledDaoCard = styled.div`
   }
 `;
 
+// COMPONENT LIBRARY
+// Calling this AlertCircle. It's the circle that alerts
+// about the DAO's proposal status.
+
 export const DaoCard = ({
   isDelegate,
   dao,
@@ -60,7 +65,7 @@ export const DaoCard = ({
     <StyledDaoCard className="dao-card">
       <div className="top-box">
         <div className="alert-box">
-          <ProfileAvatar size="xl" address={dao} />
+          <Avatar size="xl" src={FallBackDAOImage} />
           {activeProposalCount > 0 && (
             <AlertCircle number={activeProposalCount} />
           )}
@@ -71,40 +76,26 @@ export const DaoCard = ({
         {name ? charLimit(name, 21) : charLimit(dao, 21)}{' '}
       </ParLg>
       <div className="stats-box">
-        {activeMemberCount && (
-          <ParMd>
-            <Bold>{readableNumber({ amount: activeMemberCount })}</Bold> Members
-          </ParMd>
-        )}
-        {fiatTotal != null && (
-          <ParMd>
-            <Bold>{readableNumber({ amount: fiatTotal, unit: 'USD' })}</Bold>
-          </ParMd>
-        )}
-        {totalProposalCount && (
-          <ParMd>
-            <Bold>{readableNumber({ amount: totalProposalCount })}</Bold>{' '}
-            Proposals
-          </ParMd>
-        )}
-        {votingPower && (
-          <ParMd>
-            <Bold>
-              {readableNumber({
-                amount: votingPower,
-                unit: '%',
-                separator: '',
-                maxDecimals: 2,
-              })}
-            </Bold>{' '}
-            Voting Power
-          </ParMd>
-        )}
+        <ParMd>
+          <Bold>{activeMemberCount}</Bold> Members
+        </ParMd>
+        <ParMd>
+          <Bold>{fiatTotal}</Bold> USD
+        </ParMd>
+        <ParMd>
+          <Bold>{totalProposalCount}</Bold> Proposals
+        </ParMd>
+        <ParMd>
+          <Bold>{votingPower}</Bold>% Voting Power
+        </ParMd>
       </div>
       <div className="tag-box">
         <Tag>{networkId}</Tag>
         <Tag>{contractType}</Tag>
       </div>
+      {/* <div>
+        <Button secondary>Go</Button>
+      </div> */}
     </StyledDaoCard>
   );
 };

@@ -8,7 +8,6 @@ import {
   isArray,
   isNumberish,
   isString,
-  POSTER_TAGS,
   toBaseUnits,
   ValidNetwork,
 } from '@daohaus/common-utilities';
@@ -171,7 +170,7 @@ const metadataConfigTX = (formValues: FormValues, posterAddress: string) => {
 
   const METADATA = encodeFunction(LOCAL_ABI.POSTER, 'post', [
     JSON.stringify({ name: daoName }),
-    POSTER_TAGS.summoner,
+    'daohaus.summoner.daoProfile',
   ]);
 
   const encoded = encodeFunction(LOCAL_ABI.BAAL, 'executeAsBaal', [
@@ -186,17 +185,32 @@ const metadataConfigTX = (formValues: FormValues, posterAddress: string) => {
 };
 
 const handleKeychains = (chainId: ValidNetwork) => {
-  const { V3_FACTORY, POSTER } = CONTRACTS;
-  const v3Contracts = [V3_FACTORY, POSTER];
+  const {
+    V3_FACTORY,
+    V3_LOOT_SINGLETON,
+    V3_SHARE_SINGLETON,
+    GNOSIS_MULTISEND,
+    POSTER,
+  } = CONTRACTS;
+  const v3Contracts = [
+    V3_FACTORY,
+    V3_LOOT_SINGLETON,
+    V3_SHARE_SINGLETON,
+    GNOSIS_MULTISEND,
+    POSTER,
+  ];
 
   if (v3Contracts.every((contract) => contract[chainId])) {
     return {
       V3_FACTORY: V3_FACTORY[chainId] || '',
+      V3_LOOT_SINGLETON: V3_LOOT_SINGLETON[chainId] || '',
+      V3_SHARE_SINGLETON: V3_SHARE_SINGLETON[chainId] || '',
+      GNOSIS_MULTISEND: GNOSIS_MULTISEND[chainId] || '',
       POSTER: POSTER[chainId] || '',
     };
   }
 
-  throw new Error('Could not find V3 contracts for this network');
+  throw new Error('Could not find V3 singletons for this network');
 };
 
 export const assembleTxArgs = (
@@ -214,10 +228,17 @@ export const assembleTxArgs = (
     );
   }
 
-  const { POSTER } = handleKeychains(chainId);
+  const { V3_LOOT_SINGLETON, V3_SHARE_SINGLETON, GNOSIS_MULTISEND, POSTER } =
+    handleKeychains(chainId);
   const initParams = encodeValues(
-    ['string', 'string'],
-    [tokenName, tokenSymbol]
+    ['string', 'string', 'address', 'address', 'address'],
+    [
+      tokenName,
+      tokenSymbol,
+      V3_SHARE_SINGLETON,
+      V3_LOOT_SINGLETON,
+      GNOSIS_MULTISEND,
+    ]
   );
   const initActions = [
     tokenConfigTX(formValues),

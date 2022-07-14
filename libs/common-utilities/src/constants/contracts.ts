@@ -1,8 +1,14 @@
 import { KeychainList } from '..';
 
 export const CONTRACTS: KeychainList = {
+  V3_SHARE_SINGLETON: {
+    '0x5': '0xE4B40ea347Dffe40b5d0d562bF873d830C124643',
+  },
+  V3_LOOT_SINGLETON: {
+    '0x5': '0x29FF7b9C945158CCD973B7c190a73AB9e110Fc74',
+  },
   V3_FACTORY: {
-    '0x5': '0x93ac67998B80692366c537D3537ea6640fc65c97',
+    '0x5': '0x1b94221EB2bC8dc9F16660EA5be9dcd92b0ae862',
   },
   GNOSIS_MULTISEND: {
     '0x5': '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761',

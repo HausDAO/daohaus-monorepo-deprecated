@@ -22,8 +22,5 @@ export const ENDPOINTS: KeychainList = {
     '0x1': 'https://safe-transaction.gnosis.io/api/v1',
     '0x5': 'https://safe-transaction.goerli.gnosis.io/api/v1',
     '0x64': 'https://safe-transaction.xdai.gnosis.io/api/v1',
-    '0xa': 'https://safe-transaction.optimism.gnosis.io/api/v1',
-    '0x89': 'https://safe-transaction.polygon.gnosis.io/api/v1',
-    '0xa4b1': 'https://safe-transaction.arbitrum.gnosis.io/api/v1',
   },
 };

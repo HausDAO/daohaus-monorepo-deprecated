@@ -1,6 +1,5 @@
-import { WrappedInput } from '@daohaus/ui';
+import { FormSegment, SplitColumn, WrappedInput } from '@daohaus/ui';
 
-import { FormSegment, SplitColumn } from '../layouts/FormLayouts';
 import { INFO_COPY } from '../utils/content';
 import { FORM_KEYS } from '../utils/formKeys';
 

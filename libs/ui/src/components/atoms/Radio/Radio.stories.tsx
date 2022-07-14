@@ -2,9 +2,12 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Radio } from './Radio';
 
 export default {
-  title: 'Atoms/Form/Radio',
+  title: 'Atoms/Radio',
   component: Radio,
 } as ComponentMeta<typeof Radio>;
+
+// Setting displayName manually since Storybook displays it as [Object, object]
+Radio.displayName = 'Radio';
 
 const Template: ComponentStory<typeof Radio> = (args) => <Radio {...args} />;
 

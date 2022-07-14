@@ -1,4 +1,4 @@
-import { Bold, H1, ParMd, TemporaryLink } from '@daohaus/ui';
+import { Bold, H1, ParMd, Link } from '@daohaus/ui';
 import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
 
 import { InfoSection } from './FormLayouts';
@@ -15,7 +15,7 @@ export const SummonerLoading = ({ txHash }: LoadingProps) => {
         <Bold>Summoning a Baal</Bold>
       </H1>
       <ParMd>
-        Visit <TemporaryLink>Docs</TemporaryLink> for Help
+        Visit <Link href="">Docs</Link> for Help
       </ParMd>
       <HausBlockLoading loading={true} />
       <InfoSection>

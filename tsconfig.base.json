@@ -15,9 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@daohaus/tx-builder-feature": [
-        "libs/tx-builder-feature/src/index.ts"
-      ],
       "@daohaus/abi-utilities": ["libs/abi-utilities/src/index.ts"],
       "@daohaus/baal-contract-service": [
         "libs/baal-contract-service/src/index.ts"
@@ -27,6 +24,7 @@
       "@daohaus/daohaus-connect-feature": [
         "libs/daohaus-connect-feature/src/index.ts"
       ],
+      "@daohaus/tx-builder-feature": ["libs/tx-builder-feature/src/index.ts"],
       "@daohaus/ui": ["libs/ui/src/index.ts"]
     }
   },

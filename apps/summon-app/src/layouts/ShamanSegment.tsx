@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
-import { ParSm, TemporaryLink, WrappedTextArea } from '@daohaus/ui';
+import { FormSegment, ParSm, Link, WrappedTextArea } from '@daohaus/ui';
 
-import { FormSegment, TextAreaSection } from '../layouts/FormLayouts';
+import { TextAreaSection } from '../layouts/FormLayouts';
 import { transformShamans, validateShamanData } from '../utils/common';
 import { FORM_KEYS } from '../utils/formKeys';
 import { INFO_COPY } from '../utils/content';
@@ -36,7 +36,9 @@ export const ShamanSegment = ({ formDisabled }: { formDisabled: boolean }) => {
       description="Shamans are very powerful as they can have administrative control over voting and non-voting stakes. Be very careful adding shamans. "
       formArea={
         <TextAreaSection>
-          <TemporaryLink className="link">How to add a Shaman</TemporaryLink>
+          <Link className="link" href="/">
+            How to add a Shaman
+          </Link>
           <ParSm className="number-display">{amtShamans} Shamans</ParSm>
           <WrappedTextArea
             label="Addresses & Permissions"

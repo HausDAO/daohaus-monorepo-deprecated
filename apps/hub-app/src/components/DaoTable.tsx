@@ -3,9 +3,12 @@ import { ITransformedMembership } from '@daohaus/dao-data';
 import { useTable, Column, UseTableRowProps } from 'react-table';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
-import { Avatar } from '@daohaus/ui';
-import { BiGhost } from 'react-icons/bi';
-import { truncateAddress } from '@daohaus/common-utilities';
+import { ProfileAvatar } from '@daohaus/ui';
+import {
+  readableNumber,
+  toDollars,
+  truncateAddress,
+} from '@daohaus/common-utilities';
 import { Tag } from './Tag';
 
 interface IDaoTableData {
@@ -52,11 +55,15 @@ const FirstCell = styled.div`
   align-items: center;
 `;
 
+type HubTableType = Omit<ITransformedMembership, 'name'> & {
+  name: { name?: string; address: string };
+};
+
 export const DaoTable = ({ daoData }: IDaoTableData) => {
-  const tableData = React.useMemo<ITransformedMembership[]>(
+  const tableData = React.useMemo<HubTableType[]>(
     () =>
       daoData.map((dao: ITransformedMembership) => ({
-        name: dao.name,
+        name: { name: dao.name, address: dao.dao },
         activeProposalCount: dao.activeProposalCount,
         fiatTotal: dao.fiatTotal,
         activeMemberCount: dao.activeMemberCount,
@@ -73,7 +80,7 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
     [daoData]
   );
 
-  const exampleColumns = React.useMemo<Column<ITransformedMembership>[]>(
+  const exampleColumns = React.useMemo<Column<HubTableType>[]>(
     () => [
       {
         accessor: 'name', // accessor is the "key" in the data
@@ -81,13 +88,13 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
           value,
           row,
         }: {
-          value: string | undefined;
-          row: UseTableRowProps<ITransformedMembership>;
+          value: { name?: string; address: string };
+          row: UseTableRowProps<HubTableType>;
         }) => {
           return (
             <FirstCell>
-              <Avatar size="sm" fallback={<BiGhost />} />
-              {value}
+              <ProfileAvatar size="sm" address={value.address} />
+              {value.name}
               {row.original.isDelegate && <Tag>Delegate</Tag>}
             </FirstCell>
           );
@@ -100,20 +107,43 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
         Header: 'Active Proposals',
         accessor: 'activeProposalCount',
         Cell: ({ value }: { value: string | number }) => {
-          return <Highlight>{value}</Highlight>;
+          return (
+            <Highlight>
+              {readableNumber({ amount: value, maxDecimals: 1 })}
+            </Highlight>
+          );
         },
       },
       {
         Header: 'Vaults',
         accessor: 'fiatTotal',
+        Cell: ({ value }: { value?: number }) => {
+          return (
+            <Highlight>{value != null ? toDollars(value, '') : '--'}</Highlight>
+          );
+        },
       },
       {
         Header: 'Members',
         accessor: 'activeMemberCount',
+        Cell: ({ value }: { value: string | number }) => {
+          return (
+            <Highlight>
+              {readableNumber({ amount: value, maxDecimals: 1 })}
+            </Highlight>
+          );
+        },
       },
       {
         Header: 'Power',
         accessor: 'votingPower',
+        Cell: ({ value }: { value: string | number }) => {
+          return (
+            <Highlight>
+              {readableNumber({ amount: value, unit: '%', separator: '' })}
+            </Highlight>
+          );
+        },
       },
       {
         Header: 'Network',

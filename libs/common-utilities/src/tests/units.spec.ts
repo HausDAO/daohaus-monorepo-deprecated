@@ -2,7 +2,7 @@ import { readableNumber } from '../utils';
 
 describe('readableNumber', () => {
   it('should handle default amount', () => {
-    expect(readableNumber({ amount: 1 })).toEqual('1 ');
+    expect(readableNumber({ amount: 1 })).toEqual('$1.00 ');
   });
 
   describe('should handle amounts between 0 and 1', () => {
@@ -41,11 +41,12 @@ describe('readableNumber', () => {
     it('should', () => {
       expect(
         readableNumber({
-          amount: 1,
-          decimals: 18,
+          amount: 1100000000000000000,
+          unit: 'ether',
           separator: ' ',
+          format: '0.0e+0',
         })
-      ).toEqual('1.000000000000000000 ');
+      ).toEqual('1.1e+18 ether');
     });
 
     it('should', () => {
@@ -53,8 +54,20 @@ describe('readableNumber', () => {
         readableNumber({
           amount: 1.001,
           decimals: 5,
+          format: '0,0.00000',
         })
       ).toEqual('1.00100 ');
+    });
+
+    it('should return a predefined format', () => {
+      expect(
+        readableNumber({
+          unit: 'seconds',
+          amount: 20,
+          decimals: 5,
+          format: 'timeSeconds',
+        })
+      ).toEqual('0:00:20 seconds');
     });
   });
 });

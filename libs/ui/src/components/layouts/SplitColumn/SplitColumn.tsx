@@ -3,16 +3,18 @@ import { StyledRow, StyledSplitColumn } from './SplitColumn.styles';
 // REVIEW: No stories until there's a solid form sub-layout
 
 type SplitColumnProps = {
-  singleRow?: Row;
-  rows?: Row[];
+  rows: Row[] | Row;
 };
-export const SplitColumn = ({ rows, singleRow }: SplitColumnProps) => {
+export const SplitColumn = ({ rows }: SplitColumnProps) => {
   return (
     <StyledSplitColumn>
-      {singleRow && <Row {...singleRow} />}
-      {rows?.map((row) => {
-        return <Row key={row.rowID} {...row} />;
-      })}
+      {Array.isArray(rows) ? (
+        rows.map((row) => {
+          return <Row key={row.rowID} {...row} />;
+        })
+      ) : (
+        <Row {...rows} />
+      )}
     </StyledSplitColumn>
   );
 };

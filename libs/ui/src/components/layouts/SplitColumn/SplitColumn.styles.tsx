@@ -13,6 +13,7 @@ export const StyledRow = styled.div`
   width: 100%;
   justify-content: space-between;
   margin-bottom: 3.6rem;
+
   .left-section,
   .right-section {
     width: 24rem;

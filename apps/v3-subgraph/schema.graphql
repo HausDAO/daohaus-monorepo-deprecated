@@ -52,8 +52,7 @@ type Dao @entity {
   "proposals scoped to this dao"
   proposals: [Proposal!] @derivedFrom(field: "dao")
   "members scoped to this dao"
-  # members: [Member!]! @derivedFrom(field: "dao")
-  members: [Member!]!
+  members: [Member!] @derivedFrom(field: "dao")
   "rage quits scoped to this dao"
   rageQuits: [RageQuit!] @derivedFrom(field: "dao")
   "shaman scoped to this dao"
@@ -192,14 +191,9 @@ type Member @entity {
   loot: BigInt!
   "address the member is delegating to"
   delegatingTo: Bytes!
-  "subgraph id of member the address is delegating to"
-  delegatingToMember: Member
-  "total amount of shares this address votes with (thier own plus delegated shares)"
+  "amount of shares this address has delegated to it"
   delegateShares: BigInt!
-  "members this member is delegating too"
-  delegateOf: [Member!] @derivedFrom(field: "delegatingToMember")
   "related votes"
-  delegateOfCount: BigInt!
   votes: [Vote!] @derivedFrom(field: "member")
 }
 
@@ -241,8 +235,7 @@ type EventTransaction @entity {
   "block timestamp of the transaction"
   createdAt: String!
   "related DAO"
-  dao: Dao
-  daoAddress: Bytes
+  dao: Dao!
 }
 
 type TokenLookup @entity {

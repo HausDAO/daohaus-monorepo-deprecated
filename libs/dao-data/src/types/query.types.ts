@@ -16,13 +16,11 @@ export interface IListQueryArguments<TOrderBy extends string, Variables> {
 
 export interface ICrossNetworkMemberListArguments<
   TOrderBy extends string,
-  DaoVariables,
-  MemberVariables
+  Variables
 > {
   networkIds: Array<keyof Keychain>;
   memberAddress: string;
-  daoFilter?: DaoVariables;
-  memberFilter?: MemberVariables;
+  filter?: Variables;
   ordering?: Ordering<TOrderBy>;
   includeTokens?: boolean;
 }
@@ -84,7 +82,7 @@ export interface ITransformedMembership {
   activeMemberCount: string;
   votingPower: number;
   networkId?: keyof Keychain;
-  delegatingTo?: string;
+  delegate?: string;
   isDelegate: boolean;
   memberAddress: string;
   fiatTotal?: number;

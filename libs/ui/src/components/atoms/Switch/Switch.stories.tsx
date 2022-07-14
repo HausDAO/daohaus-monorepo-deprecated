@@ -6,9 +6,6 @@ export default {
   component: Switch,
 } as ComponentMeta<typeof Switch>;
 
-// Setting displayName manually since Storybook displays it as [Object, object]
-Switch.displayName = 'Switch';
-
 const Template: ComponentStory<typeof Switch> = (args) => <Switch {...args} />;
 
 export const AtomSwitch = Template.bind({});

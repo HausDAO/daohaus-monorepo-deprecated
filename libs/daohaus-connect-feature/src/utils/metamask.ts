@@ -21,21 +21,8 @@ export const switchChainOnMetaMask = async (
 
   if (
     !(name && symbol && networkName && rpcUrl && explorerUrl && window.ethereum)
-  ) {
-    console.error('Invalid network configuration');
-    console.log({
-      chainId,
-      currentNetwork,
-      name,
-      symbol,
-      rpc,
-      explorer,
-      networkName,
-      rpcUrl,
-      explorerUrl,
-    });
+  )
     return false;
-  }
 
   try {
     await window.ethereum.request({

@@ -1,4 +1,5 @@
 import { votingPowerPercentage } from '@daohaus/common-utilities';
+import { ListMembershipsQuery } from '../subgraph/queries/members.generated';
 import {
   ITransformedProposal,
   ITransformedMembership,
@@ -8,7 +9,6 @@ import {
   TokenBalance,
   DaoTokenBalances,
   QueryProposal,
-  ListMembershipsQuery,
 } from '../types';
 import { getProposalStatus } from './proposalsStatus';
 
@@ -57,27 +57,27 @@ export const transformMembershipList = (
   memberships: IFindQueryResult<ListMembershipsQuery>[]
 ): ITransformedMembership[] => {
   return memberships.reduce((list: ITransformedMembership[], network) => {
-    if (network?.data?.daos) {
-      const daos: ITransformedMembership[] = network?.data?.daos.map(
-        (dao: ListMembershipsQuery['daos'][number]) => {
+    if (network?.data?.members) {
+      const daos: ITransformedMembership[] = network?.data?.members.map(
+        (member) => {
           return {
-            dao: dao.id,
-            name: dao.name,
-            safeAddress: dao.safeAddress,
-            activeProposalCount: dao.activeProposals?.length || 0,
-            totalProposalCount: dao.proposalCount,
-            activeMemberCount: dao.activeMemberCount,
+            dao: member.dao.id,
+            name: member.dao.name,
+            safeAddress: member.dao.safeAddress,
+            activeProposalCount: member.dao.activeProposals?.length || 0,
+            totalProposalCount: member.dao.proposalCount,
+            activeMemberCount: member.dao.activeMemberCount,
             votingPower: votingPowerPercentage(
-              dao.totalShares,
-              dao.members[0].delegateShares
+              member.dao.totalShares,
+              member.shares
             ),
             networkId: network.networkId,
-            delegatingTo:
-              dao.members[0].delegatingTo !== dao.members[0].memberAddress
-                ? dao.members[0].delegatingTo
+            delegate:
+              member.delegatingTo !== member.memberAddress
+                ? member.delegatingTo
                 : undefined,
-            isDelegate: Number(dao.members[0].delegateOfCount) > 0,
-            memberAddress: dao.members[0].memberAddress,
+            isDelegate: Number(member.delegateShares) > 0,
+            memberAddress: member.memberAddress,
             contractType: 'Moloch V3',
           };
         }

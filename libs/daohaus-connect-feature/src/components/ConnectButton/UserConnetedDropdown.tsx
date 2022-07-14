@@ -65,13 +65,12 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
               }}
             >
               <AddressContainer className="address-container">
-                <ParXs style={{ marginBottom: '.5rem' }}>
-                  {address && truncateAddress(address)}
-                </ParXs>
                 <ExplorerLink
                   className="explorer-link"
-                  address="0x756ee8B8E898D497043c2320d9909f1DD5a7077F"
-                />
+                  address={address || undefined}
+                >
+                  <ParXs>{address && truncateAddress(address)}</ParXs>
+                </ExplorerLink>
               </AddressContainer>
               <ParXs>
                 {validNetwork && chainId
@@ -117,7 +116,6 @@ const Container = styled.div`
 
 const AddressContainer = styled.div`
   display: flex;
-  .explorer-link {
-    transform: translateY(0.2rem);
-  }
+  align-items: center;
+  margin-bottom: 0.5rem;
 `;

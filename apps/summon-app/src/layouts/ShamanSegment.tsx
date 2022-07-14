@@ -36,7 +36,9 @@ export const ShamanSegment = ({ formDisabled }: { formDisabled: boolean }) => {
       description="Shamans are very powerful as they can have administrative control over voting and non-voting stakes. Be very careful adding shamans. "
       formArea={
         <TextAreaSection>
-          <Link className="link">How to add a Shaman</Link>
+          <Link className="link" href="/">
+            How to add a Shaman
+          </Link>
           <ParSm className="number-display">{amtShamans} Shamans</ParSm>
           <WrappedTextArea
             label="Addresses & Permissions"

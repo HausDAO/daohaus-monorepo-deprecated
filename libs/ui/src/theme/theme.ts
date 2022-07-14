@@ -58,6 +58,9 @@ export const defaultDarkTheme: Theme = {
     secondary: SecondaryDarkButton,
     tertiary: TertiaryDarkButton,
   },
+  link: {
+    color: primaryDark.bgSolidHover,
+  },
   tooltip: {
     bg: secondaryDark.elementBg,
   },
@@ -198,6 +201,9 @@ export const defaultLightTheme: Theme = {
     primary: PrimaryLightButton,
     secondary: SecondaryLightButton,
     tertiary: TertiaryLightButton,
+  },
+  link: {
+    color: primaryDark.bgSolidHover,
   },
   tooltip: {
     bg: secondary.elementBg,

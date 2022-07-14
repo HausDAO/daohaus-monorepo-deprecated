@@ -64,6 +64,9 @@ declare module 'styled-components' {
       secondary: ButtonColorTargets;
       tertiary: ButtonColorTargets;
     };
+    link: {
+      color: string;
+    };
     tooltip: {
       bg: string;
     };

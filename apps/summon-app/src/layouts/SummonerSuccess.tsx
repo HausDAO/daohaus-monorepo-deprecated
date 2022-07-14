@@ -1,4 +1,4 @@
-import { Bold, Button, H1, ParMd, TemporaryLink } from '@daohaus/ui';
+import { Bold, Button, H1, ParMd, Link } from '@daohaus/ui';
 import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
 
 import { InfoSection } from './FormLayouts';
@@ -25,7 +25,7 @@ export const SummonerSuccess = ({
         <Bold>DAO Summoned</Bold>
       </H1>
       <ParMd>
-        Visit <TemporaryLink>Docs</TemporaryLink> for Help
+        Visit <Link href="">Docs</Link> for Help
       </ParMd>
       <HausBlockLoading loading={false} />
       <InfoSection>

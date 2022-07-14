@@ -1,5 +1,19 @@
 {
   "name": "@daohaus/common-utilities",
   "version": "0.0.4",
-  "type": "commonjs"
+  "type": "commonjs",
+  "homepage": "https://github.com/HausDAO/daohaus-monorepo#readme",
+  "issues": "https://github.com/HausDAO/daohaus-monorepo/issues?q=is%3Aissue+is%3Aopen",
+  "license": "MIT",
+  "keywords": [
+    "daohaus",
+    "common-utilities",
+    "daohaus utils",
+    "daohaus utilities"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:HausDAO/daohaus-monorepo.git",
+    "directory": "libs/common-utilities"
+  }
 }

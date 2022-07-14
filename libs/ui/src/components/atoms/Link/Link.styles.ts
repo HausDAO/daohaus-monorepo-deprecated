@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { Theme } from 'libs/ui/src/types';
+import { Theme } from '../../../types/theming';
 import { font } from '../../../theme/global/font';
 
 const LinkStyles = css`

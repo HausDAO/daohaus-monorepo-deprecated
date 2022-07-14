@@ -1,12 +1,13 @@
 import { DaoHausNav } from '@daohaus/daohaus-connect-feature';
 import { H1 } from '@daohaus/ui';
+import { OuterLayout } from '@daohaus/ui';
 
 export function App() {
   return (
-    <Layout>
+    <OuterLayout>
       <DaoHausNav />
       <H1>Header!</H1>
-    </Layout>
+    </OuterLayout>
   );
 }
 

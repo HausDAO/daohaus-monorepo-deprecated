@@ -1,9 +1,9 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Input } from './Input';
-import { BsSearch } from 'react-icons/bs';
+import { RiSearchLine } from 'react-icons/ri';
 
 export default {
-  title: 'Atoms/Form/Input',
+  title: 'Atoms/Input',
   component: Input,
 } as ComponentMeta<typeof Input>;
 Input.displayName = 'Input';
@@ -17,7 +17,7 @@ AtomInput.args = {
 export const InputWithIcon = Template.bind({});
 InputWithIcon.args = {
   placeholder: 'Placeholder',
-  icon: BsSearch,
+  icon: RiSearchLine,
 };
 
 export const InputDisabled = Template.bind({});

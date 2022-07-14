@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-import { ParMd, TemporaryLink } from '@daohaus/ui';
+import { ParMd, Link } from '@daohaus/ui';
 import { DaoHausNav, useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 import { TXBuilder } from '@daohaus/tx-builder-feature';
@@ -72,8 +72,7 @@ export const App = () => {
           <div className="logo-box">
             <img src={hausCastle} alt="daohaus castle logo" />
             <ParMd>
-              Built by{' '}
-              <TemporaryLink href="https://daohaus.club">DAOhaus</TemporaryLink>
+              Built by <Link href="https://daohaus.club">DAOhaus</Link>
             </ParMd>
           </div>
         </footer>

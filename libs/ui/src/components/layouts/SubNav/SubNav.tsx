@@ -63,7 +63,6 @@ export const SubNav = (props: SubNavProps) => {
               <RiArrowDownSLine
                 size={'2rem'}
                 color={theme.subNav.navLinkColor}
-                className="fuck"
               />
             </div>
           )}

@@ -4,7 +4,7 @@ import { DataMd, H2 } from '../../atoms';
 
 type FormLayoutProps = {
   title?: string | React.ReactNode;
-  subtitle?: string;
+  subtitle?: string | React.ReactNode;
   description?: string | React.ReactNode;
   children: React.ReactNode;
 };
@@ -35,7 +35,7 @@ export const FormLayout = ({
     if (!subtitle) return null;
     if (typeof subtitle === 'string')
       return <DataMd className="subtitle">{subtitle}</DataMd>;
-    return <div className="subtitle">subtitle</div>;
+    return <div className="subtitle">{subtitle}</div>;
   }, [subtitle]);
 
   const formTitle = useMemo(() => {

@@ -33,6 +33,12 @@ export const defaultDarkTheme: Theme = {
   disabled: neutralDark.bgSolid,
   transparent: utilityDark.transparent,
   info: utilityDark.info,
+  subNav: {
+    bg: secondaryDark.bgSubtle,
+    navLinkColor: secondaryDark.bgSolid,
+    navLinkHoverColor: secondaryDark.bgSolidHover,
+    navLinkSelected: secondaryDark.textHighContrast,
+  },
   card: {
     bg: secondaryDark.bgSubtle,
     border: secondaryDark.elementBgActive,
@@ -177,6 +183,12 @@ export const defaultLightTheme: Theme = {
   info: utility.info,
   transparent: utility.transparent,
   disabled: neutral.bgSolid,
+  subNav: {
+    bg: secondary.bgSubtle,
+    navLinkColor: secondary.bgSolid,
+    navLinkHoverColor: secondary.bgSolidHover,
+    navLinkSelected: secondary.textHighContrast,
+  },
   card: {
     bg: secondary.elementBg,
     border: secondary.elementBorder,

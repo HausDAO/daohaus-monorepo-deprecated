@@ -1,10 +1,10 @@
-import styled, { useTheme } from 'styled-components';
+import { useTheme } from 'styled-components';
 import classNames from 'classnames';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import { useLocation } from 'react-router-dom';
 
-import { Link } from '../../atoms';
 import { SubNavContainer } from './SubNav.styles';
+import { SubNavLink } from '../../atoms/SubNavLink';
 
 type NavLink = {
   label: string;
@@ -16,28 +16,6 @@ type SubNavProps = {
   navLinks?: NavLink[];
   moreLinks?: NavLink[];
 };
-
-const NavLink = styled(Link)`
-  font-size: 2.4rem;
-  letter-spacing: 1.5px;
-  color: ${(props) => props.theme.subNav.navLinkColor};
-  transition: 0.2s all;
-  padding-bottom: 1rem;
-  border-bottom: 2px transparent solid;
-
-  cursor: pointer;
-  :hover {
-    color: ${(props) => props.theme.subNav.navLinkHoverColor};
-    text-decoration: none;
-  }
-  &.selected {
-    color: white;
-    border-bottom: 2px ${(props) => props.theme.subNav.navLinkColor} solid;
-  }
-  &.subnav {
-    padding-bottom: 1rem;
-  }
-`;
 
 export const SubNav = (props: SubNavProps) => {
   const {
@@ -64,9 +42,9 @@ export const SubNav = (props: SubNavProps) => {
           });
 
           return (
-            <NavLink key={link.label} href={link.href} className={classes}>
+            <SubNavLink key={link.label} href={link.href} className={classes}>
               {link.label}
-            </NavLink>
+            </SubNavLink>
           );
         })}
         <div className="more-box">
@@ -80,7 +58,7 @@ export const SubNav = (props: SubNavProps) => {
             links for this dropdown. Dynamic Links are not a blocker for 
             building the dropdown though
           */}
-          <NavLink as="button">More</NavLink>
+          <SubNavLink as="button">More</SubNavLink>
           <RiArrowDownSLine size={'1.6rem'} color={theme.subNav.navLinkColor} />
         </div>
       </div>

@@ -69,6 +69,33 @@ export const AdvancedSegment = ({
                 />
               ),
             },
+            {
+              rowID: 'advanced3',
+              left: (
+                <WrappedInput
+                  id={FORM_KEYS.VOTING_SECONDS}
+                  label="Voting Period (Seconds)"
+                  defaultValue="0"
+                  required
+                  full
+                  info={INFO_COPY.VOTING_PERIOD}
+                  disabled={formDisabled}
+                  registerOptions={{ required: 'This value is required' }}
+                />
+              ),
+              right: (
+                <WrappedInput
+                  id={FORM_KEYS.GRACE_SECONDS}
+                  label="Grace Period (Seconds)"
+                  defaultValue="0"
+                  required
+                  full
+                  info={INFO_COPY.GRACE_PERIOD}
+                  disabled={formDisabled}
+                  registerOptions={{ required: 'This value is required' }}
+                />
+              ),
+            },
           ]}
         />
       }

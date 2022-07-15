@@ -6,6 +6,7 @@ export const SubNavLink = ({
   selected,
   children,
   as,
+  ...props
 }: {
   as?: string;
   selected?: boolean;
@@ -13,5 +14,9 @@ export const SubNavLink = ({
 } & React.ComponentPropsWithRef<'a'>) => {
   const classes = classNames({ selected });
 
-  return <StyledNavLink className={classes}>{children}</StyledNavLink>;
+  return (
+    <StyledNavLink className={classes} {...props}>
+      {children}
+    </StyledNavLink>
+  );
 };

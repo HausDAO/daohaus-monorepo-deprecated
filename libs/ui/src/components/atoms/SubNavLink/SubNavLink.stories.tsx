@@ -6,5 +6,17 @@ export default {
   component: SubNavLink,
 } as ComponentMeta<typeof SubNavLink>;
 
-export const Unselected = () => <SubNavLink>Home</SubNavLink>;
-export const Selected = () => <SubNavLink selected={true}>Home</SubNavLink>;
+const Template: ComponentStory<typeof SubNavLink> = (args) => (
+  <SubNavLink {...args} />
+);
+
+export const Unselected = Template.bind({});
+Unselected.args = {
+  children: 'Home',
+};
+
+export const Selected = Template.bind({});
+Selected.args = {
+  children: 'Home',
+  selected: true,
+};

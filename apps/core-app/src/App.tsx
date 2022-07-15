@@ -6,7 +6,14 @@ export function App() {
   return (
     <OuterLayout>
       <DaoHausNav />
-      <SubNav />
+      <SubNav
+        navLinks={[
+          { label: 'Home', href: '/home' },
+          { label: 'Proposals', href: '/proposals' },
+          { label: 'Vaults', href: '/vaults' },
+          { label: 'Members', href: '/members' },
+        ]}
+      />
       <H1>Header!</H1>
     </OuterLayout>
   );

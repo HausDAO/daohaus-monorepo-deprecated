@@ -17,16 +17,7 @@ type SubNavProps = {
 };
 
 export const SubNav = (props: SubNavProps) => {
-  const {
-    className,
-    navLinks = [
-      { label: 'Home', href: '/home' },
-      { label: 'Proposals', href: '/proposals' },
-      { label: 'Vaults', href: '/vaults' },
-      { label: 'Members', href: '/members' },
-    ],
-    // moreLinks,
-  } = props;
+  const { className, navLinks = [] } = props;
 
   const theme = useTheme();
   const location = useLocation();
@@ -35,10 +26,9 @@ export const SubNav = (props: SubNavProps) => {
     <SubNavContainer className={className}>
       <div className="nav-link-list">
         {navLinks?.map((link) => {
-          const selected = link.href.includes(location.pathname);
-
+          const selected = location.pathname.includes(link?.href);
           return (
-            <SubNavLink key={link.label} href={link.href} selected={selected}>
+            <SubNavLink key={link?.label} href={link?.href} selected={selected}>
               {link.label}
             </SubNavLink>
           );

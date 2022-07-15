@@ -10,7 +10,7 @@ export const TimingSegment = ({ formDisabled }: { formDisabled: boolean }) => {
       description="Define your timing for Voting and Grace periods. You can update these settings through a proposal."
       formArea={
         <SplitColumn
-          singleRow={{
+          rows={{
             rowID: 'timing',
             left: (
               <TimePicker

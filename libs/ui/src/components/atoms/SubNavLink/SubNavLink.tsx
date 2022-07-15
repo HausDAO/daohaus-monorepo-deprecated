@@ -1,25 +1,17 @@
-import styled from 'styled-components';
+import classNames from 'classnames';
+import React, { ReactNode } from 'react';
+import { StyledNavLink } from './SubNavLink.styles';
 
-import { Link } from '../Link';
+export const SubNavLink = ({
+  selected,
+  children,
+  as,
+}: {
+  as?: string;
+  selected?: boolean;
+  children: ReactNode;
+} & React.ComponentPropsWithRef<'a'>) => {
+  const classes = classNames({ selected });
 
-export const SubNavLink = styled(Link)`
-  font-size: 2.4rem;
-  letter-spacing: 1.5px;
-  color: ${(props) => props.theme.subNav.navLinkColor};
-  transition: 0.2s all;
-  padding-bottom: 1rem;
-  border-bottom: 2px transparent solid;
-
-  cursor: pointer;
-  :hover {
-    color: ${(props) => props.theme.subNav.navLinkHoverColor};
-    text-decoration: none;
-  }
-  &.selected {
-    color: white;
-    border-bottom: 2px ${(props) => props.theme.subNav.navLinkColor} solid;
-  }
-  &.subnav {
-    padding-bottom: 1rem;
-  }
-`;
+  return <StyledNavLink className={classes}>{children}</StyledNavLink>;
+};

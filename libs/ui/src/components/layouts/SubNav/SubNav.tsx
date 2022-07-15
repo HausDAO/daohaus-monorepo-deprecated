@@ -1,10 +1,9 @@
 import { useTheme } from 'styled-components';
-import classNames from 'classnames';
 import { RiArrowDownSLine } from 'react-icons/ri';
 import { useLocation } from 'react-router-dom';
 
 import { SubNavContainer } from './SubNav.styles';
-import { SubNavLink } from '../../atoms/SubNavLink';
+import { SubNavLink } from '../../atoms/SubNavLink/SubNavLink';
 
 type NavLink = {
   label: string;
@@ -36,13 +35,10 @@ export const SubNav = (props: SubNavProps) => {
     <SubNavContainer className={className}>
       <div className="nav-link-list">
         {navLinks?.map((link) => {
-          const classes = classNames({
-            subnav: true,
-            selected: link.href.match(location.pathname),
-          });
+          const selected = link.href.includes(location.pathname);
 
           return (
-            <SubNavLink key={link.label} href={link.href} className={classes}>
+            <SubNavLink key={link.label} href={link.href} selected={selected}>
               {link.label}
             </SubNavLink>
           );

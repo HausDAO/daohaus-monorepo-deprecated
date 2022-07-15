@@ -4,7 +4,7 @@ import { RiExternalLinkLine } from 'react-icons/ri';
 import { InternalLink, ExternalLink } from './Link.styles';
 
 export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
-  href: string;
+  href?: string;
   externalIcon?: boolean;
 }
 

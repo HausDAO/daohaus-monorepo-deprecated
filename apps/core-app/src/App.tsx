@@ -1,6 +1,12 @@
 import { DaoHausNav } from '@daohaus/daohaus-connect-feature';
-import { H1, SubNav } from '@daohaus/ui';
+import { Card, FormLayout, Main, SubNav } from '@daohaus/ui';
 import { OuterLayout } from '@daohaus/ui';
+import styled from 'styled-components';
+
+const Spacer = styled.div`
+  width: 100%;
+  height: 50rem;
+`;
 
 export function App() {
   return (
@@ -15,7 +21,17 @@ export function App() {
         ]}
         moreLinks={[{ label: 'Settings', href: '/settings' }]}
       />
-      <H1>Header!</H1>
+      <Main>
+        <FormLayout
+          subtitle="Shaman Proposal"
+          title="Manage or Add a Shaman"
+          description="Learn more about Shamans in our documentation. "
+        >
+          <Card>
+            <Spacer />
+          </Card>
+        </FormLayout>
+      </Main>
     </OuterLayout>
   );
 }

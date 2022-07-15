@@ -11,7 +11,9 @@ export const SubNavContainer = styled.div`
       margin-right: 5rem;
     }
   }
-
+  .mobile-box {
+    padding: 2.6rem;
+  }
   .more-box {
     display: inline-flex;
     align-items: center;

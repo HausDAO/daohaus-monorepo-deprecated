@@ -13,6 +13,7 @@ export function App() {
           { label: 'Vaults', href: '/vaults' },
           { label: 'Members', href: '/members' },
         ]}
+        moreLinks={[{ label: 'Settings', href: '/settings' }]}
       />
       <H1>Header!</H1>
     </OuterLayout>

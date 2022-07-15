@@ -4,3 +4,4 @@ export * from './SplitColumn';
 export * from './SubNav';
 export * from './Main';
 export * from './FormLayout';
+export * from './BiColumnLayout';

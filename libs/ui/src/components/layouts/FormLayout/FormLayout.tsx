@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import styled from 'styled-components';
 import { DataMd, H2 } from '../../atoms';
+import { FormContainer } from './FormLayout.styles';
 
 type FormLayoutProps = {
   title?: string | React.ReactNode;
@@ -8,22 +8,6 @@ type FormLayoutProps = {
   description?: string | React.ReactNode;
   children: React.ReactNode;
 };
-
-const FormContainer = styled.div`
-  width: 58rem;
-  margin-top: 5.5rem;
-
-  .subtitle {
-    margin-bottom: 1.2rem;
-    opacity: 0.6;
-  }
-  .title {
-    margin-bottom: 3rem;
-  }
-  .description {
-    margin-bottom: 5rem;
-  }
-`;
 
 export const FormLayout = ({
   title,

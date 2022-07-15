@@ -63,7 +63,7 @@
     "tsc": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "tsc --project apps/hub-app/tsconfig.app.json --noEmit --skipLibCheck",
+        "command": "tsc --project apps/summon-app/tsconfig.app.json --noEmit --skipLibCheck",
         "color": true
       }
     },

@@ -16,12 +16,11 @@ export const SubNavContainer = styled.div`
     display: inline-flex;
     align-items: center;
 
-    button {
-      background-color: transparent;
-      border: none;
-      padding: 0;
-      margin: 0;
+    a {
       margin-right: 1rem;
+    }
+    svg {
+      transform: translateY(-0.5rem);
     }
   }
 `;

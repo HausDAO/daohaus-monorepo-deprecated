@@ -5,10 +5,8 @@ import { StyledNavLink } from './SubNavLink.styles';
 export const SubNavLink = ({
   selected,
   children,
-  as,
   ...props
 }: {
-  as?: string;
   selected?: boolean;
   children: ReactNode;
 } & React.ComponentPropsWithRef<'a'>) => {

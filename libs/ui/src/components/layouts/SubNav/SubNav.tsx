@@ -17,7 +17,7 @@ type SubNavProps = {
 };
 
 export const SubNav = (props: SubNavProps) => {
-  const { className, navLinks = [] } = props;
+  const { className, navLinks = [], moreLinks = [] } = props;
 
   const theme = useTheme();
   const location = useLocation();
@@ -33,8 +33,9 @@ export const SubNav = (props: SubNavProps) => {
             </SubNavLink>
           );
         })}
-        <div className="more-box">
-          {/*REVIEW: 
+        {moreLinks.length > 0 && (
+          <div className="more-box">
+            {/*REVIEW: 
             This dropdown should be built once we are finished the changes
             on the dropdown component. 
 
@@ -44,9 +45,14 @@ export const SubNav = (props: SubNavProps) => {
             links for this dropdown. Dynamic Links are not a blocker for 
             building the dropdown though
           */}
-          <SubNavLink as="button">More</SubNavLink>
-          <RiArrowDownSLine size={'1.6rem'} color={theme.subNav.navLinkColor} />
-        </div>
+            <SubNavLink>More</SubNavLink>
+            <RiArrowDownSLine
+              size={'2rem'}
+              color={theme.subNav.navLinkColor}
+              className="fuck"
+            />
+          </div>
+        )}
       </div>
     </SubNavContainer>
   );

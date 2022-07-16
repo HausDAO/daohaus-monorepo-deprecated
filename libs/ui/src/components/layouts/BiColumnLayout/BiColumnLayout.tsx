@@ -1,31 +1,7 @@
-import { widthQuery } from '../../../theme/global';
 import React, { useMemo } from 'react';
-import styled from 'styled-components';
-import { DataMd, H2 } from '../../atoms';
 
-const BiColumnBox = styled.div`
-  margin-top: 5rem;
-  width: 100%;
-  max-width: 110rem;
-  .subtitle {
-    margin-bottom: 1.2rem;
-    opacity: 0.6;
-  }
-  .title {
-    margin-bottom: 3rem;
-  }
-  .description {
-    margin-bottom: 5rem;
-  }
-  .split {
-    display: flex;
-    flex-direction: row;
-    gap: 3rem;
-    @media ${widthQuery.md} {
-      flex-direction: column;
-    }
-  }
-`;
+import { DataMd, H2 } from '../../atoms';
+import { BiColumnBox } from './BiColumn.styles';
 
 type BiColumnLayoutProps = {
   title?: 'string' | React.ReactNode;

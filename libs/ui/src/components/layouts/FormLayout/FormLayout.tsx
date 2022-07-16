@@ -15,7 +15,7 @@ export const FormLayout = ({
   description,
   children,
 }: FormLayoutProps) => {
-  const formSubitle = useMemo(() => {
+  const formSubtitle = useMemo(() => {
     if (!subtitle) return null;
     if (typeof subtitle === 'string')
       return <DataMd className="subtitle">{subtitle}</DataMd>;
@@ -37,7 +37,7 @@ export const FormLayout = ({
 
   return (
     <FormContainer>
-      {formSubitle}
+      {formSubtitle}
       {formTitle}
       {formDescription}
       {children}

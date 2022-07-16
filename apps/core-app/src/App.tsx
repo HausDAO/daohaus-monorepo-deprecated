@@ -1,11 +1,22 @@
 import { DaoHausNav } from '@daohaus/daohaus-connect-feature';
-import { Card, FormLayout, Main, SubNav } from '@daohaus/ui';
+import { BiColumnLayout, Card, Main, SubNav } from '@daohaus/ui';
 import { OuterLayout } from '@daohaus/ui';
 import styled from 'styled-components';
 
-const Spacer = styled.div`
+const LeftCard = styled(Card)`
+  /* min-width: 58rem; */
+  /* display: flex; */
   width: 100%;
-  height: 50rem;
+  min-width: 54rem;
+  max-width: 64rem;
+  height: 47rem;
+`;
+
+const RightCard = styled(Card)`
+  width: 100%;
+  min-width: 38rem;
+  max-width: 45rem;
+  height: 77rem;
 `;
 
 export function App() {
@@ -22,15 +33,12 @@ export function App() {
         moreLinks={[{ label: 'Settings', href: '/settings' }]}
       />
       <Main>
-        <FormLayout
-          subtitle="Shaman Proposal"
-          title="Manage or Add a Shaman"
-          description="Learn more about Shamans in our documentation. "
-        >
-          <Card>
-            <Spacer />
-          </Card>
-        </FormLayout>
+        <BiColumnLayout
+          subtitle="Disperse Proposal"
+          title="Disperse Reimbursements for April ‘22 Event"
+          left={<LeftCard>Left</LeftCard>}
+          right={<RightCard>Right</RightCard>}
+        />
       </Main>
     </OuterLayout>
   );

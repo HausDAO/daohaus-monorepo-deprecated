@@ -1,13 +1,8 @@
-import { DaoHausNav } from '@daohaus/daohaus-connect-feature';
-import {
-  BiColumnLayout,
-  Card,
-  MainLayout,
-  SubNav,
-  widthQuery,
-} from '@daohaus/ui';
-import { OuterLayout } from '@daohaus/ui';
 import styled from 'styled-components';
+
+import { BiColumnLayout, Card, MainLayout, widthQuery } from '@daohaus/ui';
+import { OuterLayout } from '@daohaus/ui';
+import { HausLayout } from '@daohaus/daohaus-connect-feature';
 
 const LeftCard = styled(Card)`
   width: 100%;
@@ -33,26 +28,22 @@ const RightCard = styled(Card)`
 
 export function App() {
   return (
-    <OuterLayout>
-      <DaoHausNav />
-      <SubNav
-        navLinks={[
-          { label: 'Home', href: '/home' },
-          { label: 'Proposals', href: '/proposals' },
-          { label: 'Vaults', href: '/vaults' },
-          { label: 'Members', href: '/members' },
-        ]}
-        moreLinks={[{ label: 'Settings', href: '/settings' }]}
+    <HausLayout
+      navLinks={[
+        { label: 'Home', href: '/home' },
+        { label: 'Proposals', href: '/proposals' },
+        { label: 'Vaults', href: '/vaults' },
+        { label: 'Members', href: '/members' },
+      ]}
+      moreLinks={[{ label: 'Settings', href: '/settings' }]}
+    >
+      <BiColumnLayout
+        subtitle="Disperse Proposal"
+        title="Disperse Reimbursements for April ‘22 Event"
+        left={<LeftCard>Left</LeftCard>}
+        right={<RightCard>Right</RightCard>}
       />
-      <MainLayout>
-        <BiColumnLayout
-          subtitle="Disperse Proposal"
-          title="Disperse Reimbursements for April ‘22 Event"
-          left={<LeftCard>Left</LeftCard>}
-          right={<RightCard>Right</RightCard>}
-        />
-      </MainLayout>
-    </OuterLayout>
+    </HausLayout>
   );
 }
 

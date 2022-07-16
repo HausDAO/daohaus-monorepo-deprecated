@@ -13,7 +13,7 @@ type NavLink = {
   href: string;
 };
 
-type SubNavProps = {
+export type SubNavProps = {
   className?: string;
   navLinks?: NavLink[];
   moreLinks?: NavLink[];

@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
-import { BiColumnLayout, Card, MainLayout, widthQuery } from '@daohaus/ui';
-import { OuterLayout } from '@daohaus/ui';
+import { BiColumnLayout, Card, widthQuery } from '@daohaus/ui';
 import { HausLayout } from '@daohaus/daohaus-connect-feature';
 
 const LeftCard = styled(Card)`

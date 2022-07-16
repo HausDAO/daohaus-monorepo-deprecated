@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { DaoHausNav } from '@daohaus/daohaus-connect-feature';
+import { DaoHausNav } from '../DaoHausNav/DaoHausNav';
 import { MainLayout, SubNav, SubNavProps } from '@daohaus/ui';
 import { OuterLayout } from '@daohaus/ui';
 

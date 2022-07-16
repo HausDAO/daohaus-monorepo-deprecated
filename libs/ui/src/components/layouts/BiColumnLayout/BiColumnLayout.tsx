@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { DataMd, H2 } from '../../atoms';
 
 const BiColumnBox = styled.div`
-  margin-top: 5.5rem;
+  margin-top: 5rem;
   width: 100%;
   max-width: 110rem;
   .subtitle {

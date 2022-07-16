@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import styled from 'styled-components';
 import { Card } from '../../atoms';
-import { Main } from '../../layouts/Main';
+import { MainLayout } from '../MainLayout';
 import { FormLayout } from './FormLayout';
 
 export default {
@@ -10,9 +10,9 @@ export default {
 } as ComponentMeta<typeof FormLayout>;
 
 const Template: ComponentStory<typeof FormLayout> = (args) => (
-  <Main>
+  <MainLayout>
     <FormLayout {...args} />
-  </Main>
+  </MainLayout>
 );
 
 const Spacer = styled.div`

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const FormContainer = styled.div`
   width: 58rem;
-  margin-top: 5.5rem;
+  margin-top: 5rem;
 
   .subtitle {
     margin-bottom: 1.2rem;

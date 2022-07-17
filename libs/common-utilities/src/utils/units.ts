@@ -1,36 +1,12 @@
 import { utils } from 'ethers';
 
-import * as numeral from 'numeral';
+import numeral from 'numeral';
 import { isNumberish } from './typeguards';
 
 export const toBaseUnits = (amount: string, decimals = 18) =>
   utils.parseUnits(amount, decimals).toString();
 export const toWholeUnits = (amount: string, decimals = 18) =>
   utils.formatUnits(amount, decimals).toString();
-
-/*
-  http://numeraljs.com/
-  const string = numeral(1000.23).format('$ 0,0[.]0000 %'); => $ 1000.2300 %
-
-  type         number       format        result
-  ------------------------  --------------------------
-  number       10000	      '0,0.0000'	   10,000.0000
-  number       -10000       '0,0.0'       -10,000.0
-  number       -10000       '0,0[.]0'     -10,000
-  number       -10000.23    '0,0[.]0'     -10,000.2
-  currency     1230974	    '0.0a'	       1.2m
-  currency     1001         '$ 0,0[.]00'	 $ 1,001
-  currency     1230974	    '($ 0.00 a)'	 $ 1.23 m
-  currency     1000.2       '0,0[.]00 $'   1,000.20 $
-  currency     1001         '$ 0,0[.]00'   $ 1,001
-  pecentage    1	          '0%'           100%
-  percentage   0.974878234  '0.000%'       97.488%
-  percentage   -0.43        '0 %'          -43 %
-  exponential  1123456789	  '0,0e+0'       1e+9
-  exponential  12398734.202	'0.00e+0'      1.24e+7
-*/
-
-const formats = ['currency', 'currency', 'percent', 'exponent'];
 
 type NumericalFormat =
   | 'currency'
@@ -41,90 +17,190 @@ type NumericalFormat =
   | 'percentShort'
   | 'exponential';
 
-const formatGenerator = (
-  separator = ' ',
-  type: NumericalFormat,
-  decimals: number
-) => {
-  const short = type.match(/(short)/i) ? 'a' : null;
-  const symbol = type.match(/(currency)/i)
-    ? '$'
-    : type.match(/(percent)/i)
-    ? '%'
-    : type.match(/(exponent)/i)
-    ? 'e'
-    : null;
+const NUMERAL_TYPES = {
+  currencyNumeral: (value: number, format: string): string => {
+    const n = numeral;
 
-  if (type.match(/(percent|exponent)/i)) {
-    return `0[.]${'0'.repeat(decimals)}${symbol}${separator}`;
-  } else if (type.match(/(currency|number)/i)) {
-    return `${symbol}0[.]${'0'.repeat(decimals)}${short}${separator}`;
-  }
+    n.options.zeroFormat = '0';
+    n.options.nullFormat = '--';
+
+    const nValue = n(value).format(format);
+
+    n.reset();
+
+    return nValue;
+  },
+  percentNumeral: (value: number, format: string): string => {
+    const n = numeral;
+
+    n.options.zeroFormat = '0';
+    n.options.nullFormat = '--';
+    n.options.scalePercentBy100 = false;
+
+    const nValue = n(value).format(format);
+
+    n.reset();
+
+    return nValue;
+  },
 };
 
-const getNumericalValue = ({
-  value,
-  format,
-}: {
+interface FormatGeneratorParams {
   value: number;
-  format: defaultKeys | string;
-}) => {
-  if (!format) {
-    throw new Error(`must define either format`);
+  type: NumericalFormat | string;
+  decimals: number;
+}
+
+const generateNumeral = ({
+  value,
+  type,
+  decimals,
+}: FormatGeneratorParams): string => {
+  // short formats shrink large numbers to the shorter representation
+  // e.g. 1.000 -> 1k, 1.000.000 -> 1m, etc
+  const short = type.match(/(short)/i) ? 'a' : '';
+  const decimalCount = decimals ? '0'.repeat(decimals) : '';
+
+  // build the correct numeral.js format OR pass a one off custom format on.
+  //
+  // custom format: create your own format and it will bypass straight to numeral.js
+  // eg. readableNumbers.toCustomFormat({value: 10, unit: 'Place', format: '0o '}) => '10th Place'
+  let format;
+  if (type.match(/(exponent)/i)) {
+    format = `0,0[.]${decimalCount}e`;
+
+    return numeral(value).format(format);
+  } else if (type.match(/(percent)/i)) {
+    const decimalMatcher = decimals > 0 ? `[.]${decimalCount}` : '';
+    format = `0${decimalMatcher}%`;
+
+    return NUMERAL_TYPES.percentNumeral(value, format);
+  } else if (type.match(/(currency)/i)) {
+    format = `$0[.]${decimalCount}${short}`;
+
+    return NUMERAL_TYPES.currencyNumeral(value, format);
+  } else if (type.match(/(number)/)) {
+    format = `0,0[.]${decimalCount}${short}`;
+
+    return numeral(value).format(format);
+  } else {
+    return numeral(value).format(type);
   }
-
-  let n;
-
-  if (format && numericalDefaults.base[format as defaultKeys]) {
-    n = numeral(value);
-    return n.format(numericalDefaults.base?.[format as defaultKeys]);
-  }
-
-  n = numeral(value);
-  return n.format(format);
 };
 
-export const readableNumber = ({
-  amount,
-  unit,
-  decimals,
-  separator = ' ',
-  maxDecimals,
-  format,
-}: {
-  amount: number | string;
+interface ReadableNumberParams {
+  value: number | string;
   unit?: string;
   decimals?: number;
   separator?: string;
-  maxDecimals?: number;
-  format?: defaultKeys | string;
-}) => {
-  if (typeof amount === 'string' && isNumberish(amount)) {
-    amount = Number(amount);
+  format?: NumericalFormat | string;
+}
+
+export const formatValueTo = ({
+  value,
+  unit = '',
+  decimals = 4,
+  separator = ' ',
+  format,
+}: ReadableNumberParams): string => {
+  if (typeof value === 'string' && isNumberish(value)) {
+    value = Number(value);
   }
-  if (typeof amount === 'string' && !isNumberish(amount)) {
-    throw new Error(`${amount} is not a number`);
+  if (typeof value === 'string' && !isNumberish(value)) {
+    throw new Error(`${value} is not a number`);
   }
 
-  if (amount > 0 && amount < 1) {
-    const fixedDefault = maxDecimals || decimals || 4;
-
+  if (value > 0 && value < 1) {
     return unit
-      ? `${Number(amount).toFixed(fixedDefault)}${separator}${unit}`
-      : Number(amount).toFixed(fixedDefault);
+      ? `${value.toFixed(decimals)}${separator}${unit}`
+      : value.toFixed(decimals);
   }
-  if (unit) {
-    return `${getNumericalValue({
-      value: amount,
-      format: format || 'currency',
-    })}${separator}${unit}`;
+
+  if (!format) {
+    throw new Error(`must define a format if ${value} is not between 0 and 1`);
   }
-  return `${getNumericalValue({
-    value: amount,
-    format: format || 'currency',
-  })}${separator}`;
+
+  const formatted = generateNumeral({
+    value,
+    type: format as NumericalFormat,
+    decimals,
+  });
+
+  return `${formatted}${separator}${unit}`;
 };
 
-export const toDollars = (amount: string | number, separator = ' ') => {
-  return `$${separator}${readableNumber({ amount: amount, decimals: 2 })}`;
+/*
+  http://numeraljs.com/
+  const string = numeral(1000.23).format('$ 0,0[.]0000 %'); => $ 1000.2300 %
+
+  to create customFormatters add more logic to the formatGenerator function
+
+  results in the readableNumbers resemble values seen in these examples:
+
+  type         number       format        result
+  ------------------------  --------------------------
+  number       10000        '0,0.0000'     10,000.0000
+  number       -10000       '0,0.0'       -10,000.0
+  number       -10000       '0,0[.]0'     -10,000
+  number       -10000.23    '0,0[.]0'     -10,000.2
+  currency     1230974      '0.0a'         1.2m
+  currency     1001         '$ 0,0[.]00'   $ 1,001
+  currency     1230974      '($ 0.00 a)'   $ 1.23 m
+  currency     1000.2       '0,0[.]00 $'   1,000.20 $
+  currency     1001         '$ 0,0[.]00'   $ 1,001
+  pecentage    1            '0%'           100%
+  percentage   0.974878234  '0.000%'       97.488%
+  percentage   -0.43        '0 %'          -43 %
+  exponential  1123456789   '0,0e+0'       1e+9
+  exponential  12398734.202 '0.00e+0'      1.24e+7
+
+  create your own custom format and pass it to:
+  readableNumber.toCustomFormat({ value, format, decimals, separator, unit })
+
+  to use the default formats, pass value with any of the the following optional args:
+  readableNumber.toCurrencyShort({ value, decimals, separator, unit })
+*/
+
+interface ReadableNumbersInterface {
+  toCurrency: (args: Exclude<ReadableNumberParams, 'format'>) => string;
+  toCurrencyShort: (args: Exclude<ReadableNumberParams, 'format'>) => string;
+  toDollars: (
+    args: Exclude<ReadableNumberParams, 'format' | 'decimals'>
+  ) => string;
+  toNumber: (args: Exclude<ReadableNumberParams, 'format'>) => string;
+  toNumberShort: (args: Exclude<ReadableNumberParams, 'format'>) => string;
+  toPercent: (args: Exclude<ReadableNumberParams, 'format'>) => string;
+  toPercentDecimals: (args: Exclude<ReadableNumberParams, 'format'>) => string;
+  toExponential: (args: Exclude<ReadableNumberParams, 'format'>) => string;
+  toCustomFormat: (args: ReadableNumberParams) => string;
+}
+
+export const readableNumbers: ReadableNumbersInterface = {
+  toCurrency: (args: ReadableNumberParams) => {
+    return formatValueTo({ ...args, format: 'currency' });
+  },
+  toCurrencyShort: (args: ReadableNumberParams) => {
+    return formatValueTo({ ...args, format: 'currencyShort' });
+  },
+  toDollars: (args: ReadableNumberParams) => {
+    return formatValueTo({ ...args, decimals: 2, format: 'currency' });
+  },
+  toNumber: (args: ReadableNumberParams) => {
+    return formatValueTo({ ...args, format: 'number' });
+  },
+  toNumberShort: (args: ReadableNumberParams) => {
+    return formatValueTo({ ...args, format: 'numberShort' });
+  },
+  toPercent: (args: ReadableNumberParams) => {
+    return formatValueTo({ ...args, decimals: 0, format: 'percent' });
+  },
+  toPercentDecimals: (args: ReadableNumberParams) => {
+    return formatValueTo({ ...args, decimals: 2, format: 'percentShort' });
+  },
+  toExponential: (args: ReadableNumberParams) => {
+    return formatValueTo({ ...args, format: 'exponential' });
+  },
+  toCustomFormat: (args: ReadableNumberParams) => {
+    return formatValueTo(args);
+  },
 };

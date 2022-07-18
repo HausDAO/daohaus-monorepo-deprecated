@@ -16,11 +16,11 @@ type NavLink = {
 export type SubNavProps = {
   className?: string;
   navLinks?: NavLink[];
-  moreLinks?: NavLink[];
+  dropdownLinks?: NavLink[];
 };
 
 export const SubNav = (props: SubNavProps) => {
-  const { className, navLinks = [], moreLinks = [] } = props;
+  const { className, navLinks = [], dropdownLinks = [] } = props;
 
   const theme = useTheme();
   const location = useLocation();
@@ -47,7 +47,7 @@ export const SubNav = (props: SubNavProps) => {
               </SubNavLink>
             );
           })}
-          {moreLinks.length > 0 && (
+          {dropdownLinks.length > 0 && (
             <div className="more-box">
               {/*REVIEW: 
             This dropdown should be built once we are finished the changes

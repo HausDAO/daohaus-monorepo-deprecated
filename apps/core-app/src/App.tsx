@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { BiColumnLayout, Card, widthQuery } from '@daohaus/ui';
+import { BiColumnLayout, Card, FormLayout, widthQuery } from '@daohaus/ui';
 import { HausLayout } from '@daohaus/daohaus-connect-feature';
 
 const LeftCard = styled(Card)`
@@ -25,6 +25,11 @@ const RightCard = styled(Card)`
   }
 `;
 
+const Spacer = styled.div`
+  width: 100%;
+  height: 50rem;
+`;
+
 export function App() {
   return (
     <HausLayout
@@ -34,14 +39,23 @@ export function App() {
         { label: 'Vaults', href: '/vaults' },
         { label: 'Members', href: '/members' },
       ]}
-      moreLinks={[{ label: 'Settings', href: '/settings' }]}
+      dropdownLinks={[{ label: 'Settings', href: '/settings' }]}
     >
-      <BiColumnLayout
+      <FormLayout
+        title="Title"
+        description="this is a nice long description where I talk about things"
+        subtitle="Something nicer"
+      >
+        <Card>
+          <Spacer />
+        </Card>
+      </FormLayout>
+      {/* <BiColumnLayout
         subtitle="Disperse Proposal"
         title="Disperse Reimbursements for April ‘22 Event"
         left={<LeftCard>Left</LeftCard>}
         right={<RightCard>Right</RightCard>}
-      />
+      /> */}
     </HausLayout>
   );
 }

@@ -6,13 +6,13 @@ import { OuterLayout } from '@daohaus/ui';
 
 export const HausLayout = ({
   navLinks,
-  moreLinks,
+  dropdownLinks,
   children,
 }: SubNavProps & { children: ReactNode }) => {
   return (
     <OuterLayout>
       <DaoHausNav />
-      <SubNav navLinks={navLinks} moreLinks={moreLinks} />
+      <SubNav navLinks={navLinks} dropdownLinks={dropdownLinks} />
       <MainLayout>{children}</MainLayout>
     </OuterLayout>
   );

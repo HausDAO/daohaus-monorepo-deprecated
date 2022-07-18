@@ -26,6 +26,7 @@ fragment proposalFields on Proposal {
   id
   createdAt
   createdBy
+  proposalSubmissionTxHash
   proposalId
   prevProposalId
   proposalDataHash
@@ -37,21 +38,29 @@ fragment proposalFields on Proposal {
   proposalType
   contentURI
   contentURIType
+  proposalSponsorTxHash
   sponsored
   selfSponsor
   sponsor
+  proposalSponsorTxAt
   votingPeriod
   votingStarts
   votingEnds
   gracePeriod
   graceEnds
   expiration
+  proposalCancelTxHash
+  cancelledBy
   cancelled
+  proposalCancelledTxAt
   yesBalance
   noBalance
   yesVotes
   noVotes
+  proposalProcessTxHash
+  processedBy
   processed
+  proposalProcessTxAt
   actionFailed
   passed
   proposalOffering
@@ -67,6 +76,7 @@ fragment proposalFields on Proposal {
   }
   votes {
     id
+    voteSubmisssionTxHash
     createdAt
     daoAddress
     approved

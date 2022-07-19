@@ -52,7 +52,7 @@ export const Dropdown = ({
     <DropdownMenu open={open} onOpenChange={onOpenChange}>
       <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
       <DropdownMenuContent
-        // className={className}
+        className={className}
         bg={bg || theme.dropdown.bg}
         align={align}
         width={width}

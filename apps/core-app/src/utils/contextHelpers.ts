@@ -6,13 +6,11 @@ export const loadDao = async ({
   daochain,
   setDao,
   setDaoLoading,
-  shouldUpdate,
 }: {
   daoid: string;
   daochain: keyof Keychain;
-  setDao: ReactSetter<FindDaoQuery | DaoWithTokenData | undefined>;
+  setDao: ReactSetter<FindDaoQuery['dao'] | DaoWithTokenData | undefined>;
   setDaoLoading: ReactSetter<boolean>;
-  shouldUpdate: boolean;
 }) => {
   try {
     setDaoLoading(true);
@@ -23,13 +21,11 @@ export const loadDao = async ({
       includeTokens: true,
     });
 
-    setDao(daoRes.data);
+    setDao(daoRes?.data?.dao);
   } catch (error) {
     console.error(error);
     setDao(undefined);
   } finally {
-    if (shouldUpdate) {
-      setDaoLoading(false);
-    }
+    setDaoLoading(false);
   }
 };

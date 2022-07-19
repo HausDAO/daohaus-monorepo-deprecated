@@ -10,6 +10,7 @@ import {
   Spinner,
   H5,
   ProfileAvatar,
+  useToast,
 } from '@daohaus/ui';
 import { ITransformedMembership } from '@daohaus/dao-data';
 import { BsShareFill, BsArrowLeft } from 'react-icons/bs';
@@ -117,8 +118,13 @@ const DaoColumn = ({ daoData }: { daoData: ITransformedMembership[] }) => {
 
 const PublicProfilePage = () => {
   const { daoData, isLoadingDaoData } = useDaoData();
+  const { successToast } = useToast();
+
   const handleOnClick = () => {
     navigator.clipboard.writeText(`${window.location.href}`);
+    successToast({
+      title: 'URL copied to clipboard',
+    });
   };
 
   return (

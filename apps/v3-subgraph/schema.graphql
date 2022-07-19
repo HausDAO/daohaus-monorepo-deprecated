@@ -106,27 +106,27 @@ type Proposal @entity {
   "indicates if the proposal is sponsored"
   sponsored: Boolean!
   "address that sponsored the proposal"
-  sponsor: Bytes!
+  sponsor: Bytes
   "transaction hash of the proposal sponsor"
-  proposalSponsorTxHash: Bytes!
+  proposalSponsorTxHash: Bytes
   "unix timestamp of when the proposal was sponsored"
-  proposalSponsorTxAt: BigInt!
+  proposalSponsorTxAt: BigInt
   "indicates if the proposal is cancelled"
   cancelled: Boolean!
   "transaction hash of the cancelled proposal"
-  proposalCancelTxHash: Bytes!
+  proposalCancelTxHash: Bytes
   "unix timestamp of when the proposal was cancelled"
-  proposalCancelledTxAt: BigInt!
+  proposalCancelledTxAt: BigInt
   "the address that cancelled the proposal"
-  proposalCancelledBy: Bytes!
+  proposalCancelledBy: Bytes
   "indicates if the proposal is processed"
   processed: Boolean!
   "transaction hash of processing the proposal"
-  proposalProcessTxHash: Bytes!
+  proposalProcessTxHash: Bytes
   "the unix timestamp of when the proposal was processed"
-  proposalProcessTxAt: BigInt!
+  proposalProcessTxAt: BigInt
   "address that processed the proposal"
-  processedBy: Bytes!
+  processedBy: Bytes
   "indicates if the proposal is processed"
   actionFailed: Boolean!
   "indicates if the proposal passed"
@@ -219,7 +219,7 @@ type Member @entity {
   "subgraph id of member the address is delegating to"
   delegatingToMember: Member
   "the transaction hash when the delegate was last updated"
-  lastDelegateUpdateTxHash: Bytes!
+  lastDelegateUpdateTxHash: Bytes
   "total amount of shares this address votes with (thier own plus delegated shares)"
   delegateShares: BigInt!
   "members this member is delegating too"

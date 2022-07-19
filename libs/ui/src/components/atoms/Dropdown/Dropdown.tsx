@@ -1,13 +1,14 @@
+import React from 'react';
+import { v4 as uuid } from 'uuid';
+import { Side, Align } from '@radix-ui/popper';
+
+import { useTheme } from 'styled-components';
 import {
-  DropdownContainer,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from './Dropdown.styles';
-import React from 'react';
-import { v4 as uuid } from 'uuid';
-import { useTheme } from 'styled-components';
 import { DropdownLabel } from './DropdownExtras';
 
 const DropdownContentOptions = {
@@ -26,7 +27,10 @@ type DropdownProps = {
   bg?: string;
   spacing?: string;
   width?: string;
-  align?: 'start' | 'center' | 'end' | undefined;
+  align?: Align;
+  alignOffset?: number;
+  side?: Side;
+  sideOffset?: number;
   className?: string;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -43,36 +47,28 @@ export const Dropdown = ({
   open,
   onOpenChange,
 }: DropdownProps) => {
+  const theme = useTheme();
   return (
-    <DropdownContainer className={className} width={width}>
-      <DropdownMenu open={open} onOpenChange={onOpenChange}>
-        <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
-        <DropdownContentFactory
-          items={items}
-          bg={bg}
-          spacing={spacing}
-          align={align}
-          width={width}
-        />
-      </DropdownMenu>
-    </DropdownContainer>
+    <DropdownMenu open={open} onOpenChange={onOpenChange}>
+      <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
+      <DropdownMenuContent
+        // className={className}
+        bg={bg || theme.dropdown.bg}
+        align={align}
+        width={width}
+      >
+        <DropdownItemFactory items={items} spacing={spacing} />
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
 
-const DropdownContentFactory = ({
+const DropdownItemFactory = ({
   items,
   spacing,
-  bg,
-  align,
-  width,
 }: Omit<DropdownProps, 'trigger'>) => {
-  const theme = useTheme();
   return (
-    <DropdownMenuContent
-      bg={bg || theme.dropdown.bg}
-      align={align}
-      width={width}
-    >
+    <>
       {items?.map((item) => {
         if (item.type === 'clickable') {
           return (
@@ -90,6 +86,6 @@ const DropdownContentFactory = ({
         }
         return null;
       })}
-    </DropdownMenuContent>
+    </>
   );
 };

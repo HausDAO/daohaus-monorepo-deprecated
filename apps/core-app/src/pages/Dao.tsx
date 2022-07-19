@@ -2,7 +2,7 @@ import { useParams, Outlet } from 'react-router-dom';
 import { HausLayout } from '@daohaus/daohaus-connect-feature';
 import { DaoContextProvider } from '../contexts/DaoContext';
 
-export function DaoHome() {
+export function Dao() {
   const { daochain, daoid } = useParams();
 
   return (
@@ -22,4 +22,4 @@ export function DaoHome() {
   );
 }
 
-export default DaoHome;
+export default Dao;

@@ -2,17 +2,21 @@ import React from 'react';
 import { Routes as RoutesDom, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
-import DaoHome from './pages/DaoHome';
+import Dao from './pages/Dao';
 import Members from './pages/Members';
+import DaoOverview from './pages/DaoOverview';
+import Proposals from './pages/Proposals';
+import Vaults from './pages/Vaults';
 
 const Routes = () => {
   return (
     <RoutesDom>
       <Route path="/" element={<Home />} />
-      <Route path="dao/:daochain/:daoid" element={<DaoHome />}>
-        <Route path="proposals" element={<Members />} />
+      <Route path="dao/:daochain/:daoid" element={<Dao />}>
+        <Route index element={<DaoOverview />} />
+        <Route path="proposals" element={<Proposals />} />
+        <Route path="vaults" element={<Vaults />} />
         <Route path="members" element={<Members />} />
-        <Route path="vaults" element={<Members />} />
       </Route>
     </RoutesDom>
   );

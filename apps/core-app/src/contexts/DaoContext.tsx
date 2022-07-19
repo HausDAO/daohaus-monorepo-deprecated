@@ -1,9 +1,9 @@
 import { Keychain } from '@daohaus/common-utilities';
 import {
   DaoWithTokenData,
-  DaoWithTokenDataQuery,
   FindDaoQuery,
-  Haus,
+  ITransformedProposalListQuery,
+  ListMembersQuery,
 } from '@daohaus/dao-data';
 import {
   createContext,
@@ -13,21 +13,48 @@ import {
   useState,
 } from 'react';
 import { useParams } from 'react-router-dom';
-import { loadDao } from '../utils/contextHelpers';
+import {
+  loadDao,
+  loadMembersList,
+  loadProposalsList,
+} from '../utils/contextHelpers';
 
-export const defaultDaoId = {
+export const defaultDaoData = {
   dao: null,
   isDaoLoading: false,
   refreshDao: async () => undefined,
+  members: null,
+  isMembersLoading: false,
+  refreshMembers: async () => undefined,
+  proposals: null,
+  isProposalsLoading: false,
+  refreshProposals: async () => undefined,
 };
 
-export type DaoConnectType = {
+export type DaoConnectDaoType = {
   dao: FindDaoQuery['dao'] | DaoWithTokenData | null | undefined;
   isDaoLoading: boolean;
   refreshDao: () => Promise<void>;
 };
 
-export const DaoContext = createContext<DaoConnectType>(defaultDaoId);
+export type DaoConnectMembersType = {
+  members: ListMembersQuery['members'] | null | undefined;
+  isMembersLoading: boolean;
+  refreshMembers: () => Promise<void>;
+};
+
+export type DaoConnectProposalsType = {
+  proposals: ITransformedProposalListQuery['proposals'] | null | undefined;
+  isProposalsLoading: boolean;
+  refreshProposals: () => Promise<void>;
+};
+
+interface DaoConnectType
+  extends DaoConnectDaoType,
+    DaoConnectMembersType,
+    DaoConnectProposalsType {}
+
+export const DaoContext = createContext<DaoConnectType>(defaultDaoData);
 
 type DaoContextProviderProps = {
   children: ReactNode;
@@ -41,8 +68,40 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   >();
   const [isDaoLoading, setDaoLoading] = useState(false);
 
+  const [members, setMembers] = useState<
+    ListMembersQuery['members'] | undefined
+  >();
+  const [isMembersLoading, setMembersLoading] = useState(false);
+
+  const [proposals, setProposals] = useState<
+    ITransformedProposalListQuery['proposals'] | undefined
+  >();
+  const [isProposalsLoading, setProposalsLoading] = useState(false);
+
   useEffect(() => {
-    // need to prevent firing twice
+    if (daochain && daoid) {
+      loadDao({
+        daoid,
+        daochain: daochain as keyof Keychain,
+        setDao,
+        setDaoLoading,
+      });
+      loadMembersList({
+        daoid,
+        daochain: daochain as keyof Keychain,
+        setData: setMembers,
+        setLoading: setMembersLoading,
+      });
+      loadProposalsList({
+        daoid,
+        daochain: daochain as keyof Keychain,
+        setData: setProposals,
+        setLoading: setProposalsLoading,
+      });
+    }
+  }, [daochain, daoid]);
+
+  const refreshDao = async () => {
     if (daochain && daoid) {
       loadDao({
         daoid,
@@ -51,9 +110,13 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
         setDaoLoading,
       });
     }
-  }, [daochain, daoid]);
+  };
 
-  const refreshDao = async () => {
+  const refreshMembers = async () => {
+    console.log('refresh');
+  };
+
+  const refreshProposals = async () => {
     console.log('refresh');
   };
 
@@ -63,6 +126,12 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
         dao,
         isDaoLoading,
         refreshDao,
+        members,
+        isMembersLoading,
+        refreshMembers,
+        proposals,
+        isProposalsLoading,
+        refreshProposals,
       }}
     >
       {children}
@@ -70,12 +139,28 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   );
 };
 
-export const useDao = (): DaoConnectType => {
+export const useDao = (): DaoConnectDaoType => {
   const { dao, isDaoLoading, refreshDao } = useContext(DaoContext);
-
   return {
     dao,
     isDaoLoading,
     refreshDao,
+  };
+};
+export const useMembers = (): DaoConnectMembersType => {
+  const { members, isMembersLoading, refreshMembers } = useContext(DaoContext);
+  return {
+    members,
+    isMembersLoading,
+    refreshMembers,
+  };
+};
+export const useProposals = (): DaoConnectProposalsType => {
+  const { proposals, isProposalsLoading, refreshProposals } =
+    useContext(DaoContext);
+  return {
+    proposals,
+    isProposalsLoading,
+    refreshProposals,
   };
 };

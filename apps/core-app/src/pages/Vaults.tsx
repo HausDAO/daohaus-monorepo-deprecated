@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { BiColumnLayout, Card, widthQuery } from '@daohaus/ui';
-import { useMembers } from '../contexts/DaoContext';
+import { useDao, useMembers } from '../contexts/DaoContext';
 
 const LeftCard = styled(Card)`
   width: 100%;
@@ -13,17 +13,17 @@ const LeftCard = styled(Card)`
   }
 `;
 
-export function Members() {
-  const { members } = useMembers();
+export function Vaults() {
+  const { dao } = useDao();
 
   return (
     <BiColumnLayout
       subtitle="DAO"
-      title="Members"
-      left={<LeftCard>{JSON.stringify(members, null, 2)}</LeftCard>}
+      title="Vaults"
+      left={<LeftCard>{JSON.stringify(dao, null, 2)}</LeftCard>}
       right={null}
     />
   );
 }
 
-export default Members;
+export default Vaults;

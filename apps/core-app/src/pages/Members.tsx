@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
-import { BiColumnLayout, Card, FormLayout, widthQuery } from '@daohaus/ui';
-import { HausLayout } from '@daohaus/daohaus-connect-feature';
-import Layout from '../components/Layout';
+import { BiColumnLayout, Card, widthQuery } from '@daohaus/ui';
+import { useDao } from '../contexts/DaoContext';
 
 const LeftCard = styled(Card)`
   width: 100%;
@@ -26,21 +25,18 @@ const RightCard = styled(Card)`
   }
 `;
 
-const Spacer = styled.div`
-  width: 100%;
-  height: 50rem;
-`;
-
 export function Members() {
+  const { dao } = useDao();
+
+  console.log('dao', dao);
+
   return (
-    <Layout>
-      <BiColumnLayout
-        subtitle="MEMBERS"
-        title="membering"
-        left={<LeftCard>Left</LeftCard>}
-        right={<RightCard>Right</RightCard>}
-      />
-    </Layout>
+    <BiColumnLayout
+      subtitle="MEMBERS"
+      title="membering"
+      left={<LeftCard>Left</LeftCard>}
+      right={<RightCard>Right</RightCard>}
+    />
   );
 }
 

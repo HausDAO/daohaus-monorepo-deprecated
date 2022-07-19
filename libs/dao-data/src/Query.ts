@@ -286,9 +286,11 @@ export default class Query {
         }
       );
 
-      if (includeTokens && daoRes?.data?.dao) {
+      const gnosisUrl = this.endpoints['GNOSIS_API'][networkId];
+
+      if (includeTokens && daoRes?.data?.dao && gnosisUrl) {
         const res = await fetch.get<TokenBalance[]>(
-          `${url}/safes/${ethers.utils.getAddress(
+          `${gnosisUrl}/safes/${ethers.utils.getAddress(
             daoRes.data.dao.safeAddress
           )}/balances/usd`
         );

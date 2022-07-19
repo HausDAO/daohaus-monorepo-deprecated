@@ -22,7 +22,7 @@ export const defaultDaoId = {
 };
 
 export type DaoConnectType = {
-  dao: FindDaoQuery | DaoWithTokenData | null | undefined;
+  dao: FindDaoQuery['dao'] | DaoWithTokenData | null | undefined;
   isDaoLoading: boolean;
   refreshDao: () => Promise<void>;
 };
@@ -36,25 +36,21 @@ type DaoContextProviderProps = {
 export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   const { daochain, daoid } = useParams();
 
-  const [dao, setDao] = useState<FindDaoQuery | DaoWithTokenData | undefined>();
+  const [dao, setDao] = useState<
+    FindDaoQuery['dao'] | DaoWithTokenData | undefined
+  >();
   const [isDaoLoading, setDaoLoading] = useState(false);
 
   useEffect(() => {
-    let shouldUpdate = true;
-
+    // need to prevent firing twice
     if (daochain && daoid) {
       loadDao({
         daoid,
         daochain: daochain as keyof Keychain,
         setDao,
         setDaoLoading,
-        shouldUpdate,
       });
     }
-
-    return () => {
-      shouldUpdate = false;
-    };
   }, [daochain, daoid]);
 
   const refreshDao = async () => {
@@ -76,6 +72,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
 
 export const useDao = (): DaoConnectType => {
   const { dao, isDaoLoading, refreshDao } = useContext(DaoContext);
+
   return {
     dao,
     isDaoLoading,

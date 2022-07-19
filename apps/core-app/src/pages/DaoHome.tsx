@@ -1,49 +1,24 @@
-import styled from 'styled-components';
-
-import { BiColumnLayout, Card, FormLayout, widthQuery } from '@daohaus/ui';
+import { useParams, Outlet } from 'react-router-dom';
 import { HausLayout } from '@daohaus/daohaus-connect-feature';
-import Layout from '../components/Layout';
-
-const LeftCard = styled(Card)`
-  width: 100%;
-  min-width: 54rem;
-  max-width: 64rem;
-  height: 47rem;
-  @media ${widthQuery.md} {
-    max-width: 100%;
-    min-width: 0;
-  }
-`;
-
-const RightCard = styled(Card)`
-  width: 100%;
-  min-width: 38rem;
-  max-width: 45rem;
-  height: 77rem;
-  @media ${widthQuery.md} {
-    max-width: 100%;
-    min-width: 0;
-  }
-`;
-
-const Spacer = styled.div`
-  width: 100%;
-  height: 50rem;
-`;
+import { DaoContextProvider } from '../contexts/DaoContext';
 
 export function DaoHome() {
+  const { daochain, daoid } = useParams();
+
   return (
-    <Layout>
-      <FormLayout
-        title="Title"
-        description="this is a nice long description where I talk about things"
-        subtitle="Something nicer"
+    <DaoContextProvider>
+      <HausLayout
+        navLinks={[
+          { label: 'Home', href: `/dao/${daochain}/${daoid}` },
+          { label: 'Proposals', href: `/dao/${daochain}/${daoid}/proposals` },
+          { label: 'Vaults', href: `/dao/${daochain}/${daoid}/vaults` },
+          { label: 'Members', href: `/dao/${daochain}/${daoid}/members` },
+        ]}
+        dropdownLinks={[{ label: 'Settings', href: '/settings' }]}
       >
-        <Card>
-          <Spacer />
-        </Card>
-      </FormLayout>
-    </Layout>
+        <Outlet />
+      </HausLayout>
+    </DaoContextProvider>
   );
 }
 

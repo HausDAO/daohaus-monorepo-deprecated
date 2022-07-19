@@ -1,16 +1,12 @@
-import { HausLayout } from '@daohaus/daohaus-connect-feature';
-import { Card, FormLayout } from '@daohaus/ui';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import { HausLayout } from '@daohaus/daohaus-connect-feature';
 
-import Routes from './Routes';
+type LayoutProps = {
+  children: React.ReactNode;
+};
 
-const Spacer = styled.div`
-  width: 100%;
-  height: 50rem;
-`;
-
-export function App() {
+export function Layout({ children }: LayoutProps) {
   const { daochain, daoid } = useParams();
 
   console.log(daoid, daochain);
@@ -25,12 +21,9 @@ export function App() {
       ]}
       dropdownLinks={[{ label: 'Settings', href: '/settings' }]}
     >
-      {/* <RoutesDom>
-        <Route path="dao/:daoid/:dao" element={<Home />} />
-        <Route path="dao/:daoid/:dao/members" element={<Members />} />
-      </RoutesDom> */}
+      {children}
     </HausLayout>
   );
 }
 
-export default App;
+export default Layout;

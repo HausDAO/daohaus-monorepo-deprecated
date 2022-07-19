@@ -19,6 +19,13 @@ Our applications in the `apps` folder are our DAO infrastructure and leverage ou
   - DAO Producer Job
   - v3 Subgraph
 
+
+| App                                              | Entry Points                        |
+| ------------------------------------------------ | ----------------------------------- |
+| [Hub App](./apps/hub-app)                        | apps/hub-app                        |
+| [Summoner App](./apps/summon-app/)               | apps/summon-app                     |
+| [DAO Producer Job](./apps/jobs/dao-producer-job) | apps/dao-producer-job               |
+| [v3 Subgraph](./apps/v3-subgraph/)               | apps/v3-subgraph, apps/summoner-app |
 #### [Hub App](./apps/hub-app)
 
 - Vite React application with Typescript

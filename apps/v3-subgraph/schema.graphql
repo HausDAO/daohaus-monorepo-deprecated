@@ -6,7 +6,7 @@ type Dao @entity {
   "address that created the dao"
   createdBy: Bytes!
   "transaction hash of the dao contract deployment"
-  transactionHashSummon: Bytes!
+  txHash: Bytes!
   "contract address of the loot erc20 token"
   lootAddress: Bytes!
   "contract address of the shares erc20 token"
@@ -78,7 +78,7 @@ type Proposal @entity {
   "id of the previous proposal, set at sponsorship"
   prevProposalId: BigInt!
   "transaction hash of the proposal"
-  proposalSubmissionTxHash: Bytes!
+  txHash: Bytes!
   "hash of raw transaction data that will be executed if the proposal passes"
   proposalDataHash: Bytes!
   "raw transaction data that will be executed if the proposal passes"
@@ -108,23 +108,23 @@ type Proposal @entity {
   "address that sponsored the proposal"
   sponsor: Bytes
   "transaction hash of the proposal sponsor"
-  proposalSponsorTxHash: Bytes
+  sponsorTxHash: Bytes
   "unix timestamp of when the proposal was sponsored"
-  proposalSponsorTxAt: BigInt
+  sponsorTxAt: BigInt
   "indicates if the proposal is cancelled"
   cancelled: Boolean!
   "transaction hash of the cancelled proposal"
-  proposalCancelTxHash: Bytes
+  cancelledTxHash: Bytes
   "unix timestamp of when the proposal was cancelled"
-  proposalCancelledTxAt: BigInt
+  cancelledTxAt: BigInt
   "the address that cancelled the proposal"
-  proposalCancelledBy: Bytes
+  cancelledBy: Bytes
   "indicates if the proposal is processed"
   processed: Boolean!
   "transaction hash of processing the proposal"
-  proposalProcessTxHash: Bytes
+  processTxHash: Bytes
   "the unix timestamp of when the proposal was processed"
-  proposalProcessTxAt: BigInt
+  processTxAt: BigInt
   "address that processed the proposal"
   processedBy: Bytes
   "indicates if the proposal is processed"
@@ -173,7 +173,7 @@ type Vote @entity {
   "unique identifier and primary key of the entity"
   id: ID!
   "transaction hash of the vote"
-  voteSubmisssionTxHash: Bytes!
+  txHash: Bytes!
   "block timestamp when the vote was submitted"
   createdAt: String!
   "contract address of the DAO related to this vote"
@@ -205,7 +205,7 @@ type Member @entity {
   "block timestamp when the member entity was created (when the address first recieved shares or loot)"
   createdAt: String!
   "transaction where the member was created"
-  memberCreatedTxHash: Bytes!
+  txHash: Bytes!
   "related dao"
   dao: Dao!
   "address of the member"
@@ -235,7 +235,7 @@ type RageQuit @entity {
   "block timestamp when the member rage quit"
   createdAt: String!
   "the transaction where the RageQuit occurred"
-  rageQuitTxHash: Bytes!
+  txHash: Bytes!
   "related DAO"
   dao: Dao!
   "related member"

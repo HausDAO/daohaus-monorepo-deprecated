@@ -16,7 +16,7 @@ function mintShares(event: Transfer, dao: Dao, memberId: string): void {
   if (member === null) {
     member = new Member(memberId);
     member.createdAt = event.block.timestamp.toString();
-    member.memberCreatedTxHash = event.transaction.hash;
+    member.txHash = event.transaction.hash;
     member.dao = dao.id;
     member.memberAddress = event.params.to;
     member.delegatingTo = event.params.to;
@@ -66,7 +66,7 @@ function mintLoot(event: LootTransfer, dao: Dao, memberId: string): void {
   if (member === null) {
     member = new Member(memberId);
     member.createdAt = event.block.timestamp.toString();
-    member.memberCreatedTxHash = event.transaction.hash;
+    member.txHash = event.transaction.hash;
     member.dao = dao.id;
     member.memberAddress = event.params.to;
     member.delegatingTo = event.params.to;

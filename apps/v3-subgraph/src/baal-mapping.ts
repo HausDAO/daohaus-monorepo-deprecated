@@ -160,7 +160,7 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   let proposal = new Proposal(proposalId);
   proposal.createdAt = event.block.timestamp.toString();
   proposal.createdBy = event.transaction.from;
-  proposal.proposalSubmissionTxHash = event.transaction.hash;
+  proposal.txHash = event.transaction.hash;
   proposal.dao = event.address.toHexString();
   proposal.proposalId = event.params.proposal;
   proposal.proposalDataHash = event.params.proposalDataHash;
@@ -267,8 +267,8 @@ export function handleSponsorProposal(event: SponsorProposal): void {
     .plus(dao.votingPeriod)
     .plus(dao.gracePeriod);
   proposal.prevProposalId = dao.latestSponsoredProposalId;
-  proposal.proposalSponsorTxHash = event.transaction.hash;
-  proposal.proposalSponsorTxAt = event.block.timestamp;
+  proposal.sponsorTxHash = event.transaction.hash;
+  proposal.sponsorTxAt = event.block.timestamp;
 
   dao.latestSponsoredProposalId = event.params.proposal;
 
@@ -289,8 +289,8 @@ export function handleProcessProposal(event: ProcessProposal): void {
     return;
   }
 
-  proposal.proposalProcessTxHash = event.transaction.hash;
-  proposal.proposalProcessTxAt = event.block.timestamp;
+  proposal.processTxHash = event.transaction.hash;
+  proposal.processTxAt = event.block.timestamp;
   proposal.processedBy = event.transaction.from;
   proposal.processed = true;
   proposal.passed = event.params.passed;
@@ -312,9 +312,9 @@ export function handleCancelProposal(event: CancelProposal): void {
     return;
   }
 
-  proposal.proposalCancelTxHash = event.transaction.hash;
-  proposal.proposalCancelledTxAt = event.block.timestamp;
-  proposal.proposalCancelledBy = event.transaction.from;
+  proposal.cancelledTxHash = event.transaction.hash;
+  proposal.cancelledTxAt = event.block.timestamp;
+  proposal.cancelledBy = event.transaction.from;
   proposal.cancelled = true;
 
   proposal.save();
@@ -351,7 +351,7 @@ export function handleSubmitVote(event: SubmitVote): void {
   vote.daoAddress = event.address;
   vote.approved = event.params.approved;
   vote.balance = event.params.balance;
-  vote.voteSubmisssionTxHash = event.transaction.hash;
+  vote.txHash = event.transaction.hash;
 
   let memberId = event.address
     .toHexString()
@@ -401,7 +401,7 @@ export function handleRageQuit(event: Ragequit): void {
   let rage = new RageQuit(rageId);
 
   rage.createdAt = event.block.timestamp.toString();
-  rage.rageQuitTxHash = event.transaction.hash;
+  rage.txHash = event.transaction.hash;
   rage.dao = dao.id;
   rage.member = memberId;
   rage.to = event.params.to;

@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import {
   Layout,
-  SideTopLeft,
-  SideTopRight,
   SideProfileLeft,
   SideProfileRight,
+  SideTopLeft,
+  SideTopRight,
 } from '../components/Layout';
 import Header from '../components/Header';
 import { Profile } from '../components/Profile';
@@ -21,14 +21,14 @@ import { ITransformedMembership } from '@daohaus/dao-data';
 const BodyNavArea = styled.div`
   grid-area: profile;
   display: flex;
-  background: ${indigoDark.indigo2};
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid ${indigoDark.indigo5};
 
   @media (min-width: ${breakpoints.xs}) {
-    padding: 1.5rem;
+    max-width: 58rem;
+    justify-self: center;
+    width: 100%;
   }
 `;
 
@@ -120,20 +120,33 @@ const PublicProfilePage = () => {
 
   return (
     <Layout>
-      <SideTopLeft />
-      <SideTopRight />
-      <SideProfileLeft />
-      <SideProfileRight />
+      {/* <SideTopLeft /> */}
+      {/* <SideTopRight /> */}
+      {/* <SideProfileRight />
+      <SideProfileLeft /> */}
       <Header />
       {isLoadingDaoData ? (
-        <Body
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <StyledSpinner />
-        </Body>
+        <>
+          <BodyNavArea>
+            <StyledLink to="/">
+              <Icon>
+                <StyledArrowLeft />
+              </Icon>
+              <StyledPar>My Hub</StyledPar>
+            </StyledLink>
+            <Button IconLeft={BsShareFill} onClick={handleOnClick}>
+              Share Profile
+            </Button>
+          </BodyNavArea>
+          <Body
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <StyledSpinner />
+          </Body>
+        </>
       ) : (
         <>
           <BodyNavArea>
@@ -156,7 +169,7 @@ const PublicProfilePage = () => {
             ) : (
               <DaoData>
                 <DaoCountHeading>
-                  {daoData.length} Total Dao {daoData.length === 1 ? '' : 's'}
+                  {daoData.length} Total Dao{daoData.length === 1 ? '' : 's'}
                 </DaoCountHeading>
                 <DaoColumn daoData={daoData} />
               </DaoData>

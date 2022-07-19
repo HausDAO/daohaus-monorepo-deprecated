@@ -20,33 +20,13 @@ Our applications in the `apps` folder are our DAO infrastructure and leverage ou
   - v3 Subgraph
 
 
-| App                                              | Entry Points                        |
-| ------------------------------------------------ | ----------------------------------- |
-| [Hub App](./apps/hub-app)                        | apps/hub-app                        |
-| [Summoner App](./apps/summon-app/)               | apps/summon-app                     |
-| [DAO Producer Job](./apps/jobs/dao-producer-job) | apps/dao-producer-job               |
-| [v3 Subgraph](./apps/v3-subgraph/)               | apps/v3-subgraph, apps/summoner-app |
-#### [Hub App](./apps/hub-app)
-
-- Vite React application with Typescript
-
-Entry point: `apps/hub-app`
-
-#### [Summoner App](./apps/summon-app/)
-
-- Vite React application with Typescript
-
-Entry point: `apps/summon-app`
-
-#### [DAO Producer Job](./apps/jobs/dao-producer-job)
-
-Entry point: `apps/dao-producer-job`
-
-#### [v3 Subgraph](./apps/v3-subgraph/)
-
-Entry point: `apps/v3-subgraph`
-
-Entry point: `apps/summoner-app`
+| App                                              | Build       | Entry Points                          |
+| ------------------------------------------------ | ----------- | ------------------------------------- |
+| [Core App](./apps/core-app)                      | vite, ts    | `apps/core-app`                       |
+| [Hub App](./apps/hub-app)                        | vite, ts    | `apps/hub-app`                        |
+| [Summoner App](./apps/summon-app/)               | vite, ts    | `apps/summon-app`                     |
+| [DAO Producer Job](./apps/jobs/dao-producer-job) | webpack, ts | `apps/dao-producer-job`               |
+| [v3 Subgraph](./apps/v3-subgraph/)               | webpack, ts | `apps/v3-subgraph, apps/summoner-app` |
 
 ### Libs
 
@@ -60,25 +40,17 @@ Our libraries in the `libs` folder are structured to be consumed by our apps as 
   - DAOhaus Connect
   - Tx Builder
 
-#### [DAO Data SDK](./libs/dao-data)
 
-Entry point: `libs/dao-data-sdk`
-
-#### [Component Library (UI)](./libs/ui)
-
-Entry point: `libs/ui`
-
-#### [DAOhaus Connect](./libs/daohaus-connect-feature)
-
-Entry point: `libs/daohaus-connect-feature`
-
-#### [Tx Builder](./libs/tx-builder-feature)
-
-Entry point: `libs/tx-builder-feature`
-
-#### [Helm Chart Infrastructure Playbook](./libs/infra-chart)
-
-Entry point: `libs/infra-chart`
+| Lib                                                      | Entry Point                    |
+| -------------------------------------------------------- | ------------------------------ |
+| [ABI Utilities](./libs/abi-utilities/)                   | `libs/abi-utilities`           |
+| [Baal Contract Service](./libs/baal-contract-service/)   | `libs/baal-contract-service`   |
+| [Common Utilities](./libs/common-utilities/)             | `libs/common-utilities`        |
+| [DAO Data SDK](./libs/dao-data)                          | `libs/dao-data-sdk`            |
+| [Component Library (UI)](./libs/ui)                      | `libs/ui`                      |
+| [DAOhaus Connect](./libs/daohaus-connect-feature)        | `libs/daohaus-connect-feature` |
+| [Tx Builder](./libs/tx-builder-feature)                  | `libs/tx-builder-feature`      |
+| [Helm Chart Infrastructure Playbook](./libs/infra-chart) | `libs/infra-chart`             |
 
 ## Getting Started
 

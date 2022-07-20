@@ -24,16 +24,19 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
-export interface BaalFactoryInterface extends utils.Interface {
+export interface BaalSummonerInterface extends utils.Interface {
   functions: {
     "deployModule(address,bytes,uint256)": FunctionFragment;
     "encodeMultisend(bytes[],address)": FunctionFragment;
     "gnosisFallbackLibrary()": FunctionFragment;
     "gnosisMultisendLibrary()": FunctionFragment;
     "gnosisSingleton()": FunctionFragment;
-    "summonBaal(address)": FunctionFragment;
+    "lootSingleton()": FunctionFragment;
+    "sharesSingleton()": FunctionFragment;
+    "summonBaal(bytes,bytes[],uint256)": FunctionFragment;
     "summonBaalAndSafe(bytes,bytes[],uint256)": FunctionFragment;
     "template()": FunctionFragment;
   };
@@ -45,6 +48,8 @@ export interface BaalFactoryInterface extends utils.Interface {
       | "gnosisFallbackLibrary"
       | "gnosisMultisendLibrary"
       | "gnosisSingleton"
+      | "lootSingleton"
+      | "sharesSingleton"
       | "summonBaal"
       | "summonBaalAndSafe"
       | "template"
@@ -52,11 +57,15 @@ export interface BaalFactoryInterface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: "deployModule",
-    values: [string, BytesLike, BigNumberish]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "encodeMultisend",
-    values: [BytesLike[], string]
+    values: [PromiseOrValue<BytesLike>[], PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "gnosisFallbackLibrary",
@@ -70,10 +79,29 @@ export interface BaalFactoryInterface extends utils.Interface {
     functionFragment: "gnosisSingleton",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "summonBaal", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "lootSingleton",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "sharesSingleton",
+    values?: undefined
+  ): string;
+  encodeFunctionData(
+    functionFragment: "summonBaal",
+    values: [
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>[],
+      PromiseOrValue<BigNumberish>
+    ]
+  ): string;
   encodeFunctionData(
     functionFragment: "summonBaalAndSafe",
-    values: [BytesLike, BytesLike[], BigNumberish]
+    values: [
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>[],
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(functionFragment: "template", values?: undefined): string;
 
@@ -97,6 +125,14 @@ export interface BaalFactoryInterface extends utils.Interface {
     functionFragment: "gnosisSingleton",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(
+    functionFragment: "lootSingleton",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "sharesSingleton",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(functionFragment: "summonBaal", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "summonBaalAndSafe",
@@ -106,7 +142,7 @@ export interface BaalFactoryInterface extends utils.Interface {
 
   events: {
     "ModuleProxyCreation(address,address)": EventFragment;
-    "SummonBaal(address,address,address,address)": EventFragment;
+    "SummonBaal(address,address,address,address,bool)": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "ModuleProxyCreation"): EventFragment;
@@ -130,20 +166,21 @@ export interface SummonBaalEventObject {
   loot: string;
   shares: string;
   safe: string;
+  existingSafe: boolean;
 }
 export type SummonBaalEvent = TypedEvent<
-  [string, string, string, string],
+  [string, string, string, string, boolean],
   SummonBaalEventObject
 >;
 
 export type SummonBaalEventFilter = TypedEventFilter<SummonBaalEvent>;
 
-export interface BaalFactory extends BaseContract {
+export interface BaalSummoner extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
   attach(addressOrName: string): this;
   deployed(): Promise<this>;
 
-  interface: BaalFactoryInterface;
+  interface: BaalSummonerInterface;
 
   queryFilter<TEvent extends TypedEvent>(
     event: TypedEventFilter<TEvent>,
@@ -166,15 +203,15 @@ export interface BaalFactory extends BaseContract {
 
   functions: {
     deployModule(
-      masterCopy: string,
-      initializer: BytesLike,
-      saltNonce: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      masterCopy: PromiseOrValue<string>,
+      initializer: PromiseOrValue<BytesLike>,
+      saltNonce: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     encodeMultisend(
-      _calls: BytesLike[],
-      _target: string,
+      _calls: PromiseOrValue<BytesLike>[],
+      _target: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[string] & { encodedMultisend: string }>;
 
@@ -184,31 +221,37 @@ export interface BaalFactory extends BaseContract {
 
     gnosisSingleton(overrides?: CallOverrides): Promise<[string]>;
 
+    lootSingleton(overrides?: CallOverrides): Promise<[string]>;
+
+    sharesSingleton(overrides?: CallOverrides): Promise<[string]>;
+
     summonBaal(
-      _safe: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      initializationParams: PromiseOrValue<BytesLike>,
+      initializationActions: PromiseOrValue<BytesLike>[],
+      _saltNonce: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     summonBaalAndSafe(
-      initializationParams: BytesLike,
-      initializationActions: BytesLike[],
-      _saltNonce: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      initializationParams: PromiseOrValue<BytesLike>,
+      initializationActions: PromiseOrValue<BytesLike>[],
+      _saltNonce: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     template(overrides?: CallOverrides): Promise<[string]>;
   };
 
   deployModule(
-    masterCopy: string,
-    initializer: BytesLike,
-    saltNonce: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    masterCopy: PromiseOrValue<string>,
+    initializer: PromiseOrValue<BytesLike>,
+    saltNonce: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   encodeMultisend(
-    _calls: BytesLike[],
-    _target: string,
+    _calls: PromiseOrValue<BytesLike>[],
+    _target: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<string>;
 
@@ -218,31 +261,37 @@ export interface BaalFactory extends BaseContract {
 
   gnosisSingleton(overrides?: CallOverrides): Promise<string>;
 
+  lootSingleton(overrides?: CallOverrides): Promise<string>;
+
+  sharesSingleton(overrides?: CallOverrides): Promise<string>;
+
   summonBaal(
-    _safe: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    initializationParams: PromiseOrValue<BytesLike>,
+    initializationActions: PromiseOrValue<BytesLike>[],
+    _saltNonce: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   summonBaalAndSafe(
-    initializationParams: BytesLike,
-    initializationActions: BytesLike[],
-    _saltNonce: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    initializationParams: PromiseOrValue<BytesLike>,
+    initializationActions: PromiseOrValue<BytesLike>[],
+    _saltNonce: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   template(overrides?: CallOverrides): Promise<string>;
 
   callStatic: {
     deployModule(
-      masterCopy: string,
-      initializer: BytesLike,
-      saltNonce: BigNumberish,
+      masterCopy: PromiseOrValue<string>,
+      initializer: PromiseOrValue<BytesLike>,
+      saltNonce: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<string>;
 
     encodeMultisend(
-      _calls: BytesLike[],
-      _target: string,
+      _calls: PromiseOrValue<BytesLike>[],
+      _target: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -252,12 +301,21 @@ export interface BaalFactory extends BaseContract {
 
     gnosisSingleton(overrides?: CallOverrides): Promise<string>;
 
-    summonBaal(_safe: string, overrides?: CallOverrides): Promise<string>;
+    lootSingleton(overrides?: CallOverrides): Promise<string>;
+
+    sharesSingleton(overrides?: CallOverrides): Promise<string>;
+
+    summonBaal(
+      initializationParams: PromiseOrValue<BytesLike>,
+      initializationActions: PromiseOrValue<BytesLike>[],
+      _saltNonce: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
     summonBaalAndSafe(
-      initializationParams: BytesLike,
-      initializationActions: BytesLike[],
-      _saltNonce: BigNumberish,
+      initializationParams: PromiseOrValue<BytesLike>,
+      initializationActions: PromiseOrValue<BytesLike>[],
+      _saltNonce: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -266,39 +324,41 @@ export interface BaalFactory extends BaseContract {
 
   filters: {
     "ModuleProxyCreation(address,address)"(
-      proxy?: string | null,
-      masterCopy?: string | null
+      proxy?: PromiseOrValue<string> | null,
+      masterCopy?: PromiseOrValue<string> | null
     ): ModuleProxyCreationEventFilter;
     ModuleProxyCreation(
-      proxy?: string | null,
-      masterCopy?: string | null
+      proxy?: PromiseOrValue<string> | null,
+      masterCopy?: PromiseOrValue<string> | null
     ): ModuleProxyCreationEventFilter;
 
-    "SummonBaal(address,address,address,address)"(
-      baal?: string | null,
-      loot?: string | null,
-      shares?: string | null,
-      safe?: null
+    "SummonBaal(address,address,address,address,bool)"(
+      baal?: PromiseOrValue<string> | null,
+      loot?: PromiseOrValue<string> | null,
+      shares?: PromiseOrValue<string> | null,
+      safe?: null,
+      existingSafe?: null
     ): SummonBaalEventFilter;
     SummonBaal(
-      baal?: string | null,
-      loot?: string | null,
-      shares?: string | null,
-      safe?: null
+      baal?: PromiseOrValue<string> | null,
+      loot?: PromiseOrValue<string> | null,
+      shares?: PromiseOrValue<string> | null,
+      safe?: null,
+      existingSafe?: null
     ): SummonBaalEventFilter;
   };
 
   estimateGas: {
     deployModule(
-      masterCopy: string,
-      initializer: BytesLike,
-      saltNonce: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      masterCopy: PromiseOrValue<string>,
+      initializer: PromiseOrValue<BytesLike>,
+      saltNonce: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     encodeMultisend(
-      _calls: BytesLike[],
-      _target: string,
+      _calls: PromiseOrValue<BytesLike>[],
+      _target: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -308,16 +368,22 @@ export interface BaalFactory extends BaseContract {
 
     gnosisSingleton(overrides?: CallOverrides): Promise<BigNumber>;
 
+    lootSingleton(overrides?: CallOverrides): Promise<BigNumber>;
+
+    sharesSingleton(overrides?: CallOverrides): Promise<BigNumber>;
+
     summonBaal(
-      _safe: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      initializationParams: PromiseOrValue<BytesLike>,
+      initializationActions: PromiseOrValue<BytesLike>[],
+      _saltNonce: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     summonBaalAndSafe(
-      initializationParams: BytesLike,
-      initializationActions: BytesLike[],
-      _saltNonce: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      initializationParams: PromiseOrValue<BytesLike>,
+      initializationActions: PromiseOrValue<BytesLike>[],
+      _saltNonce: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     template(overrides?: CallOverrides): Promise<BigNumber>;
@@ -325,15 +391,15 @@ export interface BaalFactory extends BaseContract {
 
   populateTransaction: {
     deployModule(
-      masterCopy: string,
-      initializer: BytesLike,
-      saltNonce: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      masterCopy: PromiseOrValue<string>,
+      initializer: PromiseOrValue<BytesLike>,
+      saltNonce: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     encodeMultisend(
-      _calls: BytesLike[],
-      _target: string,
+      _calls: PromiseOrValue<BytesLike>[],
+      _target: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -347,16 +413,22 @@ export interface BaalFactory extends BaseContract {
 
     gnosisSingleton(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
+    lootSingleton(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    sharesSingleton(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
     summonBaal(
-      _safe: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      initializationParams: PromiseOrValue<BytesLike>,
+      initializationActions: PromiseOrValue<BytesLike>[],
+      _saltNonce: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     summonBaalAndSafe(
-      initializationParams: BytesLike,
-      initializationActions: BytesLike[],
-      _saltNonce: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      initializationParams: PromiseOrValue<BytesLike>,
+      initializationActions: PromiseOrValue<BytesLike>[],
+      _saltNonce: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     template(overrides?: CallOverrides): Promise<PopulatedTransaction>;

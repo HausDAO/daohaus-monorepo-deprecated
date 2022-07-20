@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { BiColumnLayout, Card, widthQuery } from '@daohaus/ui';
-import { useDao, useMembers } from '../contexts/DaoContext';
+import { useDao } from '../contexts/DaoContext';
 
 const LeftCard = styled(Card)`
   width: 100%;
@@ -16,11 +16,14 @@ const LeftCard = styled(Card)`
 export function Vaults() {
   const { dao } = useDao();
 
+  // TODO: TS thinks there is an extra .dao
   return (
     <BiColumnLayout
       subtitle="DAO"
       title="Vaults"
-      left={<LeftCard>{JSON.stringify(dao, null, 2)}</LeftCard>}
+      left={
+        <LeftCard>{dao && JSON.stringify(dao.tokenBalances, null, 2)}</LeftCard>
+      }
       right={null}
     />
   );

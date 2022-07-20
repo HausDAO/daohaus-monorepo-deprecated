@@ -1,0 +1,12 @@
+{
+  "name": "@daohaus/haus-form-builder",
+  "version": "0.0.1",
+  "main": "./form-builder.umd.js",
+  "module": "./form-builder.es.js",
+  "exports": {
+    ".": {
+      "import": "./form-builder.es.js",
+      "require": "./form-builder.umd.js"
+    }
+  }
+}

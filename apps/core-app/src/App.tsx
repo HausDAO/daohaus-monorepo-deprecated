@@ -42,7 +42,7 @@ export function App() {
           { label: 'Vaults', href: '/vaults' },
           { label: 'Members', href: '/members' },
         ]}
-        moreLinks={[{ label: 'Settings', href: '/settings' }]}
+        dropdownLinks={[{ label: 'Settings', href: '/settings' }]}
       />
       <MainLayout>
         <BiColumnLayout

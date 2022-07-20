@@ -42,12 +42,10 @@ export const SideProfileLeft = styled.div`
   grid-area: sidebarProfileLeft;
   width: 100%;
   background: ${indigoDark.indigo2};
-  border-bottom: 1px solid ${indigoDark.indigo5};
 `;
 
 export const SideProfileRight = styled.div`
   grid-area: sidebarProfileRight;
   width: 100%;
   background: ${indigoDark.indigo2};
-  border-bottom: 1px solid ${indigoDark.indigo5};
 `;

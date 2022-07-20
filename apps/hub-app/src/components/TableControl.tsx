@@ -28,15 +28,17 @@ const Layout = styled.div`
   padding-top: 3.6rem;
   padding-bottom: 3.6rem;
 
-  .list-type-toggle {
-    transform: translateX(-11.1rem);
+  .list-toggle {
+    margin-left: 2rem;
   }
+
   .button-box {
     display: flex;
+    justify-content: space-between;
   }
+
   @media (min-width: ${breakpoints.sm}) {
     align-items: center;
-    justify-content: space-between;
     flex-direction: row;
   }
 `;
@@ -83,7 +85,7 @@ const TableControl = ({
             secondary
             onClick={toggleListType}
             IconLeft={IconGrid}
-            className="list-type-toggle"
+            className="list-toggle"
           >
             {listType === 'table' ? 'Card View' : 'List View'}
           </Button>

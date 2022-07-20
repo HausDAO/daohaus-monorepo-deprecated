@@ -31,8 +31,6 @@ export interface Dao {
   activeMemberCount: Scalars['BigInt'];
   /** timestamp of the block when the dao was summoned */
   createdAt: Scalars['String'];
-  /** address that created the dao */
-  createdBy: Scalars['Bytes'];
   eventTransactions?: Maybe<EventTransaction>;
   /** length in seconds of the current grace period */
   gracePeriod: Scalars['BigInt'];
@@ -84,7 +82,7 @@ export interface Dao {
   /** total circulating shares tokens */
   totalShares: Scalars['BigInt'];
   /** transaction hash of the dao contract deployment */
-  txHash: Scalars['Bytes'];
+  transactionHashSummon: Scalars['Bytes'];
   /** length in seconds of the current voting period */
   votingPeriod: Scalars['BigInt'];
   /** length in seconds of the current voting period and grace period */
@@ -167,12 +165,6 @@ export interface Dao_Filter {
   createdAt_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
   createdAt_starts_with?: InputMaybe<Scalars['String']>;
   createdAt_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  createdBy?: InputMaybe<Scalars['Bytes']>;
-  createdBy_contains?: InputMaybe<Scalars['Bytes']>;
-  createdBy_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  createdBy_not?: InputMaybe<Scalars['Bytes']>;
-  createdBy_not_contains?: InputMaybe<Scalars['Bytes']>;
-  createdBy_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   eventTransactions_?: InputMaybe<EventTransaction_Filter>;
   gracePeriod?: InputMaybe<Scalars['BigInt']>;
   gracePeriod_gt?: InputMaybe<Scalars['BigInt']>;
@@ -391,12 +383,12 @@ export interface Dao_Filter {
   totalShares_lte?: InputMaybe<Scalars['BigInt']>;
   totalShares_not?: InputMaybe<Scalars['BigInt']>;
   totalShares_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  txHash?: InputMaybe<Scalars['Bytes']>;
-  txHash_contains?: InputMaybe<Scalars['Bytes']>;
-  txHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  txHash_not?: InputMaybe<Scalars['Bytes']>;
-  txHash_not_contains?: InputMaybe<Scalars['Bytes']>;
-  txHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  transactionHashSummon?: InputMaybe<Scalars['Bytes']>;
+  transactionHashSummon_contains?: InputMaybe<Scalars['Bytes']>;
+  transactionHashSummon_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  transactionHashSummon_not?: InputMaybe<Scalars['Bytes']>;
+  transactionHashSummon_not_contains?: InputMaybe<Scalars['Bytes']>;
+  transactionHashSummon_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   votingPeriod?: InputMaybe<Scalars['BigInt']>;
   votingPeriod_gt?: InputMaybe<Scalars['BigInt']>;
   votingPeriod_gte?: InputMaybe<Scalars['BigInt']>;
@@ -418,7 +410,6 @@ export interface Dao_Filter {
 export type Dao_OrderBy =
   | 'activeMemberCount'
   | 'createdAt'
-  | 'createdBy'
   | 'eventTransactions'
   | 'gracePeriod'
   | 'id'
@@ -445,7 +436,7 @@ export type Dao_OrderBy =
   | 'sponsorThreshold'
   | 'totalLoot'
   | 'totalShares'
-  | 'txHash'
+  | 'transactionHashSummon'
   | 'votingPeriod'
   | 'votingPlusGraceDuration';
 
@@ -544,16 +535,12 @@ export interface Member {
   delegatingToMember?: Maybe<Member>;
   /** unique identifier and primary key of the entity */
   id: Scalars['ID'];
-  /** the transaction hash when the delegate was last updated */
-  lastDelegateUpdateTxHash?: Maybe<Scalars['Bytes']>;
   /** current loot held by the member */
   loot: Scalars['BigInt'];
   /** address of the member */
   memberAddress: Scalars['Bytes'];
   /** current shares held by the member */
   shares: Scalars['BigInt'];
-  /** transaction where the member was created */
-  txHash: Scalars['Bytes'];
   votes?: Maybe<Array<Vote>>;
 }
 
@@ -671,12 +658,6 @@ export interface Member_Filter {
   id_lte?: InputMaybe<Scalars['ID']>;
   id_not?: InputMaybe<Scalars['ID']>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  lastDelegateUpdateTxHash?: InputMaybe<Scalars['Bytes']>;
-  lastDelegateUpdateTxHash_contains?: InputMaybe<Scalars['Bytes']>;
-  lastDelegateUpdateTxHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  lastDelegateUpdateTxHash_not?: InputMaybe<Scalars['Bytes']>;
-  lastDelegateUpdateTxHash_not_contains?: InputMaybe<Scalars['Bytes']>;
-  lastDelegateUpdateTxHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   loot?: InputMaybe<Scalars['BigInt']>;
   loot_gt?: InputMaybe<Scalars['BigInt']>;
   loot_gte?: InputMaybe<Scalars['BigInt']>;
@@ -699,12 +680,6 @@ export interface Member_Filter {
   shares_lte?: InputMaybe<Scalars['BigInt']>;
   shares_not?: InputMaybe<Scalars['BigInt']>;
   shares_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  txHash?: InputMaybe<Scalars['Bytes']>;
-  txHash_contains?: InputMaybe<Scalars['Bytes']>;
-  txHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  txHash_not?: InputMaybe<Scalars['Bytes']>;
-  txHash_not_contains?: InputMaybe<Scalars['Bytes']>;
-  txHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   votes_?: InputMaybe<Vote_Filter>;
 }
 
@@ -717,11 +692,9 @@ export type Member_OrderBy =
   | 'delegatingTo'
   | 'delegatingToMember'
   | 'id'
-  | 'lastDelegateUpdateTxHash'
   | 'loot'
   | 'memberAddress'
   | 'shares'
-  | 'txHash'
   | 'votes';
 
 /** Defines the order direction, either ascending or descending */
@@ -737,12 +710,6 @@ export interface Proposal {
   actionGasEstimate: Scalars['BigInt'];
   /** indicates if the proposal is cancelled */
   cancelled: Scalars['Boolean'];
-  /** the address that cancelled the proposal */
-  cancelledBy?: Maybe<Scalars['Bytes']>;
-  /** unix timestamp of when the proposal was cancelled */
-  cancelledTxAt?: Maybe<Scalars['BigInt']>;
-  /** transaction hash of the cancelled proposal */
-  cancelledTxHash?: Maybe<Scalars['Bytes']>;
   /** proposal content URI derived from the details field */
   contentURI?: Maybe<Scalars['String']>;
   /** proposal Content URI type (ipfs hash, url) derived from the details field */
@@ -777,14 +744,8 @@ export interface Proposal {
   passed: Scalars['Boolean'];
   /** id of the previous proposal, set at sponsorship */
   prevProposalId: Scalars['BigInt'];
-  /** the unix timestamp of when the proposal was processed */
-  processTxAt?: Maybe<Scalars['BigInt']>;
-  /** transaction hash of processing the proposal */
-  processTxHash?: Maybe<Scalars['Bytes']>;
   /** indicates if the proposal is processed */
   processed: Scalars['Boolean'];
-  /** address that processed the proposal */
-  processedBy?: Maybe<Scalars['Bytes']>;
   /** raw transaction data that will be executed if the proposal passes */
   proposalData: Scalars['Bytes'];
   /** hash of raw transaction data that will be executed if the proposal passes */
@@ -798,11 +759,7 @@ export interface Proposal {
   /** indicates if the proposal was automatically sponsored */
   selfSponsor: Scalars['Boolean'];
   /** address that sponsored the proposal */
-  sponsor?: Maybe<Scalars['Bytes']>;
-  /** unix timestamp of when the proposal was sponsored */
-  sponsorTxAt?: Maybe<Scalars['BigInt']>;
-  /** transaction hash of the proposal sponsor */
-  sponsorTxHash?: Maybe<Scalars['Bytes']>;
+  sponsor: Scalars['Bytes'];
   /** indicates if the proposal is sponsored */
   sponsored: Scalars['Boolean'];
   /** proposal title derived from the details field */
@@ -820,8 +777,6 @@ export interface Proposal {
   tributeTokenDecimals?: Maybe<Scalars['BigInt']>;
   /** symbol of the tribute token */
   tributeTokenSymbol?: Maybe<Scalars['String']>;
-  /** transaction hash of the proposal */
-  txHash: Scalars['Bytes'];
   /** votes scoped to this proposal */
   votes?: Maybe<Array<Vote>>;
   /** unix timestamp of when the voting period ends */
@@ -863,26 +818,6 @@ export interface Proposal_Filter {
   actionGasEstimate_not?: InputMaybe<Scalars['BigInt']>;
   actionGasEstimate_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   cancelled?: InputMaybe<Scalars['Boolean']>;
-  cancelledBy?: InputMaybe<Scalars['Bytes']>;
-  cancelledBy_contains?: InputMaybe<Scalars['Bytes']>;
-  cancelledBy_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  cancelledBy_not?: InputMaybe<Scalars['Bytes']>;
-  cancelledBy_not_contains?: InputMaybe<Scalars['Bytes']>;
-  cancelledBy_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  cancelledTxAt?: InputMaybe<Scalars['BigInt']>;
-  cancelledTxAt_gt?: InputMaybe<Scalars['BigInt']>;
-  cancelledTxAt_gte?: InputMaybe<Scalars['BigInt']>;
-  cancelledTxAt_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  cancelledTxAt_lt?: InputMaybe<Scalars['BigInt']>;
-  cancelledTxAt_lte?: InputMaybe<Scalars['BigInt']>;
-  cancelledTxAt_not?: InputMaybe<Scalars['BigInt']>;
-  cancelledTxAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  cancelledTxHash?: InputMaybe<Scalars['Bytes']>;
-  cancelledTxHash_contains?: InputMaybe<Scalars['Bytes']>;
-  cancelledTxHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  cancelledTxHash_not?: InputMaybe<Scalars['Bytes']>;
-  cancelledTxHash_not_contains?: InputMaybe<Scalars['Bytes']>;
-  cancelledTxHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   cancelled_in?: InputMaybe<Array<Scalars['Boolean']>>;
   cancelled_not?: InputMaybe<Scalars['Boolean']>;
   cancelled_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
@@ -1085,27 +1020,7 @@ export interface Proposal_Filter {
   prevProposalId_lte?: InputMaybe<Scalars['BigInt']>;
   prevProposalId_not?: InputMaybe<Scalars['BigInt']>;
   prevProposalId_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  processTxAt?: InputMaybe<Scalars['BigInt']>;
-  processTxAt_gt?: InputMaybe<Scalars['BigInt']>;
-  processTxAt_gte?: InputMaybe<Scalars['BigInt']>;
-  processTxAt_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  processTxAt_lt?: InputMaybe<Scalars['BigInt']>;
-  processTxAt_lte?: InputMaybe<Scalars['BigInt']>;
-  processTxAt_not?: InputMaybe<Scalars['BigInt']>;
-  processTxAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  processTxHash?: InputMaybe<Scalars['Bytes']>;
-  processTxHash_contains?: InputMaybe<Scalars['Bytes']>;
-  processTxHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  processTxHash_not?: InputMaybe<Scalars['Bytes']>;
-  processTxHash_not_contains?: InputMaybe<Scalars['Bytes']>;
-  processTxHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   processed?: InputMaybe<Scalars['Boolean']>;
-  processedBy?: InputMaybe<Scalars['Bytes']>;
-  processedBy_contains?: InputMaybe<Scalars['Bytes']>;
-  processedBy_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  processedBy_not?: InputMaybe<Scalars['Bytes']>;
-  processedBy_not_contains?: InputMaybe<Scalars['Bytes']>;
-  processedBy_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   processed_in?: InputMaybe<Array<Scalars['Boolean']>>;
   processed_not?: InputMaybe<Scalars['Boolean']>;
   processed_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
@@ -1162,20 +1077,6 @@ export interface Proposal_Filter {
   selfSponsor_not?: InputMaybe<Scalars['Boolean']>;
   selfSponsor_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
   sponsor?: InputMaybe<Scalars['Bytes']>;
-  sponsorTxAt?: InputMaybe<Scalars['BigInt']>;
-  sponsorTxAt_gt?: InputMaybe<Scalars['BigInt']>;
-  sponsorTxAt_gte?: InputMaybe<Scalars['BigInt']>;
-  sponsorTxAt_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  sponsorTxAt_lt?: InputMaybe<Scalars['BigInt']>;
-  sponsorTxAt_lte?: InputMaybe<Scalars['BigInt']>;
-  sponsorTxAt_not?: InputMaybe<Scalars['BigInt']>;
-  sponsorTxAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  sponsorTxHash?: InputMaybe<Scalars['Bytes']>;
-  sponsorTxHash_contains?: InputMaybe<Scalars['Bytes']>;
-  sponsorTxHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  sponsorTxHash_not?: InputMaybe<Scalars['Bytes']>;
-  sponsorTxHash_not_contains?: InputMaybe<Scalars['Bytes']>;
-  sponsorTxHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   sponsor_contains?: InputMaybe<Scalars['Bytes']>;
   sponsor_in?: InputMaybe<Array<Scalars['Bytes']>>;
   sponsor_not?: InputMaybe<Scalars['Bytes']>;
@@ -1253,12 +1154,6 @@ export interface Proposal_Filter {
   tributeToken_not?: InputMaybe<Scalars['Bytes']>;
   tributeToken_not_contains?: InputMaybe<Scalars['Bytes']>;
   tributeToken_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  txHash?: InputMaybe<Scalars['Bytes']>;
-  txHash_contains?: InputMaybe<Scalars['Bytes']>;
-  txHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  txHash_not?: InputMaybe<Scalars['Bytes']>;
-  txHash_not_contains?: InputMaybe<Scalars['Bytes']>;
-  txHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   votes_?: InputMaybe<Vote_Filter>;
   votingEnds?: InputMaybe<Scalars['BigInt']>;
   votingEnds_gt?: InputMaybe<Scalars['BigInt']>;
@@ -1314,9 +1209,6 @@ export type Proposal_OrderBy =
   | 'actionFailed'
   | 'actionGasEstimate'
   | 'cancelled'
-  | 'cancelledBy'
-  | 'cancelledTxAt'
-  | 'cancelledTxHash'
   | 'contentURI'
   | 'contentURIType'
   | 'createdAt'
@@ -1334,10 +1226,7 @@ export type Proposal_OrderBy =
   | 'noVotes'
   | 'passed'
   | 'prevProposalId'
-  | 'processTxAt'
-  | 'processTxHash'
   | 'processed'
-  | 'processedBy'
   | 'proposalData'
   | 'proposalDataHash'
   | 'proposalId'
@@ -1345,8 +1234,6 @@ export type Proposal_OrderBy =
   | 'proposalType'
   | 'selfSponsor'
   | 'sponsor'
-  | 'sponsorTxAt'
-  | 'sponsorTxHash'
   | 'sponsored'
   | 'title'
   | 'tributeEscrowRecipient'
@@ -1354,7 +1241,6 @@ export type Proposal_OrderBy =
   | 'tributeToken'
   | 'tributeTokenDecimals'
   | 'tributeTokenSymbol'
-  | 'txHash'
   | 'votes'
   | 'votingEnds'
   | 'votingPeriod'
@@ -1572,8 +1458,6 @@ export interface RageQuit {
   to: Scalars['Bytes'];
   /** list of treasury token addresses requested in the rage quit */
   tokens: Array<Scalars['Bytes']>;
-  /** the transaction where the RageQuit occurred */
-  txHash: Scalars['Bytes'];
 }
 
 export interface RageQuit_Filter {
@@ -1677,12 +1561,6 @@ export interface RageQuit_Filter {
   tokens_not?: InputMaybe<Array<Scalars['Bytes']>>;
   tokens_not_contains?: InputMaybe<Array<Scalars['Bytes']>>;
   tokens_not_contains_nocase?: InputMaybe<Array<Scalars['Bytes']>>;
-  txHash?: InputMaybe<Scalars['Bytes']>;
-  txHash_contains?: InputMaybe<Scalars['Bytes']>;
-  txHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  txHash_not?: InputMaybe<Scalars['Bytes']>;
-  txHash_not_contains?: InputMaybe<Scalars['Bytes']>;
-  txHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
 }
 
 export type RageQuit_OrderBy =
@@ -1693,8 +1571,7 @@ export type RageQuit_OrderBy =
   | 'member'
   | 'shares'
   | 'to'
-  | 'tokens'
-  | 'txHash';
+  | 'tokens';
 
 export interface Record {
   __typename?: 'Record';
@@ -2171,8 +2048,6 @@ export interface Vote {
   member: Member;
   /** related proposal */
   proposal: Proposal;
-  /** transaction hash of the vote */
-  txHash: Scalars['Bytes'];
 }
 
 export interface Vote_Filter {
@@ -2266,12 +2141,6 @@ export interface Vote_Filter {
   proposal_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
   proposal_starts_with?: InputMaybe<Scalars['String']>;
   proposal_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  txHash?: InputMaybe<Scalars['Bytes']>;
-  txHash_contains?: InputMaybe<Scalars['Bytes']>;
-  txHash_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  txHash_not?: InputMaybe<Scalars['Bytes']>;
-  txHash_not_contains?: InputMaybe<Scalars['Bytes']>;
-  txHash_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
 }
 
 export type Vote_OrderBy =
@@ -2281,8 +2150,7 @@ export type Vote_OrderBy =
   | 'daoAddress'
   | 'id'
   | 'member'
-  | 'proposal'
-  | 'txHash';
+  | 'proposal';
 
 export interface _Block_ {
   __typename?: '_Block_';

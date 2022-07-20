@@ -19,8 +19,7 @@ export function handleSummonBaal(event: SummonBaal): void {
   }
 
   dao.createdAt = event.block.timestamp.toString();
-  dao.createdBy = event.transaction.from;
-  dao.txHash = event.transaction.hash;
+  dao.transactionHashSummon = event.transaction.hash;
   dao.lootAddress = event.params.loot;
   dao.sharesAddress = event.params.shares;
   dao.safeAddress = event.params.safe;

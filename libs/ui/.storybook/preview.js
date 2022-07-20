@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { BrowserRouter } from 'react-router-dom';
 import {
   defaultDarkTheme,
   defaultLightTheme,
@@ -79,13 +78,4 @@ const WithFormProvider = (Story, context) => {
     </FormProvider>
   );
 };
-
-const withRouter = (Story) => {
-  return (
-    <BrowserRouter>
-      <Story />
-    </BrowserRouter>
-  );
-};
-
-export const decorators = [withRouter, withThemeProvider, WithFormProvider];
+export const decorators = [withThemeProvider, WithFormProvider];

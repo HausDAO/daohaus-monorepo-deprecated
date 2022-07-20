@@ -6,13 +6,7 @@ import {
   ValidNetwork,
 } from '@daohaus/common-utilities';
 
-import {
-  Layout,
-  SideProfileLeft,
-  SideProfileRight,
-  SideTopLeft,
-  SideTopRight,
-} from '../components/Layout';
+import { Layout, SideTopLeft, SideTopRight } from '../components/Layout';
 import ProfileArea from '../components/ProfileArea';
 import Header from '../components/Header';
 import { HomeDashboard } from '../components/HomeDashboard';
@@ -105,8 +99,6 @@ const HomePage = () => {
     <Layout>
       <SideTopLeft />
       <SideTopRight />
-      <SideProfileRight />
-      <SideProfileLeft />
       <Header />
       <ProfileArea />
       {isConnected ? (

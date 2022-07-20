@@ -27,12 +27,6 @@ declare module 'styled-components' {
     disabled: string;
     transparent: string;
     info: string;
-    subNav: {
-      bg: string;
-      navLinkColor: string;
-      navLinkHoverColor: string;
-      navLinkSelected: string;
-    };
     card: {
       bg: string;
       border: string;

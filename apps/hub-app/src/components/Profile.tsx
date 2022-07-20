@@ -40,7 +40,7 @@ const StyledChevron = styled(BiChevronDown)`
 `;
 
 const StyledParMd = styled(ParMd)`
-  padding: 1.2rem 0.5rem 1.2rem 1.2rem;
+  padding: 1.2rem;
 `;
 
 const StyledButton = styled(Button)`
@@ -87,10 +87,6 @@ const StyledLink = styled(Link)`
   }
 `;
 
-const StyledExternalLink = styled(ExternalLink)`
-  padding-right: 1.2rem;
-`;
-
 export const HeaderProfile = () => {
   const { profile, address } = useHausConnect();
   return (
@@ -113,9 +109,9 @@ export const HeaderProfile = () => {
           {
             type: 'clickable',
             content: (
-              <StyledExternalLink href={SELF_ID_URL}>
+              <ExternalLink href={SELF_ID_URL}>
                 <StyledParMd>Edit SELF_ID</StyledParMd>
-              </StyledExternalLink>
+              </ExternalLink>
             ),
           },
           {

@@ -71,11 +71,8 @@ type Dao {
   """timestamp of the block when the dao was summoned"""
   createdAt: String!
 
-  """address that created the dao"""
-  createdBy: Bytes!
-
   """transaction hash of the dao contract deployment"""
-  txHash: Bytes!
+  transactionHashSummon: Bytes!
 
   """contract address of the loot erc20 token"""
   lootAddress: Bytes!
@@ -189,18 +186,12 @@ input Dao_filter {
   createdAt_ends_with_nocase: String
   createdAt_not_ends_with: String
   createdAt_not_ends_with_nocase: String
-  createdBy: Bytes
-  createdBy_not: Bytes
-  createdBy_in: [Bytes!]
-  createdBy_not_in: [Bytes!]
-  createdBy_contains: Bytes
-  createdBy_not_contains: Bytes
-  txHash: Bytes
-  txHash_not: Bytes
-  txHash_in: [Bytes!]
-  txHash_not_in: [Bytes!]
-  txHash_contains: Bytes
-  txHash_not_contains: Bytes
+  transactionHashSummon: Bytes
+  transactionHashSummon_not: Bytes
+  transactionHashSummon_in: [Bytes!]
+  transactionHashSummon_not_in: [Bytes!]
+  transactionHashSummon_contains: Bytes
+  transactionHashSummon_not_contains: Bytes
   lootAddress: Bytes
   lootAddress_not: Bytes
   lootAddress_in: [Bytes!]
@@ -443,8 +434,7 @@ input Dao_filter {
 enum Dao_orderBy {
   id
   createdAt
-  createdBy
-  txHash
+  transactionHashSummon
   lootAddress
   sharesAddress
   safeAddress
@@ -564,9 +554,6 @@ type Member {
   """
   createdAt: String!
 
-  """transaction where the member was created"""
-  txHash: Bytes!
-
   """related dao"""
   dao: Dao!
 
@@ -584,9 +571,6 @@ type Member {
 
   """subgraph id of member the address is delegating to"""
   delegatingToMember: Member
-
-  """the transaction hash when the delegate was last updated"""
-  lastDelegateUpdateTxHash: Bytes
 
   """
   total amount of shares this address votes with (thier own plus delegated shares)
@@ -630,12 +614,6 @@ input Member_filter {
   createdAt_ends_with_nocase: String
   createdAt_not_ends_with: String
   createdAt_not_ends_with_nocase: String
-  txHash: Bytes
-  txHash_not: Bytes
-  txHash_in: [Bytes!]
-  txHash_not_in: [Bytes!]
-  txHash_contains: Bytes
-  txHash_not_contains: Bytes
   dao: String
   dao_not: String
   dao_gt: String
@@ -706,12 +684,6 @@ input Member_filter {
   delegatingToMember_not_ends_with: String
   delegatingToMember_not_ends_with_nocase: String
   delegatingToMember_: Member_filter
-  lastDelegateUpdateTxHash: Bytes
-  lastDelegateUpdateTxHash_not: Bytes
-  lastDelegateUpdateTxHash_in: [Bytes!]
-  lastDelegateUpdateTxHash_not_in: [Bytes!]
-  lastDelegateUpdateTxHash_contains: Bytes
-  lastDelegateUpdateTxHash_not_contains: Bytes
   delegateShares: BigInt
   delegateShares_not: BigInt
   delegateShares_gt: BigInt
@@ -738,14 +710,12 @@ input Member_filter {
 enum Member_orderBy {
   id
   createdAt
-  txHash
   dao
   memberAddress
   shares
   loot
   delegatingTo
   delegatingToMember
-  lastDelegateUpdateTxHash
   delegateShares
   delegateOf
   delegateOfCount
@@ -776,9 +746,6 @@ type Proposal {
 
   """id of the previous proposal, set at sponsorship"""
   prevProposalId: BigInt!
-
-  """transaction hash of the proposal"""
-  txHash: Bytes!
 
   """
   hash of raw transaction data that will be executed if the proposal passes
@@ -826,37 +793,13 @@ type Proposal {
   sponsored: Boolean!
 
   """address that sponsored the proposal"""
-  sponsor: Bytes
-
-  """transaction hash of the proposal sponsor"""
-  sponsorTxHash: Bytes
-
-  """unix timestamp of when the proposal was sponsored"""
-  sponsorTxAt: BigInt
+  sponsor: Bytes!
 
   """indicates if the proposal is cancelled"""
   cancelled: Boolean!
 
-  """transaction hash of the cancelled proposal"""
-  cancelledTxHash: Bytes
-
-  """unix timestamp of when the proposal was cancelled"""
-  cancelledTxAt: BigInt
-
-  """the address that cancelled the proposal"""
-  cancelledBy: Bytes
-
   """indicates if the proposal is processed"""
   processed: Boolean!
-
-  """transaction hash of processing the proposal"""
-  processTxHash: Bytes
-
-  """the unix timestamp of when the proposal was processed"""
-  processTxAt: BigInt
-
-  """address that processed the proposal"""
-  processedBy: Bytes
 
   """indicates if the proposal is processed"""
   actionFailed: Boolean!
@@ -999,12 +942,6 @@ input Proposal_filter {
   prevProposalId_lte: BigInt
   prevProposalId_in: [BigInt!]
   prevProposalId_not_in: [BigInt!]
-  txHash: Bytes
-  txHash_not: Bytes
-  txHash_in: [Bytes!]
-  txHash_not_in: [Bytes!]
-  txHash_contains: Bytes
-  txHash_not_contains: Bytes
   proposalDataHash: Bytes
   proposalDataHash_not: Bytes
   proposalDataHash_in: [Bytes!]
@@ -1115,68 +1052,14 @@ input Proposal_filter {
   sponsor_not_in: [Bytes!]
   sponsor_contains: Bytes
   sponsor_not_contains: Bytes
-  sponsorTxHash: Bytes
-  sponsorTxHash_not: Bytes
-  sponsorTxHash_in: [Bytes!]
-  sponsorTxHash_not_in: [Bytes!]
-  sponsorTxHash_contains: Bytes
-  sponsorTxHash_not_contains: Bytes
-  sponsorTxAt: BigInt
-  sponsorTxAt_not: BigInt
-  sponsorTxAt_gt: BigInt
-  sponsorTxAt_lt: BigInt
-  sponsorTxAt_gte: BigInt
-  sponsorTxAt_lte: BigInt
-  sponsorTxAt_in: [BigInt!]
-  sponsorTxAt_not_in: [BigInt!]
   cancelled: Boolean
   cancelled_not: Boolean
   cancelled_in: [Boolean!]
   cancelled_not_in: [Boolean!]
-  cancelledTxHash: Bytes
-  cancelledTxHash_not: Bytes
-  cancelledTxHash_in: [Bytes!]
-  cancelledTxHash_not_in: [Bytes!]
-  cancelledTxHash_contains: Bytes
-  cancelledTxHash_not_contains: Bytes
-  cancelledTxAt: BigInt
-  cancelledTxAt_not: BigInt
-  cancelledTxAt_gt: BigInt
-  cancelledTxAt_lt: BigInt
-  cancelledTxAt_gte: BigInt
-  cancelledTxAt_lte: BigInt
-  cancelledTxAt_in: [BigInt!]
-  cancelledTxAt_not_in: [BigInt!]
-  cancelledBy: Bytes
-  cancelledBy_not: Bytes
-  cancelledBy_in: [Bytes!]
-  cancelledBy_not_in: [Bytes!]
-  cancelledBy_contains: Bytes
-  cancelledBy_not_contains: Bytes
   processed: Boolean
   processed_not: Boolean
   processed_in: [Boolean!]
   processed_not_in: [Boolean!]
-  processTxHash: Bytes
-  processTxHash_not: Bytes
-  processTxHash_in: [Bytes!]
-  processTxHash_not_in: [Bytes!]
-  processTxHash_contains: Bytes
-  processTxHash_not_contains: Bytes
-  processTxAt: BigInt
-  processTxAt_not: BigInt
-  processTxAt_gt: BigInt
-  processTxAt_lt: BigInt
-  processTxAt_gte: BigInt
-  processTxAt_lte: BigInt
-  processTxAt_in: [BigInt!]
-  processTxAt_not_in: [BigInt!]
-  processedBy: Bytes
-  processedBy_not: Bytes
-  processedBy_in: [Bytes!]
-  processedBy_not_in: [Bytes!]
-  processedBy_contains: Bytes
-  processedBy_not_contains: Bytes
   actionFailed: Boolean
   actionFailed_not: Boolean
   actionFailed_in: [Boolean!]
@@ -1398,7 +1281,6 @@ enum Proposal_orderBy {
   dao
   proposalId
   prevProposalId
-  txHash
   proposalDataHash
   proposalData
   votingPeriod
@@ -1413,16 +1295,8 @@ enum Proposal_orderBy {
   selfSponsor
   sponsored
   sponsor
-  sponsorTxHash
-  sponsorTxAt
   cancelled
-  cancelledTxHash
-  cancelledTxAt
-  cancelledBy
   processed
-  processTxHash
-  processTxAt
-  processedBy
   actionFailed
   passed
   proposalOffering
@@ -1818,9 +1692,6 @@ type RageQuit {
   """block timestamp when the member rage quit"""
   createdAt: String!
 
-  """the transaction where the RageQuit occurred"""
-  txHash: Bytes!
-
   """related DAO"""
   dao: Dao!
 
@@ -1869,12 +1740,6 @@ input RageQuit_filter {
   createdAt_ends_with_nocase: String
   createdAt_not_ends_with: String
   createdAt_not_ends_with_nocase: String
-  txHash: Bytes
-  txHash_not: Bytes
-  txHash_in: [Bytes!]
-  txHash_not_in: [Bytes!]
-  txHash_contains: Bytes
-  txHash_not_contains: Bytes
   dao: String
   dao_not: String
   dao_gt: String
@@ -1953,7 +1818,6 @@ input RageQuit_filter {
 enum RageQuit_orderBy {
   id
   createdAt
-  txHash
   dao
   member
   to
@@ -2610,9 +2474,6 @@ type Vote {
   """unique identifier and primary key of the entity"""
   id: ID!
 
-  """transaction hash of the vote"""
-  txHash: Bytes!
-
   """block timestamp when the vote was submitted"""
   createdAt: String!
 
@@ -2641,12 +2502,6 @@ input Vote_filter {
   id_lte: ID
   id_in: [ID!]
   id_not_in: [ID!]
-  txHash: Bytes
-  txHash_not: Bytes
-  txHash_in: [Bytes!]
-  txHash_not_in: [Bytes!]
-  txHash_contains: Bytes
-  txHash_not_contains: Bytes
   createdAt: String
   createdAt_not: String
   createdAt_gt: String
@@ -2734,7 +2589,6 @@ input Vote_filter {
 
 enum Vote_orderBy {
   id
-  txHash
   createdAt
   daoAddress
   approved

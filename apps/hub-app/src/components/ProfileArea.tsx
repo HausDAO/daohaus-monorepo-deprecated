@@ -12,6 +12,7 @@ const ProfileContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding: 0 2rem;
 `;
 
 const ProfileArea = () => {

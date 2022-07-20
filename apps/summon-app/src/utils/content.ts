@@ -48,5 +48,5 @@ export const INFO_COPY = {
   SHAMAN:
     'Input shaman list with contract address and permission level per row using spaces. ex: \n0x00000000000000 2 \n0x00000000000000 1.',
   MEMBERS:
-    'Input member list with member address, voting stake amount, and non-voting stake amount per row using spaces. ex: \n 0x00000000000000 20 10 \n 0x00000000000000 10 20',
+    'Input member list with member address, voting stake amount, and non-voting stake amount per row using spaces. ex: \n 0x00000000000000 20 10 \n 0x00000000000000 10 20.',
 };

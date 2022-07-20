@@ -52,6 +52,14 @@
         "lintFilePatterns": ["apps/core-app/**/*.{ts,tsx,js,jsx}"]
       }
     },
+    "tsc": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "tsc --project apps/core-app/tsconfig.app.json --noEmit --skipLibCheck",
+        "color": true
+      }
+    },
+
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/core-app"],

@@ -1,34 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import {
-  Layout,
-  SideTopLeft,
-  SideTopRight,
-  SideProfileLeft,
-  SideProfileRight,
-} from '../components/Layout';
-import Header from '../components/Header';
-import { Profile } from '../components/Profile';
 import { indigoDark } from '@radix-ui/colors';
-import { breakpoints, Button, ParMd, Icon, Spinner, H5 } from '@daohaus/ui';
+import {
+  breakpoints,
+  Button,
+  ParMd,
+  Icon,
+  Spinner,
+  H5,
+  ProfileAvatar,
+  useToast,
+} from '@daohaus/ui';
+import { ITransformedMembership } from '@daohaus/dao-data';
 import { BsShareFill, BsArrowLeft } from 'react-icons/bs';
 import useDaoData from '../hooks/useDaoData';
-import { Avatar } from '@daohaus/ui';
-import { BiGhost } from 'react-icons/bi';
-import { ITransformedMembership } from '@daohaus/dao-data';
+import { Layout } from '../components/Layout';
+import Header from '../components/Header';
+import { Profile } from '../components/Profile';
+import { Tag } from '../components/Tag';
 
 const BodyNavArea = styled.div`
   grid-area: profile;
   display: flex;
-  background: ${indigoDark.indigo2};
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid ${indigoDark.indigo5};
 
   @media (min-width: ${breakpoints.xs}) {
-    padding: 1.5rem;
+    max-width: 58rem;
+    justify-self: center;
+    width: 100%;
   }
 `;
 
@@ -77,14 +79,15 @@ const StyledSpinner = styled(Spinner)`
 
 const StyledListItem = styled.li`
   display: flex;
-  gap: 1rem;
+  gap: 1.2rem;
   list-style: none;
   align-items: center;
   font-size: 1.6rem;
+  padding: 1.2rem 0;
 `;
 
 const StyledUnorderedList = styled.ul`
-  padding: 1rem;
+  padding: 1rem 2rem;
   border-top: 0.1rem solid ${indigoDark.indigo5};
 `;
 
@@ -94,7 +97,7 @@ const DaoData = styled.div`
 `;
 
 const DaoCountHeading = styled(H5)`
-  padding-left: 1rem;
+  padding-left: 2rem;
 `;
 
 const DaoColumn = ({ daoData }: { daoData: ITransformedMembership[] }) => {
@@ -102,9 +105,10 @@ const DaoColumn = ({ daoData }: { daoData: ITransformedMembership[] }) => {
     <StyledUnorderedList>
       {daoData.map((dao) => {
         return (
-          <StyledListItem>
-            <Avatar size="md" fallback={<BiGhost />} />
+          <StyledListItem key={dao.dao}>
+            <ProfileAvatar size="sm" address={dao.dao} />
             {dao.name}
+            {dao.isDelegate && <Tag>Delegate</Tag>}
           </StyledListItem>
         );
       })}
@@ -114,26 +118,40 @@ const DaoColumn = ({ daoData }: { daoData: ITransformedMembership[] }) => {
 
 const PublicProfilePage = () => {
   const { daoData, isLoadingDaoData } = useDaoData();
+  const { successToast } = useToast();
+
   const handleOnClick = () => {
     navigator.clipboard.writeText(`${window.location.href}`);
+    successToast({
+      title: 'URL copied to clipboard',
+    });
   };
 
   return (
     <Layout>
-      <SideTopLeft />
-      <SideTopRight />
-      <SideProfileLeft />
-      <SideProfileRight />
       <Header />
       {isLoadingDaoData ? (
-        <Body
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <StyledSpinner />
-        </Body>
+        <>
+          <BodyNavArea>
+            <StyledLink to="/">
+              <Icon>
+                <StyledArrowLeft />
+              </Icon>
+              <StyledPar>My Hub</StyledPar>
+            </StyledLink>
+            <Button IconLeft={BsShareFill} onClick={handleOnClick}>
+              Share Profile
+            </Button>
+          </BodyNavArea>
+          <Body
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <StyledSpinner />
+          </Body>
+        </>
       ) : (
         <>
           <BodyNavArea>
@@ -151,12 +169,12 @@ const PublicProfilePage = () => {
             <Profile />
             {daoData.length < 1 ? (
               <DaoCountHeading>
-                <ParMd>No Dao memberships found</ParMd>
+                <ParMd>No DAO memberships found</ParMd>
               </DaoCountHeading>
             ) : (
               <DaoData>
                 <DaoCountHeading>
-                  {daoData.length} Total Dao {daoData.length === 1 ? '' : 's'}
+                  {daoData.length} Total DAO{daoData.length === 1 ? '' : 's'}
                 </DaoCountHeading>
                 <DaoColumn daoData={daoData} />
               </DaoData>

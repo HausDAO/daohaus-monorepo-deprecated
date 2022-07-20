@@ -1,6 +1,7 @@
 import { Keychain } from '@daohaus/common-utilities';
 import {
   DaoWithTokenData,
+  DaoWithTokenDataQuery,
   FindDaoQuery,
   ITransformedProposalListQuery,
   ListMembersQuery,
@@ -32,7 +33,7 @@ export const defaultDaoData = {
 };
 
 export type DaoConnectDaoType = {
-  dao: FindDaoQuery['dao'] | DaoWithTokenData | null | undefined;
+  dao: DaoWithTokenDataQuery | null | undefined;
   isDaoLoading: boolean;
   refreshDao: () => Promise<void>;
 };
@@ -63,9 +64,7 @@ type DaoContextProviderProps = {
 export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   const { daochain, daoid } = useParams();
 
-  const [dao, setDao] = useState<
-    FindDaoQuery['dao'] | DaoWithTokenData | undefined
-  >();
+  const [dao, setDao] = useState<DaoWithTokenDataQuery['dao'] | undefined>();
   const [isDaoLoading, setDaoLoading] = useState(false);
 
   const [members, setMembers] = useState<
@@ -113,11 +112,25 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   };
 
   const refreshMembers = async () => {
-    console.log('refresh');
+    if (daochain && daoid) {
+      loadMembersList({
+        daoid,
+        daochain: daochain as keyof Keychain,
+        setData: setMembers,
+        setLoading: setMembersLoading,
+      });
+    }
   };
 
   const refreshProposals = async () => {
-    console.log('refresh');
+    if (daochain && daoid) {
+      loadProposalsList({
+        daoid,
+        daochain: daochain as keyof Keychain,
+        setData: setProposals,
+        setLoading: setProposalsLoading,
+      });
+    }
   };
 
   return (

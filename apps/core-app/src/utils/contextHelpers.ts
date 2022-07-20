@@ -1,6 +1,7 @@
 import { Keychain, ReactSetter } from '@daohaus/common-utilities';
 import {
   DaoWithTokenData,
+  DaoWithTokenDataQuery,
   FindDaoQuery,
   Haus,
   ITransformedProposalListQuery,
@@ -15,7 +16,7 @@ export const loadDao = async ({
 }: {
   daoid: string;
   daochain: keyof Keychain;
-  setDao: ReactSetter<FindDaoQuery['dao'] | DaoWithTokenData | undefined>;
+  setDao: ReactSetter<DaoWithTokenDataQuery['dao'] | undefined>;
   setDaoLoading: ReactSetter<boolean>;
 }) => {
   try {
@@ -27,7 +28,15 @@ export const loadDao = async ({
       includeTokens: true,
     });
 
-    setDao(daoRes?.data?.dao);
+    if (daoRes?.data?.dao) {
+      const daoData: DaoWithTokenDataQuery['dao'] = {
+        tokenBalances: [],
+        fiatTotal: 0,
+        ...daoRes.data.dao,
+      };
+
+      setDao(daoData);
+    }
   } catch (error) {
     console.error(error);
     setDao(undefined);

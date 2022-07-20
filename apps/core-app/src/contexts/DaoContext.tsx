@@ -33,7 +33,7 @@ export const defaultDaoData = {
 };
 
 export type DaoConnectDaoType = {
-  dao: DaoWithTokenDataQuery | null | undefined;
+  dao: DaoWithTokenDataQuery['dao'] | null | undefined;
   isDaoLoading: boolean;
   refreshDao: () => Promise<void>;
 };

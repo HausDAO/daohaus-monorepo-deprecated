@@ -16,7 +16,6 @@ const LeftCard = styled(Card)`
 export function Vaults() {
   const { dao } = useDao();
 
-  // TODO: TS thinks there is an extra .dao
   return (
     <BiColumnLayout
       subtitle="DAO"

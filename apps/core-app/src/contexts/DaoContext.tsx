@@ -26,8 +26,6 @@ import {
   loadProposalsList,
 } from '../utils/contextHelpers';
 
-// TODO: get nextPage tpyes working AND ensure next page is set correctly
-
 export const defaultDaoData = {
   dao: null,
   isDaoLoading: false,
@@ -160,6 +158,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
         daochain: daochain as keyof Keychain,
         setData: setMembers,
         setLoading: setMembersLoading,
+        setPaging: setMembersPaging,
       });
     }
   }, [daochain, daoid, membersFilter, membersSort, membersPaging]);
@@ -173,6 +172,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
         daochain: daochain as keyof Keychain,
         setData: setProposals,
         setLoading: setProposalsLoading,
+        setPaging: setProposalsPaging,
       });
     }
   }, [daochain, daoid, proposalsFilter, proposalsSort, proposalsPaging]);
@@ -197,6 +197,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
         daochain: daochain as keyof Keychain,
         setData: setMembers,
         setLoading: setMembersLoading,
+        setPaging: setMembersPaging,
       });
     }
   };
@@ -210,6 +211,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
         daochain: daochain as keyof Keychain,
         setData: setProposals,
         setLoading: setProposalsLoading,
+        setPaging: setProposalsPaging,
       });
     }
   };

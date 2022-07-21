@@ -57,31 +57,24 @@ export const Dropdown = ({
         align={align}
         width={width}
       >
-        <DropdownItemFactory items={items} spacing={spacing} />
+        {items.map((item) => {
+          if (item.type === 'clickable') {
+            return (
+              <DropdownMenuItem key={item.key || uuid()} spacing={spacing}>
+                {item.content}
+              </DropdownMenuItem>
+            );
+          }
+          if (item.type === 'label') {
+            return (
+              <DropdownLabel key={item.key || uuid()}>
+                {item.content}
+              </DropdownLabel>
+            );
+          }
+        })}
+        ;
       </DropdownMenuContent>
     </DropdownMenu>
   );
-};
-
-const DropdownItemFactory = ({
-  items,
-  spacing,
-}: Omit<DropdownProps, 'trigger'>) => {
-  {
-    items?.map((item) => {
-      if (item.type === 'clickable') {
-        return (
-          <DropdownMenuItem key={item.key || uuid()} spacing={spacing}>
-            {item.content}
-          </DropdownMenuItem>
-        );
-      }
-      if (item.type === 'label') {
-        return (
-          <DropdownLabel key={item.key || uuid()}>{item.content}</DropdownLabel>
-        );
-      }
-      return null;
-    });
-  }
 };

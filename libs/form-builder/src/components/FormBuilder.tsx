@@ -1,8 +1,5 @@
-// import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-// import { isValidNetwork } from '@daohaus/common-utilities';
-// import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { Button, FormLayout } from '@daohaus/ui';
 
 import { FormBuilderFactory } from './FormBuilderFactory';
@@ -15,7 +12,6 @@ import { isValidNetwork } from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 type FormBuilderProps = FormLego & {
-  // middleware?: (values: Record<string, unknown>) => Record<string, unknown>;
   onSubmit: (
     formValues: Record<string, unknown>
   ) => void | Promise<(formValues: Record<string, unknown>) => void>;
@@ -32,13 +28,11 @@ export const FormBuilder = ({
   onSubmit,
   log,
 }: FormBuilderProps) => {
-  // const { chainId, isConnected } = useHausConnect();
   const methods = useForm();
   const {
     formState: { isValid },
   } = methods;
   const { chainId } = useHausConnect();
-  // const { errorToast, successToast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);

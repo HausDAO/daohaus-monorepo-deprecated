@@ -17,8 +17,6 @@ type NumericalFormat =
   | 'percentShort'
   | 'exponential';
 
-numbro.zeroFormat('0');
-
 interface FormatGeneratorParams {
   value: number;
   type: NumericalFormat | string;
@@ -30,6 +28,8 @@ const generateNumeral = ({
   type,
   decimals,
 }: FormatGeneratorParams): string => {
+  // cheap zeroFormatter
+  if (value === 0) return '0';
   // short formats shrink large numbers to the shorter representation
   // e.g. 1.000 -> 1k, 1.000.000 -> 1m, etc
   const short = type.match(/(short)/i) ? 'a' : '';
@@ -47,7 +47,7 @@ const generateNumeral = ({
   } else if (type.match(/(percent)/i)) {
     const decimalMatcher = decimals > 0 ? `[.]${decimalCount}` : '';
     format = `0${decimalMatcher}%`;
-    return numbro(value).format(format);
+    return numbro(value / 100).format(format);
   } else if (type.match(/(currency)/i)) {
     format = `$0[.]${decimalCount}${short}`;
     return numbro(value).format(format);

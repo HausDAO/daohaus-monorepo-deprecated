@@ -1,5 +1,10 @@
+import styled from 'styled-components';
 import { FieldLego } from '../types/legoTypes';
 import { CoreFieldLookup } from './CoreFieldLookup';
+
+const FieldSpacer = styled.div`
+  margin-bottom: 3.6rem;
+`;
 
 export const FormBuilderFactory = ({ type, ...props }: FieldLego) => {
   const GeneratedField = CoreFieldLookup[type];
@@ -12,7 +17,12 @@ export const FormBuilderFactory = ({ type, ...props }: FieldLego) => {
   // actual component
 
   // @ts-expect-error blah-de-blah
-  return <GeneratedField {...props} />;
+  const Component = () => <GeneratedField {...props} full />;
+  return (
+    <FieldSpacer>
+      <Component />
+    </FieldSpacer>
+  );
 };
 
 // Simiplified example of TS problem here.

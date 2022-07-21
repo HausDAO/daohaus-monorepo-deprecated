@@ -1,11 +1,12 @@
-import { isValidNetwork } from '@daohaus/common-utilities';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { FormLayout, useToast } from '@daohaus/ui';
-import React, { useState } from 'react';
+// import { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { CoreFieldLookup } from './components/CoreFieldLookup';
-import { FormBuilderFactory } from './components/FormBuilerFactory';
-import { FieldLego, FormLego } from './types/legoTypes';
+
+// import { isValidNetwork } from '@daohaus/common-utilities';
+// import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+import { FormLayout } from '@daohaus/ui';
+
+import { FormBuilderFactory } from './FormBuilderFactory';
+import { FormLego } from '../types/legoTypes';
 
 type FormBuilderProps = FormLego & {
   // middleware?: (values: Record<string, unknown>) => Record<string, unknown>;
@@ -22,24 +23,20 @@ export const FormBuilder = ({
   fields,
   onSubmit,
 }: FormBuilderProps) => {
-  const { chainId, isConnected } = useHausConnect();
+  // const { chainId, isConnected } = useHausConnect();
   const methods = useForm({ mode: 'onTouched' });
-  const {
-    formState: { isValid },
-  } = methods;
-  const { errorToast, successToast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const formDisabled = isSubmitting;
-  const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
-
-  const handleFormSubmit = () => {
-    console.log('fart');
-  };
+  // const {
+  //   formState: { isValid },
+  // } = methods;
+  // const { errorToast, successToast } = useToast();
+  // const [isSubmitting, setIsSubmitting] = useState(false);
+  // const formDisabled = isSubmitting;
+  // const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
 
   return (
     <FormLayout title={title} subtitle={subtitle} description={description}>
       <FormProvider {...methods}>
-        <form onSubmit={handleFormSubmit} className="builder-inner-form">
+        <form onSubmit={onSubmit} className="builder-inner-form">
           {fields?.map((field) => (
             <FormBuilderFactory key={field.id} {...field} />
           ))}

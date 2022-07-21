@@ -1,5 +1,9 @@
 import { HausLayout } from '@daohaus/daohaus-connect-feature';
-import { FormBuilder } from '@daohaus/haus-form-builder';
+import {
+  FormBuilder,
+  FormLego,
+  StandardFields,
+} from '@daohaus/haus-form-builder';
 
 // const LeftCard = styled(Card)`
 //   width: 100%;
@@ -23,13 +27,17 @@ import { FormBuilder } from '@daohaus/haus-form-builder';
 //   }
 // `;
 
-const exampleFormLego = {
+const exampleFormLego: FormLego = {
   id: 'exampleFormLego',
   title: 'Example Form',
   subtitle: 'Example Subtitle',
+  fields: [StandardFields.Input, StandardFields.Switch],
 };
 
 export function App() {
+  const handleSubmit = () => {
+    console.log('fart');
+  };
   return (
     <HausLayout
       navLinks={[
@@ -39,7 +47,7 @@ export function App() {
         { label: 'Members', href: '/members' },
       ]}
     >
-      <FormBuilder />
+      <FormBuilder {...exampleFormLego} onSubmit={handleSubmit} />
     </HausLayout>
   );
 }

@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { Button, FormLayout } from '@daohaus/ui';
+import { FormLayout } from '@daohaus/ui';
 
 import { FormBuilderFactory } from './FormBuilderFactory';
 import { FormLego } from '../types/legoTypes';
@@ -61,12 +61,7 @@ export const FormBuilder = ({
               disabled={isSubmitting}
             />
           ))}
-          <FormFooter />
-
-          {/*Form Alert Component goes here*/}
-          <Button fullWidth lg type="submit" disabled={submitDisabled}>
-            Submit
-          </Button>
+          <FormFooter submitDisabled={submitDisabled} />
         </form>
       </FormProvider>
     </FormLayout>

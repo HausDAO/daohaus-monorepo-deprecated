@@ -1,11 +1,15 @@
 import { Keychain, ReactSetter } from '@daohaus/common-utilities';
 import {
-  DaoWithTokenData,
   DaoWithTokenDataQuery,
-  FindDaoQuery,
   Haus,
   ITransformedProposalListQuery,
   ListMembersQuery,
+  Member_Filter,
+  Member_OrderBy,
+  Ordering,
+  Paging,
+  Proposal_Filter,
+  Proposal_OrderBy,
 } from '@daohaus/dao-data';
 
 export const loadDao = async ({
@@ -46,12 +50,16 @@ export const loadDao = async ({
 };
 
 export const loadMembersList = async ({
-  daoid,
+  filter,
+  ordering,
+  paging,
   daochain,
   setData,
   setLoading,
 }: {
-  daoid: string;
+  filter: Member_Filter;
+  ordering?: Ordering<Member_OrderBy>;
+  paging?: Paging;
   daochain: keyof Keychain;
   setData: ReactSetter<ListMembersQuery['members'] | undefined>;
   setLoading: ReactSetter<boolean>;
@@ -61,8 +69,14 @@ export const loadMembersList = async ({
     const haus = Haus.create();
     const res = await haus.query.listMembers({
       networkId: daochain,
-      filter: { dao: daoid },
+      filter,
+      ordering,
+      paging,
     });
+
+    console.log('res', res);
+
+    // need to set the paging current and next... but it'll fire a rerender
 
     setData(res.items);
   } catch (error) {
@@ -74,12 +88,16 @@ export const loadMembersList = async ({
 };
 
 export const loadProposalsList = async ({
-  daoid,
+  filter,
+  ordering,
+  paging,
   daochain,
   setData,
   setLoading,
 }: {
-  daoid: string;
+  filter: Proposal_Filter;
+  ordering?: Ordering<Proposal_OrderBy>;
+  paging?: Paging;
   daochain: keyof Keychain;
   setData: ReactSetter<ITransformedProposalListQuery['proposals'] | undefined>;
   setLoading: ReactSetter<boolean>;
@@ -89,7 +107,9 @@ export const loadProposalsList = async ({
     const haus = Haus.create();
     const res = await haus.query.listProposals({
       networkId: daochain,
-      filter: { dao: daoid },
+      filter,
+      ordering,
+      paging,
     });
 
     setData(res.items);

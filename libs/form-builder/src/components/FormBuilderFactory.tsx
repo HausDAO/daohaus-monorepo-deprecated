@@ -6,7 +6,11 @@ const FieldSpacer = styled.div`
   margin-bottom: 3.6rem;
 `;
 
-export const FormBuilderFactory = ({ type, ...props }: FieldLego) => {
+export const FormBuilderFactory = ({
+  type,
+  spacing = true,
+  ...props
+}: FieldLego & { spacing?: boolean }) => {
   const GeneratedField = CoreFieldLookup[type];
 
   //TS CHALLENGE
@@ -18,11 +22,14 @@ export const FormBuilderFactory = ({ type, ...props }: FieldLego) => {
 
   // @ts-expect-error blah-de-blah
   const Component = () => <GeneratedField {...props} full />;
-  return (
-    <FieldSpacer>
-      <Component />
-    </FieldSpacer>
-  );
+  if (spacing) {
+    return (
+      <FieldSpacer>
+        <Component />
+      </FieldSpacer>
+    );
+  }
+  return <Component />;
 };
 
 // Simiplified example of TS problem here.

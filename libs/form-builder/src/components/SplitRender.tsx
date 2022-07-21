@@ -6,6 +6,7 @@ import { FieldLego } from '../types';
 import { FormBuilderFactory } from './FormBuilderFactory';
 
 type SplitColumnProps = {
+  id: string;
   rows: { rowId: string; left: FieldLego; right: FieldLego }[];
 };
 
@@ -15,8 +16,8 @@ export const SplitColumnLayout = ({ rows }: SplitColumnProps) => {
       rows={rows.map(({ left, right, rowId }) => {
         return {
           rowId,
-          left: <FormBuilderFactory {...left} />,
-          right: <FormBuilderFactory {...right} />,
+          left: <FormBuilderFactory {...left} spacing={false} />,
+          right: <FormBuilderFactory {...right} spacing={false} />,
         };
       })}
     />

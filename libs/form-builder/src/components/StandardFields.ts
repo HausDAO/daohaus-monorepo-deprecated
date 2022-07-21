@@ -58,4 +58,31 @@ export const StandardFields: Record<string, FieldLego> = {
       { name: 'Doh2', value: 'doh2' },
     ],
   },
+  SplitTest: {
+    id: 'test',
+    type: 'splitColumn',
+    rows: [
+      {
+        rowId: 'top',
+        left: {
+          id: 'id23555',
+          label: 'Label',
+          type: 'select',
+          options: [
+            { name: 'Doh', value: 'doh' },
+            { name: 'Doh2', value: 'doh2' },
+          ],
+          required: true,
+          info: "This is a description of the field's purpose.",
+        },
+        right: {
+          id: 'id2345',
+          label: 'Label',
+          type: 'input',
+          required: true,
+          info: "This is a description of the field's purpose.",
+        },
+      },
+    ],
+  },
 };

@@ -23,6 +23,12 @@ import { FormBuilder } from '@daohaus/haus-form-builder';
 //   }
 // `;
 
+const exampleFormLego = {
+  id: 'exampleFormLego',
+  title: 'Example Form',
+  subtitle: 'Example Subtitle',
+};
+
 export function App() {
   return (
     <HausLayout

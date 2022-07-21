@@ -32,6 +32,7 @@ const exampleFormLego: FormLego = {
   title: 'Example Form',
   subtitle: 'Example Subtitle',
   fields: Object.values(StandardFields),
+  log: true,
 };
 
 export function App() {

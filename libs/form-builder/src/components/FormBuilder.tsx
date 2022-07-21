@@ -7,6 +7,8 @@ import { FormLayout } from '@daohaus/ui';
 
 import { FormBuilderFactory } from './FormBuilderFactory';
 import { FormLego } from '../types/legoTypes';
+import { useEffect, useMemo } from 'react';
+import { Logger } from './Logger';
 
 type FormBuilderProps = FormLego & {
   // middleware?: (values: Record<string, unknown>) => Record<string, unknown>;
@@ -22,12 +24,14 @@ export const FormBuilder = ({
   description,
   fields,
   onSubmit,
+  log,
 }: FormBuilderProps) => {
   // const { chainId, isConnected } = useHausConnect();
-  const methods = useForm({ mode: 'onTouched' });
-  // const {
-  //   formState: { isValid },
-  // } = methods;
+  const methods = useForm();
+  const {
+    formState: { isValid },
+    watch,
+  } = methods;
   // const { errorToast, successToast } = useToast();
   // const [isSubmitting, setIsSubmitting] = useState(false);
   // const formDisabled = isSubmitting;
@@ -37,6 +41,7 @@ export const FormBuilder = ({
     <FormLayout title={title} subtitle={subtitle} description={description}>
       <FormProvider {...methods}>
         <form onSubmit={onSubmit} className="builder-inner-form">
+          <Logger log={log} />
           {fields?.map((field) => (
             <FormBuilderFactory key={field.id} {...field} />
           ))}

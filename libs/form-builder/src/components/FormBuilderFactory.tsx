@@ -20,7 +20,7 @@ export const FormBuilderFactory = ({
   // that both args and type are derived from the same source, the
   // actual component
 
-  // @ts-expect-error blah-de-blah
+  // @ts-expect-error: explanation above
   const Component = () => <GeneratedField {...props} full />;
   if (spacing) {
     return (

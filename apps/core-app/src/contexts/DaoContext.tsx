@@ -26,6 +26,8 @@ import {
   loadProposalsList,
 } from '../utils/contextHelpers';
 
+// TODO: maybe better to send next page in a different way - as it's own state element
+
 export const defaultDaoData = {
   dao: null,
   isDaoLoading: false,
@@ -37,7 +39,8 @@ export const defaultDaoData = {
   setMembersFilter: () => undefined,
   membersSort: undefined,
   setMembersSort: () => undefined,
-  membersPaging: { current: undefined, next: undefined },
+  membersPaging: undefined,
+  membersNextPaging: undefined,
   setMembersPaging: () => undefined,
   proposals: null,
   isProposalsLoading: false,
@@ -46,7 +49,8 @@ export const defaultDaoData = {
   setProposalsFilter: () => undefined,
   proposalsSort: undefined,
   setProposalsSort: () => undefined,
-  proposalsPaging: { current: undefined, next: undefined },
+  proposalsPaging: undefined,
+  proposalsNextPaging: undefined,
   setProposalsPaging: () => undefined,
   getNextPage: async () => undefined,
 };
@@ -67,10 +71,9 @@ export type DaoConnectMembersType = {
   setMembersSort: Dispatch<
     SetStateAction<Ordering<Member_OrderBy> | undefined>
   >;
-  membersPaging: { current: Paging | undefined; next: Paging | undefined };
-  setMembersPaging: Dispatch<
-    SetStateAction<{ current: Paging | undefined; next: Paging | undefined }>
-  >;
+  membersPaging: Paging | undefined;
+  membersNextPaging: Paging | undefined;
+  setMembersPaging: Dispatch<SetStateAction<Paging | undefined>>;
   getNextPage: (entity: string) => Promise<void>;
 };
 
@@ -84,10 +87,9 @@ export type DaoConnectProposalsType = {
   setProposalsSort: Dispatch<
     SetStateAction<Ordering<Proposal_OrderBy> | undefined>
   >;
-  proposalsPaging: { current: Paging | undefined; next: Paging | undefined };
-  setProposalsPaging: Dispatch<
-    SetStateAction<{ current: Paging | undefined; next: Paging | undefined }>
-  >;
+  proposalsPaging: Paging | undefined;
+  proposalsNextPaging: Paging | undefined;
+  setProposalsPaging: Dispatch<SetStateAction<Paging | undefined>>;
   getNextPage: (entity: string) => Promise<void>;
 };
 
@@ -118,10 +120,10 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   const [membersSort, setMembersSort] = useState<
     Ordering<Member_OrderBy> | undefined
   >();
-  const [membersPaging, setMembersPaging] = useState<{
-    current: Paging | undefined;
-    next: Paging | undefined;
-  }>({ current: undefined, next: undefined });
+  const [membersPaging, setMembersPaging] = useState<Paging | undefined>();
+  const [membersNextPaging, setMembersNextPaging] = useState<
+    Paging | undefined
+  >();
 
   const [proposals, setProposals] = useState<
     ITransformedProposalListQuery['proposals'] | undefined
@@ -133,10 +135,10 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   const [proposalsSort, setProposalsSort] = useState<
     Ordering<Proposal_OrderBy> | undefined
   >();
-  const [proposalsPaging, setProposalsPaging] = useState<{
-    current: Paging | undefined;
-    next: Paging | undefined;
-  }>({ current: undefined, next: undefined });
+  const [proposalsPaging, setProposalsPaging] = useState<Paging | undefined>();
+  const [proposalsNextPaging, setProposalsNextPaging] = useState<
+    Paging | undefined
+  >();
 
   useEffect(() => {
     if (daochain && daoid) {
@@ -154,11 +156,11 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
       loadMembersList({
         filter: { dao: daoid, ...membersFilter },
         ordering: membersSort,
-        paging: membersPaging.current,
+        paging: membersPaging,
         daochain: daochain as keyof Keychain,
         setData: setMembers,
         setLoading: setMembersLoading,
-        setPaging: setMembersPaging,
+        setNextPaging: setMembersNextPaging,
       });
     }
   }, [daochain, daoid, membersFilter, membersSort, membersPaging]);
@@ -168,11 +170,11 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
       loadProposalsList({
         filter: { dao: daoid, ...proposalsFilter },
         ordering: proposalsSort,
-        paging: proposalsPaging.current,
+        paging: proposalsPaging,
         daochain: daochain as keyof Keychain,
         setData: setProposals,
         setLoading: setProposalsLoading,
-        setPaging: setProposalsPaging,
+        setNextPaging: setProposalsNextPaging,
       });
     }
   }, [daochain, daoid, proposalsFilter, proposalsSort, proposalsPaging]);
@@ -193,11 +195,11 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
       loadMembersList({
         filter: { dao: daoid, ...membersFilter },
         ordering: membersSort,
-        paging: membersPaging.current,
+        paging: membersPaging,
         daochain: daochain as keyof Keychain,
         setData: setMembers,
         setLoading: setMembersLoading,
-        setPaging: setMembersPaging,
+        setNextPaging: setMembersNextPaging,
       });
     }
   };
@@ -207,21 +209,21 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
       loadProposalsList({
         filter: { dao: daoid, ...proposalsFilter },
         ordering: proposalsSort,
-        paging: proposalsPaging.current,
+        paging: proposalsPaging,
         daochain: daochain as keyof Keychain,
         setData: setProposals,
         setLoading: setProposalsLoading,
-        setPaging: setProposalsPaging,
+        setNextPaging: setProposalsNextPaging,
       });
     }
   };
 
   const getNextPage = async (entity: string): Promise<void> => {
-    if (entity === 'members') {
-      setMembersPaging({ current: membersPaging.next, next: undefined });
+    if (entity === 'members' && membersNextPaging) {
+      setMembersPaging(membersNextPaging);
     }
-    if (entity === 'proposal') {
-      setProposalsPaging({ current: proposalsPaging.next, next: undefined });
+    if (entity === 'proposal' && proposalsNextPaging) {
+      setProposalsPaging(proposalsNextPaging);
     }
   };
 
@@ -240,6 +242,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
         setMembersSort,
         membersPaging,
         setMembersPaging,
+        membersNextPaging,
         proposals,
         isProposalsLoading,
         refreshProposals,
@@ -249,6 +252,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
         setProposalsSort,
         proposalsPaging,
         setProposalsPaging,
+        proposalsNextPaging,
         getNextPage,
       }}
     >
@@ -276,6 +280,7 @@ export const useMembers = (): DaoConnectMembersType => {
     setMembersSort,
     membersPaging,
     setMembersPaging,
+    membersNextPaging,
     getNextPage,
   } = useContext(DaoContext);
   return {
@@ -288,6 +293,7 @@ export const useMembers = (): DaoConnectMembersType => {
     setMembersSort,
     membersPaging,
     setMembersPaging,
+    membersNextPaging,
     getNextPage,
   };
 };
@@ -302,6 +308,7 @@ export const useProposals = (): DaoConnectProposalsType => {
     setProposalsSort,
     proposalsPaging,
     setProposalsPaging,
+    proposalsNextPaging,
     getNextPage,
   } = useContext(DaoContext);
   return {
@@ -314,6 +321,7 @@ export const useProposals = (): DaoConnectProposalsType => {
     setProposalsSort,
     proposalsPaging,
     setProposalsPaging,
+    proposalsNextPaging,
     getNextPage,
   };
 };

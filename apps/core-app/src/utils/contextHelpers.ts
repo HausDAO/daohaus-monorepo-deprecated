@@ -56,7 +56,7 @@ export const loadMembersList = async ({
   daochain,
   setData,
   setLoading,
-  setPaging,
+  setNextPaging,
 }: {
   filter: Member_Filter;
   ordering?: Ordering<Member_OrderBy>;
@@ -64,10 +64,7 @@ export const loadMembersList = async ({
   daochain: keyof Keychain;
   setData: ReactSetter<ListMembersQuery['members'] | undefined>;
   setLoading: ReactSetter<boolean>;
-  setPaging: ReactSetter<{
-    current: Paging | undefined;
-    next: Paging | undefined;
-  }>;
+  setNextPaging: ReactSetter<Paging | undefined>;
 }) => {
   try {
     setLoading(true);
@@ -79,11 +76,8 @@ export const loadMembersList = async ({
       paging,
     });
 
-    console.log('res', res);
-
     if (res.nextPaging) {
-      // TODO: does it refire the fetch forever here
-      setPaging({ current: res.previousPaging, next: res.nextPaging });
+      setNextPaging(res.nextPaging);
     }
 
     setData(res.items);
@@ -102,7 +96,7 @@ export const loadProposalsList = async ({
   daochain,
   setData,
   setLoading,
-  setPaging,
+  setNextPaging,
 }: {
   filter: Proposal_Filter;
   ordering?: Ordering<Proposal_OrderBy>;
@@ -110,10 +104,7 @@ export const loadProposalsList = async ({
   daochain: keyof Keychain;
   setData: ReactSetter<ITransformedProposalListQuery['proposals'] | undefined>;
   setLoading: ReactSetter<boolean>;
-  setPaging: ReactSetter<{
-    current: Paging | undefined;
-    next: Paging | undefined;
-  }>;
+  setNextPaging: ReactSetter<Paging | undefined>;
 }) => {
   try {
     setLoading(true);
@@ -126,7 +117,7 @@ export const loadProposalsList = async ({
     });
 
     if (res.nextPaging) {
-      setPaging({ current: res.previousPaging, next: res.nextPaging });
+      setNextPaging(res.nextPaging);
     }
 
     setData(res.items);

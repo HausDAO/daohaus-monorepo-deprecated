@@ -1,6 +1,6 @@
 import { Paging } from '../types';
 
-export const DEFAULT_RECORDS_PER_PAGE = 100;
+export const DEFAULT_RECORDS_PER_PAGE = 1;
 
 export const defaultPagination: Paging = {
   pageSize: 2,

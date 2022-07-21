@@ -1,7 +1,9 @@
 import {
+  WrappedCheckbox,
   WrappedInput,
   WrappedInputSelect,
   WrappedRadio,
+  WrappedSelect,
   WrappedSwitch,
   WrappedTextArea,
 } from '@daohaus/ui';
@@ -12,4 +14,6 @@ export const CoreFieldLookup = {
   textarea: WrappedTextArea,
   switch: WrappedSwitch,
   radio: WrappedRadio,
+  select: WrappedSelect,
+  checkBox: WrappedCheckbox,
 };

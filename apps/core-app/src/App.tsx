@@ -31,7 +31,7 @@ const exampleFormLego: FormLego = {
   id: 'exampleFormLego',
   title: 'Example Form',
   subtitle: 'Example Subtitle',
-  fields: [StandardFields.Input, StandardFields.Switch],
+  fields: Object.values(StandardFields),
 };
 
 export function App() {

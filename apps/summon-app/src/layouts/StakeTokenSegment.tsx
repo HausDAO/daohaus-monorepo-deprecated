@@ -33,7 +33,7 @@ export const StakeTokensSegment = ({
         <SplitColumn
           rows={[
             {
-              rowID: 'tokenNaming',
+              rowId: 'tokenNaming',
               left: (
                 <WrappedInput
                   id={FORM_KEYS.TOKEN_NAME}
@@ -73,7 +73,7 @@ export const StakeTokensSegment = ({
               ),
             },
             {
-              rowID: 'tokenTransfer',
+              rowId: 'tokenTransfer',
               left: (
                 <WrappedSwitch
                   id={FORM_KEYS.VOTE_TOKEN_TRANSFER}

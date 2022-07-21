@@ -3,7 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 
 // import { isValidNetwork } from '@daohaus/common-utilities';
 // import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { FormLayout } from '@daohaus/ui';
+import { Button, FormLayout } from '@daohaus/ui';
 
 import { FormBuilderFactory } from './FormBuilderFactory';
 import { FormLego } from '../types/legoTypes';
@@ -11,10 +11,14 @@ import { FormLego } from '../types/legoTypes';
 import { Logger } from './Logger';
 import { FormFooter } from './formFooter';
 import { useState } from 'react';
+import { isValidNetwork } from '@daohaus/common-utilities';
+import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 type FormBuilderProps = FormLego & {
   // middleware?: (values: Record<string, unknown>) => Record<string, unknown>;
-  onSubmit: () => void;
+  onSubmit: (
+    formValues: Record<string, unknown>
+  ) => void | Promise<(formValues: Record<string, unknown>) => void>;
   onCancel?: () => void;
   onSuccess?: () => void;
   onError?: () => void;
@@ -33,15 +37,28 @@ export const FormBuilder = ({
   const {
     formState: { isValid },
   } = methods;
+  const { chainId } = useHausConnect();
   // const { errorToast, successToast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
+  const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
 
+  // TS Challenge
+  // Use a map type to derive a typed values object form the formLego
+  const handleTopLevelSubmit = async (formValues: Record<string, unknown>) => {
+    setIsSubmitting(true);
+
+    await onSubmit(formValues);
+
+    setIsSubmitting(false);
+  };
   return (
     <FormLayout title={title} subtitle={subtitle} description={description}>
       <FormProvider {...methods}>
-        <form onSubmit={onSubmit} className="builder-inner-form">
+        <form
+          onSubmit={methods.handleSubmit(handleTopLevelSubmit)}
+          className="builder-inner-form"
+        >
           <Logger log={log} />
           {fields?.map((field) => (
             <FormBuilderFactory
@@ -51,14 +68,13 @@ export const FormBuilder = ({
             />
           ))}
           <FormFooter />
+
+          {/*Form Alert Component goes here*/}
+          <Button fullWidth lg type="submit" disabled={submitDisabled}>
+            Submit
+          </Button>
         </form>
       </FormProvider>
     </FormLayout>
   );
 };
-
-// TS NOTE should be able to use a mapped type to be
-// able to get the props from the 'type' field applied
-// a type inferred from the Field Enum
-
-// type PropsFromType<T> =

@@ -1,6 +1,6 @@
 import { utils } from 'ethers';
 
-import numeral from 'numeral';
+import numbro from 'numbro';
 import { isNumberish } from './typeguards';
 
 export const toBaseUnits = (amount: string, decimals = 18) =>
@@ -17,33 +17,7 @@ type NumericalFormat =
   | 'percentShort'
   | 'exponential';
 
-const NUMERAL_TYPES = {
-  currencyNumeral: (value: number, format: string): string => {
-    const n = numeral;
-
-    n.options.zeroFormat = '0';
-    n.options.nullFormat = '--';
-
-    const nValue = n(value).format(format);
-
-    n.reset();
-
-    return nValue;
-  },
-  percentNumeral: (value: number, format: string): string => {
-    const n = numeral;
-
-    n.options.zeroFormat = '0';
-    n.options.nullFormat = '--';
-    n.options.scalePercentBy100 = false;
-
-    const nValue = n(value).format(format);
-
-    n.reset();
-
-    return nValue;
-  },
-};
+numbro.zeroFormat('0');
 
 interface FormatGeneratorParams {
   value: number;
@@ -61,30 +35,27 @@ const generateNumeral = ({
   const short = type.match(/(short)/i) ? 'a' : '';
   const decimalCount = decimals ? '0'.repeat(decimals) : '';
 
-  // build the correct numeral.js format OR pass a one off custom format on.
+  // build the correct numbro.js format OR pass a one off custom format on.
   //
-  // custom format: create your own format and it will bypass straight to numeral.js
+  // custom format: create your own format and it will bypass straight to numbro.js
   // eg. readableNumbers.toCustomFormat({value: 10, unit: 'Place', format: '0o '}) => '10th Place'
   let format;
+
   if (type.match(/(exponent)/i)) {
     format = `0,0[.]${decimalCount}e`;
-
-    return numeral(value).format(format);
+    return numbro(value).format(format);
   } else if (type.match(/(percent)/i)) {
     const decimalMatcher = decimals > 0 ? `[.]${decimalCount}` : '';
     format = `0${decimalMatcher}%`;
-
-    return NUMERAL_TYPES.percentNumeral(value, format);
+    return numbro(value).format(format);
   } else if (type.match(/(currency)/i)) {
     format = `$0[.]${decimalCount}${short}`;
-
-    return NUMERAL_TYPES.currencyNumeral(value, format);
+    return numbro(value).format(format);
   } else if (type.match(/(number)/)) {
     format = `0,0[.]${decimalCount}${short}`;
-
-    return numeral(value).format(format);
+    return numbro(value).format(format);
   } else {
-    return numeral(value).format(type);
+    return numbro(value).format(type);
   }
 };
 
@@ -130,8 +101,8 @@ export const formatValueTo = ({
 };
 
 /*
-  http://numeraljs.com/
-  const string = numeral(1000.23).format('$ 0,0[.]0000 %'); => $ 1000.2300 %
+  https://numbrojs.com/old-format.html
+  const string = numbro(1000.23).format('$ 0,0[.]0000 %'); => $ 1000.2300 %
 
   to create customFormatters add more logic to the formatGenerator function
 

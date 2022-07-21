@@ -7,8 +7,10 @@ import { FormLayout } from '@daohaus/ui';
 
 import { FormBuilderFactory } from './FormBuilderFactory';
 import { FormLego } from '../types/legoTypes';
-import { useEffect, useMemo } from 'react';
+
 import { Logger } from './Logger';
+import { FormFooter } from './formFooter';
+import { useState } from 'react';
 
 type FormBuilderProps = FormLego & {
   // middleware?: (values: Record<string, unknown>) => Record<string, unknown>;
@@ -30,11 +32,10 @@ export const FormBuilder = ({
   const methods = useForm();
   const {
     formState: { isValid },
-    watch,
   } = methods;
   // const { errorToast, successToast } = useToast();
-  // const [isSubmitting, setIsSubmitting] = useState(false);
-  // const formDisabled = isSubmitting;
+  const [isSubmitting, setIsSubmitting] = useState(true);
+
   // const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
 
   return (
@@ -43,8 +44,13 @@ export const FormBuilder = ({
         <form onSubmit={onSubmit} className="builder-inner-form">
           <Logger log={log} />
           {fields?.map((field) => (
-            <FormBuilderFactory key={field.id} {...field} />
+            <FormBuilderFactory
+              key={field.id}
+              {...field}
+              disabled={isSubmitting}
+            />
           ))}
+          <FormFooter />
         </form>
       </FormProvider>
     </FormLayout>

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useFormContext, useWatch } from 'react-hook-form';
+import { useWatch } from 'react-hook-form';
 
 export const Logger = ({ log }: { log: boolean }) => {
   const formValues = useWatch();

@@ -9,8 +9,9 @@ const FieldSpacer = styled.div`
 export const FormBuilderFactory = ({
   type,
   spacing = true,
+  disabled,
   ...props
-}: FieldLego & { spacing?: boolean }) => {
+}: FieldLego & { spacing?: boolean; disabled?: boolean }) => {
   const GeneratedField = CoreFieldLookup[type];
 
   //TS CHALLENGE
@@ -20,8 +21,10 @@ export const FormBuilderFactory = ({
   // that both args and type are derived from the same source, the
   // actual component
 
-  // @ts-expect-error: explanation above
-  const Component = () => <GeneratedField {...props} full />;
+  const Component = () => (
+    // @ts-expect-error: explanation above
+    <GeneratedField {...props} full disabled={disabled} />
+  );
   if (spacing) {
     return (
       <FieldSpacer>

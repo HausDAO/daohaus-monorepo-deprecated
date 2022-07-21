@@ -7,6 +7,7 @@ import { Input } from '@daohaus/ui';
 const StyledInput = styled(Input)`
   background: ${indigoDark.indigo3};
   color: ${indigoDark.indigo11};
+  margin-right: 2rem;
   ::placeholder {
     color: ${indigoDark.indigo11};
   }

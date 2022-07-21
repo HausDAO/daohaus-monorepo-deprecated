@@ -6,6 +6,7 @@ import { ParMd } from '@daohaus/ui';
 import { SORT_FIELDS } from '../utils/constants';
 
 const Container = styled.div`
+  margin-left: auto;
   display: flex;
   align-items: center;
   width: 24rem;

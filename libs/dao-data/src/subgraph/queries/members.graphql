@@ -25,13 +25,16 @@ query findMember($id: ID!) {
 fragment memberFields on Member {
   id
   createdAt
+  txHash
   memberAddress
   shares
   loot
   delegatingTo
   delegateShares
   delegateOfCount
+  lastDelegateUpdateTxHash
   votes {
+    txHash
     createdAt
     approved
     balance

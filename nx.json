@@ -66,5 +66,5 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "summon-app"
+  "defaultProject": "core-app"
 }

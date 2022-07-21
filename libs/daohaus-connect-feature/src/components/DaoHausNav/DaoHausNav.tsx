@@ -14,7 +14,7 @@ const StyledNav = styled.nav`
 export const DaoHausNav = () => {
   const isSm = useBreakpoint(widthQuery.sm);
   return (
-    <StyledNav>
+    <StyledNav className="connect">
       <div>
         <NetworkButton isSm={isSm} />
       </div>

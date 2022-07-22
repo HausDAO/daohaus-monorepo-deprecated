@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { useWatch } from 'react-hook-form';
 
-export const Logger = ({ log }: { log: boolean }) => {
+export const Logger = () => {
   const formValues = useWatch();
   useEffect(() => {
-    if (log && formValues) {
+    if (formValues) {
       console.log('formValues', formValues);
     }
-  }, [formValues, log]);
+  }, [formValues]);
 
   return null;
 };

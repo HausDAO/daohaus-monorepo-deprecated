@@ -53,7 +53,7 @@ export const FormBuilder = ({
           onSubmit={methods.handleSubmit(handleTopLevelSubmit)}
           className="builder-inner-form"
         >
-          <Logger log={log} />
+          {log && <Logger />}
           {fields?.map((field) => (
             <FormBuilderFactory
               key={field.id}

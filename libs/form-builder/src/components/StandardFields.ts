@@ -13,7 +13,7 @@ export const StandardFields: Record<string, FieldLego> = {
     label: 'Label',
     type: 'switch',
     required: true,
-    switches: [{ fieldLabel: 'shit' }],
+    switches: [{ fieldLabel: 'Label' }],
     info: "This is a description of the field's purpose.",
   },
   InputSelect: {

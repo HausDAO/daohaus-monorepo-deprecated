@@ -1,5 +1,5 @@
 {
-  "root": "libs/tx-builder-feature",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/tx-builder-feature/src",
   "projectType": "library",
   "tags": [],
@@ -26,7 +26,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/tx-builder-feature"],
       "options": {
-        "jestConfig": "libs/tx-builder-feature/jest.config.js",
+        "jestConfig": "libs/tx-builder-feature/jest.config.ts",
         "passWithNoTests": true
       }
     },

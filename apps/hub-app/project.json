@@ -1,5 +1,5 @@
 {
-  "root": "apps/hub-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/hub-app/src",
   "projectType": "application",
   "targets": {
@@ -56,7 +56,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/hub-app"],
       "options": {
-        "jestConfig": "apps/hub-app/jest.config.js",
+        "jestConfig": "apps/hub-app/jest.config.ts",
         "passWithNoTests": true
       }
     },

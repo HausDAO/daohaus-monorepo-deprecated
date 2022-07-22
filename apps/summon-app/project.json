@@ -1,5 +1,5 @@
 {
-  "root": "apps/summon-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/summon-app/src",
   "projectType": "application",
   "targets": {
@@ -56,7 +56,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/summon-app"],
       "options": {
-        "jestConfig": "apps/summon-app/jest.config.js",
+        "jestConfig": "apps/summon-app/jest.config.ts",
         "passWithNoTests": true
       }
     },

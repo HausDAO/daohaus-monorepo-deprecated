@@ -1,31 +1,33 @@
 import React from 'react';
+import classNames from 'classnames';
 import { IconType } from 'react-icons';
 import { RiExternalLinkLine } from 'react-icons/ri';
 
-import { InternalLink, ExternalLink } from './Link.styles';
+import { InternalLink, ExternalLink, NavLink } from './Link.styles';
 
 export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
   href?: string;
   Icon?: IconType;
   isExternal?: boolean;
+  selected?: boolean;
+  linkType?: 'internal' | 'external' | 'navigation';
 }
 
 // TODO Better way to do types
 export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   (
     {
-      isExternal = false,
-      Icon,
-      children,
       href = '/',
       target = '_blank',
+      linkType = 'internal',
+      selected,
+      Icon,
       className,
+      children,
     },
     ref
   ) => {
-    const isHrefExternal = href?.match(/^http|^https|^www/);
-
-    if (isHrefExternal) {
+    if (linkType === 'external') {
       return (
         <ExternalLink
           href={href}
@@ -34,8 +36,18 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
           ref={ref}
         >
           {children}
-          {isExternal && Icon ? <Icon /> : <RiExternalLinkLine />}
+          {linkType === 'external' && Icon ? <Icon /> : <RiExternalLinkLine />}
         </ExternalLink>
+      );
+    }
+
+    if (linkType === 'navigation') {
+      const classes = classNames({ selected });
+      return (
+        <NavLink to={href} className={`${classes} ${className}`} ref={ref}>
+          {children}
+          {Icon && <Icon />}
+        </NavLink>
       );
     }
 

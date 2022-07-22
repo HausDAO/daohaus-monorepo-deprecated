@@ -20,6 +20,7 @@ export type ButtonProps = {
   IconRight?: IconType;
   type?: 'button' | 'submit' | 'reset';
   value?: string;
+  width?: string;
 };
 
 type Ref =

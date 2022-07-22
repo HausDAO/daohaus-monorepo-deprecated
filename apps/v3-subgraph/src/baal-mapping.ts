@@ -160,6 +160,7 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   let proposal = new Proposal(proposalId);
   proposal.createdAt = event.block.timestamp.toString();
   proposal.createdBy = event.transaction.from;
+  proposal.txHash = event.transaction.hash;
   proposal.dao = event.address.toHexString();
   proposal.proposalId = event.params.proposal;
   proposal.proposalDataHash = event.params.proposalDataHash;
@@ -266,6 +267,8 @@ export function handleSponsorProposal(event: SponsorProposal): void {
     .plus(dao.votingPeriod)
     .plus(dao.gracePeriod);
   proposal.prevProposalId = dao.latestSponsoredProposalId;
+  proposal.sponsorTxHash = event.transaction.hash;
+  proposal.sponsorTxAt = event.block.timestamp;
 
   dao.latestSponsoredProposalId = event.params.proposal;
 
@@ -286,6 +289,9 @@ export function handleProcessProposal(event: ProcessProposal): void {
     return;
   }
 
+  proposal.processTxHash = event.transaction.hash;
+  proposal.processTxAt = event.block.timestamp;
+  proposal.processedBy = event.transaction.from;
   proposal.processed = true;
   proposal.passed = event.params.passed;
   proposal.actionFailed = event.params.actionFailed;
@@ -306,6 +312,9 @@ export function handleCancelProposal(event: CancelProposal): void {
     return;
   }
 
+  proposal.cancelledTxHash = event.transaction.hash;
+  proposal.cancelledTxAt = event.block.timestamp;
+  proposal.cancelledBy = event.transaction.from;
   proposal.cancelled = true;
 
   proposal.save();
@@ -342,6 +351,7 @@ export function handleSubmitVote(event: SubmitVote): void {
   vote.daoAddress = event.address;
   vote.approved = event.params.approved;
   vote.balance = event.params.balance;
+  vote.txHash = event.transaction.hash;
 
   let memberId = event.address
     .toHexString()
@@ -391,6 +401,7 @@ export function handleRageQuit(event: Ragequit): void {
   let rage = new RageQuit(rageId);
 
   rage.createdAt = event.block.timestamp.toString();
+  rage.txHash = event.transaction.hash;
   rage.dao = dao.id;
   rage.member = memberId;
   rage.to = event.params.to;

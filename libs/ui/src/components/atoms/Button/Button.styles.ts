@@ -17,6 +17,7 @@ export const ButtonBase = styled.button`
   min-width: 8.5rem;
   padding: 1.2rem;
   transition: 0.2s all;
+  width: ${(props: { width?: string }) => props.width};
 
   :hover {
     background-color: ${({ theme }: { theme: Theme }) =>

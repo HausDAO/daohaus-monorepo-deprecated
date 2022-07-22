@@ -82,7 +82,7 @@ export const NotSupportedNetwork = ({ isSm }: { isSm: boolean }) => {
   );
 
   return (
-    <ConnectDropdown
+    <Dropdown
       align="end"
       spacing="0.7rem"
       width="25.25rem"
@@ -94,11 +94,6 @@ export const NotSupportedNetwork = ({ isSm }: { isSm: boolean }) => {
     />
   );
 };
-
-const ConnectDropdown = styled(Dropdown)`
-  display: flex;
-  justify-content: flex-end;
-`;
 
 const WarningButton = styled(Button)`
   @media ${widthQuery.sm} {

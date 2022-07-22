@@ -1,7 +1,9 @@
-import styled from 'styled-components';
-
-import { Card, FormLayout } from '@daohaus/ui';
 import { HausLayout } from '@daohaus/daohaus-connect-feature';
+import {
+  FormBuilder,
+  FormLego,
+  StandardFields,
+} from '@daohaus/haus-form-builder';
 
 // const LeftCard = styled(Card)`
 //   width: 100%;
@@ -25,12 +27,18 @@ import { HausLayout } from '@daohaus/daohaus-connect-feature';
 //   }
 // `;
 
-const Spacer = styled.div`
-  width: 100%;
-  height: 50rem;
-`;
+const exampleFormLego: FormLego = {
+  id: 'exampleFormLego',
+  title: 'Example Form',
+  subtitle: 'Example Subtitle',
+  fields: Object.values(StandardFields),
+  log: true,
+};
 
 export function App() {
+  const handleSubmit = () => {
+    console.log('fart');
+  };
   return (
     <HausLayout
       navLinks={[
@@ -39,23 +47,8 @@ export function App() {
         { label: 'Vaults', href: '/vaults' },
         { label: 'Members', href: '/members' },
       ]}
-      dropdownLinks={[{ label: 'Settings', href: '/settings' }]}
     >
-      <FormLayout
-        title="Title"
-        description="this is a nice long description where I talk about things"
-        subtitle="Something nicer"
-      >
-        <Card>
-          <Spacer />
-        </Card>
-      </FormLayout>
-      {/* <BiColumnLayout
-        subtitle="Disperse Proposal"
-        title="Disperse Reimbursements for April ‘22 Event"
-        left={<LeftCard>Left</LeftCard>}
-        right={<RightCard>Right</RightCard>}
-      /> */}
+      <FormBuilder {...exampleFormLego} onSubmit={handleSubmit} />
     </HausLayout>
   );
 }

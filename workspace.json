@@ -7,6 +7,7 @@
     "core-app": "apps/core-app",
     "dao-data": "libs/dao-data",
     "daohaus-connect-feature": "libs/daohaus-connect-feature",
+    "form-builder": "libs/form-builder",
     "hub-app": "apps/hub-app",
     "infra-chart-ceramic": "libs/infra-chart/ceramic",
     "infra-chart-daohaus": "libs/infra-chart/daohaus",

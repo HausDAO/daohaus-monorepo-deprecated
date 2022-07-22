@@ -11,7 +11,7 @@ export const TimingSegment = ({ formDisabled }: { formDisabled: boolean }) => {
       formArea={
         <SplitColumn
           rows={{
-            rowID: 'timing',
+            rowId: 'timing',
             left: (
               <TimePicker
                 label="Voting Period"

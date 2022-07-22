@@ -1,4 +1,4 @@
-import { Controller, useFormContext } from 'react-hook-form';
+import { Controller, RegisterOptions, useFormContext } from 'react-hook-form';
 import { RadioGroupProps } from '@radix-ui/react-radio-group';
 
 import type { PrimitiveWrapper } from '../../../types/formAndField';
@@ -9,6 +9,7 @@ import { useMemo } from 'react';
 type RadioGroupComponentProps = RadioGroupProps & Props;
 type RadioGroupWrapperProps = PrimitiveWrapper & {
   disabled?: boolean;
+  registerOptions?: RegisterOptions;
   radioGroup: RadioGroupComponentProps;
 };
 
@@ -32,6 +33,7 @@ export const WrappedRadio = (props: RadioGroupWrapperProps) => {
       ? radioGroup?.radios.map((radio) => ({ ...radio, disabled: true }))
       : radioGroup.radios;
   }, [radioGroup, disableAll]);
+
   return (
     <FieldWrapper
       id={id}

@@ -54,6 +54,7 @@ export type Field = {
 // TODO Refine based on Radix Checkbox Type & Wrapper
 export type CheckboxWrapperProps = PrimitiveWrapper & {
   checkboxes: CheckboxProps[];
+  registerOptions?: RegisterOptions;
 };
 export type OptionType = {
   name: string;

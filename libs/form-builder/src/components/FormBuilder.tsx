@@ -41,11 +41,10 @@ export const FormBuilder = ({
   // Use a map type to derive a typed values object form the formLego
   const handleTopLevelSubmit = async (formValues: Record<string, unknown>) => {
     setIsSubmitting(true);
-
     await onSubmit(formValues);
-
     setIsSubmitting(false);
   };
+
   return (
     <FormLayout title={title} subtitle={subtitle} description={description}>
       <FormProvider {...methods}>

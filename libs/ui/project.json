@@ -61,6 +61,7 @@
     "build-storybook": {
       "executor": "@nrwl/storybook:build",
       "outputs": ["{options.outputPath}"],
+      "inputs": [{ "env": "NODE_ENV" }],
       "options": {
         "uiFramework": "@storybook/react",
         "outputPath": "dist/storybook/ui",

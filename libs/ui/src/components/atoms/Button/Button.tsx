@@ -2,7 +2,7 @@ import React, { RefObject } from 'react';
 import classNames from 'classnames';
 import { IconType } from 'react-icons';
 
-import { ButtonBase, WithIcon } from './Button.styles';
+import { ButtonBase } from './Button.styles';
 
 export type ButtonProps = {
   children?: React.ReactNode;
@@ -54,32 +54,19 @@ export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
     'left-align': leftAlign,
     'full-width': fullWidth,
   });
-  if (IconLeft || IconRight) {
-    const iconClasses = classNames({ secondary, tertiary, sm, lg });
-    return (
-      <ButtonBase
-        {...props}
-        className={`${classes} ${className}`}
-        ref={ref}
-        type={type}
-        value={value}
-      >
-        <WithIcon>
-          {IconLeft && <IconLeft className={`${iconClasses} icon-left`} />}
-          {children}
-          {IconRight && <IconRight className={`${iconClasses} icon-right`} />}
-        </WithIcon>
-      </ButtonBase>
-    );
-  }
+
+  const iconClasses = classNames({ secondary, tertiary, sm, lg });
   return (
     <ButtonBase
       {...props}
       className={`${classes} ${className}`}
       ref={ref}
       type={type}
+      value={value}
     >
+      {IconLeft && <IconLeft className={`${iconClasses} icon-left`} />}
       {children}
+      {IconRight && <IconRight className={`${iconClasses} icon-right`} />}
     </ButtonBase>
   );
 });

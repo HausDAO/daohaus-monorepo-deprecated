@@ -10,6 +10,10 @@ export const StyledNavLink = styled(Link)`
   padding-bottom: 1rem;
   border-bottom: 2px transparent solid;
 
+  svg {
+    margin-left: 0.3rem;
+  }
+
   cursor: pointer;
   :hover {
     color: ${(props) => props.theme.subNav.navLinkHoverColor};

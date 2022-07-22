@@ -1,13 +1,17 @@
-import classNames from 'classnames';
 import React, { ReactNode } from 'react';
-import { StyledNavLink } from './SubNavLink.styles';
+import classNames from 'classnames';
+import { IconType } from 'react-icons';
 
-export const SubNavLink = ({
+import { StyledNavLink } from './NavLink.styles';
+
+export const NavLink = ({
   selected,
   children,
+  Icon,
   ...props
 }: {
   selected?: boolean;
+  Icon?: IconType;
   children: ReactNode;
 } & React.ComponentPropsWithRef<'a'>) => {
   const classes = classNames({ selected });
@@ -15,6 +19,7 @@ export const SubNavLink = ({
   return (
     <StyledNavLink className={classes} {...props}>
       {children}
+      {Icon && <Icon />}
     </StyledNavLink>
   );
 };

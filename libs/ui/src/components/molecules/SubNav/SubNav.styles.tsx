@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { Button } from '../../atoms';
-
 export const SubNavContainer = styled.div`
   width: '100%';
   height: 10rem;
@@ -16,30 +14,26 @@ export const SubNavContainer = styled.div`
   .mobile-box {
     padding: 2.6rem;
   }
-
-  .more-box {
-    display: inline-flex;
-    align-items: center;
-
-    a {
-      margin-right: 1rem;
-    }
-    svg {
-      transform: translateY(-0.5rem);
-    }
-  }
 `;
 
-export const DropdownLink = styled(Button)`
+// TODO Move to Button component as pre defined button style?
+export const DropdownLink = styled.button`
   background-color: transparent;
+  border: none;
+  border-bottom: 2px transparent solid;
+  color: ${(props) => props.theme.subNav.navLinkColor};
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
   font-size: 2.4rem;
   letter-spacing: 1.5px;
-  color: ${(props) => props.theme.subNav.navLinkColor};
-  transition: 0.2s all;
   padding-bottom: 1rem;
-  border-bottom: 2px transparent solid;
+  transition: 0.2s all;
 
-  cursor: pointer;
+  svg {
+    margin-left: 0.3rem;
+  }
+
   :hover {
     color: ${(props) => props.theme.subNav.navLinkHoverColor};
     text-decoration: none;

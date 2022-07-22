@@ -9,3 +9,4 @@ export * from './WrappedSwitch';
 export * from './WrappedRadio';
 export * from './WrappedInputSelect';
 export * from './Toast';
+export * from './SubNav';

@@ -49,10 +49,12 @@ export const NavLink = styled(Link)`
     color: ${(props) => props.theme.subNav.navLinkHoverColor};
     text-decoration: none;
   }
+
   &.selected {
     color: white;
     border-bottom: 2px ${(props) => props.theme.subNav.navLinkColor} solid;
   }
+
   &.subnav {
     padding-bottom: 1rem;
   }

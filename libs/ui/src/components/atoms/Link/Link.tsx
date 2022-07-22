@@ -10,6 +10,7 @@ export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
   Icon?: IconType;
   isExternal?: boolean;
   selected?: boolean;
+  disabled?: boolean;
   linkType?: 'internal' | 'external' | 'navigation';
 }
 
@@ -21,6 +22,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       target = '_blank',
       linkType = 'internal',
       selected,
+      disabled = false,
       Icon,
       className,
       children,

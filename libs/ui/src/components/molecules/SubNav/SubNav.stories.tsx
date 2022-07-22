@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { SubNav } from './SubNav';
 
 export default {
-  title: 'Layouts/SubNav',
+  title: 'Molecules/SubNav',
   component: SubNav,
 } as ComponentMeta<typeof SubNav>;
 

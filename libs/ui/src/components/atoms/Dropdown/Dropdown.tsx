@@ -73,7 +73,6 @@ export const Dropdown = ({
             );
           }
         })}
-        ;
       </DropdownMenuContent>
     </DropdownMenu>
   );

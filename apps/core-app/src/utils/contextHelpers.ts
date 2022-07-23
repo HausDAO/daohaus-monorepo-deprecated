@@ -17,11 +17,13 @@ export const loadDao = async ({
   daochain,
   setDao,
   setDaoLoading,
+  shouldUpdate,
 }: {
   daoid: string;
   daochain: keyof Keychain;
   setDao: ReactSetter<DaoWithTokenDataQuery['dao'] | undefined>;
   setDaoLoading: ReactSetter<boolean>;
+  shouldUpdate: boolean;
 }) => {
   try {
     setDaoLoading(true);
@@ -32,7 +34,7 @@ export const loadDao = async ({
       includeTokens: true,
     });
 
-    if (daoRes?.data?.dao) {
+    if (daoRes?.data?.dao && shouldUpdate) {
       const daoData: DaoWithTokenDataQuery['dao'] = {
         tokenBalances: [],
         fiatTotal: 0,
@@ -45,7 +47,9 @@ export const loadDao = async ({
     console.error(error);
     setDao(undefined);
   } finally {
-    setDaoLoading(false);
+    if (shouldUpdate) {
+      setDaoLoading(false);
+    }
   }
 };
 
@@ -57,6 +61,7 @@ export const loadMembersList = async ({
   setData,
   setLoading,
   setNextPaging,
+  shouldUpdate,
 }: {
   filter: Member_Filter;
   ordering?: Ordering<Member_OrderBy>;
@@ -65,6 +70,7 @@ export const loadMembersList = async ({
   setData: ReactSetter<ListMembersQuery['members'] | undefined>;
   setLoading: ReactSetter<boolean>;
   setNextPaging: ReactSetter<Paging | undefined>;
+  shouldUpdate: boolean;
 }) => {
   try {
     setLoading(true);
@@ -76,22 +82,26 @@ export const loadMembersList = async ({
       paging,
     });
 
-    if (res.nextPaging) {
-      setNextPaging(res.nextPaging);
-    }
-
-    setData((prevState) => {
-      if (prevState) {
-        return [...prevState, ...res.items];
-      } else {
-        return res.items;
+    if (shouldUpdate) {
+      if (res.nextPaging) {
+        setNextPaging(res.nextPaging);
       }
-    });
+
+      setData((prevState) => {
+        if (prevState) {
+          return [...prevState, ...res.items];
+        } else {
+          return res.items;
+        }
+      });
+    }
   } catch (error) {
     console.error(error);
     setData(undefined);
   } finally {
-    setLoading(false);
+    if (shouldUpdate) {
+      setLoading(false);
+    }
   }
 };
 
@@ -103,6 +113,7 @@ export const loadProposalsList = async ({
   setData,
   setLoading,
   setNextPaging,
+  shouldUpdate,
 }: {
   filter: Proposal_Filter;
   ordering?: Ordering<Proposal_OrderBy>;
@@ -111,6 +122,7 @@ export const loadProposalsList = async ({
   setData: ReactSetter<ITransformedProposalListQuery['proposals'] | undefined>;
   setLoading: ReactSetter<boolean>;
   setNextPaging: ReactSetter<Paging | undefined>;
+  shouldUpdate: boolean;
 }) => {
   try {
     setLoading(true);
@@ -122,15 +134,19 @@ export const loadProposalsList = async ({
       paging,
     });
 
-    if (res.nextPaging) {
-      setNextPaging(res.nextPaging);
-    }
+    if (shouldUpdate) {
+      if (res.nextPaging) {
+        setNextPaging(res.nextPaging);
+      }
 
-    setData(res.items);
+      setData(res.items);
+    }
   } catch (error) {
     console.error(error);
     setData(undefined);
   } finally {
-    setLoading(false);
+    if (shouldUpdate) {
+      setLoading(false);
+    }
   }
 };

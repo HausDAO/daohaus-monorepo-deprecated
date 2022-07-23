@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import classNames from 'classnames';
 import { RiAsterisk } from 'react-icons/ri';
 
@@ -16,7 +16,11 @@ import {
   LabelContainer,
   RequiredAsterisk,
 } from './FieldWrapper.styles';
-import { Field } from '../../../types/formAndField';
+import {
+  PrimitiveWrapper,
+  PrimitiveElement,
+  PrimitiveSizable,
+} from '../../../types/formAndField';
 import {
   ErrorMessage,
   WarningMessage,
@@ -24,11 +28,9 @@ import {
 } from '../../../types/formAndField';
 import { useFormContext } from 'react-hook-form';
 
-type FieldWrapperProps = Field & {
-  children: React.ReactNode;
-};
+type FieldWrapperType = PrimitiveElement & PrimitiveWrapper & PrimitiveSizable;
 
-export type HelperTextFactoryProps = {
+type HelperTextFactoryProps = {
   error?: ErrorMessage;
   warning?: WarningMessage;
   success?: SuccessMessage;
@@ -48,7 +50,7 @@ export const FieldWrapper = ({
   full,
   address,
   id,
-}: FieldWrapperProps) => {
+}: FieldWrapperType & { children: ReactNode }) => {
   const classes = classNames({ long: long || address, full });
   const {
     formState: { errors },

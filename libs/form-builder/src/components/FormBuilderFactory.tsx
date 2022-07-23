@@ -1,18 +1,23 @@
+import { RegisterOptions } from 'react-hook-form';
 import styled from 'styled-components';
 import { FieldLego } from '../types/legoTypes';
-import { derp } from '../utils/registration';
 import { CoreFieldLookup } from './CoreFieldLookup';
 
 const FieldSpacer = styled.div`
   margin-bottom: 3.6rem;
 `;
-const deppa = derp;
+
 export const FormBuilderFactory = ({
   type,
   spacing = true,
   disabled,
+  rules = {},
   ...props
-}: FieldLego & { spacing?: boolean; disabled?: boolean }) => {
+}: FieldLego & {
+  spacing?: boolean;
+  disabled?: boolean;
+  rules?: RegisterOptions;
+}) => {
   const GeneratedField = CoreFieldLookup[type];
 
   //TS CHALLENGE

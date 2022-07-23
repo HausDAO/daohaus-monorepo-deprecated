@@ -1,4 +1,3 @@
-import { CheckboxProps } from '@radix-ui/react-checkbox';
 import { ChangeEventHandler } from 'react';
 import { RegisterOptions } from 'react-hook-form';
 
@@ -16,58 +15,73 @@ export type SuccessMessage = {
 };
 
 export type PrimitiveWrapper = {
-  id: string;
   label?: string;
-  type?: string;
   helperText?: string;
   info?: string;
+  required?: boolean;
+  // rules: RegisterOptions;
+};
+
+export type PrimitiveElement = {
+  id: string;
   required?: boolean;
   warning?: WarningMessage;
   error?: ErrorMessage;
   success?: SuccessMessage;
+  className?: string;
+  disabled?: boolean;
 };
 
+export type PrimitiveSizable = {
+  long?: boolean;
+  address?: boolean;
+  full?: boolean;
+};
+
+export type HasRules = {
+  rules?: RegisterOptions;
+};
+
+export type FieldWrapper = PrimitiveWrapper &
+  PrimitiveElement &
+  PrimitiveSizable;
+
+export type Buildable<T> = T & FieldWrapper & HasRules;
+
 export type Field = {
-  id: string;
-  label?: string;
-  type?: string;
-  className?: string;
   placeholder?: string;
-  helperText?: string;
-  required?: boolean;
-  info?: string;
-  disabled?: boolean;
   disabledPlaceholder?: boolean;
   defaultValue?: string;
   number?: boolean;
   address?: boolean;
   long?: boolean;
   full?: boolean;
-  warning?: WarningMessage;
-  error?: ErrorMessage;
-  success?: SuccessMessage;
-  rows?: number;
-  cols?: number;
-  registerOptions?: RegisterOptions;
-};
+} & PrimitiveElement;
+
+// & PrimitiveWrapper &
+//   HasRules;
 
 // TODO Refine based on Radix Checkbox Type & Wrapper
-export type CheckboxWrapperProps = PrimitiveWrapper & {
-  checkboxes: CheckboxProps[];
-  registerOptions?: RegisterOptions;
-};
+// export type CheckboxWrapperProps = {
+//   checkboxes: CheckboxProps[];
+// } & PrimitiveWrapper &
+//   HasRules;
+
 export type OptionType = {
   name: string;
   value: string;
   key?: string;
 };
-export type SelectProps = Field & {
+export type SelectProps = {
   defaultValue?: string;
   value?: string;
   onChange?: ChangeEventHandler<HTMLSelectElement>;
   options: OptionType[];
   containerClassName?: string;
-};
+  long?: boolean;
+  full?: boolean;
+  placeholder?: string;
+} & PrimitiveElement;
 
 export type InputSelectProps = Field &
   SelectProps & { selectId: string; selectPlaceholder?: string };

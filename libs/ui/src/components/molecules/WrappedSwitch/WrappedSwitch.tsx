@@ -1,6 +1,6 @@
-import { Controller, RegisterOptions, useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import { SwitchProps } from '@radix-ui/react-switch';
-import type { PrimitiveWrapper } from '../../../types/formAndField';
+import type { Buildable } from '../../../types/formAndField';
 import { Switch } from '../../atoms/Switch';
 import { FieldWrapper } from '../FieldWrapper/FieldWrapper';
 
@@ -10,13 +10,10 @@ type SwitchComponentProps = SwitchProps & {
   className?: string;
   disabled?: boolean;
 };
-type SwitchWrapperProps = PrimitiveWrapper & {
-  switches: SwitchComponentProps[];
-  disabled?: boolean;
-  registerOptions?: RegisterOptions;
-};
 
-export const WrappedSwitch = (props: SwitchWrapperProps) => {
+export const WrappedSwitch = (
+  props: Buildable<{ switches: SwitchComponentProps[] }>
+) => {
   const {
     id,
     helperText,
@@ -27,7 +24,6 @@ export const WrappedSwitch = (props: SwitchWrapperProps) => {
     warning,
     switches,
     disabled,
-    registerOptions,
   } = props;
   const { control } = useFormContext();
   return (

@@ -39,7 +39,7 @@ export const defaultDaoData = {
   setMembersFilter: () => undefined,
   membersSort: undefined,
   setMembersSort: () => undefined,
-  membersPaging: undefined,
+  membersPaging: { offset: 0, pageSize: 5 },
   membersNextPaging: undefined,
   setMembersPaging: () => undefined,
   proposals: null,
@@ -120,7 +120,10 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   const [membersSort, setMembersSort] = useState<
     Ordering<Member_OrderBy> | undefined
   >();
-  const [membersPaging, setMembersPaging] = useState<Paging | undefined>();
+  const [membersPaging, setMembersPaging] = useState<Paging | undefined>({
+    offset: 0,
+    pageSize: 5,
+  });
   const [membersNextPaging, setMembersNextPaging] = useState<
     Paging | undefined
   >();

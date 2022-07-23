@@ -12,11 +12,14 @@ const Routes = () => {
   return (
     <RoutesDom>
       <Route path="/" element={<Home />} />
-      <Route path="dao/:daochain/:daoid" element={<Dao />}>
+      <Route path="molochv3/:daochain/:daoid" element={<Dao />}>
         <Route index element={<DaoOverview />} />
         <Route path="proposals" element={<Proposals />} />
+        <Route path="proposals/:proposalId" element={<Proposals />} />
         <Route path="vaults" element={<Vaults />} />
         <Route path="members" element={<Members />} />
+        <Route path="members/:memberAddress" element={<Members />} />
+        <Route path="settings" element={<DaoOverview />} />
       </Route>
     </RoutesDom>
   );

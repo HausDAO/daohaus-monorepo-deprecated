@@ -80,7 +80,13 @@ export const loadMembersList = async ({
       setNextPaging(res.nextPaging);
     }
 
-    setData(res.items);
+    setData((prevState) => {
+      if (prevState) {
+        return [...prevState, ...res.items];
+      } else {
+        return res.items;
+      }
+    });
   } catch (error) {
     console.error(error);
     setData(undefined);

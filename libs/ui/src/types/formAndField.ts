@@ -42,9 +42,7 @@ export type HasRules = {
   rules?: RegisterOptions;
 };
 
-export type FieldWrapper = PrimitiveWrapper &
-  PrimitiveElement &
-  PrimitiveSizable;
+type FieldWrapper = PrimitiveWrapper & PrimitiveElement & PrimitiveSizable;
 
 export type Buildable<T> = T & FieldWrapper & HasRules;
 

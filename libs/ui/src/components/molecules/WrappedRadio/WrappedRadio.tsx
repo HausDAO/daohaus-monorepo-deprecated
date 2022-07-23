@@ -1,4 +1,4 @@
-import { Controller, RegisterOptions, useFormContext } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import { RadioGroupProps } from '@radix-ui/react-radio-group';
 
 import type { Buildable } from '../../../types/formAndField';
@@ -8,7 +8,7 @@ import { useMemo } from 'react';
 
 type RadioGroupComponentProps = RadioGroupProps & Props;
 type RadioGroupWrapperProps = {
-  registerOptions?: RegisterOptions;
+  defaultValue?: string;
   radioGroup: RadioGroupComponentProps;
 };
 
@@ -23,9 +23,9 @@ export const WrappedRadio = (props: Buildable<RadioGroupWrapperProps>) => {
     warning,
     radioGroup,
     disabled,
+    rules,
   } = props;
   const { control } = useFormContext();
-
   const disableAll = disabled;
   const radios = useMemo(() => {
     return disableAll
@@ -45,13 +45,14 @@ export const WrappedRadio = (props: Buildable<RadioGroupWrapperProps>) => {
     >
       <Controller
         name={radioGroup.name || id}
-        control={control}
         defaultValue={radioGroup.defaultValue}
+        rules={rules}
         render={({ field }) => {
           return (
             <Radio
               onValueChange={field.onChange}
               radios={radios}
+              defaultValue={radioGroup.defaultValue}
               ref={field.ref}
             />
           );

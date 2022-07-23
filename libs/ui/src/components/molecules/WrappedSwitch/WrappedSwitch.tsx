@@ -6,7 +6,7 @@ import { FieldWrapper } from '../FieldWrapper/FieldWrapper';
 
 type SwitchComponentProps = SwitchProps & {
   fieldLabel: string;
-  id?: string;
+  id: string;
   className?: string;
   disabled?: boolean;
 };
@@ -24,6 +24,7 @@ export const WrappedSwitch = (
     warning,
     switches,
     disabled,
+    rules,
   } = props;
   const { control } = useFormContext();
   return (
@@ -39,8 +40,9 @@ export const WrappedSwitch = (
       {switches.map((switchProps) => {
         return (
           <Controller
-            key={switchProps.id || id}
-            name={switchProps.id || id}
+            key={switchProps.id}
+            name={switchProps.id}
+            rules={rules}
             control={control}
             defaultValue={switchProps.defaultChecked}
             render={({ field }) => {

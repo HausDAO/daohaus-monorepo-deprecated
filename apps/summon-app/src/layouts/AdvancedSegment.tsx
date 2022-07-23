@@ -26,7 +26,7 @@ export const AdvancedSegment = ({
                   info={INFO_COPY.QUORUM}
                   defaultValue="0"
                   disabled={formDisabled}
-                  registerOptions={{ required: 'This value is required' }}
+                  rules={{ required: 'This value is required' }}
                 />
               ),
               right: (
@@ -38,7 +38,7 @@ export const AdvancedSegment = ({
                   required
                   full
                   disabled={formDisabled}
-                  registerOptions={{ required: 'This value is required' }}
+                  rules={{ required: 'This value is required' }}
                 />
               ),
             },
@@ -53,7 +53,7 @@ export const AdvancedSegment = ({
                   full
                   info={INFO_COPY.SPONSOR_THRESHOLD}
                   disabled={formDisabled}
-                  registerOptions={{ required: 'This value is required' }}
+                  rules={{ required: 'This value is required' }}
                 />
               ),
               right: (
@@ -65,7 +65,7 @@ export const AdvancedSegment = ({
                   full
                   info={INFO_COPY.NEW_OFFERING}
                   disabled={formDisabled}
-                  registerOptions={{ required: 'This value is required' }}
+                  rules={{ required: 'This value is required' }}
                 />
               ),
             },

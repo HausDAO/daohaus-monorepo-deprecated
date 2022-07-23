@@ -29,7 +29,7 @@ export const FormBuilderFactory = ({
 
   const Component = () => (
     // @ts-expect-error: explanation above
-    <GeneratedField {...props} full disabled={disabled} />
+    <GeneratedField {...props} full disabled={disabled} rules={rules} />
   );
   if (spacing) {
     return (

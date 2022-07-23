@@ -16,8 +16,8 @@ export const SplitColumnLayout = ({ rows, ...props }: SplitColumnProps) => {
       rows={rows.map(({ left, right, rowId }) => {
         return {
           rowId,
-          left: <FormBuilderFactory {...left} {...props} spacing={false} />,
-          right: <FormBuilderFactory {...right} {...props} spacing={false} />,
+          left: <FormBuilderFactory {...props} {...left} spacing={false} />,
+          right: <FormBuilderFactory {...props} {...right} spacing={false} />,
         };
       })}
     />

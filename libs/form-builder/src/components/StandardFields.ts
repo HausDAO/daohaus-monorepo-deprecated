@@ -5,15 +5,15 @@ export const StandardFields: Record<string, FieldLego> = {
     id: 'id',
     label: 'Label',
     type: 'input',
-    required: true,
     info: "This is a description of the field's purpose.",
+    required: true,
   },
   Switch: {
     id: 'id2',
     label: 'Label',
     type: 'switch',
-    required: true,
-    switches: [{ fieldLabel: 'Label' }],
+
+    switches: [{ id: 'this', fieldLabel: 'Label' }],
     info: "This is a description of the field's purpose.",
   },
   InputSelect: {
@@ -21,7 +21,6 @@ export const StandardFields: Record<string, FieldLego> = {
     id: 'id3',
     label: 'Label',
     selectId: 'select-id3',
-    required: true,
     options: [
       { name: 'Doh', value: 'doh' },
       { name: 'Doh2', value: 'doh2' },
@@ -33,7 +32,6 @@ export const StandardFields: Record<string, FieldLego> = {
     type: 'textarea',
     label: 'Label',
     placeholder: 'Placeholder',
-    required: true,
     info: "This is a description of the field's purpose.",
   },
   Radio: {
@@ -42,10 +40,11 @@ export const StandardFields: Record<string, FieldLego> = {
     label: 'Wrapped Radio',
     info: 'This is controlled by the info prop',
     radioGroup: {
+      defaultValue: 'v1',
       radios: [
-        { id: 'g1r1', label: 'Value 1', value: 'v1' },
-        { id: 'g1r2', label: 'Value 2', value: 'v2' },
-        { id: 'g1r3', label: 'Value 3', value: 'v3' },
+        { id: 'radio1', label: 'Value 1', value: 'v1' },
+        { id: 'radio2', label: 'Value 2', value: 'v2' },
+        { id: 'radio3', label: 'Value 3', value: 'v3' },
       ],
     },
   },
@@ -72,14 +71,12 @@ export const StandardFields: Record<string, FieldLego> = {
             { name: 'Doh', value: 'doh' },
             { name: 'Doh2', value: 'doh2' },
           ],
-          required: true,
           info: "This is a description of the field's purpose.",
         },
         right: {
           id: 'id2345',
           label: 'Label',
           type: 'input',
-          required: true,
           info: "This is a description of the field's purpose.",
         },
       },

@@ -47,7 +47,7 @@ export const MembersSegment = ({ formDisabled }: { formDisabled: boolean }) => {
             required
             disabled={formDisabled}
             helperText={helperText}
-            registerOptions={{
+            rules={{
               setValueAs: transformMemberData,
               validate: validateMemberData,
               required: 'Members is a required field',

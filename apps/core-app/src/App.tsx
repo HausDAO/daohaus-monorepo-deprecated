@@ -36,7 +36,8 @@ const exampleFormLego: FormLego = {
 };
 
 export function App() {
-  const handleSubmit = () => {
+  const handleSubmit = (values: any) => {
+    console.log('values', values);
     console.log('fart');
   };
   return (

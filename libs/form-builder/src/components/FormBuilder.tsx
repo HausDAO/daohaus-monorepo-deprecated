@@ -28,7 +28,7 @@ export const FormBuilder = ({
   onSubmit,
   log,
 }: FormBuilderProps) => {
-  const methods = useForm();
+  const methods = useForm({ mode: 'onTouched' });
   const {
     formState: { isValid },
   } = methods;
@@ -51,6 +51,7 @@ export const FormBuilder = ({
         <form
           onSubmit={methods.handleSubmit(handleTopLevelSubmit)}
           className="builder-inner-form"
+          noValidate
         >
           {log && <Logger />}
           {fields?.map((field) => (

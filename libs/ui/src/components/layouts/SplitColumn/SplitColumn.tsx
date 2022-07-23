@@ -10,7 +10,7 @@ export const SplitColumn = ({ rows }: SplitColumnProps) => {
     <StyledSplitColumn>
       {Array.isArray(rows) ? (
         rows.map((row) => {
-          return <Row key={row.rowID} {...row} />;
+          return <Row key={row.rowId} {...row} />;
         })
       ) : (
         <Row {...rows} />
@@ -20,7 +20,7 @@ export const SplitColumn = ({ rows }: SplitColumnProps) => {
 };
 
 type Row = {
-  rowID: string;
+  rowId: string;
   left: React.ReactNode;
   right: React.ReactNode;
 };

@@ -17,20 +17,19 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
   const [open, setOpen] = useState(false);
   const classes = classNames({ 'mobile-connect-btn': isSm });
   return (
-    <ConnectDropdown
+    <Dropdown
       spacing="0.7rem"
       width={isSm ? 'fit-content' : '25rem'}
       align="end"
       open={open}
       onOpenChange={setOpen}
-      className={'user-connect-dropdown'}
       trigger={
         <Button
           avatar
-          fullWidth={!isSm}
           sm={isSm}
           IconRight={open ? BiChevronUp : BiChevronDown}
           className={classes}
+          width={!isSm ? '25rem' : ''}
         >
           <Container>
             <ProfileAvatar
@@ -92,11 +91,6 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
     />
   );
 };
-
-const ConnectDropdown = styled(Dropdown)`
-  display: flex;
-  justify-content: flex-end;
-`;
 
 const Container = styled.div`
   display: flex;

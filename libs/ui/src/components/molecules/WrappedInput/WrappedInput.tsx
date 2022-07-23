@@ -9,6 +9,7 @@ export const WrappedInput = (props: Field) => {
   const registration = registerOptions
     ? register(id, registerOptions)
     : register(id);
+
   return (
     <FieldWrapper {...props}>
       <Input {...registration} {...props} />

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { charLimit, readableNumber } from '@daohaus/common-utilities';
+import { charLimit, readableNumbers } from '@daohaus/common-utilities';
 import { Bold, border, ParLg, ParMd, ProfileAvatar } from '@daohaus/ui';
 import { Tag } from './Tag';
 import { AlertCircle } from './AlertCircle';
@@ -73,28 +73,37 @@ export const DaoCard = ({
       <div className="stats-box">
         {activeMemberCount && (
           <ParMd>
-            <Bold>{readableNumber({ amount: activeMemberCount })}</Bold> Members
+            <Bold>
+              {readableNumbers.toNumber({ value: activeMemberCount })}
+            </Bold>{' '}
+            Members
           </ParMd>
         )}
         {fiatTotal != null && (
           <ParMd>
-            <Bold>{readableNumber({ amount: fiatTotal, unit: 'USD' })}</Bold>
+            <Bold>
+              {readableNumbers.toDollars({
+                value: fiatTotal,
+                unit: 'USD',
+                separator: ' ',
+              })}
+            </Bold>
           </ParMd>
         )}
         {totalProposalCount && (
           <ParMd>
-            <Bold>{readableNumber({ amount: totalProposalCount })}</Bold>{' '}
+            <Bold>
+              {readableNumbers.toNumber({ value: totalProposalCount })}
+            </Bold>{' '}
             Proposals
           </ParMd>
         )}
         {votingPower && (
           <ParMd>
             <Bold>
-              {readableNumber({
-                amount: votingPower,
-                unit: '%',
+              {readableNumbers.toPercentDecimals({
+                value: votingPower,
                 separator: '',
-                maxDecimals: 2,
               })}
             </Bold>{' '}
             Voting Power

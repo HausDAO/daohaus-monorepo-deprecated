@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { BiColumnLayout, Card, widthQuery } from '@daohaus/ui';
+import { BiColumnLayout, Card, DataIndicator, widthQuery } from '@daohaus/ui';
 import { useDao } from '../contexts/DaoContext';
 
 const LeftCard = styled(Card)`
@@ -21,7 +21,18 @@ export function DaoOverview() {
     <BiColumnLayout
       subtitle="DAO"
       title="Overview"
-      left={<LeftCard>{JSON.stringify(dao, null, 2)}</LeftCard>}
+      left={
+        <LeftCard>
+          <DataIndicator size="lg" label="Vault Total" data="$120k" />
+          <DataIndicator
+            size="sm"
+            label="Expiration Date"
+            data="May 10, 2022 15:55pm PST"
+            info="this is a tooltip"
+          />
+          {JSON.stringify(dao, null, 2)}
+        </LeftCard>
+      }
       right={null}
     />
   );

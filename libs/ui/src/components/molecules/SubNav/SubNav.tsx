@@ -13,11 +13,6 @@ type NavLinkType = {
   href: string;
 };
 
-type DropdownLinkType = {
-  label: string;
-  href: string;
-};
-
 export type SubNavProps = {
   className?: string;
   navLinks?: NavLinkType[];

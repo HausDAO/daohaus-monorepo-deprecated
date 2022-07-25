@@ -71,8 +71,9 @@ export const Dropdown = ({
                 {item.content}
               </DropdownLabel>
             );
-          }
+          } else return null;
         })}
+        ;
       </DropdownMenuContent>
     </DropdownMenu>
   );

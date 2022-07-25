@@ -38,6 +38,7 @@ const main = async () => {
         });
       }
     }
+    console.log(`Job sleep for ${SLEEP_TIME} seconds`);
   } catch (e) {
     console.error(e);
   }

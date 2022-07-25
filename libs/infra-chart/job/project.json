@@ -1,12 +1,12 @@
 {
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/infra-chart/ceramic",
+  "sourceRoot": "libs/infra-chart/job",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "helm dependency build ./ceramic",
+        "command": "helm dependency build ./job",
         "cwd": "libs/infra-chart"
       },
       "dependsOn": [
@@ -19,7 +19,7 @@
     "dryRun": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "helm install --dry-run --debug -f ./ceramic/values.yaml test ./ceramic",
+        "command": "helm install --dry-run --debug -f ./job/values.yaml test ./job",
         "cwd": "libs/infra-chart"
       }
     },
@@ -33,7 +33,7 @@
     "lint": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "helm lint ./ceramic",
+        "command": "helm lint ./job",
         "cwd": "libs/infra-chart"
       },
       "dependsOn": [

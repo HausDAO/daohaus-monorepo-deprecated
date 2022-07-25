@@ -9,6 +9,7 @@
     "dao-producer-job": "apps/dao-producer-job",
     "daohaus-connect-feature": "libs/daohaus-connect-feature",
     "hub-app": "apps/hub-app",
+    "infra-chart-job": "libs/infra-chart/job",
     "infra-chart-ceramic": "libs/infra-chart/ceramic",
     "infra-chart-daohaus": "libs/infra-chart/daohaus",
     "infra-chart-ipfs": "libs/infra-chart/ipfs",

@@ -1,6 +1,6 @@
 apiVersion: v2
-name: ceramic
-description: A chart to deploy a ceramic node
+name: job
+description: A chart to deploy a job node
 
 # A chart can be either an 'application' or a 'library' chart.
 #

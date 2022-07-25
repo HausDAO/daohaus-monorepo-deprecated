@@ -61,6 +61,7 @@
     "build-storybook": {
       "executor": "@nrwl/storybook:build",
       "outputs": ["{options.outputPath}"],
+      "inputs": [{ "env": "NODE_ENV" }],
       "options": {
         "uiFramework": "@storybook/react",
         "outputPath": "dist/storybook/ui",
@@ -80,6 +81,17 @@
         "tag": "alpha",
         "access": "public"
       }
+    },
+    "deployStaging": {
+      "executor": "@alexkeating/nx-skynet:deploy",
+      "options": {
+        "uploadDir": "dist/storybook/ui",
+        "registrySeedVarName": "DAOHAUS_UI_SKYNET_SEED",
+        "registryDataKey": "skylink.txt",
+        "portalUrl": "https://skynetfree.net",
+        "skynetJwtVarName": "SKYNET_JWT"
+      },
+      "dependsOn": [{ "target": "build-storybook", "projects": "self" }]
     }
   }
 }

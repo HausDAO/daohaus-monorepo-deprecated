@@ -2,9 +2,9 @@ kind: ethereum/contract
 name: TributeMinion
 network:
 source:
-  address: '0x9C6f6e6E461FB1dB9761c960900A0Ae05B9786A7'
+  address:
   abi: TributeMinion
-  startBlock: 7290177
+  startBlock:
 mapping:
   kind: ethereum/events
   apiVersion: 0.0.5

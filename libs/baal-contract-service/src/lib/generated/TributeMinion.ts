@@ -12,37 +12,37 @@ import type {
   PopulatedTransaction,
   Signer,
   utils,
-} from "ethers";
+} from 'ethers';
 import type {
   FunctionFragment,
   Result,
   EventFragment,
-} from "@ethersproject/abi";
-import type { Listener, Provider } from "@ethersproject/providers";
+} from '@ethersproject/abi';
+import type { Listener, Provider } from '@ethersproject/providers';
 import type {
   TypedEventFilter,
   TypedEvent,
   TypedListener,
   OnEvent,
   PromiseOrValue,
-} from "../../../common";
+} from './common';
 
 export interface TributeMinionInterface extends utils.Interface {
   functions: {
-    "encodeTributeProposal(address,uint256,uint256,address,uint32,address)": FunctionFragment;
-    "releaseEscrow(address,uint32)": FunctionFragment;
-    "submitTributeProposal(address,address,uint256,uint256,uint256,uint32,string)": FunctionFragment;
+    'encodeTributeProposal(address,uint256,uint256,address,uint32,address)': FunctionFragment;
+    'releaseEscrow(address,uint32)': FunctionFragment;
+    'submitTributeProposal(address,address,uint256,uint256,uint256,uint32,string)': FunctionFragment;
   };
 
   getFunction(
     nameOrSignatureOrTopic:
-      | "encodeTributeProposal"
-      | "releaseEscrow"
-      | "submitTributeProposal"
+      | 'encodeTributeProposal'
+      | 'releaseEscrow'
+      | 'submitTributeProposal'
   ): FunctionFragment;
 
   encodeFunctionData(
-    functionFragment: "encodeTributeProposal",
+    functionFragment: 'encodeTributeProposal',
     values: [
       PromiseOrValue<string>,
       PromiseOrValue<BigNumberish>,
@@ -53,11 +53,11 @@ export interface TributeMinionInterface extends utils.Interface {
     ]
   ): string;
   encodeFunctionData(
-    functionFragment: "releaseEscrow",
+    functionFragment: 'releaseEscrow',
     values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
-    functionFragment: "submitTributeProposal",
+    functionFragment: 'submitTributeProposal',
     values: [
       PromiseOrValue<string>,
       PromiseOrValue<string>,
@@ -70,23 +70,23 @@ export interface TributeMinionInterface extends utils.Interface {
   ): string;
 
   decodeFunctionResult(
-    functionFragment: "encodeTributeProposal",
+    functionFragment: 'encodeTributeProposal',
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "releaseEscrow",
+    functionFragment: 'releaseEscrow',
     data: BytesLike
   ): Result;
   decodeFunctionResult(
-    functionFragment: "submitTributeProposal",
+    functionFragment: 'submitTributeProposal',
     data: BytesLike
   ): Result;
 
   events: {
-    "TributeProposal(address,address,uint256,address,uint256)": EventFragment;
+    'TributeProposal(address,address,uint256,address,uint256)': EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "TributeProposal"): EventFragment;
+  getEvent(nameOrSignatureOrTopic: 'TributeProposal'): EventFragment;
 }
 
 export interface TributeProposalEventObject {
@@ -215,7 +215,7 @@ export interface TributeMinion extends BaseContract {
   };
 
   filters: {
-    "TributeProposal(address,address,uint256,address,uint256)"(
+    'TributeProposal(address,address,uint256,address,uint256)'(
       baal?: PromiseOrValue<string> | null,
       token?: null,
       amount?: null,

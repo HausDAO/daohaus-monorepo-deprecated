@@ -40,6 +40,7 @@ jobs:
           echo NX_RIVET_KEY=${{ secrets.RIVET_KEY }}  >> .env
           echo VITE_RIVET_KEY=${{ secrets.RIVET_KEY }}  >> .env
           echo CERAMIC_NETWORK=testnet-clay  >> .env
+          echo NODE_ENV=production  >> .env
       - run: yarn install
       - run: npm install -g nx
       - name: Lint mono

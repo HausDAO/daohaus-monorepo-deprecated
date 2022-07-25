@@ -54,3 +54,19 @@ ipfs:
     extraHosts:
       - name: www.ipfs-test.daohaus.club
         path: /
+dao-producer-job:
+  jobName: 'dao-producer-job'
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    resources:
+      cpu: 100m
+      memory: 128Mi
+  envVars:
+    - name: REDIS_HOST
+      value: 'redis://redis:6379'
+  image:
+    registry: 'registry.digitalocean.com/daohaus'
+    repository: 'dao_producer_job'
+    tag: 'sha-ab2a920'

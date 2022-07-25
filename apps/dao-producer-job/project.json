@@ -10,7 +10,8 @@
         "outputPath": "dist/apps/dao-producer-job",
         "main": "apps/dao-producer-job/src/main.ts",
         "tsConfig": "apps/dao-producer-job/tsconfig.app.json",
-        "assets": ["apps/dao-producer-job/src/assets"]
+        "assets": ["apps/dao-producer-job/src/assets"],
+        "generatePackageJson": true
       },
       "configurations": {
         "production": {
@@ -50,6 +51,33 @@
       "options": {
         "jestConfig": "apps/dao-producer-job/jest.config.ts",
         "passWithNoTests": true
+      }
+    },
+    "docker-build": {
+      "executor": "@nx-tools/nx-docker:build",
+      "options": {
+        "metadata": {
+          "images": ["registry.digitalocean.com/daohaus/dao_producer_job"],
+          "load": true,
+          "tags": ["type=sha"]
+        }
+      }
+    },
+    "docker-push": {
+      "executor": "@nx-tools/nx-docker:build",
+      "options": {
+        "push": true,
+        "metadata": {
+          "images": ["registry.digitalocean.com/daohaus/dao_producer_job"],
+          "tags": ["type=sha"]
+        }
+      }
+    },
+    "docker-login": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": ["doctl registry login --expiry-seconds 1200"],
+        "parallel": false
       }
     }
   },

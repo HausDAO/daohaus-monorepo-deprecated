@@ -40,7 +40,6 @@ export const StakeTokensSegment = ({
                   label="Name"
                   placeholder="Voting Stake"
                   info={INFO_COPY.VOTING_STK}
-                  required
                   full
                   disabled={formDisabled}
                   rules={{
@@ -59,7 +58,6 @@ export const StakeTokensSegment = ({
                   placeholder="vSTK"
                   info={INFO_COPY.TOKEN_SYMBOL}
                   full
-                  required
                   disabled={formDisabled}
                   rules={{
                     required: 'Token name is required',

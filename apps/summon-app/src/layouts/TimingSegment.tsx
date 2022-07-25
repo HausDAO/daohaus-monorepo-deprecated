@@ -20,7 +20,9 @@ export const TimingSegment = ({ formDisabled }: { formDisabled: boolean }) => {
                 info={INFO_COPY.VOTING_PERIOD}
                 disabled={formDisabled}
                 placeholder="0"
-                required
+                rules={{
+                  required: 'Time value is required',
+                }}
               />
             ),
             right: (
@@ -31,7 +33,9 @@ export const TimingSegment = ({ formDisabled }: { formDisabled: boolean }) => {
                 full
                 disabled={formDisabled}
                 placeholder="0"
-                required
+                rules={{
+                  required: 'Time value is required',
+                }}
               />
             ),
           }}

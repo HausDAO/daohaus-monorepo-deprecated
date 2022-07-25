@@ -1,4 +1,4 @@
-import { RegisterOptions } from 'react-hook-form';
+import { FieldValues, RegisterOptions, UseFormReturn } from 'react-hook-form';
 import styled from 'styled-components';
 import { FieldLego } from '../types/legoTypes';
 import { CoreFieldLookup } from './CoreFieldLookup';

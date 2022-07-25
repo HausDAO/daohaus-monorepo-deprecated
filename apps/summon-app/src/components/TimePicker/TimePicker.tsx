@@ -34,7 +34,7 @@ export const TimePicker = ({
   id,
   options = defaultOptions,
   selectId,
-  required,
+  rules,
   ...props
 }: Buildable<TimePickerProps>) => {
   const { setValue, watch } = useFormContext();
@@ -52,9 +52,8 @@ export const TimePicker = ({
       id={id}
       selectId={unitId}
       options={options}
-      required={required}
       rules={{
-        required: required ? 'Time value is required' : false,
+        ...rules,
         validate: {
           isNumber: (value) =>
             value === '' || isNumberString(value) ? true : 'Must be a number',

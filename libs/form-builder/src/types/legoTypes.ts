@@ -15,5 +15,6 @@ export type FormLego = {
   subtitle?: string;
   description?: string;
   fields: FieldLego[];
-  log: boolean;
+  log?: boolean;
+  devtool?: boolean;
 };

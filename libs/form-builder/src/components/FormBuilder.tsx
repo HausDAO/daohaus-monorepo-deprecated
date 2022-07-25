@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from 'react-hook-form';
-
-import { FormLayout } from '@daohaus/ui';
+import { DevTool } from '@hookform/devtools';
+import { FormLayout, WrappedInput } from '@daohaus/ui';
 
 import { FormBuilderFactory } from './FormBuilderFactory';
 import { FormLego } from '../types/legoTypes';
@@ -27,10 +27,12 @@ export const FormBuilder = ({
   fields,
   onSubmit,
   log,
+  devtool,
 }: FormBuilderProps) => {
   const methods = useForm({ mode: 'onTouched' });
   const {
     formState: { isValid },
+    control,
   } = methods;
   const { chainId } = useHausConnect();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -63,6 +65,7 @@ export const FormBuilder = ({
           ))}
           <FormFooter submitDisabled={submitDisabled} />
         </form>
+        {devtool && <DevTool control={control} />}
       </FormProvider>
     </FormLayout>
   );

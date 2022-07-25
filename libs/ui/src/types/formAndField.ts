@@ -1,5 +1,5 @@
 import { ChangeEventHandler } from 'react';
-import { RegisterOptions } from 'react-hook-form';
+import { FieldValues, RegisterOptions, UseFormReturn } from 'react-hook-form';
 
 export type ErrorMessage = {
   type: 'error';
@@ -18,13 +18,10 @@ export type PrimitiveWrapper = {
   label?: string;
   helperText?: string;
   info?: string;
-  required?: boolean;
-  // rules: RegisterOptions;
 };
 
 export type PrimitiveElement = {
   id: string;
-  required?: boolean;
   warning?: WarningMessage;
   error?: ErrorMessage;
   success?: SuccessMessage;

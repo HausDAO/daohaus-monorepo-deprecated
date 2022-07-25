@@ -21,7 +21,6 @@ export const AdvancedSegment = ({
                 <WrappedInput
                   id={FORM_KEYS.QUORUM}
                   label="Quorum %"
-                  required
                   full
                   info={INFO_COPY.QUORUM}
                   defaultValue="0"
@@ -35,7 +34,6 @@ export const AdvancedSegment = ({
                   label="Min Retention %"
                   defaultValue="66"
                   info={INFO_COPY.MIN_RETENTION}
-                  required
                   full
                   disabled={formDisabled}
                   rules={{ required: 'This value is required' }}
@@ -49,7 +47,6 @@ export const AdvancedSegment = ({
                   id={FORM_KEYS.SPONSOR_THRESHOLD}
                   label="Sponsor Threshold"
                   defaultValue="0"
-                  required
                   full
                   info={INFO_COPY.SPONSOR_THRESHOLD}
                   disabled={formDisabled}
@@ -61,7 +58,6 @@ export const AdvancedSegment = ({
                   id={FORM_KEYS.OFFERING}
                   label="New Offering (ETH)"
                   defaultValue="0"
-                  required
                   full
                   info={INFO_COPY.NEW_OFFERING}
                   disabled={formDisabled}

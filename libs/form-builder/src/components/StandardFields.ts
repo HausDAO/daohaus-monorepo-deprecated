@@ -6,13 +6,14 @@ export const StandardFields: Record<string, FieldLego> = {
     label: 'Label',
     type: 'input',
     info: "This is a description of the field's purpose.",
-    required: true,
+    rules: {
+      required: true,
+    },
   },
   Switch: {
     id: 'id2',
     label: 'Label',
     type: 'switch',
-
     switches: [{ id: 'this', fieldLabel: 'Label' }],
     info: "This is a description of the field's purpose.",
   },
@@ -25,6 +26,7 @@ export const StandardFields: Record<string, FieldLego> = {
       { name: 'Doh', value: 'doh' },
       { name: 'Doh2', value: 'doh2' },
     ],
+
     info: "This is a description of the field's purpose.",
   },
   TextArea: {

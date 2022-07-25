@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import classNames from 'classnames';
 import { RiAsterisk } from 'react-icons/ri';
 
@@ -16,19 +16,15 @@ import {
   LabelContainer,
   RequiredAsterisk,
 } from './FieldWrapper.styles';
-import {
-  PrimitiveWrapper,
-  PrimitiveElement,
-  PrimitiveSizable,
-} from '../../../types/formAndField';
+import { Buildable } from '../../../types/formAndField';
 import {
   ErrorMessage,
   WarningMessage,
   SuccessMessage,
 } from '../../../types/formAndField';
-import { useFormContext } from 'react-hook-form';
+import { FieldError, useFormContext } from 'react-hook-form';
 
-type FieldWrapperType = PrimitiveElement & PrimitiveWrapper & PrimitiveSizable;
+// type FieldWrapperType = PrimitiveElement & PrimitiveWrapper & PrimitiveSizable;
 
 type HelperTextFactoryProps = {
   error?: ErrorMessage;
@@ -40,7 +36,6 @@ type HelperTextFactoryProps = {
 export const FieldWrapper = ({
   children,
   label,
-  required,
   info,
   error,
   success,
@@ -50,16 +45,19 @@ export const FieldWrapper = ({
   full,
   address,
   id,
-}: FieldWrapperType & { children: ReactNode }) => {
+  rules,
+}: Buildable<{ children: ReactNode }>) => {
   const classes = classNames({ long: long || address, full });
   const {
     formState: { errors },
   } = useFormContext();
-  const contextError = errors[id];
+  const contextError = errors[id].message;
+
+  console.log('contextError', contextError);
   return (
     <FieldWrapperBase className={classes}>
       <LabelContainer>
-        {required && (
+        {rules?.required && (
           <RequiredAsterisk>
             <Icon label="Required">
               <RiAsterisk />

@@ -1,17 +1,17 @@
-import { log } from "@graphprotocol/graph-ts";
-import { Proposal } from "../generated/schema";
-import { TributeProposal } from "../generated/TributeEscrow/TributeEscrow";
-import { getErc20Decimals, getErc20Symbol } from "./util/general";
+import { log } from '@graphprotocol/graph-ts';
+import { Proposal } from '../generated/schema';
+import { TributeProposal } from '../generated/TributeMinion/TributeMinion';
+import { getErc20Decimals, getErc20Symbol } from './util/general';
 
 export function handleTributeProposal(event: TributeProposal): void {
   let proposalId = event.params.baal
     .toHexString()
-    .concat("-proposal-")
+    .concat('-proposal-')
     .concat(event.params.proposalId.toString());
 
   let proposal = Proposal.load(proposalId);
   if (proposal === null) {
-    log.info("handleTributeProposal proposal not found, {}", [proposalId]);
+    log.info('handleTributeProposal proposal not found, {}', [proposalId]);
     return;
   }
 

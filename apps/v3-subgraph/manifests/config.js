@@ -34,10 +34,10 @@ module.exports.config = {
         startBlock: 6918540,
       },
       {
-        name: 'tributeEscrow',
-        template: 'tribute-escrow-ds.yaml',
-        address: '0x328F80e44592E017B1745B0B574dBaB0c8DFc5f0',
-        startBlock: 6953708,
+        name: 'tribute-minion-mapping.yaml',
+        template: 'tribute-minion-ds.yaml',
+        address: '0x9C6f6e6E461FB1dB9761c960900A0Ae05B9786A7',
+        startBlock: 7290177,
       },
     ],
     templates: [

@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { BaalFactory, BaalFactory__factory } from './generated';
+import { BaalSummoner, BaalSummoner__factory } from './generated';
 
 export type ContractConfig = {
   address: string;
@@ -13,23 +13,23 @@ export type SummonArgs = {
   _saltNonce: ethers.BigNumberish;
 };
 
-class BaalFactoryContract {
-  baalFactory: BaalFactory;
+class BaalSummonerContract {
+  baalSummoner: BaalSummoner;
   private constructor(contractConfig: ContractConfig) {
-    this.baalFactory = BaalFactory__factory.connect(
+    this.baalSummoner = BaalSummoner__factory.connect(
       contractConfig.address,
       contractConfig.provider
     );
   }
 
-  static create(contractConfig: ContractConfig): BaalFactoryContract {
-    return new BaalFactoryContract(contractConfig);
+  static create(contractConfig: ContractConfig): BaalSummonerContract {
+    return new BaalSummonerContract(contractConfig);
   }
 
   public async summonBaalAndSafe(
     args: SummonArgs
   ): Promise<ethers.ContractTransaction> {
-    return await this.baalFactory.summonBaalAndSafe(
+    return await this.baalSummoner.summonBaalAndSafe(
       args.initializationParams,
       args.initializationActions,
       args._saltNonce
@@ -37,4 +37,4 @@ class BaalFactoryContract {
   }
 }
 
-export default BaalFactoryContract;
+export default BaalSummonerContract;

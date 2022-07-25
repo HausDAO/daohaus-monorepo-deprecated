@@ -1,3 +1,3 @@
 import BaalContract from './lib/BaalContract';
-import BaalFactoryContract from './lib/BaalFactoryContract';
-export { BaalContract, BaalFactoryContract };
+import BaalSummonerContract from './lib/BaalSummerContract';
+export { BaalContract, BaalSummonerContract };

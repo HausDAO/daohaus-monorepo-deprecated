@@ -2,9 +2,9 @@ kind: ethereum/contract
 name: Poster
 network:
 source:
-  address: ""
+  address: "0x000000000000cd17345801aa8147b8d3950260ff"
   abi: Poster
-  startBlock:
+  startBlock: 6918540
 mapping:
   kind: ethereum/events
   apiVersion: 0.0.5

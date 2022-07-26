@@ -17,4 +17,5 @@ export type FormLego = {
   fields: FieldLego[];
   log?: boolean;
   devtool?: boolean;
+  submitButtonText?: string;
 };

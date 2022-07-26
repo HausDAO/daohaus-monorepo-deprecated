@@ -27,7 +27,8 @@ export const FormBuilder = ({
   fields,
   onSubmit,
   log,
-  devtool = true,
+  devtool,
+  submitButtonText,
 }: FormBuilderProps) => {
   const methods = useForm({ mode: 'onChange' });
   const {
@@ -64,7 +65,10 @@ export const FormBuilder = ({
           ))}
           {log && <Logger />}
           {devtool && <DevTool control={control} />}
-          <FormFooter submitDisabled={submitDisabled} />
+          <FormFooter
+            submitDisabled={submitDisabled}
+            submitButtonText={submitButtonText}
+          />
         </form>
       </FormProvider>
     </FormLayout>

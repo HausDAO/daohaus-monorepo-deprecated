@@ -1,6 +1,5 @@
 import { Divider, H5, ParMd } from '../../atoms';
 import { StyledFormSegment } from './FormSegment.styles';
-import { Buildable } from '../../../types/formAndField';
 
 // REVIEW: No stories until there's a solid form sub-layout
 

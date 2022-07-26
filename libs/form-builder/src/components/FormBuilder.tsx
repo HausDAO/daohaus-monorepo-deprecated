@@ -1,13 +1,13 @@
-import { FormProvider, useForm, useWatch } from 'react-hook-form';
+import { useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
-import { FormLayout, WrappedInput } from '@daohaus/ui';
+import { FormLayout } from '@daohaus/ui';
 
 import { FormBuilderFactory } from './FormBuilderFactory';
 import { FormLego } from '../types/legoTypes';
 
 import { Logger } from './Logger';
 import { FormFooter } from './formFooter';
-import { useEffect, useState } from 'react';
 import { isValidNetwork } from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
@@ -33,7 +33,6 @@ export const FormBuilder = ({
   const {
     formState: { isValid },
     control,
-    watch,
   } = methods;
   const { chainId } = useHausConnect();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -56,7 +55,6 @@ export const FormBuilder = ({
           className="builder-inner-form"
           noValidate
         >
-          {/* <WrappedInput id="fuck" rules={{ required: 'Fuck' }} /> */}
           {fields?.map((field) => (
             <FormBuilderFactory
               key={field.id}
@@ -64,7 +62,8 @@ export const FormBuilder = ({
               disabled={isSubmitting}
             />
           ))}
-          <Logger />
+          {log && <Logger />}
+          {devtool && <DevTool control={control} />}
           <FormFooter submitDisabled={submitDisabled} />
         </form>
       </FormProvider>

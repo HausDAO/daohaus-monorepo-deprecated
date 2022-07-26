@@ -8,6 +8,7 @@
     "dao-data": "libs/dao-data",
     "dao-producer-job": "apps/dao-producer-job",
     "daohaus-connect-feature": "libs/daohaus-connect-feature",
+    "form-builder": "libs/form-builder",
     "hub-app": "apps/hub-app",
     "infra-chart-job": "libs/infra-chart/job",
     "infra-chart-ceramic": "libs/infra-chart/ceramic",

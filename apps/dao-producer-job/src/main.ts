@@ -27,16 +27,20 @@ const main = async () => {
   try {
     const haus = Haus.create();
     for (const networkId of networks) {
+			let resp
       console.log(`Starting network ${networkId.toString()}`);
-      const resp = await haus.query.listDaos({ networkId });
-      for (const dao of resp.items) {
-        console.log(`Pushing up dao ${dao.id}`);
-        producerQueue.add({
-          address: dao.id,
-          safeAddress: dao.safeAddress,
-          network: networkId,
-        });
-      }
+			do {
+				const nextPage = resp?.nextPaging ? {paging: resp.nextPaging} : {}
+        resp = await haus.query.listDaos({ networkId, ...nextPage});
+        for (const dao of resp.items) {
+          console.log(`Pushing up dao ${dao.id}`);
+          producerQueue.add({
+            address: dao.id,
+            safeAddress: dao.safeAddress,
+            network: networkId,
+          });
+			  } 
+			} while (resp.nextPaging)
     }
     console.log(`Job sleep for ${SLEEP_TIME} seconds`);
   } catch (e) {

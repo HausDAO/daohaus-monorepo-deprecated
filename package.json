@@ -93,20 +93,12 @@
     "@swc/jest": "^0.2.21",
     "@testing-library/react": "13.3.0",
     "@typechain/ethers-v5": "^10.0.0",
-<<<<<<< HEAD
-    "@types/jest": "27.4.1",
-    "@types/node": "18.0.0",
-    "@types/react": "18.0.14",
-    "@types/react-dom": "18.0.5",
-    "@types/react-is": "17.0.3",
-=======
     "@types/jest": "27.0.2",
     "@types/node": "16.11.7",
     "@types/numbro": "^1.9.3",
     "@types/react": "17.0.30",
     "@types/react-dom": "17.0.9",
     "@types/react-is": "17.0.2",
->>>>>>> origin/develop
     "@types/react-router-dom": "5.3.3",
     "@types/styled-components": "5.1.25",
     "@typescript-eslint/eslint-plugin": "5.30.7",

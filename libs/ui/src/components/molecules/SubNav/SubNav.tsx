@@ -77,11 +77,15 @@ export const SubNav = (props: SubNavProps) => {
                 </DropdownLink>
               }
               items={dropdownLinks.map((dropdownLink) => {
-                // const selected = location.pathname.includes(dropdownLink.href);
+                const selected = location.pathname.includes(dropdownLink.href);
                 return {
                   type: 'clickable',
                   content: (
-                    <NavLink key={dropdownLink.label} href={dropdownLink.href}>
+                    <NavLink
+                      key={dropdownLink.label}
+                      href={dropdownLink.href}
+                      selected={selected}
+                    >
                       {dropdownLink.label}
                     </NavLink>
                   ),

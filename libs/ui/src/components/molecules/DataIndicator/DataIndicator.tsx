@@ -1,5 +1,9 @@
-import { DataMd, DataXl, ParMd, ParSm, Tooltip } from '../../atoms';
-import { DataIndicatorContainer } from './DataIndicator.styles';
+import { DataMd, DataXl, Tooltip } from '../../atoms';
+import {
+  DataIndicatorContainer,
+  DataIndicatorLabelSm,
+  DataIndicatorLabelMd,
+} from './DataIndicator.styles';
 
 type DataIndicatorProps = {
   label: string;
@@ -17,9 +21,9 @@ export const DataIndicator = ({
   if (size === 'sm') {
     return (
       <DataIndicatorContainer>
-        <ParMd style={{ marginBottom: '0.5rem' }}>
+        <DataIndicatorLabelMd style={{ marginBottom: '0.5rem' }}>
           {label} {info && <Tooltip content={info} />}
-        </ParMd>
+        </DataIndicatorLabelMd>
         <DataMd>{data}</DataMd>
       </DataIndicatorContainer>
     );
@@ -27,9 +31,9 @@ export const DataIndicator = ({
 
   return (
     <DataIndicatorContainer>
-      <ParSm>
+      <DataIndicatorLabelSm>
         {label} {info && <Tooltip content={info} />}
-      </ParSm>
+      </DataIndicatorLabelSm>
       <DataXl>{data}</DataXl>
     </DataIndicatorContainer>
   );

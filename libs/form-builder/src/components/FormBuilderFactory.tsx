@@ -1,4 +1,5 @@
 import { WrappedInput } from '@daohaus/ui';
+import { useMemo } from 'react';
 import { RegisterOptions } from 'react-hook-form';
 import styled from 'styled-components';
 import { FieldLego } from '../types/legoTypes';
@@ -19,32 +20,30 @@ export const FormBuilderFactory = ({
   disabled?: boolean;
   rules?: RegisterOptions;
 }) => {
-  console.log('rules', rules);
-  // const GeneratedField = CoreFieldLookup[type];
-  // console.log('GeneratedField', GeneratedField);
-  //TS CHALLENGE
-  // While I am able to get intellisense
-  // on the legos and bind the 'type' with the props that get passed
-  // into the react component, TS does not seem to want to recognize
-  // that both args and type are derived from the same source, the
-  // actual component
+  //  Memoizing solves the 'switch-away' mega-bug that was
+  //  occuring because of the enumerator patttern selecting
+  //  a new instance of the component each render.
+  const GeneratedField = useMemo(() => {
+    const Component = CoreFieldLookup[type];
+    //TS CHALLENGE
+    // While I am able to get intellisense
+    // on the legos and bind the 'type' with the props that get passed
+    // into the react component, TS does not seem to want to recognize
+    // that both args and type are derived from the same source, the
+    // actual component
+    // @ts-expect-error: explanation above
+    return <Component {...props} full disabled={disabled} rules={rules} />;
+  }, [type, disabled, rules, props]);
 
-  if (type === 'input') {
-    return <WrappedInput {...props} rules={rules} />;
-  }
-  // const Component = () => (
-  //   // @ts-expect-error: explanation above
-  //   <GeneratedField {...props} full disabled={disabled} rules={rules} />
-  // );
-  // if (spacing) {
-  //   return (
-  //     <FieldSpacer>
-  //       <Component />
-  //     </FieldSpacer>
-  //   );
-  // }
-  // return <Component />;
-  return null;
+  return (
+    <span>
+      {spacing ? (
+        <FieldSpacer>{GeneratedField}</FieldSpacer>
+      ) : (
+        { GeneratedField }
+      )}
+    </span>
+  );
 };
 
 // Simiplified example of TS problem here.

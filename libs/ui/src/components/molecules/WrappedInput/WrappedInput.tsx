@@ -8,7 +8,7 @@ export const WrappedInput = ({ id, rules, ...props }: Buildable<Field>) => {
 
   return (
     <FieldWrapper {...props} id={id} rules={rules}>
-      <Input {...props} ref={register(rules)} id={id} />
+      <Input {...props} {...register(id, rules)} id={id} />
     </FieldWrapper>
   );
 };

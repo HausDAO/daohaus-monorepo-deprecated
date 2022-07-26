@@ -27,7 +27,7 @@ import { FieldError, useFormContext } from 'react-hook-form';
 // type FieldWrapperType = PrimitiveElement & PrimitiveWrapper & PrimitiveSizable;
 
 type HelperTextFactoryProps = {
-  error?: ErrorMessage;
+  error?: ErrorMessage | FieldError;
   warning?: WarningMessage;
   success?: SuccessMessage;
   helperText?: string;
@@ -49,7 +49,7 @@ export const FieldWrapper = ({
 }: Buildable<{ children: ReactNode }>) => {
   const classes = classNames({ long: long || address, full });
   const {
-    errors,
+    getFieldState,
     // formState: { errors },
     // getFieldState,
   } = useFormContext();
@@ -61,7 +61,7 @@ export const FieldWrapper = ({
 
   // const fieldError = getFieldState(id)?.error;
   // console.log('fieldError', fieldError);
-  const fieldError = errors[id];
+  const fieldError = getFieldState(id).error;
 
   return (
     <FieldWrapperBase className={classes}>

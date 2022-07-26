@@ -17,6 +17,7 @@ type Ref =
 
 export const Input = React.forwardRef((props: InputProps, ref: Ref) => {
   const {
+    id,
     long,
     full,
     icon,
@@ -36,7 +37,6 @@ export const Input = React.forwardRef((props: InputProps, ref: Ref) => {
     error,
     number: number || address,
   });
-
   if (icon) {
     const wrapperClasses = classNames({
       long: long || address,
@@ -46,9 +46,10 @@ export const Input = React.forwardRef((props: InputProps, ref: Ref) => {
     return (
       <WithIcon className={wrapperClasses}>
         <BaseInput
-          {...props}
+          name={id}
           className={`${inputClasses} ${className}`}
           ref={ref}
+          {...props}
         />
         <Icon size="2rem" />
       </WithIcon>
@@ -57,9 +58,10 @@ export const Input = React.forwardRef((props: InputProps, ref: Ref) => {
 
   return (
     <BaseInput
-      {...props}
+      name={id}
       className={`${inputClasses} ${className}`}
       ref={ref}
+      {...props}
     />
   );
 });

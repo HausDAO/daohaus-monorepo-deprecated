@@ -49,11 +49,20 @@ export const FieldWrapper = ({
 }: Buildable<{ children: ReactNode }>) => {
   const classes = classNames({ long: long || address, full });
   const {
-    formState: { errors },
+    errors,
+    // formState: { errors },
+    // getFieldState,
   } = useFormContext();
-  const contextError = errors[id].message;
 
-  console.log('contextError', contextError);
+  // console.log('errors', errors);
+  // const contextError = errors?.[id]?.message
+  //   ? { type: 'error', message: errors?.[id]?.message }
+  //   : null;
+
+  // const fieldError = getFieldState(id)?.error;
+  // console.log('fieldError', fieldError);
+  const fieldError = errors[id];
+  console.log('error', fieldError);
   return (
     <FieldWrapperBase className={classes}>
       <LabelContainer>
@@ -69,7 +78,7 @@ export const FieldWrapper = ({
       </LabelContainer>
       <div className="field-slot">{children}</div>
       <HelperTextFactory
-        error={contextError || error}
+        error={error || fieldError}
         success={success}
         warning={warning}
         helperText={helperText}

@@ -1,4 +1,4 @@
-import { FieldValues, RegisterOptions, UseFormReturn } from 'react-hook-form';
+import { RegisterOptions } from 'react-hook-form';
 import styled from 'styled-components';
 import { FieldLego } from '../types/legoTypes';
 import { CoreFieldLookup } from './CoreFieldLookup';
@@ -19,7 +19,7 @@ export const FormBuilderFactory = ({
   rules?: RegisterOptions;
 }) => {
   const GeneratedField = CoreFieldLookup[type];
-
+  // console.log('GeneratedField', GeneratedField);
   //TS CHALLENGE
   // While I am able to get intellisense
   // on the legos and bind the 'type' with the props that get passed
@@ -29,15 +29,15 @@ export const FormBuilderFactory = ({
 
   const Component = () => (
     // @ts-expect-error: explanation above
-    <GeneratedField {...props} full disabled={disabled} rules={rules} />
+    <GeneratedField {...props} full disabled={disabled} />
   );
-  if (spacing) {
-    return (
-      <FieldSpacer>
-        <Component />
-      </FieldSpacer>
-    );
-  }
+  // if (spacing) {
+  //   return (
+  //     <FieldSpacer>
+  //       <Component />
+  //     </FieldSpacer>
+  //   );
+  // }
   return <Component />;
 };
 

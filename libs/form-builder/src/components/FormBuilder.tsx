@@ -1,4 +1,4 @@
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm, useWatch } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import { FormLayout, WrappedInput } from '@daohaus/ui';
 
@@ -7,7 +7,7 @@ import { FormLego } from '../types/legoTypes';
 
 import { Logger } from './Logger';
 import { FormFooter } from './formFooter';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { isValidNetwork } from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
@@ -27,12 +27,13 @@ export const FormBuilder = ({
   fields,
   onSubmit,
   log,
-  devtool,
+  devtool = true,
 }: FormBuilderProps) => {
-  const methods = useForm({ mode: 'onTouched' });
+  const methods = useForm({ mode: 'onChange' });
   const {
     formState: { isValid },
     control,
+    watch,
   } = methods;
   const { chainId } = useHausConnect();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -55,7 +56,7 @@ export const FormBuilder = ({
           className="builder-inner-form"
           noValidate
         >
-          {log && <Logger />}
+          {/* <WrappedInput id="fuck" /> */}
           {fields?.map((field) => (
             <FormBuilderFactory
               key={field.id}
@@ -63,9 +64,9 @@ export const FormBuilder = ({
               disabled={isSubmitting}
             />
           ))}
+          <Logger />
           <FormFooter submitDisabled={submitDisabled} />
         </form>
-        {devtool && <DevTool control={control} />}
       </FormProvider>
     </FormLayout>
   );

@@ -29,19 +29,6 @@
         "command": "helm repo add bitnami https://charts.bitnami.com/bitnami",
         "cwd": "libs/infra-chart"
       }
-    },
-    "lint": {
-      "executor": "@nrwl/workspace:run-commands",
-      "options": {
-        "command": "helm lint ./job",
-        "cwd": "libs/infra-chart"
-      },
-      "dependsOn": [
-        {
-          "target": "build",
-          "projects": "self"
-        }
-      ]
     }
   },
   "tags": []

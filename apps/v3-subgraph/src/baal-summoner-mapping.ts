@@ -39,6 +39,7 @@ export function handleSummonBaal(event: SummonBaal): void {
   dao.activeMemberCount = constants.BIGINT_ZERO;
   dao.proposalCount = constants.BIGINT_ZERO;
   dao.members = [];
+  dao.existingSafe = event.params.existingSafe;
 
   dao.save();
 

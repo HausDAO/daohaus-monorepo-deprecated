@@ -3,10 +3,10 @@ import { RiArrowDropDownLine, RiMenuLine } from 'react-icons/ri';
 import { Align } from '@radix-ui/popper';
 import { useLocation } from 'react-router-dom';
 
-import { SubNavContainer, DropdownLink } from './SubNav.styles';
+import { SubNavContainer, DropdownLink, NavLink } from './SubNav.styles';
 import { useBreakpoint } from '../../../hooks/useMediaQuery';
 import { widthQuery } from '../../../theme/global/breakpoints';
-import { Button, Dropdown, Link } from '../../atoms';
+import { Button, Dropdown } from '../../atoms';
 
 type NavLinkType = {
   label: string;
@@ -57,17 +57,12 @@ export const SubNav = (props: SubNavProps) => {
         </div>
       ) : (
         <div className="nav-link-list">
-          {navLinks?.map((link) => {
-            const selected = location.pathname.includes(link?.href);
+          {navLinks.map((link) => {
+            const selected = location.pathname.includes(link.href);
             return (
-              <Link
-                linkType="navigation"
-                key={link?.label}
-                href={link?.href}
-                selected={selected}
-              >
+              <NavLink key={link.label} href={link.href} selected={selected}>
                 {link.label}
-              </Link>
+              </NavLink>
             );
           })}
           {dropdownLinks.length > 0 && (
@@ -82,12 +77,13 @@ export const SubNav = (props: SubNavProps) => {
                 </DropdownLink>
               }
               items={dropdownLinks.map((dropdownLink) => {
+                // const selected = location.pathname.includes(dropdownLink.href);
                 return {
                   type: 'clickable',
                   content: (
-                    <Link linkType="navigation" href={dropdownLink.href}>
+                    <NavLink key={dropdownLink.label} href={dropdownLink.href}>
                       {dropdownLink.label}
-                    </Link>
+                    </NavLink>
                   ),
                 };
               })}

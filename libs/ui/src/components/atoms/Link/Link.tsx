@@ -3,15 +3,14 @@ import classNames from 'classnames';
 import { IconType } from 'react-icons';
 import { RiExternalLinkLine } from 'react-icons/ri';
 
-import { InternalLink, ExternalLink, NavLink } from './Link.styles';
+import { InternalLink, ExternalLink } from './Link.styles';
 
 export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
   href?: string;
   Icon?: IconType;
-  isExternal?: boolean;
   selected?: boolean;
   disabled?: boolean;
-  linkType?: 'internal' | 'external' | 'navigation';
+  linkType?: 'internal' | 'external';
 }
 
 // TODO Better way to do types
@@ -22,18 +21,19 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       target = '_blank',
       linkType = 'internal',
       selected,
-      disabled = false,
+      disabled,
       Icon,
       className,
       children,
     },
     ref
   ) => {
+    const classes = classNames({ selected, disabled });
     if (linkType === 'external') {
       return (
         <ExternalLink
           href={href}
-          className={className}
+          className={`${classes} ${className}`}
           target={target}
           ref={ref}
         >
@@ -43,18 +43,8 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       );
     }
 
-    if (linkType === 'navigation') {
-      const classes = classNames({ selected });
-      return (
-        <NavLink to={href} className={`${classes} ${className}`} ref={ref}>
-          {children}
-          {Icon && <Icon />}
-        </NavLink>
-      );
-    }
-
     return (
-      <InternalLink to={href} className={className} ref={ref}>
+      <InternalLink to={href} className={`${classes} ${className}`} ref={ref}>
         {children}
         {Icon && <Icon />}
       </InternalLink>

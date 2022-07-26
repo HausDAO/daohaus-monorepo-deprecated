@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { Link } from '../../atoms';
+
 export const SubNavContainer = styled.div`
   width: '100%';
   height: 10rem;
@@ -42,6 +44,34 @@ export const DropdownLink = styled.button`
     color: white;
     border-bottom: 2px ${(props) => props.theme.subNav.navLinkColor} solid;
   }
+  &.subnav {
+    padding-bottom: 1rem;
+  }
+`;
+
+export const NavLink = styled(Link)`
+  border-bottom: 2px transparent solid;
+  color: ${(props) => props.theme.subNav.navLinkColor};
+  cursor: pointer;
+  font-size: 2.4rem;
+  letter-spacing: 1.5px;
+  padding-bottom: 1rem;
+  transition: 0.2s all;
+
+  svg {
+    margin-left: 0.3rem;
+  }
+
+  :hover {
+    color: ${(props) => props.theme.subNav.navLinkHoverColor};
+    text-decoration: none;
+  }
+
+  &.selected {
+    color: white;
+    border-bottom: 2px ${(props) => props.theme.subNav.navLinkColor} solid;
+  }
+
   &.subnav {
     padding-bottom: 1rem;
   }

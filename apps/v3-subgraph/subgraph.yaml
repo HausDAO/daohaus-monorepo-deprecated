@@ -1,4 +1,4 @@
-specVersion: 0.0.2
+specVersion: 0.0.4
 description: DAOHaus V3 Subgraph
 repository: https://github.com/hausdao/daohaus-v3-subgraph-sandbox
 schema:
@@ -8,9 +8,9 @@ dataSources:
     name: BaalSummoner
     network: goerli
     source:
-      address: '0x93ac67998B80692366c537D3537ea6640fc65c97'
+      address: '0x0C5fd8AAdF995e11E5Ac1CD72139Ee4fd72cDeFC'
       abi: BaalSummoner
-      startBlock: 7174863
+      startBlock: 7260411
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -21,7 +21,7 @@ dataSources:
         - name: BaalSummoner
           file: ./abis/BaalSummoner.json
       eventHandlers:
-        - event: SummonBaal(indexed address,indexed address,indexed address,address)
+        - event: SummonBaal(indexed address,indexed address,indexed address,address,bool)
           handler: handleSummonBaal
       file: ./src/baal-summoner-mapping.ts
   - kind: ethereum/contract
@@ -46,12 +46,12 @@ dataSources:
           handler: handleNewPost
       file: ./src/poster-mapping.ts
   - kind: ethereum/contract
-    name: TributeEscrow
+    name: TributeMinion
     network: goerli
     source:
-      address: '0x328F80e44592E017B1745B0B574dBaB0c8DFc5f0'
-      abi: TributeEscrow
-      startBlock: 6953708
+      address: '0x9C6f6e6E461FB1dB9761c960900A0Ae05B9786A7'
+      abi: TributeMinion
+      startBlock: 7290177
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -59,8 +59,8 @@ dataSources:
       entities:
         - Proposal
       abis:
-        - name: TributeEscrow
-          file: ./abis/TributeEscrow.json
+        - name: TributeMinion
+          file: ./abis/TributeMinion.json
         - name: Erc20
           file: ./abis/Erc20.json
         - name: Erc20Bytes32
@@ -68,7 +68,7 @@ dataSources:
       eventHandlers:
         - event: TributeProposal(indexed address,address,uint256,address,uint256)
           handler: handleTributeProposal
-      file: ./src/tribute-escrow-mapping.ts
+      file: ./src/tribute-minion-mapping.ts
 templates:
   - kind: ethereum/contract
     name: BaalTemplate
@@ -128,7 +128,7 @@ templates:
         - Member
       abis:
         - name: Shares
-          file: ./abis/SharesErc20.json
+          file: ./abis/Shares.json
       eventHandlers:
         - event: DelegateChanged(indexed address,indexed address,indexed address)
           handler: handleDelegateChanged
@@ -151,7 +151,7 @@ templates:
         - Member
       abis:
         - name: Loot
-          file: ./abis/LootErc20.json
+          file: ./abis/Loot.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleLootTransfer

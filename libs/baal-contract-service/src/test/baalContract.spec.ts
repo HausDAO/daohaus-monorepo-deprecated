@@ -3,7 +3,7 @@ import { BaalContract } from '../index';
 
 describe('baal contract sdk', () => {
   const contractConfig = {
-    address: '0x69fe2468a844ae30dfd3e49e9790347491999a03',
+    address: '0x0C5fd8AAdF995e11E5Ac1CD72139Ee4fd72cDeFC',
     chainId: 0x5,
     provider: new ethers.providers.JsonRpcProvider(),
   };

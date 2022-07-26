@@ -12,6 +12,5 @@ export const DataIndicatorLabelMd = styled(ParMd)`
 `;
 
 export const DataIndicatorLabelSm = styled(ParSm)`
-  margin-bottom: 0.5rem;
   opacity: 0.9;
 `;

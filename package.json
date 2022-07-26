@@ -14,7 +14,7 @@
     "@graphprotocol/graph-ts": "^0.27.0",
     "@graphql-codegen/typescript-graphql-request": "^4.4.5",
     "@nrwl/js": "14.4.3",
-    "@nxext/react": "^13.0.3",
+    "@nxext/react": "^14.0.1",
     "@radix-ui/colors": "^0.1.8",
     "@radix-ui/react-accessible-icon": "^0.1.4",
     "@radix-ui/react-avatar": "^0.1.4",

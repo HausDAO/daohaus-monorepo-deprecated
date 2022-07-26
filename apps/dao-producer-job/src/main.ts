@@ -27,11 +27,11 @@ const main = async () => {
   try {
     const haus = Haus.create();
     for (const networkId of networks) {
-			let resp
+      let resp;
       console.log(`Starting network ${networkId.toString()}`);
-			do {
-				const nextPage = resp?.nextPaging ? {paging: resp.nextPaging} : {}
-        resp = await haus.query.listDaos({ networkId, ...nextPage});
+      do {
+        const nextPage = resp?.nextPaging ? { paging: resp.nextPaging } : {};
+        resp = await haus.query.listDaos({ networkId, ...nextPage });
         for (const dao of resp.items) {
           console.log(`Pushing up dao ${dao.id}`);
           producerQueue.add({
@@ -39,8 +39,8 @@ const main = async () => {
             safeAddress: dao.safeAddress,
             network: networkId,
           });
-			  } 
-			} while (resp.nextPaging)
+        }
+      } while (resp.nextPaging);
     }
     console.log(`Job sleep for ${SLEEP_TIME} seconds`);
   } catch (e) {
@@ -49,6 +49,7 @@ const main = async () => {
 };
 
 const runner = async () => {
+  // eslint-disable-next-line no-constant-condition
   while (true) {
     await main();
     await sleep(SLEEP_TIME * 1000);

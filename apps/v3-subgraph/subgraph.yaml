@@ -21,7 +21,9 @@ dataSources:
         - name: BaalSummoner
           file: ./abis/BaalSummoner.json
       eventHandlers:
-        - event: SummonBaal(indexed address,indexed address,indexed address,address,bool)
+        - event: >-
+            SummonBaal(indexed address,indexed address,indexed
+            address,address,bool)
           handler: handleSummonBaal
       file: ./src/baal-summoner-mapping.ts
   - kind: ethereum/contract

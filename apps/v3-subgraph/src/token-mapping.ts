@@ -271,6 +271,7 @@ export function handleDelegateVotesChanged(event: DelegateVotesChanged): void {
     member = new Member(memberId);
     member.createdAt = event.block.timestamp.toString();
     member.dao = dao.id;
+    member.txHash = event.transaction.hash;
     member.memberAddress = event.params.delegate;
     member.delegatingTo = event.params.delegate;
     member.shares = constants.BIGINT_ZERO;

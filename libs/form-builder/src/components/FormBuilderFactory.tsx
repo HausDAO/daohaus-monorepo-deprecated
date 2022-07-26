@@ -1,3 +1,4 @@
+import { WrappedInput } from '@daohaus/ui';
 import { RegisterOptions } from 'react-hook-form';
 import styled from 'styled-components';
 import { FieldLego } from '../types/legoTypes';
@@ -18,7 +19,8 @@ export const FormBuilderFactory = ({
   disabled?: boolean;
   rules?: RegisterOptions;
 }) => {
-  const GeneratedField = CoreFieldLookup[type];
+  console.log('rules', rules);
+  // const GeneratedField = CoreFieldLookup[type];
   // console.log('GeneratedField', GeneratedField);
   //TS CHALLENGE
   // While I am able to get intellisense
@@ -27,10 +29,13 @@ export const FormBuilderFactory = ({
   // that both args and type are derived from the same source, the
   // actual component
 
-  const Component = () => (
-    // @ts-expect-error: explanation above
-    <GeneratedField {...props} full disabled={disabled} />
-  );
+  if (type === 'input') {
+    return <WrappedInput {...props} rules={rules} />;
+  }
+  // const Component = () => (
+  //   // @ts-expect-error: explanation above
+  //   <GeneratedField {...props} full disabled={disabled} rules={rules} />
+  // );
   // if (spacing) {
   //   return (
   //     <FieldSpacer>
@@ -38,7 +43,8 @@ export const FormBuilderFactory = ({
   //     </FieldSpacer>
   //   );
   // }
-  return <Component />;
+  // return <Component />;
+  return null;
 };
 
 // Simiplified example of TS problem here.

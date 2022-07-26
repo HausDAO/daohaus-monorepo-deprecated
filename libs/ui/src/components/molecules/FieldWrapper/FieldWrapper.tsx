@@ -62,7 +62,7 @@ export const FieldWrapper = ({
   // const fieldError = getFieldState(id)?.error;
   // console.log('fieldError', fieldError);
   const fieldError = errors[id];
-  console.log('error', fieldError);
+
   return (
     <FieldWrapperBase className={classes}>
       <LabelContainer>

@@ -58,6 +58,7 @@ export const Input = React.forwardRef((props: InputProps, ref: Ref) => {
 
   return (
     <BaseInput
+      key={id}
       name={id}
       className={`${inputClasses} ${className}`}
       ref={ref}

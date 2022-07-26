@@ -56,7 +56,7 @@ export const FormBuilder = ({
           className="builder-inner-form"
           noValidate
         >
-          {/* <WrappedInput id="fuck" /> */}
+          {/* <WrappedInput id="fuck" rules={{ required: 'Fuck' }} /> */}
           {fields?.map((field) => (
             <FormBuilderFactory
               key={field.id}

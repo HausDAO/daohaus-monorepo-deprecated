@@ -4,6 +4,7 @@ import { SplitColumn } from '@daohaus/ui';
 
 import { FieldLego } from '../types';
 import { FormBuilderFactory } from './FormBuilderFactory';
+
 type SplitColumnProps = {
   id: string;
   disabled?: boolean;

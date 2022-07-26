@@ -2,6 +2,7 @@ import { HausLayout } from '@daohaus/daohaus-connect-feature';
 import {
   FormBuilder,
   FormLego,
+  MetadataProposal,
   StandardFields,
 } from '@daohaus/haus-form-builder';
 
@@ -49,7 +50,7 @@ export function App() {
         { label: 'Members', href: '/members' },
       ]}
     >
-      <FormBuilder {...exampleFormLego} onSubmit={handleSubmit} />
+      <FormBuilder {...MetadataProposal} onSubmit={handleSubmit} />
     </HausLayout>
   );
 }

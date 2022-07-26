@@ -1,4 +1,3 @@
-import { WrappedInput } from '@daohaus/ui';
 import { useMemo } from 'react';
 import { RegisterOptions } from 'react-hook-form';
 import styled from 'styled-components';
@@ -36,13 +35,9 @@ export const FormBuilderFactory = ({
   }, [type, disabled, rules, props]);
 
   return (
-    <span>
-      {spacing ? (
-        <FieldSpacer>{GeneratedField}</FieldSpacer>
-      ) : (
-        { GeneratedField }
-      )}
-    </span>
+    // <span>
+    spacing ? <FieldSpacer>{GeneratedField}</FieldSpacer> : GeneratedField
+    // </span>
   );
 };
 

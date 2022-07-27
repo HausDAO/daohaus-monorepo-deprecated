@@ -27,7 +27,7 @@ declare module 'styled-components' {
     disabled: string;
     transparent: string;
     info: string;
-    subNav: {
+    navTabs: {
       bg: string;
       navLinkColor: string;
       navLinkHoverColor: string;

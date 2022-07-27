@@ -8,6 +8,11 @@ import {
 } from '../src/theme';
 
 export const parameters = {
+  options: {
+    storySort: {
+      order: ['Atoms', 'Molecules', 'Organisms', 'Layouts', '*', 'WIP'],
+    },
+  },
   backgrounds: {
     default: 'Dark',
     values: [

@@ -21,6 +21,7 @@ export type DropdownItem = {
   content: React.ReactNode;
   key?: string;
 };
+
 type DropdownProps = {
   trigger: React.ReactNode;
   items: DropdownItem[];
@@ -71,9 +72,8 @@ export const Dropdown = ({
                 {item.content}
               </DropdownLabel>
             );
-          }
+          } else return null;
         })}
-        ;
       </DropdownMenuContent>
     </DropdownMenu>
   );

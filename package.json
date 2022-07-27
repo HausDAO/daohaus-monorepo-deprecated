@@ -82,6 +82,8 @@
     "@graphql-codegen/typed-document-node": "^2.2.8",
     "@graphql-codegen/typescript": "^2.4.8",
     "@graphql-codegen/typescript-operations": "^2.3.5",
+    "@graphql-typed-document-node/core": "^3.1.1",
+    "@jscutlery/semver": "^2.25.2",
     "@nrwl/cli": "14.4.3",
     "@nrwl/cypress": "14.4.3",
     "@nrwl/devkit": "^14.4.3",

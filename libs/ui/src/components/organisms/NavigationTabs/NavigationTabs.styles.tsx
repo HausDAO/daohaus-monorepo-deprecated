@@ -19,7 +19,7 @@ export const NavigationTabsContainer = styled.div`
 `;
 
 // TODO Move to Button component as pre defined button style?
-export const DropdownLink = styled.button`
+export const DropdownLinkTrigger = styled.button`
   background-color: transparent;
   border: none;
   border-bottom: 2px transparent solid;
@@ -74,5 +74,32 @@ export const NavLink = styled(Link)`
 
   &.nav-tabs {
     padding-bottom: 1rem;
+  }
+`;
+
+export const DropdownLink = styled(Link)`
+  border-radius: 2px;
+  color: ${(props) => props.theme.navTabs.navLinkColor};
+  cursor: pointer;
+  font-size: 2.4rem;
+  letter-spacing: 1.5px;
+  padding: 1rem;
+  transition: 0.2s all;
+  width: 100%;
+
+  svg {
+    margin-left: 0.3rem;
+  }
+
+  :hover {
+    background-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBg};
+    border-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBorder};
+    text-decoration: none;
+  }
+
+  &.selected {
+    background-color: ${(props) => props.theme.navTabs.activeNavLinkDropdownBg};
+    border-color: ${(props) => props.theme.navTabs.activeNavLinkDropdownBorder};
+    color: ${(props) => props.theme.navTabs.navLinkSelected};
   }
 `;

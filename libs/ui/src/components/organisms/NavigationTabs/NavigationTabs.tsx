@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 
 import {
   NavigationTabsContainer,
+  DropdownLinkTrigger,
   DropdownLink,
   NavLink,
 } from './NavigationTabs.styles';
@@ -72,13 +73,13 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
               return {
                 type: 'clickable',
                 content: (
-                  <NavLink
+                  <DropdownLink
                     key={mobileLink.label}
                     href={mobileLink.href}
                     selected={selected}
                   >
                     {mobileLink.label}
-                  </NavLink>
+                  </DropdownLink>
                 ),
               };
             })}
@@ -100,23 +101,23 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
               align={dropdownMenuAlign}
               spacing={dropdownMenuSpacing}
               trigger={
-                <DropdownLink>
+                <DropdownLinkTrigger>
                   {dropdownTriggerText}
                   <RiArrowDropDownLine />
-                </DropdownLink>
+                </DropdownLinkTrigger>
               }
               items={dropdownLinks.map((dropdownLink) => {
                 const selected = location.pathname.includes(dropdownLink.href);
                 return {
                   type: 'clickable',
                   content: (
-                    <NavLink
+                    <DropdownLink
                       key={dropdownLink.label}
                       href={dropdownLink.href}
                       selected={selected}
                     >
                       {dropdownLink.label}
-                    </NavLink>
+                    </DropdownLink>
                   ),
                 };
               })}

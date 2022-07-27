@@ -30,8 +30,7 @@ export function handleSetupComplete(event: SetupComplete): void {
 
   let dao = Dao.load(daoId);
   if (dao === null) {
-    log.info('---no dao entity, {}', [daoId]);
-    return;
+    dao = new Dao(daoId);
   }
 
   dao.lootPaused = event.params.lootPaused;
@@ -51,8 +50,6 @@ export function handleSetupComplete(event: SetupComplete): void {
   dao.lootTokenSymbol = event.params.symbol.concat('-LOOT');
   dao.totalShares = event.params.totalShares;
   dao.totalLoot = event.params.totalLoot;
-
-  log.info('handleSetupComplete loot: {}', [dao.totalLoot.toString()]);
 
   let daoProfile = Record.load(daoId.concat('-record-summon'));
   if (daoProfile) {

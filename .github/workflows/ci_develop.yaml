@@ -18,31 +18,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      - name: Save kubeconfig
-        run: doctl kubernetes cluster kubeconfig save daohaus-staging-nyc3-1653325548883
-      - name: Create env file
-        run: |
-          touch .env
-          echo NX_RIVET_KEY=${{ secrets.RIVET_KEY }}  >> .env
-          echo VITE_RIVET_KEY=${{ secrets.RIVET_KEY }}  >> .env
-          echo CERAMIC_NETWORK=testnet-clay  >> .env
-          echo NODE_ENV=production  >> .env
-      - run: yarn install
-      - run: npm install -g nx
+      - uses: actions/checkout@v3
+      - name: Setup
+        uses: ./.github/actions/develop_setup
       - name: Lint mono
         run: nx affected:lint --base $BASE
       - name: Test mono

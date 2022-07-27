@@ -1,15 +1,17 @@
 name: Ci branch
 
+# for testing purposes, should not go in pr;
+# switch to master instead of develop
 on:
   pull_request:
     branches:
-      - 'master'
+      - 'develop'
   push:
     branches:
-      - 'master'
+      - 'develop'
 
 env:
-  BASE: ${{ github.ref == 'refs/heads/master' && 'origin/master~1' || 'origin/master' }}
+  BASE: ${{ github.ref == 'refs/heads/develop' && 'origin/develop~1' || 'origin/develop' }}
   SKYNET_JWT: ${{ secrets.SKYNET_JWT }}
   DAOHAUS_SUMMON_SKYNET_SEED: ${{ secrets.DAOHAUS_SUMMON_SKYNET_SEED }}
   DAOHAUS_HUB_SKYNET_SEED: ${{ secrets.DAOHAUS_HUB_SKYNET_SEED }}
@@ -37,6 +39,29 @@ jobs:
         run: NODE_OPTIONS=--experimental-vm-modules nx affected:test --base $BASE
       - name: Build mono
         run: nx affected:build --base $BASE
+        env:
+          NODE_AUTH_TOKEN: ${{ inputs.npm_token }}
+          GITHUB_TOKEN: ${{ inputs.github_token }}
+      - name: Version
+        env:
+          NODE_AUTH_TOKEN: ${{ inputs.npm_token }}
+          GITHUB_TOKEN: ${{ inputs.github_token }}
+        # Use npx instead of yarn because yarn automagically sets NPM_* environment variables
+        # like NPM_CONFIG_REGISTRY so npm publish ends up ignoring the .npmrc file
+        # which is set up by `setup-node` action.
+        shell: bash
+        run: npx nx affected --base=last-release --target=version
+      - name: Tag last-release
+        shell: bash
+        run: git tag -f last-release
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ inputs.github_token }}
+          branch: ${{ github.ref }}
+          force: true
+          tags: true
       - name: Deploy mono
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |

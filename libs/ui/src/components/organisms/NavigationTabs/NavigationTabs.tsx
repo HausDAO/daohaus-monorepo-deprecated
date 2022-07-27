@@ -52,13 +52,37 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
   const theme = useTheme();
   const location = useLocation();
   const isSm = useBreakpoint(widthQuery.sm);
+  const mobileLinks = [...navLinks, ...dropdownLinks];
+
   return (
     <NavigationTabsContainer className={className}>
       {isSm ? (
         <div className="mobile-box">
-          <Button tertiary IconLeft={RiMenuLine}>
-            Test
-          </Button>
+          <Dropdown
+            bg={theme.navTabs.bg}
+            align={dropdownMenuAlign}
+            spacing={dropdownMenuSpacing}
+            trigger={
+              <Button tertiary IconLeft={RiMenuLine}>
+                Mobile
+              </Button>
+            }
+            items={mobileLinks.map((mobileLink) => {
+              const selected = location.pathname.includes(mobileLink.href);
+              return {
+                type: 'clickable',
+                content: (
+                  <NavLink
+                    key={mobileLink.label}
+                    href={mobileLink.href}
+                    selected={selected}
+                  >
+                    {mobileLink.label}
+                  </NavLink>
+                ),
+              };
+            })}
+          />
         </div>
       ) : (
         <div className="nav-link-list">

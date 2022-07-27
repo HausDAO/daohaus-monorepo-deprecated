@@ -1,6 +1,6 @@
 import { FieldLego, FormLego } from '../types/legoTypes';
 
-const CommonFields: Record<string, FieldLego> = {
+export const CommonFields: Record<string, FieldLego> = {
   DAOContract: {
     type: 'input',
     id: 'DAOContract',

@@ -7,7 +7,6 @@ import { FormBuilderFactory } from './FormBuilderFactory';
 
 type SplitColumnProps = {
   id: string;
-  formData: FormRenderData;
   rows: { rowId: string; left: FieldLego; right: FieldLego }[];
 };
 
@@ -20,8 +19,10 @@ export const SplitColumnLayout = ({
       rows={rows.map(({ left, right, rowId }) => {
         return {
           rowId,
-          left: <FormBuilderFactory {...props} {...left} spacing={false} />,
-          right: <FormBuilderFactory {...props} {...right} spacing={false} />,
+          left: <FormBuilderFactory {...props} field={left} spacing={false} />,
+          right: (
+            <FormBuilderFactory {...props} field={right} spacing={false} />
+          ),
         };
       })}
     />

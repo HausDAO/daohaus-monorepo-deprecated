@@ -1,24 +1,41 @@
-import { createContext, ReactNode, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import { FormLego, RequiredFields } from '../types';
 import { FormProvider as RHFProvider, useForm } from 'react-hook-form';
 import { FormLayout } from '@daohaus/ui';
+import { isValidNetwork } from '@daohaus/common-utilities';
+import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+import { Logger } from './Logger';
+import { DevTool } from '@hookform/devtools';
+import { FormFooter } from './formFooter';
+import { FormBuilderFactory } from './FormBuilderFactory';
 
 type HausFormContext = {
+  form?: FormLego;
   requiredFields: RequiredFields;
-  disableForm: boolean;
+  formDisabled: boolean;
+  submitDisabled: boolean;
 };
 
 export const HausFormContext = createContext<HausFormContext>({
+  form: undefined,
   requiredFields: {},
-  disableForm: false,
+  formDisabled: false,
+  submitDisabled: false,
 });
 
 export const HausFormProvider = ({
-  children,
+  form,
+  onSubmit,
 }: {
-  children: ReactNode;
   form: FormLego;
+  onSubmit: (
+    formValues: Record<string, unknown>
+  ) => void | Promise<(formValues: Record<string, unknown>) => void>;
+  onCancel?: () => void;
+  onSuccess?: () => void;
+  onError?: () => void;
 }) => {
+  const { chainId } = useHausConnect();
   const methods = useForm({ mode: 'onChange' });
   const {
     formState: { isValid },
@@ -33,12 +50,21 @@ export const HausFormProvider = ({
     log,
     devtool,
     submitButtonText,
-    requiredFields,
+    requiredFields = {},
   } = form;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
+  const formDisabled = isSubmitting;
+
+  const handleTopLevelSubmit = async (formValues: Record<string, unknown>) => {
+    setIsSubmitting(true);
+    await onSubmit(formValues);
+    setIsSubmitting(false);
+  };
   return (
-    <HausFormContext.Provider value={{}}>
+    <HausFormContext.Provider
+      value={{ requiredFields, form, formDisabled, submitDisabled }}
+    >
       <RHFProvider {...methods}>
         <FormLayout title={title} subtitle={subtitle} description={description}>
           <form

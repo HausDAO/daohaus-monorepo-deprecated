@@ -1,10 +1,15 @@
 import { Buildable, FormSegment } from '@daohaus/ui';
 import React, { ComponentProps } from 'react';
-import { FieldLego } from '../types';
+import { FieldLego, FormRenderData } from '../types';
 import { FormBuilderFactory } from './FormBuilderFactory';
 
 type Props = Omit<
-  Buildable<ComponentProps<typeof FormSegment> & { fields: FieldLego[] }>,
+  Buildable<
+    ComponentProps<typeof FormSegment> & {
+      fields: FieldLego[];
+      formData?: FormRenderData;
+    }
+  >,
   'formArea'
 >;
 export const SegmentRender = (props: Props) => {
@@ -14,8 +19,8 @@ export const SegmentRender = (props: Props) => {
       formArea={props.fields.map((field) => (
         <FormBuilderFactory
           key={field.id}
-          disabled={field.disabled}
-          {...field}
+          field={field}
+          formData={props.formData}
         />
       ))}
     />

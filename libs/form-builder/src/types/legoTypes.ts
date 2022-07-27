@@ -25,7 +25,4 @@ export type FormLego = {
   submitButtonText?: string;
 };
 
-export type FormRenderData = {
-  disabled?: boolean;
-  requiredFields?: Record<string, boolean>;
-};
+export type RequiredFields = Record<string, boolean>;

@@ -10,23 +10,25 @@ const FieldSpacer = styled.div`
 `;
 
 export const FormBuilderFactory = ({
-  type,
   spacing = true,
-  formData,
-  ...field
-}: FieldLego & {
-  formData: FormRenderData;
+  field,
+}: {
+  field: FieldLego;
   spacing?: boolean;
-  rules?: RegisterOptions;
 }) => {
   //  Memoizing solves the 'switch-away' mega-bug that was
   //  occuring because of the enumerator patttern selecting
   //  a new instance of the component each render.
-  const { rules } = field;
+  const { rules, type } = field;
   const { disabled, requiredFields } = formData;
   const GeneratedField = useMemo(() => {
     const Component = CoreFieldLookup[type];
-    const newRules = generateRules({ oldRules: rules, requiredFields, field });
+
+    const newRules = generateRules({
+      field,
+      oldRules: rules || {},
+      requiredFields: requiredFields || {},
+    });
 
     //TS CHALLENGE
     // While I am able to get intellisense
@@ -36,21 +38,11 @@ export const FormBuilderFactory = ({
     // actual component
     return (
       // @ts-expect-error: explanation above
-      <Component
-        {...field}
-        full
-        disabled={disabled}
-        rules={rules}
-        formData={formData}
-      />
+      <Component {...field} full disabled={disabled} rules={newRules} />
     );
   }, [type, disabled, rules, field, formData, requiredFields]);
 
-  return (
-    // <span>
-    spacing ? <FieldSpacer>{GeneratedField}</FieldSpacer> : GeneratedField
-    // </span>
-  );
+  return spacing ? <FieldSpacer>{GeneratedField}</FieldSpacer> : GeneratedField;
 };
 
 // Simiplified example of TS problem here.

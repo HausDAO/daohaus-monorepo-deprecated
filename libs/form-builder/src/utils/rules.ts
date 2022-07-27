@@ -16,7 +16,7 @@ const pipe =
   (value: T) =>
     fns.reduce((acc, fn) => fn(acc), value);
 
-const createOptionsCheck =
+const createUpdaterFn =
   (option: keyof RegisterOptions) =>
   (newOptions: RegisterOptions) =>
   (oldOptions: RegisterOptions) =>
@@ -24,9 +24,9 @@ const createOptionsCheck =
       ? { ...oldOptions, [option]: newOptions[option] }
       : oldOptions;
 
-const checkMinLength = createOptionsCheck('minLength');
-const checkMaxLength = createOptionsCheck('maxLength');
-const checkRequired = createOptionsCheck('required');
+// const checkMinLength = createOptionsCheck('minLength');
+// const checkMaxLength = createOptionsCheck('maxLength');
+const updateRequired = createUpdaterFn('required');
 // const checkSetValue = createOptionsCheck('setValueAs');
 
 // export const createRegisterOptions = (rules: RegisterOptions) =>
@@ -88,19 +88,15 @@ const handleRequiredField = (
   isRequiredField(field, requiredFields) ? generateRequiredRule(field) : {};
 
 export const generateRules = ({
-  oldRules = {},
+  oldRules,
   field,
   requiredFields = {},
 }: {
-  oldRules?: RegisterOptions;
+  oldRules: RegisterOptions;
   field: FieldLego;
-  requiredFields?: Record<string, boolean>;
+  requiredFields: Record<string, boolean>;
 }) => {
-  const newRules = field.rules || {};
-
-  return pipe(
-    checkRequired(handleRequiredField(field, requiredFields)),
-    checkMinLength(newRules),
-    checkMaxLength(newRules)
-  )(oldRules);
+  return pipe(updateRequired(handleRequiredField(field, requiredFields)))(
+    oldRules
+  );
 };

@@ -13,7 +13,7 @@ mapping:
     - Member
   abis:
     - name: Loot
-      file: ./abis/LootErc20.json
+      file: ./abis/Loot.json
   eventHandlers:
     - event: 'Transfer(indexed address,indexed address,uint256)'
       handler: handleLootTransfer

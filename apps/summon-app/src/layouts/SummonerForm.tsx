@@ -68,7 +68,7 @@ export const SummonerForm = ({
 
       fireTransaction({
         txName: 'summonBaalAndSafe',
-        abi: LOCAL_ABI.BAAL_FACTORY,
+        abi: LOCAL_ABI.BAAL_SUMMONER,
         args: args,
         keychain: CONTRACTS.V3_FACTORY,
         lifeCycleFns: {
@@ -147,10 +147,13 @@ export const SummonerForm = ({
       >
         <div className="title-section">
           <H1>
-            <Bold>Summon a Baal.</Bold>
+            <Bold>Summon a DAO.</Bold>
           </H1>
           <ParMd>
-            Visit <Link href="">Docs</Link> for Help
+            Learn more about{' '}
+            <Link href="https://daohaus.mirror.xyz/U_JQtheSzdpRFqQwf9Ow3LgLNG0WMZ6ibAyrjWDu_fc">
+              Moloch v3
+            </Link>
           </ParMd>
         </div>
         <div>

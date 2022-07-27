@@ -13,7 +13,7 @@ import {
 } from './Radio.styles';
 import { Label } from '../Label/Label';
 
-export type RadioProps = { label: string; id?: string } & RadioGroupItemProps;
+export type RadioProps = { label: string; id: string } & RadioGroupItemProps;
 export type Props = {
   className?: string;
   radios: RadioProps[];

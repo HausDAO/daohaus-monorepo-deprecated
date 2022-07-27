@@ -16,7 +16,7 @@ export const AdvancedSegment = ({
         <SplitColumn
           rows={[
             {
-              rowID: 'advanced1',
+              rowId: 'advanced1',
               left: (
                 <WrappedInput
                   id={FORM_KEYS.QUORUM}
@@ -43,7 +43,7 @@ export const AdvancedSegment = ({
               ),
             },
             {
-              rowID: 'advanced2',
+              rowId: 'advanced2',
               left: (
                 <WrappedInput
                   id={FORM_KEYS.SPONSOR_THRESHOLD}

@@ -25,6 +25,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export interface BaalInterface extends utils.Interface {
@@ -35,6 +36,7 @@ export interface BaalInterface extends utils.Interface {
     "burnLoot(address[],uint256[])": FunctionFragment;
     "burnShares(address[],uint256[])": FunctionFragment;
     "cancelProposal(uint32)": FunctionFragment;
+    "encodeMultisend(bytes[],address)": FunctionFragment;
     "executeAsBaal(address,uint256,bytes)": FunctionFragment;
     "getCurrentVotes(address)": FunctionFragment;
     "getGuard()": FunctionFragment;
@@ -99,6 +101,7 @@ export interface BaalInterface extends utils.Interface {
       | "burnLoot"
       | "burnShares"
       | "cancelProposal"
+      | "encodeMultisend"
       | "executeAsBaal"
       | "getCurrentVotes"
       | "getGuard"
@@ -158,37 +161,45 @@ export interface BaalInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "adminLock", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "allowance",
-    values: [string, string]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "avatar", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "burnLoot",
-    values: [string[], BigNumberish[]]
+    values: [PromiseOrValue<string>[], PromiseOrValue<BigNumberish>[]]
   ): string;
   encodeFunctionData(
     functionFragment: "burnShares",
-    values: [string[], BigNumberish[]]
+    values: [PromiseOrValue<string>[], PromiseOrValue<BigNumberish>[]]
   ): string;
   encodeFunctionData(
     functionFragment: "cancelProposal",
-    values: [BigNumberish]
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "encodeMultisend",
+    values: [PromiseOrValue<BytesLike>[], PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "executeAsBaal",
-    values: [string, BigNumberish, BytesLike]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "getCurrentVotes",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "getGuard", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "getPriorVotes",
-    values: [string, BigNumberish]
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "getProposalStatus",
-    values: [BigNumberish]
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "governorLock",
@@ -201,11 +212,20 @@ export interface BaalInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "guard", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "hashOperation",
-    values: [BytesLike]
+    values: [PromiseOrValue<BytesLike>]
   ): string;
-  encodeFunctionData(functionFragment: "isAdmin", values: [string]): string;
-  encodeFunctionData(functionFragment: "isGovernor", values: [string]): string;
-  encodeFunctionData(functionFragment: "isManager", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "isAdmin",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "isGovernor",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "isManager",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "latestSponsoredProposalId",
     values?: undefined
@@ -230,7 +250,7 @@ export interface BaalInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "memberVoted",
-    values: [string, BigNumberish]
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "minRetentionPercent",
@@ -238,17 +258,20 @@ export interface BaalInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "mintLoot",
-    values: [string[], BigNumberish[]]
+    values: [PromiseOrValue<string>[], PromiseOrValue<BigNumberish>[]]
   ): string;
   encodeFunctionData(
     functionFragment: "mintShares",
-    values: [string[], BigNumberish[]]
+    values: [PromiseOrValue<string>[], PromiseOrValue<BigNumberish>[]]
   ): string;
-  encodeFunctionData(functionFragment: "nonces", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "nonces",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "processProposal",
-    values: [BigNumberish, BytesLike]
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
     functionFragment: "proposalCount",
@@ -260,7 +283,7 @@ export interface BaalInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "proposals",
-    values: [BigNumberish]
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "quorumPercent",
@@ -268,7 +291,12 @@ export interface BaalInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "ragequit",
-    values: [string, BigNumberish, BigNumberish, string[]]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>[]
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "renounceOwnership",
@@ -276,21 +304,36 @@ export interface BaalInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "setAdminConfig",
-    values: [boolean, boolean]
+    values: [PromiseOrValue<boolean>, PromiseOrValue<boolean>]
   ): string;
-  encodeFunctionData(functionFragment: "setAvatar", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "setAvatar",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "setGovernanceConfig",
-    values: [BytesLike]
+    values: [PromiseOrValue<BytesLike>]
   ): string;
-  encodeFunctionData(functionFragment: "setGuard", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "setGuard",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "setShamans",
-    values: [string[], BigNumberish[]]
+    values: [PromiseOrValue<string>[], PromiseOrValue<BigNumberish>[]]
   ): string;
-  encodeFunctionData(functionFragment: "setTarget", values: [string]): string;
-  encodeFunctionData(functionFragment: "setUp", values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: "shamans", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "setTarget",
+    values: [PromiseOrValue<string>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "setUp",
+    values: [PromiseOrValue<BytesLike>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "shamans",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "sharesPaused",
     values?: undefined
@@ -301,24 +344,36 @@ export interface BaalInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "sponsorProposal",
-    values: [BigNumberish]
+    values: [PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "sponsorThreshold",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "state", values: [BigNumberish]): string;
+  encodeFunctionData(
+    functionFragment: "state",
+    values: [PromiseOrValue<BigNumberish>]
+  ): string;
   encodeFunctionData(
     functionFragment: "submitProposal",
-    values: [BytesLike, BigNumberish, BigNumberish, string]
+    values: [
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "submitVote",
-    values: [BigNumberish, boolean]
+    values: [PromiseOrValue<BigNumberish>, PromiseOrValue<boolean>]
   ): string;
   encodeFunctionData(
     functionFragment: "submitVoteWithSig",
-    values: [BigNumberish, boolean, BytesLike]
+    values: [
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<boolean>,
+      PromiseOrValue<BytesLike>
+    ]
   ): string;
   encodeFunctionData(functionFragment: "target", values?: undefined): string;
   encodeFunctionData(functionFragment: "totalLoot", values?: undefined): string;
@@ -332,7 +387,7 @@ export interface BaalInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "votingPeriod",
@@ -346,6 +401,10 @@ export interface BaalInterface extends utils.Interface {
   decodeFunctionResult(functionFragment: "burnShares", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "cancelProposal",
+    data: BytesLike
+  ): Result;
+  decodeFunctionResult(
+    functionFragment: "encodeMultisend",
     data: BytesLike
   ): Result;
   decodeFunctionResult(
@@ -771,52 +830,58 @@ export interface Baal extends BaseContract {
     adminLock(overrides?: CallOverrides): Promise<[boolean]>;
 
     allowance(
-      arg0: string,
-      arg1: string,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
     avatar(overrides?: CallOverrides): Promise<[string]>;
 
     burnLoot(
-      from: string[],
-      amount: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      from: PromiseOrValue<string>[],
+      amount: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     burnShares(
-      from: string[],
-      amount: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      from: PromiseOrValue<string>[],
+      amount: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     cancelProposal(
-      id: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
+    encodeMultisend(
+      _calls: PromiseOrValue<BytesLike>[],
+      _target: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[string] & { encodedMultisend: string }>;
+
     executeAsBaal(
-      _to: string,
-      _value: BigNumberish,
-      _data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _to: PromiseOrValue<string>,
+      _value: PromiseOrValue<BigNumberish>,
+      _data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     getCurrentVotes(
-      account: string,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { votes: BigNumber }>;
 
     getGuard(overrides?: CallOverrides): Promise<[string] & { _guard: string }>;
 
     getPriorVotes(
-      account: string,
-      timeStamp: BigNumberish,
+      account: PromiseOrValue<string>,
+      timeStamp: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[BigNumber] & { votes: BigNumber }>;
 
     getProposalStatus(
-      id: BigNumberish,
+      id: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[[boolean, boolean, boolean, boolean]]>;
 
@@ -827,28 +892,37 @@ export interface Baal extends BaseContract {
     guard(overrides?: CallOverrides): Promise<[string]>;
 
     hashOperation(
-      _transactions: BytesLike,
+      _transactions: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<[string] & { hash: string }>;
 
-    isAdmin(shaman: string, overrides?: CallOverrides): Promise<[boolean]>;
+    isAdmin(
+      shaman: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
-    isGovernor(shaman: string, overrides?: CallOverrides): Promise<[boolean]>;
+    isGovernor(
+      shaman: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
-    isManager(shaman: string, overrides?: CallOverrides): Promise<[boolean]>;
+    isManager(
+      shaman: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[boolean]>;
 
     latestSponsoredProposalId(overrides?: CallOverrides): Promise<[number]>;
 
     lockAdmin(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     lockGovernor(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     lockManager(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     lootPaused(overrides?: CallOverrides): Promise<[boolean]>;
@@ -858,33 +932,36 @@ export interface Baal extends BaseContract {
     managerLock(overrides?: CallOverrides): Promise<[boolean]>;
 
     memberVoted(
-      arg0: string,
-      arg1: BigNumberish,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
     minRetentionPercent(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     mintLoot(
-      to: string[],
-      amount: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      to: PromiseOrValue<string>[],
+      amount: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     mintShares(
-      to: string[],
-      amount: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      to: PromiseOrValue<string>[],
+      amount: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    nonces(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    nonces(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     processProposal(
-      id: BigNumberish,
-      proposalData: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      id: PromiseOrValue<BigNumberish>,
+      proposalData: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     proposalCount(overrides?: CallOverrides): Promise<[number]>;
@@ -892,7 +969,7 @@ export interface Baal extends BaseContract {
     proposalOffering(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     proposals(
-      arg0: BigNumberish,
+      arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
       [
@@ -929,88 +1006,94 @@ export interface Baal extends BaseContract {
     quorumPercent(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     ragequit(
-      to: string,
-      sharesToBurn: BigNumberish,
-      lootToBurn: BigNumberish,
-      tokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      to: PromiseOrValue<string>,
+      sharesToBurn: PromiseOrValue<BigNumberish>,
+      lootToBurn: PromiseOrValue<BigNumberish>,
+      tokens: PromiseOrValue<string>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setAdminConfig(
-      pauseShares: boolean,
-      pauseLoot: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      pauseShares: PromiseOrValue<boolean>,
+      pauseLoot: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setAvatar(
-      _avatar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _avatar: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setGovernanceConfig(
-      _governanceConfig: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _governanceConfig: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setGuard(
-      _guard: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _guard: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setShamans(
-      _shamans: string[],
-      _permissions: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _shamans: PromiseOrValue<string>[],
+      _permissions: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setTarget(
-      _target: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _target: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setUp(
-      _initializationParams: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _initializationParams: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    shamans(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    shamans(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     sharesPaused(overrides?: CallOverrides): Promise<[boolean]>;
 
     sharesToken(overrides?: CallOverrides): Promise<[string]>;
 
     sponsorProposal(
-      id: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     sponsorThreshold(overrides?: CallOverrides): Promise<[BigNumber]>;
 
-    state(id: BigNumberish, overrides?: CallOverrides): Promise<[number]>;
+    state(
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<[number]>;
 
     submitProposal(
-      proposalData: BytesLike,
-      expiration: BigNumberish,
-      baalGas: BigNumberish,
-      details: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      proposalData: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
+      baalGas: PromiseOrValue<BigNumberish>,
+      details: PromiseOrValue<string>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     submitVote(
-      id: BigNumberish,
-      approved: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      id: PromiseOrValue<BigNumberish>,
+      approved: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     submitVoteWithSig(
-      id: BigNumberish,
-      approved: boolean,
-      signature: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      id: PromiseOrValue<BigNumberish>,
+      approved: PromiseOrValue<boolean>,
+      signature: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     target(overrides?: CallOverrides): Promise<[string]>;
@@ -1022,8 +1105,8 @@ export interface Baal extends BaseContract {
     totalSupply(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     votingPeriod(overrides?: CallOverrides): Promise<[number]>;
@@ -1032,52 +1115,58 @@ export interface Baal extends BaseContract {
   adminLock(overrides?: CallOverrides): Promise<boolean>;
 
   allowance(
-    arg0: string,
-    arg1: string,
+    arg0: PromiseOrValue<string>,
+    arg1: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   avatar(overrides?: CallOverrides): Promise<string>;
 
   burnLoot(
-    from: string[],
-    amount: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    from: PromiseOrValue<string>[],
+    amount: PromiseOrValue<BigNumberish>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   burnShares(
-    from: string[],
-    amount: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    from: PromiseOrValue<string>[],
+    amount: PromiseOrValue<BigNumberish>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   cancelProposal(
-    id: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    id: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
+  encodeMultisend(
+    _calls: PromiseOrValue<BytesLike>[],
+    _target: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<string>;
+
   executeAsBaal(
-    _to: string,
-    _value: BigNumberish,
-    _data: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _to: PromiseOrValue<string>,
+    _value: PromiseOrValue<BigNumberish>,
+    _data: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   getCurrentVotes(
-    account: string,
+    account: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   getGuard(overrides?: CallOverrides): Promise<string>;
 
   getPriorVotes(
-    account: string,
-    timeStamp: BigNumberish,
+    account: PromiseOrValue<string>,
+    timeStamp: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
   getProposalStatus(
-    id: BigNumberish,
+    id: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<[boolean, boolean, boolean, boolean]>;
 
@@ -1088,28 +1177,37 @@ export interface Baal extends BaseContract {
   guard(overrides?: CallOverrides): Promise<string>;
 
   hashOperation(
-    _transactions: BytesLike,
+    _transactions: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<string>;
 
-  isAdmin(shaman: string, overrides?: CallOverrides): Promise<boolean>;
+  isAdmin(
+    shaman: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
-  isGovernor(shaman: string, overrides?: CallOverrides): Promise<boolean>;
+  isGovernor(
+    shaman: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
-  isManager(shaman: string, overrides?: CallOverrides): Promise<boolean>;
+  isManager(
+    shaman: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   latestSponsoredProposalId(overrides?: CallOverrides): Promise<number>;
 
   lockAdmin(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   lockGovernor(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   lockManager(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   lootPaused(overrides?: CallOverrides): Promise<boolean>;
@@ -1119,33 +1217,36 @@ export interface Baal extends BaseContract {
   managerLock(overrides?: CallOverrides): Promise<boolean>;
 
   memberVoted(
-    arg0: string,
-    arg1: BigNumberish,
+    arg0: PromiseOrValue<string>,
+    arg1: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
   minRetentionPercent(overrides?: CallOverrides): Promise<BigNumber>;
 
   mintLoot(
-    to: string[],
-    amount: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    to: PromiseOrValue<string>[],
+    amount: PromiseOrValue<BigNumberish>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   mintShares(
-    to: string[],
-    amount: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    to: PromiseOrValue<string>[],
+    amount: PromiseOrValue<BigNumberish>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  nonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+  nonces(
+    arg0: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
   processProposal(
-    id: BigNumberish,
-    proposalData: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    id: PromiseOrValue<BigNumberish>,
+    proposalData: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   proposalCount(overrides?: CallOverrides): Promise<number>;
@@ -1153,7 +1254,7 @@ export interface Baal extends BaseContract {
   proposalOffering(overrides?: CallOverrides): Promise<BigNumber>;
 
   proposals(
-    arg0: BigNumberish,
+    arg0: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<
     [
@@ -1190,88 +1291,94 @@ export interface Baal extends BaseContract {
   quorumPercent(overrides?: CallOverrides): Promise<BigNumber>;
 
   ragequit(
-    to: string,
-    sharesToBurn: BigNumberish,
-    lootToBurn: BigNumberish,
-    tokens: string[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    to: PromiseOrValue<string>,
+    sharesToBurn: PromiseOrValue<BigNumberish>,
+    lootToBurn: PromiseOrValue<BigNumberish>,
+    tokens: PromiseOrValue<string>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   renounceOwnership(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setAdminConfig(
-    pauseShares: boolean,
-    pauseLoot: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    pauseShares: PromiseOrValue<boolean>,
+    pauseLoot: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setAvatar(
-    _avatar: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _avatar: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setGovernanceConfig(
-    _governanceConfig: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _governanceConfig: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setGuard(
-    _guard: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _guard: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setShamans(
-    _shamans: string[],
-    _permissions: BigNumberish[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _shamans: PromiseOrValue<string>[],
+    _permissions: PromiseOrValue<BigNumberish>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setTarget(
-    _target: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _target: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setUp(
-    _initializationParams: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _initializationParams: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  shamans(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+  shamans(
+    arg0: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   sharesPaused(overrides?: CallOverrides): Promise<boolean>;
 
   sharesToken(overrides?: CallOverrides): Promise<string>;
 
   sponsorProposal(
-    id: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    id: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   sponsorThreshold(overrides?: CallOverrides): Promise<BigNumber>;
 
-  state(id: BigNumberish, overrides?: CallOverrides): Promise<number>;
+  state(
+    id: PromiseOrValue<BigNumberish>,
+    overrides?: CallOverrides
+  ): Promise<number>;
 
   submitProposal(
-    proposalData: BytesLike,
-    expiration: BigNumberish,
-    baalGas: BigNumberish,
-    details: string,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
+    proposalData: PromiseOrValue<BytesLike>,
+    expiration: PromiseOrValue<BigNumberish>,
+    baalGas: PromiseOrValue<BigNumberish>,
+    details: PromiseOrValue<string>,
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   submitVote(
-    id: BigNumberish,
-    approved: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    id: PromiseOrValue<BigNumberish>,
+    approved: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   submitVoteWithSig(
-    id: BigNumberish,
-    approved: boolean,
-    signature: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    id: PromiseOrValue<BigNumberish>,
+    approved: PromiseOrValue<boolean>,
+    signature: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   target(overrides?: CallOverrides): Promise<string>;
@@ -1283,8 +1390,8 @@ export interface Baal extends BaseContract {
   totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
   transferOwnership(
-    newOwner: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    newOwner: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   votingPeriod(overrides?: CallOverrides): Promise<number>;
@@ -1293,49 +1400,58 @@ export interface Baal extends BaseContract {
     adminLock(overrides?: CallOverrides): Promise<boolean>;
 
     allowance(
-      arg0: string,
-      arg1: string,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     avatar(overrides?: CallOverrides): Promise<string>;
 
     burnLoot(
-      from: string[],
-      amount: BigNumberish[],
+      from: PromiseOrValue<string>[],
+      amount: PromiseOrValue<BigNumberish>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
     burnShares(
-      from: string[],
-      amount: BigNumberish[],
+      from: PromiseOrValue<string>[],
+      amount: PromiseOrValue<BigNumberish>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
-    cancelProposal(id: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    cancelProposal(
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
+
+    encodeMultisend(
+      _calls: PromiseOrValue<BytesLike>[],
+      _target: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
     executeAsBaal(
-      _to: string,
-      _value: BigNumberish,
-      _data: BytesLike,
+      _to: PromiseOrValue<string>,
+      _value: PromiseOrValue<BigNumberish>,
+      _data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     getCurrentVotes(
-      account: string,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getGuard(overrides?: CallOverrides): Promise<string>;
 
     getPriorVotes(
-      account: string,
-      timeStamp: BigNumberish,
+      account: PromiseOrValue<string>,
+      timeStamp: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getProposalStatus(
-      id: BigNumberish,
+      id: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<[boolean, boolean, boolean, boolean]>;
 
@@ -1346,15 +1462,24 @@ export interface Baal extends BaseContract {
     guard(overrides?: CallOverrides): Promise<string>;
 
     hashOperation(
-      _transactions: BytesLike,
+      _transactions: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<string>;
 
-    isAdmin(shaman: string, overrides?: CallOverrides): Promise<boolean>;
+    isAdmin(
+      shaman: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
-    isGovernor(shaman: string, overrides?: CallOverrides): Promise<boolean>;
+    isGovernor(
+      shaman: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
-    isManager(shaman: string, overrides?: CallOverrides): Promise<boolean>;
+    isManager(
+      shaman: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
     latestSponsoredProposalId(overrides?: CallOverrides): Promise<number>;
 
@@ -1371,32 +1496,35 @@ export interface Baal extends BaseContract {
     managerLock(overrides?: CallOverrides): Promise<boolean>;
 
     memberVoted(
-      arg0: string,
-      arg1: BigNumberish,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
     minRetentionPercent(overrides?: CallOverrides): Promise<BigNumber>;
 
     mintLoot(
-      to: string[],
-      amount: BigNumberish[],
+      to: PromiseOrValue<string>[],
+      amount: PromiseOrValue<BigNumberish>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
     mintShares(
-      to: string[],
-      amount: BigNumberish[],
+      to: PromiseOrValue<string>[],
+      amount: PromiseOrValue<BigNumberish>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
-    nonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    nonces(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<string>;
 
     processProposal(
-      id: BigNumberish,
-      proposalData: BytesLike,
+      id: PromiseOrValue<BigNumberish>,
+      proposalData: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1405,7 +1533,7 @@ export interface Baal extends BaseContract {
     proposalOffering(overrides?: CallOverrides): Promise<BigNumber>;
 
     proposals(
-      arg0: BigNumberish,
+      arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
       [
@@ -1442,73 +1570,91 @@ export interface Baal extends BaseContract {
     quorumPercent(overrides?: CallOverrides): Promise<BigNumber>;
 
     ragequit(
-      to: string,
-      sharesToBurn: BigNumberish,
-      lootToBurn: BigNumberish,
-      tokens: string[],
+      to: PromiseOrValue<string>,
+      sharesToBurn: PromiseOrValue<BigNumberish>,
+      lootToBurn: PromiseOrValue<BigNumberish>,
+      tokens: PromiseOrValue<string>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
     setAdminConfig(
-      pauseShares: boolean,
-      pauseLoot: boolean,
+      pauseShares: PromiseOrValue<boolean>,
+      pauseLoot: PromiseOrValue<boolean>,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setAvatar(_avatar: string, overrides?: CallOverrides): Promise<void>;
+    setAvatar(
+      _avatar: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     setGovernanceConfig(
-      _governanceConfig: BytesLike,
+      _governanceConfig: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setGuard(_guard: string, overrides?: CallOverrides): Promise<void>;
+    setGuard(
+      _guard: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     setShamans(
-      _shamans: string[],
-      _permissions: BigNumberish[],
+      _shamans: PromiseOrValue<string>[],
+      _permissions: PromiseOrValue<BigNumberish>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setTarget(_target: string, overrides?: CallOverrides): Promise<void>;
+    setTarget(
+      _target: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     setUp(
-      _initializationParams: BytesLike,
+      _initializationParams: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    shamans(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    shamans(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     sharesPaused(overrides?: CallOverrides): Promise<boolean>;
 
     sharesToken(overrides?: CallOverrides): Promise<string>;
 
-    sponsorProposal(id: BigNumberish, overrides?: CallOverrides): Promise<void>;
+    sponsorProposal(
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     sponsorThreshold(overrides?: CallOverrides): Promise<BigNumber>;
 
-    state(id: BigNumberish, overrides?: CallOverrides): Promise<number>;
+    state(
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<number>;
 
     submitProposal(
-      proposalData: BytesLike,
-      expiration: BigNumberish,
-      baalGas: BigNumberish,
-      details: string,
+      proposalData: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
+      baalGas: PromiseOrValue<BigNumberish>,
+      details: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     submitVote(
-      id: BigNumberish,
-      approved: boolean,
+      id: PromiseOrValue<BigNumberish>,
+      approved: PromiseOrValue<boolean>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     submitVoteWithSig(
-      id: BigNumberish,
-      approved: boolean,
-      signature: BytesLike,
+      id: PromiseOrValue<BigNumberish>,
+      approved: PromiseOrValue<boolean>,
+      signature: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1521,7 +1667,7 @@ export interface Baal extends BaseContract {
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     transferOwnership(
-      newOwner: string,
+      newOwner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -1530,29 +1676,31 @@ export interface Baal extends BaseContract {
 
   filters: {
     "Approval(address,address,uint256)"(
-      owner?: string | null,
-      spender?: string | null,
+      owner?: PromiseOrValue<string> | null,
+      spender?: PromiseOrValue<string> | null,
       amount?: null
     ): ApprovalEventFilter;
     Approval(
-      owner?: string | null,
-      spender?: string | null,
+      owner?: PromiseOrValue<string> | null,
+      spender?: PromiseOrValue<string> | null,
       amount?: null
     ): ApprovalEventFilter;
 
     "AvatarSet(address,address)"(
-      previousAvatar?: string | null,
-      newAvatar?: string | null
+      previousAvatar?: PromiseOrValue<string> | null,
+      newAvatar?: PromiseOrValue<string> | null
     ): AvatarSetEventFilter;
     AvatarSet(
-      previousAvatar?: string | null,
-      newAvatar?: string | null
+      previousAvatar?: PromiseOrValue<string> | null,
+      newAvatar?: PromiseOrValue<string> | null
     ): AvatarSetEventFilter;
 
     "CancelProposal(uint256)"(
-      proposal?: BigNumberish | null
+      proposal?: PromiseOrValue<BigNumberish> | null
     ): CancelProposalEventFilter;
-    CancelProposal(proposal?: BigNumberish | null): CancelProposalEventFilter;
+    CancelProposal(
+      proposal?: PromiseOrValue<BigNumberish> | null
+    ): CancelProposalEventFilter;
 
     "ChangedGuard(address)"(guard?: null): ChangedGuardEventFilter;
     ChangedGuard(guard?: null): ChangedGuardEventFilter;
@@ -1578,37 +1726,37 @@ export interface Baal extends BaseContract {
     LootPaused(paused?: null): LootPausedEventFilter;
 
     "OwnershipTransferred(address,address)"(
-      previousOwner?: string | null,
-      newOwner?: string | null
+      previousOwner?: PromiseOrValue<string> | null,
+      newOwner?: PromiseOrValue<string> | null
     ): OwnershipTransferredEventFilter;
     OwnershipTransferred(
-      previousOwner?: string | null,
-      newOwner?: string | null
+      previousOwner?: PromiseOrValue<string> | null,
+      newOwner?: PromiseOrValue<string> | null
     ): OwnershipTransferredEventFilter;
 
     "ProcessProposal(uint256,bool,bool)"(
-      proposal?: BigNumberish | null,
+      proposal?: PromiseOrValue<BigNumberish> | null,
       passed?: null,
       actionFailed?: null
     ): ProcessProposalEventFilter;
     ProcessProposal(
-      proposal?: BigNumberish | null,
+      proposal?: PromiseOrValue<BigNumberish> | null,
       passed?: null,
       actionFailed?: null
     ): ProcessProposalEventFilter;
 
     "Ragequit(address,address,uint256,uint256,address[])"(
-      member?: string | null,
+      member?: PromiseOrValue<string> | null,
       to?: null,
-      lootToBurn?: BigNumberish | null,
-      sharesToBurn?: BigNumberish | null,
+      lootToBurn?: PromiseOrValue<BigNumberish> | null,
+      sharesToBurn?: PromiseOrValue<BigNumberish> | null,
       tokens?: null
     ): RagequitEventFilter;
     Ragequit(
-      member?: string | null,
+      member?: PromiseOrValue<string> | null,
       to?: null,
-      lootToBurn?: BigNumberish | null,
-      sharesToBurn?: BigNumberish | null,
+      lootToBurn?: PromiseOrValue<BigNumberish> | null,
+      sharesToBurn?: PromiseOrValue<BigNumberish> | null,
       tokens?: null
     ): RagequitEventFilter;
 
@@ -1642,28 +1790,31 @@ export interface Baal extends BaseContract {
     ): SetupCompleteEventFilter;
 
     "ShamanSet(address,uint256)"(
-      shaman?: string | null,
+      shaman?: PromiseOrValue<string> | null,
       permission?: null
     ): ShamanSetEventFilter;
-    ShamanSet(shaman?: string | null, permission?: null): ShamanSetEventFilter;
+    ShamanSet(
+      shaman?: PromiseOrValue<string> | null,
+      permission?: null
+    ): ShamanSetEventFilter;
 
     "SharesPaused(bool)"(paused?: null): SharesPausedEventFilter;
     SharesPaused(paused?: null): SharesPausedEventFilter;
 
     "SponsorProposal(address,uint256,uint256)"(
-      member?: string | null,
-      proposal?: BigNumberish | null,
-      votingStarts?: BigNumberish | null
+      member?: PromiseOrValue<string> | null,
+      proposal?: PromiseOrValue<BigNumberish> | null,
+      votingStarts?: PromiseOrValue<BigNumberish> | null
     ): SponsorProposalEventFilter;
     SponsorProposal(
-      member?: string | null,
-      proposal?: BigNumberish | null,
-      votingStarts?: BigNumberish | null
+      member?: PromiseOrValue<string> | null,
+      proposal?: PromiseOrValue<BigNumberish> | null,
+      votingStarts?: PromiseOrValue<BigNumberish> | null
     ): SponsorProposalEventFilter;
 
     "SubmitProposal(uint256,bytes32,uint256,bytes,uint256,uint256,bool,uint256,string)"(
-      proposal?: BigNumberish | null,
-      proposalDataHash?: BytesLike | null,
+      proposal?: PromiseOrValue<BigNumberish> | null,
+      proposalDataHash?: PromiseOrValue<BytesLike> | null,
       votingPeriod?: null,
       proposalData?: null,
       expiration?: null,
@@ -1673,8 +1824,8 @@ export interface Baal extends BaseContract {
       details?: null
     ): SubmitProposalEventFilter;
     SubmitProposal(
-      proposal?: BigNumberish | null,
-      proposalDataHash?: BytesLike | null,
+      proposal?: PromiseOrValue<BigNumberish> | null,
+      proposalDataHash?: PromiseOrValue<BytesLike> | null,
       votingPeriod?: null,
       proposalData?: null,
       expiration?: null,
@@ -1685,25 +1836,25 @@ export interface Baal extends BaseContract {
     ): SubmitProposalEventFilter;
 
     "SubmitVote(address,uint256,uint256,bool)"(
-      member?: string | null,
+      member?: PromiseOrValue<string> | null,
       balance?: null,
-      proposal?: BigNumberish | null,
-      approved?: boolean | null
+      proposal?: PromiseOrValue<BigNumberish> | null,
+      approved?: PromiseOrValue<boolean> | null
     ): SubmitVoteEventFilter;
     SubmitVote(
-      member?: string | null,
+      member?: PromiseOrValue<string> | null,
       balance?: null,
-      proposal?: BigNumberish | null,
-      approved?: boolean | null
+      proposal?: PromiseOrValue<BigNumberish> | null,
+      approved?: PromiseOrValue<boolean> | null
     ): SubmitVoteEventFilter;
 
     "TargetSet(address,address)"(
-      previousTarget?: string | null,
-      newTarget?: string | null
+      previousTarget?: PromiseOrValue<string> | null,
+      newTarget?: PromiseOrValue<string> | null
     ): TargetSetEventFilter;
     TargetSet(
-      previousTarget?: string | null,
-      newTarget?: string | null
+      previousTarget?: PromiseOrValue<string> | null,
+      newTarget?: PromiseOrValue<string> | null
     ): TargetSetEventFilter;
   };
 
@@ -1711,52 +1862,58 @@ export interface Baal extends BaseContract {
     adminLock(overrides?: CallOverrides): Promise<BigNumber>;
 
     allowance(
-      arg0: string,
-      arg1: string,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     avatar(overrides?: CallOverrides): Promise<BigNumber>;
 
     burnLoot(
-      from: string[],
-      amount: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      from: PromiseOrValue<string>[],
+      amount: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     burnShares(
-      from: string[],
-      amount: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      from: PromiseOrValue<string>[],
+      amount: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     cancelProposal(
-      id: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<BigNumber>;
+
+    encodeMultisend(
+      _calls: PromiseOrValue<BytesLike>[],
+      _target: PromiseOrValue<string>,
+      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     executeAsBaal(
-      _to: string,
-      _value: BigNumberish,
-      _data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _to: PromiseOrValue<string>,
+      _value: PromiseOrValue<BigNumberish>,
+      _data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     getCurrentVotes(
-      account: string,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getGuard(overrides?: CallOverrides): Promise<BigNumber>;
 
     getPriorVotes(
-      account: string,
-      timeStamp: BigNumberish,
+      account: PromiseOrValue<string>,
+      timeStamp: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     getProposalStatus(
-      id: BigNumberish,
+      id: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -1767,28 +1924,37 @@ export interface Baal extends BaseContract {
     guard(overrides?: CallOverrides): Promise<BigNumber>;
 
     hashOperation(
-      _transactions: BytesLike,
+      _transactions: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    isAdmin(shaman: string, overrides?: CallOverrides): Promise<BigNumber>;
+    isAdmin(
+      shaman: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    isGovernor(shaman: string, overrides?: CallOverrides): Promise<BigNumber>;
+    isGovernor(
+      shaman: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    isManager(shaman: string, overrides?: CallOverrides): Promise<BigNumber>;
+    isManager(
+      shaman: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     latestSponsoredProposalId(overrides?: CallOverrides): Promise<BigNumber>;
 
     lockAdmin(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     lockGovernor(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     lockManager(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     lootPaused(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1798,33 +1964,36 @@ export interface Baal extends BaseContract {
     managerLock(overrides?: CallOverrides): Promise<BigNumber>;
 
     memberVoted(
-      arg0: string,
-      arg1: BigNumberish,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     minRetentionPercent(overrides?: CallOverrides): Promise<BigNumber>;
 
     mintLoot(
-      to: string[],
-      amount: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      to: PromiseOrValue<string>[],
+      amount: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     mintShares(
-      to: string[],
-      amount: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      to: PromiseOrValue<string>[],
+      amount: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    nonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    nonces(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     processProposal(
-      id: BigNumberish,
-      proposalData: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      id: PromiseOrValue<BigNumberish>,
+      proposalData: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     proposalCount(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1832,95 +2001,101 @@ export interface Baal extends BaseContract {
     proposalOffering(overrides?: CallOverrides): Promise<BigNumber>;
 
     proposals(
-      arg0: BigNumberish,
+      arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     quorumPercent(overrides?: CallOverrides): Promise<BigNumber>;
 
     ragequit(
-      to: string,
-      sharesToBurn: BigNumberish,
-      lootToBurn: BigNumberish,
-      tokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      to: PromiseOrValue<string>,
+      sharesToBurn: PromiseOrValue<BigNumberish>,
+      lootToBurn: PromiseOrValue<BigNumberish>,
+      tokens: PromiseOrValue<string>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setAdminConfig(
-      pauseShares: boolean,
-      pauseLoot: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      pauseShares: PromiseOrValue<boolean>,
+      pauseLoot: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setAvatar(
-      _avatar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _avatar: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setGovernanceConfig(
-      _governanceConfig: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _governanceConfig: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setGuard(
-      _guard: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _guard: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setShamans(
-      _shamans: string[],
-      _permissions: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _shamans: PromiseOrValue<string>[],
+      _permissions: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setTarget(
-      _target: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _target: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setUp(
-      _initializationParams: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _initializationParams: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    shamans(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    shamans(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     sharesPaused(overrides?: CallOverrides): Promise<BigNumber>;
 
     sharesToken(overrides?: CallOverrides): Promise<BigNumber>;
 
     sponsorProposal(
-      id: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     sponsorThreshold(overrides?: CallOverrides): Promise<BigNumber>;
 
-    state(id: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+    state(
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     submitProposal(
-      proposalData: BytesLike,
-      expiration: BigNumberish,
-      baalGas: BigNumberish,
-      details: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      proposalData: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
+      baalGas: PromiseOrValue<BigNumberish>,
+      details: PromiseOrValue<string>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     submitVote(
-      id: BigNumberish,
-      approved: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      id: PromiseOrValue<BigNumberish>,
+      approved: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     submitVoteWithSig(
-      id: BigNumberish,
-      approved: boolean,
-      signature: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      id: PromiseOrValue<BigNumberish>,
+      approved: PromiseOrValue<boolean>,
+      signature: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     target(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1932,8 +2107,8 @@ export interface Baal extends BaseContract {
     totalSupply(overrides?: CallOverrides): Promise<BigNumber>;
 
     transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     votingPeriod(overrides?: CallOverrides): Promise<BigNumber>;
@@ -1943,52 +2118,58 @@ export interface Baal extends BaseContract {
     adminLock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     allowance(
-      arg0: string,
-      arg1: string,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     avatar(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     burnLoot(
-      from: string[],
-      amount: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      from: PromiseOrValue<string>[],
+      amount: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     burnShares(
-      from: string[],
-      amount: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      from: PromiseOrValue<string>[],
+      amount: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     cancelProposal(
-      id: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
+    ): Promise<PopulatedTransaction>;
+
+    encodeMultisend(
+      _calls: PromiseOrValue<BytesLike>[],
+      _target: PromiseOrValue<string>,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     executeAsBaal(
-      _to: string,
-      _value: BigNumberish,
-      _data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _to: PromiseOrValue<string>,
+      _value: PromiseOrValue<BigNumberish>,
+      _data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     getCurrentVotes(
-      account: string,
+      account: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getGuard(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     getPriorVotes(
-      account: string,
-      timeStamp: BigNumberish,
+      account: PromiseOrValue<string>,
+      timeStamp: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     getProposalStatus(
-      id: BigNumberish,
+      id: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -1999,22 +2180,22 @@ export interface Baal extends BaseContract {
     guard(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     hashOperation(
-      _transactions: BytesLike,
+      _transactions: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     isAdmin(
-      shaman: string,
+      shaman: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     isGovernor(
-      shaman: string,
+      shaman: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     isManager(
-      shaman: string,
+      shaman: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2023,15 +2204,15 @@ export interface Baal extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     lockAdmin(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     lockGovernor(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     lockManager(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     lootPaused(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2041,8 +2222,8 @@ export interface Baal extends BaseContract {
     managerLock(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     memberVoted(
-      arg0: string,
-      arg1: BigNumberish,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2051,28 +2232,28 @@ export interface Baal extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     mintLoot(
-      to: string[],
-      amount: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      to: PromiseOrValue<string>[],
+      amount: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     mintShares(
-      to: string[],
-      amount: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      to: PromiseOrValue<string>[],
+      amount: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     nonces(
-      arg0: string,
+      arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     processProposal(
-      id: BigNumberish,
-      proposalData: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      id: PromiseOrValue<BigNumberish>,
+      proposalData: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     proposalCount(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2080,63 +2261,63 @@ export interface Baal extends BaseContract {
     proposalOffering(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     proposals(
-      arg0: BigNumberish,
+      arg0: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     quorumPercent(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     ragequit(
-      to: string,
-      sharesToBurn: BigNumberish,
-      lootToBurn: BigNumberish,
-      tokens: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      to: PromiseOrValue<string>,
+      sharesToBurn: PromiseOrValue<BigNumberish>,
+      lootToBurn: PromiseOrValue<BigNumberish>,
+      tokens: PromiseOrValue<string>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setAdminConfig(
-      pauseShares: boolean,
-      pauseLoot: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      pauseShares: PromiseOrValue<boolean>,
+      pauseLoot: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setAvatar(
-      _avatar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _avatar: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setGovernanceConfig(
-      _governanceConfig: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _governanceConfig: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setGuard(
-      _guard: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _guard: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setShamans(
-      _shamans: string[],
-      _permissions: BigNumberish[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _shamans: PromiseOrValue<string>[],
+      _permissions: PromiseOrValue<BigNumberish>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setTarget(
-      _target: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _target: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setUp(
-      _initializationParams: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _initializationParams: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     shamans(
-      arg0: string,
+      arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -2145,36 +2326,36 @@ export interface Baal extends BaseContract {
     sharesToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     sponsorProposal(
-      id: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      id: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     sponsorThreshold(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     state(
-      id: BigNumberish,
+      id: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     submitProposal(
-      proposalData: BytesLike,
-      expiration: BigNumberish,
-      baalGas: BigNumberish,
-      details: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      proposalData: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
+      baalGas: PromiseOrValue<BigNumberish>,
+      details: PromiseOrValue<string>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     submitVote(
-      id: BigNumberish,
-      approved: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      id: PromiseOrValue<BigNumberish>,
+      approved: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     submitVoteWithSig(
-      id: BigNumberish,
-      approved: boolean,
-      signature: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      id: PromiseOrValue<BigNumberish>,
+      approved: PromiseOrValue<boolean>,
+      signature: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     target(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -2186,8 +2367,8 @@ export interface Baal extends BaseContract {
     totalSupply(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     votingPeriod(overrides?: CallOverrides): Promise<PopulatedTransaction>;

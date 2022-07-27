@@ -33,7 +33,7 @@ export const defaultDarkTheme: Theme = {
   disabled: neutralDark.bgSolid,
   transparent: utilityDark.transparent,
   info: utilityDark.info,
-  subNav: {
+  navTabs: {
     bg: secondaryDark.bgSubtle,
     navLinkColor: secondaryDark.bgSolid,
     navLinkHoverColor: secondaryDark.bgSolidHover,
@@ -183,7 +183,7 @@ export const defaultLightTheme: Theme = {
   info: utility.info,
   transparent: utility.transparent,
   disabled: neutral.bgSolid,
-  subNav: {
+  navTabs: {
     bg: secondary.bgSubtle,
     navLinkColor: secondary.bgSolid,
     navLinkHoverColor: secondary.bgSolidHover,

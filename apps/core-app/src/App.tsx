@@ -1,10 +1,5 @@
 import { HausLayout } from '@daohaus/daohaus-connect-feature';
-import {
-  FormBuilder,
-  FormLego,
-  MetadataProposal,
-  StandardFields,
-} from '@daohaus/haus-form-builder';
+import { FormBuilder, GovernanceProposal } from '@daohaus/haus-form-builder';
 
 // const LeftCard = styled(Card)`
 //   width: 100%;
@@ -28,19 +23,15 @@ import {
 //   }
 // `;
 
-const exampleFormLego: FormLego = {
-  id: 'exampleFormLego',
-  title: 'Example Form',
-  subtitle: 'Example Subtitle',
-  fields: Object.values(StandardFields),
-  log: true,
-};
+// const exampleFormLego: FormLego = {
+//   id: 'exampleFormLego',
+//   title: 'Example Form',
+//   subtitle: 'Example Subtitle',
+//   fields: Object.values(StandardFields),
+//   log: true,
+// };
 
 export function App() {
-  const handleSubmit = (values: any) => {
-    console.log('values', values);
-    console.log('fart');
-  };
   return (
     <HausLayout
       navLinks={[
@@ -50,7 +41,10 @@ export function App() {
         { label: 'Members', href: '/members' },
       ]}
     >
-      <FormBuilder {...MetadataProposal} onSubmit={handleSubmit} />
+      <FormBuilder
+        {...GovernanceProposal}
+        onSubmit={() => console.log('fart')}
+      />
     </HausLayout>
   );
 }

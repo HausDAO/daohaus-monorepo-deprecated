@@ -7,23 +7,26 @@ import {
   isNumberish,
   isString,
 } from '@daohaus/common-utilities';
+import { ValidationRule } from 'graphql';
+import { RegisterOptions } from 'react-hook-form';
+import { FieldLego } from '../types';
 
-// const pipe =
-//   <T>(...fns: Array<(arg: T) => T>) =>
-//   (value: T) =>
-//     fns.reduce((acc, fn) => fn(acc), value);
+const pipe =
+  <T>(...fns: Array<(arg: T) => T>) =>
+  (value: T) =>
+    fns.reduce((acc, fn) => fn(acc), value);
 
-// const createOptionsCheck =
-//   (option: keyof RegisterOptions) =>
-//   (newOptions: RegisterOptions) =>
-//   (oldOptions: RegisterOptions) =>
-//     newOptions[option]
-//       ? { ...oldOptions, [option]: newOptions[option] }
-//       : oldOptions;
+const createOptionsCheck =
+  (option: keyof RegisterOptions) =>
+  (newOptions: RegisterOptions) =>
+  (oldOptions: RegisterOptions) =>
+    newOptions[option]
+      ? { ...oldOptions, [option]: newOptions[option] }
+      : oldOptions;
 
-// const checkMinLength = createOptionsCheck('minLength');
-// const checkMaxLength = createOptionsCheck('maxLength');
-// const checkRequired = createOptionsCheck('required');
+const checkMinLength = createOptionsCheck('minLength');
+const checkMaxLength = createOptionsCheck('maxLength');
+const checkRequired = createOptionsCheck('required');
 // const checkSetValue = createOptionsCheck('setValueAs');
 
 // export const createRegisterOptions = (rules: RegisterOptions) =>
@@ -66,5 +69,38 @@ export const ValidateField = {
       : 'Field must be a valid email',
 };
 
-export const CircleBackToThis = '';
-// MAY NOT NEED ANY OF THIS
+const isRequiredField = (
+  field: FieldLego,
+  requiredFields: Record<string, boolean> = {}
+) => requiredFields[field.id];
+
+const generateRequiredRule = (field: Record<string, unknown>) => {
+  const { label } = field;
+  if (typeof label === 'string') {
+    return `${label} is required`;
+  }
+  return 'Field is required';
+};
+const handleRequiredField = (
+  field: FieldLego,
+  requiredFields: Record<string, boolean> = {}
+) =>
+  isRequiredField(field, requiredFields) ? generateRequiredRule(field) : {};
+
+export const generateRules = ({
+  oldRules = {},
+  field,
+  requiredFields = {},
+}: {
+  oldRules?: RegisterOptions;
+  field: FieldLego;
+  requiredFields?: Record<string, boolean>;
+}) => {
+  const newRules = field.rules || {};
+
+  return pipe(
+    checkRequired(handleRequiredField(field, requiredFields)),
+    checkMinLength(newRules),
+    checkMaxLength(newRules)
+  )(oldRules);
+};

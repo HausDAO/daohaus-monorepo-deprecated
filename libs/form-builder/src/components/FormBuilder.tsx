@@ -29,6 +29,7 @@ export const FormBuilder = ({
   log,
   devtool,
   submitButtonText,
+  requiredFields,
 }: FormBuilderProps) => {
   const methods = useForm({ mode: 'onChange' });
   const {
@@ -60,7 +61,10 @@ export const FormBuilder = ({
             <FormBuilderFactory
               key={field.id}
               {...field}
-              disabled={isSubmitting}
+              formData={{
+                disabled: isSubmitting,
+                requiredFields,
+              }}
             />
           ))}
           {log && <Logger />}

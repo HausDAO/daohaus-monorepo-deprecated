@@ -1,17 +1,20 @@
 import React from 'react';
 
-import { SplitColumn } from '@daohaus/ui';
+import { Buildable, SplitColumn } from '@daohaus/ui';
 
-import { FieldLego } from '../types';
+import { FieldLego, FormRenderData } from '../types';
 import { FormBuilderFactory } from './FormBuilderFactory';
 
 type SplitColumnProps = {
   id: string;
-  disabled?: boolean;
+  formData: FormRenderData;
   rows: { rowId: string; left: FieldLego; right: FieldLego }[];
 };
 
-export const SplitColumnLayout = ({ rows, ...props }: SplitColumnProps) => {
+export const SplitColumnLayout = ({
+  rows,
+  ...props
+}: Buildable<SplitColumnProps>) => {
   return (
     <SplitColumn
       rows={rows.map(({ left, right, rowId }) => {

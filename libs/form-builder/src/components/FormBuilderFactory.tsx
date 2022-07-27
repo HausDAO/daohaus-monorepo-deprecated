@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 import { RegisterOptions } from 'react-hook-form';
 import styled from 'styled-components';
-import { FieldLego } from '../types/legoTypes';
+import { FieldLego, FormRenderData } from '../types/legoTypes';
+import { generateRules } from '../utils/rules';
 import { CoreFieldLookup } from './CoreFieldLookup';
 
 const FieldSpacer = styled.div`
@@ -11,28 +12,39 @@ const FieldSpacer = styled.div`
 export const FormBuilderFactory = ({
   type,
   spacing = true,
-  disabled,
-  rules = {},
-  ...props
+  formData,
+  ...field
 }: FieldLego & {
+  formData: FormRenderData;
   spacing?: boolean;
-  disabled?: boolean;
   rules?: RegisterOptions;
 }) => {
   //  Memoizing solves the 'switch-away' mega-bug that was
   //  occuring because of the enumerator patttern selecting
   //  a new instance of the component each render.
+  const { rules } = field;
+  const { disabled, requiredFields } = formData;
   const GeneratedField = useMemo(() => {
     const Component = CoreFieldLookup[type];
+    const newRules = generateRules({ oldRules: rules, requiredFields, field });
+
     //TS CHALLENGE
     // While I am able to get intellisense
     // on the legos and bind the 'type' with the props that get passed
     // into the react component, TS does not seem to want to recognize
     // that both args and type are derived from the same source, the
     // actual component
-    // @ts-expect-error: explanation above
-    return <Component {...props} full disabled={disabled} rules={rules} />;
-  }, [type, disabled, rules, props]);
+    return (
+      // @ts-expect-error: explanation above
+      <Component
+        {...field}
+        full
+        disabled={disabled}
+        rules={rules}
+        formData={formData}
+      />
+    );
+  }, [type, disabled, rules, field, formData, requiredFields]);
 
   return (
     // <span>

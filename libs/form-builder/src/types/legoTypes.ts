@@ -19,8 +19,13 @@ export type FormLego = {
   subtitle?: string;
   description?: string;
   fields: FieldLego[];
-  requiredFields?: string[];
+  requiredFields?: Record<string, boolean>;
   log?: boolean;
   devtool?: boolean;
   submitButtonText?: string;
+};
+
+export type FormRenderData = {
+  disabled?: boolean;
+  requiredFields?: Record<string, boolean>;
 };

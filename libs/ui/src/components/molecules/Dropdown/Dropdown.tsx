@@ -1,5 +1,10 @@
 import React from 'react';
 import { v4 as uuid } from 'uuid';
+import {
+  DropdownMenuProps,
+  DropdownMenuContentProps,
+} from '@radix-ui/react-dropdown-menu';
+
 import { Side, Align } from '@radix-ui/popper';
 
 import { useTheme } from 'styled-components';
@@ -8,8 +13,8 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownLabel,
 } from './Dropdown.styles';
-import { DropdownLabel } from './DropdownExtras';
 
 const DropdownContentOptions = {
   clickable: DropdownMenuItem,
@@ -22,58 +27,53 @@ export type DropdownItem = {
   key?: string;
 };
 
-type DropdownProps = {
-  trigger: React.ReactNode;
-  items: DropdownItem[];
-  bg?: string;
-  spacing?: string;
-  width?: string;
-  align?: Align;
-  alignOffset?: number;
-  side?: Side;
-  sideOffset?: number;
-  className?: string;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
-};
+type DropdownProps = DropdownMenuProps &
+  DropdownMenuContentProps & {
+    trigger: React.ReactNode;
+    spacing?: string;
+    menuWidth?: string;
+    menuBg?: string;
+    className?: string;
+  };
 
 export const Dropdown = ({
-  trigger,
-  items,
-  className,
-  bg,
-  spacing = '0',
-  align = 'start',
-  width = 'fit-content',
+  defaultOpen,
   open,
   onOpenChange,
+  modal,
+  dir,
+  trigger,
+  side,
+  sideOffset,
+  align = 'start',
+  alignOffset,
+  avoidCollisions,
+  className,
+  menuWidth = 'fit-content',
+  menuBg,
+  children,
 }: DropdownProps) => {
   const theme = useTheme();
   return (
-    <DropdownMenu open={open} onOpenChange={onOpenChange}>
+    <DropdownMenu
+      open={open}
+      onOpenChange={onOpenChange}
+      defaultOpen={defaultOpen}
+      modal={modal}
+      dir={dir}
+    >
       <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
       <DropdownMenuContent
-        className={className}
-        bg={bg || theme.dropdown.bg}
+        side={side}
+        sideOffset={sideOffset}
         align={align}
-        width={width}
+        alignOffset={alignOffset}
+        avoidCollisions={avoidCollisions}
+        className={className}
+        bg={menuBg || theme.dropdown.bg}
+        width={menuWidth}
       >
-        {items.map((item) => {
-          if (item.type === 'clickable') {
-            return (
-              <DropdownMenuItem key={item.key || uuid()} spacing={spacing}>
-                {item.content}
-              </DropdownMenuItem>
-            );
-          }
-          if (item.type === 'label') {
-            return (
-              <DropdownLabel key={item.key || uuid()}>
-                {item.content}
-              </DropdownLabel>
-            );
-          } else return null;
-        })}
+        {children}
       </DropdownMenuContent>
     </DropdownMenu>
   );

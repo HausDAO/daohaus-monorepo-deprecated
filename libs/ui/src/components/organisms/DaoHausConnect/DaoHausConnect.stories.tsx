@@ -132,36 +132,36 @@ const Template: ComponentStory<typeof Dropdown> = (props) => {
 
 export const UserConnectedDropdown = Template.bind({});
 
-UserConnectedDropdown.args = {
-  trigger: (
-    <Button avatar fullWidth>
-      <Container>
-        <TemporaryAvatar />
-        <div className="interior">
-          <ParMd>Kagahara</ParMd>
-          <ParXs>@Ethereum</ParXs>
-        </div>
-      </Container>
-    </Button>
-  ),
-  items: [
-    {
-      type: 'label',
-      content: (
-        <div style={{ padding: '.8rem' }}>
-          <ParXs style={{ marginBottom: '.5rem' }}>0xd24bf...6c3b</ParXs>
-          <ParXs>
-            Connected to <Bold>Ethereum</Bold>
-          </ParXs>
-        </div>
-      ),
-    },
-    {
-      type: 'clickable',
-      content: <ExitButton>Disconnect</ExitButton>,
-    },
-  ],
-};
+// UserConnectedDropdown.args = {
+//   trigger: (
+//     <Button avatar fullWidth>
+//       <Container>
+//         <TemporaryAvatar />
+//         <div className="interior">
+//           <ParMd>Kagahara</ParMd>
+//           <ParXs>@Ethereum</ParXs>
+//         </div>
+//       </Container>
+//     </Button>
+//   ),
+//   items: [
+//     {
+//       type: 'label',
+//       content: (
+//         <div style={{ padding: '.8rem' }}>
+//           <ParXs style={{ marginBottom: '.5rem' }}>0xd24bf...6c3b</ParXs>
+//           <ParXs>
+//             Connected to <Bold>Ethereum</Bold>
+//           </ParXs>
+//         </div>
+//       ),
+//     },
+//     {
+//       type: 'clickable',
+//       content: <ExitButton>Disconnect</ExitButton>,
+//     },
+//   ],
+// };
 
 const networkPanels = [
   'Mainnet',
@@ -184,17 +184,17 @@ const networkPanels = [
 
 export const NetworkUnavailableDropdown = Template.bind({});
 
-NetworkUnavailableDropdown.args = {
-  spacing: '0.7rem',
-  align: 'end',
-  width: '26rem',
-  trigger: (
-    <Button IconLeft={RiAlertLine} tertiary>
-      Network Unavailable
-    </Button>
-  ),
-  items: [
-    { type: 'label', content: <ParXs>Switch to available network</ParXs> },
-    ...networkPanels,
-  ],
-};
+// NetworkUnavailableDropdown.args = {
+//   spacing: '0.7rem',
+//   align: 'end',
+//   width: '26rem',
+//   trigger: (
+//     <Button IconLeft={RiAlertLine} tertiary>
+//       Network Unavailable
+//     </Button>
+//   ),
+//   items: [
+//     { type: 'label', content: <ParXs>Switch to available network</ParXs> },
+//     ...networkPanels,
+//   ],
+// };

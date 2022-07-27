@@ -1,5 +1,4 @@
 import 'styled-components';
-import { StringLiteral } from 'typescript';
 
 export type ButtonColorTargets = {
   text: string;

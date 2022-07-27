@@ -1,9 +1,12 @@
-name: 'Nx migrate'
+name: "Nx migrate"
 
 on:
-  schedule:
-    # Every hour
-    - cron: '0 * * * *'
+  pull_request:
+    branches:
+      - 'develop'
+  push:
+    branches:
+      - 'develop'
 
 jobs:
   nx-migrate:
@@ -12,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Setup
-        uses: ./.github/actions/setup
+        uses: ./.github/actions/develop_setup
 
       - name: Check if @nrwl/workspace is outdated
         id: nrwl-workspace-outdated
@@ -39,13 +42,8 @@ jobs:
         if: steps.nrwl-workspace-has-migrations.outputs.has_migrations == 'true'
         run: yarn nx migrate --run-migrations
 
-      - name: Test
-        id: test
-        if: steps.nrwl-workspace-outdated.outputs.outdated == 'true'
-        continue-on-error: true
-        uses: ./.github/actions/test
-        with:
-          codecov_token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Test mono
+        run: NODE_OPTIONS=--experimental-vm-modules nx affected:test --base $BASE
 
       - name: Commit changes
         if: steps.nrwl-workspace-outdated.outputs.outdated == 'true'

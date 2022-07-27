@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-// import { Theme } from '../../../types/theming';
-
 import { blueDark, violetDark, pinkDark, greenDark } from '@radix-ui/colors';
 
 const darkColors = {

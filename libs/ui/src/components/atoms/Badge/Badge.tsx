@@ -29,8 +29,8 @@ export const Badge = forwardRef(
   ) => {
     return (
       <BaseBadge
-        badgeColor={badgeColor || 'blue'}
-        badgeSize={badgeSize || 'sm'}
+        badgeColor={badgeColor}
+        badgeSize={badgeSize}
         className={className}
       >
         {badgeSize === 'sm' && (

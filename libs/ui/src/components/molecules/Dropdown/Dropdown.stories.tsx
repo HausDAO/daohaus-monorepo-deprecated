@@ -1,12 +1,12 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { RiAlertLine } from 'react-icons/ri';
 
-import { ParXs } from '../Typography';
-import { Button } from '../Button/Button';
+import { ParXs } from '../../atoms/Typography';
+import { Button } from '../../atoms/Button/Button';
 import { DropdownItem, Dropdown } from './Dropdown';
 
 export default {
-  title: 'Atoms/Dropdown',
+  title: 'Molecules/Dropdown',
   component: Dropdown,
 } as ComponentMeta<typeof Dropdown>;
 

@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 import { Link } from '../../atoms';
 
-export const SubNavContainer = styled.div`
+export const NavigationTabsContainer = styled.div`
   width: '100%';
   height: 10rem;
-  background-color: ${(props) => props.theme.subNav.bg};
+  background-color: ${(props) => props.theme.navTabs.bg};
 
   .nav-link-list {
     padding: 3.2rem 3.5rem 2.2rem 3.5rem;
@@ -23,7 +23,7 @@ export const DropdownLink = styled.button`
   background-color: transparent;
   border: none;
   border-bottom: 2px transparent solid;
-  color: ${(props) => props.theme.subNav.navLinkColor};
+  color: ${(props) => props.theme.navTabs.navLinkColor};
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -37,21 +37,21 @@ export const DropdownLink = styled.button`
   }
 
   :hover {
-    color: ${(props) => props.theme.subNav.navLinkHoverColor};
+    color: ${(props) => props.theme.navTabs.navLinkHoverColor};
     text-decoration: none;
   }
   &.selected {
     color: white;
-    border-bottom: 2px ${(props) => props.theme.subNav.navLinkColor} solid;
+    border-bottom: 2px ${(props) => props.theme.navTabs.navLinkColor} solid;
   }
-  &.subnav {
+  &.navTabs {
     padding-bottom: 1rem;
   }
 `;
 
 export const NavLink = styled(Link)`
   border-bottom: 2px transparent solid;
-  color: ${(props) => props.theme.subNav.navLinkColor};
+  color: ${(props) => props.theme.navTabs.navLinkColor};
   cursor: pointer;
   font-size: 2.4rem;
   letter-spacing: 1.5px;
@@ -63,16 +63,16 @@ export const NavLink = styled(Link)`
   }
 
   :hover {
-    color: ${(props) => props.theme.subNav.navLinkHoverColor};
+    color: ${(props) => props.theme.navTabs.navLinkHoverColor};
     text-decoration: none;
   }
 
   &.selected {
     color: white;
-    border-bottom: 2px ${(props) => props.theme.subNav.navLinkColor} solid;
+    border-bottom: 2px ${(props) => props.theme.navTabs.navLinkColor} solid;
   }
 
-  &.subnav {
+  &.nav-tabs {
     padding-bottom: 1rem;
   }
 `;

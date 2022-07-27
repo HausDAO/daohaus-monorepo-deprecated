@@ -3,17 +3,22 @@ import { RiArrowDropDownLine, RiMenuLine } from 'react-icons/ri';
 import { Align } from '@radix-ui/popper';
 import { useLocation } from 'react-router-dom';
 
-import { SubNavContainer, DropdownLink, NavLink } from './SubNav.styles';
+import {
+  NavigationTabsContainer,
+  DropdownLink,
+  NavLink,
+} from './NavigationTabs.styles';
 import { useBreakpoint } from '../../../hooks/useMediaQuery';
 import { widthQuery } from '../../../theme/global/breakpoints';
-import { Button, Dropdown } from '../../atoms';
+import { Button } from '../../atoms';
+import { Dropdown } from '../../molecules';
 
 type NavLinkType = {
   label: string;
   href: string;
 };
 
-export type SubNavProps = {
+export type NavigationTabsProps = {
   className?: string;
   navLinks?: NavLinkType[];
   dropdownTriggerText?: string;
@@ -34,7 +39,7 @@ export type SubNavProps = {
   Users could then Pass dynamicly, staticly or both.
 */
 
-export const SubNav = (props: SubNavProps) => {
+export const NavigationTabs = (props: NavigationTabsProps) => {
   const {
     className,
     navLinks = [],
@@ -48,7 +53,7 @@ export const SubNav = (props: SubNavProps) => {
   const location = useLocation();
   const isSm = useBreakpoint(widthQuery.sm);
   return (
-    <SubNavContainer className={className}>
+    <NavigationTabsContainer className={className}>
       {isSm ? (
         <div className="mobile-box">
           <Button tertiary IconLeft={RiMenuLine}>
@@ -67,7 +72,7 @@ export const SubNav = (props: SubNavProps) => {
           })}
           {dropdownLinks.length > 0 && (
             <Dropdown
-              bg={theme.subNav.bg}
+              bg={theme.navTabs.bg}
               align={dropdownMenuAlign}
               spacing={dropdownMenuSpacing}
               trigger={
@@ -95,6 +100,6 @@ export const SubNav = (props: SubNavProps) => {
           )}
         </div>
       )}
-    </SubNavContainer>
+    </NavigationTabsContainer>
   );
 };

@@ -1,15 +1,17 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { SubNav } from './SubNav';
+import { NavigationTabs } from './NavigationTabs';
 
 export default {
-  title: 'Molecules/SubNav',
-  component: SubNav,
-} as ComponentMeta<typeof SubNav>;
+  title: 'Organisms/NavigationTabs',
+  component: NavigationTabs,
+} as ComponentMeta<typeof NavigationTabs>;
 
-const Template: ComponentStory<typeof SubNav> = (args) => <SubNav {...args} />;
+const Template: ComponentStory<typeof NavigationTabs> = (args) => (
+  <NavigationTabs {...args} />
+);
 
-export const SubNavExample = Template.bind({});
-SubNavExample.args = {
+export const NavigationTabsExample = Template.bind({});
+NavigationTabsExample.args = {
   navLinks: [
     { label: 'Home', href: '/home' },
     { label: 'Proposals', href: '/proposals' },
@@ -18,8 +20,8 @@ SubNavExample.args = {
   ],
 };
 
-export const SubNavWithDropdown = Template.bind({});
-SubNavWithDropdown.args = {
+export const NavigationTabsWithDropdown = Template.bind({});
+NavigationTabsWithDropdown.args = {
   navLinks: [
     { label: 'Home', href: '/home' },
     { label: 'Proposals', href: '/proposals' },

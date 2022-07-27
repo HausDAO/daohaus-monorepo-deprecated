@@ -21,6 +21,7 @@ export type DropdownItem = {
   content: React.ReactNode;
   key?: string;
 };
+
 type DropdownProps = {
   trigger: React.ReactNode;
   items: DropdownItem[];

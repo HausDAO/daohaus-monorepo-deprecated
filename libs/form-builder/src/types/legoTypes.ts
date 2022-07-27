@@ -1,4 +1,7 @@
 import { CoreFieldLookup } from '../components/CoreFieldLookup';
+import { ValidateField } from '../utils/rules';
+
+export type FieldValidationType = keyof typeof ValidateField;
 
 export type CoreFields = typeof CoreFieldLookup;
 export type FieldLego = {
@@ -6,6 +9,7 @@ export type FieldLego = {
     CoreFields[FieldType]
   > & {
     type: FieldType;
+    validationType?: FieldValidationType;
   };
 }[keyof CoreFields];
 
@@ -15,6 +19,7 @@ export type FormLego = {
   subtitle?: string;
   description?: string;
   fields: FieldLego[];
+  requiredFields?: string[];
   log?: boolean;
   devtool?: boolean;
   submitButtonText?: string;

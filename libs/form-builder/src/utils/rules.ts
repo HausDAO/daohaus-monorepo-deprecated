@@ -7,7 +7,6 @@ import {
   isNumberish,
   isString,
 } from '@daohaus/common-utilities';
-import { ValidationRule } from 'graphql';
 import { RegisterOptions } from 'react-hook-form';
 import { FieldLego } from '../types';
 

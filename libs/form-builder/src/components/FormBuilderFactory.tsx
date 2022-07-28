@@ -16,12 +16,12 @@ export const FormBuilderFactory = ({
   field: FieldLego;
   spacing?: boolean;
 }) => {
+  const { rules, type } = field;
+  const { formDisabled, requiredFields } = useFormBuilder();
+
   //  Memoizing solves the 'switch-away' mega-bug that was
   //  occuring because of the enumerator patttern selecting
   //  a new instance of the component each render.
-
-  const { rules, type } = field;
-  const { formDisabled, requiredFields } = useFormBuilder();
   const GeneratedField = useMemo(() => {
     const Component = CoreFieldLookup[type];
 

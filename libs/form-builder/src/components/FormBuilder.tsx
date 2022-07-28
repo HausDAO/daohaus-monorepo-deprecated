@@ -1,15 +1,17 @@
-import React, { createContext, useContext, useState } from 'react';
-import { FormLego, RequiredFields } from '../types';
+import { createContext, useContext, useState } from 'react';
 import {
   FormProvider as RHFProvider,
   useForm,
   useFormContext,
 } from 'react-hook-form';
+import { DevTool } from '@hookform/devtools';
+
 import { FormLayout } from '@daohaus/ui';
 import { isValidNetwork } from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+
+import { FormLego, RequiredFields } from '../types';
 import { Logger } from './Logger';
-import { DevTool } from '@hookform/devtools';
 import { FormFooter } from './formFooter';
 import { FormBuilderFactory } from './FormBuilderFactory';
 
@@ -45,7 +47,6 @@ export const FormBuilder = ({
     formState: { isValid },
     control,
   } = methods;
-
   const {
     title,
     subtitle,
@@ -56,6 +57,7 @@ export const FormBuilder = ({
     submitButtonText,
     requiredFields = {},
   } = form;
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
   const formDisabled = isSubmitting;
@@ -65,6 +67,7 @@ export const FormBuilder = ({
     await onSubmit(formValues);
     setIsSubmitting(false);
   };
+
   return (
     <RHFProvider {...methods}>
       <FormBuilderContext.Provider

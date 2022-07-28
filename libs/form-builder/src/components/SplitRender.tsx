@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { Buildable, SplitColumn } from '@daohaus/ui';
 
 import { FieldLego } from '../types';

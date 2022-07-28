@@ -42,7 +42,7 @@ export function App() {
       ]}
     >
       <FormBuilder
-        {...GovernanceProposal}
+        form={GovernanceProposal}
         onSubmit={() => console.log('fart')}
       />
     </HausLayout>

@@ -32,6 +32,11 @@ declare module 'styled-components' {
       navLinkColor: string;
       navLinkHoverColor: string;
       navLinkSelected: string;
+      navLinkDropdownText: string;
+      hoverNavLinkDropdownBg: string;
+      hoverNavLinkDropdownBorder: string;
+      activeNavLinkDropdownBg: string;
+      activeNavLinkDropdownBorder: string;
     };
     card: {
       bg: string;

@@ -1,25 +1,13 @@
-import styled from 'styled-components';
-
-import { Card, FormLayout } from '@daohaus/ui';
 import { HausLayout } from '@daohaus/daohaus-connect-feature';
-
-const Spacer = styled.div`
-  width: 100%;
-  height: 50rem;
-`;
+import { FormBuilder, GovernanceProposal } from '@daohaus/haus-form-builder';
 
 export function Home() {
   return (
-    <HausLayout>
-      <FormLayout
-        title="No DAO"
-        description="you need a better url"
-        subtitle="Something nicer"
-      >
-        <Card>
-          <Spacer />
-        </Card>
-      </FormLayout>
+    <HausLayout navLinks={[{ label: 'NavLink', href: '/' }]}>
+      <FormBuilder
+        form={GovernanceProposal}
+        onSubmit={() => console.log('fart')}
+      />
     </HausLayout>
   );
 }

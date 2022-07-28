@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Buildable, SplitColumn } from '@daohaus/ui';
 
-import { FieldLego, FormRenderData } from '../types';
+import { FieldLego } from '../types';
 import { FormBuilderFactory } from './FormBuilderFactory';
 
 type SplitColumnProps = {

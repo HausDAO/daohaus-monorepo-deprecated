@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
-import { RegisterOptions } from 'react-hook-form';
 import styled from 'styled-components';
-import { FieldLego, FormRenderData } from '../types/legoTypes';
+import { FieldLego } from '../types/legoTypes';
 import { generateRules } from '../utils/rules';
 import { CoreFieldLookup } from './CoreFieldLookup';
+import { useFormBuilder } from './FormBuilder';
 
 const FieldSpacer = styled.div`
   margin-bottom: 3.6rem;
@@ -19,8 +19,9 @@ export const FormBuilderFactory = ({
   //  Memoizing solves the 'switch-away' mega-bug that was
   //  occuring because of the enumerator patttern selecting
   //  a new instance of the component each render.
+
   const { rules, type } = field;
-  const { disabled, requiredFields } = formData;
+  const { formDisabled, requiredFields } = useFormBuilder();
   const GeneratedField = useMemo(() => {
     const Component = CoreFieldLookup[type];
 
@@ -38,9 +39,9 @@ export const FormBuilderFactory = ({
     // actual component
     return (
       // @ts-expect-error: explanation above
-      <Component {...field} full disabled={disabled} rules={newRules} />
+      <Component {...field} full disabled={formDisabled} rules={newRules} />
     );
-  }, [type, disabled, rules, field, formData, requiredFields]);
+  }, [type, formDisabled, rules, field, requiredFields]);
 
   return spacing ? <FieldSpacer>{GeneratedField}</FieldSpacer> : GeneratedField;
 };

@@ -9,7 +9,7 @@ export type FieldLego = {
     CoreFields[FieldType]
   > & {
     type: FieldType;
-    validationType?: FieldValidationType;
+    expectType?: FieldValidationType;
   };
 }[keyof CoreFields];
 

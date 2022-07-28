@@ -72,12 +72,7 @@ export const Dropdown = ({
                 {item.content}
               </DropdownLabel>
             );
-<<<<<<< HEAD:libs/ui/src/components/atoms/Dropdown/Dropdown.tsx
-          }
-          return null;
-=======
           } else return null;
->>>>>>> 62ecc8ea2ea18a76f416eb6fbc1fc254374393a5:libs/ui/src/components/molecules/Dropdown/Dropdown.tsx
         })}
       </DropdownMenuContent>
     </DropdownMenu>

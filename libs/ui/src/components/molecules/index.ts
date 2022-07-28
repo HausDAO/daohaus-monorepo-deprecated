@@ -1,3 +1,4 @@
+export * from './DataIndicator';
 export * from './FieldWrapper';
 export * from './WrappedInput';
 export * from './ProfileAvatar';
@@ -11,3 +12,4 @@ export * from './WrappedRadio';
 export * from './WrappedInputSelect';
 export * from './WrappedCheckbox';
 export * from './Toast';
+export * from './Dropdown';

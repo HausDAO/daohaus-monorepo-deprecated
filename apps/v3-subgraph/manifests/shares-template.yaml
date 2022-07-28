@@ -13,7 +13,7 @@ mapping:
     - Member
   abis:
     - name: Shares
-      file: ./abis/SharesErc20.json
+      file: ./abis/Shares.json
   eventHandlers:
     - event: 'DelegateChanged(indexed address,indexed address,indexed address)'
       handler: handleDelegateChanged

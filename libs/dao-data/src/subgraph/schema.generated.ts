@@ -34,6 +34,8 @@ export interface Dao {
   /** address that created the dao */
   createdBy: Scalars['Bytes'];
   eventTransactions?: Maybe<EventTransaction>;
+  /** was Dao summoned by an existing safe or did it create a new safe. */
+  existingSafe: Scalars['Boolean'];
   /** length in seconds of the current grace period */
   gracePeriod: Scalars['BigInt'];
   /** unique identifier and primary key of the entity */
@@ -174,6 +176,10 @@ export interface Dao_Filter {
   createdBy_not_contains?: InputMaybe<Scalars['Bytes']>;
   createdBy_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   eventTransactions_?: InputMaybe<EventTransaction_Filter>;
+  existingSafe?: InputMaybe<Scalars['Boolean']>;
+  existingSafe_in?: InputMaybe<Array<Scalars['Boolean']>>;
+  existingSafe_not?: InputMaybe<Scalars['Boolean']>;
+  existingSafe_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
   gracePeriod?: InputMaybe<Scalars['BigInt']>;
   gracePeriod_gt?: InputMaybe<Scalars['BigInt']>;
   gracePeriod_gte?: InputMaybe<Scalars['BigInt']>;
@@ -420,6 +426,7 @@ export type Dao_OrderBy =
   | 'createdAt'
   | 'createdBy'
   | 'eventTransactions'
+  | 'existingSafe'
   | 'gracePeriod'
   | 'id'
   | 'latestSponsoredProposalId'

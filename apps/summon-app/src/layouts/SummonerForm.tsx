@@ -68,7 +68,7 @@ export const SummonerForm = ({
 
       fireTransaction({
         txName: 'summonBaalAndSafe',
-        abi: LOCAL_ABI.BAAL_FACTORY,
+        abi: LOCAL_ABI.BAAL_SUMMONER,
         args: args,
         keychain: CONTRACTS.V3_FACTORY,
         lifeCycleFns: {

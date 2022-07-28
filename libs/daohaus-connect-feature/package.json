@@ -1,6 +1,6 @@
 {
   "name": "@daohaus/daohaus-connect-feature",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "./daohaus-connect-feature.umd.js",
   "module": "./daohaus-connect-feature.es.js",
   "homepage": "https://github.com/HausDAO/daohaus-monorepo#readme",

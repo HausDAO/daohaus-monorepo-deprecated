@@ -42,7 +42,7 @@ export const FormBuilder = ({
   onError?: () => void;
 }) => {
   const { chainId } = useHausConnect();
-  const methods = useForm({ mode: 'onChange' });
+  const methods = useForm({ mode: 'onTouched' });
   const {
     formState: { isValid },
     control,

@@ -59,10 +59,11 @@ export const FieldWrapper = ({
   //   ? { type: 'error', message: errors?.[id]?.message }
   //   : null;
 
-  // const fieldError = getFieldState(id)?.error;
-  // console.log('fieldError', fieldError);
   const fieldError = getFieldState(id).error;
-
+  if (id === 'proposalTitle') {
+    console.log(getFieldState(id));
+    console.log('fieldError');
+  }
   return (
     <FieldWrapperBase className={classes}>
       <LabelContainer>

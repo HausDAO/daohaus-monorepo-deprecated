@@ -1,4 +1,5 @@
 import { FieldLego, FormLego } from '../types/legoTypes';
+import { ValidateField } from '../utils/rules';
 
 export const CommonFields: Record<string, FieldLego> = {
   DAOContract: {
@@ -25,69 +26,26 @@ export const CommonFields: Record<string, FieldLego> = {
   },
 };
 
-export const MetadataProposal: FormLego = {
-  id: 'MetadataProposal',
-  title: 'Update Metadata Settings',
-  subtitle: 'Settings',
-  description:
-    'This form creates a proposal to change the DAOs Metadata settings.',
-  submitButtonText: 'Save Settings',
-  fields: [
-    CommonFields.DAOContract,
-    CommonFields.DAOName,
-    CommonFields.Description,
-    {
-      id: 'socials',
-      type: 'formSegment',
-      title: 'Social Links',
-      description: 'Update the social links for this DAO.',
-      fields: [
-        {
-          type: 'input',
-          id: 'twitter',
-          label: 'Twitter',
-          placeholder: '@twitter',
-        },
-        {
-          type: 'input',
-          id: 'discord',
-          label: 'Discord Link',
-          placeholder: 'discord.gg/daoname',
-        },
-        {
-          type: 'input',
-          id: 'website',
-          label: 'DAO Website',
-          placeholder: 'https://daoname.com',
-        },
-        {
-          type: 'input',
-          id: 'github',
-          label: 'GitHub',
-          placeholder: 'github.com/daoname',
-        },
-        {
-          type: 'input',
-          id: 'tags',
-          label: 'Tags (separate by Commas)',
-        },
-      ],
-    },
-  ],
-};
 export const GovernanceProposal: FormLego = {
   id: 'GovernanceProposal',
   title: 'Update Governance Settings',
-  log: true,
   subtitle: 'Settings',
   description: 'Learn more about governance settings.',
   submitButtonText: 'Submit Proposal',
+  devtool: true,
+  requiredFields: {
+    proposalTitle: true,
+  },
   fields: [
     {
       type: 'input',
       id: 'proposalTitle',
       label: 'Proposal Title',
       placeholder: 'Proposal Name',
+      expectType: 'number',
+      rules: {
+        min: 42,
+      },
     },
     {
       type: 'textarea',

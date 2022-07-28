@@ -9,7 +9,6 @@ export const HausLayout = ({
   dropdownLinks,
   children,
 }: NavigationTabsProps & { children: ReactNode }) => {
-  console.log('navLinks', navLinks);
   return (
     <OuterLayout>
       <DaoHausNav />

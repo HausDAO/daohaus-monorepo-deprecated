@@ -52,6 +52,7 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
   const theme = useTheme();
   const location = useLocation();
   const isSm = useBreakpoint(widthQuery.sm);
+
   return (
     <NavigationTabsContainer className={className}>
       {isSm ? (

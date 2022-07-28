@@ -1,14 +1,14 @@
 import { useMemo } from 'react';
 import styled from 'styled-components';
 import { FieldLego } from '../types/legoTypes';
-import { generateRules } from '../utils/rules';
+import { foo, generateRules } from '../utils/rules';
 import { CoreFieldLookup } from './CoreFieldLookup';
 import { useFormBuilder } from './FormBuilder';
 
 const FieldSpacer = styled.div`
   margin-bottom: 3.6rem;
 `;
-
+const bar = foo;
 export const FormBuilderFactory = ({
   spacing = true,
   field,
@@ -25,11 +25,11 @@ export const FormBuilderFactory = ({
   const GeneratedField = useMemo(() => {
     const Component = CoreFieldLookup[type];
 
-    const newRules = generateRules({
-      field,
-      oldRules: rules || {},
-      requiredFields: requiredFields || {},
-    });
+    // const newRules = generateRules({
+    //   field,
+    //   oldRules: rules || {},
+    //   requiredFields: requiredFields || {},
+    // });
 
     //TS CHALLENGE
     // While I am able to get intellisense
@@ -39,7 +39,7 @@ export const FormBuilderFactory = ({
     // actual component
     return (
       // @ts-expect-error: explanation above
-      <Component {...field} full disabled={formDisabled} rules={newRules} />
+      <Component {...field} full disabled={formDisabled} rules={rules} />
     );
   }, [type, formDisabled, rules, field, requiredFields]);
 

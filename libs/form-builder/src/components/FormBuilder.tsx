@@ -59,6 +59,7 @@ export const FormBuilder = ({
   } = form;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
   const formDisabled = isSubmitting;
 

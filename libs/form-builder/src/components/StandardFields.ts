@@ -1,5 +1,4 @@
 import { FieldLego, FormLego } from '../types/legoTypes';
-import { ValidateField } from '../utils/rules';
 
 export const CommonFields: Record<string, FieldLego> = {
   DAOContract: {

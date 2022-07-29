@@ -2,7 +2,7 @@ kind: ethereum/contract
 name: Poster
 network:
 source:
-  address: ""
+  address:
   abi: Poster
   startBlock:
 mapping:

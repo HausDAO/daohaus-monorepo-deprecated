@@ -1,6 +1,5 @@
 export * from './Avatar';
 export * from './Button';
-export * from './Dropdown';
 export * from './Label';
 export * from './Input';
 export * from './HelperTexts';

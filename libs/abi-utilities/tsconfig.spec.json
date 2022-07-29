@@ -3,10 +3,19 @@
   "compilerOptions": {
     "outDir": "../../dist/out-tsc",
     "module": "commonjs",
-    "types": ["jest", "node"],
+    "types": [
+      "jest",
+      "node"
+    ],
     "resolveJsonModule": true,
     "esModuleInterop": true
   },
+  "files": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.d.ts",
+    "src/**/*.json"
+  ],
   "include": [
     "**/*.test.ts",
     "**/*.spec.ts",
@@ -18,5 +27,6 @@
     "**/*.spec.jsx",
     "**/*.d.ts",
     "jest.config.ts"
+    "**/*.json",
   ]
 }

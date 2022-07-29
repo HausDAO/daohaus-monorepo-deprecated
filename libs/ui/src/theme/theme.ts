@@ -33,11 +33,16 @@ export const defaultDarkTheme: Theme = {
   disabled: neutralDark.bgSolid,
   transparent: utilityDark.transparent,
   info: utilityDark.info,
-  subNav: {
+  navTabs: {
     bg: secondaryDark.bgSubtle,
     navLinkColor: secondaryDark.bgSolid,
     navLinkHoverColor: secondaryDark.bgSolidHover,
     navLinkSelected: secondaryDark.textHighContrast,
+    navLinkDropdownText: secondaryDark.textHighContrast,
+    hoverNavLinkDropdownBg: secondaryDark.elementBgHover,
+    hoverNavLinkDropdownBorder: secondaryDark.elementBorderHover,
+    activeNavLinkDropdownBg: secondaryDark.bgSolid,
+    activeNavLinkDropdownBorder: secondaryDark.elementBorderSubtle,
   },
   card: {
     bg: secondaryDark.bgSubtle,
@@ -183,11 +188,16 @@ export const defaultLightTheme: Theme = {
   info: utility.info,
   transparent: utility.transparent,
   disabled: neutral.bgSolid,
-  subNav: {
+  navTabs: {
     bg: secondary.bgSubtle,
     navLinkColor: secondary.bgSolid,
     navLinkHoverColor: secondary.bgSolidHover,
     navLinkSelected: secondary.textHighContrast,
+    navLinkDropdownText: secondary.textHighContrast,
+    hoverNavLinkDropdownBg: secondary.elementBgHover,
+    hoverNavLinkDropdownBorder: secondary.elementBorderHover,
+    activeNavLinkDropdownBg: secondary.bgSolid,
+    activeNavLinkDropdownBorder: secondary.elementBorderSubtle,
   },
   card: {
     bg: secondary.elementBg,

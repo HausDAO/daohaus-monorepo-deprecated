@@ -1,5 +1,5 @@
 {
-  "root": "libs/ui",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/ui/src",
   "projectType": "library",
   "tags": [],
@@ -39,7 +39,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/ui"],
       "options": {
-        "jestConfig": "libs/ui/jest.config.js",
+        "jestConfig": "libs/ui/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -86,7 +86,7 @@
       "executor": "@alexkeating/nx-skynet:deploy",
       "options": {
         "uploadDir": "dist/storybook/ui",
-        "registrySeedVarName": "DAOHAUS_UI_SKYNET_SEED",
+        "registrySeedVarName": "DAOHAUS_UI_DEVELOP_SKYNET_SEED",
         "registryDataKey": "skylink.txt",
         "portalUrl": "https://skynetfree.net",
         "skynetJwtVarName": "SKYNET_JWT"

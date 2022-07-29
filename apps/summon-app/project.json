@@ -1,5 +1,5 @@
 {
-  "root": "apps/summon-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/summon-app/src",
   "projectType": "application",
   "targets": {
@@ -56,7 +56,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/summon-app"],
       "options": {
-        "jestConfig": "apps/summon-app/jest.config.js",
+        "jestConfig": "apps/summon-app/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -81,7 +81,7 @@
       "executor": "@alexkeating/nx-skynet:deploy",
       "options": {
         "uploadDir": "dist/apps/summon-app",
-        "registrySeedVarName": "DAOHAUS_SUMMON_SKYNET_SEED",
+        "registrySeedVarName": "DAOHAUS_SUMMON_DEVELOP_SKYNET_SEED",
         "registryDataKey": "skylink.txt",
         "portalUrl": "https://skynetfree.net",
         "skynetJwtVarName": "SKYNET_JWT"

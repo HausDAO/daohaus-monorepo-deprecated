@@ -180,5 +180,9 @@ declare module 'styled-components' {
         error: string;
       };
     };
+    modal: {
+      bg: string;
+      color: string;
+    };
   }
 }

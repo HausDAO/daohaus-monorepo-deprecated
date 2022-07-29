@@ -174,6 +174,10 @@ export const defaultDarkTheme: Theme = {
       error: utilityDark.danger,
     },
   },
+  modal: {
+    bg: secondaryDark.bgSubtle,
+    color: secondaryDark.textHighContrast,
+  },
 };
 
 export const defaultLightTheme: Theme = {
@@ -328,5 +332,9 @@ export const defaultLightTheme: Theme = {
       warning: utility.warning,
       error: utility.danger,
     },
+  },
+  modal: {
+    bg: secondary.bgSubtle,
+    color: secondary.textHighContrast,
   },
 };

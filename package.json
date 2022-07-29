@@ -126,7 +126,8 @@
     "ts-node": "10.8.2",
     "typechain": "^8.0.0",
     "typescript": "4.7.4",
-    "url-loader": "^3.0.0"
+    "url-loader": "^3.0.0",
+    "vite-tsconfig-paths": "^3.5.0"
   },
   "resolutions": {
     "esbuild": "0.14.44"

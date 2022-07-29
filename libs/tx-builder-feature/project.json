@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/tx-builder-feature",
-        "configFile": "@nxext/vite/plugins/vite-package",
+        "configFile": "libs/tx-builder-feature/vite.config.ts",
         "frameworkConfigFile": "@nxext/react/plugins/vite",
         "entryFile": "src/index.ts",
         "generatePackageJson": true

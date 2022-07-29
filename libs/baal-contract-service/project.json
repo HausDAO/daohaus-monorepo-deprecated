@@ -1,5 +1,5 @@
 {
-  "root": "libs/baal-contract-service",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/baal-contract-service/src",
   "targets": {
     "build": {
@@ -23,7 +23,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/baal-contract-service"],
       "options": {
-        "jestConfig": "libs/baal-contract-service/jest.config.js",
+        "jestConfig": "libs/baal-contract-service/jest.config.ts",
         "passWithNoTests": true
       }
     },

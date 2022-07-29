@@ -1,5 +1,3 @@
-import { Core } from '@self.id/core';
-import { Caip10Link } from '@ceramicnetwork/stream-caip10-link';
 import { ethers } from 'ethers';
 
 import { Keychain } from '@daohaus/common-utilities';
@@ -72,6 +70,8 @@ export default class Profile {
     chain: keyof Keychain = '0x1',
     address: string
   ): Promise<BasicProfile> {
+    const { Core } = await import('@self.id/core');
+    const { Caip10Link } = await import('@ceramicnetwork/stream-caip10-link');
     const core = new Core({
       ceramic: this.ceramicNode || 'https://gateway.ceramic.network',
     });

@@ -1,5 +1,5 @@
 import { Buildable, FormSegment } from '@daohaus/ui';
-import React, { ComponentProps } from 'react';
+import { ComponentProps } from 'react';
 import { FieldLego } from '../types';
 import { FormBuilderFactory } from './FormBuilderFactory';
 

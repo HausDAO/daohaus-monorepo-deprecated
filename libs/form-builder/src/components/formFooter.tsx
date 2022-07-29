@@ -10,7 +10,7 @@ export const FormFooter = ({
 }) => {
   /*Form Alert Component goes here*/
   return (
-    <Button fullWidth lg type="submit" disabled={submitDisabled}>
+    <Button fullWidth lg centerAlign type="submit" disabled={submitDisabled}>
       {submitButtonText || 'Submit'}
     </Button>
   );

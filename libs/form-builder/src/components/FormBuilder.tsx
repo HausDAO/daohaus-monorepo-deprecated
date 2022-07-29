@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import {
+  FieldValues,
   FormProvider as RHFProvider,
   useForm,
   useFormContext,
@@ -32,17 +33,20 @@ export const FormBuilderContext = createContext<FormContext>({
 export const FormBuilder = ({
   form,
   onSubmit,
+  defaultValues,
 }: {
   form: FormLego;
+  defaultValues?: FieldValues;
   onSubmit: (
-    formValues: Record<string, unknown>
-  ) => void | Promise<(formValues: Record<string, unknown>) => void>;
+    formValues: FieldValues
+  ) => void | Promise<(formValues: FieldValues) => void>;
   onCancel?: () => void;
   onSuccess?: () => void;
   onError?: () => void;
 }) => {
   const { chainId } = useHausConnect();
-  const methods = useForm({ mode: 'onTouched' });
+
+  const methods = useForm({ mode: 'onTouched', defaultValues });
   const {
     formState: { isValid },
     control,

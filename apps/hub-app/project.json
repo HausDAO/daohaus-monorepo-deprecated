@@ -86,6 +86,12 @@
         "portalUrl": "https://skynetfree.net",
         "skynetApiKeyVarName": "SKYNET_API_KEY"
       }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional"
+      }
     }
   },
   "tags": []

@@ -32,6 +32,12 @@
       "options": {
         "command": "typechain --target ethers-v5 --out-dir ./libs/baal-contract-service/src/lib/generated ./libs/abi-utilities/src/abi/**.json"
       }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional"
+      }
     }
   },
   "tags": []

@@ -1,5 +1,5 @@
 {
-  "root": "libs/infra-chart/ipfs",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/infra-chart/ipfs",
   "projectType": "library",
   "targets": {

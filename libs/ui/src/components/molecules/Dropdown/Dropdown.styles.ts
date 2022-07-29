@@ -12,15 +12,14 @@ type MenuContentType = {
 
 export const DropdownMenuContent = styled(Dropdown.DropdownMenuContent)`
   background-color: ${(props: MenuContentType) => props.bg};
+  padding: 1rem;
   width: ${(props: MenuContentType) => props.width};
 `;
 
 export const DropdownMenuItem = styled(Dropdown.Item)`
   margin-bottom: ${(props: { spacing?: string }) => props.spacing};
-  margin-left: ${(props: { spacing?: string }) => props.spacing};
-  margin-right: ${(props: { spacing?: string }) => props.spacing};
 
-  :first-child {
-    margin-top: ${(props: { spacing?: string }) => props.spacing};
+  :last-child {
+    margin-bottom: 0;
   }
 `;

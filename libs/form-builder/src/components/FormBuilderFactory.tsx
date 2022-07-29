@@ -2,31 +2,9 @@ import { useMemo } from 'react';
 import styled from 'styled-components';
 import { FieldLego } from '../types/legoTypes';
 import { generateRules } from '../utils/rules';
+import { CoreFieldLookup } from './CoreFieldLookup';
 import { useFormBuilder } from './FormBuilder';
 
-import {
-  WrappedCheckbox,
-  WrappedInput,
-  WrappedInputSelect,
-  WrappedRadio,
-  WrappedSelect,
-  WrappedSwitch,
-  WrappedTextArea,
-} from '@daohaus/ui';
-import { SegmentRender } from './SegmentRender';
-import { SplitColumnLayout } from './SplitRender';
-
-export const CoreFieldLookup = {
-  input: WrappedInput,
-  inputSelect: WrappedInputSelect,
-  textarea: WrappedTextArea,
-  switch: WrappedSwitch,
-  radio: WrappedRadio,
-  select: WrappedSelect,
-  checkBox: WrappedCheckbox,
-  splitColumn: SplitColumnLayout,
-  formSegment: SegmentRender,
-};
 const FieldSpacer = styled.div`
   margin-bottom: 3.6rem;
 `;

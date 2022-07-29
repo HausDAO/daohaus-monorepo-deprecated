@@ -1,4 +1,4 @@
-import { CommonFields } from '../src';
+import { CommonFields } from '../src/data/CommonFields';
 import {
   handleRequiredField,
   ValErrMsgs,

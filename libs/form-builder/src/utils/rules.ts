@@ -1,5 +1,3 @@
-// import { RegisterOptions } from 'react-hook-form';
-
 import {
   isArray,
   isBoolean,
@@ -23,33 +21,8 @@ const createUpdaterFn =
       ? { ...oldOptions, [option]: newOptions[option] }
       : oldOptions;
 
-// const checkMinLength = createOptionsCheck('minLength');
-// const checkMaxLength = createOptionsCheck('maxLength');
 const updateRequired = createUpdaterFn('required');
 const updateValidate = createUpdaterFn('validate');
-
-// const checkSetValue = createOptionsCheck('setValueAs');
-
-// export const createRegisterOptions = (rules: RegisterOptions) =>
-//   pipe(
-//     checkMinLength(field),
-//     checkMaxLength(field),
-//     checkRequired(field),
-//     checkSetValue(field)
-//   )(field.registerOptions || {});
-
-// const testLego = createRegisterOptions({
-//   minLength: 5,
-//   maxLength: 10,
-//   setValueAs: () => 'test',
-//   required: true,
-// });
-// const updateTestLego = createRegisterOptions({
-//   minLength: 10,
-//   maxLength: 20,
-//   rules: testLego,
-//   setValueAs: (val) => val.test.test.test,
-// });
 
 export const ValErrMsgs = {
   number: 'Field must be a number',
@@ -119,6 +92,8 @@ export const generateRules = ({
     updateValidate(handleTypeValidation(field))
   )(oldRules);
 };
+
+// LEAVE COMMENTS FOR NOW. TRANSFER WHEN TESTS WORK.
 
 // const inputNoLable: FieldLego = { type: 'input', id: 'test' };
 // const inputWithLable: FieldLego = { type: 'input', id: 'test', label: 'Test' };

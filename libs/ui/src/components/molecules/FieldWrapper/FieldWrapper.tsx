@@ -48,22 +48,10 @@ export const FieldWrapper = ({
   rules,
 }: Buildable<{ children: ReactNode }>) => {
   const classes = classNames({ long: long || address, full });
-  const {
-    getFieldState,
-    // formState: { errors },
-    // getFieldState,
-  } = useFormContext();
-
-  // console.log('errors', errors);
-  // const contextError = errors?.[id]?.message
-  //   ? { type: 'error', message: errors?.[id]?.message }
-  //   : null;
+  const { getFieldState } = useFormContext();
 
   const fieldError = getFieldState(id).error;
-  if (id === 'proposalTitle') {
-    console.log(getFieldState(id));
-    console.log('fieldError');
-  }
+
   return (
     <FieldWrapperBase className={classes}>
       <LabelContainer>

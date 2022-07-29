@@ -98,7 +98,13 @@
         "portalUrl": "https://skynetfree.net",
         "skynetApiKeyVarName": "SKYNET_API_KEY"
       },
-      "dependsOn": [{ "target": "build-storybook","projects": "self" }]
+      "dependsOn": [{ "target": "build-storybook", "projects": "self" }]
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional"
+      }
     }
   }
 }

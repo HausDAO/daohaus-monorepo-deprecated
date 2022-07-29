@@ -51,6 +51,12 @@
           "graphql-codegen --config libs/dao-data/codegen-lens.yaml"
         ]
       }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional"
+      }
     }
   },
   "tags": []

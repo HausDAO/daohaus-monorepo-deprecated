@@ -1,38 +1,31 @@
 {
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/common-utilities/src",
+  "sourceRoot": "libs/abi-utilities/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/common-utilities",
-        "main": "libs/common-utilities/src/index.ts",
-        "tsConfig": "libs/common-utilities/tsconfig.lib.json",
-        "assets": ["libs/common-utilities/*.md"],
-        "generatePackageJson": true
+        "outputPath": "dist/libs/abi-utilities",
+        "main": "libs/abi-utilities/src/index.ts",
+        "tsConfig": "libs/abi-utilities/tsconfig.lib.json",
+        "assets": ["libs/abi-utilities/*.md"]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/common-utilities/**/*.ts"]
+        "lintFilePatterns": ["libs/abi-utilities/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/common-utilities"],
+      "outputs": ["coverage/libs/abi-utilities"],
       "options": {
-        "jestConfig": "libs/common-utilities/jest.config.ts",
+        "jestConfig": "libs/abi-utilities/jest.config.ts",
         "passWithNoTests": true
-      }
-    },
-    "deploy": {
-      "executor": "ngx-deploy-npm:deploy",
-      "options": {
-        "access": "public"
       }
     },
     "version": {

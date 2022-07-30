@@ -17,7 +17,9 @@
     },
     "build": {
       "executor": "@nrwl/workspace:run-commands",
+      "outputs": ["{options.outputPath}"],
       "options": {
+        "outputPath": "dist/libs/daohaus-connect-feature",
         "command": "tsc --project libs/daohaus-connect-feature/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
         "color": true
       },
@@ -48,7 +50,6 @@
     "deploy": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
-        "tag": "alpha",
         "access": "public"
       }
     }

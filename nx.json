@@ -3,9 +3,6 @@
   "affected": {
     "defaultBase": "main"
   },
-  "cli": {
-    "defaultCollection": "@nrwl/react"
-  },
   "implicitDependencies": {
     "package.json": {
       "dependencies": "*",
@@ -15,7 +12,7 @@
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
+      "runner": "nx/tasks-runners/default",
       "options": {
         "cacheableOperations": [
           "build",
@@ -26,18 +23,6 @@
         ]
       }
     }
-  },
-  "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
-      },
-      {
-        "target": "tsc",
-        "projects": "self"
-      }
-    ]
   },
   "generators": {
     "@nrwl/react": {
@@ -66,5 +51,14 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "core-app"
+  "defaultProject": "core-app",
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "build": {
+      "dependsOn": [
+        "^build",
+        "tsc"
+      ]
+    }
+  }
 }

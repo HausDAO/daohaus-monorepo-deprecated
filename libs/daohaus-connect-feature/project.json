@@ -1,5 +1,5 @@
 {
-  "root": "libs/daohaus-connect-feature",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/daohaus-connect-feature/src",
   "projectType": "library",
   "tags": [],
@@ -9,8 +9,8 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/daohaus-connect-feature",
-        "configFile": "@nxext/vite/plugins/vite-package",
         "frameworkConfigFile": "@nxext/react/plugins/vite",
+        "configFile": "libs/tx-builder-feature/vite.config.ts",
         "entryFile": "src/index.ts",
         "generatePackageJson": true
       }
@@ -41,7 +41,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/daohaus-connect-feature"],
       "options": {
-        "jestConfig": "libs/daohaus-connect-feature/jest.config.js",
+        "jestConfig": "libs/daohaus-connect-feature/jest.config.ts",
         "passWithNoTests": true
       }
     },

@@ -1,17 +1,32 @@
-import React, { ComponentProps } from 'react';
+import { handlePluralNoun, Noun } from '@daohaus/common-utilities';
+import { ComponentProps } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { WrappedInput } from '../WrappedInput';
 
-export const CSInput = (props: ComponentProps<typeof WrappedInput>) => {
-  const { rules } = props;
+export const CSInput = (
+  props: ComponentProps<typeof WrappedInput> & { itemNoun: Noun }
+) => {
+  const {
+    rules,
+    id,
+    itemNoun = {
+      singular: 'item',
+      plural: 'items',
+    },
+  } = props;
+  const { watch } = useFormContext();
+
+  const value = watch(id);
+  const amtItems = Array.isArray(value) ? value.length : 0;
+  const helperText = `${amtItems} ${handlePluralNoun(
+    itemNoun,
+    amtItems
+  )} typed`;
 
   const newRules = {
     ...rules,
-    setValueAs: (value: string) => {
-      const newVal = value.trim().split(',').filter(Boolean);
-      console.log(newVal);
-      return newVal;
-    },
+    setValueAs: (value: string) => value.trim().split(',').filter(Boolean),
   };
 
-  return <WrappedInput {...props} rules={newRules} />;
+  return <WrappedInput {...props} rules={newRules} helperText={helperText} />;
 };

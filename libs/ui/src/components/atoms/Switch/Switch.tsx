@@ -55,7 +55,7 @@ export const Switch = React.forwardRef(
       className,
       disabled,
       switchOn,
-      defaultOn,
+      defaultOn = false,
       onBlur,
       onChange,
       onCheckedChange,

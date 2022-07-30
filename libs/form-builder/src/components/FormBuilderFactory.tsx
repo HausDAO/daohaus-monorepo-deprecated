@@ -1,38 +1,61 @@
+import { useMemo } from 'react';
 import styled from 'styled-components';
 import { FieldLego } from '../types/legoTypes';
+import { generateRules } from '../utils/rules';
 import { CoreFieldLookup } from './CoreFieldLookup';
+import { useFormBuilder } from './FormBuilder';
 
 const FieldSpacer = styled.div`
   margin-bottom: 3.6rem;
 `;
 
 export const FormBuilderFactory = ({
-  type,
   spacing = true,
-  disabled,
-  ...props
-}: FieldLego & { spacing?: boolean; disabled?: boolean }) => {
-  const GeneratedField = CoreFieldLookup[type];
+  field,
+}: {
+  field: FieldLego;
+  spacing?: boolean;
+}) => {
+  const { type } = field;
+  const {
+    formState: { errors },
+  } = useFormBuilder();
 
-  //TS CHALLENGE
-  // Incoming nonsense here. While I am able to get intellisense
-  // on the legos and bind the 'type' with the props that get passed
-  // into the react component, TS does not seem to want to recognize
-  // that both args and type are derived from the same source, the
-  // actual component
+  const formState = errors;
 
-  const Component = () => (
-    // @ts-expect-error: explanation above
-    <GeneratedField {...props} full disabled={disabled} />
+  const { formDisabled, requiredFields } = useFormBuilder();
+
+  //  Memoizing solves the 'switch-away' mega-bug that was
+  //  occuring because of the enumerator patttern selecting
+  //  a new instance of the component each render.
+  const GeneratedField = useMemo(
+    () => {
+      const Component = CoreFieldLookup[type];
+
+      const newRules = generateRules({
+        field,
+        requiredFields: requiredFields || {},
+      });
+
+      //TS CHALLENGE
+      // While I am able to get intellisense
+      // on the legos and bind the 'type' with the props that get passed
+      // into the react component, TS does not seem to want to recognize
+      // that both args and type are derived from the same source, the
+      // actual component
+      return (
+        // @ts-expect-error: explanation above
+        <Component {...field} full disabled={formDisabled} rules={newRules} />
+      );
+    },
+    // Ignoring exhaustive deps here so that I can update this component
+    // formState change
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [type, formDisabled, field, requiredFields, formState]
   );
-  if (spacing) {
-    return (
-      <FieldSpacer>
-        <Component />
-      </FieldSpacer>
-    );
-  }
-  return <Component />;
+
+  return spacing ? <FieldSpacer>{GeneratedField}</FieldSpacer> : GeneratedField;
 };
 
 // Simiplified example of TS problem here.

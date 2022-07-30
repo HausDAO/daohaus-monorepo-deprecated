@@ -5,7 +5,7 @@ import {
 } from '@daohaus/common-utilities';
 import { useTheme } from 'styled-components';
 
-import { RiExternalLinkLine, RiFileCopyLine } from 'react-icons/ri';
+import { RiFileCopyLine } from 'react-icons/ri';
 import { Theme } from '../../../types/theming';
 import {
   AddressContainer,
@@ -13,7 +13,7 @@ import {
   AddressDataMd,
 } from './AddressDisplay.styles';
 import { Icon, Link } from '../../atoms';
-import { useToast } from 'libs/ui/src/hooks';
+import { useToast } from '/hooks';
 
 type AddressDisplayProps = {
   address: string;

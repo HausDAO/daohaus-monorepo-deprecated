@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Theme } from '../../../types/theming';
-import { DataMd, Icon } from '../../atoms';
+import { DataMd } from '../../atoms';
 
 export const AddressContainer = styled.div`
   display: flex;

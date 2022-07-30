@@ -49,15 +49,9 @@
     "numbro": "^2.3.6",
     "nx": "14.4.3",
     "polished": "^4.2.2",
-<<<<<<< HEAD
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.33.1",
-=======
-    "react-hook-form": "^7.33.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
->>>>>>> 79390caea2abdc6f35082de2810a3a9e09314e29
     "react-icons": "^4.3.1",
     "react-is": "18.2.0",
     "react-router-dom": "6.3.0",

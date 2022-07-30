@@ -1,5 +1,5 @@
 {
-  "root": "libs/tx-builder-feature",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/tx-builder-feature/src",
   "projectType": "library",
   "tags": [],
@@ -9,7 +9,7 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/tx-builder-feature",
-        "configFile": "@nxext/vite/plugins/vite-package",
+        "configFile": "libs/tx-builder-feature/vite.config.ts",
         "frameworkConfigFile": "@nxext/react/plugins/vite",
         "entryFile": "src/index.ts",
         "generatePackageJson": true
@@ -26,7 +26,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/tx-builder-feature"],
       "options": {
-        "jestConfig": "libs/tx-builder-feature/jest.config.js",
+        "jestConfig": "libs/tx-builder-feature/jest.config.ts",
         "passWithNoTests": true
       }
     },

@@ -2,7 +2,7 @@ import React, { RefObject } from 'react';
 import classNames from 'classnames';
 import { IconType } from 'react-icons';
 
-import { ButtonBase, WithIcon } from './Button.styles';
+import { ButtonBase } from './Button.styles';
 
 export type ButtonProps = {
   children?: React.ReactNode;
@@ -14,6 +14,7 @@ export type ButtonProps = {
   disabled?: boolean;
   fullWidth?: boolean;
   leftAlign?: boolean;
+  centerAlign?: boolean;
   avatar?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   IconLeft?: IconType;
@@ -37,6 +38,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
     tertiary,
     children,
     fullWidth,
+    centerAlign,
     leftAlign,
     avatar,
     className,
@@ -53,33 +55,21 @@ export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
     avatar,
     'left-align': leftAlign,
     'full-width': fullWidth,
+    'center-align': centerAlign,
   });
-  if (IconLeft || IconRight) {
-    const iconClasses = classNames({ secondary, tertiary, sm, lg });
-    return (
-      <ButtonBase
-        {...props}
-        className={`${classes} ${className}`}
-        ref={ref}
-        type={type}
-        value={value}
-      >
-        <WithIcon>
-          {IconLeft && <IconLeft className={`${iconClasses} icon-left`} />}
-          {children}
-          {IconRight && <IconRight className={`${iconClasses} icon-right`} />}
-        </WithIcon>
-      </ButtonBase>
-    );
-  }
+
+  const iconClasses = classNames({ secondary, tertiary, sm, lg });
   return (
     <ButtonBase
       {...props}
       className={`${classes} ${className}`}
       ref={ref}
       type={type}
+      value={value}
     >
+      {IconLeft && <IconLeft className={`${iconClasses} icon-left`} />}
       {children}
+      {IconRight && <IconRight className={`${iconClasses} icon-right`} />}
     </ButtonBase>
   );
 });

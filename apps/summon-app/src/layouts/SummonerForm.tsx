@@ -68,7 +68,7 @@ export const SummonerForm = ({
 
       fireTransaction({
         txName: 'summonBaalAndSafe',
-        abi: LOCAL_ABI.BAAL_FACTORY,
+        abi: LOCAL_ABI.BAAL_SUMMONER,
         args: args,
         keychain: CONTRACTS.V3_FACTORY,
         lifeCycleFns: {
@@ -162,7 +162,7 @@ export const SummonerForm = ({
             placeholder="Braid Guild"
             full
             disabled={formDisabled}
-            registerOptions={{ required: 'DAO name is required' }}
+            rules={{ required: 'DAO name is required' }}
           />
           <Divider className="top-divider" />
         </div>

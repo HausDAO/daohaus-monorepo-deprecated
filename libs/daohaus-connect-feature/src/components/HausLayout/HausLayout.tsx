@@ -1,18 +1,18 @@
 import { ReactNode } from 'react';
 
 import { DaoHausNav } from '../DaoHausNav/DaoHausNav';
-import { MainLayout, SubNav, SubNavProps } from '@daohaus/ui';
+import { MainLayout, NavigationTabs, NavigationTabsProps } from '@daohaus/ui';
 import { OuterLayout } from '@daohaus/ui';
 
 export const HausLayout = ({
   navLinks,
   dropdownLinks,
   children,
-}: SubNavProps & { children: ReactNode }) => {
+}: NavigationTabsProps & { children: ReactNode }) => {
   return (
     <OuterLayout>
       <DaoHausNav />
-      <SubNav navLinks={navLinks} dropdownLinks={dropdownLinks} />
+      <NavigationTabs navLinks={navLinks} dropdownLinks={dropdownLinks} />
       <MainLayout>{children}</MainLayout>
     </OuterLayout>
   );

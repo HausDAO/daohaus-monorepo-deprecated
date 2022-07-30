@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import classNames from 'classnames';
 import { RiAsterisk } from 'react-icons/ri';
 
@@ -16,20 +16,18 @@ import {
   LabelContainer,
   RequiredAsterisk,
 } from './FieldWrapper.styles';
-import { Field } from '../../../types/formAndField';
+import { Buildable } from '../../../types/formAndField';
 import {
   ErrorMessage,
   WarningMessage,
   SuccessMessage,
 } from '../../../types/formAndField';
-import { useFormContext } from 'react-hook-form';
+import { FieldError, useFormContext } from 'react-hook-form';
 
-type FieldWrapperProps = Field & {
-  children: React.ReactNode;
-};
+// type FieldWrapperType = PrimitiveElement & PrimitiveWrapper & PrimitiveSizable;
 
-export type HelperTextFactoryProps = {
-  error?: ErrorMessage;
+type HelperTextFactoryProps = {
+  error?: ErrorMessage | FieldError;
   warning?: WarningMessage;
   success?: SuccessMessage;
   helperText?: string;
@@ -38,7 +36,6 @@ export type HelperTextFactoryProps = {
 export const FieldWrapper = ({
   children,
   label,
-  required,
   info,
   error,
   success,
@@ -48,16 +45,17 @@ export const FieldWrapper = ({
   full,
   address,
   id,
-}: FieldWrapperProps) => {
+  rules,
+}: Buildable<{ children: ReactNode }>) => {
   const classes = classNames({ long: long || address, full });
-  const {
-    formState: { errors },
-  } = useFormContext();
-  const contextError = errors[id];
+  const { getFieldState } = useFormContext();
+
+  const fieldError = getFieldState(id).error;
+
   return (
     <FieldWrapperBase className={classes}>
       <LabelContainer>
-        {required && (
+        {rules?.required && (
           <RequiredAsterisk>
             <Icon label="Required">
               <RiAsterisk />
@@ -69,7 +67,7 @@ export const FieldWrapper = ({
       </LabelContainer>
       <div className="field-slot">{children}</div>
       <HelperTextFactory
-        error={contextError || error}
+        error={error || fieldError}
         success={success}
         warning={warning}
         helperText={helperText}

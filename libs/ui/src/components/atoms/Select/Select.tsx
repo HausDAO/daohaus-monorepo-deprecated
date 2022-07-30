@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import { forwardRef } from 'react';
-import { RiArrowDownSLine } from 'react-icons/ri';
+import { RiArrowDropDownLine } from 'react-icons/ri';
 import { useTheme } from 'styled-components';
 
 import { BaseSelect, StyledOption, WithIcon } from './Select.styles';
@@ -56,7 +56,7 @@ export const Select = forwardRef(
             </StyledOption>
           ))}
         </BaseSelect>
-        <RiArrowDownSLine
+        <RiArrowDropDownLine
           size="2rem"
           color={disabled ? theme.field.disabledColor : theme.select.text}
         />

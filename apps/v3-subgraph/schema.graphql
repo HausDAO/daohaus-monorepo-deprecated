@@ -51,6 +51,8 @@ type Dao @entity {
   activeMemberCount: BigInt!
   "name of the DAO"
   name: String
+  "was Dao summoned by an existing safe or did it create a new safe."
+  existingSafe: Boolean!
   "proposals scoped to this dao"
   proposals: [Proposal!] @derivedFrom(field: "dao")
   "members scoped to this dao"

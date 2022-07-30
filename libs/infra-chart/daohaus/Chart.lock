@@ -1,15 +1,18 @@
 dependencies:
 - name: common
   repository: https://charts.bitnami.com/bitnami
-  version: 1.15.2
+  version: 1.16.1
 - name: redis
   repository: https://charts.bitnami.com/bitnami
-  version: 16.10.1
+  version: 16.13.2
 - name: ipfs
   repository: file://../ipfs
   version: 0.1.2
 - name: ceramic
   repository: file://../ceramic
   version: 0.1.0
-digest: sha256:b23335c0240993d0354e8a006924b927ee5abc02ef58138d09f79caf28b153f6
-generated: "2022-06-02T17:49:02.264396309-04:00"
+- name: job
+  repository: file://../job
+  version: 0.1.0
+digest: sha256:ac0b50517cb2e53aab0efc9e9be8643b0b3844d23029c44f519dd4ac5d9499c0
+generated: "2022-07-25T11:42:26.808474229-04:00"

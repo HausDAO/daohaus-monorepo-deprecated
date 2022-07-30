@@ -1,0 +1,35 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/infra-chart/job",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "helm dependency build ./job",
+        "cwd": "libs/infra-chart"
+      },
+      "dependsOn": [
+        {
+          "target": "add",
+          "projects": "self"
+        }
+      ]
+    },
+    "dryRun": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "helm install --dry-run --debug -f ./job/values.yaml test ./job",
+        "cwd": "libs/infra-chart"
+      }
+    },
+    "add": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "helm repo add bitnami https://charts.bitnami.com/bitnami",
+        "cwd": "libs/infra-chart"
+      }
+    }
+  },
+  "tags": []
+}

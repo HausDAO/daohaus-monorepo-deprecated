@@ -40,6 +40,7 @@ const HomePage = () => {
   const debouncedSearchTerm = useDebounce<string>(searchTerm, 1000);
 
   useEffect(() => {
+    let shouldUpdate = true;
     const getDaos = async (address: string) => {
       setLoading(true);
       try {
@@ -53,14 +54,13 @@ const HomePage = () => {
           memberFilter: getDelegateFilter(filterDelegate, address),
           ordering: SORT_FIELDS[sortBy].ordering,
         });
-
-        if (query.data?.daos) {
+        if (query.data?.daos && shouldUpdate) {
           setDaoData(query.data.daos);
         }
       } catch (error) {
         error instanceof Error
           ? console.error(error.message)
-          : console.error('Well, shit...');
+          : console.error('Error: Hub Data fetch');
       } finally {
         setLoading(false);
       }
@@ -68,6 +68,10 @@ const HomePage = () => {
 
     if (!address) return;
     getDaos(address);
+
+    return () => {
+      shouldUpdate = false;
+    };
   }, [address, filterNetworks, filterDelegate, sortBy, debouncedSearchTerm]);
 
   const toggleNetworkFilter = (event: MouseEvent<HTMLButtonElement>) => {

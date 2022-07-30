@@ -1,4 +1,5 @@
-module.exports = {
+/* eslint-disable */
+export default {
   displayName: 'tx-builder-feature',
   preset: '../../jest.preset.js',
   transform: {

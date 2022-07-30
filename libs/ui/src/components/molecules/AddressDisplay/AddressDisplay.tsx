@@ -13,7 +13,7 @@ import {
   AddressDataMd,
 } from './AddressDisplay.styles';
 import { Icon, Link } from '../../atoms';
-import { useToast } from '/hooks';
+import { useToast } from '../../../hooks';
 
 type AddressDisplayProps = {
   address: string;

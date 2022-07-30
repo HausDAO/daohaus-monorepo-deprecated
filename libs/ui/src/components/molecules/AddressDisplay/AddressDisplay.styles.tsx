@@ -13,3 +13,8 @@ export const AddressContainer = styled.div`
 export const AddressDataMd = styled(DataMd)`
   color: ${({ theme }: { theme: Theme }) => theme.secondary};
 `;
+
+export const AddressCopyIcon = styled.div`
+  cursor: pointer;
+  margin-top: 0.5em;
+`;

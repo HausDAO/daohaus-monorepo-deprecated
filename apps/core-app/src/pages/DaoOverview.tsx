@@ -60,6 +60,7 @@ export function DaoOverview() {
                 txHash
                 truncate
                 address={dao.txHash}
+                explorerNetworkId={daochain as keyof Keychain}
               ></AddressDisplay>
             )}
           </Box>

@@ -51,12 +51,12 @@ export const ValidateField = {
 };
 
 // REQUIRED UTILS
-const isRequiredField = (
+export const isRequiredField = (
   field: FieldLego,
   requiredFields: Record<string, boolean>
 ) => requiredFields[field.id];
 
-const generateRequiredRule = (field: Record<string, unknown>) => {
+export const generateRequiredRule = (field: Record<string, unknown>) => {
   const { label } = field;
   if (typeof label === 'string') {
     return { required: `${label} is required` };
@@ -95,132 +95,109 @@ export const generateRules = ({
 
 // LEAVE COMMENTS FOR NOW. TRANSFER WHEN TESTS WORK.
 
-// const inputNoLable: FieldLego = { type: 'input', id: 'test' };
-// const inputWithLable: FieldLego = { type: 'input', id: 'test', label: 'Test' };
+const inputNoLable: FieldLego = { type: 'input', id: 'test' };
+const inputWithLable: FieldLego = { type: 'input', id: 'test', label: 'Test' };
 
-// const isRequired = {
-//   test: true,
-// };
+const isRequired = {
+  test: true,
+};
 
-// const isNotRequired = {
-//   foo: true,
-//   bar: true,
-// };
+const isNotRequired = {
+  foo: true,
+  bar: true,
+};
 
-// const isAlsoRequired = {
-//   foo: true,
-//   test: true,
-// };
+const isAlsoRequired = {
+  foo: true,
+  test: true,
+};
 
-// const testIsRequired = isRequiredField(inputNoLable, {
-//   description: true,
-// });
-// const testIsRequired2 = isRequiredField(inputNoLable, {
-//   test: true,
-// });
+console.log(
+  'merges with other rules',
+  updateRequired({ required: 'Test is required' })({
+    setValueAs: (val) => val + 1,
+    minLength: 10,
+  })
+);
+console.log(
+  'overwrites old rules and merges with other rules',
+  updateRequired({ required: 'Test is required' })({
+    setValueAs: (val) => val + 1,
+    minLength: 10,
+    required: true,
+  })
+);
 
-/*Temporary Tests For Required*/
-// console.log('With label', generateRequiredRule(inputWithLable));
-// console.log('W/out Label', generateRequiredRule(inputNoLable));
+const numberTypeValInput: FieldLego = {
+  type: 'input',
+  id: 'test',
+  expectType: 'number',
+};
+const arrayTypeValInput: FieldLego = {
+  type: 'input',
+  id: 'test',
+  expectType: 'array',
+};
+const noTypeValInput: FieldLego = { type: 'input', id: 'test', label: 'Test' };
 
-// console.log('Is Required', handleRequiredField(inputWithLable, isRequired));
-// console.log(
-//   'Is not required',
-//   handleRequiredField(inputWithLable, isNotRequired)
-// );
-// console.log(
-//   'Is also required',
-//   handleRequiredField(inputWithLable, isAlsoRequired)
-// );
+console.log('Has Type Validation', hasTypeValidation(numberTypeValInput));
+console.log('Does not have Type Validation', hasTypeValidation(noTypeValInput));
 
-// console.log(
-//   'merges with other rules',
-//   updateRequired({ required: 'Test is required' })({
-//     setValueAs: (val) => val + 1,
-//     minLength: 10,
-//   })
-// );
-// console.log(
-//   'overwrites old rules and merges with other rules',
-//   updateRequired({ required: 'Test is required' })({
-//     setValueAs: (val) => val + 1,
-//     minLength: 10,
-//     required: true,
-//   })
-// );
+console.log(
+  'gets number type validation',
+  handleTypeValidation(numberTypeValInput)
+);
+console.log(
+  'gets array type validation',
+  handleTypeValidation(arrayTypeValInput)
+);
+console.log('returns empty type val', handleTypeValidation(noTypeValInput));
+console.log(
+  'merges with other rules',
+  updateValidate({ validate: ValidateField.array })({
+    setValueAs: (val) => val + 1,
+    minLength: 10,
+  })
+);
+console.log(
+  'overwrites old rules',
+  updateValidate({ validate: ValidateField.array })({
+    setValueAs: (val) => val + 1,
+    minLength: 10,
+    validate: ValidateField.number,
+  })
+);
 
-// TESTS FOR VALIDATE FIELD
-
-// const numberTypeValInput: FieldLego = {
-//   type: 'input',
-//   id: 'test',
-//   expectType: 'number',
-// };
-// const arrayTypeValInput: FieldLego = {
-//   type: 'input',
-//   id: 'test',
-//   expectType: 'array',
-// };
-// const noTypeValInput: FieldLego = { type: 'input', id: 'test', label: 'Test' };
-
-// console.log('Has Type Validation', hasTypeValidation(numberTypeValInput));
-// console.log('Does not have Type Validation', hasTypeValidation(noTypeValInput));
-
-// console.log(
-//   'gets number type validation',
-//   handleTypeValidation(numberTypeValInput)
-// );
-// console.log(
-//   'gets array type validation',
-//   handleTypeValidation(arrayTypeValInput)
-// );
-// console.log('returns empty type val', handleTypeValidation(noTypeValInput));
-// console.log(
-//   'merges with other rules',
-//   updateValidate({ validate: ValidateField.array })({
-//     setValueAs: (val) => val + 1,
-//     minLength: 10,
-//   })
-// );
-// console.log(
-//   'overwrites old rules',
-//   updateValidate({ validate: ValidateField.array })({
-//     setValueAs: (val) => val + 1,
-//     minLength: 10,
-//     validate: ValidateField.number,
-//   })
-// );
-
-// // TESTS FOR PIPELINE FUNCTION
-// const testField: FieldLego = {
-//   type: 'input',
-//   id: 'test',
-//   label: 'Test',
-//   expectType: 'number',
-// };
-// console.log(
-//   'inits rules',
-//   generateRules({ field: testField, requiredFields: {} })
-// );
-// console.log(
-//   'generates required and type validation',
-//   generateRules({ field: testField, requiredFields: { test: true } })
-// );
-// console.log(
-//   'preserves static rules',
-//   generateRules({
-//     field: { ...testField, rules: { minLength: 10, maxLength: 9 } },
-//     requiredFields: { test: true },
-//   })
-// );
-// console.log(
-//   'overwrites old rules by the same name ',
-//   generateRules({
-//     field: {
-//       ...testField,
-//       rules: { minLength: 10, maxLength: 9, validate: ValidateField.array },
-//     },
-//     requiredFields: { test: true },
-//   })
-// );
-// export const foo = 1;
+// TESTS FOR PIPELINE FUNCTION
+const testField: FieldLego = {
+  type: 'input',
+  id: 'test',
+  label: 'Test',
+  expectType: 'number',
+};
+console.log(
+  'inits rules',
+  generateRules({ field: testField, requiredFields: {} })
+);
+console.log(
+  'generates required and type validation',
+  generateRules({ field: testField, requiredFields: { test: true } })
+);
+console.log(
+  'preserves static rules',
+  generateRules({
+    field: { ...testField, rules: { minLength: 10, maxLength: 9 } },
+    requiredFields: { test: true },
+  })
+);
+console.log(
+  'overwrites old rules by the same name ',
+  generateRules({
+    field: {
+      ...testField,
+      rules: { minLength: 10, maxLength: 9, validate: ValidateField.array },
+    },
+    requiredFields: { test: true },
+  })
+);
+export const foo = 1;

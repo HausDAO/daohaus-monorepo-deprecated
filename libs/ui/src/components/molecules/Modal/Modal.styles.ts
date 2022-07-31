@@ -1,14 +1,17 @@
 import * as ModalPrimitive from '@radix-ui/react-dialog';
 import styled, { keyframes } from 'styled-components';
 
-import { blackA, indigoDarkA } from '@radix-ui/colors';
+// Move into colors for any overlays
+import { indigoDarkA } from '@radix-ui/colors';
 
 import { Theme } from '../../../types/theming';
 
 export const ModalRoot = ModalPrimitive.Root;
-export const ModalTrigger = ModalPrimitive.Trigger;
+export const ModalPrimitaveTrigger = ModalPrimitive.Trigger;
 export const ModalClose = ModalPrimitive.Close;
 export const ModalPortal = ModalPrimitive.Portal;
+export const ModalTitle = ModalPrimitive.Title;
+export const ModalDescription = ModalPrimitive.Description;
 
 const overlayShow = keyframes`
   0% { opacity: 0 };
@@ -16,7 +19,7 @@ const overlayShow = keyframes`
 `;
 
 export const StyledModalOverlay = styled(ModalPrimitive.Overlay)`
-  background-color: ${({ theme }: { theme: Theme }) => indigoDarkA.indigoA4};
+  background-color: ${() => indigoDarkA.indigoA4};
   position: fixed;
   inset: 0;
   @media (prefers-reduced-motion: no-preference) {
@@ -31,17 +34,22 @@ const contentShow = keyframes`
 
 export const StyledModalContent = styled(ModalPrimitive.Content)`
   background-color: ${({ theme }: { theme: Theme }) => theme.modal.bg};
-  border-radius: 6px;
+  border-radius: 8px;
   box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
     hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  color: ${({ theme }: { theme: Theme }) => theme.modal.color};
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  left: 50%;
+  max-height: 85vh;
+  max-width: 90vw;
+  min-width: 50rem;
+  min-height: 23rem;
+  padding: 3rem;
   position: fixed;
   top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
-  width: 90vw;
-  max-width: 450px;
-  max-height: 85vh;
-  padding: 25px;
   @media (prefers-reduced-motion: no-preference) {
     animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
   }
@@ -50,33 +58,29 @@ export const StyledModalContent = styled(ModalPrimitive.Content)`
   }
 `;
 
-export const StyledModalTitle = styled(ModalPrimitive.Title)`
-  margin: 0;
-  font-weight: 500;
-  color: ${({ theme }: { theme: Theme }) => theme.modal.color};
-  font-size: 17px;
-`;
-
-export const StyledModalDescription = styled(ModalPrimitive.Description)`
-  margin: 10px 0 20px;
-  color: ${({ theme }: { theme: Theme }) => theme.modal.color};
-  font-size: 15px;
-  line-height: 1.5px;
-`;
-
-export const Fieldset = styled.fieldset`
-  all: unset;
+export const ModalBody = styled.div`
   display: flex;
-  gap: 20;
-  align-items: 'center';
-  margin-bottom: 15px;
+  height: auto;
+  width: 100%;
+`;
+
+export const HeaderContainer = styled.div`
+  align-items: baseline;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
 `;
 
 export const CloseIcon = styled.div`
+  margin-left: auto;
   cursor: pointer;
-  font-size: 17px;
+  font-size: 24px;
 `;
 
-export const Flex = styled.div`
+export const ButtonContainer = styled.div<{
+  align: 'start' | 'end';
+}>`
+  align-self: ${(props) => `flex-${props.align}`};
   display: flex;
+  gap: 1rem;
 `;

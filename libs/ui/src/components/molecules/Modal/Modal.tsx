@@ -1,79 +1,89 @@
-import {
-  RiCloseFill,
-  RiCheckboxCircleFill,
-  RiErrorWarningFill,
-  RiCloseCircleFill,
-} from 'react-icons/ri';
+import React, { RefObject } from 'react';
+import { DialogContentProps } from '@radix-ui/react-dialog';
+import { RiCloseFill } from 'react-icons/ri';
 
-import { Label, Link, Input, Button } from '../../atoms';
+import { Button, ButtonProps, H5 } from '../../atoms';
 import {
   ModalRoot,
-  ModalTrigger,
+  ModalPrimitaveTrigger,
+  ModalTitle,
+  ModalDescription,
   ModalClose,
   ModalPortal,
   StyledModalContent,
-  StyledModalDescription,
   StyledModalOverlay,
-  StyledModalTitle,
+  HeaderContainer,
+  ModalBody,
+  ButtonContainer,
   CloseIcon,
-  Fieldset,
-  Flex,
 } from './Modal.styles';
 
-function Content({ children, ...props }: any) {
-  return (
-    <ModalPortal>
-      <StyledModalOverlay />
-      <StyledModalContent {...props}>{children}</StyledModalContent>
-    </ModalPortal>
-  );
-}
-
-export const Modal = (props: any) => {
-  const {
-    title,
-    description,
-    type,
-    defaultOpen,
-    open,
-    onOpenChange,
-    duration,
-    label,
-    hotkey,
-    toastType = 'default',
-    ariaLabelClose = 'Close',
-    toastLinks,
-  } = props;
-
-  return (
-    <ModalRoot>
-      <ModalTrigger asChild>
-        <Button>Edit profile</Button>
-      </ModalTrigger>
-      <Content>
-        <StyledModalTitle>Edit profile</StyledModalTitle>
-        <StyledModalDescription>
-          Make changes to your profile here. Click save when you're done.
-        </StyledModalDescription>
-        <Fieldset>
-          <Label id="name">Name</Label>
-          <Input id="name" defaultValue="Pedro Duarte" />
-        </Fieldset>
-        <Fieldset>
-          <Label id="username">Username</Label>
-          <Input id="username" defaultValue="@peduarte" />
-        </Fieldset>
-        <Flex css={{ marginTop: 25, justifyContent: 'flex-end' }}>
-          <ModalClose asChild>
-            <Button>Save changes</Button>
-          </ModalClose>
-        </Flex>
-        <ModalClose asChild>
-          <CloseIcon>
-            <RiCloseFill aria-hidden />
-          </CloseIcon>
-        </ModalClose>
-      </Content>
-    </ModalRoot>
-  );
+type ModalProps = DialogContentProps & {
+  title: string;
+  description?: string;
+  alignButtons: 'start' | 'end';
+  leftButton?: ButtonProps;
+  rightButton?: ButtonProps;
 };
+
+type Ref =
+  | ((instance: HTMLDivElement | null) => void)
+  | RefObject<HTMLDivElement>
+  | null
+  | undefined;
+
+export const Modal = ModalRoot;
+export const ModalTrigger = ModalPrimitaveTrigger;
+
+export const ModalContent = React.forwardRef(
+  (
+    {
+      title,
+      children,
+      description,
+      alignButtons = 'end',
+      leftButton,
+      rightButton,
+      ...props
+    }: ModalProps,
+    ref: Ref
+  ) => {
+    return (
+      <ModalPortal>
+        <StyledModalOverlay />
+        <StyledModalContent {...props} ref={ref}>
+          <div>
+            <HeaderContainer>
+              <ModalTitle asChild>
+                <H5>{title}</H5>
+              </ModalTitle>
+              <ModalClose asChild>
+                <CloseIcon>
+                  <RiCloseFill aria-hidden />
+                </CloseIcon>
+              </ModalClose>
+            </HeaderContainer>
+            <ModalBody>
+              <ModalDescription>{description}</ModalDescription>
+              {children}
+            </ModalBody>
+          </div>
+          {(leftButton || rightButton) && (
+            <ButtonContainer align={alignButtons}>
+              {leftButton && (
+                <Button secondary sm {...leftButton}>
+                  {leftButton?.children}
+                </Button>
+              )}
+              {rightButton && (
+                <Button secondary sm {...rightButton}>
+                  {rightButton?.children}
+                </Button>
+              )}
+            </ButtonContainer>
+          )}
+        </StyledModalContent>
+      </ModalPortal>
+    );
+  }
+);

@@ -403,7 +403,7 @@
   resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.18.9.tgz#4b8aea3b069d8cb8a72cdfe28ddf5ceca695ef2f"
   integrity sha512-aBXPT3bmtLryXaoJLyYPXPlSD4p1ld9aYeR+sJNOZjJJGiOpb+fKfh3NkcCu7J54nUJwCERPBExCCpyCOHnu/w==
 
-"@babel/helper-remap-async-to-generator@^7.18.6":
+"@babel/helper-remap-async-to-generator@^7.18.6", "@babel/helper-remap-async-to-generator@^7.18.9":
   version "7.18.9"
   resolved "https://registry.yarnpkg.com/@babel/helper-remap-async-to-generator/-/helper-remap-async-to-generator-7.18.9.tgz#997458a0e3357080e54e1d79ec347f8a8cd28519"
   integrity sha512-dI7q50YKd8BAv3VEfgg7PS7yD3Rtbi2J1XMXaalXO0W0164hYLnh8zpjRS0mte9MfVp/tltvr/cfdXPvJr1opA==
@@ -3426,17 +3426,6 @@
     webpack "^4 || ^5"
     webpack-node-externals "^3.0.0"
 
-"@nrwl/devkit@14.0.5":
-  version "14.0.5"
-  resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-14.0.5.tgz#708670d28ccca66dbde683de93470fae9a885219"
-  integrity sha512-2kGv3tquuf3xko9FVG+Q6gUMt+RsOigdieANZtvsPaNUAxJOD5DabxHA1pwkd8AUg6bewpv64cVLgvhUIBj1MQ==
-  dependencies:
-    ejs "^3.1.5"
-    ignore "^5.0.4"
-    rxjs "^6.5.4"
-    semver "7.3.4"
-    tslib "^2.3.0"
-
 "@nrwl/devkit@14.4.3", "@nrwl/devkit@^14.3.0", "@nrwl/devkit@^14.4.3":
   version "14.4.3"
   resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-14.4.3.tgz#4f8ed59bc1e0188e2fe6e4b59b03f783ddca33a0"
@@ -3445,6 +3434,16 @@
     ejs "^3.1.7"
     ignore "^5.0.4"
     rxjs "^6.5.4"
+    semver "7.3.4"
+    tslib "^2.3.0"
+
+"@nrwl/devkit@14.5.1":
+  version "14.5.1"
+  resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-14.5.1.tgz#cc8c4b82c5ea3d0ee6164389749059232127a99d"
+  integrity sha512-j/m9F5W/nLF/f/AlmbJU85DWQ8g9SOAxkFHz85i2QOUbThLzCYub890tRCms41n/Z07SRpKaWd6YS3skotpGqw==
+  dependencies:
+    ejs "^3.1.7"
+    ignore "^5.0.4"
     semver "7.3.4"
     tslib "^2.3.0"
 
@@ -16492,12 +16491,12 @@ nested-error-stacks@^2.0.0, nested-error-stacks@^2.1.0:
   resolved "https://registry.yarnpkg.com/nested-error-stacks/-/nested-error-stacks-2.1.1.tgz#26c8a3cee6cc05fbcf1e333cd2fc3e003326c0b5"
   integrity sha512-9iN1ka/9zmX1ZvLV9ewJYEk9h7RyRRtqdK0woXcqohu8EWIerfPUjYJPg0ULy0UqP7cslmdGc8xKDJcojlKiaw==
 
-ngx-deploy-npm@3.1.9:
-  version "3.1.9"
-  resolved "https://registry.yarnpkg.com/ngx-deploy-npm/-/ngx-deploy-npm-3.1.9.tgz#f08b1d6f984237dc43d0d5bfcd0884c2a79ffc84"
-  integrity sha512-JedTEbpqwgyrfoItu8RE9mofVPDM3AR/bfKFSfUlJITfnZTuFPktcw4MAImMQ54lZ8jiVZhIAeDC/Q7b6PJX2Q==
+ngx-deploy-npm@4.1.3:
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/ngx-deploy-npm/-/ngx-deploy-npm-4.1.3.tgz#67d449d024e7d4341202956443a5bb85ef3d22ad"
+  integrity sha512-1HkurkXPlkEm5u6VNxtz9k6Tm76ZAfmWesn6sMjNObx3TFZXJNTaUk0dKxX6MLrSW0ADQQCT4v4fygL9yPZchg==
   dependencies:
-    "@nrwl/devkit" "14.0.5"
+    "@nrwl/devkit" "14.5.1"
 
 nice-try@^1.0.4:
   version "1.0.5"

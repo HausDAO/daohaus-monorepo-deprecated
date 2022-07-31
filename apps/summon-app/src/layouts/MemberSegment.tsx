@@ -35,7 +35,7 @@ export const MembersSegment = ({ formDisabled }: { formDisabled: boolean }) => {
       title="Starting Members"
       description="You must have at least one member to start. Add other starting members as desired. You can always add more members later through a proposal or a shaman."
       formArea={
-        <TextAreaSection css={{ width: '100%' }}>
+        <TextAreaSection style={{ width: '100%' }}>
           <ParSm className="number-display">{amtMembers} Members</ParSm>
           <WrappedTextArea
             label="Addresses & Stake Amounts"
@@ -44,10 +44,9 @@ export const MembersSegment = ({ formDisabled }: { formDisabled: boolean }) => {
             info={INFO_COPY.MEMBERS}
             full
             number
-            required
             disabled={formDisabled}
             helperText={helperText}
-            registerOptions={{
+            rules={{
               setValueAs: transformMemberData,
               validate: validateMemberData,
               required: 'Members is a required field',

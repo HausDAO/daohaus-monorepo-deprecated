@@ -73,7 +73,9 @@
         "outputPath": "dist/storybook/ui",
         "config": {
           "configFolder": "libs/ui/.storybook"
-        }
+        },
+
+        "quiet": false
       },
       "configurations": {
         "ci": {

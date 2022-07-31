@@ -1,5 +1,8 @@
 module.exports = {
   stories: [],
+  core: {
+    disableTelemetry: true, // 👈 Disables telemetry
+  },
   // https://github.com/storybookjs/storybook/issues/17996
   addons: [
     {

@@ -13,7 +13,7 @@ const pipe =
   (value: T) =>
     fns.reduce((acc, fn) => fn(acc), value);
 
-const createUpdaterFn =
+export const createUpdaterFn =
   (option: keyof RegisterOptions) =>
   (newOptions: RegisterOptions) =>
   (oldOptions: RegisterOptions) =>
@@ -50,7 +50,6 @@ export const ValidateField = {
     isString(val) && /^[^@]+@[^@]+\.[^@]+$/.test(val) ? true : ValErrMsgs.email,
 };
 
-// REQUIRED UTILS
 export const isRequiredField = (
   field: FieldLego,
   requiredFields: Record<string, boolean>
@@ -71,12 +70,12 @@ export const handleRequiredField = (
 
 // VALIDATION UTILS
 
-const hasTypeValidation = (field: FieldLego) => field.expectType !== undefined;
-const handleTypeValidation = (field: FieldLego) =>
+export const hasTypeValidation = (field: FieldLego) =>
+  field.expectType !== undefined;
+export const handleTypeValidation = (field: FieldLego) =>
   hasTypeValidation(field)
     ? { validate: ValidateField[field.expectType as FieldValidationType] }
     : {};
-// TEMPORARY TESTS
 
 export const generateRules = ({
   field,
@@ -92,112 +91,3 @@ export const generateRules = ({
     updateValidate(handleTypeValidation(field))
   )(oldRules);
 };
-
-// LEAVE COMMENTS FOR NOW. TRANSFER WHEN TESTS WORK.
-
-const inputNoLable: FieldLego = { type: 'input', id: 'test' };
-const inputWithLable: FieldLego = { type: 'input', id: 'test', label: 'Test' };
-
-const isRequired = {
-  test: true,
-};
-
-const isNotRequired = {
-  foo: true,
-  bar: true,
-};
-
-const isAlsoRequired = {
-  foo: true,
-  test: true,
-};
-
-console.log(
-  'merges with other rules',
-  updateRequired({ required: 'Test is required' })({
-    setValueAs: (val) => val + 1,
-    minLength: 10,
-  })
-);
-console.log(
-  'overwrites old rules and merges with other rules',
-  updateRequired({ required: 'Test is required' })({
-    setValueAs: (val) => val + 1,
-    minLength: 10,
-    required: true,
-  })
-);
-
-const numberTypeValInput: FieldLego = {
-  type: 'input',
-  id: 'test',
-  expectType: 'number',
-};
-const arrayTypeValInput: FieldLego = {
-  type: 'input',
-  id: 'test',
-  expectType: 'array',
-};
-const noTypeValInput: FieldLego = { type: 'input', id: 'test', label: 'Test' };
-
-console.log('Has Type Validation', hasTypeValidation(numberTypeValInput));
-console.log('Does not have Type Validation', hasTypeValidation(noTypeValInput));
-
-console.log(
-  'gets number type validation',
-  handleTypeValidation(numberTypeValInput)
-);
-console.log(
-  'gets array type validation',
-  handleTypeValidation(arrayTypeValInput)
-);
-console.log('returns empty type val', handleTypeValidation(noTypeValInput));
-console.log(
-  'merges with other rules',
-  updateValidate({ validate: ValidateField.array })({
-    setValueAs: (val) => val + 1,
-    minLength: 10,
-  })
-);
-console.log(
-  'overwrites old rules',
-  updateValidate({ validate: ValidateField.array })({
-    setValueAs: (val) => val + 1,
-    minLength: 10,
-    validate: ValidateField.number,
-  })
-);
-
-// TESTS FOR PIPELINE FUNCTION
-const testField: FieldLego = {
-  type: 'input',
-  id: 'test',
-  label: 'Test',
-  expectType: 'number',
-};
-console.log(
-  'inits rules',
-  generateRules({ field: testField, requiredFields: {} })
-);
-console.log(
-  'generates required and type validation',
-  generateRules({ field: testField, requiredFields: { test: true } })
-);
-console.log(
-  'preserves static rules',
-  generateRules({
-    field: { ...testField, rules: { minLength: 10, maxLength: 9 } },
-    requiredFields: { test: true },
-  })
-);
-console.log(
-  'overwrites old rules by the same name ',
-  generateRules({
-    field: {
-      ...testField,
-      rules: { minLength: 10, maxLength: 9, validate: ValidateField.array },
-    },
-    requiredFields: { test: true },
-  })
-);
-export const foo = 1;

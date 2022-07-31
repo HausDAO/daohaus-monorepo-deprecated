@@ -20,7 +20,6 @@ const tooltipTest: FieldLego<typeof AppFieldLookup> = {
   type: 'tooltip',
   content: 'This is a tooltip',
   side: 'left',
-  // label: 'Test',
 };
 
 export const CustomFields = { ...CoreFieldLookup, ...AppFieldLookup };
@@ -31,7 +30,7 @@ const TestForm: FormLego<CustomFields> = {
   title: 'Test Form',
   subtitle: 'This is a test form',
   description: 'This is a test form',
-  fields: [tooltipTest],
+  fields: [tooltipTest, { type: 'input', id: 'foo' }],
 };
 
 export function Home() {

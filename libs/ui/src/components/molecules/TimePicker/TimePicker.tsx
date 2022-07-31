@@ -37,6 +37,9 @@ export const TimePicker = ({
     if (isNumberString(amt) && units in conversionFns) {
       setValue(`${id}InSeconds`, toSeconds(amt, units));
     }
+    if (amt === '') {
+      setValue(`${id}InSeconds`, 0);
+    }
   }, [amt, units, id, setValue]);
 
   return (

@@ -1,17 +1,45 @@
 import { HausLayout } from '@daohaus/daohaus-connect-feature';
-import { FormBuilder } from '@daohaus/haus-form-builder';
-import { MetadataConfig } from '../data/formLegos';
+import {
+  CoreFieldLookup,
+  FieldLego,
+  FormBuilder,
+  FormLego,
+} from '@daohaus/haus-form-builder';
+import { Tooltip } from '@daohaus/ui';
 
 const sampleDefaultData = {
   daoContract: '0x756ee8B8E898D497043c2320d9909f1DD5a7077F',
   daoName: 'DAO Name here',
 };
 
+const AppFieldLookup = {
+  tooltip: Tooltip,
+};
+
+const tooltipTest: FieldLego<typeof AppFieldLookup> = {
+  type: 'tooltip',
+  content: 'This is a tooltip',
+  side: 'left',
+  // label: 'Test',
+};
+
+export const CustomFields = { ...CoreFieldLookup, ...AppFieldLookup };
+type CustomFields = typeof CustomFields;
+
+const TestForm: FormLego<CustomFields> = {
+  id: 'test',
+  title: 'Test Form',
+  subtitle: 'This is a test form',
+  description: 'This is a test form',
+  fields: [tooltipTest],
+};
+
 export function Home() {
   return (
     <HausLayout navLinks={[{ label: 'NavLink', href: '/' }]}>
-      <FormBuilder
-        form={MetadataConfig}
+      <FormBuilder<CustomFields>
+        form={TestForm}
+        customFields={CustomFields}
         onSubmit={() => console.log('test')}
         defaultValues={sampleDefaultData}
       />

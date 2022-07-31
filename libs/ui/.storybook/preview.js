@@ -67,7 +67,7 @@ const withThemeProvider = (Story, context) => {
 };
 
 const WithFormProvider = (Story, context) => {
-  const methods = useForm();
+  const methods = useForm({ mode: 'onTouch' });
   const { watch } = methods;
 
   const values = watch();

@@ -11,39 +11,46 @@ import { FormLayout } from '@daohaus/ui';
 import { isValidNetwork } from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
-import { FormLego, RequiredFields } from '../types';
+import { FormLego, LookupType, RequiredFields } from '../types';
 import { Logger } from './Logger';
 import { FormFooter } from './formFooter';
 import { FormBuilderFactory } from './FormBuilderFactory';
 
-type FormContext = {
-  form?: FormLego;
+type FormContext<Lookup extends LookupType> = {
+  form?: FormLego<Lookup>;
   requiredFields: RequiredFields;
   formDisabled: boolean;
   submitDisabled: boolean;
 };
 
-export const FormBuilderContext = createContext<FormContext>({
+// Very difficult to type this properly.
+// Contexts have trouble with generics.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const FormBuilderContext = createContext<FormContext<any>>({
   form: undefined,
   requiredFields: {},
   formDisabled: false,
   submitDisabled: false,
 });
 
-export const FormBuilder = ({
-  form,
-  onSubmit,
-  defaultValues,
-}: {
-  form: FormLego;
+type BuilderProps<Lookup extends LookupType> = {
+  form: FormLego<Lookup>;
   defaultValues?: FieldValues;
+  customFields?: LookupType;
   onSubmit: (
     formValues: FieldValues
   ) => void | Promise<(formValues: FieldValues) => void>;
   onCancel?: () => void;
   onSuccess?: () => void;
   onError?: () => void;
-}) => {
+};
+
+export function FormBuilder<Lookup extends LookupType>({
+  form,
+  onSubmit,
+  defaultValues,
+  customFields,
+}: BuilderProps<Lookup>) {
   const { chainId } = useHausConnect();
 
   const methods = useForm({ mode: 'onTouched', defaultValues });
@@ -85,7 +92,11 @@ export const FormBuilder = ({
             noValidate
           >
             {fields?.map((field) => (
-              <FormBuilderFactory key={field.id} field={field} />
+              <FormBuilderFactory
+                key={field.id}
+                field={field}
+                customFields={customFields}
+              />
             ))}
             {log && <Logger />}
             {devtool && <DevTool control={control} />}
@@ -98,7 +109,7 @@ export const FormBuilder = ({
       </FormBuilderContext.Provider>
     </RHFProvider>
   );
-};
+}
 
 export const useFormBuilder = () => {
   const methods = useFormContext();

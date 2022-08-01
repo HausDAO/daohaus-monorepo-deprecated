@@ -68,6 +68,7 @@ export const MetadataConfig: FormLego = {
       label: 'DAO Contract',
       address: true,
       placeholder: '0x0000000000000000000000000000000000000000',
+      expectType: 'ethAddress',
     },
     {
       type: 'input',
@@ -120,10 +121,13 @@ export const MetadataConfig: FormLego = {
       ],
     },
     {
-      type: 'input',
-      id: 'tags',
-      label: 'Tags',
-      placeholder: 'Tags',
+      type: 'csInput',
+      id: 'cs',
+      label: 'CS',
+      itemNoun: {
+        singular: 'tag',
+        plural: 'tags',
+      },
     },
   ],
 };

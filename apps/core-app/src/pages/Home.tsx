@@ -1,25 +1,20 @@
-import styled from 'styled-components';
-
-import { Card, FormLayout } from '@daohaus/ui';
 import { HausLayout } from '@daohaus/daohaus-connect-feature';
+import { FormBuilder } from '@daohaus/haus-form-builder';
+import { MetadataConfig } from '../data/formLegos';
 
-const Spacer = styled.div`
-  width: 100%;
-  height: 50rem;
-`;
+const sampleDefaultData = {
+  daoContract: '0x756ee8B8E898D497043c2320d9909f1DD5a7077F',
+  daoName: 'DAO Name here',
+};
 
 export function Home() {
   return (
-    <HausLayout>
-      <FormLayout
-        title="No DAO"
-        description="you need a better url"
-        subtitle="Something nicer"
-      >
-        <Card>
-          <Spacer />
-        </Card>
-      </FormLayout>
+    <HausLayout navLinks={[{ label: 'NavLink', href: '/' }]}>
+      <FormBuilder
+        form={MetadataConfig}
+        onSubmit={() => console.log('test')}
+        defaultValues={sampleDefaultData}
+      />
     </HausLayout>
   );
 }

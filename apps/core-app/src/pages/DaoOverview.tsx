@@ -1,79 +1,26 @@
 import styled from 'styled-components';
 
-import {
-  AddressDisplay,
-  BiColumnLayout,
-  Card,
-  DataIndicator,
-  widthQuery,
-} from '@daohaus/ui';
+import { Card, SingleColumnLayout, widthQuery } from '@daohaus/ui';
 import { useDao } from '../contexts/DaoContext';
-import { useParams } from 'react-router-dom';
-import { Keychain } from '@daohaus/common-utilities';
+import { DaoProfile } from '../components/DaoProfile/DaoProfile';
 
-const LeftCard = styled(Card)`
-  width: 100%;
-  min-width: 54rem;
-  max-width: 64rem;
-  height: 47rem;
+const OverviewCard = styled(Card)`
+  width: 64rem;
+  padding: 2rem;
+  border: none;
   @media ${widthQuery.md} {
     max-width: 100%;
     min-width: 0;
   }
 `;
 
-const Box = styled.div`
-  margin: 2em 0;
-`;
-
 export function DaoOverview() {
   const { dao } = useDao();
-  const { daochain } = useParams();
 
   return (
-    <BiColumnLayout
-      subtitle="DAO"
-      title="Overview"
-      left={
-        <LeftCard>
-          <DataIndicator size="lg" label="Vault Total" data="$120k" />
-          <DataIndicator
-            size="sm"
-            label="Expiration Date"
-            data="May 10, 2022 15:55pm PST"
-            info="this is a tooltip"
-          />
-          {dao && (
-            <Box>
-              <AddressDisplay
-                truncate
-                copy
-                address={dao.id}
-                explorerNetworkId={daochain as keyof Keychain}
-              ></AddressDisplay>
-            </Box>
-          )}
-          {dao && (
-            <Box>
-              <AddressDisplay address={dao.id}></AddressDisplay>
-            </Box>
-          )}
-          {dao && (
-            <Box>
-              <AddressDisplay
-                txHash
-                truncate
-                address={dao.txHash}
-                explorerNetworkId={daochain as keyof Keychain}
-              ></AddressDisplay>
-            </Box>
-          )}
-
-          {JSON.stringify(dao, null, 2)}
-        </LeftCard>
-      }
-      right={null}
-    />
+    <SingleColumnLayout>
+      <OverviewCard>{dao && <DaoProfile dao={dao} />}</OverviewCard>
+    </SingleColumnLayout>
   );
 }
 

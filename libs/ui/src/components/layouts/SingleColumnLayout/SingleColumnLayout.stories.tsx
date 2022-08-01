@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+
 import { Button } from '../../atoms';
 import { MainLayout } from '../MainLayout';
 import { SingleColumnLayout } from './SingleColumnLayout';
@@ -13,6 +14,13 @@ const Template: ComponentStory<typeof SingleColumnLayout> = (args) => (
     <SingleColumnLayout {...args} />
   </MainLayout>
 );
+
+// const actionButtons = [
+//   <Button key="1">Action 1</Button>,
+//   <Button secondary key="2">
+//     Action 2
+//   </Button>,
+// ]);
 
 export const BaseSingleColumnLayout = Template.bind({});
 
@@ -33,5 +41,10 @@ export const WithActions = Template.bind({});
 
 WithActions.args = {
   title: 'Single Column Layout',
-  actions: [<Button>Action 1</Button>, <Button secondary>Action 2</Button>],
+  actions: [
+    <Button key="1">Action 1</Button>,
+    <Button secondary key="2">
+      Action 2
+    </Button>,
+  ],
 };

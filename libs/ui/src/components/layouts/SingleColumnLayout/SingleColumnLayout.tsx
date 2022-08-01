@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { v4 as uuid } from 'uuid';
 
 import { DataMd, H2 } from '../../atoms';
 import {
@@ -32,21 +31,20 @@ export const SingleColumnLayout = ({
 
   const sectionTitle = useMemo(() => {
     if (!title) return null;
-    let titleNode = <div className="title">{title}</div>;
-    if (typeof title === 'string') {
-      titleNode = <H2 className="title">{title}</H2>;
-    }
-    if (!actions) return titleNode;
+    if (!actions)
+      return typeof title === 'string' ? (
+        <H2 className="title">{title}</H2>
+      ) : (
+        <div className="title">{title}</div>
+      );
     return (
       <TitleContainerWithActions>
-        {titleNode}
-        {actions && (
-          <ActionButtonContainer>
-            {actions.map((action) => (
-              <div key={uuid()}>{action}</div>
-            ))}
-          </ActionButtonContainer>
+        {typeof title === 'string' ? (
+          <H2 className="title">{title}</H2>
+        ) : (
+          <div className="title">{title}</div>
         )}
+        {actions && <ActionButtonContainer>{actions}</ActionButtonContainer>}
       </TitleContainerWithActions>
     );
   }, [title, actions]);

@@ -28,7 +28,6 @@
     "@radix-ui/react-tooltip": "^0.1.7",
     "@self.id/core": "0.4.1",
     "@self.id/web": "0.4.1",
-    "@storybook/addon-actions": "^6.5.9",
     "@storybook/core-server": "6.4.22",
     "@types/ethereum-blockies": "^0.1.0",
     "@types/react-table": "^7.7.12",

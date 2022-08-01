@@ -44,10 +44,9 @@ export const MembersSegment = ({ formDisabled }: { formDisabled: boolean }) => {
             info={INFO_COPY.MEMBERS}
             full
             number
-            required
             disabled={formDisabled}
             helperText={helperText}
-            registerOptions={{
+            rules={{
               setValueAs: transformMemberData,
               validate: validateMemberData,
               required: 'Members is a required field',

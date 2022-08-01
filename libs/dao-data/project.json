@@ -28,6 +28,23 @@
         "passWithNoTests": true
       }
     },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional",
+        "tagPrefix": "${projectName}@",
+        "noVerify": true,
+        "baseBranch": "develop",
+        "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
+      }
+    },
+    "github": {
+      "executor": "@jscutlery/semver:github",
+      "options": {
+        "tag": "${tag}",
+        "notes": "${notes}"
+      }
+    },
     "deploy": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
@@ -50,12 +67,6 @@
           "graphql-codegen --config libs/dao-data/codegen.yaml",
           "graphql-codegen --config libs/dao-data/codegen-lens.yaml"
         ]
-      }
-    },
-    "version": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "preset": "conventional"
       }
     }
   },

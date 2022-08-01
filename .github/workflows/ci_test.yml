@@ -3,13 +3,13 @@ name: CI Develop
 on:
   push:
     branches:
-      - 'develop'
+      - 'ci-add-nrwl-upgrade'
   pull_request:
     branches:
-      - 'develop'
+      - 'ci-add-nrwl-upgrade'
 
 env:
-  BASE: ${{ github.ref == 'refs/heads/develop' && 'origin/develop~1' || 'origin/develop' }}
+  BASE: ${{ github.ref == 'refs/heads/ci-add-nrwl-upgrade' && 'origin/ci-add-nrwl-upgrade~1' || 'origin/ci-add-nrwl-upgrade' }}
   SKYNET_API_KEY: ${{ secrets.SKYNET_API_KEY }}
   DAOHAUS_SUMMON_SKYNET_SEED: ${{ secrets.DAOHAUS_SUMMON_SKYNET_DEVELOP_SEED }}
   DAOHAUS_HUB_SKYNET_SEED: ${{ secrets.DAOHAUS_HUB_SKYNET_DEVELOP_SEED }}
@@ -56,7 +56,22 @@ jobs:
         run: NODE_OPTIONS=--experimental-vm-modules nx affected:test --base $BASE
       - name: Build mono
         run: nx affected:build --base $BASE
-      - name: Deploy mono
-        if: ${{ github.ref == 'refs/heads/develop' }}
-        run: |
-          nx affected --target deployStaging --base $BASE
+      - name: Setup git user to "🤖 Moloch Bot"
+        shell: bash
+        run: git config user.email "-" && git config user.name "🤖 Moloch Bot"
+      - name: Version Bump
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.OTP }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Use npx instead of yarn because yarn automagically sets NPM_* environment variables
+        # like NPM_CONFIG_REGISTRY so npm publish ends up ignoring the .npmrc file
+        # which is set up by `setup-node` action.
+        shell: bash
+        run: npx nx affected --base=origin/develop --target=version --parallel 1
+      # - name: Push changes
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     branch: ${{ github.ref }}
+      #     force: true
+      #     tags: true

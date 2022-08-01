@@ -42,12 +42,6 @@
         "jestConfig": "libs/form-builder/jest.config.js",
         "passWithNoTests": true
       }
-    },
-    "version": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "preset": "conventional"
-      }
     }
   }
 }

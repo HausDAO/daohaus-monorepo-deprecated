@@ -12,7 +12,7 @@ export const ENDPOINTS: KeychainList = {
   EXPLORER: {
     '0x1': 'https://etherscan.io',
     '0x5': 'https://goerli.etherscan.io',
-    '0x64': 'https://blockscout.com/poa/xdai',
+    '0x64': 'https://blockscout.com/xdai/mainnet',
     '0xa': 'https://optimistic.etherscan.io',
     '0x89': 'https://polygonscan.com',
     '0xa4b1': 'https://arbiscan.io/',

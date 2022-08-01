@@ -43,27 +43,31 @@ export function DaoOverview() {
             data="May 10, 2022 15:55pm PST"
             info="this is a tooltip"
           />
-          <Box>
-            {dao && (
+          {dao && (
+            <Box>
               <AddressDisplay
                 truncate
                 copy
                 address={dao.id}
                 explorerNetworkId={daochain as keyof Keychain}
               ></AddressDisplay>
-            )}
-          </Box>
-          <Box>{dao && <AddressDisplay address={dao.id}></AddressDisplay>}</Box>
-          <Box>
-            {dao && (
+            </Box>
+          )}
+          {dao && (
+            <Box>
+              <AddressDisplay address={dao.id}></AddressDisplay>
+            </Box>
+          )}
+          {dao && (
+            <Box>
               <AddressDisplay
                 txHash
                 truncate
                 address={dao.txHash}
                 explorerNetworkId={daochain as keyof Keychain}
               ></AddressDisplay>
-            )}
-          </Box>
+            </Box>
+          )}
 
           {JSON.stringify(dao, null, 2)}
         </LeftCard>

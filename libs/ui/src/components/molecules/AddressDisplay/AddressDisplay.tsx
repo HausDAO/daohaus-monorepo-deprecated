@@ -1,11 +1,11 @@
 import {
-  ENDPOINTS,
+  generateExplorerLink,
   Keychain,
   truncateAddress,
 } from '@daohaus/common-utilities';
 import { useTheme } from 'styled-components';
-
 import { RiFileCopyLine } from 'react-icons/ri';
+
 import { Theme } from '../../../types/theming';
 import {
   AddressContainer,
@@ -14,6 +14,7 @@ import {
 } from './AddressDisplay.styles';
 import { Icon, Link } from '../../atoms';
 import { useToast } from '../../../hooks';
+import { useMemo } from 'react';
 
 type AddressDisplayProps = {
   address: string;
@@ -33,6 +34,16 @@ export const AddressDisplay = ({
 }: AddressDisplayProps) => {
   const theme = useTheme() as Theme;
   const { successToast } = useToast();
+
+  const explorerLink = useMemo(() => {
+    if (explorerNetworkId) {
+      return generateExplorerLink({
+        chainId: explorerNetworkId,
+        address,
+        type: txHash ? 'tx' : 'address',
+      });
+    }
+  }, [address, txHash, explorerNetworkId]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(`${address}`);
@@ -57,14 +68,7 @@ export const AddressDisplay = ({
           </Icon>
         </AddressCopyIcon>
       )}
-      {explorerNetworkId && (
-        <Link
-          href={`${ENDPOINTS['EXPLORER'][explorerNetworkId]}/${
-            txHash ? 'tx' : 'address'
-          }/${address}`}
-          linkType="external"
-        ></Link>
-      )}
+      {explorerLink && <Link href={explorerLink} linkType="external"></Link>}
     </AddressContainer>
   );
 };

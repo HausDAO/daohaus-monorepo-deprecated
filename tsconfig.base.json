@@ -20,6 +20,7 @@
         "libs/baal-contract-service/src/index.ts"
       ],
       "@daohaus/common-utilities": ["libs/common-utilities/src/index.ts"],
+      "@daohaus/contract-utilities": ["libs/contract-utilities/src/index.ts"],
       "@daohaus/dao-data": ["libs/dao-data/src/index.ts"],
       "@daohaus/daohaus-connect-feature": [
         "libs/daohaus-connect-feature/src/index.ts"

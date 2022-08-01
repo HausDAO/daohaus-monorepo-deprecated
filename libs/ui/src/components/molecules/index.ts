@@ -1,3 +1,4 @@
+export * from './AddressDisplay';
 export * from './DataIndicator';
 export * from './FieldWrapper';
 export * from './WrappedInput';

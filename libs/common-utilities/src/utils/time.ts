@@ -1,4 +1,4 @@
-import { hoursToSeconds, minutesToSeconds } from 'date-fns/esm';
+import { hoursToSeconds, minutesToSeconds } from 'date-fns';
 
 export const conversionFns = {
   days: (amt: number) => hoursToSeconds(amt * 24),

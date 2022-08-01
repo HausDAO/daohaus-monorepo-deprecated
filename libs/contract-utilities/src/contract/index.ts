@@ -1,4 +1,4 @@
-import { default as GnosisMultisendABI } from './abiGnosisMultisend.json';
+import { default as GnosisMultisendABI } from '../externalAbis/gnosisMultisend.json';
 import {
   BaalABI,
   BaalSummonerABI,

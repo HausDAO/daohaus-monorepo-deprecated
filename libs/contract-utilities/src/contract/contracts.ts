@@ -5,6 +5,7 @@ import {
   LootFactory,
   SharesFactory,
   TributeMinionFactory,
+  GnosisMultisendFactory,
 } from '@daohaus/baal-contracts';
 import type { Signer } from 'ethers';
 import type { Provider } from '@ethersproject/providers';
@@ -47,6 +48,10 @@ export const getContractsForChainOrThrow = (
     ),
     posterContract: PosterFactory.connect(
       addresses.poster,
+      signerOrProvider as Signer | Provider
+    ),
+    gnosisMultisendContract: GnosisMultisendFactory.connect(
+      addresses.gnosisMultisend,
       signerOrProvider as Signer | Provider
     ),
   };

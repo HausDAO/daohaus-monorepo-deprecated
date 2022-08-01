@@ -1,4 +1,5 @@
 import {
+  CSInput,
   WrappedCheckbox,
   WrappedInput,
   WrappedInputSelect,
@@ -20,4 +21,5 @@ export const CoreFieldLookup = {
   checkBox: WrappedCheckbox,
   splitColumn: SplitColumnLayout,
   formSegment: SegmentRender,
+  csInput: CSInput,
 };

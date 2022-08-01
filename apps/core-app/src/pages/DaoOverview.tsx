@@ -1,7 +1,15 @@
 import styled from 'styled-components';
 
-import { BiColumnLayout, Card, DataIndicator, widthQuery } from '@daohaus/ui';
+import {
+  AddressDisplay,
+  BiColumnLayout,
+  Card,
+  DataIndicator,
+  widthQuery,
+} from '@daohaus/ui';
 import { useDao } from '../contexts/DaoContext';
+import { useParams } from 'react-router-dom';
+import { Keychain } from '@daohaus/common-utilities';
 
 const LeftCard = styled(Card)`
   width: 100%;
@@ -14,8 +22,13 @@ const LeftCard = styled(Card)`
   }
 `;
 
+const Box = styled.div`
+  margin: 2em 0;
+`;
+
 export function DaoOverview() {
   const { dao } = useDao();
+  const { daochain } = useParams();
 
   return (
     <BiColumnLayout
@@ -30,6 +43,32 @@ export function DaoOverview() {
             data="May 10, 2022 15:55pm PST"
             info="this is a tooltip"
           />
+          {dao && (
+            <Box>
+              <AddressDisplay
+                truncate
+                copy
+                address={dao.id}
+                explorerNetworkId={daochain as keyof Keychain}
+              ></AddressDisplay>
+            </Box>
+          )}
+          {dao && (
+            <Box>
+              <AddressDisplay address={dao.id}></AddressDisplay>
+            </Box>
+          )}
+          {dao && (
+            <Box>
+              <AddressDisplay
+                txHash
+                truncate
+                address={dao.txHash}
+                explorerNetworkId={daochain as keyof Keychain}
+              ></AddressDisplay>
+            </Box>
+          )}
+
           {JSON.stringify(dao, null, 2)}
         </LeftCard>
       }

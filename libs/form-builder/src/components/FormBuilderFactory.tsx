@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import styled from 'styled-components';
-import { FieldLego } from '../types/legoTypes';
+import { FieldLego, LookupType } from '../types/legoTypes';
 import { generateRules } from '../utils/rules';
 import { CoreFieldLookup } from './CoreFieldLookup';
 import { useFormBuilder } from './FormBuilder';
@@ -12,9 +12,11 @@ const FieldSpacer = styled.div`
 export const FormBuilderFactory = ({
   spacing = true,
   field,
+  customFields,
 }: {
   field: FieldLego;
   spacing?: boolean;
+  customFields?: LookupType;
 }) => {
   const { type } = field;
   const {
@@ -30,7 +32,9 @@ export const FormBuilderFactory = ({
   //  a new instance of the component each render.
   const GeneratedField = useMemo(
     () => {
-      const Component = CoreFieldLookup[type];
+      const Component = customFields
+        ? customFields[type]
+        : CoreFieldLookup[type];
 
       const newRules = generateRules({
         field,

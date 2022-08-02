@@ -7,11 +7,25 @@ import Members from './pages/Members';
 import DaoOverview from './pages/DaoOverview';
 import Proposals from './pages/Proposals';
 import Vaults from './pages/Vaults';
+
+import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+import { useDao } from './contexts/DaoContext';
 import { TXBuilder } from '@daohaus/tx-builder-feature';
 
 const Routes = () => {
+  const { chainId, provider, profile } = useHausConnect();
+  const { dao } = useDao();
+
   return (
-    <TXBuilder>
+    <TXBuilder
+      chainId={chainId}
+      provider={provider}
+      appState={{
+        dao,
+        profile,
+        chainId,
+      }}
+    >
       <RoutesDom>
         <Route path="/" element={<Home />} />
         <Route path="molochv3/:daochain/:daoid" element={<Dao />}>

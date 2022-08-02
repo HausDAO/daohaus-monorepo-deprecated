@@ -1,44 +1,80 @@
 import { providers } from 'ethers';
 import { createContext, useState, useMemo, useContext, ReactNode } from 'react';
-import { isValidNetwork } from '@daohaus/common-utilities';
-import { handleFireTx, TX, TxRecord } from './utils/txBuilderUtils';
+import { isValidNetwork, TXLego } from '@daohaus/common-utilities';
+import {
+  ArbitraryState,
+  handleFireTx,
+  TX,
+  TXLifeCycleFns,
+  TxRecord,
+} from './utils/txBuilderUtils';
+
+type FireTransaction<CallerStateModel extends ArbitraryState = ArbitraryState> =
+  ({
+    tx,
+    callerState,
+    lifeCycleFns,
+  }: {
+    tx: TXLego;
+    callerState?: CallerStateModel;
+    lifeCycleFns?: TXLifeCycleFns;
+  }) => Promise<void> | void;
 
 type TxContext = {
   transactions: TxRecord;
   txAmt: number;
-  fireTransaction: (tx: TX) => void;
+  fireTransaction: FireTransaction;
+  appState: ArbitraryState;
 };
 
 export const TxBuilderContext = createContext<TxContext>({
   transactions: {},
   fireTransaction: () => undefined,
   txAmt: 0,
+  appState: {},
 });
 
-type BuilderProps = {
+type BuilderProps<ApplicationState extends ArbitraryState = ArbitraryState> = {
   chainId: string | undefined | null;
   provider: providers.Web3Provider | undefined | null;
   children: ReactNode;
+  appState: ApplicationState;
+  txLifeCycleFns?: TXLifeCycleFns;
 };
 
-export const TXBuilder = ({ chainId, provider, children }: BuilderProps) => {
+export const TXBuilder = ({
+  chainId,
+  provider,
+  appState,
+  children,
+  txLifeCycleFns,
+}: BuilderProps) => {
   const [transactions, setTransactions] = useState<TxRecord>({});
   const txAmt = useMemo(() => {
     return Object.values(transactions).length;
   }, [transactions]);
 
-  async function fireTransaction(tx: TX) {
+  const fireTransaction: FireTransaction = async ({
+    tx,
+    callerState,
+    lifeCycleFns,
+  }) => {
+    // const bundledCycleFns = bundleLifeCycleFns(lifeCycleFns, txLifeCycleFns);
     if (!chainId || !isValidNetwork(chainId) || !provider) {
-      tx?.lifeCycleFns?.onTxError?.(
+      lifeCycleFns?.onTxError?.(
         Error('Invalid Network or no Web3 Wallet detected')
       );
       return;
     }
-    await handleFireTx({ tx, chainId, provider, setTransactions });
-  }
+    const wholeState = { ...appState, ...callerState };
+    console.log('wholeState', wholeState);
+    // await handleFireTx({});
+  };
 
   return (
-    <TxBuilderContext.Provider value={{ transactions, fireTransaction, txAmt }}>
+    <TxBuilderContext.Provider
+      value={{ transactions, fireTransaction, txAmt, appState }}
+    >
       {children}
     </TxBuilderContext.Provider>
   );

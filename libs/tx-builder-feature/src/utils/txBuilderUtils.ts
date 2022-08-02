@@ -15,17 +15,25 @@ export type TX = {
   abi: ABI;
   args: ArgType[];
   keychain: Keychain;
-  lifeCycleFns?: {
-    onTxHash?: (txHash: string) => void;
-    onTxError?: (error: unknown) => void;
-    onTxSuccess?: (txHash: string) => void;
-    onPollFire?: () => void;
-    onPollError?: (error: unknown) => void;
-    onPollSuccess?: (result: IFindQueryResult<FindTxQuery> | undefined) => void;
-  };
+  lifeCycleFns?: TXLifeCycleFns;
 };
 
 export type TxRecord = Record<string, TX>;
+
+export type TXLifeCycleFns = {
+  onTxHash?: (txHash: string) => void;
+  onTxError?: (error: unknown) => void;
+  onTxSuccess?: (txHash: string) => void;
+  onPollFire?: () => void;
+  onPollError?: (error: unknown) => void;
+  onPollSuccess?: (result: IFindQueryResult<FindTxQuery> | undefined) => void;
+};
+
+// Truly should be any here.
+// Possible TS challenge if we feel like adding a user defined type.
+// Though doing so may make the API more cumbersome than it needs to be.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type ArbitraryState = Record<string, any>;
 
 // TS Challenge
 
@@ -68,7 +76,6 @@ export const pollLastTX: PollFetch<FindTxQuery> = async ({
     return result;
   } catch (error) {
     console.error(error);
-    return;
   }
 };
 
@@ -104,18 +111,15 @@ const standardGraphPoll: Poll<FindTxQuery> = async ({
           return result;
         }
         count += 1;
-        return;
       } catch (error) {
         onPollError?.(error);
         clearInterval(pollId);
-        return;
       }
     } else {
       const error = new Error(
         'Transcaction Poll ran out of tries. There could be issues with the subgraph.'
       );
-      onPollTimeout?.(error);
-      return;
+      onPollTimeout ? onPollTimeout?.(error) : onPollError?.(error);
     }
   }, interval);
 };
@@ -175,7 +179,6 @@ export const executeTx = async (
       ...prevState,
       [txHash]: { ...tx, status: 'failed' },
     }));
-    return;
   }
 };
 

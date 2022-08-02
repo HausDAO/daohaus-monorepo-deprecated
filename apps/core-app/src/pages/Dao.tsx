@@ -5,8 +5,6 @@ import { DaoContextProvider } from '../contexts/DaoContext';
 export function Dao() {
   const { daochain, daoid } = useParams();
 
-  console.log('wtf');
-
   return (
     <DaoContextProvider>
       <HausLayout

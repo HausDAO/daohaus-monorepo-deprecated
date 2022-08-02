@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { Card, SingleColumnLayout, widthQuery } from '@daohaus/ui';
 import { useDao } from '../contexts/DaoContext';
-import { DaoProfile } from '../components/DaoProfile/DaoProfile';
+import { DaoProfile } from '../components/DaoProfile';
 
 const OverviewCard = styled(Card)`
   width: 64rem;

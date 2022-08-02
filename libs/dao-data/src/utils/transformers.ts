@@ -103,7 +103,11 @@ export const addDaoProfileFields = (
     return {
       description: obj.description,
       longDescription: obj.longDescription,
-      avatarImg: obj.avatarImg,
+      avatarImg:
+        obj.avatarImg &&
+        `https://daohaus.mypinata.cloud/ipfs/${obj.avatarImg.match(
+          /Qm[a-zA-Z0-9/.]+/
+        )}`,
       tags: obj.tags,
       links: obj.links,
     };

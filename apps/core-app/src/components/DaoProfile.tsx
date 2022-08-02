@@ -8,7 +8,6 @@ import {
   Theme,
   widthQuery,
   ParMd,
-  Icon,
   Tag,
   Card,
   ParXs,
@@ -18,8 +17,9 @@ import {
 import { TDao } from '../contexts/DaoContext';
 import { useParams } from 'react-router-dom';
 import { Keychain } from '@daohaus/common-utilities';
-import { RiDiscordFill } from 'react-icons/ri';
 import { useMemo } from 'react';
+import { SocialLinks } from './SocialLinks';
+import { TagList } from './TagList';
 
 const DaoProfileContainer = styled.div`
   width: 100%;
@@ -38,10 +38,6 @@ const DaoProfileContainer = styled.div`
     }
     @media ${widthQuery.xs} {
       flex-direction: column;
-    }
-    .links {
-      display: flex;
-      justify-content: space-between;
     }
   }
 `;
@@ -78,7 +74,7 @@ export const DaoProfile = ({ dao }: { dao: TDao }) => {
   return (
     <DaoProfileContainer>
       <div className="avatar">
-        <DaoProfileAvatar address={dao.id} />
+        <DaoProfileAvatar address={dao.id} image={dao.avatarImg} />
         <div>
           <H4>{dao.name}</H4>
           <AddressDisplay
@@ -97,21 +93,8 @@ export const DaoProfile = ({ dao }: { dao: TDao }) => {
             The DAO Summit Conference will gather in the summer of 2022. DAO
             goverenace for all.{' '}
           </ParMd>
-          <div className="links">
-            <Icon>
-              <RiDiscordFill />
-            </Icon>
-            Discord
-          </div>
-          <div className="links">
-            {['Governance', 'Moloch v3'].map((tag) => {
-              return (
-                <Tag key={tag} tagColor="green">
-                  {tag}
-                </Tag>
-              );
-            })}
-          </div>
+          {dao.links && <SocialLinks links={dao.links} />}
+          {dao.tags && <TagList tags={dao.tags} />}
         </>
       )}
     </DaoProfileContainer>

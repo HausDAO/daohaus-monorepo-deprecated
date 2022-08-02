@@ -1,3 +1,4 @@
+import { BigNumberish, ethers } from 'ethers';
 import { Noun } from '../types';
 
 export const truncateAddress = (addr: string) =>
@@ -7,3 +8,7 @@ export const charLimit = (str: string, limit: number) =>
 
 export const handlePluralNoun = (noun: Noun, count: number) =>
   count === 1 ? noun.singular : noun.plural;
+
+export const fromWei = (amt: string): string => {
+  return ethers.utils.formatEther(amt).toString();
+};

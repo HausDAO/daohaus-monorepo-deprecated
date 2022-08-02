@@ -5,6 +5,7 @@ import { handleFireTx, TX, TxRecord } from '../utils/txBuilderUtils';
 
 // Truly should be any here.
 // Possible TS challenge if we feel like adding a user defined type.
+// Though doing so may make the API more cumbersome than it needs to be.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ArbitraryAppState = Record<string, any>;
 

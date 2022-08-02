@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useCallback, useContext, useState } from 'react';
 import {
   FieldValues,
   FormProvider as RHFProvider,
@@ -15,6 +15,7 @@ import { FormLego, LookupType, RequiredFields } from '../types';
 import { Logger } from './Logger';
 import { FormFooter } from './formFooter';
 import { FormBuilderFactory } from './FormBuilderFactory';
+import { useTxBuilder } from '@daohaus/tx-builder-feature';
 
 type FormContext<Lookup extends LookupType> = {
   form?: FormLego<Lookup>;
@@ -38,7 +39,7 @@ type BuilderProps<Lookup extends LookupType> = {
   form: FormLego<Lookup>;
   defaultValues?: FieldValues;
   customFields?: LookupType;
-  onSubmit: (
+  onSubmit?: (
     formValues: FieldValues
   ) => void | Promise<(formValues: FieldValues) => void>;
   onCancel?: () => void;
@@ -74,11 +75,20 @@ export function FormBuilder<Lookup extends LookupType>({
 
   const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
   const formDisabled = isSubmitting;
+  const { fireTransaction } = useTxBuilder?.() || {};
 
-  const handleTopLevelSubmit = async (formValues: Record<string, unknown>) => {
-    setIsSubmitting(true);
-    await onSubmit(formValues);
-    setIsSubmitting(false);
+  const handleSubmitTx = (formValues: FieldValues) => {
+    fireTransaction(form.tx);
+  };
+
+  const handleTopLevelSubmit = async (formValues: FieldValues) => {
+    if (form.tx) {
+      handleSubmitTx(formValues);
+    }
+    if (onSubmit) {
+      await onSubmit?.(formValues);
+    }
+    console.error('FormBuilder: onSubmit not implemented');
   };
 
   return (

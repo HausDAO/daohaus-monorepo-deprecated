@@ -16,5 +16,50 @@
     "tributeMinion": "0x9C6f6e6E461FB1dB9761c960900A0Ae05B9786A7",
     "poster": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
     "gnosisMultisend": "0x000000000000cd17345801aa8147b8d3950260ff"
+  },
+  "0x64": {
+    "baalSummoner": "",
+    "baal": "",
+    "loot": "",
+    "shares": "",
+    "tributeMinion": "",
+    "poster": "",
+    "gnosisMultisend": ""
+  },
+  "0xa": {
+    "baalSummoner": "",
+    "baal": "",
+    "loot": "",
+    "shares": "",
+    "tributeMinion": "",
+    "poster": "",
+    "gnosisMultisend": ""
+  },
+  "0x89": {
+    "baalSummoner": "",
+    "baal": "",
+    "loot": "",
+    "shares": "",
+    "tributeMinion": "",
+    "poster": "",
+    "gnosisMultisend": ""
+  },
+  "0xa4b1": {
+    "baalSummoner": "",
+    "baal": "",
+    "loot": "",
+    "shares": "",
+    "tributeMinion": "",
+    "poster": "",
+    "gnosisMultisend": ""
+  },
+  "0xa4ec": {
+    "baalSummoner": "",
+    "baal": "",
+    "loot": "",
+    "shares": "",
+    "tributeMinion": "",
+    "poster": "",
+    "gnosisMultisend": ""
   }
 }

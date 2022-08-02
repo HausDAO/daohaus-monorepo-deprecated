@@ -8,16 +8,6 @@ import {
   MultiSendFactory,
 } from '@daohaus/baal-contracts';
 
-export interface ContractAddresses {
-  baal: string;
-  baalSummoner: string;
-  loot: string;
-  shares: string;
-  tributeMinion: string;
-  gnosisMultisend: string;
-  poster: string;
-}
-
 export interface Contracts {
   baalContract: ReturnType<typeof BaalFactory.connect>;
   baalSummonerContract: ReturnType<typeof BaalSummonerFactory.connect>;
@@ -27,5 +17,3 @@ export interface Contracts {
   posterContract: ReturnType<typeof PosterFactory.connect>;
   gnosisMultisendContract: ReturnType<typeof MultiSendFactory.connect>;
 }
-
-export enum ChainId {} // TODO

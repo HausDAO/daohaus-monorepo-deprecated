@@ -7,9 +7,6 @@ import {
   PosterABI,
   TributeMinionABI,
 } from '@daohaus/baal-contracts';
-export { getContractAddressesForChainOrThrow } from './addresses';
-export { getContractsForChainOrThrow } from './contracts';
-export { ChainId, ContractAddresses } from './types';
 
 export {
   GnosisMultisendABI as GNOSIS_MULTISEND_ABI,
@@ -21,3 +18,5 @@ export {
   TributeMinionABI as TRIBUTE_MINION_ABI,
 };
 
+export * from './contracts';
+export * from './types';

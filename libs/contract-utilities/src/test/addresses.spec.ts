@@ -1,20 +1,43 @@
-import { getContractAddressesForChainOrThrow } from '../contract/addresses';
-import { ContractAddresses } from '../contract/types';
+import { getContractAddressesForChainOrThrow } from '../contract';
 
 describe('baal contract loads', () => {
-  let addresses: ContractAddresses;
+  let posterAddress: string;
+  let gnosisMultisendAddress: string;
+  let baalSummonerAddress: string;
+  let baalAddress: string;
+  let lootAddress: string;
+  let sharesAddress: string;
+  let tributeMinionAddress: string;
 
   beforeAll(() => {
-    addresses = getContractAddressesForChainOrThrow('0x5');
+    posterAddress = getContractAddressesForChainOrThrow('V3_FACTORY', '0x5');
+    gnosisMultisendAddress = getContractAddressesForChainOrThrow(
+      'LOOT_SINGLETON',
+      '0x5'
+    );
+    baalSummonerAddress = getContractAddressesForChainOrThrow(
+      'SHARES_SINGLETON',
+      '0x5'
+    );
+    baalAddress = getContractAddressesForChainOrThrow('BAAL_SINGLETON', '0x5');
+    lootAddress = getContractAddressesForChainOrThrow(
+      'GNOSIS_MULTISEND',
+      '0x5'
+    );
+    sharesAddress = getContractAddressesForChainOrThrow(
+      'TRIBUTE_MINION',
+      '0x5'
+    );
+    tributeMinionAddress = getContractAddressesForChainOrThrow('POSTER', '0x5');
   });
 
   it('should include contracts of the chainId', () => {
-    expect(addresses.poster).toBeDefined();
-    expect(addresses.gnosisMultisend).toBeDefined();
-    expect(addresses.baalSummoner).toBeDefined();
-    expect(addresses.baal).toBeDefined();
-    expect(addresses.loot).toBeDefined();
-    expect(addresses.shares).toBeDefined();
-    expect(addresses.tributeMinion).toBeDefined();
+    expect(posterAddress).toBeDefined();
+    expect(gnosisMultisendAddress).toBeDefined();
+    expect(baalSummonerAddress).toBeDefined();
+    expect(baalAddress).toBeDefined();
+    expect(lootAddress).toBeDefined();
+    expect(sharesAddress).toBeDefined();
+    expect(tributeMinionAddress).toBeDefined();
   });
 });

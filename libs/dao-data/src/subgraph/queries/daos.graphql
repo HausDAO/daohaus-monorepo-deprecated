@@ -56,6 +56,7 @@ query listMemberships(
       delegateShares
       delegateOfCount
       votes {
+        txHash
         createdAt
         approved
         balance
@@ -67,7 +68,8 @@ query listMemberships(
 fragment daoFields on Dao {
   id
   createdAt
-  transactionHashSummon
+  createdBy
+  txHash
   safeAddress
   lootPaused
   sharesPaused
@@ -88,5 +90,6 @@ fragment daoFields on Dao {
   latestSponsoredProposalId
   proposalCount
   activeMemberCount
+  existingSafe
   name
 }

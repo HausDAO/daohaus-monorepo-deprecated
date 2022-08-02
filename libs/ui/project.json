@@ -1,10 +1,10 @@
 {
-  "root": "libs/ui",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/ui/src",
   "projectType": "library",
   "tags": [],
   "targets": {
-    "vite-build": {
+    "build": {
       "executor": "@nxext/vite:package",
       "outputs": ["{options.outputPath}"],
       "options": {
@@ -13,20 +13,26 @@
         "frameworkConfigFile": "@nxext/react/plugins/vite",
         "entryFile": "src/index.ts",
         "generatePackageJson": true
-      }
-    },
-    "build": {
-      "executor": "@nrwl/workspace:run-commands",
-      "options": {
-        "command": "tsc --project libs/ui/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
-        "color": true
       },
       "dependsOn": [
         {
           "target": "vite-build",
           "projects": "self"
+        },
+        {
+          "target": "build-storybook",
+          "projects": "self"
         }
       ]
+    },
+    "vite-build": {
+      "outputs": ["{options.outputPath}"],
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "outputPath": "dist/libs/ui",
+        "command": "tsc --project libs/ui/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
+        "color": true
+      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
@@ -39,7 +45,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/ui"],
       "options": {
-        "jestConfig": "libs/ui/jest.config.js",
+        "jestConfig": "libs/ui/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -61,12 +67,15 @@
     "build-storybook": {
       "executor": "@nrwl/storybook:build",
       "outputs": ["{options.outputPath}"],
+      "inputs": [{ "env": "NODE_ENV" }],
       "options": {
         "uiFramework": "@storybook/react",
         "outputPath": "dist/storybook/ui",
         "config": {
           "configFolder": "libs/ui/.storybook"
-        }
+        },
+
+        "quiet": false
       },
       "configurations": {
         "ci": {
@@ -77,9 +86,20 @@
     "deploy": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
-        "tag": "alpha",
-        "access": "public"
+        "access": "public",
+        "noBuild": true
       }
+    },
+    "deployStaging": {
+      "executor": "@alexkeating/nx-skynet:deploy",
+      "options": {
+        "uploadDir": "dist/storybook/ui",
+        "registrySeedVarName": "DAOHAUS_UI_DEVELOP_SKYNET_SEED",
+        "registryDataKey": "skylink.txt",
+        "portalUrl": "https://skynetfree.net",
+        "skynetJwtVarName": "SKYNET_JWT"
+      },
+      "dependsOn": [{ "target": "build-storybook", "projects": "self" }]
     }
   }
 }

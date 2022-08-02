@@ -4,12 +4,14 @@ import { Theme } from '../../../types/theming';
 import { font } from '../../../theme/global/font';
 
 export const ButtonBase = styled.button`
+  align-items: center;
   background-color: ${({ theme }) => theme.button.primary.bg};
   border: 0.1rem solid
     ${({ theme }: { theme: Theme }) => theme.button.primary.border};
   border-radius: 0.4rem;
   color: ${({ theme }: { theme: Theme }) => theme.button.primary.text};
   cursor: pointer;
+  display: flex;
   font-size: ${font.size.md};
   font-weight: ${font.weight.bold};
   height: 4.8rem;
@@ -17,6 +19,20 @@ export const ButtonBase = styled.button`
   min-width: 8.5rem;
   padding: 1.2rem;
   transition: 0.2s all;
+  width: ${(props: { width?: string }) => props.width};
+
+  svg {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  svg.icon-left {
+    margin-right: 1rem;
+  }
+
+  svg.icon-right {
+    margin-left: 0.5rem;
+  }
 
   :hover {
     background-color: ${({ theme }: { theme: Theme }) =>
@@ -120,43 +136,13 @@ export const ButtonBase = styled.button`
   }
 
   &.left-align {
-    text-align: left;
+    justify-content: flex-start;
+  }
+  &.center-align {
+    justify-content: center;
   }
 
   &.avatar {
     padding: 0 0.6rem;
-  }
-`;
-
-export const WithIcon = styled.div`
-  align-items: center;
-  display: flex;
-
-  svg {
-    width: 2.1rem;
-    height: 2.1rem;
-    color: ${({ theme }: { theme: Theme }) => theme.button.primary.text};
-
-    &.secondary {
-      color: ${({ theme }: { theme: Theme }) => theme.button.secondary.text};
-    }
-
-    &.tertiary {
-      color: ${({ theme }: { theme: Theme }) => theme.button.tertiary.text};
-    }
-
-    &.sm {
-      height: 1.5rem;
-      margin-right: 0.8rem;
-      width: 1.5rem;
-    }
-  }
-
-  svg.icon-left {
-    margin-right: 1rem;
-  }
-
-  svg.icon-right {
-    margin-left: 0.5rem;
   }
 `;

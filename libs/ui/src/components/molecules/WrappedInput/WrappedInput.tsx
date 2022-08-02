@@ -1,17 +1,13 @@
 import { useFormContext } from 'react-hook-form';
-import { Field } from '../../../types/formAndField';
+import { Buildable, Field } from '../../../types/formAndField';
 import { Input } from '../../atoms';
 import { FieldWrapper } from '../FieldWrapper/FieldWrapper';
 
-export const WrappedInput = (props: Field) => {
-  const { id, registerOptions } = props;
+export const WrappedInput = ({ id, rules, ...props }: Buildable<Field>) => {
   const { register } = useFormContext();
-  const registration = registerOptions
-    ? register(id, registerOptions)
-    : register(id);
   return (
-    <FieldWrapper {...props}>
-      <Input {...registration} {...props} />
+    <FieldWrapper {...props} id={id} rules={rules}>
+      <Input {...props} {...register(id, rules)} id={id} />
     </FieldWrapper>
   );
 };

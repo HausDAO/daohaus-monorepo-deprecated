@@ -28,22 +28,25 @@ const StyledButton = styled(Button)`
   color: white;
   border-radius: 0.4rem;
   border: none;
-  width: 100%;
+
   :hover {
     background-color: ${indigoDark.indigo5};
     color: white;
     border: none;
   }
+
   :focus {
     background-color: ${indigoDark.indigo5};
     color: white;
     border: none;
   }
+
   :active {
     background-color: ${indigoDark.indigo5};
     color: white;
     border: none;
   }
+
   :disabled {
     background-color: ${indigoDark.indigo1};
     color: white;
@@ -71,6 +74,7 @@ const Header = () => {
     <HeaderContainer>
       <Dropdown
         bg={indigoDark.indigo3}
+        align="center"
         trigger={
           <StyledButton IconRight={StyledChevron} IconLeft={StyledCommand}>
             HUB

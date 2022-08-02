@@ -7,6 +7,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true
   },
+  "files": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts", "src/**/*.json"],
   "include": [
     "**/*.test.ts",
     "**/*.spec.ts",
@@ -16,6 +17,8 @@
     "**/*.spec.js",
     "**/*.test.jsx",
     "**/*.spec.jsx",
-    "**/*.d.ts"
+    "**/*.d.ts",
+    "jest.config.ts",
+    "**/*.json"
   ]
 }

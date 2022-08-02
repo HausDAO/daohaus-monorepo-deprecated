@@ -1,6 +1,6 @@
 {
   "name": "@daohaus/tx-builder-feature",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "main": "./tx-builder-feature.umd.js",
   "module": "./tx-builder-feature.es.js",
   "homepage": "https://github.com/HausDAO/daohaus-monorepo#readme",

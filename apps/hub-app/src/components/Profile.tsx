@@ -48,7 +48,6 @@ const StyledButton = styled(Button)`
   color: white;
   border-radius: 0.4rem;
   border: none;
-  width: 100%;
   height: 4rem;
   font-size: 1.6rem;
   padding: 0.8rem;
@@ -108,6 +107,7 @@ export const HeaderProfile = () => {
       </div>
       <Dropdown
         bg={indigoDark.indigo3}
+        align="end"
         trigger={<StyledButton IconRight={StyledChevron}>Profile</StyledButton>}
         items={[
           {

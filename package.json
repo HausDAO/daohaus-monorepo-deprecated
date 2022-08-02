@@ -10,6 +10,7 @@
   "private": true,
   "dependencies": {
     "@gnosis.pm/safe-apps-react-sdk": "^4.5.0",
+    "@daohaus/baal-contracts": "^0.2.0",
     "@gnosis.pm/safe-apps-web3modal": "^12.0.0",
     "@gnosis.pm/safe-contracts": "^1.3.0",
     "@gnosis.pm/safe-react-components": "^1.1.4",

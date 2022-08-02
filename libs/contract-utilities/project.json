@@ -5,38 +5,44 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nrwl/web:rollup",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@nrwl/js:tsc",
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/libs/contract-utilities",
+        "main": "libs/contract-utilities/src/index.ts",
         "tsConfig": "libs/contract-utilities/tsconfig.lib.json",
-        "project": "libs/contract-utilities/package.json",
-        "entryFile": "libs/contract-utilities/src/index.ts",
-        "external": ["react/jsx-runtime"],
-        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
-        "compiler": "babel",
         "assets": [
-          {
-            "glob": "libs/contract-utilities/README.md",
-            "input": ".",
-            "output": "."
-          }
+          "libs/contract-utilities/*.md"
         ]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+      "outputs": [
+        "{options.outputFile}"
+      ],
       "options": {
-        "lintFilePatterns": ["libs/contract-utilities/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": [
+          "libs/contract-utilities/**/*.{ts,tsx,js,jsx}"
+        ]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/contract-utilities"],
+      "outputs": [
+        "coverage/libs/contract-utilities"
+      ],
       "options": {
         "jestConfig": "libs/contract-utilities/jest.config.ts",
         "passWithNoTests": true
+      }
+    },
+    "deploy": {
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "access": "public"
       }
     }
   }

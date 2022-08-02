@@ -5,7 +5,7 @@ describe('baal contract loads', () => {
   let addresses: ContractAddresses;
 
   beforeAll(() => {
-    addresses = getContractAddressesForChainOrThrow(0x5);
+    addresses = getContractAddressesForChainOrThrow('0x5');
   });
 
   it('should include contracts of the chainId', () => {

@@ -5,7 +5,7 @@ import {
   LootFactory,
   SharesFactory,
   TributeMinionFactory,
-  GnosisMultisendFactory,
+  MultiSendFactory,
 } from '@daohaus/baal-contracts';
 import type { Signer } from 'ethers';
 import type { Provider } from '@ethersproject/providers';
@@ -20,7 +20,7 @@ import { Contracts } from './types';
  * @param signerOrProvider The ethers v5 signer or provider
  */
 export const getContractsForChainOrThrow = (
-  chainId: number,
+  chainId: string,
   signerOrProvider?: Signer | Provider
 ): Contracts => {
   const addresses = getContractAddressesForChainOrThrow(chainId);
@@ -50,7 +50,7 @@ export const getContractsForChainOrThrow = (
       addresses.poster,
       signerOrProvider as Signer | Provider
     ),
-    gnosisMultisendContract: GnosisMultisendFactory.connect(
+    gnosisMultisendContract: MultiSendFactory.connect(
       addresses.gnosisMultisend,
       signerOrProvider as Signer | Provider
     ),

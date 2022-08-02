@@ -1,19 +1,20 @@
 {
   "0x1": {
-    "poster": "",
     "baalSummoner": "",
     "baal": "",
     "loot": "",
     "shares": "",
-    "tributeMinion": ""
+    "tributeMinion": "",
+    "poster": "",
+    "gnosisMultisend": ""
   },
   "0x5": {
-    "poster": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
-    "gnosisMultisend": "0x000000000000cd17345801aa8147b8d3950260ff",
     "baalSummoner": "0x0C5fd8AAdF995e11E5Ac1CD72139Ee4fd72cDeFC",
     "baal": "0x69b442eb55714A0B144134AED015517394Ed1871",
     "loot": "0x0De84DCAc3B2d52581120059ee9723FDDecCB044",
     "shares": "0x3109AeD0fD9777cEFb24dBa5eb5030987bd9E3F3",
-    "tributeMinion": "0x9C6f6e6E461FB1dB9761c960900A0Ae05B9786A7"
+    "tributeMinion": "0x9C6f6e6E461FB1dB9761c960900A0Ae05B9786A7",
+    "poster": "0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761",
+    "gnosisMultisend": "0x000000000000cd17345801aa8147b8d3950260ff"
   }
 }

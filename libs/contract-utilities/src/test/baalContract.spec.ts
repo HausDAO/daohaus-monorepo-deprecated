@@ -7,7 +7,7 @@ describe('baal contract loads', () => {
 
   beforeAll(() => {
     baal = getContractsForChainOrThrow(
-      0x5,
+      '0x5',
       new ethers.providers.JsonRpcProvider()
     );
   });

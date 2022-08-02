@@ -1,10 +1,15 @@
 /* eslint-disable */
 export default {
-  displayName: 'contract-utilities',
+  displayName: 'common-utilities',
   preset: '../../jest.preset.js',
-  transform: {
-    '^.+\\.[tj]sx?$': 'babel-jest',
+  globals: {
+    'ts-jest': {
+      tsconfig: '<rootDir>/tsconfig.spec.json',
+    },
   },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: '../../coverage/libs/contract-utilities',
+  transform: {
+    '^.+\\.[tj]s$': 'ts-jest',
+  },
+  moduleFileExtensions: ['ts', 'js', 'html'],
+  coverageDirectory: '../../coverage/libs/common-utilities',
 };

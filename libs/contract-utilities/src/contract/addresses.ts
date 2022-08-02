@@ -1,5 +1,5 @@
 import { ContractAddresses } from './types';
-import addresses from './addresses.json';
+import * as addresses from './addresses.json';
 
 /**
  * Get addresses of contracts that have been deployed to the
@@ -8,9 +8,10 @@ import addresses from './addresses.json';
  * @param chainId The desired chainId
  */
 export const getContractAddressesForChainOrThrow = (
-  chainId: number
+  chainId: string
 ): ContractAddresses => {
-  const _addresses: Record<number, ContractAddresses> = addresses;
+  const _addresses: Record<string, ContractAddresses> = addresses;
+  console.log(_addresses, chainId);
   if (!_addresses[chainId]) {
     throw new Error(
       `Unknown chain id (${chainId}). No known contracts have been deployed on this chain.`

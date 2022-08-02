@@ -1,4 +1,4 @@
-import { default as GnosisMultisendABI } from '../external-abis/gnosisMultisend.json';
+import * as GnosisMultisendABI from '../external-abis/gnosisMultisend.json';
 import {
   BaalABI,
   BaalSummonerABI,
@@ -7,7 +7,6 @@ import {
   PosterABI,
   TributeMinionABI,
 } from '@daohaus/baal-contracts';
-
 export { getContractAddressesForChainOrThrow } from './addresses';
 export { getContractsForChainOrThrow } from './contracts';
 export { ChainId, ContractAddresses } from './types';
@@ -21,3 +20,4 @@ export {
   PosterABI as POSTER_ABI,
   TributeMinionABI as TRIBUTE_MINION_ABI,
 };
+

@@ -6,3 +6,4 @@ export * from './typeguards';
 export * from './encoding';
 export * from './units';
 export * from './object';
+export * from './time';

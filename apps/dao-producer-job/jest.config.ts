@@ -1,14 +1,16 @@
-module.exports = {
-  displayName: 'abi-utilities',
+/* eslint-disable */
+export default {
+  displayName: 'dao-producer-job',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
       tsconfig: '<rootDir>/tsconfig.spec.json',
     },
   },
+  testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/libs/abi-utilities',
+  coverageDirectory: '../../coverage/apps/dao-producer-job',
 };

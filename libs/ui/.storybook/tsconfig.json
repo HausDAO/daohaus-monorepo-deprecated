@@ -2,8 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "emitDecoratorMetadata": true,
-    "outDir": "",
-    "types": ["@nrwl/react"]
+    "outDir": ""
   },
   "files": [
     "../../../node_modules/@nrwl/react/typings/styled-jsx.d.ts",
@@ -14,7 +13,8 @@
     "../**/*.spec.ts",
     "../**/*.spec.js",
     "../**/*.spec.tsx",
-    "../**/*.spec.jsx"
+    "../**/*.spec.jsx",
+    "jest.config.ts"
   ],
   "include": ["../src/**/*", "*.js"]
 }

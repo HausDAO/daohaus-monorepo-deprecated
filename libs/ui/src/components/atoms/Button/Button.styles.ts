@@ -136,7 +136,10 @@ export const ButtonBase = styled.button`
   }
 
   &.left-align {
-    text-align: left;
+    justify-content: flex-start;
+  }
+  &.center-align {
+    justify-content: center;
   }
 
   &.avatar {

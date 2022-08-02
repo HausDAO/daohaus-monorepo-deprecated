@@ -3,14 +3,22 @@ const rootMain = require('../../../.storybook/main');
 module.exports = {
   ...rootMain,
 
-  core: { ...rootMain.core, builder: 'webpack5' },
+  core: {
+    ...rootMain.core,
+    builder: 'webpack5',
+    disableTelemetry: true, // 👈 Disables telemetry
+  },
 
   stories: [
     ...rootMain.stories,
     '../src/**/*.stories.mdx',
     '../src/**/*.stories.@(js|jsx|ts|tsx)',
   ],
-  addons: [...rootMain.addons, '@nrwl/react/plugins/storybook'],
+  addons: [
+    ...rootMain.addons,
+    '@nrwl/react/plugins/storybook',
+    'storybook-addon-pseudo-states',
+  ],
   webpackFinal: async (config, { configType }) => {
     // apply any global webpack configs that might have been specified in .storybook/main.js
     if (rootMain.webpackFinal) {

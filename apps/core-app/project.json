@@ -1,5 +1,5 @@
 {
-  "root": "apps/core-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/core-app/src",
   "projectType": "application",
   "targets": {
@@ -59,13 +59,33 @@
         "color": true
       }
     },
-
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/core-app"],
       "options": {
-        "jestConfig": "apps/core-app/jest.config.js",
+        "jestConfig": "apps/core-app/jest.config.ts",
         "passWithNoTests": true
+      }
+    },
+
+    "deploy": {
+      "executor": "@alexkeating/nx-skynet:deploy",
+      "options": {
+        "uploadDir": "dist/apps/core-app",
+        "registrySeedVarName": "DAOHAUS_CORE_UI_SKYNET_SEED",
+        "registryDataKey": "skylink.txt",
+        "portalUrl": "https://skynetfree.net",
+        "skynetJwtVarName": "SKYNET_JWT"
+      }
+    },
+    "deployStaging": {
+      "executor": "@alexkeating/nx-skynet:deploy",
+      "options": {
+        "uploadDir": "dist/apps/core-app",
+        "registrySeedVarName": "DAOHAUS_CORE_UI_DEVELOP_SKYNET_SEED",
+        "registryDataKey": "skylink.txt",
+        "portalUrl": "https://skynetfree.net",
+        "skynetJwtVarName": "SKYNET_JWT"
       }
     }
   },

@@ -3,6 +3,7 @@
   "version": "0.0.7",
   "main": "./daohaus-connect-feature.umd.js",
   "module": "./daohaus-connect-feature.es.js",
+  "typings": "./dist/src/index.d.ts",
   "homepage": "https://github.com/HausDAO/daohaus-monorepo#readme",
   "issues": "https://github.com/HausDAO/daohaus-monorepo/issues?q=is%3Aissue+is%3Aopen",
   "license": "MIT",

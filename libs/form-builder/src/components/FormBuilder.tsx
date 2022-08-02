@@ -8,10 +8,14 @@ import {
 import { DevTool } from '@hookform/devtools';
 
 import { FormLayout } from '@daohaus/ui';
-import { isValidNetwork } from '@daohaus/common-utilities';
+import {
+  isValidNetwork,
+  LookupType,
+  RequiredFields,
+} from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
-import { FormLego, LookupType, RequiredFields } from '../types';
+import { FormLego } from '../types';
 import { Logger } from './Logger';
 import { FormFooter } from './formFooter';
 import { FormBuilderFactory } from './FormBuilderFactory';

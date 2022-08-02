@@ -2,18 +2,19 @@ import { providers } from 'ethers';
 import { createContext, useState, useMemo, useContext, ReactNode } from 'react';
 import { isValidNetwork } from '@daohaus/common-utilities';
 import { handleFireTx, TX, TxRecord } from '../utils/txBuilderUtils';
+import { LiveTX } from '@daohaus/haus-form-builder';
 
 // Truly should be any here.
 // Possible TS challenge if we feel like adding a user defined type.
 // Though doing so may make the API more cumbersome than it needs to be.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type ArbitraryAppState = Record<string, any>;
+type ArbitraryState = Record<string, any>;
 
 type TxContext = {
   transactions: TxRecord;
   txAmt: number;
   fireTransaction: (tx: TX) => void;
-  appState: ArbitraryAppState;
+  appState: ArbitraryState;
 };
 
 export const TxBuilderContext = createContext<TxContext>({
@@ -42,7 +43,12 @@ export const TXBuilder = ({
     return Object.values(transactions).length;
   }, [transactions]);
 
-  async function fireTransaction(tx: TX) {
+  async function fireTransaction({
+    tx,
+  }: {
+    tx: LiveTX;
+    callerState: ArbitraryState;
+  }) {
     if (!chainId || !isValidNetwork(chainId) || !provider) {
       tx?.lifeCycleFns?.onTxError?.(
         Error('Invalid Network or no Web3 Wallet detected')

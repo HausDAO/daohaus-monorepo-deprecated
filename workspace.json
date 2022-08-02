@@ -1,7 +1,6 @@
 {
   "version": 2,
   "projects": {
-    "baal-contract-service": "libs/baal-contract-service",
     "common-utilities": "libs/common-utilities",
     "contract-utilities": "libs/contract-utilities",
     "core-app": "apps/core-app",

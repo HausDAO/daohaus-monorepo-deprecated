@@ -11,8 +11,12 @@ export namespace validators {
       .concat('-member-')
       .concat(senderAddress.toHexString());
 
+    log.info('validating memberId, {}', [memberId]);
+
     const member = Member.load(memberId);
     if (!member || member.shares == constants.BIGINT_ZERO) {
+      log.info('no member or shares', []);
+
       return false;
     }
     return true;

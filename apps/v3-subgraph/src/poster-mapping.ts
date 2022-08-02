@@ -35,7 +35,7 @@ export function handleNewPost(event: NewPost): void {
     return;
   }
 
-  let daoId = parser.getStringFromJson(object, 'dao');
+  let daoId = parser.getStringFromJson(object, 'daoId');
   if (daoId.error != 'none') {
     log.error('no daoId', []);
     return;

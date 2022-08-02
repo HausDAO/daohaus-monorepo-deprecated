@@ -67,14 +67,17 @@
     "build-storybook": {
       "executor": "@nrwl/storybook:build",
       "outputs": ["{options.outputPath}"],
-      "inputs": [{ "env": "NODE_ENV" }],
+      "inputs": [
+        {
+          "env": "NODE_ENV"
+        }
+      ],
       "options": {
         "uiFramework": "@storybook/react",
         "outputPath": "dist/storybook/ui",
         "config": {
           "configFolder": "libs/ui/.storybook"
         },
-
         "quiet": false
       },
       "configurations": {
@@ -99,7 +102,12 @@
         "portalUrl": "https://skynetfree.net",
         "skynetApiKeyVarName": "SKYNET_API_KEY"
       },
-      "dependsOn": [{ "target": "build-storybook", "projects": "self" }]
+      "dependsOn": [
+        {
+          "target": "build-storybook",
+          "projects": "self"
+        }
+      ]
     }
   }
 }

@@ -5,6 +5,7 @@
     "types": [
       "node"
     ],
+    "declaration": true,
     "composite": true,
     "resolveJsonModule": true
   },
@@ -27,6 +28,7 @@
     "**/*.js",
     "**/*.jsx",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "**/*.json"
   ]
 }

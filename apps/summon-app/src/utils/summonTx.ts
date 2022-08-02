@@ -1,4 +1,4 @@
-import { LOCAL_ABI } from '@daohaus/abi-utilities';
+import { BAAL_ABI } from '@daohaus/contract-utilities';
 import {
   ArgType,
   CONTRACTS,
@@ -20,7 +20,7 @@ const tokenConfigTX = (formValues: FormValues) => {
   const pauseVoteToken = !formValues.votingTransferable;
   const pauseNvToken = !formValues.votingTransferable;
 
-  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'setAdminConfig', [
+  const encoded = encodeFunction(BAAL_ABI, 'setAdminConfig', [
     pauseVoteToken,
     pauseNvToken,
   ]);

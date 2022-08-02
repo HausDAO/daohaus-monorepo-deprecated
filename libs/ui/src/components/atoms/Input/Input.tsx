@@ -1,14 +1,16 @@
+import React from 'react';
 import classNames from 'classnames';
+import { IconType } from 'react-icons';
+
 import { BaseInput, WithIcon } from './Input.styles';
 import { Field } from '../../../types/formAndField';
-import { IconType } from 'react-icons';
-import React from 'react';
 
 export type InputProps = Field & {
   icon?: IconType;
   onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
   className?: string;
 };
+
 type Ref =
   | React.RefObject<HTMLInputElement>
   | ((instance: HTMLInputElement | null) => void)
@@ -37,12 +39,14 @@ export const Input = React.forwardRef((props: InputProps, ref: Ref) => {
     error,
     number: number || address,
   });
+
   if (icon) {
     const wrapperClasses = classNames({
       long: long || address,
       full,
     });
     const Icon = icon;
+
     return (
       <WithIcon className={wrapperClasses}>
         <BaseInput

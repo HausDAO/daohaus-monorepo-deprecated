@@ -2,8 +2,7 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "emitDecoratorMetadata": true,
-    "outDir": "",
-    "types": ["@nrwl/react"]
+    "outDir": ""
   },
   "files": [
     "../../../node_modules/@nrwl/react/typings/styled-jsx.d.ts",

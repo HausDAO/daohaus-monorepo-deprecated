@@ -93,7 +93,7 @@ fragment daoFields on Dao {
   existingSafe
   name
   profile: records(
-    first: 101
+    first: 1
     orderBy: createdAt
     orderDirection: desc
     where: { table: "daoProfile" }

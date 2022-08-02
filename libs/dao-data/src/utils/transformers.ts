@@ -9,6 +9,10 @@ import {
   DaoTokenBalances,
   QueryProposal,
   ListMembershipsQuery,
+  QueryDao,
+  ITransformedDao,
+  DaoProfile,
+  ListDaosQuery,
 } from '../types';
 import { getProposalStatus } from './proposalsStatus';
 
@@ -87,4 +91,24 @@ export const transformMembershipList = (
       return list;
     }
   }, []);
+};
+
+export const addDaoProfileFields = (
+  dao: ListDaosQuery['daos'][number]
+): DaoProfile | undefined => {
+  if (!dao.profile) return;
+
+  try {
+    const obj = JSON.parse(dao.profile[0].content);
+    return {
+      description: obj.description,
+      longDescription: obj.longDescription,
+      avatarImg: obj.avatarImg,
+      tags: obj.tags,
+      links: obj.links,
+    };
+  } catch (e) {
+    console.log('daoprofile parsing error', e);
+    return;
+  }
 };

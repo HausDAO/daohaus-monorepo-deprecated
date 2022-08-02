@@ -62,7 +62,7 @@ export const DaoProfile = ({ dao }: { dao: TDao }) => {
   const { daochain, daoid } = useParams();
 
   const missingProfile = useMemo(() => {
-    if (dao.profile) return null;
+    if (dao.description !== '' && dao.avatarImg !== '') return null;
     return (
       <MissingProfileCard>
         <ParXs>
@@ -73,7 +73,7 @@ export const DaoProfile = ({ dao }: { dao: TDao }) => {
         </Link>
       </MissingProfileCard>
     );
-  }, [dao]);
+  }, [dao, daochain, daoid]);
 
   return (
     <DaoProfileContainer>

@@ -1,5 +1,3 @@
-// COMPONENT LIBRARY
-
 import { Tag } from '@daohaus/ui';
 import styled from 'styled-components';
 

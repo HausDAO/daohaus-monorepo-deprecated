@@ -1,9 +1,6 @@
 import { Keychain } from '@daohaus/common-utilities';
 import { HausError } from '../HausError';
-import {
-  FindDaoQuery,
-  ListDaosQuery,
-} from '../subgraph/queries/daos.generated';
+import { ListDaosQuery } from '../subgraph/queries/daos.generated';
 import { ListProposalsQuery } from '../subgraph/queries/proposals.generated';
 import { OrderDirection } from '../subgraph/schema.generated';
 

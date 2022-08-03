@@ -1,5 +1,7 @@
+import { useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-
+import { Keychain } from '@daohaus/common-utilities';
 import {
   AddressDisplay,
   border,
@@ -8,16 +10,13 @@ import {
   Theme,
   widthQuery,
   ParMd,
-  Tag,
   Card,
   ParXs,
   Button,
   Link,
 } from '@daohaus/ui';
+
 import { TDao } from '../contexts/DaoContext';
-import { useParams } from 'react-router-dom';
-import { Keychain } from '@daohaus/common-utilities';
-import { useMemo } from 'react';
 import { TagList } from './TagList';
 import { hasNoProfile } from '../utils/profileHelpers';
 

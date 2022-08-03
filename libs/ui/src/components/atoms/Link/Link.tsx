@@ -12,7 +12,6 @@ export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
   disabled?: boolean;
   linkType?: 'internal' | 'external';
   hideIcon?: boolean;
-  // iconPosition:
 }
 
 // TODO Better way to do types

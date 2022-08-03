@@ -1,11 +1,22 @@
 import { providers } from 'ethers';
 import { createContext, useState, useMemo, useContext, ReactNode } from 'react';
-import { ArgType, isValidNetwork, TXLego } from '@daohaus/common-utilities';
 import {
   ArbitraryState,
-  TXLifeCycleFns,
-  TxRecord,
-} from './utils/txBuilderUtils';
+  ArgType,
+  isValidNetwork,
+  TXLego,
+} from '@daohaus/common-utilities';
+import { TxRecord, handleFireTx } from './utils/txBuilderUtils';
+import { FindTxQuery, IFindQueryResult } from '@daohaus/dao-data';
+
+export type TXLifeCycleFns = {
+  onTxHash?: (txHash: string) => void;
+  onTxError?: (error: unknown) => void;
+  onTxSuccess?: (txHash: string) => void;
+  onPollFire?: () => void;
+  onPollError?: (error: unknown) => void;
+  onPollSuccess?: (result: IFindQueryResult<FindTxQuery> | undefined) => void;
+};
 
 type FireTransaction<CallerStateModel extends ArbitraryState = ArbitraryState> =
   ({
@@ -57,7 +68,7 @@ export const TXBuilder = ({
   const fireTransaction: FireTransaction = async ({
     tx,
     callerState,
-    lifeCycleFns,
+    lifeCycleFns = {},
   }) => {
     if (!chainId || !isValidNetwork(chainId) || !provider) {
       lifeCycleFns?.onTxError?.(
@@ -66,8 +77,15 @@ export const TXBuilder = ({
       return;
     }
     const wholeState = { ...appState, ...callerState };
-    console.log('wholeState', wholeState);
-    // await handleFireTx({});
+
+    await handleFireTx({
+      tx,
+      chainId,
+      provider,
+      setTransactions,
+      appState: wholeState,
+      lifeCycleFns,
+    });
   };
 
   return (

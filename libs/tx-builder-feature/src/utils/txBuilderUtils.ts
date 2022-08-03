@@ -1,39 +1,15 @@
 import { ethers, providers } from 'ethers';
 import {
-  ABI,
-  ArgType,
-  Keychain,
+  ArbitraryState,
+  ArgAggrageteType,
   ReactSetter,
+  TXLego,
   ValidNetwork,
 } from '@daohaus/common-utilities';
 import { FindTxQuery, Haus, IFindQueryResult } from '@daohaus/dao-data';
+import { TXLifeCycleFns } from '../TXBuilder';
 
-export type TxStates = 'idle' | 'submitting' | 'polling' | 'failed' | 'success';
-export type TX = {
-  txName: string;
-  status?: TxStates;
-  abi: ABI;
-  args: ArgType[];
-  keychain: Keychain;
-  lifeCycleFns?: TXLifeCycleFns;
-};
-
-export type TxRecord = Record<string, TX>;
-
-export type TXLifeCycleFns = {
-  onTxHash?: (txHash: string) => void;
-  onTxError?: (error: unknown) => void;
-  onTxSuccess?: (txHash: string) => void;
-  onPollFire?: () => void;
-  onPollError?: (error: unknown) => void;
-  onPollSuccess?: (result: IFindQueryResult<FindTxQuery> | undefined) => void;
-};
-
-// Truly should be any here.
-// Possible TS challenge if we feel like adding a user defined type.
-// Though doing so may make the API more cumbersome than it needs to be.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type ArbitraryState = Record<string, any>;
+export type TxRecord = Record<string, TXLego>;
 
 // TS Challenge
 
@@ -76,6 +52,7 @@ export const pollLastTX: PollFetch<FindTxQuery> = async ({
     return result;
   } catch (error) {
     console.error(error);
+    return;
   }
 };
 
@@ -111,32 +88,35 @@ const standardGraphPoll: Poll<FindTxQuery> = async ({
           return result;
         }
         count += 1;
+        return;
       } catch (error) {
         onPollError?.(error);
         clearInterval(pollId);
+        return;
       }
     } else {
       const error = new Error(
         'Transcaction Poll ran out of tries. There could be issues with the subgraph.'
       );
-      onPollTimeout ? onPollTimeout?.(error) : onPollError?.(error);
+      onPollTimeout?.(error);
+      return;
     }
   }, interval);
 };
 
-export const executeTx = async (
-  tx: TX,
-  // TS Challenge
-
-  // Could not find a reasonable solution to this.
-  // Ethers return any. Could possibly pass a generic to
-  // from a typechain generated Contract client
-  // Leaving this for now as we're seeing dimishing returns here.
-  ethersTx: { hash: string; wait: () => Promise<string> },
-  setTransactions: ReactSetter<TxRecord>,
-  chainId: ValidNetwork
-) => {
-  const { lifeCycleFns } = tx;
+export const executeTx = async ({
+  tx,
+  ethersTx,
+  setTransactions,
+  chainId,
+  lifeCycleFns,
+}: {
+  tx: TXLego;
+  ethersTx: { hash: string; wait: () => Promise<string> };
+  setTransactions: ReactSetter<TxRecord>;
+  chainId: ValidNetwork;
+  lifeCycleFns?: TXLifeCycleFns;
+}) => {
   const txHash = ethersTx.hash;
 
   try {
@@ -179,21 +159,51 @@ export const executeTx = async (
       ...prevState,
       [txHash]: { ...tx, status: 'failed' },
     }));
+    return;
   }
+};
+
+const handleContractLego = ({ tx }: { tx: TXLego }) => {
+  if (tx.contract.type === 'local') {
+    return tx.contract;
+  }
+
+  // This is a placeholder for when we implemnt the arbitary
+  // contract call and cache utilities
+  // https://github.com/HausDAO/daohaus-monorepo/issues/403
+  throw new Error('ABI not found. Remote fetching not implemented');
+};
+
+const handleRealArgs = ({ args }: { args: ArgAggrageteType }) => {
+  if (Array.isArray(args)) {
+    return args;
+  }
+
+  // This is a placeholder for when we implemnt the gatherArgs utils
+  // https://github.com/HausDAO/daohaus-monorepo/issues/403
+  throw new Error('ArgType not found. Searching not yet implemented');
 };
 
 export async function handleFireTx({
   tx,
   chainId,
   provider,
-  setTransactions,
+  ...rest
 }: {
-  tx: TX;
+  tx: TXLego;
   chainId: ValidNetwork;
   provider: providers.Web3Provider;
   setTransactions: ReactSetter<TxRecord>;
+  appState: ArbitraryState;
+  lifeCycleFns: TXLifeCycleFns;
 }) {
-  const { abi, keychain, args, txName } = tx;
+  const contractLego = handleContractLego({ tx });
+
+  const { abi, keychain } = contractLego;
+  const { args, method } = tx;
+
+  const realArgs = handleRealArgs({ args });
+
   const networkAddress = keychain[chainId];
   if (!networkAddress) return;
   const contract = new ethers.Contract(
@@ -202,6 +212,6 @@ export async function handleFireTx({
     provider.getSigner().connectUnchecked()
   );
 
-  const ethersTx = await contract.functions[txName](...args);
-  return executeTx(tx, ethersTx, setTransactions, chainId);
+  const ethersTx = await contract.functions[method](...realArgs);
+  return executeTx({ tx, ethersTx, chainId, ...rest });
 }

@@ -2,12 +2,7 @@ import { useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import {
-  CONTRACTS,
-  isValidNetwork,
-  ReactSetter,
-} from '@daohaus/common-utilities';
-import { LOCAL_ABI } from '@daohaus/abi-utilities';
+import { isValidNetwork, ReactSetter } from '@daohaus/common-utilities';
 import {
   Bold,
   Button,

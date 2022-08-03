@@ -39,6 +39,7 @@ type CallbackArgs = {
 };
 type StaticArgs = ArgType[];
 export type ArgAggrageteType = SearchArgs | CallbackArgs | StaticArgs;
+export type TxStates = 'idle' | 'submitting' | 'polling' | 'failed' | 'success';
 
 export type TXLego = {
   id: string;
@@ -48,6 +49,7 @@ export type TXLego = {
   txSuccessMessage?: string;
   finalSuccessMessage?: string;
   errorMessage?: string;
+  status?: TxStates;
   args: ArgAggrageteType;
 };
 

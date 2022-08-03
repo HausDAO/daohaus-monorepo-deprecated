@@ -81,13 +81,9 @@ export function FormBuilder<Lookup extends LookupType>({
   const formDisabled = isSubmitting;
   const { fireTransaction } = useTxBuilder?.() || {};
 
-  const handleSubmitTx = (formValues: FieldValues) => {
-    fireTransaction(form.tx);
-  };
-
   const handleTopLevelSubmit = async (formValues: FieldValues) => {
     if (form.tx) {
-      handleSubmitTx(formValues);
+      fireTransaction(form.tx);
     }
     if (onSubmit) {
       await onSubmit?.(formValues);

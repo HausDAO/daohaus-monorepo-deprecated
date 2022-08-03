@@ -57,7 +57,11 @@ const TagListContainer = styled.div`
   margin-top: 2.8rem;
 `;
 
-export const DaoProfile = ({ dao }: { dao: TDao }) => {
+type DaoProfileProps = {
+  dao: TDao;
+};
+
+export const DaoProfile = ({ dao }: DaoProfileProps) => {
   const { daochain, daoid } = useParams();
 
   const missingProfile = useMemo(() => {

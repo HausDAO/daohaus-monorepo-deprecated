@@ -7,7 +7,7 @@ import {
 
 type DataIndicatorProps = {
   label?: string;
-  data?: string;
+  data?: string | number;
   size?: 'lg' | 'sm';
   info?: string;
 };

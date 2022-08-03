@@ -14,9 +14,8 @@ export function Dao() {
             label: 'Proposals',
             href: `/molochv3/${daochain}/${daoid}/proposals`,
           },
-          { label: 'Members', href: `/molochv3/${daochain}/${daoid}/members` },
-
           { label: 'Vaults', href: `/molochv3/${daochain}/${daoid}/vaults` },
+          { label: 'Members', href: `/molochv3/${daochain}/${daoid}/members` },
         ]}
         dropdownLinks={[
           {

@@ -21,7 +21,7 @@ export function Members() {
       subtitle="DAO"
       title="Members"
       left={<LeftCard>{JSON.stringify(members, null, 2)}</LeftCard>}
-      right={null}
+      right={<LeftCard>{JSON.stringify(members, null, 2)}</LeftCard>}
     />
   );
 }

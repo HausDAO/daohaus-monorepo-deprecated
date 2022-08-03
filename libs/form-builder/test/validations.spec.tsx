@@ -1,7 +1,15 @@
 // Commenting this out for now. Need to import stuff from common-utils to and those imports don't work here.
+
 // Can migrate these tests and init test on commone when I get time.
 
-// import { CommonFields } from '../src/data/CommonFields';
+import { CommonFields } from '../src/data/CommonFields';
+console.log('CommonFields', CommonFields);
+
+describe('CommonFields', () => {
+  it('should leave me the Hell alone so that I can focus on other things for five minutes', () => {
+    expect(true).toBe(true);
+  });
+});
 // import {
 //   handleRequiredField,
 //   ValErrMsgs,
@@ -60,4 +68,4 @@
 //       required: 'Description is required',
 //     });
 //   });
-// });
+// })

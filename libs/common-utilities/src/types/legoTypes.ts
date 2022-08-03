@@ -1,5 +1,5 @@
 import { JSXElementConstructor } from 'react';
-import { ABI } from './contract';
+import { ABI, ArgType } from './contract';
 import { Keychain } from './keychains';
 
 export type LookupType = Record<
@@ -29,13 +29,26 @@ export type FormLegoBase<Lookup extends LookupType = LookupType> = {
 
 export type RequiredFields = Record<string, boolean>;
 
+type SearchArgs = {
+  type: 'searchArgs';
+  args: string[];
+};
+type CallbackArgs = {
+  type: 'callbackArgs';
+  callbackName: string;
+};
+type StaticArgs = ArgType[];
+export type ArgAggrageteType = SearchArgs | CallbackArgs | StaticArgs;
+
 export type TXLego = {
   id: string;
   contract: ContractLego;
   method: string;
-  gatherArgs?: string[];
-  argsFromCallback?: string;
-  localArgs?: [];
+  custonPoll?: string;
+  txSuccessMessage?: string;
+  finalSuccessMessage?: string;
+  errorMessage?: string;
+  args: ArgAggrageteType;
 };
 
 export type LocalContract = {
@@ -51,4 +64,4 @@ export type RemoteContract = {
   keychain: Keychain;
 };
 
-type ContractLego = LocalContract | RemoteContract;
+export type ContractLego = LocalContract | RemoteContract;

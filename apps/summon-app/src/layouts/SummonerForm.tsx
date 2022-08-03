@@ -30,6 +30,7 @@ import { assembleTxArgs } from '../utils/summonTx';
 import { FormValues } from '../types/form';
 import { SummonStates } from '../app/App';
 import { ConnectBox } from '../components/ConnectBox/ConnectBox';
+import { SummonTX } from '../utils/summonlegos';
 
 type SummonFormProps = {
   setSummonState: ReactSetter<SummonStates>;
@@ -67,10 +68,10 @@ export const SummonerForm = ({
       const args = assembleTxArgs(formValues, chainId);
 
       fireTransaction({
-        txName: 'summonBaalAndSafe',
-        abi: LOCAL_ABI.BAAL_SUMMONER,
-        args: args,
-        keychain: CONTRACTS.V3_FACTORY,
+        tx: {
+          ...SummonTX,
+          args,
+        },
         lifeCycleFns: {
           onTxHash(txHash) {
             setSummonState('loading');

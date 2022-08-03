@@ -4,9 +4,6 @@ import {
   LookupType,
 } from '@daohaus/common-utilities';
 import { CoreFieldLookup } from '../components/CoreFieldLookup';
-import { ValidateField } from '../utils/rules';
-
-export type FieldValidationType = keyof typeof ValidateField;
 
 export type CoreFields = typeof CoreFieldLookup;
 

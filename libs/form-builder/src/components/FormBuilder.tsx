@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import {
   FieldValues,
   FormProvider as RHFProvider,
@@ -75,7 +75,7 @@ export function FormBuilder<Lookup extends LookupType>({
     requiredFields = {},
   } = form;
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting] = useState(false);
 
   const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
   const formDisabled = isSubmitting;
@@ -83,7 +83,34 @@ export function FormBuilder<Lookup extends LookupType>({
 
   const handleTopLevelSubmit = async (formValues: FieldValues) => {
     if (form.tx) {
-      fireTransaction(form.tx);
+      fireTransaction({
+        tx: form.tx,
+        callerState: {
+          fromCallerState: {
+            foo: 'bar',
+          },
+        },
+        lifeCycleFns: {
+          onTxHash() {
+            console.log('txHash');
+          },
+          onTxError() {
+            console.log('txError');
+          },
+          onTxSuccess() {
+            console.log('txSuccess');
+          },
+          onPollFire() {
+            console.log('poll fire');
+          },
+          onPollError() {
+            console.log('poll error');
+          },
+          onPollSuccess() {
+            console.log('poll success');
+          },
+        },
+      });
     }
     if (onSubmit) {
       await onSubmit?.(formValues);

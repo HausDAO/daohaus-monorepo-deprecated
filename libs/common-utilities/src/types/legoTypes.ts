@@ -1,4 +1,5 @@
 import { JSXElementConstructor } from 'react';
+import { ValidateField } from '../utils';
 import { ABI, ArgType } from './contract';
 import { Keychain } from './keychains';
 
@@ -8,9 +9,13 @@ export type LookupType = Record<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   keyof JSX.IntrinsicElements | JSXElementConstructor<any>
 >;
+
+export type FieldValidationType = keyof typeof ValidateField;
+
 export type FieldLegoBase<Lookup extends LookupType> = {
   [FieldType in keyof Lookup]: React.ComponentProps<Lookup[FieldType]> & {
     type: FieldType;
+    expectType?: FieldValidationType;
   };
 }[keyof Lookup];
 

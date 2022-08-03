@@ -213,5 +213,6 @@ export async function handleFireTx({
   );
 
   const ethersTx = await contract.functions[method](...realArgs);
-  return executeTx({ tx, ethersTx, chainId, ...rest });
+
+  executeTx({ tx, ethersTx, chainId, ...rest });
 }

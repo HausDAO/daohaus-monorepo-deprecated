@@ -18,8 +18,8 @@ import { TDao } from '../contexts/DaoContext';
 import { useParams } from 'react-router-dom';
 import { Keychain } from '@daohaus/common-utilities';
 import { useMemo } from 'react';
-import { SocialLinks } from './SocialLinks';
 import { TagList } from './TagList';
+import { hasNoProfile } from '../utils/profileHelpers';
 
 const DaoProfileContainer = styled.div`
   width: 100%;
@@ -54,11 +54,15 @@ const MissingProfileCard = styled(Card)`
   gap: 2.3rem;
 `;
 
+const TagListContainer = styled.div`
+  margin-top: 2.8rem;
+`;
+
 export const DaoProfile = ({ dao }: { dao: TDao }) => {
   const { daochain, daoid } = useParams();
 
   const missingProfile = useMemo(() => {
-    if (dao.description !== '' && dao.avatarImg !== '') return null;
+    if (!hasNoProfile(dao)) return null;
     return (
       <MissingProfileCard>
         <ParXs>
@@ -89,12 +93,10 @@ export const DaoProfile = ({ dao }: { dao: TDao }) => {
 
       {!missingProfile && (
         <>
-          <ParMd>
-            The DAO Summit Conference will gather in the summer of 2022. DAO
-            goverenace for all.{' '}
-          </ParMd>
-          {dao.links && <SocialLinks links={dao.links} />}
-          {dao.tags && <TagList tags={dao.tags} />}
+          <ParMd>{dao.description}</ParMd>
+          <TagListContainer>
+            {dao.tags && <TagList tags={dao.tags} />}
+          </TagListContainer>
         </>
       )}
     </DaoProfileContainer>

@@ -96,7 +96,7 @@ export const transformMembershipList = (
 export const addDaoProfileFields = (
   dao: ListDaosQuery['daos'][number]
 ): DaoProfile | undefined => {
-  if (!dao.profile) return;
+  if (!dao.profile || !dao.profile.length) return;
 
   try {
     const obj = JSON.parse(dao.profile[0].content);

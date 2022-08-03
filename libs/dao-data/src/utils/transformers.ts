@@ -9,8 +9,6 @@ import {
   DaoTokenBalances,
   QueryProposal,
   ListMembershipsQuery,
-  QueryDao,
-  ITransformedDao,
   DaoProfile,
   ListDaosQuery,
 } from '../types';

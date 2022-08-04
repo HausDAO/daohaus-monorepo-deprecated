@@ -1,7 +1,16 @@
+# Example configuration file that:
+#  - Ignores nx dependency
+#  - Disables version-updates
+
 version: 2
 updates:
-  - package-ecosystem: 'npm'
-    directory: '/'
+  - package-ecosystem: "npm"
+    directory: "/"
+    target-branch: default-editor-settings
     schedule:
-      interval: 'daily'
-    open-pull-requests-limit: 30
+      interval: "daily"
+    ignore:
+      - dependency-name: "nx"
+        # For nx, ignore all updates - migrtations preferred
+    # Disable version updates for npm dependencies
+    open-pull-requests-limit: 0

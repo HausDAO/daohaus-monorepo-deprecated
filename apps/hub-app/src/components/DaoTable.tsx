@@ -51,15 +51,20 @@ const FirstCell = styled.div`
   align-items: center;
 `;
 
+const StyledLink = styled.a`
+  text-decoration: none;
+  color: unset;
+`;
+
 type HubTableType = Omit<ITransformedMembership, 'name'> & {
-  name: { name?: string; address: string };
+  name: { name?: string; address: string; networkId?: string };
 };
 
 export const DaoTable = ({ daoData }: IDaoTableData) => {
   const tableData = React.useMemo<HubTableType[]>(
     () =>
       daoData.map((dao: ITransformedMembership) => ({
-        name: { name: dao.name, address: dao.dao },
+        name: { name: dao.name, address: dao.dao, networkId: dao.networkId },
         activeProposalCount: dao.activeProposalCount,
         fiatTotal: dao.fiatTotal,
         activeMemberCount: dao.activeMemberCount,
@@ -84,13 +89,19 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
           value,
           row,
         }: {
-          value: { name?: string; address: string };
+          value: { name?: string; address: string; networkId?: string };
           row: UseTableRowProps<HubTableType>;
         }) => {
           return (
             <FirstCell>
               <ProfileAvatar size="sm" address={value.address} />
-              {value.name || truncateAddress(value.address)}
+              <StyledLink
+                href={`https://admin.daohaus.fun/#/molochv3/${value.networkId}/${value.address}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {value.name || truncateAddress(value.address)}
+              </StyledLink>
               {row.original.isDelegate && <Tag>Delegate</Tag>}
             </FirstCell>
           );

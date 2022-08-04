@@ -8,6 +8,8 @@ on:
   push:
     branches:
       - 'develop'
+  # schedule:
+  #   - cron: "30 13 1 * *" # Runs Monthly on the 1st.
 env:
   BASE: ${{ github.ref == 'refs/heads/develop' && 'origin/develop~1' || 'origin/develop' }}
 

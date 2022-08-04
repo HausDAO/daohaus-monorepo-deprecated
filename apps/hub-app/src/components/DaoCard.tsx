@@ -102,7 +102,7 @@ export const DaoCard = ({
             Proposals
           </ParMd>
         )}
-        {votingPower > 0 && (
+        {votingPower > 0 ? (
           <ParMd>
             <Bold>
               {readableNumbers.toPercentDecimals({
@@ -112,6 +112,8 @@ export const DaoCard = ({
             </Bold>{' '}
             Voting Power
           </ParMd>
+        ) : (
+          <ParMd>No Voting Power</ParMd>
         )}
       </div>
       <div className="tag-box">

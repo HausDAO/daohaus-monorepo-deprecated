@@ -28,8 +28,15 @@ const MetaContent = styled.div`
   align-items: flex-start;
   flex-wrap: wrap;
   gap: 3.4rem;
-  max-width: 10rem;
-
+  .icon {
+    margin-top: 1.2rem;
+  }
+  .section-middle {
+    max-width: 37rem;
+  }
+  .tags {
+    margin-top: 2.9rem;
+  }
   .contract {
     margin: 1.2rem 0;
   }
@@ -55,12 +62,24 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
       <MetaContent>
         <div>
           <ParMd>Icon</ParMd>
-          <DaoProfileAvatar address={dao.id} image={dao.avatarImg} />
+          <div className="icon">
+            <DaoProfileAvatar address={dao.id} image={dao.avatarImg} />
+          </div>
         </div>
-        <div>
+        <div className="section-middle">
           <DataIndicator label="DAO Name" data={dao.name} size="sm" />
-          <DataIndicator label="Description" data={dao.description} size="sm" />
-          {dao.tags && <TagList tags={dao.tags} />}
+          <div className="tags">
+            <DataIndicator
+              label="Description"
+              data={dao.description}
+              size="sm"
+            />
+          </div>
+          {dao.tags && (
+            <div className="tags">
+              <TagList tags={dao.tags} />
+            </div>
+          )}
         </div>
         <div>
           <ParMd>DAO Contracts</ParMd>

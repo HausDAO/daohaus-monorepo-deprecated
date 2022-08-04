@@ -16,7 +16,9 @@ export const TagList = ({ tags }: TagListProps) => {
   return (
     <TagContainer>
       {tags.map((tag) => (
-        <Tag tagColor="green">{tag}</Tag>
+        <Tag tagColor="green" key={tag}>
+          {tag}
+        </Tag>
       ))}
     </TagContainer>
   );

@@ -2,7 +2,15 @@ import styled from 'styled-components';
 import { H3, H4, DataIndicator, ParSm, widthQuery, Theme } from '@daohaus/ui';
 
 import { TDao } from '../contexts/DaoContext';
-import { formatValueTo, fromWei } from '@daohaus/common-utilities';
+import {
+  formatPeriods,
+  formatValueTo,
+  fromWei,
+  getNetwork,
+  INFO_COPY,
+} from '@daohaus/common-utilities';
+import { useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 
 const GovernanceContainer = styled.div`
   .tokens {
@@ -53,6 +61,12 @@ type GovernanceSettingsProps = {
 };
 
 export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
+  const { daochain } = useParams();
+  const networkData = useMemo(() => {
+    if (!daochain) return null;
+    return getNetwork(daochain);
+  }, [daochain]);
+
   return (
     <GovernanceContainer>
       <GovernanceCardHeader>
@@ -75,40 +89,43 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
         <DataIndicator
           size="sm"
           label="Voting Period"
-          data={dao.votingPeriod}
-          info={'something'}
+          data={formatPeriods(dao.votingPeriod)}
+          info={INFO_COPY.VOTING_PERIOD}
         />
         <DataIndicator
           size="sm"
           label="Grace Period"
-          data={dao.gracePeriod}
-          info={'something'}
+          data={formatPeriods(dao.gracePeriod)}
+          info={INFO_COPY.GRACE_PERIOD}
         />
         <DataIndicator
           size="sm"
           label="New Offering"
-          data={dao.proposalOffering}
-          info={'something'}
+          data={`${dao.proposalOffering} ${networkData?.symbol}`}
+          info={INFO_COPY.NEW_OFFERING}
         />
       </DataGrid>
       <DataGrid>
         <DataIndicator
           size="sm"
           label="Quorum %"
-          data={dao.quorumPercent}
-          info={'something'}
+          data={formatValueTo({ value: dao.quorumPercent, format: 'percent' })}
+          info={INFO_COPY.QUORUM}
         />
         <DataIndicator
           size="sm"
           label="Min Retention %"
-          data={dao.minRetentionPercent}
-          info={'something'}
+          data={formatValueTo({
+            value: dao.minRetentionPercent,
+            format: 'percent',
+          })}
+          info={INFO_COPY.MIN_RETENTION}
         />
         <DataIndicator
           size="sm"
           label="Sponsor Threshold"
-          data={dao.sponsorThreshold}
-          info={'something'}
+          data={`${dao.sponsorThreshold} Shares`}
+          info={INFO_COPY.SPONSOR_THRESHOLD}
         />
       </DataGrid>
       <H3 className="tokens">DAO Tokens</H3>

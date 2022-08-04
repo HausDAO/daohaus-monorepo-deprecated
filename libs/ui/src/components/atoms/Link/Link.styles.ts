@@ -17,16 +17,14 @@ const LinkStyles = css`
   :hover {
     text-decoration: underline;
   }
+
+  svg {
+    margin-left: 0.3rem;
+  }
 `;
 
 export const ExternalLink = styled.a`
   ${LinkStyles}
-
-  svg {
-    height: 2rem;
-    padding-left: 0.24rem;
-    width: 2rem;
-  }
 `;
 
 export const InternalLink = styled(Link)`

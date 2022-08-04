@@ -8,6 +8,11 @@ import {
 } from '../src/theme';
 
 export const parameters = {
+  options: {
+    storySort: {
+      order: ['Atoms', 'Molecules', 'Organisms', 'Layouts', '*', 'WIP'],
+    },
+  },
   backgrounds: {
     default: 'Dark',
     values: [
@@ -62,7 +67,7 @@ const withThemeProvider = (Story, context) => {
 };
 
 const WithFormProvider = (Story, context) => {
-  const methods = useForm();
+  const methods = useForm({ mode: 'onTouch' });
   const { watch } = methods;
 
   const values = watch();

@@ -1,5 +1,5 @@
 {
-  "root": "libs/common-utilities",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/common-utilities/src",
   "projectType": "library",
   "targets": {
@@ -25,14 +25,13 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/common-utilities"],
       "options": {
-        "jestConfig": "libs/common-utilities/jest.config.js",
+        "jestConfig": "libs/common-utilities/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "deploy": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
-        "tag": "alpha",
         "access": "public"
       }
     }

@@ -90,5 +90,17 @@ fragment daoFields on Dao {
   latestSponsoredProposalId
   proposalCount
   activeMemberCount
+  existingSafe
   name
+  profile: records(
+    first: 1
+    orderBy: createdAt
+    orderDirection: desc
+    where: { table: "daoProfile" }
+  ) {
+    createdAt
+    createdBy
+    contentType
+    content
+  }
 }

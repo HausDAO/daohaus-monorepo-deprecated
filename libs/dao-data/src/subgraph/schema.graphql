@@ -145,6 +145,9 @@ type Dao {
   """name of the DAO"""
   name: String
 
+  """was Dao summoned by an existing safe or did it create a new safe."""
+  existingSafe: Boolean!
+
   """proposals scoped to this dao"""
   proposals(skip: Int = 0, first: Int = 100, orderBy: Proposal_orderBy, orderDirection: OrderDirection, where: Proposal_filter): [Proposal!]
 
@@ -423,6 +426,10 @@ input Dao_filter {
   name_ends_with_nocase: String
   name_not_ends_with: String
   name_not_ends_with_nocase: String
+  existingSafe: Boolean
+  existingSafe_not: Boolean
+  existingSafe_in: [Boolean!]
+  existingSafe_not_in: [Boolean!]
   proposals_: Proposal_filter
   members: [String!]
   members_not: [String!]
@@ -467,6 +474,7 @@ enum Dao_orderBy {
   proposalCount
   activeMemberCount
   name
+  existingSafe
   proposals
   members
   rageQuits

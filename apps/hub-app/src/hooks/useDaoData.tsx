@@ -21,6 +21,7 @@ const useDaoData = () => {
   );
 
   useEffect(() => {
+    let shouldUpdate = true;
     const getDaos = async (address: string) => {
       setLoading(true);
       try {
@@ -32,7 +33,7 @@ const useDaoData = () => {
           // TODO: add delegate filter
         });
 
-        if (query.data?.daos) {
+        if (query.data?.daos && shouldUpdate) {
           setDaoData(query.data.daos);
         }
       } catch (error) {
@@ -44,8 +45,13 @@ const useDaoData = () => {
       }
     };
 
-    if (!address) return;
+    if (!address || !shouldUpdate) return;
+
     getDaos(address);
+
+    return () => {
+      shouldUpdate = false;
+    };
   }, [address, filterNetworks]);
   return { daoData, isLoadingDaoData: loading };
 };

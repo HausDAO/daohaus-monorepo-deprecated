@@ -49,7 +49,7 @@ export const ShamanSegment = ({ formDisabled }: { formDisabled: boolean }) => {
             number
             disabled={formDisabled}
             helperText={helperText}
-            registerOptions={{
+            rules={{
               setValueAs: transformShamans,
               validate: validateShamanData,
             }}

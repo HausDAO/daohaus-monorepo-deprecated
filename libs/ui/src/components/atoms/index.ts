@@ -1,6 +1,5 @@
 export * from './Avatar';
 export * from './Button';
-export * from './Dropdown';
 export * from './Label';
 export * from './Input';
 export * from './HelperTexts';
@@ -14,3 +13,4 @@ export * from './Divider';
 export * from './Switch';
 export * from './Icon';
 export * from './Card';
+export * from './Tag';

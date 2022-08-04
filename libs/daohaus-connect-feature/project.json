@@ -1,5 +1,5 @@
 {
-  "root": "libs/daohaus-connect-feature",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/daohaus-connect-feature/src",
   "projectType": "library",
   "tags": [],
@@ -9,15 +9,17 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/daohaus-connect-feature",
-        "configFile": "@nxext/vite/plugins/vite-package",
         "frameworkConfigFile": "@nxext/react/plugins/vite",
+        "configFile": "libs/daohaus-connect-feature/vite.config.ts",
         "entryFile": "src/index.ts",
         "generatePackageJson": true
       }
     },
     "build": {
       "executor": "@nrwl/workspace:run-commands",
+      "outputs": ["{options.outputPath}"],
       "options": {
+        "outputPath": "dist/libs/daohaus-connect-feature",
         "command": "tsc --project libs/daohaus-connect-feature/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
         "color": true
       },
@@ -41,14 +43,13 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/daohaus-connect-feature"],
       "options": {
-        "jestConfig": "libs/daohaus-connect-feature/jest.config.js",
+        "jestConfig": "libs/daohaus-connect-feature/jest.config.ts",
         "passWithNoTests": true
       }
     },
     "deploy": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
-        "tag": "alpha",
         "access": "public"
       }
     }

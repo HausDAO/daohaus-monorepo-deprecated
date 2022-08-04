@@ -9,6 +9,8 @@ import {
   ITransformedProposalListQuery,
   DaoWithTokenDataQuery,
   IListQueryResults,
+  ITransformedDaoQuery,
+  ITransformedDaoListQuery,
 } from './types';
 import * as fetch from './utils';
 import { graphFetch, graphFetchList } from './utils/requests';
@@ -55,6 +57,7 @@ import {
   ListTxsQueryVariables,
 } from './subgraph/queries/transactions.generated';
 import {
+  addDaoProfileFields,
   transformProposal,
   transformTokenBalances,
 } from './utils/transformers';
@@ -84,7 +87,7 @@ export default class Query {
       offset: 0,
     },
   }: IListQueryArguments<Dao_OrderBy, Dao_Filter>): Promise<
-    IListQueryResults<Dao_OrderBy, Dao_Filter, ListDaosQuery['daos']>
+    IListQueryResults<Dao_OrderBy, Dao_Filter, ITransformedDaoListQuery['daos']>
   > {
     const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
@@ -111,7 +114,9 @@ export default class Query {
       ordering,
       nextPaging: pagingUpdates.nextPaging,
       previousPaging: pagingUpdates.previousPaging,
-      items: pagingUpdates.pageItems,
+      items: pagingUpdates.pageItems.map((item) => {
+        return { ...item, ...addDaoProfileFields(item) };
+      }),
     };
   }
 
@@ -268,7 +273,11 @@ export default class Query {
     networkId: keyof Keychain;
     dao: string;
     includeTokens?: boolean;
-  }): Promise<IFindQueryResult<FindDaoQuery | DaoWithTokenDataQuery>> {
+  }): Promise<
+    IFindQueryResult<
+      ITransformedDaoQuery | DaoWithTokenDataQuery | FindDaoQuery
+    >
+  > {
     const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
       return {
@@ -286,23 +295,37 @@ export default class Query {
         }
       );
 
-      if (includeTokens && daoRes?.data?.dao) {
+      const gnosisUrl = this.endpoints['GNOSIS_API'][networkId];
+
+      if (includeTokens && daoRes?.data?.dao && gnosisUrl) {
         const res = await fetch.get<TokenBalance[]>(
-          `${url}/safes/${ethers.utils.getAddress(
+          `${gnosisUrl}/safes/${ethers.utils.getAddress(
             daoRes.data.dao.safeAddress
-          )}/balances/usd`
+          )}/balances/usd/`
         );
 
         return {
           data: {
             dao: {
               ...daoRes.data.dao,
+              ...addDaoProfileFields(daoRes.data.dao),
               ...transformTokenBalances(res, daoRes.data.dao.safeAddress),
             },
           },
         };
       } else {
-        return daoRes;
+        if (daoRes.data?.dao) {
+          return {
+            data: {
+              dao: {
+                ...daoRes.data.dao,
+                ...addDaoProfileFields(daoRes.data.dao),
+              },
+            },
+          };
+        } else {
+          return daoRes;
+        }
       }
     } catch (err) {
       return {
@@ -432,7 +455,7 @@ export default class Query {
 
     try {
       const res = await fetch.get<TokenBalance[]>(
-        `${url}/safes/${ethers.utils.getAddress(safeAddress)}/balances/usd`
+        `${url}/safes/${ethers.utils.getAddress(safeAddress)}/balances/usd/`
       );
 
       return { data: transformTokenBalances(res, safeAddress) };

@@ -31,26 +31,29 @@ jobs:
           echo NX_RIVET_KEY=${{ secrets.RIVET_KEY }}  >> .env
           echo CERAMIC_NETWORK=${{ secrets.CERAMIC_NETWORK }}  >> .env
           echo NODE_ENV=production  >> .env
-      - run: yarn install
+      - run: yarn install --immutable --immutable-cache
       - run: npm install -g nx
       - name: Lint mono
         run: nx affected:lint --base $BASE
       - name: Test mono
         run: NODE_OPTIONS=--experimental-vm-modules nx affected:test --base $BASE
+      - name: Setup git user to "🤖 Moloch Bot"
+        shell: bash
+        run: git config user.email "-" && git config user.name "🤖 Moloch Bot"
       - name: Build mono
         run: nx affected:build --base $BASE
         env:
-          NODE_AUTH_TOKEN: ${{ inputs.npm_token }}
-          GITHUB_TOKEN: ${{ inputs.github_token }}
+          NODE_AUTH_TOKEN: ${{ secrets.OTP }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Version
         env:
-          NODE_AUTH_TOKEN: ${{ inputs.npm_token }}
-          GITHUB_TOKEN: ${{ inputs.github_token }}
+          NODE_AUTH_TOKEN: ${{ secrets.OTP }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         # Use npx instead of yarn because yarn automagically sets NPM_* environment variables
         # like NPM_CONFIG_REGISTRY so npm publish ends up ignoring the .npmrc file
         # which is set up by `setup-node` action.
         shell: bash
-        run: npx nx affected --base=origin/master --target=version --parallel=1
+        run: npx nx affected --base=origin/master --target=version
       - name: Tag last-release
         shell: bash
         run: git tag -f last-release
@@ -58,7 +61,7 @@ jobs:
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ inputs.github_token }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
           force: true
           tags: true

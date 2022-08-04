@@ -8,13 +8,18 @@ import {
 import { DevTool } from '@hookform/devtools';
 
 import { FormLayout } from '@daohaus/ui';
-import { isValidNetwork } from '@daohaus/common-utilities';
+import {
+  isValidNetwork,
+  LookupType,
+  RequiredFields,
+} from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
-import { FormLego, LookupType, RequiredFields } from '../types';
+import { FormLego } from '../types';
 import { Logger } from './Logger';
 import { FormFooter } from './formFooter';
 import { FormBuilderFactory } from './FormBuilderFactory';
+import { useTxBuilder } from '@daohaus/tx-builder-feature';
 
 type FormContext<Lookup extends LookupType> = {
   form?: FormLego<Lookup>;
@@ -38,7 +43,7 @@ type BuilderProps<Lookup extends LookupType> = {
   form: FormLego<Lookup>;
   defaultValues?: FieldValues;
   customFields?: LookupType;
-  onSubmit: (
+  onSubmit?: (
     formValues: FieldValues
   ) => void | Promise<(formValues: FieldValues) => void>;
   onCancel?: () => void;
@@ -70,15 +75,47 @@ export function FormBuilder<Lookup extends LookupType>({
     requiredFields = {},
   } = form;
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting] = useState(false);
 
   const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
   const formDisabled = isSubmitting;
+  const { fireTransaction } = useTxBuilder?.() || {};
 
-  const handleTopLevelSubmit = async (formValues: Record<string, unknown>) => {
-    setIsSubmitting(true);
-    await onSubmit(formValues);
-    setIsSubmitting(false);
+  const handleTopLevelSubmit = async (formValues: FieldValues) => {
+    if (form.tx) {
+      fireTransaction({
+        tx: form.tx,
+        callerState: {
+          fromCallerState: {
+            foo: 'bar',
+          },
+        },
+        lifeCycleFns: {
+          onTxHash() {
+            console.log('txHash');
+          },
+          onTxError() {
+            console.log('txError');
+          },
+          onTxSuccess() {
+            console.log('txSuccess');
+          },
+          onPollFire() {
+            console.log('poll fire');
+          },
+          onPollError() {
+            console.log('poll error');
+          },
+          onPollSuccess() {
+            console.log('poll success');
+          },
+        },
+      });
+    }
+    if (onSubmit) {
+      await onSubmit?.(formValues);
+    }
+    console.error('FormBuilder: onSubmit not implemented');
   };
 
   return (

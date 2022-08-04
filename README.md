@@ -62,9 +62,11 @@ Here is a basic guide. Each package README (and `project.json`) will have more d
 ```bash
 
 `git clone git@github.com:HausDAO/daohaus-monorepo.git` or `git@github.com:HausDAO/daohaus-monorepo.git`
-
 # clone the entire monorepo at the top level on the develop branch
-
+`nvm use`
+# switch to node 16.16.0
+`yarn global add nx`
+# download nx globally for running nx commands
 `yarn`
 # run yarn to install all of the packages and dependencies
 

@@ -198,5 +198,5 @@ Be sure to include the `NODE_OPTIONS=--experimental-vm-modules` flag when runnin
 
 2. When there is a new schema or new query files are added, new types should be generated
 
-   run `nx generate-gql-types dao-data` to create type fiels for each query file in `src/subgraph/queries`
+   run `nx generate-gql-types dao-data` to create type files for each query file in `src/subgraph/queries`
 ```

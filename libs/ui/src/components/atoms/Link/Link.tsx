@@ -11,6 +11,7 @@ export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
   selected?: boolean;
   disabled?: boolean;
   linkType?: 'internal' | 'external';
+  hideIcon?: boolean;
 }
 
 // TODO Better way to do types
@@ -38,11 +39,10 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
           ref={ref}
         >
           {children}
-          {linkType === 'external' && Icon ? <Icon /> : <RiExternalLinkLine />}
+          {Icon ? <Icon /> : <RiExternalLinkLine />}
         </ExternalLink>
       );
     }
-
     return (
       <InternalLink to={href} className={`${classes} ${className}`} ref={ref}>
         {children}

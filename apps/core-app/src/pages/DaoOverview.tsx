@@ -58,24 +58,18 @@ export function DaoOverview() {
                   decimals: 2,
                   format: 'currencyShort',
                 })}
-              ></DataIndicator>
-              <DataIndicator
-                label="Members"
-                data={dao.activeMemberCount}
-              ></DataIndicator>
+              />
+              <DataIndicator label="Members" data={dao.activeMemberCount} />
               <DataIndicator
                 label="Active Proposals"
                 data={dao.proposalCount}
-              ></DataIndicator>
+              />
             </DataGrid>
           </OverviewCard>
           <TokensCard>
             <H4>{dao.shareTokenName}</H4>
             <DataGrid>
-              <DataIndicator
-                label="Voting Tokens"
-                data={dao.shareTokenName}
-              ></DataIndicator>
+              <DataIndicator label="Voting Tokens" data={dao.shareTokenName} />
               <DataIndicator
                 label="Supply"
                 data={formatValueTo({
@@ -83,12 +77,9 @@ export function DaoOverview() {
                   decimals: 2,
                   format: 'numberShort',
                 })}
-              ></DataIndicator>
-              <DataIndicator label="Token Holders" data="5"></DataIndicator>
-              <DataIndicator
-                label="Economic Tokens"
-                data={dao.lootTokenName}
-              ></DataIndicator>
+              />
+              <DataIndicator label="Token Holders" data="5" />
+              <DataIndicator label="Economic Tokens" data={dao.lootTokenName} />
               <DataIndicator
                 label="Supply"
                 data={formatValueTo({
@@ -96,8 +87,8 @@ export function DaoOverview() {
                   decimals: 2,
                   format: 'numberShort',
                 })}
-              ></DataIndicator>
-              <DataIndicator label="Token Holders" data="5"></DataIndicator>
+              />
+              <DataIndicator label="Token Holders" data="5" />
             </DataGrid>
           </TokensCard>
         </>

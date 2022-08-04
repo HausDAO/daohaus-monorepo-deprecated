@@ -88,9 +88,8 @@ export const DaoProfile = ({ dao }: { dao: TDao }) => {
           />
         </div>
       </div>
-      {missingProfile && missingProfile}
 
-      {!missingProfile && (
+      {missingProfile || (
         <>
           <ParMd>{dao.description}</ParMd>
           <TagListContainer>

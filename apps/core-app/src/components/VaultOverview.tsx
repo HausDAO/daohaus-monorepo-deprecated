@@ -95,12 +95,9 @@ export const VaultOverview = ({ dao }: VaultOverviewProps) => {
             decimals: 2,
             format: 'currencyShort',
           })}
-        ></DataIndicator>
-        <DataIndicator
-          label="Tokens"
-          data={dao.tokenBalances.length}
-        ></DataIndicator>
-        <DataIndicator label="NFTs" data={'0'}></DataIndicator>
+        />
+        <DataIndicator label="Tokens" data={dao.tokenBalances.length} />
+        <DataIndicator label="NFTs" data={'0'} />
       </DataGrid>
     </VaultOverviewCard>
   );

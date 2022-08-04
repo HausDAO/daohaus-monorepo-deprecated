@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   AddressDisplay,
@@ -10,14 +11,13 @@ import {
   DataIndicator,
   widthQuery,
 } from '@daohaus/ui';
-
-import { TDao } from '../contexts/DaoContext';
-import { useParams } from 'react-router-dom';
 import {
   formatValueTo,
   generateGnosisUiLink,
   Keychain,
 } from '@daohaus/common-utilities';
+
+import { TDao } from '../contexts/DaoContext';
 
 const VaultOverviewCard = styled(Card)`
   background-color: ${({ theme }: { theme: Theme }) => theme.card.hoverBg};

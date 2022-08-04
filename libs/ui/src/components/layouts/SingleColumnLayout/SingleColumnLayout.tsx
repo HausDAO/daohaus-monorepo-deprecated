@@ -4,6 +4,8 @@ import { DataMd, H2 } from '../../atoms';
 import {
   ActionButtonContainer,
   ColumnBox,
+  ColumnHeader,
+  ContentBox,
   TitleContainerWithActions,
 } from './SingleColumnLayout.styles';
 
@@ -58,10 +60,12 @@ export const SingleColumnLayout = ({
 
   return (
     <ColumnBox>
-      {sectionSubtitle}
-      {sectionTitle}
-      {sectionDescription}
-      {children}
+      <ColumnHeader>
+        {sectionSubtitle}
+        {sectionTitle}
+        {sectionDescription}
+      </ColumnHeader>
+      <ContentBox>{children}</ContentBox>
     </ColumnBox>
   );
 };

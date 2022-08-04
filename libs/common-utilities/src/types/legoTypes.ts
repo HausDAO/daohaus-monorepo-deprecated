@@ -34,9 +34,28 @@ export type FormLegoBase<Lookup extends LookupType = LookupType> = {
 
 export type RequiredFields = Record<string, boolean>;
 
+export type StringSearch = `.${string}`;
+
+type JSONSearchParam = Record<string, StringSearch>;
+export type JSONDetailsSearch = {
+  type: 'JSONDetails';
+  args: JSONSearchParam[];
+};
+type MulticallAction = {
+  contract: ContractLego;
+  method: string;
+  args: ArgAggrageteType;
+};
+type SearchArgType = MulticallAction | JSONDetailsSearch | StringSearch;
+
+export type MulticallDataSearch = {
+  type: 'MulticallData';
+  args: MulticallAction[];
+};
+
 type SearchArgs = {
   type: 'searchArgs';
-  args: string[];
+  args: SearchArgType[];
 };
 type CallbackArgs = {
   type: 'callbackArgs';

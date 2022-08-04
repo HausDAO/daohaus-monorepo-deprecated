@@ -66,7 +66,7 @@
     "web3modal": "^1.9.7"
   },
   "devDependencies": {
-    "@alexkeating/nx-skynet": "0.0.5",
+    "@alexkeating/nx-skynet": "0.0.7",
     "@babel/core": "7.12.13",
     "@babel/helper-remap-async-to-generator": "^7.18.9",
     "@babel/preset-typescript": "7.12.13",

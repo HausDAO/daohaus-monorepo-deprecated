@@ -41,7 +41,7 @@ export const App = () => {
   const [errMsg, setErrMsg] = useState<string>('');
 
   return (
-    <TXBuilder provider={provider} chainId={chainId}>
+    <TXBuilder provider={provider} chainId={chainId} appState={{}}>
       <TemporaryLayout>
         <DaoHausNav />
         <CenterLayout>

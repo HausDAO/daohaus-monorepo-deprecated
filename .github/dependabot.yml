@@ -6,9 +6,9 @@ version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/"
-    target-branch: default-editor-settings
+    target-branch: develop
     schedule:
-      interval: "daily"
+      interval: "monthly"
     ignore:
       - dependency-name: "nx"
         # For nx, ignore all updates - migrtations preferred

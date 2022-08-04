@@ -5,6 +5,7 @@ export const ColumnBox = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
+  max-width: 110rem;
 `;
 
 export const ColumnHeader = styled.div`
@@ -12,7 +13,6 @@ export const ColumnHeader = styled.div`
   justify-content: flex-start;
   margin-top: 5rem;
   width: 100%;
-  max-width: 110rem;
   .subtitle {
     margin-bottom: 1.2rem;
     opacity: 0.6;

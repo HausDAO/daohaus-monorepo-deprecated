@@ -6,7 +6,7 @@ import {
   isValidNetwork,
   TXLego,
 } from '@daohaus/common-utilities';
-import { TxRecord, handleFireTx } from './utils/txBuilderUtils';
+import { TxRecord, prepareTX } from './utils/txBuilderUtils';
 import { FindTxQuery, IFindQueryResult } from '@daohaus/dao-data';
 
 export type TXLifeCycleFns = {
@@ -78,7 +78,7 @@ export const TXBuilder = ({
     }
     const wholeState = { ...appState, ...callerState };
 
-    await handleFireTx({
+    await prepareTX({
       tx,
       chainId,
       provider,

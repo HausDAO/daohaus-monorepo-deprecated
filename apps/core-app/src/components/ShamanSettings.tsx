@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { H3, ParSm } from '@daohaus/ui';
 
 import { TDao } from '../contexts/DaoContext';
+import { ShamanList } from './ShamanList';
 
 const ShamanContainer = styled.div`
   .tokens {
@@ -39,7 +40,15 @@ export const ShamanSettings = ({ dao }: ShamanSettingsProps) => {
         </ParSm>
       </div>
 
-      {/* {dao.shamans} */}
+      {/* {dao.shamen && <ShamanList shamen={dao.shamen} />} */}
+      <ShamanList
+        shamen={[
+          {
+            shamanAddress: '0x83aB8e31df35AA3281d630529C6F4bf5AC7f7aBF',
+            permissions: '5',
+          },
+        ]}
+      />
     </ShamanContainer>
   );
 };

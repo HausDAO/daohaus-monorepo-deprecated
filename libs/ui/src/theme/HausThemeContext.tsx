@@ -32,7 +32,7 @@ export const HausThemeContext = createContext<HausUI>({
   setToast: (): void => undefined,
 });
 
-const DEFAULT_TOAST_DURATION = 2000;
+const DEFAULT_TOAST_DURATION = 6000;
 
 export const HausThemeProvider = ({
   children,

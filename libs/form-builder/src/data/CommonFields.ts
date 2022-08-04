@@ -1,4 +1,4 @@
-import { FieldLego } from '../types/legoTypes';
+import { FieldLego } from '../types/formLegoTypes';
 
 export const CommonFields: Record<string, FieldLego> = {
   DAOContract: {

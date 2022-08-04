@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { charLimit, readableNumbers } from '@daohaus/common-utilities';
-import { Bold, border, ParLg, ParMd, ProfileAvatar } from '@daohaus/ui';
+import { Bold, border, Button, ParLg, ParMd, ProfileAvatar } from '@daohaus/ui';
 import { Tag } from './Tag';
 import { AlertCircle } from './AlertCircle';
 import { ITransformedMembership } from '@daohaus/dao-data';
@@ -42,6 +42,10 @@ const StyledDaoCard = styled.div`
     font-weight: 700;
     margin-bottom: 1.9rem;
   }
+`;
+
+const StyledButton = styled(Button)`
+  justify-content: center;
 `;
 
 export const DaoCard = ({
@@ -98,7 +102,7 @@ export const DaoCard = ({
             Proposals
           </ParMd>
         )}
-        {votingPower && (
+        {votingPower > 0 && (
           <ParMd>
             <Bold>
               {readableNumbers.toPercentDecimals({
@@ -114,6 +118,13 @@ export const DaoCard = ({
         <Tag>{networkId}</Tag>
         <Tag>{contractType}</Tag>
       </div>
+      <a
+        href={`https://admin.daohaus.fun/#/molochv3/${networkId}/${dao}`}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <StyledButton secondary>Go</StyledButton>
+      </a>
     </StyledDaoCard>
   );
 };

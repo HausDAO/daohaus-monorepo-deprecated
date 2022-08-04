@@ -90,7 +90,7 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
           return (
             <FirstCell>
               <ProfileAvatar size="sm" address={value.address} />
-              {value.name}
+              {value.name || truncateAddress(value.address)}
               {row.original.isDelegate && <Tag>Delegate</Tag>}
             </FirstCell>
           );

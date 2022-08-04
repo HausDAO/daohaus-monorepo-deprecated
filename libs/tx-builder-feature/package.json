@@ -1,7 +1,8 @@
 {
   "name": "@daohaus/tx-builder-feature",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "main": "./tx-builder-feature.umd.js",
+  "typings": "./src/index.d.ts",
   "module": "./tx-builder-feature.es.js",
   "homepage": "https://github.com/HausDAO/daohaus-monorepo#readme",
   "issues": "https://github.com/HausDAO/daohaus-monorepo/issues?q=is%3Aissue+is%3Aopen",

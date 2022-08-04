@@ -10,5 +10,6 @@
     "typescript",
     "typescriptreact"
   ],
-  "eslint.packageManager": "yarn"
+  "eslint.packageManager": "yarn",
+  "coc.preferences.formatOnSaveFiletypes": ["*"]
 }

@@ -15,7 +15,5 @@
     "typescriptreact"
   ],
   "eslint.packageManager": "yarn",
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

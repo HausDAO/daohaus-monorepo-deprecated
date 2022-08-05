@@ -53,7 +53,7 @@
         "preset": "conventional",
         "tagPrefix": "${projectName}@",
         "noVerify": true,
-        "postTargets": ["semver:github"],
+        "postTargets": ["daohaus-connect-feature:github"],
         "commitMessageFormat": "release(${projectName}): 🔥 cut release to ${version}"
       }
     },

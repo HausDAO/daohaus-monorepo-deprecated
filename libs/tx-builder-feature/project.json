@@ -51,7 +51,7 @@
         "preset": "conventional",
         "tagPrefix": "${projectName}@",
         "noVerify": true,
-        "postTargets": ["semver:github"],
+        "postTargets": ["tx-builder-feature:github"],
         "commitMessageFormat": "release(${projectName}): 🔥 cut release to ${version}"
       }
     },

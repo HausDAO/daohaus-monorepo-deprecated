@@ -1,4 +1,4 @@
-name: Ci branch
+name: Ci Master
 
 # for testing purposes, should not go in pr;
 # switch to master instead of develop

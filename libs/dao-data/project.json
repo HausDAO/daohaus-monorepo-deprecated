@@ -34,7 +34,7 @@
         "preset": "conventional",
         "tagPrefix": "${projectName}@",
         "noVerify": true,
-        "postTargets": ["semver:github"],
+        "postTargets": ["dao-data:github"],
         "commitMessageFormat": "release(${projectName}): 🔥 cut release to ${version}"
       }
     },

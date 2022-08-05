@@ -35,7 +35,7 @@
         "preset": "conventional",
         "tagPrefix": "${projectName}@",
         "noVerify": true,
-        "postTargets": ["semver:github"],
+        "postTargets": ["common-utilities:github"],
         "commitMessageFormat": "release(${projectName}): 🔥 cut release to ${version}"
       }
     },

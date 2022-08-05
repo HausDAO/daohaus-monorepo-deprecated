@@ -86,7 +86,7 @@ export async function prepareTX({
   appState: ArbitraryState;
   lifeCycleFns: TXLifeCycleFns;
 }) {
-  const processedContract = processContractLego({
+  const processedContract = await processContractLego({
     contract: tx.contract,
     chainId,
   });
@@ -94,7 +94,7 @@ export async function prepareTX({
   const { abi, address } = processedContract;
   const { method } = tx;
 
-  const processedArgs = processArgs({
+  const processedArgs = await processArgs({
     tx: { ...tx, contract: processedContract },
     chainId,
     ...rest,

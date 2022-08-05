@@ -38,7 +38,7 @@ export const processArg = async ({
   throw new Error('ArgType not found. Searching not yet implemented');
 };
 
-export const processArgs = ({
+export const processArgs = async ({
   tx,
   chainId,
 }: {
@@ -50,5 +50,12 @@ export const processArgs = ({
   if (argCallback) {
     return [];
   }
-  return args?.map(async (arg) => await processArg({ arg, chainId }));
+  if (args) {
+    return await Promise.all(
+      args?.map(async (arg) => await processArg({ arg, chainId }))
+    );
+  }
+  throw new Error(
+    'TX Lego must have a valid arg type, use either a string alias for an argument callback or an array of valid arguments'
+  );
 };

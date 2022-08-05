@@ -1,5 +1,13 @@
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
-import { ContractLego, POSTER_TAGS, TXLego } from '@daohaus/common-utilities';
+import {
+  calcExpiry,
+  ContractLego,
+  MulticallAction,
+  POSTER_TAGS,
+  toSeconds,
+  TXLego,
+  unixTimeInSeconds,
+} from '@daohaus/common-utilities';
 import { HausLayout } from '@daohaus/daohaus-connect-feature';
 import {
   CoreFieldLookup,
@@ -45,6 +53,25 @@ const Poster: ContractLego = {
   },
 };
 
+const testActions: MulticallAction[] = [
+  {
+    contract: Poster,
+    method: 'post',
+    args: [
+      { type: 'static', value: 'Foo' },
+      { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
+    ],
+  },
+  {
+    contract: Poster,
+    method: 'post',
+    args: [
+      { type: 'static', value: 'Bar' },
+      { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
+    ],
+  },
+];
+
 const Test: TXLego = {
   id: 'TestTX',
   contract: TestBaalContract,
@@ -52,32 +79,15 @@ const Test: TXLego = {
   args: [
     {
       type: 'multicall',
-      actions: [
-        {
-          contract: Poster,
-          method: 'post',
-          args: [
-            { type: 'static', value: 'Foo' },
-            { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
-          ],
-        },
-        {
-          contract: Poster,
-          method: 'post',
-          args: [
-            { type: 'static', value: 'Bar' },
-            { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
-          ],
-        },
-      ],
+      actions: testActions,
     },
     {
-      type: 'static',
-      value: 0,
+      type: 'estimateGas',
+      actions: testActions,
     },
     {
-      type: 'static',
-      value: 0,
+      type: 'proposalExpiry',
+      fallback: toSeconds(14, 'days'),
     },
     {
       type: 'static',

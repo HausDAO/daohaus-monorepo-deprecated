@@ -1,11 +1,12 @@
 import {
   ArgType,
+  calcExpiry,
   StringSearch,
   TXLego,
   ValidArgType,
   ValidNetwork,
 } from '@daohaus/common-utilities';
-import { handleMulticallArg } from './multicall';
+import { estimateGas, handleMulticallArg } from './multicall';
 
 const isSearchArg = (arg: ValidArgType): arg is StringSearch => {
   return typeof arg === 'string' && arg[0] === '.';
@@ -14,14 +15,14 @@ const isSearchArg = (arg: ValidArgType): arg is StringSearch => {
 // To be built next issue
 const handleStringSearch = (arg: StringSearch) => arg;
 
-// type ProcessArg = (arg: ValidArgType) => Promise<any>;
-
 export const processArg = async ({
   arg,
   chainId,
+  safeId,
 }: {
   arg: ValidArgType;
   chainId: ValidNetwork;
+  safeId?: string;
 }): Promise<ArgType> => {
   console.log('arg', arg);
   if (isSearchArg(arg)) {
@@ -34,7 +35,13 @@ export const processArg = async ({
     const result = await handleMulticallArg({ arg, chainId });
     return result;
   }
-
+  if (arg?.type === 'estimateGas') {
+    return 0;
+  }
+  if (arg?.type === 'proposalExpiry') {
+    //TODO: implement search for proposal expiry
+    return calcExpiry(arg.fallback);
+  }
   // This is a placeholder for when we implemnt the gatherArgs utils
   // https://github.com/HausDAO/daohaus-monorepo/issues/403
   throw new Error('ArgType not found. Searching not yet implemented');
@@ -46,6 +53,7 @@ export const processArgs = async ({
 }: {
   tx: TXLego;
   chainId: ValidNetwork;
+  safeId?: string;
 }) => {
   const { argCallback, args } = tx;
 
@@ -54,7 +62,7 @@ export const processArgs = async ({
   }
   if (args) {
     return await Promise.all(
-      args?.map(async (arg) => await processArg({ arg, chainId }))
+      args?.map(async (arg) => await processArg({ arg, chainId, safeId }))
     );
   }
   throw new Error(

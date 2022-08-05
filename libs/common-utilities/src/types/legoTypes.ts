@@ -43,16 +43,26 @@ export type JSONDetailsSearch = {
   type: 'JSONDetails';
   args: JSONSearchParam[];
 };
-type MulticallAction = {
+export type MulticallAction = {
   contract: ContractLego;
   method: string;
   args: ValidArgType[];
 };
-
 export type MulticallArg = {
   type: 'multicall';
   actions: MulticallAction[];
 };
+export type EstmimateGas = {
+  type: 'estimateGas';
+  actions: MulticallAction[];
+};
+
+type ProposalExpiry = {
+  type: 'proposalExpiry';
+  search?: StringSearch;
+  fallback: number;
+};
+
 type StaticArg = {
   type: 'static';
   value: ArgType;
@@ -61,7 +71,9 @@ type StaticArg = {
 export type ValidArgType =
   | StringSearch
   | JSONDetailsSearch
+  | EstmimateGas
   | MulticallArg
+  | ProposalExpiry
   | StaticArg;
 
 export type TxStates = 'idle' | 'submitting' | 'polling' | 'failed' | 'success';

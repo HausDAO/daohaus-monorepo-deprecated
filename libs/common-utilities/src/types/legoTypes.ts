@@ -1,7 +1,8 @@
+import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import { JSXElementConstructor } from 'react';
 import { ValidateField } from '../utils';
 import { ABI, ArgType } from './contract';
-import { RequireAtLeastOne, RequireOnlyOne } from './general';
+import { RequireOnlyOne } from './general';
 import { Keychain } from './keychains';
 
 export type LookupType = Record<
@@ -69,7 +70,6 @@ export type TXLegoBase = {
   id: string;
   contract: ContractLego;
   method: string;
-  shouldEstimateGas?: boolean;
   custonPoll?: string;
   txSuccessMessage?: string;
   finalSuccessMessage?: string;
@@ -81,17 +81,26 @@ export type TXLegoBase = {
 
 export type TXLego = RequireOnlyOne<TXLegoBase, 'args' | 'argCallback'>;
 
-export type LocalContract = {
+export type StaticContract = {
   contractName: string;
-  type: 'local';
+  type: 'static';
   abi: ABI;
   keychain: Keychain;
 };
-
+export type LocalContract = {
+  contractName: keyof typeof LOCAL_ABI;
+  type: 'local';
+  keychain: Keychain;
+};
 export type RemoteContract = {
   contractName: string;
   type: 'remote';
   keychain: Keychain;
 };
-
-export type ContractLego = LocalContract | RemoteContract;
+export type ProcessedContract = {
+  type: 'processed';
+  contractName: string;
+  abi: ABI;
+  address: string;
+};
+export type ContractLego = StaticContract | RemoteContract | ProcessedContract;

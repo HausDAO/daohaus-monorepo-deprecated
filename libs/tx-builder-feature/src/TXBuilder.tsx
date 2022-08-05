@@ -8,6 +8,7 @@ import {
 } from '@daohaus/common-utilities';
 import { TxRecord, prepareTX } from './utils/txBuilderUtils';
 import { FindTxQuery, IFindQueryResult } from '@daohaus/dao-data';
+import { estimateGas } from './utils/multicall';
 
 export type TXLifeCycleFns = {
   onTxHash?: (txHash: string) => void;
@@ -58,7 +59,6 @@ export const TXBuilder = ({
   provider,
   appState,
   children,
-  txLifeCycleFns,
 }: BuilderProps) => {
   const [transactions, setTransactions] = useState<TxRecord>({});
   const txAmt = useMemo(() => {
@@ -97,3 +97,7 @@ export const TXBuilder = ({
   );
 };
 export const useTxBuilder = () => useContext(TxBuilderContext);
+
+const testGas = async () => {
+  estimateGas({ chainId: '0x5', safeId: '', data: '' });
+};

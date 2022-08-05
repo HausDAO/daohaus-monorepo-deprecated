@@ -7,7 +7,6 @@ import {
   WrappedSwitch,
   WrappedTextArea,
 } from '@daohaus/ui';
-import { SegmentRender } from './SegmentRender';
 import { SplitColumnLayout } from './SplitRender';
 
 export const CoreFieldLookup = {
@@ -19,5 +18,4 @@ export const CoreFieldLookup = {
   select: WrappedSelect,
   checkBox: WrappedCheckbox,
   splitColumn: SplitColumnLayout,
-  formSegment: SegmentRender,
 };

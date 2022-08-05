@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { RiAsterisk } from 'react-icons/ri';
 
@@ -16,18 +16,20 @@ import {
   LabelContainer,
   RequiredAsterisk,
 } from './FieldWrapper.styles';
-import { Buildable } from '../../../types/formAndField';
+import { Field } from '../../../types/formAndField';
 import {
   ErrorMessage,
   WarningMessage,
   SuccessMessage,
 } from '../../../types/formAndField';
-import { FieldError, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
-// type FieldWrapperType = PrimitiveElement & PrimitiveWrapper & PrimitiveSizable;
+type FieldWrapperProps = Field & {
+  children: React.ReactNode;
+};
 
-type HelperTextFactoryProps = {
-  error?: ErrorMessage | FieldError;
+export type HelperTextFactoryProps = {
+  error?: ErrorMessage;
   warning?: WarningMessage;
   success?: SuccessMessage;
   helperText?: string;
@@ -36,6 +38,7 @@ type HelperTextFactoryProps = {
 export const FieldWrapper = ({
   children,
   label,
+  required,
   info,
   error,
   success,
@@ -45,17 +48,16 @@ export const FieldWrapper = ({
   full,
   address,
   id,
-  rules,
-}: Buildable<{ children: ReactNode }>) => {
+}: FieldWrapperProps) => {
   const classes = classNames({ long: long || address, full });
-  const { getFieldState } = useFormContext();
-
-  const fieldError = getFieldState(id).error;
-
+  const {
+    formState: { errors },
+  } = useFormContext();
+  const contextError = errors[id];
   return (
     <FieldWrapperBase className={classes}>
       <LabelContainer>
-        {rules?.required && (
+        {required && (
           <RequiredAsterisk>
             <Icon label="Required">
               <RiAsterisk />
@@ -67,7 +69,7 @@ export const FieldWrapper = ({
       </LabelContainer>
       <div className="field-slot">{children}</div>
       <HelperTextFactory
-        error={error || fieldError}
+        error={contextError || error}
         success={success}
         warning={warning}
         helperText={helperText}

@@ -1,13 +1,9 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import type { Buildable } from '../../../types/formAndField';
+import type { CheckboxWrapperProps } from '../../../types/formAndField';
 import { Checkbox } from '../../atoms/Checkbox';
-import { CheckboxProps } from '@radix-ui/react-checkbox';
-
 import { FieldWrapper } from '../FieldWrapper/FieldWrapper';
 
-export const WrappedCheckbox = (
-  props: Buildable<{ checkboxes: CheckboxProps[] }>
-) => {
+export const WrappedCheckbox = (props: CheckboxWrapperProps) => {
   const { id, helperText, info, label, error, success, warning, checkboxes } =
     props;
   const { control } = useFormContext();

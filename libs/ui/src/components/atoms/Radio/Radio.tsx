@@ -16,7 +16,6 @@ import { Label } from '../Label/Label';
 export type RadioProps = { label: string; id: string } & RadioGroupItemProps;
 export type Props = {
   className?: string;
-  defaultValue?: string;
   radios: RadioProps[];
 };
 
@@ -28,9 +27,10 @@ type Ref =
 
 export const Radio = React.forwardRef(
   (props: RadioGroupProps & Props, ref: Ref) => {
-    const { className, radios, defaultValue } = props;
+    const { className, radios } = props;
+
     return (
-      <RadioGroup {...props} defaultValue={defaultValue} className={className}>
+      <RadioGroup {...props} className={className}>
         {radios.map((radio: RadioProps) => (
           <Container key={radio.id}>
             <RadioItem {...radio}>

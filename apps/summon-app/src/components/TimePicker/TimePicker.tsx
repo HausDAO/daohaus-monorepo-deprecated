@@ -2,7 +2,7 @@ import { useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { hoursToSeconds, minutesToSeconds } from 'date-fns/esm';
 
-import { Buildable, Field, OptionType, WrappedInputSelect } from '@daohaus/ui';
+import { Field, OptionType, WrappedInputSelect } from '@daohaus/ui';
 import { isNumberString } from '@daohaus/common-utilities';
 
 //  REFACTOR TO MOLECULES AFTER SUMMONER REVIEW
@@ -34,9 +34,9 @@ export const TimePicker = ({
   id,
   options = defaultOptions,
   selectId,
-  rules,
+  required,
   ...props
-}: Buildable<TimePickerProps>) => {
+}: TimePickerProps) => {
   const { setValue, watch } = useFormContext();
   const unitId = useMemo(() => selectId || `${id}Units`, [selectId, id]);
   const [amt, units] = watch([id, unitId]);
@@ -52,8 +52,9 @@ export const TimePicker = ({
       id={id}
       selectId={unitId}
       options={options}
-      rules={{
-        ...rules,
+      required={required}
+      registerOptions={{
+        required: required ? 'Time value is required' : false,
         validate: {
           isNumber: (value) =>
             value === '' || isNumberString(value) ? true : 'Must be a number',

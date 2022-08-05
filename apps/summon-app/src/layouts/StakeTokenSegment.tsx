@@ -40,9 +40,10 @@ export const StakeTokensSegment = ({
                   label="Name"
                   placeholder="Voting Stake"
                   info={INFO_COPY.VOTING_STK}
+                  required
                   full
                   disabled={formDisabled}
-                  rules={{
+                  registerOptions={{
                     required: 'Token name is required',
                     maxLength: {
                       value: 50,
@@ -58,8 +59,9 @@ export const StakeTokensSegment = ({
                   placeholder="vSTK"
                   info={INFO_COPY.TOKEN_SYMBOL}
                   full
+                  required
                   disabled={formDisabled}
-                  rules={{
+                  registerOptions={{
                     required: 'Token name is required',
                     maxLength: {
                       value: 5,
@@ -80,7 +82,6 @@ export const StakeTokensSegment = ({
                   disabled={formDisabled}
                   switches={[
                     {
-                      id: FORM_KEYS.VOTE_TOKEN_TRANSFER,
                       fieldLabel: votingTransferableLabel,
                       defaultChecked: false,
                     },
@@ -95,7 +96,6 @@ export const StakeTokensSegment = ({
                   info={INFO_COPY.NV_STAKE_TRANSFER}
                   switches={[
                     {
-                      id: FORM_KEYS.NV_TOKEN_TRANSFER,
                       fieldLabel: nvTransferableLabel,
                       defaultChecked: false,
                     },

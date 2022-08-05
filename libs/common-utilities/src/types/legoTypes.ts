@@ -1,6 +1,7 @@
 import { JSXElementConstructor } from 'react';
 import { ValidateField } from '../utils';
 import { ABI, ArgType } from './contract';
+import { RequireAtLeastOne, RequireOnlyOne } from './general';
 import { Keychain } from './keychains';
 
 export type LookupType = Record<
@@ -36,7 +37,7 @@ export type RequiredFields = Record<string, boolean>;
 
 export type StringSearch = `.${string}`;
 
-type JSONSearchParam = Record<string, StringSearch>;
+type JSONSearchParam = Record<string, ValidArgType>;
 export type JSONDetailsSearch = {
   type: 'JSONDetails';
   args: JSONSearchParam[];
@@ -44,28 +45,27 @@ export type JSONDetailsSearch = {
 type MulticallAction = {
   contract: ContractLego;
   method: string;
-  args: ArgAggrageteType;
-};
-type SearchArgType = MulticallAction | JSONDetailsSearch | StringSearch;
-
-export type MulticallDataSearch = {
-  type: 'MulticallData';
-  args: MulticallAction[];
+  args: ValidArgType[];
 };
 
-type SearchArgs = {
-  type: 'searchArgs';
-  args: SearchArgType[];
+type Multicall = {
+  type: 'multicall';
+  actions: MulticallAction[];
 };
-type CallbackArgs = {
-  type: 'callbackArgs';
-  callbackName: string;
+type StaticArg = {
+  type: 'static';
+  value: ArgType;
 };
-type StaticArgs = ArgType[];
-export type ArgAggrageteType = SearchArgs | CallbackArgs | StaticArgs;
+
+export type ValidArgType =
+  | StringSearch
+  | JSONDetailsSearch
+  | Multicall
+  | StaticArg;
+
 export type TxStates = 'idle' | 'submitting' | 'polling' | 'failed' | 'success';
 
-export type TXLego = {
+export type TXLegoBase = {
   id: string;
   contract: ContractLego;
   method: string;
@@ -74,8 +74,11 @@ export type TXLego = {
   finalSuccessMessage?: string;
   errorMessage?: string;
   status?: TxStates;
-  args: ArgAggrageteType;
+  args?: ValidArgType[];
+  argCallback?: string;
 };
+
+export type TXLego = RequireOnlyOne<TXLegoBase, 'args' | 'argCallback'>;
 
 export type LocalContract = {
   contractName: string;

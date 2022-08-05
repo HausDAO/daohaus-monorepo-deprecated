@@ -89,9 +89,9 @@ export async function prepareTX({
   const contractLego = handleContractLego({ tx });
 
   const { abi, keychain } = contractLego;
-  const { args, method } = tx;
+  const { method } = tx;
 
-  const realArgs = gatherArgs({ args });
+  const realArgs = gatherArgs({ tx });
 
   const networkAddress = keychain[chainId];
   if (!networkAddress) return;

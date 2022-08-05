@@ -1,6 +1,12 @@
-import { ArgAggrageteType } from '@daohaus/common-utilities';
+import { TXLego, ValidArgType } from '@daohaus/common-utilities';
 
-export const gatherArgs = ({ args }: { args: ArgAggrageteType }) => {
+export const gatherArgs = ({ tx }: { tx: TXLego }) => {
+  const { argCallback, args } = tx;
+
+  if (argCallback) {
+    return [];
+  }
+
   if (Array.isArray(args)) {
     return args;
   }

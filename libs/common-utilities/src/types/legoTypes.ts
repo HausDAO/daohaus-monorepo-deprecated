@@ -103,4 +103,8 @@ export type ProcessedContract = {
   abi: ABI;
   address: string;
 };
-export type ContractLego = StaticContract | RemoteContract | ProcessedContract;
+export type ContractLego =
+  | StaticContract
+  | RemoteContract
+  | LocalContract
+  | ProcessedContract;

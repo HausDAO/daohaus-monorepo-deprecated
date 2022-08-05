@@ -86,21 +86,20 @@ export async function prepareTX({
   appState: ArbitraryState;
   lifeCycleFns: TXLifeCycleFns;
 }) {
-  const contractLego = processContractLego({ tx, chainId });
+  const processedContract = processContractLego({ tx, chainId });
 
-  const { abi, keychain } = contractLego;
+  const { abi, address } = processedContract;
   const { method } = tx;
 
   const realArgs = gatherArgs({
-    tx: { ...tx, contract: contractLego },
+    tx: { ...tx, contract: processedContract },
     chainId,
     ...rest,
   });
 
-  const networkAddress = keychain[chainId];
-  if (!networkAddress) return;
+  if (!address) return;
   const contract = new ethers.Contract(
-    networkAddress,
+    address,
     abi,
     provider.getSigner().connectUnchecked()
   );

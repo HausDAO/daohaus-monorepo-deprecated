@@ -97,7 +97,7 @@
         "registrySeedVarName": "DAOHAUS_UI_DEVELOP_SKYNET_SEED",
         "registryDataKey": "skylink.txt",
         "portalUrl": "https://skynetfree.net",
-        "skynetJwtVarName": "SKYNET_JWT"
+        "skynetApiKeyVarName": "SKYNET_API_KEY"
       },
       "dependsOn": [{ "target": "build-storybook", "projects": "self" }]
     }

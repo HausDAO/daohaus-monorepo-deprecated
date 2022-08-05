@@ -48,6 +48,8 @@ export const TxBuilderContext = createContext<TxContext>({
 
 type BuilderProps<ApplicationState extends ArbitraryState = ArbitraryState> = {
   chainId: string | undefined | null;
+  safeId: string | undefined;
+  daoId: string | undefined;
   provider: providers.Web3Provider | undefined | null;
   children: ReactNode;
   appState: ApplicationState;
@@ -56,6 +58,7 @@ type BuilderProps<ApplicationState extends ArbitraryState = ArbitraryState> = {
 
 export const TXBuilder = ({
   chainId,
+  safeId,
   provider,
   appState,
   children,

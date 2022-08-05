@@ -30,4 +30,12 @@ export const ENDPOINTS: KeychainList = {
     '0x5':
       'https://safe-transaction.goerli.gnosis.io/v1/safes/<<safeId>>/multisig-transactions/estimations/',
   },
+  GNOSIS_SAFE_UI: {
+    '0x1': 'https://gnosis-safe.io/app/eth',
+    '0x5': 'https://gnosis-safe.io/app/gor',
+    '0x64': 'https://gnosis-safe.io/app/gno',
+    '0xa': 'https://gnosis-safe.io/app/opt',
+    '0x89': 'https://gnosis-safe.io/app/pol',
+    '0xa4b1': 'https://gnosis-safe.io/app/arb',
+  },
 };

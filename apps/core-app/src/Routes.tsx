@@ -11,6 +11,7 @@ import Vaults from './pages/Vaults';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { useDao } from './contexts/DaoContext';
 import { TXBuilder } from '@daohaus/tx-builder-feature';
+import FormTest from './pages/FormTest';
 
 const Routes = () => {
   const { chainId, provider, profile } = useHausConnect();
@@ -19,6 +20,8 @@ const Routes = () => {
   return (
     <TXBuilder
       chainId={chainId}
+      safeId={dao?.safeAddress}
+      daoId={dao?.id}
       provider={provider}
       appState={{
         dao,
@@ -30,11 +33,12 @@ const Routes = () => {
         <Route path="/" element={<Home />} />
         <Route path="molochv3/:daochain/:daoid" element={<Dao />}>
           <Route index element={<DaoOverview />} />
+          <Route path="formtest" element={<FormTest />} />
           <Route path="proposals" element={<Proposals />} />
-          <Route path="proposals/:proposalId" element={<Proposals />} />
+          <Route path="proposal/:proposalId" element={<Proposals />} />
           <Route path="vaults" element={<Vaults />} />
           <Route path="members" element={<Members />} />
-          <Route path="members/:memberAddress" element={<Members />} />
+          <Route path="member/:memberAddress" element={<Members />} />
           <Route path="settings" element={<DaoOverview />} />
         </Route>
       </RoutesDom>

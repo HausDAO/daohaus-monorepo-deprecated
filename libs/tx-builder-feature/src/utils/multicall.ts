@@ -5,11 +5,12 @@ import {
   encodeFunction,
   encodeMultiAction,
   ENDPOINTS,
+  EstmimateGas,
   MulticallArg,
   ValidNetwork,
 } from '@daohaus/common-utilities';
 import { MetaTransaction } from '@gnosis.pm/safe-contracts';
-import { processArg, processArgs } from './args';
+import { processArg } from './args';
 import { processContractLego } from './contractHelpers';
 
 export const estimateGas = async ({
@@ -37,20 +38,23 @@ export const estimateGas = async ({
 
   const gasEstimateUri = rawUri.replace('<<safeId>>', safeId);
 
-  const response = await fetch(gasEstimateUri, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      to: gnosisMultisendAddress,
-      value: 0,
-      data,
-      operation: 0,
-    }),
-  });
-
-  return response.json();
+  try {
+    const response = await fetch(gasEstimateUri, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        to: gnosisMultisendAddress,
+        value: 0,
+        data,
+        operation: 0,
+      }),
+    });
+    return response.json();
+  } catch (error) {
+    throw new Error(`Failed to estimate gas: ${error}`);
+  }
 };
 
 export const txActionToMetaTx = ({
@@ -116,4 +120,28 @@ export const handleMulticallArg = async ({
     throw new Error(result.message);
   }
   return result;
+};
+
+export const handleGasEstimate = async ({
+  safeId,
+  chainId,
+  arg,
+}: {
+  safeId?: string;
+  chainId: ValidNetwork;
+  arg: EstmimateGas;
+}) => {
+  if (!safeId) throw new Error('Safe ID is required to estimate gas');
+
+  return estimateGas({
+    chainId,
+    safeId,
+    data: await handleMulticallArg({
+      arg: {
+        type: 'multicall',
+        actions: arg.actions,
+      },
+      chainId,
+    }),
+  });
 };

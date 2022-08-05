@@ -24,7 +24,6 @@ export const processArg = async ({
   chainId: ValidNetwork;
   safeId?: string;
 }): Promise<ArgType> => {
-  console.log('arg', arg);
   if (isSearchArg(arg)) {
     return handleStringSearch(arg);
   }
@@ -42,6 +41,7 @@ export const processArg = async ({
     //TODO: implement search for proposal expiry
     return calcExpiry(arg.fallback);
   }
+
   // This is a placeholder for when we implemnt the gatherArgs utils
   // https://github.com/HausDAO/daohaus-monorepo/issues/403
   throw new Error('ArgType not found. Searching not yet implemented');
@@ -50,6 +50,7 @@ export const processArg = async ({
 export const processArgs = async ({
   tx,
   chainId,
+  safeId,
 }: {
   tx: TXLego;
   chainId: ValidNetwork;

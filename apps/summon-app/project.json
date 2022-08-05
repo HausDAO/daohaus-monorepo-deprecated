@@ -74,7 +74,7 @@
         "registrySeedVarName": "DAOHAUS_SUMMON_SKYNET_SEED",
         "registryDataKey": "skylink.txt",
         "portalUrl": "https://skynetfree.net",
-        "skynetJwtVarName": "SKYNET_JWT"
+        "skynetApiKeyVarName": "SKYNET_API_KEY"
       }
     },
     "deployStaging": {
@@ -84,7 +84,7 @@
         "registrySeedVarName": "DAOHAUS_SUMMON_DEVELOP_SKYNET_SEED",
         "registryDataKey": "skylink.txt",
         "portalUrl": "https://skynetfree.net",
-        "skynetJwtVarName": "SKYNET_JWT"
+        "skynetApiKeyVarName": "SKYNET_API_KEY"
       }
     }
   },

@@ -4,7 +4,7 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build": {
+    "vite-build": {
       "executor": "@nxext/vite:package",
       "outputs": ["{options.outputPath}"],
       "options": {
@@ -13,26 +13,20 @@
         "frameworkConfigFile": "@nxext/react/plugins/vite",
         "entryFile": "src/index.ts",
         "generatePackageJson": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "tsc --project libs/ui/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
+        "color": true
       },
       "dependsOn": [
         {
           "target": "vite-build",
           "projects": "self"
-        },
-        {
-          "target": "build-storybook",
-          "projects": "self"
         }
       ]
-    },
-    "vite-build": {
-      "outputs": ["{options.outputPath}"],
-      "executor": "@nrwl/workspace:run-commands",
-      "options": {
-        "outputPath": "dist/libs/ui",
-        "command": "tsc --project libs/ui/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
-        "color": true
-      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
@@ -73,9 +67,7 @@
         "outputPath": "dist/storybook/ui",
         "config": {
           "configFolder": "libs/ui/.storybook"
-        },
-
-        "quiet": false
+        }
       },
       "configurations": {
         "ci": {
@@ -86,8 +78,8 @@
     "deploy": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
-        "access": "public",
-        "noBuild": true
+        "tag": "alpha",
+        "access": "public"
       }
     },
     "deployStaging": {

@@ -2,24 +2,21 @@ import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FieldWrapper } from '../FieldWrapper';
 import { InputSelect } from '../InputSelect';
-import { Buildable, InputSelectProps } from '../../../types/formAndField';
+import { InputSelectProps } from '../../../types/formAndField';
 
-export const WrappedInputSelect = ({
-  id,
-  selectId,
-  rules,
-  ...props
-}: Buildable<InputSelectProps>) => {
+export const WrappedInputSelect = (props: InputSelectProps) => {
+  const { id, selectId, registerOptions } = props;
   const { register } = useFormContext();
+  const registration = registerOptions
+    ? register(id, registerOptions)
+    : register(id);
 
   return (
-    <FieldWrapper {...props} id={id}>
+    <FieldWrapper {...props}>
       <InputSelect
         {...props}
-        registerInput={register(id, rules)}
+        registerInput={registration}
         registerSelect={register(selectId)}
-        id={id}
-        selectId={id}
       />
     </FieldWrapper>
   );

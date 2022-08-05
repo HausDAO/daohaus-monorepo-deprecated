@@ -162,7 +162,7 @@ export const SummonerForm = ({
             placeholder="Braid Guild"
             full
             disabled={formDisabled}
-            rules={{ required: 'DAO name is required' }}
+            registerOptions={{ required: 'DAO name is required' }}
           />
           <Divider className="top-divider" />
         </div>

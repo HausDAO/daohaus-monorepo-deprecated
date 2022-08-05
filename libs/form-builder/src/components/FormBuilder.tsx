@@ -1,108 +1,69 @@
-import { createContext, useContext, useState } from 'react';
-import {
-  FieldValues,
-  FormProvider as RHFProvider,
-  useForm,
-  useFormContext,
-} from 'react-hook-form';
-import { DevTool } from '@hookform/devtools';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import { FormLayout } from '@daohaus/ui';
+
+import { FormBuilderFactory } from './FormBuilderFactory';
+import { FormLego } from '../types/legoTypes';
+
+import { Logger } from './Logger';
+import { FormFooter } from './formFooter';
+import { useState } from 'react';
 import { isValidNetwork } from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
-import { FormLego, RequiredFields } from '../types';
-import { Logger } from './Logger';
-import { FormFooter } from './formFooter';
-import { FormBuilderFactory } from './FormBuilderFactory';
-
-type FormContext = {
-  form?: FormLego;
-  requiredFields: RequiredFields;
-  formDisabled: boolean;
-  submitDisabled: boolean;
-};
-
-export const FormBuilderContext = createContext<FormContext>({
-  form: undefined,
-  requiredFields: {},
-  formDisabled: false,
-  submitDisabled: false,
-});
-
-export const FormBuilder = ({
-  form,
-  onSubmit,
-  defaultValues,
-}: {
-  form: FormLego;
-  defaultValues?: FieldValues;
+type FormBuilderProps = FormLego & {
   onSubmit: (
-    formValues: FieldValues
-  ) => void | Promise<(formValues: FieldValues) => void>;
+    formValues: Record<string, unknown>
+  ) => void | Promise<(formValues: Record<string, unknown>) => void>;
   onCancel?: () => void;
   onSuccess?: () => void;
   onError?: () => void;
-}) => {
-  const { chainId } = useHausConnect();
+};
 
-  const methods = useForm({ mode: 'onTouched', defaultValues });
+export const FormBuilder = ({
+  title,
+  subtitle,
+  description,
+  fields,
+  onSubmit,
+  log,
+}: FormBuilderProps) => {
+  const methods = useForm();
   const {
     formState: { isValid },
-    control,
   } = methods;
-  const {
-    title,
-    subtitle,
-    description,
-    fields,
-    log,
-    devtool,
-    submitButtonText,
-    requiredFields = {},
-  } = form;
-
+  const { chainId } = useHausConnect();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
-  const formDisabled = isSubmitting;
 
+  // TS Challenge
+  // Use a map type to derive a typed values object form the formLego
   const handleTopLevelSubmit = async (formValues: Record<string, unknown>) => {
     setIsSubmitting(true);
+
     await onSubmit(formValues);
+
     setIsSubmitting(false);
   };
-
   return (
-    <RHFProvider {...methods}>
-      <FormBuilderContext.Provider
-        value={{ requiredFields, form, formDisabled, submitDisabled }}
-      >
-        <FormLayout title={title} subtitle={subtitle} description={description}>
-          <form
-            onSubmit={methods.handleSubmit(handleTopLevelSubmit)}
-            className="builder-inner-form"
-            noValidate
-          >
-            {fields?.map((field) => (
-              <FormBuilderFactory key={field.id} field={field} />
-            ))}
-            {log && <Logger />}
-            {devtool && <DevTool control={control} />}
-            <FormFooter
-              submitDisabled={submitDisabled}
-              submitButtonText={submitButtonText}
+    <FormLayout title={title} subtitle={subtitle} description={description}>
+      <FormProvider {...methods}>
+        <form
+          onSubmit={methods.handleSubmit(handleTopLevelSubmit)}
+          className="builder-inner-form"
+        >
+          {log && <Logger />}
+          {fields?.map((field) => (
+            <FormBuilderFactory
+              key={field.id}
+              {...field}
+              disabled={isSubmitting}
             />
-          </form>
-        </FormLayout>
-      </FormBuilderContext.Provider>
-    </RHFProvider>
+          ))}
+          <FormFooter submitDisabled={submitDisabled} />
+        </form>
+      </FormProvider>
+    </FormLayout>
   );
-};
-
-export const useFormBuilder = () => {
-  const methods = useFormContext();
-  const builderFeatures = useContext(FormBuilderContext);
-
-  return { ...methods, ...builderFeatures };
 };

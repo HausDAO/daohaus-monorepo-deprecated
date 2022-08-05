@@ -40,15 +40,9 @@ export const ShamanSettings = ({ dao }: ShamanSettingsProps) => {
         </ParSm>
       </div>
 
-      {/* {dao.shamen && <ShamanList shamen={dao.shamen} />} */}
-      <ShamanList
-        shamen={[
-          {
-            shamanAddress: '0x83aB8e31df35AA3281d630529C6F4bf5AC7f7aBF',
-            permissions: '5',
-          },
-        ]}
-      />
+      {dao.shamen && dao.shamen.length > 0 && (
+        <ShamanList shamen={dao.shamen} />
+      )}
     </ShamanContainer>
   );
 };

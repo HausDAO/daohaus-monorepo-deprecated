@@ -1,6 +1,6 @@
 {
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/core-app/src",
+  "root": "apps/summon-safe-app",
+  "sourceRoot": "apps/summon-safe-app/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -8,7 +8,7 @@
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/apps/core-app",
+        "outputPath": "dist/apps/summon-safe-app",
         "baseHref": "/",
         "configFile": "@nxext/vite/plugins/vite",
         "frameworkConfigFile": "@nxext/react/plugins/vite"
@@ -17,8 +17,8 @@
         "production": {
           "fileReplacements": [
             {
-              "replace": "apps/core-app/src/environments/environment.ts",
-              "with": "apps/core-app/src/environments/environment.prod.ts"
+              "replace": "apps/summon-safe-app/src/environments/environment.ts",
+              "with": "apps/summon-safe-app/src/environments/environment.prod.ts"
             }
           ],
           "optimization": true,
@@ -33,14 +33,14 @@
     "serve": {
       "executor": "@nxext/vite:dev",
       "options": {
-        "outputPath": "dist/apps/core-app",
+        "outputPath": "dist/apps/summon-safe-app",
         "baseHref": "/",
         "configFile": "@nxext/vite/plugins/vite",
         "frameworkConfigFile": "@nxext/react/plugins/vite"
       },
       "configurations": {
         "production": {
-          "buildTarget": "core-app:build:production",
+          "buildTarget": "summon-safe-app:build:production",
           "hmr": false
         }
       }
@@ -49,30 +49,29 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/core-app/**/*.{ts,tsx,js,jsx}"]
+        "lintFilePatterns": ["apps/summon-safe-app/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/summon-safe-app"],
+      "options": {
+        "jestConfig": "apps/summon-safe-app/jest.config.js",
+        "passWithNoTests": true
       }
     },
     "tsc": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "tsc --project apps/core-app/tsconfig.app.json --noEmit --skipLibCheck",
+        "command": "tsc --project apps/summon-safe-app/tsconfig.app.json --noEmit --skipLibCheck",
         "color": true
       }
     },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/core-app"],
-      "options": {
-        "jestConfig": "apps/core-app/jest.config.ts",
-        "passWithNoTests": true
-      }
-    },
-
     "deploy": {
       "executor": "@alexkeating/nx-skynet:deploy",
       "options": {
-        "uploadDir": "dist/apps/core-app",
-        "registrySeedVarName": "DAOHAUS_CORE_UI_SKYNET_SEED",
+        "uploadDir": "dist/apps/summon-safe-app",
+        "registrySeedVarName": "DAOHAUS_SUMMON_SAFE_SKYNET_SEED",
         "registryDataKey": "skylink.txt",
         "portalUrl": "https://skynetfree.net",
         "skynetApiKeyVarName": "SKYNET_API_KEY"
@@ -81,8 +80,8 @@
     "deployStaging": {
       "executor": "@alexkeating/nx-skynet:deploy",
       "options": {
-        "uploadDir": "dist/apps/core-app",
-        "registrySeedVarName": "DAOHAUS_CORE_UI_DEVELOP_SKYNET_SEED",
+        "uploadDir": "dist/apps/summon-safe-app",
+        "registrySeedVarName": "DAOHAUS_SUMMON_SAFE_DEVELOP_SKYNET_SEED",
         "registryDataKey": "skylink.txt",
         "portalUrl": "https://skynetfree.net",
         "skynetApiKeyVarName": "SKYNET_API_KEY"

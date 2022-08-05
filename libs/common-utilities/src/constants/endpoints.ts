@@ -26,4 +26,8 @@ export const ENDPOINTS: KeychainList = {
     '0x89': 'https://safe-transaction.polygon.gnosis.io/api/v1',
     '0xa4b1': 'https://safe-transaction.arbitrum.gnosis.io/api/v1',
   },
+  GAS_ESTIMATE: {
+    '0x5':
+      'https://safe-transaction.goerli.gnosis.io/v1/safes/<<safeId>>/multisig-transactions/estimations/',
+  },
 };

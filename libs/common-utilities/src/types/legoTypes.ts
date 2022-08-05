@@ -69,6 +69,7 @@ export type TXLegoBase = {
   id: string;
   contract: ContractLego;
   method: string;
+  shouldEstimateGas?: boolean;
   custonPoll?: string;
   txSuccessMessage?: string;
   finalSuccessMessage?: string;

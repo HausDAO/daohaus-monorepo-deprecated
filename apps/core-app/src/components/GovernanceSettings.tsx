@@ -70,7 +70,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
   return (
     <GovernanceContainer>
       <GovernanceCardHeader>
-        <H3>Governance</H3>
+        <H3>Governance Settings</H3>
       </GovernanceCardHeader>
       <div className="description">
         <ParSm>

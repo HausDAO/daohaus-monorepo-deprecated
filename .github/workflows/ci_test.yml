@@ -1,0 +1,74 @@
+name: CI Develop
+
+on:
+  push:
+    branches:
+      - 'ci-add-nrwl-upgrade'
+  pull_request:
+    branches:
+      - 'ci-add-nrwl-upgrade'
+
+env:
+  BASE: ${{ github.ref == 'refs/heads/ci-add-nrwl-upgrade' && 'origin/ci-add-nrwl-upgrade~1' || 'origin/ci-add-nrwl-upgrade' }}
+  SKYNET_API_KEY: ${{ secrets.SKYNET_API_KEY }}
+  DAOHAUS_SUMMON_SKYNET_SEED: ${{ secrets.DAOHAUS_SUMMON_SKYNET_DEVELOP_SEED }}
+  DAOHAUS_HUB_SKYNET_SEED: ${{ secrets.DAOHAUS_HUB_SKYNET_DEVELOP_SEED }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          # This doesn't just set the registry url, but also sets
+          # the right configuration in .npmrc that reads NPM token
+          # from NPM_AUTH_TOKEN environment variable.
+          # It actually creates a .npmrc in a temporary folder
+          # and sets the NPM_CONFIG_USERCONFIG environment variable.
+          registry-url: https://registry.npmjs.org
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Create env file
+        shell: bash
+        run: |
+          touch .env
+          echo NX_RIVET_KEY=${{ secrets.RIVET_KEY }}  >> .env
+          echo VITE_RIVET_KEY=${{ secrets.RIVET_KEY }}  >> .env
+          echo CERAMIC_NETWORK=testnet-clay  >> .env
+          echo NODE_ENV=production  >> .env
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - name: Save kubeconfig
+        run: doctl kubernetes cluster kubeconfig save daohaus-staging-nyc3-1653325548883
+      - run: yarn install
+      - run: npm install -g nx
+      - name: Lint mono
+        run: nx affected:lint --base $BASE
+      - name: Test mono
+        run: NODE_OPTIONS=--experimental-vm-modules nx affected:test --base $BASE
+      - name: Build mono
+        run: nx affected:build --base $BASE
+      - name: Version Bump
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.OTP }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # Use npx instead of yarn because yarn automagically sets NPM_* environment variables
+        # like NPM_CONFIG_REGISTRY so npm publish ends up ignoring the .npmrc file
+        # which is set up by `setup-node` action.
+        shell: bash
+        run: npx nx affected --base=origin/master --target=version
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+          force: true
+          tags: true

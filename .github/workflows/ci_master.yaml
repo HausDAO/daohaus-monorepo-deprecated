@@ -1,14 +1,14 @@
-name: Ci Master
+name: CI Master
 
 # for testing purposes, should not go in pr;
 # switch to master instead of develop
 on:
   pull_request:
     branches:
-      - 'develop'
+      - 'master'
   push:
     branches:
-      - 'develop'
+      - 'master'
 
 env:
   BASE: ${{ github.ref == 'refs/heads/develop' && 'origin/develop~1' || 'origin/develop' }}
@@ -43,22 +43,6 @@ jobs:
         run: git config user.email "-" && git config user.name "🤖 Moloch Bot"
       - name: Build mono
         run: nx affected:build --base $BASE
-      - name: Version Bump
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.OTP }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # Use npx instead of yarn because yarn automagically sets NPM_* environment variables
-        # like NPM_CONFIG_REGISTRY so npm publish ends up ignoring the .npmrc file
-        # which is set up by `setup-node` action.
-        shell: bash
-        run: npx nx affected --base=origin/master --target=version
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
-          force: true
-          tags: true
       - name: Deploy mono
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |

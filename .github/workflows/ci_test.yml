@@ -56,6 +56,9 @@ jobs:
         run: NODE_OPTIONS=--experimental-vm-modules nx affected:test --base $BASE
       - name: Build mono
         run: nx affected:build --base $BASE
+      - name: Setup git user to "🤖 Moloch Bot"
+        shell: bash
+        run: git config user.email "-" && git config user.name "🤖 Moloch Bot"
       - name: Version Bump
         env:
           NODE_AUTH_TOKEN: ${{ secrets.OTP }}

@@ -45,7 +45,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.OTP }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Version
+      - name: Version Bump
         env:
           NODE_AUTH_TOKEN: ${{ secrets.OTP }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -54,10 +54,6 @@ jobs:
         # which is set up by `setup-node` action.
         shell: bash
         run: npx nx affected --base=origin/master --target=version
-      - name: Tag last-release
-        shell: bash
-        run: git tag -f last-release
-
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:

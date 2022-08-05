@@ -49,7 +49,7 @@ type MulticallAction = {
   args: ValidArgType[];
 };
 
-type Multicall = {
+export type MulticallArg = {
   type: 'multicall';
   actions: MulticallAction[];
 };
@@ -61,7 +61,7 @@ type StaticArg = {
 export type ValidArgType =
   | StringSearch
   | JSONDetailsSearch
-  | Multicall
+  | MulticallArg
   | StaticArg;
 
 export type TxStates = 'idle' | 'submitting' | 'polling' | 'failed' | 'success';

@@ -9,7 +9,7 @@ import {
 
 import { TXLifeCycleFns } from '../TXBuilder';
 import { pollLastTX, standardGraphPoll, testLastTX } from './polling';
-import { gatherArgs } from './args';
+import { processArgs } from './args';
 import { processContractLego } from './contractHelpers';
 
 export type TxRecord = Record<string, TXLego>;
@@ -86,12 +86,15 @@ export async function prepareTX({
   appState: ArbitraryState;
   lifeCycleFns: TXLifeCycleFns;
 }) {
-  const processedContract = processContractLego({ tx, chainId });
+  const processedContract = processContractLego({
+    contract: tx.contract,
+    chainId,
+  });
 
   const { abi, address } = processedContract;
   const { method } = tx;
 
-  const realArgs = gatherArgs({
+  const processedArgs = processArgs({
     tx: { ...tx, contract: processedContract },
     chainId,
     ...rest,
@@ -104,7 +107,7 @@ export async function prepareTX({
     provider.getSigner().connectUnchecked()
   );
 
-  const ethersTx = await contract.functions[method](...realArgs);
+  const ethersTx = await contract.functions[method](...processedArgs);
 
   executeTx({ tx, ethersTx, chainId, ...rest });
 }

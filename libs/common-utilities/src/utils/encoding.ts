@@ -47,32 +47,3 @@ export const encodeMultiAction = (rawMulti: MetaTransaction[]) => {
     encodeMultiSend(rawMulti),
   ]);
 };
-
-export const txActionToMetaTx = ({
-  abi,
-  method,
-  address,
-  args,
-  value = 0,
-  operation = 0,
-}: {
-  abi: ABI;
-  address: string;
-  method: string;
-  args: ReadonlyArray<ArgType>;
-  value?: string | number;
-  operation?: number;
-}): MetaTransaction => {
-  const encodedData = encodeFunction(abi, method, args);
-
-  if (typeof encodedData !== 'string') {
-    throw new Error(encodedData.message);
-  }
-
-  return {
-    to: address,
-    data: encodedData,
-    value,
-    operation,
-  };
-};

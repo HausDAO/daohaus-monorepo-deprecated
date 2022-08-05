@@ -5,6 +5,7 @@ import {
   TXLego,
   ValidNetwork,
   LocalContract,
+  ContractLego,
 } from '@daohaus/common-utilities';
 
 const processStaticContract = ({
@@ -52,14 +53,13 @@ const processLocalContract = ({
   };
 };
 
-export const processContractLego = ({
-  tx,
+export const processContractLego = async ({
+  contract,
   chainId,
 }: {
-  tx: TXLego;
+  contract: ContractLego;
   chainId: ValidNetwork;
 }) => {
-  const { contract } = tx;
   if (contract.type === 'static') {
     return processStaticContract({
       localContract: contract as StaticContract,

@@ -1,4 +1,16 @@
-import { CONTRACTS, ENDPOINTS, ValidNetwork } from '@daohaus/common-utilities';
+import {
+  ABI,
+  ArgType,
+  CONTRACTS,
+  encodeFunction,
+  encodeMultiAction,
+  ENDPOINTS,
+  MulticallArg,
+  ValidNetwork,
+} from '@daohaus/common-utilities';
+import { MetaTransaction } from '@gnosis.pm/safe-contracts';
+import { processArg, processArgs } from './args';
+import { processContractLego } from './contractHelpers';
 
 export const estimateGas = async ({
   chainId,
@@ -39,4 +51,69 @@ export const estimateGas = async ({
   });
 
   return response.json();
+};
+
+export const txActionToMetaTx = ({
+  abi,
+  method,
+  address,
+  args,
+  value = 0,
+  operation = 0,
+}: {
+  abi: ABI;
+  address: string;
+  method: string;
+  args: ReadonlyArray<ArgType>;
+  value?: string | number;
+  operation?: number;
+}): MetaTransaction => {
+  const encodedData = encodeFunction(abi, method, args);
+
+  if (typeof encodedData !== 'string') {
+    throw new Error(encodedData.message);
+  }
+
+  return {
+    to: address,
+    data: encodedData,
+    value,
+    operation,
+  };
+};
+
+export const handleMulticallArg = async ({
+  arg,
+  chainId,
+}: {
+  arg: MulticallArg;
+  chainId: ValidNetwork;
+}) => {
+  const encodedActions = await Promise.all(
+    arg.actions.map(async (action) => {
+      const { contract, method, args } = action;
+
+      const processedContract = await processContractLego({
+        contract,
+        chainId,
+      });
+      const processedArgs = await Promise.all(
+        args.map(async (arg) => await processArg({ arg, chainId }))
+      );
+
+      return txActionToMetaTx({
+        abi: processedContract.abi,
+        method,
+        address: processedContract.address,
+        args: processedArgs,
+      });
+    })
+  );
+
+  const result = encodeMultiAction(encodedActions);
+
+  if (typeof result !== 'string') {
+    throw new Error(result.message);
+  }
+  return result;
 };

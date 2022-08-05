@@ -23,6 +23,7 @@ export const processArg = async ({
   arg: ValidArgType;
   chainId: ValidNetwork;
 }): Promise<ArgType> => {
+  console.log('arg', arg);
   if (isSearchArg(arg)) {
     return handleStringSearch(arg);
   }
@@ -33,6 +34,7 @@ export const processArg = async ({
     const result = await handleMulticallArg({ arg, chainId });
     return result;
   }
+
   // This is a placeholder for when we implemnt the gatherArgs utils
   // https://github.com/HausDAO/daohaus-monorepo/issues/403
   throw new Error('ArgType not found. Searching not yet implemented');

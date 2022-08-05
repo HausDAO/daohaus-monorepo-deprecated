@@ -77,7 +77,7 @@ export const TXBuilder = ({
       return;
     }
     const wholeState = { ...appState, ...callerState };
-
+    console.log('wholeState', wholeState);
     await prepareTX({
       tx,
       chainId,

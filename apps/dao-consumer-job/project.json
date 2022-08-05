@@ -1,0 +1,79 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/dao-consumer-job/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/dao-consumer-job",
+        "main": "apps/dao-consumer-job/src/main.ts",
+        "tsConfig": "apps/dao-consumer-job/tsconfig.app.json",
+        "assets": ["apps/dao-consumer-job/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": []
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "dao-consumer-job:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "dao-consumer-job:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/dao-consumer-job/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/dao-consumer-job"],
+      "options": {
+        "jestConfig": "apps/dao-consumer-job/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "docker-build": {
+      "executor": "@nx-tools/nx-docker:build",
+      "options": {
+        "metadata": {
+          "images": ["registry.digitalocean.com/daohaus/dao_consumer_job"],
+          "load": true,
+          "tags": ["type=sha"]
+        }
+      }
+    },
+    "docker-push": {
+      "executor": "@nx-tools/nx-docker:build",
+      "options": {
+        "push": true,
+        "metadata": {
+          "images": ["registry.digitalocean.com/daohaus/dao_consumer_job"],
+          "tags": ["type=sha"]
+        }
+      }
+    },
+    "docker-login": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": ["doctl registry login --expiry-seconds 1200"],
+        "parallel": false
+      }
+    }
+  },
+  "tags": []
+}

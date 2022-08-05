@@ -5,6 +5,7 @@
     "baal-contract-service": "libs/baal-contract-service",
     "common-utilities": "libs/common-utilities",
     "core-app": "apps/core-app",
+    "dao-consumer-job": "apps/dao-consumer-job",
     "dao-data": "libs/dao-data",
     "dao-producer-job": "apps/dao-producer-job",
     "daohaus-connect-feature": "libs/daohaus-connect-feature",

@@ -14,7 +14,7 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
+    "declaration": true,
     "jsx": "react-jsx",
 
     "types": ["vite/client", "@nxext/react/client"]

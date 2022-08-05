@@ -1,11 +1,13 @@
 import { useEffect, useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { hoursToSeconds, minutesToSeconds } from 'date-fns/esm';
 
-import { Field, OptionType, WrappedInputSelect } from '@daohaus/ui';
-import { isNumberString } from '@daohaus/common-utilities';
-
-//  REFACTOR TO MOLECULES AFTER SUMMONER REVIEW
+import {
+  conversionFns,
+  isNumberString,
+  toSeconds,
+} from '@daohaus/common-utilities';
+import { Field, OptionType, Buildable } from '../../../types';
+import { WrappedInputSelect } from '../WrappedInputSelect';
 
 const defaultOptions = [
   { name: 'Days', value: 'days' },
@@ -13,16 +15,6 @@ const defaultOptions = [
   { name: 'Minutes', value: 'minutes' },
   { name: 'Seconds', value: 'seconds' },
 ];
-
-const conversionFns = {
-  days: (amt: number) => hoursToSeconds(amt * 24),
-  hours: (amt: number) => hoursToSeconds(amt),
-  minutes: (amt: number) => minutesToSeconds(amt),
-  seconds: (amt: number) => amt,
-};
-
-const toSeconds = (amt: number, unit: keyof typeof conversionFns) =>
-  conversionFns[unit]?.(amt);
 
 type TimePickerProps = Field & {
   defaultValue?: string;
@@ -34,9 +26,9 @@ export const TimePicker = ({
   id,
   options = defaultOptions,
   selectId,
-  required,
+  rules,
   ...props
-}: TimePickerProps) => {
+}: Buildable<TimePickerProps>) => {
   const { setValue, watch } = useFormContext();
   const unitId = useMemo(() => selectId || `${id}Units`, [selectId, id]);
   const [amt, units] = watch([id, unitId]);
@@ -45,6 +37,9 @@ export const TimePicker = ({
     if (isNumberString(amt) && units in conversionFns) {
       setValue(`${id}InSeconds`, toSeconds(amt, units));
     }
+    if (amt === '') {
+      setValue(`${id}InSeconds`, 0);
+    }
   }, [amt, units, id, setValue]);
 
   return (
@@ -52,9 +47,8 @@ export const TimePicker = ({
       id={id}
       selectId={unitId}
       options={options}
-      required={required}
-      registerOptions={{
-        required: required ? 'Time value is required' : false,
+      rules={{
+        ...rules,
         validate: {
           isNumber: (value) =>
             value === '' || isNumberString(value) ? true : 'Must be a number',

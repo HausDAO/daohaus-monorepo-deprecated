@@ -11,13 +11,14 @@ describe('haus', () => {
 
     const res = await haus.query.listDaos({
       networkId,
-      // paging: { paginationType: 'offset', pageSize: 2, offset: 0 },
+      ordering: { orderBy: 'id', orderDirection: 'desc' },
+      paging: { pageSize: 2, offset: 0 },
     });
 
     expect(res.error).toBeUndefined();
-    if (res.data) {
-      expect(Number(res?.data?.daos[0].createdAt)).toBeLessThan(
-        Number(res?.data?.daos[1].createdAt)
+    if (res.items) {
+      expect(Number(res?.items[0].createdAt)).toBeGreaterThan(
+        Number(res?.items[1].createdAt)
       );
     }
   });

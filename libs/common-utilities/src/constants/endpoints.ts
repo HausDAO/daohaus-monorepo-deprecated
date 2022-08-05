@@ -12,7 +12,7 @@ export const ENDPOINTS: KeychainList = {
   EXPLORER: {
     '0x1': 'https://etherscan.io',
     '0x5': 'https://goerli.etherscan.io',
-    '0x64': 'https://blockscout.com/poa/xdai',
+    '0x64': 'https://blockscout.com/xdai/mainnet',
     '0xa': 'https://optimistic.etherscan.io',
     '0x89': 'https://polygonscan.com',
     '0xa4b1': 'https://arbiscan.io/',
@@ -25,5 +25,13 @@ export const ENDPOINTS: KeychainList = {
     '0xa': 'https://safe-transaction.optimism.gnosis.io/api/v1',
     '0x89': 'https://safe-transaction.polygon.gnosis.io/api/v1',
     '0xa4b1': 'https://safe-transaction.arbitrum.gnosis.io/api/v1',
+  },
+  GNOSIS_SAFE_UI: {
+    '0x1': 'https://gnosis-safe.io/app/eth',
+    '0x5': 'https://gnosis-safe.io/app/gor',
+    '0x64': 'https://gnosis-safe.io/app/gno',
+    '0xa': 'https://gnosis-safe.io/app/opt',
+    '0x89': 'https://gnosis-safe.io/app/pol',
+    '0xa4b1': 'https://gnosis-safe.io/app/arb',
   },
 };

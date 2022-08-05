@@ -9,21 +9,27 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/ui",
-        "configFile": "@nxext/vite/plugins/vite-package",
+        "configFile": "libs/ui/vite.config.ts",
         "frameworkConfigFile": "@nxext/react/plugins/vite",
         "entryFile": "src/index.ts",
         "generatePackageJson": true
       }
     },
     "build": {
+      "outputs": ["{options.outputPath}"],
       "executor": "@nrwl/workspace:run-commands",
       "options": {
+        "outputPath": "dist/libs/ui",
         "command": "tsc --project libs/ui/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
         "color": true
       },
       "dependsOn": [
         {
           "target": "vite-build",
+          "projects": "self"
+        },
+        {
+          "target": "build-storybook",
           "projects": "self"
         }
       ]
@@ -67,7 +73,9 @@
         "outputPath": "dist/storybook/ui",
         "config": {
           "configFolder": "libs/ui/.storybook"
-        }
+        },
+
+        "quiet": false
       },
       "configurations": {
         "ci": {
@@ -78,8 +86,8 @@
     "deploy": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
-        "tag": "alpha",
-        "access": "public"
+        "access": "public",
+        "noBuild": true
       }
     },
     "deployStaging": {
@@ -89,7 +97,7 @@
         "registrySeedVarName": "DAOHAUS_UI_DEVELOP_SKYNET_SEED",
         "registryDataKey": "skylink.txt",
         "portalUrl": "https://skynetfree.net",
-        "skynetJwtVarName": "SKYNET_JWT"
+        "skynetApiKeyVarName": "SKYNET_API_KEY"
       },
       "dependsOn": [{ "target": "build-storybook", "projects": "self" }]
     }

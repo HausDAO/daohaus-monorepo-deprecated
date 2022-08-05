@@ -30,7 +30,6 @@ FieldWrapperComponent.args = {
     type: 'success',
     message: 'This is Success helper text',
   },
-  required: true,
   info: 'Cooltip text',
 };
 
@@ -57,6 +56,5 @@ HelperTextPriority.args = {
     type: 'error',
     message: 'This should appear',
   },
-  required: true,
   info: 'Just do it, ok?',
 };

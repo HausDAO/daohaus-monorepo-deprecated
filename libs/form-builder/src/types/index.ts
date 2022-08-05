@@ -1,1 +1,1 @@
-export * from './legoTypes';
+export * from './formLegoTypes';

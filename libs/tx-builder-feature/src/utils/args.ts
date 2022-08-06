@@ -6,7 +6,7 @@ import {
   ValidArgType,
   ValidNetwork,
 } from '@daohaus/common-utilities';
-import { estimateGas, handleMulticallArg } from './multicall';
+import { handleGasEstimate, handleMulticallArg } from './multicall';
 
 const isSearchArg = (arg: ValidArgType): arg is StringSearch => {
   return typeof arg === 'string' && arg[0] === '.';
@@ -35,7 +35,8 @@ export const processArg = async ({
     return result;
   }
   if (arg?.type === 'estimateGas') {
-    return 0;
+    const result = await handleGasEstimate({ arg, chainId, safeId });
+    return result;
   }
   if (arg?.type === 'proposalExpiry') {
     //TODO: implement search for proposal expiry

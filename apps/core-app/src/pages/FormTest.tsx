@@ -1,14 +1,11 @@
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import {
-  calcExpiry,
   ContractLego,
   MulticallAction,
   POSTER_TAGS,
   toSeconds,
   TXLego,
-  unixTimeInSeconds,
 } from '@daohaus/common-utilities';
-import { HausLayout } from '@daohaus/daohaus-connect-feature';
 import {
   CoreFieldLookup,
   FieldLego,
@@ -16,10 +13,8 @@ import {
   FormLego,
 } from '@daohaus/haus-form-builder';
 import { Button, Tooltip } from '@daohaus/ui';
-import {
-  estimateGas,
-  handleGasEstimate,
-} from 'libs/tx-builder-feature/src/utils/multicall';
+import { handleGasEstimate } from '@daohaus/tx-builder-feature';
+import { useDao } from '../contexts/DaoContext';
 
 const sampleDefaultData = {
   daoContract: '0x756ee8B8E898D497043c2320d9909f1DD5a7077F',
@@ -99,9 +94,6 @@ const Test: TXLego = {
         title: 'Test title',
         description: 'Test description',
       }),
-      // args: [
-      //   { title: '.values.title', description: '.formValues.description' },
-      // ],
     },
   ],
 };
@@ -115,29 +107,29 @@ const TestForm: FormLego<CustomFields> = {
   tx: Test,
 };
 
-const testGas = async () => {
-  const result = await handleGasEstimate({
-    chainId: '0x5',
-    safeId: '',
-    arg: {
-      type: 'estimateGas',
-      actions: testActions,
-    },
-  });
-
-  console.log(result);
-};
-
 export function FormTest() {
+  const { dao } = useDao();
+  const testGas = async () => {
+    const result = await handleGasEstimate({
+      chainId: '0x5',
+      safeId: dao?.safeAddress,
+      arg: {
+        type: 'estimateGas',
+        actions: testActions,
+      },
+    });
+
+    console.log('Result', result);
+  };
   return (
-    <HausLayout navLinks={[{ label: 'NavLink', href: '/' }]}>
+    <>
       <FormBuilder<CustomFields>
         form={TestForm}
         customFields={CustomFields}
         defaultValues={sampleDefaultData}
       />
-      <Button onClick={testGas} />
-    </HausLayout>
+      <Button onClick={testGas}>Test Gas</Button>
+    </>
   );
 }
 

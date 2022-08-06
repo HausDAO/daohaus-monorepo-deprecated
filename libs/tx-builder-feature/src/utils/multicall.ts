@@ -10,6 +10,7 @@ import {
   ValidNetwork,
 } from '@daohaus/common-utilities';
 import { MetaTransaction } from '@gnosis.pm/safe-contracts';
+import { getAddress } from 'ethers/lib/utils';
 import { processArg } from './args';
 import { processContractLego } from './contractHelpers';
 
@@ -23,7 +24,6 @@ export const estimateGas = async ({
   data: string;
 }) => {
   const rawUri = ENDPOINTS['GAS_ESTIMATE'][chainId];
-
   if (!rawUri)
     throw new Error(
       `Gnosis Gas Estimation API not found for chainID: ${chainId}`
@@ -35,9 +35,7 @@ export const estimateGas = async ({
     throw new Error(
       `Gnosis Multisend Contract not found for chainID: ${chainId}`
     );
-
-  const gasEstimateUri = rawUri.replace('<<safeId>>', safeId);
-
+  const gasEstimateUri = rawUri.replace('<<safeId>>', getAddress(safeId));
   try {
     const response = await fetch(gasEstimateUri, {
       method: 'POST',
@@ -45,12 +43,13 @@ export const estimateGas = async ({
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        to: gnosisMultisendAddress,
+        to: getAddress(gnosisMultisendAddress),
         value: 0,
         data,
-        operation: 0,
+        operation: 1,
       }),
     });
+
     return response.json();
   } catch (error) {
     throw new Error(`Failed to estimate gas: ${error}`);
@@ -133,15 +132,16 @@ export const handleGasEstimate = async ({
 }) => {
   if (!safeId) throw new Error('Safe ID is required to estimate gas');
 
+  const proposalData = await handleMulticallArg({
+    chainId,
+    arg: {
+      type: 'multicall',
+      actions: arg.actions,
+    },
+  });
   return estimateGas({
     chainId,
     safeId,
-    data: await handleMulticallArg({
-      arg: {
-        type: 'multicall',
-        actions: arg.actions,
-      },
-      chainId,
-    }),
+    data: proposalData,
   });
 };

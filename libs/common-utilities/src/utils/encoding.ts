@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { ABI, ArgType } from '../types';
+import { ABI } from '../types';
 import { encodeMultiSend, MetaTransaction } from '@gnosis.pm/safe-contracts';
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 

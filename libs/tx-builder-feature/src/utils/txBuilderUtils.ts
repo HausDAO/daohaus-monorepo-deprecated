@@ -76,16 +76,19 @@ export const executeTx = async ({
 export async function prepareTX({
   tx,
   chainId,
+  safeId,
   provider,
   ...rest
 }: {
   tx: TXLego;
   chainId: ValidNetwork;
+  safeId?: string;
   provider: providers.Web3Provider;
   setTransactions: ReactSetter<TxRecord>;
   appState: ArbitraryState;
   lifeCycleFns: TXLifeCycleFns;
 }) {
+  console.log('safeId', safeId);
   const processedContract = await processContractLego({
     contract: tx.contract,
     chainId,
@@ -98,6 +101,7 @@ export async function prepareTX({
   const processedArgs = await processArgs({
     tx: { ...tx, contract: processedContract },
     chainId,
+    safeId,
     ...rest,
   });
   console.log('processedArgs', processedArgs);

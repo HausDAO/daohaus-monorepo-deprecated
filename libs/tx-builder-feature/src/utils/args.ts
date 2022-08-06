@@ -35,6 +35,7 @@ export const processArg = async ({
     return result;
   }
   if (arg?.type === 'estimateGas') {
+    console.log('safeId', safeId);
     const result = await handleGasEstimate({ arg, chainId, safeId });
     return result;
   }
@@ -57,6 +58,7 @@ export const processArgs = async ({
   chainId: ValidNetwork;
   safeId?: string;
 }) => {
+  console.log('safeId', safeId);
   const { argCallback, args } = tx;
 
   if (argCallback) {

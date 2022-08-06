@@ -81,12 +81,12 @@ const Test: TXLego = {
       actions: testActions,
     },
     {
-      type: 'estimateGas',
-      actions: testActions,
-    },
-    {
       type: 'proposalExpiry',
       fallback: toSeconds(14, 'days'),
+    },
+    {
+      type: 'estimateGas',
+      actions: testActions,
     },
     {
       type: 'static',

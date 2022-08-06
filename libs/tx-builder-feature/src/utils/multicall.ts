@@ -139,9 +139,14 @@ export const handleGasEstimate = async ({
       actions: arg.actions,
     },
   });
-  return estimateGas({
+  const estimate = await estimateGas({
     chainId,
     safeId,
     data: proposalData,
   });
+  if (estimate.safeTxGas) {
+    return Number(estimate.safeTxGas);
+  } else {
+    throw new Error(`Failed to estimate gas: `);
+  }
 };

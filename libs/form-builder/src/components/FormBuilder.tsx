@@ -83,7 +83,7 @@ export function FormBuilder<Lookup extends LookupType>({
 
   const handleTopLevelSubmit = async (formValues: FieldValues) => {
     if (form.tx) {
-      fireTransaction({
+      return await fireTransaction({
         tx: form.tx,
         callerState: {
           fromCallerState: {
@@ -94,7 +94,8 @@ export function FormBuilder<Lookup extends LookupType>({
           onTxHash() {
             console.log('txHash');
           },
-          onTxError() {
+          onTxError(error) {
+            error instanceof Error && console.log(error);
             console.log('txError');
           },
           onTxSuccess() {
@@ -113,7 +114,7 @@ export function FormBuilder<Lookup extends LookupType>({
       });
     }
     if (onSubmit) {
-      await onSubmit?.(formValues);
+      return await onSubmit?.(formValues);
     }
     console.error('FormBuilder: onSubmit not implemented');
   };

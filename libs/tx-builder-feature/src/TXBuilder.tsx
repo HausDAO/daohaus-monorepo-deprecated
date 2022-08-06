@@ -72,6 +72,8 @@ export const TXBuilder = ({
     callerState,
     lifeCycleFns = {},
   }) => {
+    console.log('provider', provider);
+    console.log('chainId', chainId);
     if (!chainId || !isValidNetwork(chainId) || !provider) {
       lifeCycleFns?.onTxError?.(
         Error('Invalid Network or no Web3 Wallet detected')
@@ -83,6 +85,7 @@ export const TXBuilder = ({
     await prepareTX({
       tx,
       chainId,
+      safeId,
       provider,
       setTransactions,
       appState: wholeState,

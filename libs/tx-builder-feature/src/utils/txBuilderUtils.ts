@@ -88,7 +88,7 @@ export async function prepareTX({
   appState: ArbitraryState;
   lifeCycleFns: TXLifeCycleFns;
 }) {
-  console.log('safeId', safeId);
+
   const processedContract = await processContractLego({
     contract: tx.contract,
     chainId,

@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "title": "Article",
+  "type": "object",
+  "definitions": {
+    "TokenBalance": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "$ref": "#/definitions/TokenInfo"
+        },
+        "tokenAddress": {
+          "type": "string"
+        },
+        "balance": {
+          "type": "string"
+        },
+        "ethValue": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "fiatBalance": {
+          "type": "string"
+        },
+        "fiatConversion": {
+          "type": "string"
+        },
+        "fiatCode": {
+          "type": "string"
+        }
+      }
+    },
+    "TokenInfo": {
+      "type": "object",
+      "properties": {
+        "decimals": {
+          "type": "integer"
+        },
+        "symbol": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "logoUri": {
+          "type": "string"
+        }
+      },
+      "required": ["decimals", "symbol", "name"]
+    }
+  },
+  "properties": {
+    "safeAddress": {
+      "type": "string",
+      "maxLength": 256
+    },
+    "fiatTotal": {
+      "type": "integer"
+    },
+    "tokenBalances": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TokenBalance"
+      }
+    }
+  },
+  "required": ["safeAddress", "tokenBalances", "fiatTotal"]
+}

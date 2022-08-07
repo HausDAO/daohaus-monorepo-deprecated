@@ -3,6 +3,7 @@
   "projects": {
     "abi-utilities": "libs/abi-utilities",
     "baal-contract-service": "libs/baal-contract-service",
+    "ceramic-model-utilities": "libs/ceramic-model-utilities",
     "common-utilities": "libs/common-utilities",
     "core-app": "apps/core-app",
     "dao-consumer-job": "apps/dao-consumer-job",

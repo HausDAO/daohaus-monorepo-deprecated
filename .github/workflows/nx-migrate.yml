@@ -37,7 +37,6 @@ jobs:
           # It actually creates a .npmrc in a temporary folder
           # and sets the NPM_CONFIG_USERCONFIG environment variable.
           registry-url: https://registry.npmjs.org
-      - run: yarn install --frozen-lockfile
       - run: npm install -g nx
       - name: Check if @nrwl/workspace is outdated
         id: nrwl-workspace-outdated
@@ -49,11 +48,9 @@ jobs:
       - name: Update @nrwl/workspace
         if: steps.nrwl-workspace-outdated.outputs.outdated == 'true'
         run: echo 1 | nx migrate latest
-
       - name: Install dependencies
         if: steps.nrwl-workspace-outdated.outputs.outdated == 'true'
-        run: yarn install --no-immutable
-
+        run: yarn install --frozen-lockfile
       - name: Check if has migrations
         id: nrwl-workspace-has-migrations
         run: |

@@ -68,10 +68,10 @@ jobs:
         # which is set up by `setup-node` action.
         shell: bash
         run: npx nx affected --base=origin/master --target=version
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
-          force: true
-          tags: true
+      # - name: Push changes
+      #   uses: ad-m/github-push-action@master
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     branch: ${{ github.ref }}
+      #     force: true
+      #     tags: true

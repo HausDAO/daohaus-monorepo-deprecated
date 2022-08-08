@@ -1,9 +1,8 @@
 {
   "version": 2,
   "projects": {
-    "abi-utilities": "libs/abi-utilities",
-    "baal-contract-service": "libs/baal-contract-service",
     "common-utilities": "libs/common-utilities",
+    "contract-utilities": "libs/contract-utilities",
     "core-app": "apps/core-app",
     "dao-data": "libs/dao-data",
     "dao-producer-job": "apps/dao-producer-job",

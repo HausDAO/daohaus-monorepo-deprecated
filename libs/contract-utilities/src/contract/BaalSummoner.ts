@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { BaalSummoner, BaalSummoner__factory } from './generated';
+import { BaalSummoner, BaalSummoner__factory } from '@daohaus/baal-contracts';
 
 export type ContractConfig = {
   address: string;

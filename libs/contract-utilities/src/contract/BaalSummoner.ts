@@ -1,11 +1,6 @@
 import { ethers } from 'ethers';
 import { BaalSummoner, BaalSummonerFactory } from '@daohaus/baal-contracts';
-
-export type ContractConfig = {
-  address: string;
-  chainId: number;
-  provider: ethers.providers.Provider;
-};
+import { ContractConfig } from './types';
 
 export type SummonArgs = {
   initializationParams: ethers.BytesLike;
@@ -22,8 +17,8 @@ class BaalSummonerContract {
     );
   }
 
-  static create(contractConfig: ContractConfig): BaalSummonerContract {
-    return new BaalSummonerContract(contractConfig);
+  static create({ address, provider }: ContractConfig): BaalSummonerContract {
+    return new BaalSummonerContract({ address, provider });
   }
 
   public async summonBaalAndSafe(

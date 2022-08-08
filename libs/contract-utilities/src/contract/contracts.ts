@@ -10,13 +10,16 @@ import {
 
 import type { Signer } from 'ethers';
 import type { Provider } from '@ethersproject/providers';
-import { Contracts } from './types';
+import { ContractFactories, Contracts } from './types';
 
 import {
   ValidNetwork,
   CONTRACTS,
   ContractKey,
 } from '@daohaus/common-utilities';
+
+import BaalContract from './BaalContract';
+import BaalSummonerContract from './BaalSummoner';
 
 /**
  * Get addresses of contracts that have been deployed to the
@@ -25,14 +28,15 @@ import {
  * @param contractKey The desired Contract
  * @param chainId The desired chainId
  */
-export const getContractAddressesForChainOrThrow = (
+export const getContractAddressesForChain = (
   contractKey: ContractKey,
   chainId: ValidNetwork
-): string => {
+): string | null => {
   if (!CONTRACTS?.[contractKey]?.[chainId]) {
-    throw new Error(
-      `Unknown (${contractKey}) for chain id (${chainId}). No known contracts have been deployed on this chain for this contract.`
-    );
+    return null;
+    // throw new Error(
+    //   `Unknown (${contractKey}) for chain id (${chainId}). No known contracts have been deployed on this chain for this contract.`
+    // );
   }
   return CONTRACTS[contractKey][chainId] as string;
 };
@@ -44,38 +48,42 @@ export const getContractAddressesForChainOrThrow = (
  * @param chainId The desired chain id
  * @param signerOrProvider The ethers v5 signer or provider
  */
-export const getContractsForChainOrThrow = (
+export const getContractsForChain = (
   chainId: ValidNetwork,
   signerOrProvider?: Signer | Provider
-): Contracts => {
+): ContractFactories & Contracts => {
+  /* prettier-ignore */
+  const addresses = {
+    baal: getContractAddressesForChain('BAAL_SINGLETON', chainId) as string,
+    baalSummoner: getContractAddressesForChain('V3_FACTORY', chainId) as string,
+    loot: getContractAddressesForChain('LOOT_SINGLETON', chainId),
+    shares: getContractAddressesForChain('SHARES_SINGLETON', chainId),
+    tributeMinion: getContractAddressesForChain('TRIBUTE_MINION', chainId),
+    poster: getContractAddressesForChain('POSTER', chainId),
+    gnosisMultisend: getContractAddressesForChain('GNOSIS_MULTISEND', chainId)
+  };
+
+  const signingEntity = signerOrProvider as Signer | Provider;
+
+  const baalContract = BaalContract.create({address: addresses.baal, provider: signingEntity}) /* prettier-ignore */
+  const baalSummonerContract = BaalSummonerContract.create({address: addresses.baalSummoner, provider: signingEntity}) /* prettier-ignore */
+  const baalFactory = BaalFactory.connect(addresses.baal, signingEntity) /* prettier-ignore */
+  const baalSummonerFactory = BaalSummonerFactory.connect(addresses.baalSummoner, signingEntity) /* prettier-ignore */
+  const lootFactory = addresses.loot ? LootFactory.connect(addresses.loot, signingEntity) : null; /* prettier-ignore */
+  const sharesFactory = addresses.shares ? SharesFactory.connect(addresses.shares, signingEntity) : null; /* prettier-ignore */
+  const tributeMinionFactory = addresses.tributeMinion ? TributeMinionFactory.connect(addresses.tributeMinion, signingEntity) : null; /* prettier-ignore */
+  const posterFactory = addresses.poster ? PosterFactory.connect(addresses.poster, signingEntity) : null; /* prettier-ignore */
+  const gnosisMultisendFactory = addresses.gnosisMultisend ? MultiSendFactory.connect(addresses.gnosisMultisend,  signingEntity) : null; /* prettier-ignore */
+
   return {
-    baalContract: BaalFactory.connect(
-      getContractAddressesForChainOrThrow('BAAL_SINGLETON', chainId),
-      signerOrProvider as Signer | Provider
-    ),
-    baalSummonerContract: BaalSummonerFactory.connect(
-      getContractAddressesForChainOrThrow('V3_FACTORY', chainId),
-      signerOrProvider as Signer | Provider
-    ),
-    lootContract: LootFactory.connect(
-      getContractAddressesForChainOrThrow('LOOT_SINGLETON', chainId),
-      signerOrProvider as Signer | Provider
-    ),
-    sharesContract: SharesFactory.connect(
-      getContractAddressesForChainOrThrow('SHARES_SINGLETON', chainId),
-      signerOrProvider as Signer | Provider
-    ),
-    tributeMinionContract: TributeMinionFactory.connect(
-      getContractAddressesForChainOrThrow('TRIBUTE_MINION', chainId),
-      signerOrProvider as Signer | Provider
-    ),
-    posterContract: PosterFactory.connect(
-      getContractAddressesForChainOrThrow('POSTER', chainId),
-      signerOrProvider as Signer | Provider
-    ),
-    gnosisMultisendContract: MultiSendFactory.connect(
-      getContractAddressesForChainOrThrow('GNOSIS_MULTISEND', chainId),
-      signerOrProvider as Signer | Provider
-    ),
+    baalContract,
+    baalSummonerContract,
+    baalFactory,
+    baalSummonerFactory,
+    lootFactory,
+    sharesFactory,
+    tributeMinionFactory,
+    posterFactory,
+    gnosisMultisendFactory,
   };
 };

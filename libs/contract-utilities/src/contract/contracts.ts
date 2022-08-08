@@ -50,8 +50,9 @@ export const getContractAddressesForChain = (
  */
 export const getContractsForChain = (
   chainId: ValidNetwork,
-  signerOrProvider?: Signer | Provider
-): ContractFactories & Contracts => {
+  signerOrProvider: Signer | Provider,
+  onlyContracts: boolean
+): (ContractFactories & Contracts) | Contracts => {
   /* prettier-ignore */
   const addresses = {
     baal: getContractAddressesForChain('BAAL_SINGLETON', chainId) as string,
@@ -63,27 +64,23 @@ export const getContractsForChain = (
     gnosisMultisend: getContractAddressesForChain('GNOSIS_MULTISEND', chainId)
   };
 
-  const signingEntity = signerOrProvider as Signer | Provider;
-
-  const baalContract = BaalContract.create({address: addresses.baal, provider: signingEntity}) /* prettier-ignore */
-  const baalSummonerContract = BaalSummonerContract.create({address: addresses.baalSummoner, provider: signingEntity}) /* prettier-ignore */
-  const baalFactory = BaalFactory.connect(addresses.baal, signingEntity) /* prettier-ignore */
-  const baalSummonerFactory = BaalSummonerFactory.connect(addresses.baalSummoner, signingEntity) /* prettier-ignore */
-  const lootFactory = addresses.loot ? LootFactory.connect(addresses.loot, signingEntity) : null; /* prettier-ignore */
-  const sharesFactory = addresses.shares ? SharesFactory.connect(addresses.shares, signingEntity) : null; /* prettier-ignore */
-  const tributeMinionFactory = addresses.tributeMinion ? TributeMinionFactory.connect(addresses.tributeMinion, signingEntity) : null; /* prettier-ignore */
-  const posterFactory = addresses.poster ? PosterFactory.connect(addresses.poster, signingEntity) : null; /* prettier-ignore */
-  const gnosisMultisendFactory = addresses.gnosisMultisend ? MultiSendFactory.connect(addresses.gnosisMultisend,  signingEntity) : null; /* prettier-ignore */
-
-  return {
-    baalContract,
-    baalSummonerContract,
-    baalFactory,
-    baalSummonerFactory,
-    lootFactory,
-    sharesFactory,
-    tributeMinionFactory,
-    posterFactory,
-    gnosisMultisendFactory,
+  /* prettier-ignore */
+  const contracts = {
+    baalContract: BaalContract.create({address: addresses.baal, provider: signerOrProvider}),
+    baalSummonerContract: BaalSummonerContract.create({address: addresses.baalSummoner, provider: signerOrProvider}),
   };
+
+  if (onlyContracts) return contracts;
+
+  /* prettier-ignore */
+  return {
+    ...contracts,
+    baalFactory: BaalFactory.connect(addresses.baal, signerOrProvider),
+    baalSummonerFactory: BaalSummonerFactory.connect(addresses.baalSummoner, signerOrProvider),
+    lootFactory: addresses.loot ? LootFactory.connect(addresses.loot, signerOrProvider) : null,
+    sharesFactory: addresses.shares ? SharesFactory.connect(addresses.shares, signerOrProvider) : null,
+    tributeMinionFactory: addresses.tributeMinion ? TributeMinionFactory.connect(addresses.tributeMinion, signerOrProvider) : null,
+    posterFactory: addresses.poster ? PosterFactory.connect(addresses.poster, signerOrProvider) : null,
+    gnosisMultisendFactory: addresses.gnosisMultisend ? MultiSendFactory.connect(addresses.gnosisMultisend,  signerOrProvider) : null,
+  }
 };

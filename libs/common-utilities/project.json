@@ -35,7 +35,7 @@
         "preset": "conventional",
         "tagPrefix": "${projectName}@",
         "noVerify": true,
-        "baseBranch": "master",
+        "baseBranch": "develop",
         "postTargets": ["common-utilities:github"],
         "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
       }

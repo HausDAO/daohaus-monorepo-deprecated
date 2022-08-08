@@ -51,7 +51,7 @@
         "preset": "conventional",
         "tagPrefix": "${projectName}@",
         "noVerify": true,
-        "baseBranch": "master",
+        "baseBranch": "develop",
         "postTargets": ["tx-builder-feature:github"],
         "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
       }

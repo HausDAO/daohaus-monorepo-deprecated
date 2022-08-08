@@ -46,12 +46,10 @@ We'll be adding more documentation and detail to this section, so keep checking 
 
 ### Profile
 
-The SDK provides a `profile` method that includes functionality related to profiles. This includes interacting with [Ceramic](https://ceramic.network/) to get a user's profile. We have a series of fallbacks in place if a user doesn't have a basic profile set.
-
-To get ens names with the profile include a mainnet rpc endpoint in the init options:
+The SDK provides a `profile` method that includes functionality related to profiles. This includes interacting with [Lens](https://lens.xyz/) to get a user's profile. We have a series of fallbacks in place if a user doesn't have a basic profile set. In the future we plan to interact with [Ceramic](https://ceramic.network/) to get a user's profile:
 
 ```js
-const haus = Haus.create({ providers: { '0x0': 'https://somerpc.com' } });
+const haus = Haus.create();
 
 const profile = await haus.profile.get('0x0');
 // console.log(profile)

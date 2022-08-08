@@ -51,6 +51,10 @@ jobs:
       - name: Install dependencies
         if: steps.nrwl-workspace-outdated.outputs.outdated == 'true'
         run: yarn install --frozen-lockfile
+      - name: Exit if outdated === false
+        if: steps.nrwl-workspace-outdated.outputs.outdated == 'false'
+        run: |
+          exit 1
       - name: Check if has migrations
         id: nrwl-workspace-has-migrations
         run: |

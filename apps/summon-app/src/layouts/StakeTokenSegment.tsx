@@ -7,7 +7,7 @@ import {
   WrappedSwitch,
 } from '@daohaus/ui';
 
-import { FORM_COPY, INFO_COPY } from '../utils/content';
+import { FORM_COPY, INFO_COPY } from '@daohaus/common-utilities';
 import { FORM_KEYS } from '../utils/formKeys';
 
 export const StakeTokensSegment = ({

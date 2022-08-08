@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { FormSegment, ParSm, Link, WrappedTextArea } from '@daohaus/ui';
+import { INFO_COPY } from '@daohaus/common-utilities';
 
 import { TextAreaSection } from '../layouts/FormLayouts';
 import { transformShamans, validateShamanData } from '../utils/common';
 import { FORM_KEYS } from '../utils/formKeys';
-import { INFO_COPY } from '../utils/content';
 
 export const ShamanSegment = ({ formDisabled }: { formDisabled: boolean }) => {
   const {

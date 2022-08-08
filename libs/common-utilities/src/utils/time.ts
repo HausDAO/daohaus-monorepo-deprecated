@@ -9,3 +9,23 @@ export const conversionFns = {
 
 export const toSeconds = (amt: number, unit: keyof typeof conversionFns) =>
   conversionFns[unit]?.(amt);
+
+export const formatPeriods = (duration: string) => {
+  if (duration) {
+    let s = Number(duration);
+    const d = Math.floor(s / (3600 * 24));
+    s -= d * 3600 * 24;
+    const h = Math.floor(s / 3600);
+    s -= h * 3600;
+    const m = Math.floor(s / 60);
+    s -= m * 60;
+    const tmp = [];
+    d && tmp.push(`${d} day${d > 1 ? 's' : ''}`);
+    (d || h) && h && tmp.push(`${h} hour${h > 1 ? 's' : ''}`);
+    (d || h || m) && m && tmp.push(`${m} minute${m > 1 ? 's' : ''}`);
+    s && tmp.push(`${s} second${s > 1 ? 's' : ''}`);
+
+    return tmp.join(' ');
+  }
+  return 0;
+};

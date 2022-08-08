@@ -1,16 +1,10 @@
-name: CI Test
+name: CI Release
 
 on:
-  push:
-    branches:
-      - 'master'
+  workflow_dispatch: # adding the workflow_dispatch so it can be triggered manually
 
 env:
-  BASE: ${{ github.ref == 'refs/heads/ci-add-nrwl-upgrade' && 'origin/ci-add-nrwl-upgrade~1' || 'origin/ci-add-nrwl-upgrade' }}
-  SKYNET_API_KEY: ${{ secrets.SKYNET_API_KEY }}
-  DAOHAUS_SUMMON_SKYNET_SEED: ${{ secrets.DAOHAUS_SUMMON_SKYNET_DEVELOP_SEED }}
-  DAOHAUS_HUB_SKYNET_SEED: ${{ secrets.DAOHAUS_HUB_SKYNET_DEVELOP_SEED }}
-
+  BASE: ${{ github.ref == 'refs/heads/master' && 'origin/master~1' || 'origin/master' }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,17 +29,8 @@ jobs:
         shell: bash
         run: |
           touch .env
-          echo NX_RIVET_KEY=${{ secrets.RIVET_KEY }}  >> .env
-          echo VITE_RIVET_KEY=${{ secrets.RIVET_KEY }}  >> .env
-          echo CERAMIC_NETWORK=testnet-clay  >> .env
           echo NODE_ENV=production  >> .env
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      - name: Save kubeconfig
-        run: doctl kubernetes cluster kubeconfig save daohaus-staging-nyc3-1653325548883
-      - run: yarn install
+      - run: yarn install --immutable --immutable-cache
       - run: npm install -g nx
       - name: Lint mono
         run: nx affected:lint --base $BASE
@@ -64,10 +49,16 @@ jobs:
         # like NPM_CONFIG_REGISTRY so npm publish ends up ignoring the .npmrc file
         # which is set up by `setup-node` action.
         shell: bash
-        run: npx nx affected --base=origin/develop --target=version --parallel 1
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
-          tags: true
+        run: npx nx affected --base $BASE --target=version --parallel 1
+      - name: Create PR
+        run: |
+          CURRENT_DATE=$(date +'%Y-%m-%d')
+          BRANCH="bump-lib-versions-${CURRENT_DATE}"
+          git checkout -b "${BRANCH}"
+          git push -f --set-upstream origin "${BRANCH}"
+          PR=$(gh pr view "${BRANCH}")
+          if [[ $PR == *"no pull requests found"* ]]; then
+            gh pr create -t "bump lib versions" -b "bump lib versions on ${CURRENT_DATE}."
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

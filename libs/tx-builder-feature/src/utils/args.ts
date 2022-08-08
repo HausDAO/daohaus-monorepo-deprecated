@@ -12,7 +12,6 @@ const isSearchArg = (arg: ValidArgType): arg is StringSearch => {
   return typeof arg === 'string' && arg[0] === '.';
 };
 
-// To be built next issue
 const handleStringSearch = (arg: StringSearch) => arg;
 
 export const processArg = async ({
@@ -35,7 +34,6 @@ export const processArg = async ({
     return result;
   }
   if (arg?.type === 'estimateGas') {
-    console.log('safeId', safeId);
     const result = await handleGasEstimate({ arg, chainId, safeId });
     return result;
   }
@@ -58,7 +56,6 @@ export const processArgs = async ({
   chainId: ValidNetwork;
   safeId?: string;
 }) => {
-  console.log('safeId', safeId);
   const { argCallback, args } = tx;
 
   if (argCallback) {

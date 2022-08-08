@@ -3,7 +3,7 @@ import { ArbitraryState, StringSearch } from '@daohaus/common-utilities';
 export const deepSearch = (
   appState: ArbitraryState,
   pathString: StringSearch
-) => {
+): unknown => {
   const path = pathString.trim().split('.').filter(Boolean);
   let state = { ...appState };
   for (let i = 0, len = path.length; i < len; i++) {
@@ -39,4 +39,25 @@ export const handleConditionalPath = (pathString: StringSearch) => {
     .filter(Boolean);
 
   return paths;
+};
+
+export const searchArg = (
+  appState: ArbitraryState,
+  pathString: StringSearch
+) => {
+  const hasCondition = checkHasCondition(pathString);
+
+  if (hasCondition) {
+    const paths = handleConditionalPath(pathString);
+    for (const path of paths) {
+      const result = searchApp(appState, path as StringSearch);
+      if (result != null) {
+        return result;
+      }
+    }
+    console.log('**Application State**', appState);
+    console.log('**Path**', pathString);
+    throw new Error(`No paths in conditional path string returned a value`);
+  }
+  return searchApp(appState, pathString, true);
 };

@@ -13,11 +13,7 @@ import {
   FormLego,
 } from '@daohaus/haus-form-builder';
 import { Button, Tooltip } from '@daohaus/ui';
-import {
-  deepSearch,
-  handleGasEstimate,
-  searchApp,
-} from '@daohaus/tx-builder-feature';
+import { handleGasEstimate, searchApp } from '@daohaus/tx-builder-feature';
 import { useDao } from '../contexts/DaoContext';
 
 const sampleDefaultData = {

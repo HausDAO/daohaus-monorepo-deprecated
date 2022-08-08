@@ -88,12 +88,10 @@ export async function prepareTX({
   appState: ArbitraryState;
   lifeCycleFns: TXLifeCycleFns;
 }) {
-
   const processedContract = await processContractLego({
     contract: tx.contract,
     chainId,
   });
-  console.log('processedContract', processedContract);
 
   const { abi, address } = processedContract;
   const { method } = tx;
@@ -104,14 +102,12 @@ export async function prepareTX({
     safeId,
     ...rest,
   });
-  console.log('processedArgs', processedArgs);
   if (!address) return;
   const contract = new ethers.Contract(
     address,
     abi,
     provider.getSigner().connectUnchecked()
   );
-  console.log('ethers contract', contract);
   const ethersTx = await contract.functions[method](...processedArgs);
 
   executeTx({ tx, ethersTx, chainId, ...rest });

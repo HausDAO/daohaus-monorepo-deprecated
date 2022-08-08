@@ -43,24 +43,6 @@
         "jestConfig": "libs/form-builder/jest.config.js",
         "passWithNoTests": true
       }
-    },
-    "version": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "preset": "conventional",
-        "tagPrefix": "${projectName}@",
-        "noVerify": false,
-        "baseBranch": "ci-add-nrwl-upgrade",
-        "postTargets": ["form-builder:github"],
-        "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
-      }
-    },
-    "github": {
-      "executor": "@jscutlery/semver:github",
-      "options": {
-        "tag": "${tag}",
-        "notes": "${notes}"
-      }
     }
   }
 }

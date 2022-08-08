@@ -33,9 +33,8 @@
       "options": {
         "preset": "conventional",
         "tagPrefix": "${projectName}@",
-        "noVerify": false,
-        "baseBranch": "ci-add-nrwl-upgrade",
-        "releaseAs": "prerelease",
+        "noVerify": true,
+        "baseBranch": "master",
         "postTargets": ["dao-data:github"],
         "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
       }

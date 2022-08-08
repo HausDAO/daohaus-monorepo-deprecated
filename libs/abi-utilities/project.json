@@ -27,24 +27,6 @@
         "jestConfig": "libs/abi-utilities/jest.config.ts",
         "passWithNoTests": true
       }
-    },
-    "version": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "preset": "conventional",
-        "tagPrefix": "${projectName}@",
-        "noVerify": false,
-        "baseBranch": "ci-add-nrwl-upgrade",
-        "postTargets": ["abi-utilities:github"],
-        "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
-      }
-    },
-    "github": {
-      "executor": "@jscutlery/semver:github",
-      "options": {
-        "tag": "${tag}",
-        "notes": "${notes}"
-      }
     }
   },
   "tags": []

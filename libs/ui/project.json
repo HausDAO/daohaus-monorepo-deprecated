@@ -92,8 +92,8 @@
       "options": {
         "preset": "conventional",
         "tagPrefix": "${projectName}@",
-        "noVerify": false,
-        "baseBranch": "ci-add-nrwl-upgrade",
+        "noVerify": true,
+        "baseBranch": "master",
         "postTargets": ["ui:github"],
         "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
       }

@@ -50,8 +50,8 @@
       "options": {
         "preset": "conventional",
         "tagPrefix": "${projectName}@",
-        "noVerify": false,
-        "baseBranch": "ci-add-nrwl-upgrade",
+        "noVerify": true,
+        "baseBranch": "master",
         "postTargets": ["tx-builder-feature:github"],
         "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
       }

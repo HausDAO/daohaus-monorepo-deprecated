@@ -32,24 +32,6 @@
       "options": {
         "command": "typechain --target ethers-v5 --out-dir ./libs/baal-contract-service/src/lib/generated ./libs/abi-utilities/src/abi/**.json"
       }
-    },
-    "version": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "preset": "conventional",
-        "tagPrefix": "${projectName}@",
-        "noVerify": false,
-        "baseBranch": "ci-add-nrwl-upgrade",
-        "postTargets": ["baal-contract-service:github"],
-        "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
-      }
-    },
-    "github": {
-      "executor": "@jscutlery/semver:github",
-      "options": {
-        "tag": "${tag}",
-        "notes": "${notes}"
-      }
     }
   },
   "tags": []

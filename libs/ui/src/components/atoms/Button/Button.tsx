@@ -3,22 +3,24 @@ import classNames from 'classnames';
 import { IconType } from 'react-icons';
 
 import { ButtonBase } from './Button.styles';
+import { ProfileAvatar, ProfileAvatarProps } from '../../molecules';
 
 export type ButtonProps = {
+  avatar?: boolean;
+  ProfileAvatar?: ProfileAvatarProps;
+  centerAlign?: boolean;
   children?: React.ReactNode;
   className?: string;
-  secondary?: boolean;
-  sm?: boolean;
-  lg?: boolean;
-  tertiary?: boolean;
   disabled?: boolean;
   fullWidth?: boolean;
-  leftAlign?: boolean;
-  centerAlign?: boolean;
-  avatar?: boolean;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
   IconLeft?: IconType;
   IconRight?: IconType;
+  leftAlign?: boolean;
+  lg?: boolean;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  secondary?: boolean;
+  sm?: boolean;
+  tertiary?: boolean;
   type?: 'button' | 'submit' | 'reset';
   value?: string;
   width?: string;
@@ -67,6 +69,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
       type={type}
       value={value}
     >
+      {ProfileAvatar && <ProfileAvatar />}
       {IconLeft && <IconLeft className={`${iconClasses} icon-left`} />}
       {children}
       {IconRight && <IconRight className={`${iconClasses} icon-right`} />}

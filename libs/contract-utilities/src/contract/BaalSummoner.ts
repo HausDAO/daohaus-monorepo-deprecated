@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { BaalSummoner, BaalSummoner__factory } from '@daohaus/baal-contracts';
+import { BaalSummoner, BaalSummonerFactory } from '@daohaus/baal-contracts';
 
 export type ContractConfig = {
   address: string;
@@ -16,7 +16,7 @@ export type SummonArgs = {
 class BaalSummonerContract {
   baalSummoner: BaalSummoner;
   private constructor(contractConfig: ContractConfig) {
-    this.baalSummoner = BaalSummoner__factory.connect(
+    this.baalSummoner = BaalSummonerFactory.connect(
       contractConfig.address,
       contractConfig.provider
     );

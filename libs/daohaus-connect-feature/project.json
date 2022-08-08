@@ -54,7 +54,6 @@
         "tagPrefix": "${projectName}@",
         "noVerify": true,
         "baseBranch": "develop",
-        "postTargets": ["daohaus-connect-feature:github"],
         "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
       }
     },

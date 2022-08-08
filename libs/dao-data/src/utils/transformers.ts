@@ -9,6 +9,8 @@ import {
   DaoTokenBalances,
   QueryProposal,
   ListMembershipsQuery,
+  DaoProfile,
+  ListDaosQuery,
 } from '../types';
 import { getProposalStatus } from './proposalsStatus';
 
@@ -87,4 +89,28 @@ export const transformMembershipList = (
       return list;
     }
   }, []);
+};
+
+export const addDaoProfileFields = (
+  dao: ListDaosQuery['daos'][number]
+): DaoProfile | undefined => {
+  if (!dao.profile || !dao.profile.length) return;
+
+  try {
+    const obj = JSON.parse(dao.profile[0].content);
+    return {
+      description: obj.description,
+      longDescription: obj.longDescription,
+      avatarImg:
+        obj.avatarImg &&
+        `https://daohaus.mypinata.cloud/ipfs/${obj.avatarImg.match(
+          /Qm[a-zA-Z0-9/.]+/
+        )}`,
+      tags: obj.tags,
+      links: obj.links,
+    };
+  } catch (e) {
+    console.log('daoprofile parsing error', e);
+    return;
+  }
 };

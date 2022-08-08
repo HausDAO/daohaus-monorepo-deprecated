@@ -10,7 +10,7 @@
       "options": {
         "outputPath": "dist/libs/daohaus-connect-feature",
         "frameworkConfigFile": "@nxext/react/plugins/vite",
-        "configFile": "libs/tx-builder-feature/vite.config.ts",
+        "configFile": "libs/daohaus-connect-feature/vite.config.ts",
         "entryFile": "src/index.ts",
         "generatePackageJson": true
       }

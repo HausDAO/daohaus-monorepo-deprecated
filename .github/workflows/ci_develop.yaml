@@ -10,7 +10,7 @@ on:
 
 env:
   BASE: ${{ github.ref == 'refs/heads/develop' && 'origin/develop~1' || 'origin/develop' }}
-  SKYNET_JWT: ${{ secrets.SKYNET_JWT }}
+  SKYNET_API_KEY: ${{ secrets.SKYNET_API_KEY }}
   DAOHAUS_SUMMON_SKYNET_SEED: ${{ secrets.DAOHAUS_SUMMON_SKYNET_DEVELOP_SEED }}
   DAOHAUS_HUB_SKYNET_SEED: ${{ secrets.DAOHAUS_HUB_SKYNET_DEVELOP_SEED }}
 

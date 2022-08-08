@@ -37,14 +37,19 @@
     "generate-gql-schema": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "get-graphql-schema https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli > libs/dao-data/src/subgraph/schema.graphql"
+        "commands": [
+          "get-graphql-schema https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli > libs/dao-data/src/subgraph/schema.graphql",
+          "get-graphql-schema https://api.lens.dev > libs/dao-data/src/subgraph/schema-lens.graphql"
+        ]
       }
     },
     "generate-gql-types": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "graphql-codegen --config libs/dao-data/codegen.yaml",
-        "outputPath": "libs/dao-data/src/subgraph/queries"
+        "commands": [
+          "graphql-codegen --config libs/dao-data/codegen.yaml",
+          "graphql-codegen --config libs/dao-data/codegen-lens.yaml"
+        ]
       }
     }
   },

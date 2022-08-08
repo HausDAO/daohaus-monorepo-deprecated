@@ -1,15 +1,14 @@
 name: "Nx migrate"
 
 on:
-  # for testing purposes, should not go in pr
-  pull_request:
-    branches:
-      - 'develop'
-  push:
-    branches:
-      - 'develop'
-  # schedule:
-  #   - cron: "30 13 1 * *" # Runs Monthly on the 1st.
+  schedule:
+    - cron: "30 13 1 * *" # Runs Monthly on the 1st.
+  workflow_dispatch: # adding the workflow_dispatch so it can be triggered manually
+    logLevel:
+      description: 'Log level'
+      required: true
+      default: 'warning'
+
 env:
   BASE: ${{ github.ref == 'refs/heads/develop' && 'origin/develop~1' || 'origin/develop' }}
 
@@ -56,10 +55,11 @@ jobs:
       - name: Run @nrwl/workspace migrations
         if: steps.nrwl-workspace-has-migrations.outputs.has_migrations == 'true'
         run: npx nx migrate --run-migrations
-
       - name: Test mono
         run: NODE_OPTIONS=--experimental-vm-modules nx affected:test --base $BASE
-
+      - name: Setup git user to "🤖 Moloch Bot"
+        shell: bash
+        run: git config user.email "-" && git config user.name "🤖 Moloch Bot"
       - name: Commit changes
         if: steps.nrwl-workspace-outdated.outputs.outdated == 'true'
         run: |
@@ -70,15 +70,16 @@ jobs:
         run: |
           git rm -f migrations.json
           git commit -m "build: 📦 remove migrations.json"
+      - name: Get current nx version
+        id: nx-version
+        run: echo "::set-output name=version::$(npm view @nrwl/workspace version)"
       - name: Push changes
         if: steps.nrwl-workspace-outdated.outputs.outdated == 'true' && steps.test.outcome == 'success'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
-          force: true
+          branch: update-nrwl-workspace-${{ steps.nx-version.outputs.version }}
           tags: true
-
       - name: Create PR
         if: steps.nrwl-workspace-outdated.outputs.outdated == 'true' && steps.test.outcome != 'success'
         run: |
@@ -91,4 +92,4 @@ jobs:
             gh pr create -t "Update @nrwl/workspace" -b "Update @nrwl/workspace dependencies to ${LAST_VERSION}."
           fi
         env:
-          GITHUB_TOKEN: ${{ secrets.MIGRATE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

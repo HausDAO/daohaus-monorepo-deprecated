@@ -1,6 +1,9 @@
 name: "Nx migrate"
 
 on:
+  push:
+    branches:
+      - 'ci-add-nrwl-upgrade'
   schedule:
     - cron: "30 13 1 * *" # Runs Monthly on the 1st.
   workflow_dispatch: # adding the workflow_dispatch so it can be triggered manually

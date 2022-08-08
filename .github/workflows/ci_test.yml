@@ -3,10 +3,7 @@ name: CI Test
 on:
   push:
     branches:
-      - 'ci-add-nrwl-upgrade'
-  pull_request:
-    branches:
-      - 'ci-add-nrwl-upgrade'
+      - 'master'
 
 env:
   BASE: ${{ github.ref == 'refs/heads/ci-add-nrwl-upgrade' && 'origin/ci-add-nrwl-upgrade~1' || 'origin/ci-add-nrwl-upgrade' }}

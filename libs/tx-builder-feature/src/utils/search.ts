@@ -32,5 +32,11 @@ export const searchApp = (
 export const checkHasCondition = (pathString: StringSearch) =>
   pathString.includes('||');
 export const handleConditionalPath = (pathString: StringSearch) => {
-  const;
+  const paths = pathString
+    .trim()
+    .split('||')
+    .map((str) => str.trim())
+    .filter(Boolean);
+
+  return paths;
 };

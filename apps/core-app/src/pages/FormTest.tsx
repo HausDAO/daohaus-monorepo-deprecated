@@ -13,7 +13,11 @@ import {
   FormLego,
 } from '@daohaus/haus-form-builder';
 import { Button, Tooltip } from '@daohaus/ui';
-import { handleGasEstimate } from '@daohaus/tx-builder-feature';
+import {
+  deepSearch,
+  handleGasEstimate,
+  searchApp,
+} from '@daohaus/tx-builder-feature';
 import { useDao } from '../contexts/DaoContext';
 
 const sampleDefaultData = {
@@ -121,6 +125,7 @@ export function FormTest() {
 
     console.log('Result', result);
   };
+
   return (
     <>
       <FormBuilder<CustomFields>
@@ -134,3 +139,26 @@ export function FormTest() {
 }
 
 export default FormTest;
+
+const testAppState = {
+  chainId: '0x5',
+  safeId: '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761',
+  daoId: '0xFCeaEc9d2c283d0aaF9F323dC840042a5A5b54E1',
+  form: {
+    title: 'Test title',
+    description: 'Test description',
+    nestedInput: {
+      foo: 'bar',
+    },
+  },
+  appData: {
+    shamans: {
+      admins: [
+        '0xFCeaEc9d2c283d0aaF9F323dC840042a5A5b54E1',
+        '0xA238CBeb142c10Ef7Ad8442C6D1f9E89e07e7761',
+      ],
+    },
+  },
+};
+
+console.log(searchApp(testAppState, '.appData.shamans.admins.0', true));

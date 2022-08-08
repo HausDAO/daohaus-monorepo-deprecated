@@ -18,7 +18,7 @@ export const searchApp = (
   shouldThrow = false
 ) => {
   const result = deepSearch(appState, pathString) || false;
-  if (!result) {
+  if (!result != null) {
     if (shouldThrow) {
       console.log('**Application State**', appState);
       throw new Error(`Could not find ${pathString}`);
@@ -27,4 +27,10 @@ export const searchApp = (
     }
   }
   return result;
+};
+
+export const checkHasCondition = (pathString: StringSearch) =>
+  pathString.includes('||');
+export const handleConditionalPath = (pathString: StringSearch) => {
+  const;
 };

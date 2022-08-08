@@ -1,34 +1,28 @@
-import { getContractAddressesForChainOrThrow } from '../contract';
+import { getContractAddressesForChain } from '../contract';
 
 describe('baal contract loads', () => {
-  let posterAddress: string;
-  let gnosisMultisendAddress: string;
-  let baalSummonerAddress: string;
-  let baalAddress: string;
-  let lootAddress: string;
-  let sharesAddress: string;
-  let tributeMinionAddress: string;
+  let posterAddress: string | null;
+  let gnosisMultisendAddress: string | null;
+  let baalSummonerAddress: string | null;
+  let baalAddress: string | null;
+  let lootAddress: string | null;
+  let sharesAddress: string | null;
+  let tributeMinionAddress: string | null;
 
   beforeAll(() => {
-    posterAddress = getContractAddressesForChainOrThrow('V3_FACTORY', '0x5');
-    gnosisMultisendAddress = getContractAddressesForChainOrThrow(
+    posterAddress = getContractAddressesForChain('V3_FACTORY', '0x5');
+    gnosisMultisendAddress = getContractAddressesForChain(
       'LOOT_SINGLETON',
       '0x5'
     );
-    baalSummonerAddress = getContractAddressesForChainOrThrow(
+    baalSummonerAddress = getContractAddressesForChain(
       'SHARES_SINGLETON',
       '0x5'
     );
-    baalAddress = getContractAddressesForChainOrThrow('BAAL_SINGLETON', '0x5');
-    lootAddress = getContractAddressesForChainOrThrow(
-      'GNOSIS_MULTISEND',
-      '0x5'
-    );
-    sharesAddress = getContractAddressesForChainOrThrow(
-      'TRIBUTE_MINION',
-      '0x5'
-    );
-    tributeMinionAddress = getContractAddressesForChainOrThrow('POSTER', '0x5');
+    baalAddress = getContractAddressesForChain('BAAL_SINGLETON', '0x5');
+    lootAddress = getContractAddressesForChain('GNOSIS_MULTISEND', '0x5');
+    sharesAddress = getContractAddressesForChain('TRIBUTE_MINION', '0x5');
+    tributeMinionAddress = getContractAddressesForChain('POSTER', '0x5');
   });
 
   it('should include contracts of the chainId', () => {

@@ -10,7 +10,7 @@ import {
 
 import type { Signer } from 'ethers';
 import type { Provider } from '@ethersproject/providers';
-import { ContractFactories, Contracts } from './types';
+import { Contracts, ContractsAndFactories } from './types';
 
 import {
   ValidNetwork,
@@ -51,8 +51,8 @@ export const getContractAddressesForChain = (
 export const getContractsForChain = (
   chainId: ValidNetwork,
   signerOrProvider: Signer | Provider,
-  onlyContracts: boolean
-): (ContractFactories & Contracts) | Contracts => {
+  onlyContracts = false
+): Contracts | ContractsAndFactories => {
   /* prettier-ignore */
   const addresses = {
     baal: getContractAddressesForChain('BAAL_SINGLETON', chainId) as string,
@@ -65,12 +65,14 @@ export const getContractsForChain = (
   };
 
   /* prettier-ignore */
-  const contracts = {
+  const contracts: Contracts = {
     baalContract: BaalContract.create({address: addresses.baal, provider: signerOrProvider}),
     baalSummonerContract: BaalSummonerContract.create({address: addresses.baalSummoner, provider: signerOrProvider}),
   };
 
-  if (onlyContracts) return contracts;
+  if (onlyContracts) {
+    return contracts;
+  }
 
   /* prettier-ignore */
   return {
@@ -82,5 +84,5 @@ export const getContractsForChain = (
     tributeMinionFactory: addresses.tributeMinion ? TributeMinionFactory.connect(addresses.tributeMinion, signerOrProvider) : null,
     posterFactory: addresses.poster ? PosterFactory.connect(addresses.poster, signerOrProvider) : null,
     gnosisMultisendFactory: addresses.gnosisMultisend ? MultiSendFactory.connect(addresses.gnosisMultisend,  signerOrProvider) : null,
-  }
+  } as ContractsAndFactories;
 };

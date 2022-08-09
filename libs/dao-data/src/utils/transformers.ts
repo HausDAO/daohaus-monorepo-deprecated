@@ -30,7 +30,7 @@ export const transformProfile = (
   return {
     address,
     name: profile?.name,
-    ens: profile?.onChainIdentity.ens?.name,
+    ens: profile?.onChainIdentity?.ens?.name,
     image:
       profile?.picture?.__typename === 'MediaSet'
         ? `https://daohaus.mypinata.cloud/ipfs/${profile.picture.original.url.match(

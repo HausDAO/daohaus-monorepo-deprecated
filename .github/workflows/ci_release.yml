@@ -64,7 +64,7 @@ jobs:
         run: npx nx affected --base $BASE --target=version --parallel 1
       - name: Create PR
         run: |
-          CURRENT_DATE=$(date +'%Y-%m-%d-%T')
+          CURRENT_DATE=$(date +'%Y-%m-%d %I%M%S')
           BRANCH="bump-lib-versions-${CURRENT_DATE}"
           git checkout -b "${BRANCH}"
           git push -f --set-upstream origin "${BRANCH}"

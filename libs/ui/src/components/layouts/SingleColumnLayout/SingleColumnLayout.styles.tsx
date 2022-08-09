@@ -23,7 +23,6 @@ export const ColumnHeader = styled.div`
   .description {
     margin-bottom: 5rem;
   }
-  }
 `;
 
 export const ContentBox = styled.div`

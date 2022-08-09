@@ -78,7 +78,6 @@
         "config": {
           "configFolder": "libs/ui/.storybook"
         },
-
         "quiet": false
       },
       "configurations": {

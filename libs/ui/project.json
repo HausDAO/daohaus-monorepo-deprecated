@@ -74,7 +74,6 @@
         "config": {
           "configFolder": "libs/ui/.storybook"
         },
-
         "quiet": false
       },
       "configurations": {
@@ -99,7 +98,7 @@
         "portalUrl": "https://skynetfree.net",
         "skynetApiKeyVarName": "SKYNET_API_KEY"
       },
-      "dependsOn": [{ "target": "build-storybook", "projects": "self" }]
+      "dependsOn": [{ "target": "build-storybook","projects": "self" }]
     }
   }
 }

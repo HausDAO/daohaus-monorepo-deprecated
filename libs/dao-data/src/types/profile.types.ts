@@ -1,28 +1,16 @@
 import { ITransformedMembershipsQuery } from './query.types';
+import { ListProfileQuery } from '../subgraph/queries-lens/profiles.generated';
 
-type BasicProfileImage = {
-  original: {
-    src: string;
-    width: number;
-    height: number;
-    mimeType: string;
-    size: number;
-  };
-};
-
-export type BasicProfile = {
-  image?: BasicProfileImage;
-  name?: string;
-  description?: string;
-  emoji?: string;
-};
+export type LensProfile = ListProfileQuery['profiles']['items'][number];
 
 export type AccountProfile = {
   address: string;
-  ens: string | null;
+  ens?: string;
   image?: string;
   name?: string;
   description?: string;
   emoji?: string;
+  lensHandle?: string;
+  lensId?: string;
   daos?: ITransformedMembershipsQuery['daos'];
 };

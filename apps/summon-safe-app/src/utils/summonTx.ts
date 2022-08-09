@@ -1,4 +1,4 @@
-import { LOCAL_ABI } from '@daohaus/abi-utilities';
+import { BAAL_ABI, POSTER_ABI } from '@daohaus/contract-utilities';
 import { utils } from 'ethers';
 import {
   ArgType,
@@ -21,7 +21,7 @@ const tokenConfigTX = (formValues: FormValues) => {
   const pauseVoteToken = !formValues.votingTransferable;
   const pauseNvToken = !formValues.votingTransferable;
 
-  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'setAdminConfig', [
+  const encoded = encodeFunction(BAAL_ABI, 'setAdminConfig', [
     pauseVoteToken,
     pauseNvToken,
   ]);
@@ -64,7 +64,7 @@ const governanceConfigTX = (formValues: FormValues) => {
       minRetention,
     ]
   );
-  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'setGovernanceConfig', [
+  const encoded = encodeFunction(BAAL_ABI, 'setGovernanceConfig', [
     encodedValues,
   ]);
   if (isString(encoded)) {
@@ -74,14 +74,14 @@ const governanceConfigTX = (formValues: FormValues) => {
 };
 
 export const shamanConfigTX = (formValues: FormValues) => {
-  const { shamans } = formValues
+  const { shamans } = formValues;
 
   if (shamans === '' || !shamans) {
-    const encoded = encodeFunction(LOCAL_ABI.BAAL, 'setShamans', [[], []])
+    const encoded = encodeFunction(BAAL_ABI, 'setShamans', [[], []]);
     if (isString(encoded)) {
-      return encoded
+      return encoded;
     }
-    throw new Error('Encoding Error')
+    throw new Error('Encoding Error');
   }
   if (
     !isArray(shamans?.shamanAddresses) ||
@@ -89,23 +89,23 @@ export const shamanConfigTX = (formValues: FormValues) => {
     !isArray(shamans?.shamanPermissions) ||
     shamans.shamanPermissions.some((addr) => !isNumberish(addr))
   ) {
-    console.error('ERROR: Form Values', formValues)
+    console.error('ERROR: Form Values', formValues);
     throw new Error(
       'shamanConfigTX recieved arguments in the wrong shape or type'
-    )
+    );
   }
-  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'setShamans', [
+  const encoded = encodeFunction(BAAL_ABI, 'setShamans', [
     shamans.shamanAddresses,
     shamans.shamanPermissions,
-  ])
+  ]);
   if (isString(encoded)) {
     return encoded;
   }
-  throw new Error('Encoding Error')
+  throw new Error('Encoding Error');
 };
 
 export const shareConfigTX = (formValues: FormValues) => {
-  const { members } = formValues
+  const { members } = formValues;
   if (
     !members ||
     !isArray(members?.memberAddresses) ||
@@ -113,27 +113,27 @@ export const shareConfigTX = (formValues: FormValues) => {
     !isArray(members?.memberShares) ||
     members.memberShares.some((shares) => !isNumberish(shares))
   ) {
-    console.error('ERROR: Form Values', formValues)
+    console.error('ERROR: Form Values', formValues);
     throw new Error(
       'shareConfigTX recieved arguments in the wrong shape or type'
-    )
+    );
   }
 
-  const wholeShareAmts = members.memberShares
-  const sharesInBaseUnits = wholeShareAmts.map((shares) => toBaseUnits(shares))
-  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'mintShares', [
+  const wholeShareAmts = members.memberShares;
+  const sharesInBaseUnits = wholeShareAmts.map((shares) => toBaseUnits(shares));
+  const encoded = encodeFunction(BAAL_ABI, 'mintShares', [
     members.memberAddresses,
     sharesInBaseUnits,
-  ])
+  ]);
 
   if (isString(encoded)) {
-    return encoded
+    return encoded;
   }
-  throw new Error('Encoding Error')
+  throw new Error('Encoding Error');
 };
 
 export const lootConfigTX = (formValues: FormValues) => {
-  const { members } = formValues
+  const { members } = formValues;
 
   if (
     !members ||
@@ -142,20 +142,20 @@ export const lootConfigTX = (formValues: FormValues) => {
     !isArray(members?.memberShares) ||
     members.memberShares.some((shares) => !isNumberish(shares))
   ) {
-    console.error('ERROR: Form Values', formValues)
+    console.error('ERROR: Form Values', formValues);
     throw new Error(
       'shareConfigTX recieved arguments in the wrong shape or type'
-    )
+    );
   }
 
-  const wholeLootAmts = members.memberLoot
+  const wholeLootAmts = members.memberLoot;
   const lootInBaseUnits = wholeLootAmts.map((loot) =>
     toBaseUnits(loot.toString())
-  )
-  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'mintLoot', [
+  );
+  const encoded = encodeFunction(BAAL_ABI, 'mintLoot', [
     members.memberAddresses,
     lootInBaseUnits,
-  ])
+  ]);
   if (isString(encoded)) {
     return encoded;
   }
@@ -163,26 +163,26 @@ export const lootConfigTX = (formValues: FormValues) => {
 };
 
 const metadataConfigTX = (formValues: FormValues, posterAddress: string) => {
-  const { daoName } = formValues
+  const { daoName } = formValues;
   if (!isString(daoName)) {
-    console.error('ERROR: Form Values', formValues)
-    throw new Error('metadataTX recieved arguments in the wrong shape or type')
+    console.error('ERROR: Form Values', formValues);
+    throw new Error('metadataTX recieved arguments in the wrong shape or type');
   }
 
-  const METADATA = encodeFunction(LOCAL_ABI.POSTER, 'post', [
+  const METADATA = encodeFunction(POSTER_ABI, 'post', [
     JSON.stringify({ name: daoName }),
     POSTER_TAGS.summoner,
-  ])
+  ]);
 
-  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'executeAsBaal', [
+  const encoded = encodeFunction(BAAL_ABI, 'executeAsBaal', [
     posterAddress,
     0,
     METADATA,
-  ])
+  ]);
   if (isString(encoded)) {
-    return encoded
+    return encoded;
   }
-  throw new Error('Encoding Error')
+  throw new Error('Encoding Error');
 };
 
 export const handleKeychains = (chainId: ValidNetwork) => {
@@ -202,7 +202,7 @@ export const handleKeychains = (chainId: ValidNetwork) => {
 export const assembleTxArgs = (
   formValues: Record<string, unknown>,
   chainId: ValidNetwork,
-  safeAddress: string,
+  safeAddress: string
 ): ArgType[] => {
   const tokenName = formValues[FORM_KEYS.TOKEN_NAME];
   const tokenSymbol = formValues[FORM_KEYS.TOKEN_SYMBOL];

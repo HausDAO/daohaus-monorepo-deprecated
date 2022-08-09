@@ -4,13 +4,13 @@ import {
   ITransformedMembership,
   IFindQueryResult,
   AccountProfile,
-  BasicProfile,
   TokenBalance,
   DaoTokenBalances,
   QueryProposal,
   ListMembershipsQuery,
   DaoProfile,
   ListDaosQuery,
+  LensProfile,
 } from '../types';
 import { getProposalStatus } from './proposalsStatus';
 
@@ -25,18 +25,21 @@ export const transformProposal = (
 
 export const transformProfile = (
   address: string,
-  ens: string | null,
-  profile: BasicProfile
+  profile: LensProfile
 ): AccountProfile => {
   return {
     address,
-    ens,
-    ...profile,
+    name: profile?.name,
+    ens: profile?.onChainIdentity?.ens?.name,
     image:
-      profile.image?.original?.src &&
-      `https://daohaus.mypinata.cloud/ipfs/${profile.image.original.src.match(
-        /Qm[a-zA-Z0-9/.]+/
-      )}`,
+      profile?.picture?.__typename === 'MediaSet'
+        ? `https://daohaus.mypinata.cloud/ipfs/${profile.picture.original.url.match(
+            /Qm[a-zA-Z0-9/.]+/
+          )}`
+        : '',
+    description: profile?.bio,
+    lensHandle: profile?.handle,
+    lensId: profile?.id,
   };
 };
 

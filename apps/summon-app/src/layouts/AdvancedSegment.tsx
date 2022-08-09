@@ -1,6 +1,6 @@
 import { FormSegment, SplitColumn, WrappedInput } from '@daohaus/ui';
+import { INFO_COPY } from '@daohaus/common-utilities';
 
-import { INFO_COPY } from '../utils/content';
 import { FORM_KEYS } from '../utils/formKeys';
 
 export const AdvancedSegment = ({

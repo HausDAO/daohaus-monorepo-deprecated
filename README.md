@@ -43,8 +43,7 @@ Our libraries in the `libs` folder are structured to be consumed by our apps as 
 
 | Lib                                                      | Entry Point                    |
 | -------------------------------------------------------- | ------------------------------ |
-| [ABI Utilities](./libs/abi-utilities/)                   | `libs/abi-utilities`           |
-| [Baal Contract Service](./libs/baal-contract-service/)   | `libs/baal-contract-service`   |
+| [Contract Utilities](./libs/contract-utilties/)          | `libs/contract-utilties`       |
 | [Common Utilities](./libs/common-utilities/)             | `libs/common-utilities`        |
 | [DAO Data SDK](./libs/dao-data)                          | `libs/dao-data-sdk`            |
 | [Component Library (UI)](./libs/ui)                      | `libs/ui`                      |

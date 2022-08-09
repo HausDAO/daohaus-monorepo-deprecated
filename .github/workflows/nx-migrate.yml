@@ -98,7 +98,12 @@ jobs:
           git push -f --set-upstream origin "${BRANCH}"
           PR=$(gh pr view "${BRANCH}")
           if [[ $PR == *"no pull requests found"* ]]; then
-            gh pr create --repo HausDAO/daohaus-monorepo --base "${BASE}" --head "${BRANCH}" --title string "Update @nrwl/workspace" --body string "Update @nrwl/workspace dependencies to ${LAST_VERSION}."
+            gh pr create \
+              --repo HausDAO/daohaus-monorepo \
+              --base "${BASE}" \
+              --head "${BRANCH}" \
+              --title string "Update @nrwl/workspace" \
+              --body string "Update @nrwl/workspace dependencies to ${LAST_VERSION}."
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -70,7 +70,12 @@ jobs:
           git push -f --set-upstream origin "${BRANCH}"
           PR=$(gh pr view "${BRANCH}")
           if [[ $PR == *"no pull requests found"* ]]; then
-            gh pr create -t "bump lib versions" -b "bump lib versions on ${CURRENT_DATE}."
+            gh pr create \
+              --title "bump lib versions - ${CURRENT_DATE}" \
+              --body "bump lib versions - ${CURRENT_DATE}." \
+              --repo HausDAO/daohaus-monorepo \
+              --base develop \
+              --head "${BRANCH}"
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

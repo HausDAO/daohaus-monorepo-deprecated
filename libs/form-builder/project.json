@@ -1,5 +1,4 @@
 {
-  "root": "libs/form-builder",
   "sourceRoot": "libs/form-builder/src",
   "projectType": "library",
   "tags": [],

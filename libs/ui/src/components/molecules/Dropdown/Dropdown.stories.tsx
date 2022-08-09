@@ -39,7 +39,7 @@ const networkPanels = [
 export const FullDropdown = Template.bind({});
 
 FullDropdown.args = {
-  menuWidth: '26rem',
+  menuMinWidth: '26rem',
   align: 'end',
   trigger: (
     <Button IconLeft={RiAlertLine} tertiary>
@@ -47,7 +47,7 @@ FullDropdown.args = {
     </Button>
   ),
   children: [
-    <DropdownLabel>
+    <DropdownLabel key={'0x1'}>
       <ParXs>Switch to available network</ParXs>
     </DropdownLabel>,
     ...networkPanels,

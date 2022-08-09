@@ -1,11 +1,8 @@
 import React from 'react';
-import { v4 as uuid } from 'uuid';
 import {
   DropdownMenuProps,
   DropdownMenuContentProps,
 } from '@radix-ui/react-dropdown-menu';
-
-import { Side, Align } from '@radix-ui/popper';
 
 import { useTheme } from 'styled-components';
 import {
@@ -31,7 +28,7 @@ type DropdownProps = DropdownMenuProps &
   DropdownMenuContentProps & {
     trigger: React.ReactNode;
     spacing?: string;
-    menuWidth?: string;
+    menuMinWidth?: string;
     menuBg?: string;
     className?: string;
   };
@@ -49,7 +46,7 @@ export const Dropdown = ({
   alignOffset,
   avoidCollisions,
   className,
-  menuWidth = 'fit-content',
+  menuMinWidth = 'fit-content',
   menuBg,
   children,
 }: DropdownProps) => {
@@ -71,7 +68,7 @@ export const Dropdown = ({
         avoidCollisions={avoidCollisions}
         className={className}
         bg={menuBg || theme.dropdown.bg}
-        width={menuWidth}
+        minwidth={menuMinWidth}
       >
         {children}
       </DropdownMenuContent>

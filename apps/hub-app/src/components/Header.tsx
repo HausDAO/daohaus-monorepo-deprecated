@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {
   Button,
   Dropdown,
+  DropdownMenuItem,
   ParMd,
   useBreakpoint,
   widthQuery,
@@ -73,20 +74,18 @@ const Header = () => {
   return (
     <HeaderContainer>
       <Dropdown
-        bg={indigoDark.indigo3}
+        menuBg={indigoDark.indigo3}
         align="center"
         trigger={
           <StyledButton IconRight={StyledChevron} IconLeft={StyledCommand}>
             HUB
           </StyledButton>
         }
-        items={[
-          {
-            type: 'clickable',
-            content: <StyledParMd>Summon</StyledParMd>,
-          },
-        ]}
-      />
+      >
+        <DropdownMenuItem>
+          <StyledParMd>Summon</StyledParMd>
+        </DropdownMenuItem>
+      </Dropdown>
       <ConnectButton isSm={isSm} />
     </HeaderContainer>
   );

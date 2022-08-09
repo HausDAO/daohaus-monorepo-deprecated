@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { ParXs } from '../../atoms/Typography';
 import { Button } from '../../atoms/Button/Button';
 import { Dropdown } from './Dropdown';
-import { DropdownMenuItem, DropdownLabel } from './Dropdown.styles';
+import { DropdownMenuItem, DropdownMenuLabel } from './Dropdown.styles';
 
 export default {
   title: 'Molecules/Dropdown',
@@ -48,9 +48,9 @@ FullDropdown.args = {
     </Button>
   ),
   children: [
-    <DropdownLabel key={uuidv4()}>
+    <DropdownMenuLabel key={uuidv4()}>
       <ParXs>Switch to available network</ParXs>
-    </DropdownLabel>,
+    </DropdownMenuLabel>,
     ...networkPanels,
   ],
 };

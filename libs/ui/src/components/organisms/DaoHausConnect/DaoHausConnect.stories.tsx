@@ -3,11 +3,11 @@ import { BiError } from 'react-icons/bi';
 import { RiUserAddLine, RiAlertLine } from 'react-icons/ri';
 import { v4 as uuidv4 } from 'uuid';
 import { violet } from '@radix-ui/colors';
+import styled from 'styled-components';
 
 import { ButtonProps, Button } from '../../atoms/Button/Button';
 import { Bold, ParMd, ParXs } from '../../atoms/Typography';
-import styled from 'styled-components';
-import { DropdownLabel, DropdownMenuItem, Dropdown } from '../../molecules';
+import { DropdownMenuLabel, DropdownMenuItem, Dropdown } from '../../molecules';
 
 export default {
   title: 'Recipes/DaoHausConnect',
@@ -147,11 +147,11 @@ UserConnectedDropdown.args = {
     </Button>
   ),
   children: [
-    <DropdownLabel key={uuidv4()}>
+    <DropdownMenuLabel key={uuidv4()}>
       <ParXs>
         Connected to <Bold>Ethereum</Bold>
       </ParXs>
-    </DropdownLabel>,
+    </DropdownMenuLabel>,
     <DropdownMenuItem key={uuidv4()} spacing="0.7rem">
       <ExitButton>Disconnect</ExitButton>
     </DropdownMenuItem>,
@@ -188,9 +188,9 @@ NetworkUnavailableDropdown.args = {
     </Button>
   ),
   children: [
-    <DropdownLabel key={uuidv4()}>
+    <DropdownMenuLabel key={uuidv4()}>
       <ParXs>Switch to available network</ParXs>
-    </DropdownLabel>,
+    </DropdownMenuLabel>,
     ...networkPanels,
   ],
 };

@@ -50,7 +50,7 @@ export const DropdownMenuItem = styled(Dropdown.Item)`
   margin-bottom: ${(props: { spacing?: string }) => props.spacing};
 `;
 
-export const DropdownLabel = styled(Dropdown.Label)`
+export const DropdownMenuLabel = styled(Dropdown.Label)`
   display: flex;
   align-items: flex-start;
   padding: 1.2rem;

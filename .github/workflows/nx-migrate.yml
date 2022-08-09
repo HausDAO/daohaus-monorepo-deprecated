@@ -99,6 +99,7 @@ jobs:
           PR=$(gh pr view "${BRANCH}")
           if [[ $PR == *"no pull requests found"* ]]; then
             gh pr create \
+              --fill \
               --repo HausDAO/daohaus-monorepo \
               --base "${BASE}" \
               --head "${BRANCH}" \

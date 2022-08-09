@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { RiAlertLine } from 'react-icons/ri';
+import { v4 as uuidv4 } from 'uuid';
 
 import { ParXs } from '../../atoms/Typography';
 import { Button } from '../../atoms/Button/Button';
@@ -47,7 +48,7 @@ FullDropdown.args = {
     </Button>
   ),
   children: [
-    <DropdownLabel key={'0x1'}>
+    <DropdownLabel key={uuidv4()}>
       <ParXs>Switch to available network</ParXs>
     </DropdownLabel>,
     ...networkPanels,

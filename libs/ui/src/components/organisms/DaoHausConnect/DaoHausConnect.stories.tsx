@@ -1,11 +1,13 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { BiError } from 'react-icons/bi';
 import { RiUserAddLine, RiAlertLine } from 'react-icons/ri';
+import { v4 as uuidv4 } from 'uuid';
+import { violet } from '@radix-ui/colors';
+
 import { ButtonProps, Button } from '../../atoms/Button/Button';
 import { Bold, ParMd, ParXs } from '../../atoms/Typography';
 import styled from 'styled-components';
-import { violet } from '@radix-ui/colors';
-import { DropdownItem, Dropdown } from '../../molecules/Dropdown/Dropdown';
+import { DropdownLabel, DropdownMenuItem, Dropdown } from '../../molecules';
 
 export default {
   title: 'Recipes/DaoHausConnect',
@@ -132,36 +134,29 @@ const Template: ComponentStory<typeof Dropdown> = (props) => {
 
 export const UserConnectedDropdown = Template.bind({});
 
-// UserConnectedDropdown.args = {
-//   trigger: (
-//     <Button avatar fullWidth>
-//       <Container>
-//         <TemporaryAvatar />
-//         <div className="interior">
-//           <ParMd>Kagahara</ParMd>
-//           <ParXs>@Ethereum</ParXs>
-//         </div>
-//       </Container>
-//     </Button>
-//   ),
-//   items: [
-//     {
-//       type: 'label',
-//       content: (
-//         <div style={{ padding: '.8rem' }}>
-//           <ParXs style={{ marginBottom: '.5rem' }}>0xd24bf...6c3b</ParXs>
-//           <ParXs>
-//             Connected to <Bold>Ethereum</Bold>
-//           </ParXs>
-//         </div>
-//       ),
-//     },
-//     {
-//       type: 'clickable',
-//       content: <ExitButton>Disconnect</ExitButton>,
-//     },
-//   ],
-// };
+UserConnectedDropdown.args = {
+  trigger: (
+    <Button avatar>
+      <Container>
+        <TemporaryAvatar />
+        <div className="interior">
+          <ParMd>Kagahara</ParMd>
+          <ParXs>@Ethereum</ParXs>
+        </div>
+      </Container>
+    </Button>
+  ),
+  children: [
+    <DropdownLabel key={uuidv4()}>
+      <ParXs>
+        Connected to <Bold>Ethereum</Bold>
+      </ParXs>
+    </DropdownLabel>,
+    <DropdownMenuItem key={uuidv4()} spacing="0.7rem">
+      <ExitButton>Disconnect</ExitButton>
+    </DropdownMenuItem>,
+  ],
+};
 
 const networkPanels = [
   'Mainnet',
@@ -173,28 +168,29 @@ const networkPanels = [
   'Polygon',
   'Kovan',
   'Rinkeby',
-].map((item) => ({
-  type: 'clickable',
-  content: (
+].map((item, index) => (
+  <DropdownMenuItem key={index} spacing="0.7rem">
     <Button secondary fullWidth leftAlign>
       {item}
     </Button>
-  ),
-})) as DropdownItem[];
+  </DropdownMenuItem>
+));
 
 export const NetworkUnavailableDropdown = Template.bind({});
 
-// NetworkUnavailableDropdown.args = {
-//   spacing: '0.7rem',
-//   align: 'end',
-//   width: '26rem',
-//   trigger: (
-//     <Button IconLeft={RiAlertLine} tertiary>
-//       Network Unavailable
-//     </Button>
-//   ),
-//   items: [
-//     { type: 'label', content: <ParXs>Switch to available network</ParXs> },
-//     ...networkPanels,
-//   ],
-// };
+NetworkUnavailableDropdown.args = {
+  spacing: '0.7rem',
+  align: 'end',
+  menuMinWidth: '26rem',
+  trigger: (
+    <Button IconLeft={RiAlertLine} tertiary>
+      Network Unavailable
+    </Button>
+  ),
+  children: [
+    <DropdownLabel key={uuidv4()}>
+      <ParXs>Switch to available network</ParXs>
+    </DropdownLabel>,
+    ...networkPanels,
+  ],
+};

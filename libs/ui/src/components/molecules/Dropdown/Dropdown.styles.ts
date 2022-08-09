@@ -5,21 +5,18 @@ export const DropdownMenu = Dropdown.Root;
 export const DropdownMenuTrigger = styled(Dropdown.Trigger)``;
 
 type MenuContentType = {
-  bg?: string;
-  minWidth?: string;
+  bg: string;
+  minwidth: string;
 };
 
-export const DropdownMenuContent = styled(Dropdown.DropdownMenuContent)<{
-  minwidth: string;
-  bg: string;
-}>`
-  background-color: ${(props) => props.bg};
+export const DropdownMenuContent = styled(Dropdown.DropdownMenuContent)`
+  background-color: ${(props: MenuContentType) => props.bg};
   padding: 0.4rem;
-  min-width: ${(props) => props.minwidth};
+  min-width: ${(props: MenuContentType) => props.minwidth};
 `;
 
 // Trigger for Dropdown styled as a link/tab
-export const DropdownTriggerAsLink = styled.button`
+export const DropdownTriggerLink = styled.button`
   background-color: transparent;
   border: none;
   border-bottom: 2px transparent solid;

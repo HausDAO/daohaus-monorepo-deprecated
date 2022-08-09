@@ -3,23 +3,15 @@ import {
   DropdownMenuProps,
   DropdownMenuContentProps,
 } from '@radix-ui/react-dropdown-menu';
-
 import { useTheme } from 'styled-components';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownLabel,
 } from './Dropdown.styles';
 
-const DropdownContentOptions = {
-  clickable: DropdownMenuItem,
-  label: DropdownLabel,
-};
-
 export type DropdownItem = {
-  type: keyof typeof DropdownContentOptions;
   content: React.ReactNode;
   key?: string;
 };

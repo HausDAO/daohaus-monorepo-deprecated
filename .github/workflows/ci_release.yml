@@ -1,6 +1,9 @@
 name: CI Release
 
 on:
+  push:
+    branches:
+      - ci-add-nrwl-upgrade
   workflow_dispatch: # adding the workflow_dispatch so it can be triggered manually
 
 env:

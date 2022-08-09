@@ -1,9 +1,6 @@
 name: CI Release
 
 on:
-  push:
-    branches:
-      - ci-add-nrwl-upgrade
   workflow_dispatch: # adding the workflow_dispatch so it can be triggered manually
 
 env:
@@ -67,7 +64,7 @@ jobs:
         run: npx nx affected --base $BASE --target=version --parallel 1
       - name: Create PR
         run: |
-          CURRENT_DATE=$(date +'%Y-%m-%d')
+          CURRENT_DATE=$(date +'%Y-%m-%d-%T')
           BRANCH="bump-lib-versions-${CURRENT_DATE}"
           git checkout -b "${BRANCH}"
           git push -f --set-upstream origin "${BRANCH}"

@@ -1,4 +1,4 @@
-import { LOCAL_ABI } from '@daohaus/abi-utilities';
+import { BAAL_ABI, POSTER_ABI } from '@daohaus/contract-utilities';
 import {
   ArgType,
   CONTRACTS,
@@ -20,7 +20,7 @@ const tokenConfigTX = (formValues: FormValues) => {
   const pauseVoteToken = !formValues.votingTransferable;
   const pauseNvToken = !formValues.votingTransferable;
 
-  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'setAdminConfig', [
+  const encoded = encodeFunction(BAAL_ABI, 'setAdminConfig', [
     pauseVoteToken,
     pauseNvToken,
   ]);
@@ -63,7 +63,7 @@ const governanceConfigTX = (formValues: FormValues) => {
       minRetention,
     ]
   );
-  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'setGovernanceConfig', [
+  const encoded = encodeFunction(BAAL_ABI, 'setGovernanceConfig', [
     encodedValues,
   ]);
   if (isString(encoded)) {
@@ -76,7 +76,7 @@ export const shamanConfigTX = (formValues: FormValues) => {
   const { shamans } = formValues;
 
   if (shamans === '' || !shamans) {
-    const encoded = encodeFunction(LOCAL_ABI.BAAL, 'setShamans', [[], []]);
+    const encoded = encodeFunction(BAAL_ABI, 'setShamans', [[], []]);
     if (isString(encoded)) {
       return encoded;
     }
@@ -93,7 +93,7 @@ export const shamanConfigTX = (formValues: FormValues) => {
       'shamanConfigTX recieved arguments in the wrong shape or type'
     );
   }
-  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'setShamans', [
+  const encoded = encodeFunction(BAAL_ABI, 'setShamans', [
     shamans.shamanAddresses,
     shamans.shamanPermissions,
   ]);
@@ -121,7 +121,7 @@ export const shareConfigTX = (formValues: FormValues) => {
 
   const wholeShareAmts = members.memberShares;
   const sharesInBaseUnits = wholeShareAmts.map((shares) => toBaseUnits(shares));
-  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'mintShares', [
+  const encoded = encodeFunction(BAAL_ABI, 'mintShares', [
     members.memberAddresses,
     sharesInBaseUnits,
   ]);
@@ -152,7 +152,7 @@ export const lootConfigTX = (formValues: FormValues) => {
   const lootInBaseUnits = wholeLootAmts.map((loot) =>
     toBaseUnits(loot.toString())
   );
-  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'mintLoot', [
+  const encoded = encodeFunction(BAAL_ABI, 'mintLoot', [
     members.memberAddresses,
     lootInBaseUnits,
   ]);
@@ -169,12 +169,12 @@ const metadataConfigTX = (formValues: FormValues, posterAddress: string) => {
     throw new Error('metadataTX recieved arguments in the wrong shape or type');
   }
 
-  const METADATA = encodeFunction(LOCAL_ABI.POSTER, 'post', [
+  const METADATA = encodeFunction(POSTER_ABI, 'post', [
     JSON.stringify({ name: daoName }),
     POSTER_TAGS.summoner,
   ]);
 
-  const encoded = encodeFunction(LOCAL_ABI.BAAL, 'executeAsBaal', [
+  const encoded = encodeFunction(BAAL_ABI, 'executeAsBaal', [
     posterAddress,
     0,
     METADATA,

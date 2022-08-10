@@ -1,5 +1,5 @@
 schema: 'libs/dao-data/src/subgraph/schema.graphql'
-documents: 'libs/dao-data/src/subgraph/**/*.graphql'
+documents: 'libs/dao-data/src/subgraph/queries/*.graphql'
 overwrite: true
 config:
   skipDocumentsValidation: true

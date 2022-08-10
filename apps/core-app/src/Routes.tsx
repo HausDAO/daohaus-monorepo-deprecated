@@ -8,10 +8,9 @@ import DaoOverview from './pages/DaoOverview';
 import Proposals from './pages/Proposals';
 import Vaults from './pages/Vaults';
 
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { DaoContextProvider, useDao } from './contexts/DaoContext';
-import { TXBuilder } from '@daohaus/tx-builder-feature';
+import { DaoContextProvider } from './contexts/DaoContext';
 import FormTest from './pages/FormTest';
+import Settings from './pages/Settings';
 
 const Routes = () => {
   return (
@@ -32,7 +31,7 @@ const Routes = () => {
         <Route path="vaults" element={<Vaults />} />
         <Route path="members" element={<Members />} />
         <Route path="member/:memberAddress" element={<Members />} />
-        <Route path="settings" element={<DaoOverview />} />
+        <Route path="settings" element={<Settings />} />
       </Route>
     </RoutesDom>
   );

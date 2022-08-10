@@ -143,11 +143,14 @@ export const SummonerForm = ({
       >
         <div className="title-section">
           <H1>
-            <Bold>Summon a DAO.</Bold>
+            <Bold>Summon a DAO</Bold>
           </H1>
           <ParMd>
             Learn more about{' '}
-            <Link href="https://daohaus.mirror.xyz/U_JQtheSzdpRFqQwf9Ow3LgLNG0WMZ6ibAyrjWDu_fc">
+            <Link
+              href="https://daohaus.mirror.xyz/U_JQtheSzdpRFqQwf9Ow3LgLNG0WMZ6ibAyrjWDu_fc"
+              linkType="external"
+            >
               Moloch v3
             </Link>
           </ParMd>

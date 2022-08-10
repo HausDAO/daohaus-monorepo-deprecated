@@ -1,24 +1,17 @@
-import { IHausOptions } from './types';
 import Profile from './Profile';
 import Query from './Query';
 
 class Haus {
-  options: IHausOptions;
   query: Query;
   profile: Profile;
 
-  private constructor(options: IHausOptions) {
-    this.options = options;
+  private constructor() {
     this.query = new Query();
-    this.profile = new Profile(
-      this.query,
-      this.options.providers,
-      this.options.ceramicNode
-    );
+    this.profile = new Profile(this.query);
   }
 
-  static create(options: IHausOptions = {}): Haus {
-    const hausSdk = new Haus(options);
+  static create(): Haus {
+    const hausSdk = new Haus();
     return hausSdk;
   }
 }

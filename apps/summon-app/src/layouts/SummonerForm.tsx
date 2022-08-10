@@ -143,7 +143,7 @@ export const SummonerForm = ({
       >
         <div className="title-section">
           <H1>
-            <Bold>Summon a DAO.</Bold>
+            <Bold>Summon a DAO</Bold>
           </H1>
           <ParMd>
             Learn more about{' '}

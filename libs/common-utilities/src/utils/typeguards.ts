@@ -1,4 +1,5 @@
 import { ethers } from 'ethers';
+import { ArgType } from '../types';
 
 // TS user-defined typeguards
 export const isArray = (item: unknown): item is unknown[] =>
@@ -12,6 +13,13 @@ export const isBoolean = (item: unknown): item is boolean =>
 export const isNumberish = (item: unknown): item is string | number =>
   isNumber(item) || isNumberString(item);
 // general 'is' guards that help us verify shapes of data
+
+export const isArgType = (item: unknown): item is ArgType => {
+  if (isArray(item)) {
+    return item.every(isArgType);
+  }
+  return isString(item) || isNumber(item) || isBoolean(item);
+};
 
 export const isNumberString = (item: unknown) =>
   isString(item) && !isNaN(parseFloat(item)) && isFinite(Number(item));

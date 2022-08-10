@@ -1,4 +1,15 @@
-import { ArbitraryState, StringSearch } from '@daohaus/common-utilities';
+import {
+  ArbitraryState,
+  isArgType,
+  StringSearch,
+} from '@daohaus/common-utilities';
+
+export const checkArgType = (arg: unknown) => {
+  if (isArgType(arg)) {
+    return arg;
+  }
+  throw new Error(`Invalid arg type ${arg}`);
+};
 
 export const deepSearch = (
   appState: ArbitraryState,
@@ -41,23 +52,28 @@ export const handleConditionalPath = (pathString: StringSearch) => {
   return paths;
 };
 
-export const searchArg = (
-  appState: ArbitraryState,
-  pathString: StringSearch
-) => {
-  const hasCondition = checkHasCondition(pathString);
+export const searchArg = ({
+  appState,
+  searchString,
+  shouldThrow = false,
+}: {
+  appState: ArbitraryState;
+  searchString: StringSearch;
+  shouldThrow: boolean;
+}) => {
+  const hasCondition = checkHasCondition(searchString);
 
   if (hasCondition) {
-    const paths = handleConditionalPath(pathString);
+    const paths = handleConditionalPath(searchString);
     for (const path of paths) {
       const result = searchApp(appState, path as StringSearch);
-      if (result != null) {
-        return result;
+      if (result) {
+        return checkArgType(result);
       }
     }
-    console.log('**Application State**', appState);
-    console.log('**Path**', pathString);
-    throw new Error(`No paths in conditional path string returned a value`);
+    throw new Error(
+      `No paths in conditional path string: ${searchString} returns a value`
+    );
   }
-  return searchApp(appState, pathString, true);
+  return checkArgType(searchApp(appState, searchString, shouldThrow));
 };

@@ -1,6 +1,7 @@
 import { ethers, providers } from 'ethers';
 
 import {
+  ABI,
   ArbitraryState,
   ReactSetter,
   TXLego,
@@ -20,12 +21,14 @@ export const executeTx = async ({
   setTransactions,
   chainId,
   lifeCycleFns,
+  localABIs,
 }: {
   tx: TXLego;
   ethersTx: { hash: string; wait: () => Promise<string> };
   setTransactions: ReactSetter<TxRecord>;
   chainId: ValidNetwork;
   lifeCycleFns?: TXLifeCycleFns;
+  localABIs?: Record<string, ABI>;
 }) => {
   const txHash = ethersTx.hash;
 
@@ -78,6 +81,7 @@ export async function prepareTX({
   chainId,
   safeId,
   provider,
+  localABIs,
   ...rest
 }: {
   tx: TXLego;
@@ -87,6 +91,7 @@ export async function prepareTX({
   setTransactions: ReactSetter<TxRecord>;
   appState: ArbitraryState;
   lifeCycleFns: TXLifeCycleFns;
+  localABIs?: Record<string, ABI>;
 }) {
   const processedContract = await processContractLego({
     contract: tx.contract,

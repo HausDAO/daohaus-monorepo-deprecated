@@ -63,6 +63,7 @@ export const TXBuilder = ({
   provider,
   appState,
   children,
+  localABIs = {},
 }: BuilderProps) => {
   const [transactions, setTransactions] = useState<TxRecord>({});
   const txAmt = useMemo(() => {
@@ -90,6 +91,7 @@ export const TXBuilder = ({
       setTransactions,
       appState: wholeState,
       lifeCycleFns,
+      localABIs,
     });
   };
 

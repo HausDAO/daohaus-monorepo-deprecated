@@ -1,5 +1,6 @@
 import {
   ABI,
+  ArbitraryState,
   ArgType,
   CONTRACTS,
   encodeFunction,
@@ -88,9 +89,13 @@ export const txActionToMetaTx = ({
 export const handleMulticallArg = async ({
   arg,
   chainId,
+  localABIs,
+  appState,
 }: {
   arg: MulticallArg;
   chainId: ValidNetwork;
+  localABIs: Record<string, ABI>;
+  appState: ArbitraryState;
 }) => {
   const encodedActions = await Promise.all(
     arg.actions.map(async (action) => {
@@ -99,9 +104,12 @@ export const handleMulticallArg = async ({
       const processedContract = await processContractLego({
         contract,
         chainId,
+        localABIs,
       });
       const processedArgs = await Promise.all(
-        args.map(async (arg) => await processArg({ arg, chainId }))
+        args.map(
+          async (arg) => await processArg({ arg, chainId, localABIs, appState })
+        )
       );
 
       return txActionToMetaTx({
@@ -124,16 +132,22 @@ export const handleMulticallArg = async ({
 export const handleGasEstimate = async ({
   safeId,
   chainId,
+  localABIs = {},
+  appState,
   arg,
 }: {
   safeId?: string;
   chainId: ValidNetwork;
   arg: EstmimateGas;
+  appState: ArbitraryState;
+  localABIs?: Record<string, ABI>;
 }) => {
   if (!safeId) throw new Error('Safe ID is required to estimate gas');
 
   const proposalData = await handleMulticallArg({
+    localABIs,
     chainId,
+    appState,
     arg: {
       type: 'multicall',
       actions: arg.actions,

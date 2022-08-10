@@ -51,12 +51,14 @@ const LOCAL_ABI: Record<string, ABI> = {
 const processLocalContract = ({
   localContract,
   chainId,
+  localABIs,
 }: {
   localContract: LocalContract;
   chainId: ValidNetwork;
+  localABIs: Record<string, ABI>;
 }): ProcessedContract => {
   const { keychain, contractName } = localContract;
-  const abi = LOCAL_ABI[contractName] as ABI;
+  const abi = localABIs[contractName];
   const address = keychain[chainId];
   if (!address) {
     throw new Error(
@@ -74,9 +76,11 @@ const processLocalContract = ({
 export const processContractLego = async ({
   contract,
   chainId,
+  localABIs,
 }: {
   contract: ContractLego;
   chainId: ValidNetwork;
+  localABIs: Record<string, ABI>;
 }) => {
   if (contract.type === 'static') {
     return processStaticContract({
@@ -89,6 +93,7 @@ export const processContractLego = async ({
     return processLocalContract({
       localContract: contract as LocalContract,
       chainId,
+      localABIs,
     });
   }
 

@@ -1,4 +1,6 @@
 import {
+  ABI,
+  ArbitraryState,
   ArgType,
   calcExpiry,
   StringSearch,
@@ -6,44 +8,61 @@ import {
   ValidArgType,
   ValidNetwork,
 } from '@daohaus/common-utilities';
+import { EXPIRY, FORM } from './constants';
 import { handleGasEstimate, handleMulticallArg } from './multicall';
+import { searchArg } from './search';
 
 const isSearchArg = (arg: ValidArgType): arg is StringSearch => {
   return typeof arg === 'string' && arg[0] === '.';
 };
 
-const handleStringSearch = (arg: StringSearch) => arg;
-
 export const processArg = async ({
   arg,
   chainId,
   safeId,
+  localABIs,
+  appState,
 }: {
   arg: ValidArgType;
   chainId: ValidNetwork;
   safeId?: string;
+  localABIs: Record<string, ABI>;
+  appState: ArbitraryState;
 }): Promise<ArgType> => {
   if (isSearchArg(arg)) {
-    return handleStringSearch(arg);
+    return searchArg({ appState, searchString: arg, shouldThrow: true });
   }
   if (arg?.type === 'static') {
     return arg.value;
   }
   if (arg?.type === 'multicall') {
-    const result = await handleMulticallArg({ arg, chainId });
+    const result = await handleMulticallArg({
+      arg,
+      chainId,
+      localABIs,
+      appState,
+    });
     return result;
   }
   if (arg?.type === 'estimateGas') {
-    const result = await handleGasEstimate({ arg, chainId, safeId });
+    const result = await handleGasEstimate({
+      arg,
+      chainId,
+      safeId,
+      localABIs,
+      appState,
+    });
     return result;
   }
   if (arg?.type === 'proposalExpiry') {
-    //TODO: implement search for proposal expiry
-    return calcExpiry(arg.fallback);
+    arg.search
+      ? searchArg({
+          appState,
+          searchString: `${FORM}${EXPIRY}`,
+          shouldThrow: true,
+        })
+      : calcExpiry(arg.fallback);
   }
-
-  // This is a placeholder for when we implemnt the gatherArgs utils
-  // https://github.com/HausDAO/daohaus-monorepo/issues/403
   throw new Error('ArgType not found. Searching not yet implemented');
 };
 
@@ -51,10 +70,14 @@ export const processArgs = async ({
   tx,
   chainId,
   safeId,
+  localABIs,
+  appState,
 }: {
   tx: TXLego;
   chainId: ValidNetwork;
   safeId?: string;
+  localABIs: Record<string, ABI>;
+  appState: ArbitraryState;
 }) => {
   const { argCallback, args } = tx;
 
@@ -63,7 +86,10 @@ export const processArgs = async ({
   }
   if (args) {
     return await Promise.all(
-      args?.map(async (arg) => await processArg({ arg, chainId, safeId }))
+      args?.map(
+        async (arg) =>
+          await processArg({ arg, chainId, safeId, localABIs, appState })
+      )
     );
   }
   throw new Error(

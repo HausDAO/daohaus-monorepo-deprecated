@@ -1,12 +1,4 @@
-import {
-  GNOSIS_MULTISEND_ABI,
-  BAAL_ABI,
-  BAAL_SUMMONER_ABI,
-  LOOT_ABI,
-  SHARES_ABI,
-  POSTER_ABI,
-  TRIBUTE_MINION_ABI,
-} from '@daohaus/contract-utilities';
+import { BAAL_ABI, POSTER_ABI } from '@daohaus/contract-utilities';
 
 import {
   ContractLego,
@@ -24,16 +16,6 @@ import {
 import { Button, Tooltip } from '@daohaus/ui';
 import { handleGasEstimate, searchApp } from '@daohaus/tx-builder-feature';
 import { useDao } from '../contexts/DaoContext';
-
-// const LOCAL_ABI = {
-//   GNOSIS_MULTISEND_ABI,
-//   BAAL_ABI,
-//   BAAL_SUMMONER_ABI,
-//   LOOT_ABI,
-//   SHARES_ABI,
-//   POSTER_ABI,
-//   TRIBUTE_MINION_ABI,
-// };
 
 const sampleDefaultData = {
   daoContract: '0x756ee8B8E898D497043c2320d9909f1DD5a7077F',
@@ -127,29 +109,12 @@ const TestForm: FormLego<CustomFields> = {
 };
 
 export function FormTest() {
-  const { dao } = useDao();
-  const testGas = async () => {
-    const result = await handleGasEstimate({
-      chainId: '0x5',
-      safeId: dao?.safeAddress,
-      arg: {
-        type: 'estimateGas',
-        actions: testActions,
-      },
-    });
-
-    console.log('Result', result);
-  };
-
   return (
-    <>
-      <FormBuilder<CustomFields>
-        form={TestForm}
-        customFields={CustomFields}
-        defaultValues={sampleDefaultData}
-      />
-      <Button onClick={testGas}>Test Gas</Button>
-    </>
+    <FormBuilder<CustomFields>
+      form={TestForm}
+      customFields={CustomFields}
+      defaultValues={sampleDefaultData}
+    />
   );
 }
 
@@ -176,4 +141,4 @@ const testAppState = {
   },
 };
 
-console.log(searchApp(testAppState, '.appData.shamans.admins.0', true));
+// console.log(searchApp(testAppState, '.appData.shamans.admins.0', true));

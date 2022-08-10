@@ -28,7 +28,7 @@ export const executeTx = async ({
   setTransactions: ReactSetter<TxRecord>;
   chainId: ValidNetwork;
   lifeCycleFns?: TXLifeCycleFns;
-  localABIs?: Record<string, ABI>;
+  localABIs: Record<string, ABI>;
 }) => {
   const txHash = ethersTx.hash;
 
@@ -91,9 +91,10 @@ export async function prepareTX({
   setTransactions: ReactSetter<TxRecord>;
   appState: ArbitraryState;
   lifeCycleFns: TXLifeCycleFns;
-  localABIs?: Record<string, ABI>;
+  localABIs: Record<string, ABI>;
 }) {
   const processedContract = await processContractLego({
+    localABIs,
     contract: tx.contract,
     chainId,
   });
@@ -103,6 +104,7 @@ export async function prepareTX({
 
   const processedArgs = await processArgs({
     tx: { ...tx, contract: processedContract },
+    localABIs,
     chainId,
     safeId,
     ...rest,
@@ -115,5 +117,5 @@ export async function prepareTX({
   );
   const ethersTx = await contract.functions[method](...processedArgs);
 
-  executeTx({ tx, ethersTx, chainId, ...rest });
+  executeTx({ tx, ethersTx, chainId, localABIs, ...rest });
 }

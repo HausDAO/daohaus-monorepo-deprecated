@@ -72,7 +72,10 @@ export const App = () => {
           <div className="logo-box">
             <img src={hausCastle} alt="daohaus castle logo" />
             <ParMd>
-              Built by <Link href="https://daohaus.club">DAOhaus</Link>
+              Built by{' '}
+              <Link href="https://daohaus.club" linkType="external">
+                DAOhaus
+              </Link>
             </ParMd>
           </div>
         </footer>

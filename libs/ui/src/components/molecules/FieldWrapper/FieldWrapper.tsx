@@ -12,9 +12,11 @@ import {
   WarningText,
 } from '../../atoms/HelperTexts';
 import {
+  BottomContainer,
   FieldWrapperBase,
   LabelContainer,
   RequiredAsterisk,
+  RightAddonContainer,
 } from './FieldWrapper.styles';
 import { Buildable } from '../../../types/formAndField';
 import {
@@ -46,6 +48,7 @@ export const FieldWrapper = ({
   address,
   id,
   rules,
+  rightAddon,
 }: Buildable<{ children: ReactNode }>) => {
   const classes = classNames({ long: long || address, full });
   const { getFieldState } = useFormContext();
@@ -66,12 +69,17 @@ export const FieldWrapper = ({
         {info && <Tooltip content={info} />}
       </LabelContainer>
       <div className="field-slot">{children}</div>
-      <HelperTextFactory
-        error={error || fieldError}
-        success={success}
-        warning={warning}
-        helperText={helperText}
-      />
+      <BottomContainer className={classes}>
+        <HelperTextFactory
+          error={error || fieldError}
+          success={success}
+          warning={warning}
+          helperText={helperText}
+        />
+        {rightAddon && (
+          <RightAddonContainer>{rightAddon}</RightAddonContainer>
+        )}
+      </BottomContainer>
     </FieldWrapperBase>
   );
 };

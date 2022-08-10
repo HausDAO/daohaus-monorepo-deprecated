@@ -1,6 +1,7 @@
 import { providers } from 'ethers';
 import { createContext, useState, useMemo, useContext, ReactNode } from 'react';
 import {
+  ABI,
   ArbitraryState,
   ArgType,
   isValidNetwork,
@@ -53,6 +54,7 @@ type BuilderProps<ApplicationState extends ArbitraryState = ArbitraryState> = {
   children: ReactNode;
   appState: ApplicationState;
   txLifeCycleFns?: TXLifeCycleFns;
+  localABIs?: Record<string, ABI>;
 };
 
 export const TXBuilder = ({
@@ -72,8 +74,6 @@ export const TXBuilder = ({
     callerState,
     lifeCycleFns = {},
   }) => {
-    console.log('provider', provider);
-    console.log('chainId', chainId);
     if (!chainId || !isValidNetwork(chainId) || !provider) {
       lifeCycleFns?.onTxError?.(
         Error('Invalid Network or no Web3 Wallet detected')
@@ -81,7 +81,7 @@ export const TXBuilder = ({
       return;
     }
     const wholeState = { ...appState, ...callerState };
-    console.log('wholeState', wholeState);
+
     await prepareTX({
       tx,
       chainId,

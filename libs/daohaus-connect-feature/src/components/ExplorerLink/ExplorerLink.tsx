@@ -41,7 +41,12 @@ export const ExplorerLink = ({
   }, [contextChainId, chainId, address, type]);
 
   return (
-    <Link href={explorerLink} className={className} rel="noopener noreferrer">
+    <Link
+      href={explorerLink}
+      className={className}
+      rel="noopener noreferrer"
+      linkType="external"
+    >
       {children}
     </Link>
   );

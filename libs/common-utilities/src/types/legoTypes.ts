@@ -1,4 +1,3 @@
-import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import { JSXElementConstructor } from 'react';
 import { ValidateField } from '../utils';
 import { ABI, ArgType } from './contract';
@@ -100,7 +99,7 @@ export type StaticContract = {
   keychain: Keychain;
 };
 export type LocalContract = {
-  contractName: keyof typeof LOCAL_ABI;
+  contractName: string;
   type: 'local';
   keychain: Keychain;
 };

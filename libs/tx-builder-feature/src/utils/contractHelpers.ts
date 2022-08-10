@@ -1,11 +1,19 @@
-import { LOCAL_ABI } from '@daohaus/abi-utilities';
+import {
+  GNOSIS_MULTISEND_ABI,
+  BAAL_ABI,
+  BAAL_SUMMONER_ABI,
+  LOOT_ABI,
+  SHARES_ABI,
+  POSTER_ABI,
+  TRIBUTE_MINION_ABI,
+} from '@daohaus/contract-utilities';
 import {
   StaticContract,
   ProcessedContract,
-  TXLego,
   ValidNetwork,
   LocalContract,
   ContractLego,
+  ABI,
 } from '@daohaus/common-utilities';
 
 const processStaticContract = ({
@@ -30,6 +38,16 @@ const processStaticContract = ({
   };
 };
 
+const LOCAL_ABI: Record<string, ABI> = {
+  GNOSIS_MULTISEND_ABI,
+  BAAL_ABI,
+  BAAL_SUMMONER_ABI,
+  LOOT_ABI,
+  SHARES_ABI,
+  POSTER_ABI,
+  TRIBUTE_MINION_ABI,
+};
+
 const processLocalContract = ({
   localContract,
   chainId,
@@ -38,7 +56,7 @@ const processLocalContract = ({
   chainId: ValidNetwork;
 }): ProcessedContract => {
   const { keychain, contractName } = localContract;
-  const abi = LOCAL_ABI[contractName];
+  const abi = LOCAL_ABI[contractName] as ABI;
   const address = keychain[chainId];
   if (!address) {
     throw new Error(

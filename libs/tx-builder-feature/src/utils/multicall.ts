@@ -3,13 +3,13 @@ import {
   ArgType,
   CONTRACTS,
   encodeFunction,
-  encodeMultiAction,
   ENDPOINTS,
   EstmimateGas,
   MulticallArg,
   ValidNetwork,
 } from '@daohaus/common-utilities';
-import { MetaTransaction } from '@gnosis.pm/safe-contracts';
+import { GNOSIS_MULTISEND_ABI } from '@daohaus/contract-utilities';
+import { encodeMultiSend, MetaTransaction } from '@gnosis.pm/safe-contracts';
 import { getAddress } from 'ethers/lib/utils';
 import { processArg } from './args';
 import { processContractLego } from './contractHelpers';
@@ -149,4 +149,9 @@ export const handleGasEstimate = async ({
   } else {
     throw new Error(`Failed to estimate gas: `);
   }
+};
+export const encodeMultiAction = (rawMulti: MetaTransaction[]) => {
+  return encodeFunction(GNOSIS_MULTISEND_ABI, 'multiSend', [
+    encodeMultiSend(rawMulti),
+  ]);
 };

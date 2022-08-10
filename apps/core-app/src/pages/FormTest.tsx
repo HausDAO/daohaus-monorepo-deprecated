@@ -1,4 +1,13 @@
-import { LOCAL_ABI } from '@daohaus/abi-utilities';
+import {
+  GNOSIS_MULTISEND_ABI,
+  BAAL_ABI,
+  BAAL_SUMMONER_ABI,
+  LOOT_ABI,
+  SHARES_ABI,
+  POSTER_ABI,
+  TRIBUTE_MINION_ABI,
+} from '@daohaus/contract-utilities';
+
 import {
   ContractLego,
   MulticallAction,
@@ -15,6 +24,16 @@ import {
 import { Button, Tooltip } from '@daohaus/ui';
 import { handleGasEstimate, searchApp } from '@daohaus/tx-builder-feature';
 import { useDao } from '../contexts/DaoContext';
+
+// const LOCAL_ABI = {
+//   GNOSIS_MULTISEND_ABI,
+//   BAAL_ABI,
+//   BAAL_SUMMONER_ABI,
+//   LOOT_ABI,
+//   SHARES_ABI,
+//   POSTER_ABI,
+//   TRIBUTE_MINION_ABI,
+// };
 
 const sampleDefaultData = {
   daoContract: '0x756ee8B8E898D497043c2320d9909f1DD5a7077F',
@@ -37,7 +56,7 @@ type CustomFields = typeof CustomFields;
 const TestBaalContract: ContractLego = {
   type: 'static',
   contractName: 'TestBaal',
-  abi: LOCAL_ABI.BAAL,
+  abi: BAAL_ABI,
   keychain: {
     '0x5': '0x24357654d64da97a55fb2f73c5b66d1927ab1e4c',
   },
@@ -46,7 +65,7 @@ const TestBaalContract: ContractLego = {
 const Poster: ContractLego = {
   type: 'static',
   contractName: 'Poster',
-  abi: LOCAL_ABI.POSTER,
+  abi: POSTER_ABI,
   keychain: {
     '0x5': '0x000000000000cd17345801aa8147b8d3950260ff',
   },

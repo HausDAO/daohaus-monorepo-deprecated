@@ -1,7 +1,5 @@
 import { ethers } from 'ethers';
 import { ABI } from '../types';
-import { encodeMultiSend, MetaTransaction } from '@gnosis.pm/safe-contracts';
-import { LOCAL_ABI } from '@daohaus/abi-utilities';
 
 export const encodeValues = (
   typesArray: string[],
@@ -40,10 +38,4 @@ export const getNonce = (length = 24) => {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
   return text;
-};
-
-export const encodeMultiAction = (rawMulti: MetaTransaction[]) => {
-  return encodeFunction(LOCAL_ABI.GNOSIS_MULTISEND, 'multiSend', [
-    encodeMultiSend(rawMulti),
-  ]);
 };

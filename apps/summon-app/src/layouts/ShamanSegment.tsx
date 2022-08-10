@@ -33,10 +33,14 @@ export const ShamanSegment = ({ formDisabled }: { formDisabled: boolean }) => {
   return (
     <FormSegment
       title="Starting Shamans"
-      description="Shamans are very powerful as they can have administrative control over voting and non-voting stakes. Be very careful adding shamans. "
+      description="Shamans are very powerful as they can have administrative control over voting and non-voting stakes. Be very careful adding Shamans. "
       formArea={
         <TextAreaSection>
-          <Link className="link" href="/">
+          <Link
+            className="link"
+            href="https://baal-docs.vercel.app/tools/shaman"
+            linkType="external"
+          >
             How to add a Shaman
           </Link>
           <ParSm className="number-display">{amtShamans} Shamans</ParSm>

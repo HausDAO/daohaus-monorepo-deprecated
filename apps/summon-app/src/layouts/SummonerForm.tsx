@@ -147,7 +147,10 @@ export const SummonerForm = ({
           </H1>
           <ParMd>
             Learn more about{' '}
-            <Link href="https://daohaus.mirror.xyz/U_JQtheSzdpRFqQwf9Ow3LgLNG0WMZ6ibAyrjWDu_fc">
+            <Link
+              href="https://daohaus.mirror.xyz/U_JQtheSzdpRFqQwf9Ow3LgLNG0WMZ6ibAyrjWDu_fc"
+              linkType="external"
+            >
               Moloch v3
             </Link>
           </ParMd>

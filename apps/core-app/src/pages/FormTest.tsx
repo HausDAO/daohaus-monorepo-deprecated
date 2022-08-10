@@ -13,9 +13,8 @@ import {
   FormBuilder,
   FormLego,
 } from '@daohaus/haus-form-builder';
-import { Button, Tooltip } from '@daohaus/ui';
-import { handleGasEstimate, searchApp } from '@daohaus/tx-builder-feature';
-import { useDao } from '../contexts/DaoContext';
+import { Tooltip } from '@daohaus/ui';
+import { searchApp } from '@daohaus/tx-builder-feature';
 
 const sampleDefaultData = {
   daoContract: '0x756ee8B8E898D497043c2320d9909f1DD5a7077F',
@@ -141,4 +140,4 @@ const testAppState = {
   },
 };
 
-// console.log(searchApp(testAppState, '.appData.shamans.admins.0', true));
+console.log(searchApp(testAppState, '.appData.shamans.admins.0', true));

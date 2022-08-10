@@ -1,13 +1,4 @@
 import {
-  GNOSIS_MULTISEND_ABI,
-  BAAL_ABI,
-  BAAL_SUMMONER_ABI,
-  LOOT_ABI,
-  SHARES_ABI,
-  POSTER_ABI,
-  TRIBUTE_MINION_ABI,
-} from '@daohaus/contract-utilities';
-import {
   StaticContract,
   ProcessedContract,
   ValidNetwork,
@@ -36,16 +27,6 @@ const processStaticContract = ({
     address,
     contractName,
   };
-};
-
-const LOCAL_ABI: Record<string, ABI> = {
-  GNOSIS_MULTISEND_ABI,
-  BAAL_ABI,
-  BAAL_SUMMONER_ABI,
-  LOOT_ABI,
-  SHARES_ABI,
-  POSTER_ABI,
-  TRIBUTE_MINION_ABI,
 };
 
 const processLocalContract = ({

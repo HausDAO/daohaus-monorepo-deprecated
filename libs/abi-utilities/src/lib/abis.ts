@@ -1,11 +1,10 @@
-import BAAL from '../abi/Baal.json';
-import BAAL_SUMMONER from '../abi/BaalSummoner.json';
-import GNOSIS_MULTISEND from '../abi/GnosisMultisend.json';
-import LOOT from '../abi/Loot.json';
-import POSTER from '../abi/Poster.json';
-import SHARES from '../abi/Shares.json';
-import TRIBUTE_MINION from '../abi/TributeMinion.json';
-
+import BAAL from '../abi/baal.json';
+import BAAL_SUMMONER from '../abi/baalSummoner.json';
+import GNOSIS_MULTISEND from '../abi/gnosisMultisend.json';
+import LOOT from '../abi/loot.json';
+import POSTER from '../abi/poster.json';
+import SHARES from '../abi/shares.json';
+import TRIBUTE_MINION from '../abi/tributeMinion.json';
 interface JsonFragmentType {
   readonly name?: string;
   readonly indexed?: boolean;

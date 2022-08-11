@@ -6,13 +6,13 @@ describe('baal contract loads', () => {
   beforeAll(() => {
     /* prettier-ignore */
     contracts = {
-      posterAddress = getContractAddressesForChain('POSTER', '0x5'),
-      gnosisMultisendAddress = getContractAddressesForChain('GNOSIS_MULTISEND','0x5'),
-      baalSummonerAddress = getContractAddressesForChain('V3_FACTORY', '0x5'),
-      baalAddress = getContractAddressesForChain('BAAL_SINGLETON', '0x5'),
-      lootAddress = getContractAddressesForChain('LOOT_SINGLETON', '0x5'),
-      sharesAddress = getContractAddressesForChain('SHARES_SINGLETON', '0x5'),
-      tributeMinionAddress = getContractAddressesForChain('TRIBUTE_MINION','0x5'),
+      posterAddress: getContractAddressesForChain('POSTER', '0x5'),
+      gnosisMultisendAddress: getContractAddressesForChain('GNOSIS_MULTISEND','0x5'),
+      baalSummonerAddress: getContractAddressesForChain('V3_FACTORY', '0x5'),
+      baalAddress: getContractAddressesForChain('BAAL_SINGLETON', '0x5'),
+      lootAddress: getContractAddressesForChain('LOOT_SINGLETON', '0x5'),
+      sharesAddress: getContractAddressesForChain('SHARES_SINGLETON', '0x5'),
+      tributeMinionAddress: getContractAddressesForChain('TRIBUTE_MINION','0x5'),
     }
   });
 

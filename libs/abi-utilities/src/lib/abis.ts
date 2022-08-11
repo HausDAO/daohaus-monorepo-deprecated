@@ -30,7 +30,19 @@ interface JsonFragment {
   readonly gas?: string;
 }
 
-export const LOCAL_ABI: Record<string, (JsonFragmentType | JsonFragment)[]> = {
+type ContractABIKey =
+  | 'BAAL'
+  | 'BAAL_SUMMONER'
+  | 'GNOSIS_MULTISEND'
+  | 'LOOT'
+  | 'POSTER'
+  | 'SHARES'
+  | 'TRIBUTE_MINION';
+
+export const LOCAL_ABI: Record<
+  ContractABIKey,
+  (JsonFragmentType | JsonFragment)[]
+> = {
   BAAL,
   BAAL_SUMMONER,
   GNOSIS_MULTISEND,

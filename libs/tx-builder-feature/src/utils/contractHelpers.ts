@@ -6,6 +6,8 @@ import {
   ContractLego,
   ABI,
 } from '@daohaus/common-utilities';
+import { BAAL_ABI } from '@daohaus/contract-utilities';
+import { getImplementation, TEMPORARY_RPC } from './abi';
 
 const processStaticContract = ({
   localContract,
@@ -86,3 +88,14 @@ export const processContractLego = async ({
   // https://github.com/HausDAO/daohaus-monorepo/issues/403
   throw new Error('ABI not found. Remote fetching not implemented');
 };
+
+const test = async () => {
+  const res = await getImplementation({
+    address: '0xFCeaEc9d2c283d0aaF9F323dC840042a5A5b54E1',
+    abi: BAAL_ABI,
+    chainId: '0x5',
+  });
+  console.log('res', res);
+};
+
+test();

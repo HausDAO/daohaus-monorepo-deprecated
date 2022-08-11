@@ -49,13 +49,19 @@ const addABI = ({
   chainId: ValidNetwork;
   address: string;
   abi: ABI;
-}) => ({
-  ...abiStore,
-  [chainId]: {
-    ...abiStore[chainId],
-    [address]: abi,
-  },
-});
+}) => {
+  console.log('address', address);
+  console.log('abi', abi);
+  console.log('chainId', chainId);
+  console.log('abiStore', abiStore);
+  return {
+    ...abiStore,
+    [chainId]: {
+      ...abiStore[chainId],
+      [address]: abi,
+    },
+  };
+};
 
 export const cacheABI = async ({
   address,
@@ -66,13 +72,21 @@ export const cacheABI = async ({
   chainId: ValidNetwork;
   abi: ABI;
 }) => {
-  const abiStore = (await getABIstore()) as ArbitraryState;
-  return addABI({
+  const abiStore = await getABIstore();
+  console.log('abiStore', abiStore);
+  const newStore = addABI({
     abiStore,
     chainId,
     address,
     abi,
   });
+  try {
+    await localforage.setItem(StoreName.ABI, newStore);
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
 };
 const initABIs = async () => {
   localforage.config({

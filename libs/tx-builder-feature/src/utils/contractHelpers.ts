@@ -7,7 +7,7 @@ import {
   ABI,
 } from '@daohaus/common-utilities';
 import { BAAL_ABI } from '@daohaus/contract-utilities';
-import { getImplementation, TEMPORARY_RPC } from './abi';
+import { fetchABI, getImplementation, TEMPORARY_RPC } from './abi';
 
 const processStaticContract = ({
   localContract,
@@ -90,12 +90,17 @@ export const processContractLego = async ({
 };
 
 const test = async () => {
-  const res = await getImplementation({
-    address: '0xFCeaEc9d2c283d0aaF9F323dC840042a5A5b54E1',
-    abi: BAAL_ABI,
+  // const res = await getImplementation({
+  //   address: '0xFCeaEc9d2c283d0aaF9F323dC840042a5A5b54E1',
+  //   abi: BAAL_ABI,
+  //   chainId: '0x5',
+  // });
+  // console.log('res', res);
+
+  const res = await fetchABI({
+    contractAddress: '0xFCeaEc9d2c283d0aaF9F323dC840042a5A5b54E1',
     chainId: '0x5',
   });
-  console.log('res', res);
 };
 
 test();

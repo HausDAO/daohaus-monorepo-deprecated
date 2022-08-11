@@ -14,7 +14,6 @@ import {
   FormLego,
 } from '@daohaus/haus-form-builder';
 import { Tooltip } from '@daohaus/ui';
-import { searchApp } from '@daohaus/tx-builder-feature';
 
 const sampleDefaultData = {
   daoContract: '0x756ee8B8E898D497043c2320d9909f1DD5a7077F',

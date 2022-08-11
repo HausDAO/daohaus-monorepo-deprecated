@@ -1,7 +1,7 @@
 import { JsonFragment } from '@ethersproject/abi';
 import { ethers, providers } from 'ethers';
-import { ABI, Keychain, ValidNetwork } from '@daohaus/common-utilities';
-import { getCachedABI } from './cache';
+import { ABI, isJSON, Keychain, ValidNetwork } from '@daohaus/common-utilities';
+import { cacheABI, getCachedABI } from './cache';
 
 const isGnosisProxy = (abi: ABI) => {
   return (
@@ -23,6 +23,24 @@ export const TEMPORARY_RPC = {
   '0x5': `https://goerli.infura.io/v3/${
     import.meta.env.VITE_INFURA_PROJECT_ID
   }`,
+};
+
+const ABI_ADDRESS = '<<address>>';
+
+const TEMPORARY_ABI_EXPLORER: Keychain = {
+  '0x5': `https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${
+    import.meta.env.VITE_ETHERSCAN_KEY
+  }`,
+};
+
+const getABIUrl = ({
+  chainId,
+  contractAddress,
+}: {
+  chainId: ValidNetwork;
+  contractAddress: string;
+}) => {
+  return TEMPORARY_ABI_EXPLORER[chainId]?.replace(ABI_ADDRESS, contractAddress);
 };
 
 export const createContract = ({
@@ -63,16 +81,42 @@ export const getImplementation = async ({
   return newAddress;
 };
 
-const fetchABI = async ({
-  address,
+export const fetchABI = async ({
+  contractAddress,
   chainId,
   rpcs = TEMPORARY_RPC,
-  parseJSON,
 }: {
-  address: string;
+  contractAddress: string;
   chainId: ValidNetwork;
   rpcs?: Keychain;
-  parseJSON: boolean;
 }) => {
-  const cachedABI = await getCachedABI({ address, chainId });
+  const cachedABI = await getCachedABI({ address: contractAddress, chainId });
+  console.log('cachedABI', cachedABI);
+  if (cachedABI) {
+    // process the ABU and return it
+    return cachedABI;
+  }
+
+  const url = getABIUrl({ contractAddress, chainId });
+  console.log('url', url);
+  if (!url) {
+    throw new Error('Could generate ABI link with the given arguments');
+  }
+
+  try {
+    const scanResponse = await fetch(url);
+    console.log('scanResponse', scanResponse);
+    const data = await scanResponse.json();
+    console.log('data', data);
+    if (data.message === 'OK' && isJSON(data.result)) {
+      const abi = JSON.parse(data.result);
+      console.log('abi', abi);
+      cacheABI({ address: contractAddress, chainId, abi });
+      //process and return abi
+      return abi;
+    }
+    throw new Error('Could not fetch or parse ABI');
+  } catch (error) {
+    console.error(error);
+  }
 };

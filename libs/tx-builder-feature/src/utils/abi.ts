@@ -1,6 +1,7 @@
 import { JsonFragment } from '@ethersproject/abi';
 import { ethers, providers } from 'ethers';
 import { ABI, Keychain, ValidNetwork } from '@daohaus/common-utilities';
+import { getCachedABI } from './cache';
 
 const isGnosisProxy = (abi: ABI) => {
   return (
@@ -73,14 +74,5 @@ const fetchABI = async ({
   rpcs?: Keychain;
   parseJSON: boolean;
 }) => {
-
-  const cachedABI = await getCachedABI({address, chainId});
-
-  if (cachedABI) {
-    // Process ABI
-    return cachedABI;
-  }
-  }
-
-  
+  const cachedABI = await getCachedABI({ address, chainId });
 };

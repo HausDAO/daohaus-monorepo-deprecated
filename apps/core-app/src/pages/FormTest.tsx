@@ -140,4 +140,4 @@ const testAppState = {
   },
 };
 
-console.log(searchApp(testAppState, '.appData.shamans.admins.0', true));
+// console.log(searchApp(testAppState, '.appData.shamans.admins.0', true));

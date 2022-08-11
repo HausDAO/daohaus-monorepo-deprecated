@@ -1,5 +1,4 @@
-import { JsonFragment } from '@ethersproject/abi';
-import { ethers, providers } from 'ethers';
+import { ethers } from 'ethers';
 import { ABI, isJSON, Keychain, ValidNetwork } from '@daohaus/common-utilities';
 import { cacheABI, getCachedABI } from './cache';
 
@@ -47,12 +46,12 @@ export const createContract = ({
   address,
   abi,
   chainId,
-  rpcs,
+  rpcs = TEMPORARY_RPC,
 }: {
   address: string;
   abi: ABI;
   chainId: ValidNetwork;
-  rpcs: Keychain;
+  rpcs?: Keychain;
 }) => {
   const rpcUrl = rpcs[chainId];
   console.log('rpcUrl', rpcUrl);
@@ -70,15 +69,69 @@ export const getImplementation = async ({
   chainId: ValidNetwork;
   abi: ABI;
   rpcs?: Keychain;
-}) => {
+}): Promise<string | false> => {
   const ethersContract = createContract({
     address,
     abi,
     chainId,
     rpcs,
   });
-  const newAddress = await ethersContract?.['implementation']?.();
-  return newAddress;
+
+  try {
+    const newAddress = await ethersContract?.['implementation']?.();
+    return newAddress;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+};
+
+export const processABI = async ({
+  abi,
+  fetchABI,
+  contractAddress,
+  chainId,
+  rpcs = TEMPORARY_RPC,
+}: {
+  abi: ABI;
+  fetchABI: ({
+    chainId,
+    contractAddress,
+    rpcs,
+  }: {
+    chainId: ValidNetwork;
+    contractAddress: string;
+    rpcs?: Keychain;
+  }) => Promise<ABI | undefined>;
+  contractAddress: string;
+  chainId: ValidNetwork;
+}) => {
+  if (isProxyABI(abi)) {
+    const proxyAddress = await getImplementation({
+      address: contractAddress,
+      chainId,
+      abi,
+    });
+    if (proxyAddress) {
+      const newData = await fetchABI({
+        contractAddress: proxyAddress,
+        chainId,
+        rpcs,
+      });
+      if (newData) {
+        return newData;
+      } else {
+        throw new Error('Could not fetch ABI from proxy');
+      }
+    }
+  } else if (isSuperfluidProxy(abi)) {
+    const proxy = createContract({
+      address: contractAddress,
+      abi: SF_UUPS_PROXIABLE,
+      chainId,
+    });
+    const proxyAddress = await proxy.methods.getCodeAddress().call();
+  }
 };
 
 export const fetchABI = async ({
@@ -89,9 +142,9 @@ export const fetchABI = async ({
   contractAddress: string;
   chainId: ValidNetwork;
   rpcs?: Keychain;
-}) => {
+}): Promise<ABI | undefined> => {
   const cachedABI = await getCachedABI({ address: contractAddress, chainId });
-  console.log('cachedABI', cachedABI);
+
   if (cachedABI) {
     // process the ABU and return it
     return cachedABI;
@@ -118,5 +171,6 @@ export const fetchABI = async ({
     throw new Error('Could not fetch or parse ABI');
   } catch (error) {
     console.error(error);
+    return undefined;
   }
 };

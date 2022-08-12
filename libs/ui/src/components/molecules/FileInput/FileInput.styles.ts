@@ -2,7 +2,6 @@ import { RiCloseFill } from 'react-icons/ri';
 import styled from 'styled-components';
 
 import { Theme } from '../../../types/theming';
-import { Icon } from '../../atoms';
 
 export const FileInputContents = styled.div`
   padding: 3.6rem 0;

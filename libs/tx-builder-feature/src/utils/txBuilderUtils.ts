@@ -15,35 +15,31 @@ import { processContractLego } from './contractHelpers';
 
 export type TxRecord = Record<string, TXLego>;
 
-export const executeTx = async ({
-  tx,
-  ethersTx,
-  setTransactions,
-  chainId,
-  lifeCycleFns,
-  localABIs,
-}: {
+export const executeTx = async (args: {
   tx: TXLego;
   ethersTx: { hash: string; wait: () => Promise<string> };
   setTransactions: ReactSetter<TxRecord>;
   chainId: ValidNetwork;
   lifeCycleFns?: TXLifeCycleFns;
-  localABIs: Record<string, ABI>;
 }) => {
+  const { tx, ethersTx, setTransactions, chainId, lifeCycleFns } = args;
+  console.log('**Transaction Initatiated**');
   const txHash = ethersTx.hash;
-
+  console.log('txHash', txHash);
   try {
     lifeCycleFns?.onTxHash?.(ethersTx.hash);
     setTransactions((prevState) => ({
       ...prevState,
       [txHash]: { ...tx, status: 'idle' },
     }));
+    console.log('**Transaction Pending**');
     const reciept = await ethersTx.wait();
 
     setTransactions((prevState) => ({
       ...prevState,
       [txHash]: { ...tx, status: 'polling' },
     }));
+    console.log('**Transaction Successful**');
     lifeCycleFns?.onTxSuccess?.(reciept);
 
     standardGraphPoll({
@@ -55,9 +51,18 @@ export const executeTx = async ({
       },
       onPollSuccess(result) {
         lifeCycleFns?.onPollSuccess?.(result);
+        console.log('**Poll Successful**');
         setTransactions((prevState) => ({
           ...prevState,
           [txHash]: { ...tx, status: 'success' },
+        }));
+      },
+      onPollError(error) {
+        lifeCycleFns?.onPollError?.(error);
+        console.log('**Poll Error**');
+        setTransactions((prevState) => ({
+          ...prevState,
+          [txHash]: { ...tx, status: 'pollFailed' },
         }));
       },
     });
@@ -66,6 +71,7 @@ export const executeTx = async ({
       txHash,
     };
   } catch (error) {
+    console.log('**TX Error**');
     console.error(error);
     lifeCycleFns?.onTxError?.(error);
     setTransactions((prevState) => ({
@@ -76,14 +82,7 @@ export const executeTx = async ({
   }
 };
 
-export async function prepareTX({
-  tx,
-  chainId,
-  safeId,
-  provider,
-  localABIs,
-  ...rest
-}: {
+export async function prepareTX(args: {
   tx: TXLego;
   chainId: ValidNetwork;
   safeId?: string;
@@ -93,29 +92,39 @@ export async function prepareTX({
   lifeCycleFns: TXLifeCycleFns;
   localABIs: Record<string, ABI>;
 }) {
-  const processedContract = await processContractLego({
-    localABIs,
-    contract: tx.contract,
-    chainId,
-  });
+  const { tx, chainId, safeId, provider, localABIs, lifeCycleFns, appState } =
+    args;
+  try {
+    const processedContract = await processContractLego({
+      localABIs,
+      contract: tx.contract,
+      chainId,
+    });
+    console.log('**PROCESSED CONTRACT**', processedContract);
 
-  const { abi, address } = processedContract;
-  const { method } = tx;
+    const { abi, address } = processedContract;
+    const { method } = tx;
 
-  const processedArgs = await processArgs({
-    tx: { ...tx, contract: processedContract },
-    localABIs,
-    chainId,
-    safeId,
-    ...rest,
-  });
-  if (!address) return;
-  const contract = new ethers.Contract(
-    address,
-    abi,
-    provider.getSigner().connectUnchecked()
-  );
-  const ethersTx = await contract.functions[method](...processedArgs);
+    const processedArgs = await processArgs({
+      tx: { ...tx, contract: processedContract },
+      localABIs,
+      chainId,
+      safeId,
+      appState,
+    });
 
-  executeTx({ tx, ethersTx, chainId, localABIs, ...rest });
+    console.log('**PROCESSED ARGS**', processedArgs);
+    if (!address) return;
+    const contract = new ethers.Contract(
+      address,
+      abi,
+      provider.getSigner().connectUnchecked()
+    );
+    const ethersTx = await contract.functions[method](...processedArgs);
+    executeTx({ ...args, ethersTx });
+  } catch (error) {
+    console.log('**TX Error (Pre-Fire)**');
+    console.error(error);
+    lifeCycleFns?.onTxError?.(error);
+  }
 }

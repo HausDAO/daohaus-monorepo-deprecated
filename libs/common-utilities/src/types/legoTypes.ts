@@ -75,7 +75,13 @@ export type ValidArgType =
   | ProposalExpiry
   | StaticArg;
 
-export type TxStates = 'idle' | 'submitting' | 'polling' | 'failed' | 'success';
+export type TxStates =
+  | 'idle'
+  | 'submitting'
+  | 'polling'
+  | 'pollFailed'
+  | 'failed'
+  | 'success';
 
 export type TXLegoBase = {
   id: string;

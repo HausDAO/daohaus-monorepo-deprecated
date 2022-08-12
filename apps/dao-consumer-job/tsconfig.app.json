@@ -5,7 +5,6 @@
     "resolveJsonModule": true,
     "target": "esnext",
     "module": "nodenext",
-    "moduleResolution": "nodenext",
     "esModuleInterop": true,
     "types": ["node"]
   },

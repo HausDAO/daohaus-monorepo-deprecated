@@ -10,10 +10,19 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/node:node",
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
       "options": {
-        "buildTarget": "dao-consumer-job:build"
+        "outputPath": "dist/apps/dao-consumer-job",
+        "tsConfig": "./apps/dao-consumer-job/tsconfig.app.json",
+        "main": "./apps/dao-consumer-job/src/main.ts"
       },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ],
       "configurations": {
         "production": {
           "buildTarget": "dao-consumer-job:build:production"

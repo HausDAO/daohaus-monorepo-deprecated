@@ -35,6 +35,26 @@
           "projects": "self"
         }
       ]
+    },
+    "serve": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/ceramic-model-utilities",
+        "tsConfig": "./libs/ceramic-model-utilities/tsconfig.lib.json",
+        "main": "./libs/ceramic-model-utilities/src/index.ts",
+
+        "watch": true
+      },
+      "build": {
+        "executor": "@nrwl/js:tsc",
+        "outputs": ["{options.outputPath}"],
+        "options": {
+          "outputPath": "dist/libs/ceramic-model-utilities",
+          "tsConfig": "./libs/ceramic-model-utilities/tsconfig.lib.json",
+          "main": "./libs/ceramic-model-utilities/src/index.ts"
+        }
+      }
     }
   },
   "tags": []

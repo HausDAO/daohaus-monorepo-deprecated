@@ -123,13 +123,13 @@ export const HeaderProfile = () => {
         trigger={<StyledButton IconRight={StyledChevron}>Profile</StyledButton>}
       >
         <DropdownMenuItem asChild>
-          <StyledExternalLink href={LENS_PROFILE_URL}>
+          <StyledExternalLink href={LENS_PROFILE_URL} linkType="external">
             <StyledParMd>Edit Lens Profile</StyledParMd>
           </StyledExternalLink>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <StyledLink to={`/profile/${address}`}>
-            <StyledParMd>View Public</StyledParMd>
+            <StyledParMd>View Public Profile</StyledParMd>
           </StyledLink>
         </DropdownMenuItem>
       </Dropdown>

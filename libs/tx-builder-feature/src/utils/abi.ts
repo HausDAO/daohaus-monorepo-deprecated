@@ -1,6 +1,10 @@
 import { ethers } from 'ethers';
 import { ABI, isJSON, Keychain, ValidNetwork } from '@daohaus/common-utilities';
 import { cacheABI, getCachedABI } from './cache';
+import {
+  GNOSIS_PROXY_ABI,
+  SUPERFLUID_PROXY_ABI,
+} from '@daohaus/contract-utilities';
 
 const isGnosisProxy = (abi: ABI) => {
   return (
@@ -40,6 +44,16 @@ const getABIUrl = ({
   contractAddress: string;
 }) => {
   return TEMPORARY_ABI_EXPLORER[chainId]?.replace(ABI_ADDRESS, contractAddress);
+};
+
+const getGnosisMasterCopy = async (address: string, chainId: ValidNetwork) => {
+  const gnosisProxyContract = createContract({
+    address,
+    abi: GNOSIS_PROXY_ABI,
+    chainId,
+  });
+  const masterCopy = await gnosisProxyContract?.['masterCopy']?.();
+  return masterCopy;
 };
 
 export const createContract = ({
@@ -105,6 +119,7 @@ export const processABI = async ({
   }) => Promise<ABI | undefined>;
   contractAddress: string;
   chainId: ValidNetwork;
+  rpcs: Keychain;
 }) => {
   if (isProxyABI(abi)) {
     const proxyAddress = await getImplementation({
@@ -125,13 +140,35 @@ export const processABI = async ({
       }
     }
   } else if (isSuperfluidProxy(abi)) {
-    const proxy = createContract({
+    const proxyEthersContract = createContract({
       address: contractAddress,
-      abi: SF_UUPS_PROXIABLE,
+      abi: SUPERFLUID_PROXY_ABI,
       chainId,
     });
-    const proxyAddress = await proxy.methods.getCodeAddress().call();
+    const sfProxyAddr = await proxyEthersContract?.['getCodeAddress']?.();
+    const newData = await fetchABI({
+      contractAddress: sfProxyAddr,
+      chainId,
+      rpcs,
+    });
+    if (newData) {
+      return newData;
+    } else {
+      throw new Error('Could not fetch ABI from proxy');
+    }
+  } else if (isGnosisProxy(abi)) {
+    const gnosisProxyAddress = await getGnosisMasterCopy(
+      contractAddress,
+      chainId
+    );
+    const newData = await fetchABI({
+      contractAddress: gnosisProxyAddress,
+      chainId,
+      rpcs,
+    });
+    return newData;
   }
+  return abi;
 };
 
 export const fetchABI = async ({

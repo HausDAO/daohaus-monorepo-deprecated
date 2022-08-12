@@ -1,4 +1,6 @@
 import * as GnosisMultisendABI from '../external-abis/gnosisMultisend.json';
+import * as SuperFluidProxy from '../external-abis/superFluidProxy.json';
+import * as GnosisProxy from '../external-abis/gnosisProxy.json';
 import {
   BaalABI,
   BaalSummonerABI,
@@ -10,6 +12,8 @@ import {
 
 export {
   GnosisMultisendABI as GNOSIS_MULTISEND_ABI,
+  GnosisProxy as GNOSIS_PROXY_ABI,
+  SuperFluidProxy as SUPERFLUID_PROXY_ABI,
   BaalABI as BAAL_ABI,
   BaalSummonerABI as BAAL_SUMMONER_ABI,
   LootABI as LOOT_ABI,

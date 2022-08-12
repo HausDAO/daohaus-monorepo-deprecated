@@ -3129,7 +3129,7 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@jscutlery/semver@^2.25.2":
+"@jscutlery/semver@^2.26.0":
   version "2.26.0"
   resolved "https://registry.yarnpkg.com/@jscutlery/semver/-/semver-2.26.0.tgz#15cb627a713ef3a4e2564a04ab5f01e5cc534d7c"
   integrity sha512-4LjgXPM2V1xTOWCjPQerbjljKdnTi7pCmeC5jfRdDe7ZkKH2Fs+MBqEeblrvzCM2hHG28UOq0bKw0ibUg8nA3A==

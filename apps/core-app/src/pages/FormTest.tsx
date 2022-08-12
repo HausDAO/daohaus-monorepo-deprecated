@@ -9,12 +9,10 @@ import {
 } from '@daohaus/common-utilities';
 import {
   CoreFieldLookup,
-  FieldLego,
   FormBuilder,
   FormLego,
 } from '@daohaus/haus-form-builder';
 import { Tooltip } from '@daohaus/ui';
-import { searchApp } from '@daohaus/tx-builder-feature';
 
 const sampleDefaultData = {
   daoContract: '0x756ee8B8E898D497043c2320d9909f1DD5a7077F',
@@ -23,12 +21,6 @@ const sampleDefaultData = {
 
 const AppFieldLookup = {
   tooltip: Tooltip,
-};
-
-const tooltipTest: FieldLego<typeof AppFieldLookup> = {
-  type: 'tooltip',
-  content: 'This is a tooltip',
-  side: 'left',
 };
 
 export const CustomFields = { ...CoreFieldLookup, ...AppFieldLookup };
@@ -56,13 +48,16 @@ const testActions: MulticallAction[] = [
   {
     contract: Poster,
     method: 'post',
-    args: ['.title', { type: 'static', value: POSTER_TAGS.daoProfileUpdate }],
+    args: [
+      '.formValues.title',
+      { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
+    ],
   },
   {
     contract: Poster,
     method: 'post',
     args: [
-      '.description',
+      '.formValues.description',
       { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
     ],
   },
@@ -86,11 +81,11 @@ const Test: TXLego = {
       actions: testActions,
     },
     {
-      type: 'static',
-      value: JSON.stringify({
-        title: 'Test title',
-        description: 'Test description',
-      }),
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+      },
     },
   ],
 };

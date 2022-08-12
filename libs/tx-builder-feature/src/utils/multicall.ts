@@ -159,7 +159,8 @@ export const handleGasEstimate = async ({
     data: proposalData,
   });
   if (estimate.safeTxGas) {
-    return Number(estimate.safeTxGas);
+    const buffer = arg.bufferPercentage ? `1.${arg.bufferPercentage}` : 1.3;
+    return Math.round(Number(estimate.safeTxGas) * Number(buffer));
   } else {
     throw new Error(`Failed to estimate gas: `);
   }

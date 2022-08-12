@@ -37,10 +37,10 @@ export type RequiredFields = Record<string, boolean>;
 
 export type StringSearch = `.${string}`;
 
-type JSONSearchParam = Record<string, ValidArgType>;
+type DetailsSchema = Record<string, ValidArgType>;
 export type JSONDetailsSearch = {
   type: 'JSONDetails';
-  args: JSONSearchParam[];
+  jsonSchema: DetailsSchema;
 };
 export type MulticallAction = {
   contract: ContractLego;
@@ -54,6 +54,7 @@ export type MulticallArg = {
 export type EstmimateGas = {
   type: 'estimateGas';
   actions: MulticallAction[];
+  bufferPercentage?: number;
 };
 
 type ProposalExpiry = {

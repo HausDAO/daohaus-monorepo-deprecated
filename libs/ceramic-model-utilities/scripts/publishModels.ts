@@ -23,25 +23,26 @@ const main = async () => {
   await did.authenticate();
   const manager = new ModelManager({ ceramic: ceramic });
 
-  const publicationSchemaID = await manager.createSchema(
-    'Publication',
-    vaultSchema
-  );
-  await manager.createDefinition('publication', {
-    name: 'My publication',
-    description: 'A newsletter publication',
-    schema: manager.getSchemaURL(publicationSchemaID),
+  const vaultSchemaID = await manager.createSchema('Vault', vaultSchema);
+  await manager.createDefinition('vault', {
+    name: 'Dao vault',
+    description: 'A total of dao vault values',
+    schema: manager.getSchemaURL(vaultSchemaID),
   });
   await manager.createTile(
-    'examplePublication',
+    'exampleVault',
     {
-      name: 'Example',
-      about: 'Example publication',
+      safeAddress: '0x123858734279',
+      fiatTotal: 10,
+      tokenBalances: [],
     },
-    { schema: manager.getSchemaURL(publicationSchemaID) }
+    { schema: manager.getSchemaURL(vaultSchemaID) }
   );
   const model = await manager.deploy();
-  await writeFile('./src/published/vault.json', JSON.stringify(model));
+  await writeFile(
+    './libs/ceramic-model-utilities/src/lib/vault.json',
+    JSON.stringify(model)
+  );
 };
 
 main();

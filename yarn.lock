@@ -15041,7 +15041,7 @@ key-did-provider-ed25519@^2.0.1:
     rpc-utils "^0.6.2"
     uint8arrays "^3.0.0"
 
-key-did-resolver@^2.0.0:
+key-did-resolver@^2.0.0, key-did-resolver@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/key-did-resolver/-/key-did-resolver-2.0.5.tgz#fe0762b114fb3fddd534746a341d1147969ce984"
   integrity sha512-4WPGWjkg4nabR6v1mKepZAhry4UM4vqsq91PjLU3pUjIX3KppkqndrNW3uJhC669tbaRF2zbaLtTpEYJhVERSw==

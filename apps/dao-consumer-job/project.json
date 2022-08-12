@@ -4,21 +4,9 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:webpack",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "outputPath": "dist/apps/dao-consumer-job",
-        "main": "apps/dao-consumer-job/src/main.ts",
-        "tsConfig": "apps/dao-consumer-job/tsconfig.app.json",
-        "assets": ["apps/dao-consumer-job/src/assets"]
-      },
-      "configurations": {
-        "production": {
-          "optimization": true,
-          "extractLicenses": true,
-          "inspect": false,
-          "fileReplacements": []
-        }
+        "command": "tsc --project ./apps/dao-consumer-job/tsconfig.app.json && cp ./apps/dao-consumer-job/package.json ./dist/apps/dao-consumer-job"
       }
     },
     "serve": {

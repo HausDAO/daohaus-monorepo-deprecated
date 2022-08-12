@@ -1,13 +1,26 @@
 import { Haus } from '@daohaus/dao-data';
+const { TileDocument } = await import('@ceramicnetwork/stream-tile');
 import { Keychain, DAO_PRODUCER_QUEUE } from '@daohaus/common-utilities';
+const { vaultModel } = await import('@daohaus/ceramic-model-utilities');
+const { WebClient } = await import('@self.id/web');
+import { fromString } from 'uint8arrays';
+const { DID } = await import('dids');
+const { getResolver } = await import('key-did-resolver');
+const { Ed25519Provider } = await import('key-did-provider-ed25519');
 import * as Queue from 'bull';
 
-const REDIS_HOST = process.env.SLEEP_TIME || 'redis://127.0.0.1:6379';
+const CERAMIC_NODE = process.env.CERAMIC_NODE || 'http://localhost:7007';
+const CERAMIC_NETWORK = (process.env.CERAMIC_NETWORK || 'testnet-clay') as
+  | 'dev-unstable'
+  | 'mainnet'
+  | 'testnet-clay';
+const key = fromString(process.env['SEED'], 'base16');
+const did = new DID({
+  provider: new Ed25519Provider(key),
+  resolver: getResolver(),
+});
 
-// 1. Calculate active proposals
-//   - active proposals comes from subgraph
-
-const producerQueue = new Queue(DAO_PRODUCER_QUEUE);
+const producerQueue = new Queue.default(DAO_PRODUCER_QUEUE);
 const runner = async (data: {
   address: string;
   safeAddress: string;
@@ -18,8 +31,27 @@ const runner = async (data: {
     networkId: data.networkId,
     safeAddress: data.safeAddress,
   });
-  // create ceramic document to store data
-  //
+  const client = new WebClient({
+    ceramic: CERAMIC_NODE,
+    connectNetwork: CERAMIC_NETWORK,
+  });
+  client.ceramic.did = did;
+  await did.authenticate();
+  await TileDocument.create(
+    client.ceramic,
+    {
+      safeAddress: balance.data.safeAddress,
+      fiatTotal: balance.data.fiatTotal,
+      tokenBalances: balance.data.tokenBalances,
+    },
+    {
+      controllers: [did.id],
+      family: 'daoVault',
+      tags: [data.address],
+      schema: vaultModel.definitions.vault,
+      deterministic: true,
+    }
+  );
   return data;
 };
 

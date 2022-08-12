@@ -113,7 +113,7 @@ export const HeaderProfile = () => {
           {
             type: 'clickable',
             content: (
-              <StyledExternalLink href={LENS_PROFILE_URL}>
+              <StyledExternalLink href={LENS_PROFILE_URL} linkType="external">
                 <StyledParMd>Edit Lens Profile</StyledParMd>
               </StyledExternalLink>
             ),
@@ -122,7 +122,7 @@ export const HeaderProfile = () => {
             type: 'clickable',
             content: (
               <StyledLink to={`/profile/${address}`}>
-                <StyledParMd>View Public</StyledParMd>
+                <StyledParMd>View Public Profile</StyledParMd>
               </StyledLink>
             ),
           },

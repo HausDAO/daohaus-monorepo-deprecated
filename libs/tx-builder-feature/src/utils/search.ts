@@ -28,7 +28,7 @@ export const searchApp = (
   pathString: StringSearch,
   shouldThrow = false
 ) => {
-  const result = deepSearch(appState, pathString) || false;
+  const result = deepSearch(appState, pathString) || undefined;
 
   if (result === undefined || result === '' || result === null) {
     if (shouldThrow) {

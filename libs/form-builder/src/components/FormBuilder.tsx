@@ -86,9 +86,7 @@ export function FormBuilder<Lookup extends LookupType>({
       return await fireTransaction({
         tx: form.tx,
         callerState: {
-          fromCallerState: {
-            foo: 'bar',
-          },
+          formValues,
         },
         lifeCycleFns: {
           onTxHash() {

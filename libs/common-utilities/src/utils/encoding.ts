@@ -13,8 +13,6 @@ export const encodeFunction = (
   fnName: string,
   functionArgs: ReadonlyArray<unknown>
 ): string | { error: true; message: string } => {
-  console.log('abi', abi);
-  console.log('fnName', fnName);
   try {
     if (!abi || !Array.isArray(functionArgs))
       throw new Error(

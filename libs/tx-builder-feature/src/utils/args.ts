@@ -30,7 +30,9 @@ export const processArg = async ({
   appState: ArbitraryState;
 }): Promise<ArgType> => {
   if (isSearchArg(arg)) {
-    return searchArg({ appState, searchString: arg, shouldThrow: true });
+    const res = searchArg({ appState, searchString: arg, shouldThrow: true });
+    console.log('res', res);
+    return res;
   }
   if (arg?.type === 'static') {
     return arg.value;

@@ -79,29 +79,14 @@ jobs:
       - name: Get current nx version
         id: nx-version
         run: echo "::set-output name=version::$(npm view @nrwl/workspace version)"
+      - name: Test mono post changes
+        run: NODE_OPTIONS=--experimental-vm-modules nx affected:test --base $BASE
       - name: Push changes
-        if: steps.nrwl-workspace-outdated.outputs.outdated == 'true' && steps.test.outcome == 'success'
+        if: steps.nrwl-workspace-outdated.outputs.outdated == 'true'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: update-nrwl-workspace-${{ steps.nx-version.outputs.version }}
           tags: true
-      - name: Create PR
-        if: steps.nrwl-workspace-outdated.outputs.outdated == 'true' && steps.test.outcome != 'success'
-        run: |
-          LAST_VERSION=$(npm view @nrwl/workspace version)
-          BRANCH="update-nrwl-workspace-${LAST_VERSION}"
-          git checkout -b "${BRANCH}"
-          git push -f --set-upstream origin "${BRANCH}"
-          PR=$(gh pr view "${BRANCH}")
-          if [[ $PR == *"no pull requests found"* ]]; then
-            gh pr create \
-              --repo HausDAO/daohaus-monorepo \
-              --base "${BASE}" \
-              --head "${BRANCH}" \
-              --title string "Update @nrwl/workspace" \
-              --body string "Update @nrwl/workspace dependencies to ${LAST_VERSION}." \
-              --fill
-          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -81,6 +81,7 @@ export const DropdownLink = styled(Link)`
   border-radius: 2px;
   color: ${(props) => props.theme.navTabs.navLinkColor};
   cursor: pointer;
+  display: flex;
   font-size: 2.4rem;
   letter-spacing: 1.5px;
   padding: 1rem;

@@ -3,7 +3,13 @@ import styled, { useTheme } from 'styled-components';
 import { AiOutlineCheck } from 'react-icons/ai';
 import { RiFilterFill } from 'react-icons/ri';
 
-import { Button, Dropdown, DropdownItem, Theme } from '@daohaus/ui';
+import {
+  Button,
+  Dropdown,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  Theme,
+} from '@daohaus/ui';
 import { ParSm } from '@daohaus/ui';
 import { networkData } from '@daohaus/common-utilities';
 import { indigoDark } from '@radix-ui/colors';
@@ -40,93 +46,82 @@ const FilterDropdown = ({
 }: FilterDropdownProps) => {
   const theme = useTheme();
 
-  const networkButtons = Object.values(networkData).map(
-    (network): DropdownItem => {
-      const isActive = filterNetworks[network.chainId];
-      return {
-        type: 'clickable',
-        content: (
-          <DropdownButton
-            key={network.chainId}
-            value={network.chainId}
-            onClick={toggleNetworkFilter}
-            className={isActive ? 'selected' : ''}
-            secondary
-            fullWidth
-            leftAlign
-            IconRight={isActive ? AiOutlineCheck : undefined}
-          >
-            <div style={{ width: '100%' }}>{network.name}</div>
-          </DropdownButton>
-        ),
-      };
-    }
-  );
-
+  const networkButtons = Object.values(networkData).map((network) => {
+    const isActive = filterNetworks[network.chainId];
+    return (
+      <DropdownMenuItem key={network.chainId} asChild>
+        <DropdownButton
+          value={network.chainId}
+          onClick={toggleNetworkFilter}
+          className={isActive ? 'selected' : ''}
+          secondary
+          fullWidth
+          leftAlign
+          IconRight={isActive ? AiOutlineCheck : undefined}
+        >
+          <div style={{ width: '100%' }}>{network.name}</div>
+        </DropdownButton>
+      </DropdownMenuItem>
+    );
+  });
   return (
     <Dropdown
       align="end"
-      width="25rem"
+      menuBg={theme.button.secondary.bg}
+      menuMinWidth="25rem"
       spacing=".6rem"
-      bg={theme.button.secondary.bg}
       trigger={
         <Button secondary IconLeft={IconFilter}>
           Filters
         </Button>
       }
-      items={[
-        { type: 'label', content: <ParSm>Networks</ParSm> },
-        ...networkButtons,
-        {
-          type: 'label',
-          content: <ParSm>Delegation</ParSm>,
-        },
-        {
-          type: 'clickable',
-          content: (
-            <DropdownButton
-              secondary
-              fullWidth
-              leftAlign
-              value={FILTER_TYPE.DELEGATING}
-              onClick={toggleDelegateFilter}
-              IconRight={
-                filterDelegate === FILTER_TYPE.DELEGATING
-                  ? AiOutlineCheck
-                  : undefined
-              }
-              className={
-                filterDelegate === FILTER_TYPE.DELEGATING ? 'selected' : ''
-              }
-            >
-              <div style={{ width: '100%' }}>I am a Delegate</div>
-            </DropdownButton>
-          ),
-        },
-        {
-          type: 'clickable',
-          content: (
-            <DropdownButton
-              secondary
-              fullWidth
-              leftAlign
-              value={FILTER_TYPE.DELEGATING_TO}
-              onClick={toggleDelegateFilter}
-              IconRight={
-                filterDelegate === FILTER_TYPE.DELEGATING_TO
-                  ? AiOutlineCheck
-                  : undefined
-              }
-              className={
-                filterDelegate === FILTER_TYPE.DELEGATING_TO ? 'selected' : ''
-              }
-            >
-              <div style={{ width: '100%' }}>I have a Delegate</div>
-            </DropdownButton>
-          ),
-        },
-      ]}
-    />
+    >
+      <DropdownMenuLabel>
+        <ParSm>Networks</ParSm>
+      </DropdownMenuLabel>
+      {networkButtons}
+      <DropdownMenuLabel>
+        <ParSm>Delegation</ParSm>
+      </DropdownMenuLabel>
+      <DropdownMenuItem asChild>
+        <DropdownButton
+          secondary
+          fullWidth
+          leftAlign
+          value={FILTER_TYPE.DELEGATING}
+          onClick={toggleDelegateFilter}
+          IconRight={
+            filterDelegate === FILTER_TYPE.DELEGATING
+              ? AiOutlineCheck
+              : undefined
+          }
+          className={
+            filterDelegate === FILTER_TYPE.DELEGATING ? 'selected' : ''
+          }
+        >
+          <div style={{ width: '100%' }}>I am a Delegate</div>
+        </DropdownButton>
+      </DropdownMenuItem>
+      <DropdownMenuItem asChild>
+        <DropdownButton
+          secondary
+          fullWidth
+          leftAlign
+          value={FILTER_TYPE.DELEGATING_TO}
+          onClick={toggleDelegateFilter}
+          IconRight={
+            filterDelegate === FILTER_TYPE.DELEGATING_TO
+              ? AiOutlineCheck
+              : undefined
+          }
+          className={
+            filterDelegate === FILTER_TYPE.DELEGATING_TO ? 'selected' : ''
+          }
+        >
+          <div style={{ width: '100%' }}>I have a Delegate</div>
+        </DropdownButton>
+      </DropdownMenuItem>
+    </Dropdown>
   );
 };
 

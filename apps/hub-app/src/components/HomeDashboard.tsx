@@ -113,9 +113,7 @@ export const HomeDashboard = ({
 };
 
 const NoDaosFound = () => (
-  <ParMd>
-    No DAO memberships found. Connect another wallet or Explore a Million Daos!
-  </ParMd>
+  <ParMd>No DAO memberships found in this wallet.</ParMd>
 );
 
 const Mobile = ({ daoData }: { daoData: ITransformedMembership[] }) => {

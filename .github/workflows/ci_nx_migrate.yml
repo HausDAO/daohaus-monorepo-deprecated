@@ -1,9 +1,6 @@
 name: "Nx migrate"
 
 on:
-  push:
-    branches:
-      - nx-migrate
   schedule:
     - cron: "30 13 1 * *" # Runs Monthly on the 1st.
   workflow_dispatch: # adding the workflow_dispatch so it can be triggered manually
@@ -39,6 +36,9 @@ jobs:
           # and sets the NPM_CONFIG_USERCONFIG environment variable.
           registry-url: https://registry.npmjs.org
       - run: npm install -g nx
+      - name: Install dependencies
+        if: steps.nrwl-workspace-outdated.outputs.outdated == 'true'
+        run: yarn install --frozen-lockfile
       - name: Check if @nrwl/workspace is outdated
         id: nrwl-workspace-outdated
         run: |
@@ -49,9 +49,6 @@ jobs:
       - name: Update @nrwl/workspace
         if: steps.nrwl-workspace-outdated.outputs.outdated == 'true'
         run: echo 1 | nx migrate latest
-      - name: Install dependencies
-        if: steps.nrwl-workspace-outdated.outputs.outdated == 'true'
-        run: yarn install --frozen-lockfile
       - name: Exit if outdated === false
         if: steps.nrwl-workspace-outdated.outputs.outdated == 'false'
         run: |

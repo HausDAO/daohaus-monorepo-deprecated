@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { breakpoints, H5, ParLg, ParMd, Dropdown, Bold } from '@daohaus/ui';
 import { Avatar, Button, Link as ExternalLink } from '@daohaus/ui';
 import { indigoDark } from '@radix-ui/colors';
-import { SELF_ID_URL } from '../constants';
+import { LENS_PROFILE_URL } from '../constants';
 import { BiChevronDown } from 'react-icons/bi';
 
 const ProfileContainer = styled.div`
@@ -113,8 +113,8 @@ export const HeaderProfile = () => {
           {
             type: 'clickable',
             content: (
-              <StyledExternalLink href={SELF_ID_URL}>
-                <StyledParMd>Edit SELF_ID</StyledParMd>
+              <StyledExternalLink href={LENS_PROFILE_URL} linkType="external">
+                <StyledParMd>Edit Lens Profile</StyledParMd>
               </StyledExternalLink>
             ),
           },
@@ -122,7 +122,7 @@ export const HeaderProfile = () => {
             type: 'clickable',
             content: (
               <StyledLink to={`/profile/${address}`}>
-                <StyledParMd>View Public</StyledParMd>
+                <StyledParMd>View Public Profile</StyledParMd>
               </StyledLink>
             ),
           },

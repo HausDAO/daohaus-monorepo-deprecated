@@ -6,7 +6,14 @@ import {
   Keychain,
   NetworkType,
 } from '@daohaus/common-utilities';
-import { Button, Dropdown, DropdownItem, ParXs, widthQuery } from '@daohaus/ui';
+import {
+  Button,
+  Dropdown,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  ParXs,
+  widthQuery,
+} from '@daohaus/ui';
 
 import { useHausConnect } from '../../HausConnectContext';
 
@@ -28,15 +35,13 @@ export const NetworkButton = ({ isSm }: { isSm: boolean }) => {
 export const getNetworkPanels = (
   availableNetworks: Keychain<NetworkType>,
   switchNetwork: (id: string) => void
-): DropdownItem[] =>
+) =>
   Object.values(availableNetworks).map((network) => {
     const handleNetworkSwitch = () => {
       switchNetwork(network.chainId);
     };
-    return {
-      key: network.chainId,
-      type: 'clickable',
-      content: (
+    return (
+      <DropdownMenuItem asChild>
         <WarningButton
           secondary
           fullWidth
@@ -45,8 +50,8 @@ export const getNetworkPanels = (
         >
           {network.name}
         </WarningButton>
-      ),
-    };
+      </DropdownMenuItem>
+    );
   });
 
 export const NotDaoNetwork = ({ isSm }: { isSm: boolean }) => {
@@ -85,13 +90,14 @@ export const NotSupportedNetwork = ({ isSm }: { isSm: boolean }) => {
     <Dropdown
       align="end"
       spacing="0.7rem"
-      width="25.25rem"
+      menuMinWidth="25.25rem"
       trigger={innerButton}
-      items={[
-        { type: 'label', content: <ParXs>Switch to available network</ParXs> },
-        ...getNetworkPanels(networks, switchNetwork),
-      ]}
-    />
+    >
+      <DropdownMenuLabel>
+        <ParXs>Switch to available network</ParXs>
+      </DropdownMenuLabel>
+      {getNetworkPanels(networks, switchNetwork)}
+    </Dropdown>
   );
 };
 

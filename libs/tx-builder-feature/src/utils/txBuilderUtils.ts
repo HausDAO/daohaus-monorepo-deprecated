@@ -98,6 +98,7 @@ export async function prepareTX(args: {
 }) {
   const { tx, chainId, safeId, provider, localABIs, lifeCycleFns, appState } =
     args;
+  console.log('**APPLICATION STATE**', appState);
   try {
     const processedContract = await processContractLego({
       localABIs,

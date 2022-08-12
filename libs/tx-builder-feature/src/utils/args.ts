@@ -55,7 +55,7 @@ export const processArg = async ({
     return result;
   }
   if (arg?.type === 'proposalExpiry') {
-    arg.search
+    return arg.search
       ? searchArg({
           appState,
           searchString: `${FORM}${EXPIRY}`,
@@ -63,7 +63,9 @@ export const processArg = async ({
         })
       : calcExpiry(arg.fallback);
   }
-  throw new Error('ArgType not found. Searching not yet implemented');
+  throw new Error(
+    `ArgType: ${typeof arg === 'string' ? arg : arg.type} not found.`
+  );
 };
 
 export const processArgs = async ({

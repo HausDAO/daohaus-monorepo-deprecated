@@ -29,7 +29,8 @@ export const searchApp = (
   shouldThrow = false
 ) => {
   const result = deepSearch(appState, pathString) || false;
-  if (!result != null) {
+
+  if (result === undefined || result === '' || result === null) {
     if (shouldThrow) {
       console.log('**Application State**', appState);
       throw new Error(`Could not find ${pathString}`);

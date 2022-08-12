@@ -58,15 +58,18 @@ type BuilderProps<ApplicationState extends ArbitraryState = ArbitraryState> = {
   appState: ApplicationState;
   txLifeCycleFns?: TXLifeCycleFns;
   localABIs?: Record<string, ABI>;
+  argCallbacks?: Record<string, (args: ArbitraryState) => ArgType[]>;
 };
 
 export const TXBuilder = ({
   chainId,
   safeId,
+  daoId,
   provider,
   appState,
   children,
   localABIs = {},
+  txLifeCycleFns = {},
 }: BuilderProps) => {
   const [transactions, setTransactions] = useState<TxRecord>({});
   const txAmt = useMemo(() => {
@@ -84,7 +87,14 @@ export const TXBuilder = ({
       );
       return;
     }
-    const wholeState = { ...appState, ...callerState };
+    const wholeState = {
+      ...appState,
+      ...callerState,
+      chainId,
+      safeId,
+      daoId,
+      localABIs,
+    };
 
     await prepareTX({
       tx,
@@ -93,7 +103,10 @@ export const TXBuilder = ({
       provider,
       setTransactions,
       appState: wholeState,
-      lifeCycleFns,
+      lifeCycleFns: bundleLifeCycleFns({
+        appEffects: txLifeCycleFns,
+        componentEffects: lifeCycleFns,
+      }),
       localABIs,
     });
   };
@@ -107,22 +120,3 @@ export const TXBuilder = ({
   );
 };
 export const useTxBuilder = () => useContext(TxBuilderContext);
-
-console.log(
-  'Bundled',
-  bundleLifeCycleFns({
-    appEffects: {
-      onTxHash: (txHash: string) => {
-        console.log(`${txHash} 1`);
-      },
-    },
-    componentEffects: {
-      onTxHash: (txHash: string) => {
-        console.log(`${txHash} 2`);
-      },
-      onPollError: (error: unknown) => {
-        console.log(`${error} 3`);
-      },
-    },
-  })
-);

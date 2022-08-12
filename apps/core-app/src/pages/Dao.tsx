@@ -13,6 +13,7 @@ export function Dao() {
       chainId={daochain}
       provider={provider}
       safeId={dao?.safeAddress}
+      daoId={daoid}
       appState={{}}
     >
       <HausLayout

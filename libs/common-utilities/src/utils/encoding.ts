@@ -13,6 +13,8 @@ export const encodeFunction = (
   fnName: string,
   functionArgs: ReadonlyArray<unknown>
 ): string | { error: true; message: string } => {
+  console.log('abi', abi);
+  console.log('fnName', fnName);
   try {
     if (!abi || !Array.isArray(functionArgs))
       throw new Error(
@@ -22,7 +24,7 @@ export const encodeFunction = (
     const ethersInterface = new ethers.utils.Interface(abiString);
     return ethersInterface.encodeFunctionData(fnName, functionArgs);
   } catch (error) {
-    console.log('error', error);
+    console.error('error', error);
     return {
       error: true,
       message:

@@ -94,9 +94,13 @@ export type TXLegoBase = {
   status?: TxStates;
   args?: ValidArgType[];
   argCallback?: string;
+  staticArgs: ArgType[];
 };
 
-export type TXLego = RequireOnlyOne<TXLegoBase, 'args' | 'argCallback'>;
+export type TXLego = RequireOnlyOne<
+  TXLegoBase,
+  'args' | 'argCallback' | 'staticArgs'
+>;
 
 export type StaticContract = {
   contractName: string;

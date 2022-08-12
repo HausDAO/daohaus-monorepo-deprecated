@@ -46,12 +46,10 @@ We'll be adding more documentation and detail to this section, so keep checking 
 
 ### Profile
 
-The SDK provides a `profile` method that includes functionality related to profiles. This includes interacting with [Ceramic](https://ceramic.network/) to get a user's profile. We have a series of fallbacks in place if a user doesn't have a basic profile set.
-
-To get ens names with the profile include a mainnet rpc endpoint in the init options:
+The SDK provides a `profile` method that includes functionality related to profiles. This includes interacting with [Lens](https://lens.xyz/) to get a user's profile. We have a series of fallbacks in place if a user doesn't have a basic profile set. In the future we plan to interact with [Ceramic](https://ceramic.network/) to get a user's profile:
 
 ```js
-const haus = Haus.create({ providers: { '0x0': 'https://somerpc.com' } });
+const haus = Haus.create();
 
 const profile = await haus.profile.get('0x0');
 // console.log(profile)
@@ -198,5 +196,5 @@ Be sure to include the `NODE_OPTIONS=--experimental-vm-modules` flag when runnin
 
 2. When there is a new schema or new query files are added, new types should be generated
 
-   run `nx generate-gql-types dao-data` to create type fiels for each query file in `src/subgraph/queries`
+   run `nx generate-gql-types dao-data` to create type files for each query file in `src/subgraph/queries`
 ```

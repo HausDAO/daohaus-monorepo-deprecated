@@ -26,6 +26,8 @@ import {
   loadProposalsList,
 } from '../utils/contextHelpers';
 
+export type TDao = DaoWithTokenDataQuery['dao'];
+
 export const defaultDaoData = {
   dao: null,
   isDaoLoading: false,

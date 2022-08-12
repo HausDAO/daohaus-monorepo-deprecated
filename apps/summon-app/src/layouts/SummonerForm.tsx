@@ -2,12 +2,7 @@ import { useState } from 'react';
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import {
-  CONTRACTS,
-  isValidNetwork,
-  ReactSetter,
-} from '@daohaus/common-utilities';
-import { LOCAL_ABI } from '@daohaus/abi-utilities';
+import { isValidNetwork, ReactSetter } from '@daohaus/common-utilities';
 import {
   Bold,
   Button,
@@ -30,6 +25,7 @@ import { assembleTxArgs } from '../utils/summonTx';
 import { FormValues } from '../types/form';
 import { SummonStates } from '../app/App';
 import { ConnectBox } from '../components/ConnectBox/ConnectBox';
+import { SummonTX } from '../utils/summonlegos';
 
 type SummonFormProps = {
   setSummonState: ReactSetter<SummonStates>;
@@ -67,10 +63,10 @@ export const SummonerForm = ({
       const args = assembleTxArgs(formValues, chainId);
 
       fireTransaction({
-        txName: 'summonBaalAndSafe',
-        abi: LOCAL_ABI.BAAL_SUMMONER,
-        args: args,
-        keychain: CONTRACTS.V3_FACTORY,
+        tx: {
+          ...SummonTX,
+          args,
+        },
         lifeCycleFns: {
           onTxHash(txHash) {
             setSummonState('loading');
@@ -147,11 +143,14 @@ export const SummonerForm = ({
       >
         <div className="title-section">
           <H1>
-            <Bold>Summon a DAO.</Bold>
+            <Bold>Summon a DAO</Bold>
           </H1>
           <ParMd>
             Learn more about{' '}
-            <Link href="https://daohaus.mirror.xyz/U_JQtheSzdpRFqQwf9Ow3LgLNG0WMZ6ibAyrjWDu_fc">
+            <Link
+              href="https://daohaus.mirror.xyz/U_JQtheSzdpRFqQwf9Ow3LgLNG0WMZ6ibAyrjWDu_fc"
+              linkType="external"
+            >
               Moloch v3
             </Link>
           </ParMd>

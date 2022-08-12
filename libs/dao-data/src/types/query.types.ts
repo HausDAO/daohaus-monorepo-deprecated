@@ -1,6 +1,6 @@
 import { Keychain } from '@daohaus/common-utilities';
 import { HausError } from '../HausError';
-import { FindDaoQuery } from '../subgraph/queries/daos.generated';
+import { ListDaosQuery } from '../subgraph/queries/daos.generated';
 import { ListProposalsQuery } from '../subgraph/queries/proposals.generated';
 import { OrderDirection } from '../subgraph/schema.generated';
 
@@ -117,11 +117,26 @@ export type DaoTokenBalances = {
   tokenBalances: TokenBalance[];
 };
 
-export type QueryDao = FindDaoQuery['dao'];
+export type DaoProfile = {
+  description?: string;
+  longDescription?: string;
+  avatarImg?: string;
+  tags?: string[];
+  links?: { [field: string]: string };
+};
+
+export type ITransformedDao = ListDaosQuery['daos'][number] & DaoProfile;
+
+export interface ITransformedDaoQuery {
+  dao: ITransformedDao | undefined;
+}
+export interface ITransformedDaoListQuery {
+  daos: ITransformedDao[];
+}
 export type DaoWithTokenData = {
   fiatTotal: number;
   tokenBalances: TokenBalance[];
-} & QueryDao;
+} & ITransformedDao;
 export type DaoWithTokenDataQuery = {
   dao: DaoWithTokenData;
 };

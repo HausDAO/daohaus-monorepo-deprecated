@@ -6,8 +6,8 @@ import {
 } from './DataIndicator.styles';
 
 type DataIndicatorProps = {
-  label: string;
-  data: string;
+  label?: string;
+  data?: string | number;
   size?: 'lg' | 'sm';
   info?: string;
 };

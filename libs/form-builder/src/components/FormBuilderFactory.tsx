@@ -1,6 +1,7 @@
+import { LookupType } from '@daohaus/common-utilities';
 import { useMemo } from 'react';
 import styled from 'styled-components';
-import { FieldLego, LookupType } from '../types/legoTypes';
+import { FieldLego } from '../types/formLegoTypes';
 import { generateRules } from '../utils/rules';
 import { CoreFieldLookup } from './CoreFieldLookup';
 import { useFormBuilder } from './FormBuilder';

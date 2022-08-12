@@ -33,7 +33,7 @@ export const defaultWalletValues = {
   address: null,
   profile: {
     address: '',
-    ens: null,
+    ens: undefined,
   },
   connectWallet: async () => undefined,
   disconnect: () => undefined,

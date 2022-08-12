@@ -1,10 +1,9 @@
 {
-  "root": "libs/form-builder",
   "sourceRoot": "libs/form-builder/src",
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build": {
+    "vite-build": {
       "executor": "@nxext/vite:package",
       "outputs": ["{options.outputPath}"],
       "options": {
@@ -13,6 +12,21 @@
         "frameworkConfigFile": "@nxext/react/plugins/vite",
         "entryFile": "src/index.ts"
       }
+    },
+    "build": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/form-builder",
+        "command": "tsc --project libs/form-builder/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
+        "color": true
+      },
+      "dependsOn": [
+        {
+          "target": "vite-build",
+          "projects": "self"
+        }
+      ]
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",

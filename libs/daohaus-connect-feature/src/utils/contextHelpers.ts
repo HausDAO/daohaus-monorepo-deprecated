@@ -125,9 +125,7 @@ export const loadProfile = async ({
 }) => {
   try {
     setProfileLoading(true);
-    const rpcs = extractKeychain(networks, 'rpc');
-
-    const haus = Haus.create({ providers: rpcs });
+    const haus = Haus.create();
     const profile = await haus.profile.get({ address: address });
 
     if (profile && shouldUpdate) {

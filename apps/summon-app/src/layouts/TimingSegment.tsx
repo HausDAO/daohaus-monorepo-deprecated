@@ -1,6 +1,6 @@
 import { FormSegment, SplitColumn, TimePicker } from '@daohaus/ui';
 
-import { INFO_COPY } from '../utils/content';
+import { INFO_COPY } from '@daohaus/common-utilities';
 import { FORM_KEYS } from '../utils/formKeys';
 
 export const TimingSegment = ({ formDisabled }: { formDisabled: boolean }) => {

@@ -4,7 +4,15 @@ import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
 import styled, { useTheme } from 'styled-components';
 
 import { getNetworkName, truncateAddress } from '@daohaus/common-utilities';
-import { Button, Dropdown, ParMd, ParXs, ProfileAvatar } from '@daohaus/ui';
+import {
+  Button,
+  Dropdown,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  ParMd,
+  ParXs,
+  ProfileAvatar,
+} from '@daohaus/ui';
 
 import { useHausConnect } from '../../HausConnectContext';
 import { ExplorerLink } from '../ExplorerLink';
@@ -19,7 +27,7 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
   return (
     <Dropdown
       spacing="0.7rem"
-      width={isSm ? 'fit-content' : '25rem'}
+      menuMinWidth={isSm ? 'fit-content' : '25rem'}
       align="end"
       open={open}
       onOpenChange={setOpen}
@@ -54,41 +62,34 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
           </Container>
         </Button>
       }
-      items={[
-        {
-          type: 'label',
-          content: (
-            <div
-              style={{
-                padding: '.8rem',
-              }}
+    >
+      <DropdownMenuLabel>
+        <div
+          style={{
+            padding: '.8rem',
+          }}
+        >
+          <AddressContainer className="address-container">
+            <ExplorerLink
+              className="explorer-link"
+              address={address || undefined}
             >
-              <AddressContainer className="address-container">
-                <ExplorerLink
-                  className="explorer-link"
-                  address={address || undefined}
-                >
-                  <ParXs>{address && truncateAddress(address)}</ParXs>
-                </ExplorerLink>
-              </AddressContainer>
-              <ParXs>
-                {validNetwork && chainId
-                  ? `Connected To ${getNetworkName(chainId)}`
-                  : 'Unsupported Network'}
-              </ParXs>
-            </div>
-          ),
-        },
-        {
-          type: 'clickable',
-          content: (
-            <Button tertiary fullWidth sm onClick={disconnect}>
-              Disconnect
-            </Button>
-          ),
-        },
-      ]}
-    />
+              <ParXs>{address && truncateAddress(address)}</ParXs>
+            </ExplorerLink>
+          </AddressContainer>
+          <ParXs>
+            {validNetwork && chainId
+              ? `Connected To ${getNetworkName(chainId)}`
+              : 'Unsupported Network'}
+          </ParXs>
+        </div>
+      </DropdownMenuLabel>
+      <DropdownMenuItem>
+        <Button tertiary fullWidth sm onClick={disconnect}>
+          Disconnect
+        </Button>
+      </DropdownMenuItem>
+    </Dropdown>
   );
 };
 

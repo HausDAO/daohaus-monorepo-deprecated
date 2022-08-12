@@ -24,6 +24,7 @@ export const isProxyABI = (abi: ABI) => {
 
 export const TEMPORARY_RPC = {
   '0x5': `https://goerli.infura.io/v3/${
+    // @ts-expect-error: Does exist
     import.meta.env.VITE_INFURA_PROJECT_ID
   }`,
 };
@@ -32,6 +33,7 @@ const ABI_ADDRESS = '<<address>>';
 
 const TEMPORARY_ABI_EXPLORER: Keychain = {
   '0x5': `https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${
+    // @ts-expect-error: Does exist
     import.meta.env.VITE_ETHERSCAN_KEY
   }`,
 };
@@ -68,7 +70,6 @@ export const createContract = ({
   rpcs?: Keychain;
 }) => {
   const rpcUrl = rpcs[chainId];
-  console.log('rpcUrl', rpcUrl);
   const ethersProvider = new ethers.providers.JsonRpcProvider(rpcUrl);
   return new ethers.Contract(address, abi, ethersProvider);
 };
@@ -183,26 +184,20 @@ export const fetchABI = async ({
   const cachedABI = await getCachedABI({ address: contractAddress, chainId });
 
   if (cachedABI) {
-    // process the ABU and return it
     return cachedABI;
   }
 
   const url = getABIUrl({ contractAddress, chainId });
-  console.log('url', url);
   if (!url) {
     throw new Error('Could generate ABI link with the given arguments');
   }
 
   try {
     const scanResponse = await fetch(url);
-    console.log('scanResponse', scanResponse);
     const data = await scanResponse.json();
-    console.log('data', data);
     if (data.message === 'OK' && isJSON(data.result)) {
       const abi = JSON.parse(data.result);
-      console.log('abi', abi);
       cacheABI({ address: contractAddress, chainId, abi });
-      //process and return abi
       return abi;
     }
     throw new Error('Could not fetch or parse ABI');

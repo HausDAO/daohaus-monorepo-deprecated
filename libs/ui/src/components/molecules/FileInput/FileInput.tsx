@@ -2,33 +2,13 @@ import { useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { Buildable, Field } from '../../../types/formAndField';
-import { Avatar, Bold, Button } from '../../atoms';
+import { Avatar, Button, Icon } from '../../atoms';
 import { FieldWrapper } from '../FieldWrapper';
 import {
-  CancelParSm,
+  CancelIcon,
   FileInputContents,
   ImageDisplayWrapper,
 } from './FileInput.styles';
-
-// TODO how to pass off formdata to ipfs - formdata as value for now
-// export const ipfsPost = async (creds, formData) => {
-//   const url = 'https://api.pinata.cloud/pinning/pinFileToIPFS';
-//   try {
-//     const response = await fetch(url, {
-//       method: 'POST',
-//       headers: {
-//         pinata_api_key: creds.pinata_api_key,
-//         pinata_secret_api_key: creds.pinata_api_secret,
-//       },
-//       body: formData,
-//     });
-//     return response.json();
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
-
-// TODO: bounce
 
 export const FileInput = ({
   id,
@@ -87,9 +67,11 @@ export const FileInput = ({
         {displayAvatarImage && imageUrl && (
           <ImageDisplayWrapper>
             <Avatar src={imageUrl} size="xl" />
-            <CancelParSm onClick={handleResetImage}>
-              <Bold>X</Bold>
-            </CancelParSm>
+            <div onClick={handleResetImage}>
+              <Icon>
+                <CancelIcon />
+              </Icon>
+            </div>
           </ImageDisplayWrapper>
         )}
       </FileInputContents>

@@ -1,7 +1,8 @@
+import { RiCloseFill } from 'react-icons/ri';
 import styled from 'styled-components';
 
 import { Theme } from '../../../types/theming';
-import { ParSm } from '../../atoms';
+import { Icon } from '../../atoms';
 
 export const FileInputContents = styled.div`
   padding: 3.6rem 0;
@@ -16,8 +17,9 @@ export const ImageDisplayWrapper = styled.div`
   background: ${({ theme }: { theme: Theme }) => theme.card.bg};
 `;
 
-export const CancelParSm = styled(ParSm)`
+export const CancelIcon = styled(RiCloseFill)`
   margin-left: 1rem;
+  font-size: 2rem;
   color: ${({ theme }: { theme: Theme }) => theme.checkbox.border};
   :hover {
     cursor: pointer;

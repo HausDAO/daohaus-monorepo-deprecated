@@ -23,19 +23,23 @@ export const isProxyABI = (abi: ABI) => {
 };
 
 export const TEMPORARY_RPC = {
+  '0x1': `https://${import.meta.env['VITE_RIVET_KEY']}.eth.rpc.rivet.cloud/`,
   '0x5': `https://goerli.infura.io/v3/${
-    // @ts-expect-error: Does exist
-    import.meta.env.VITE_INFURA_PROJECT_ID
+    import.meta.env['VITE_INFURA_PROJECT_ID']
   }`,
+  '0x64': 'https://rpc.gnosischain.com/',
 };
 
 const ABI_ADDRESS = '<<address>>';
 
 const TEMPORARY_ABI_EXPLORER: Keychain = {
-  '0x5': `https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${
-    // @ts-expect-error: Does exist
-    import.meta.env.VITE_ETHERSCAN_KEY
+  '0x1': `https://api.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${
+    import.meta.env['VITE_ETHERSCAN_KEY']
   }`,
+  '0x5': `https://api-goerli.etherscan.io/api?module=contract&action=getabi&address=${ABI_ADDRESS}&apikey=${
+    import.meta.env['VITE_ETHERSCAN_KEY']
+  }`,
+  '0x64': `https://blockscout.com/xdai/mainnet/api?module=contract&action=getabi&address=${ABI_ADDRESS}`,
 };
 
 const getABIUrl = ({
@@ -120,7 +124,7 @@ export const processABI = async ({
   }) => Promise<ABI | undefined>;
   contractAddress: string;
   chainId: ValidNetwork;
-  rpcs: Keychain;
+  rpcs?: Keychain;
 }) => {
   if (isProxyABI(abi)) {
     const proxyAddress = await getImplementation({
@@ -184,12 +188,22 @@ export const fetchABI = async ({
   const cachedABI = await getCachedABI({ address: contractAddress, chainId });
 
   if (cachedABI) {
-    return cachedABI;
+    const processedABI = await processABI({
+      abi: cachedABI,
+      fetchABI,
+      contractAddress,
+      chainId,
+    });
+
+    return processedABI;
   }
 
   const url = getABIUrl({ contractAddress, chainId });
   if (!url) {
-    throw new Error('Could generate ABI link with the given arguments');
+    console.log('contractAddress', contractAddress);
+    console.log('chainId', chainId);
+    console.log('url', url);
+    throw new Error('Could generate explorer url with the given arguments');
   }
 
   try {
@@ -198,7 +212,14 @@ export const fetchABI = async ({
     if (data.message === 'OK' && isJSON(data.result)) {
       const abi = JSON.parse(data.result);
       cacheABI({ address: contractAddress, chainId, abi });
-      return abi;
+      const processedABI = await processABI({
+        abi,
+        fetchABI,
+        contractAddress,
+        chainId,
+      });
+
+      return processedABI;
     }
     throw new Error('Could not fetch or parse ABI');
   } catch (error) {

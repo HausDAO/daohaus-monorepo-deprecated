@@ -8,12 +8,16 @@ import {
   ValidNetwork,
 } from '@daohaus/common-utilities';
 
-import { TXLifeCycleFns } from '../TXBuilder';
 import { pollLastTX, standardGraphPoll, testLastTX } from './polling';
 import { processArgs } from './args';
 import { processContractLego } from './contractHelpers';
+import { TXLifeCycleFns } from '../TXBuilder';
 
 export type TxRecord = Record<string, TXLego>;
+
+// REVIEW
+
+// THE console logs below are to help devs monitor and debug their txs.
 
 export const executeTx = async (args: {
   tx: TXLego;

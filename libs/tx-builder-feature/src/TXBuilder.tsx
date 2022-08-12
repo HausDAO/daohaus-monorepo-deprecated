@@ -9,6 +9,7 @@ import {
 } from '@daohaus/common-utilities';
 import { TxRecord, prepareTX } from './utils/txBuilderUtils';
 import { FindTxQuery, IFindQueryResult } from '@daohaus/dao-data';
+import { bundleLifeCycleFns } from './utils/lifeCycleFns';
 
 export type TXLifeCycleFns = {
   onTxHash?: (txHash: string) => void;
@@ -18,6 +19,8 @@ export type TXLifeCycleFns = {
   onPollError?: (error: unknown) => void;
   onPollSuccess?: (result: IFindQueryResult<FindTxQuery> | undefined) => void;
 };
+
+export type LifeCycleNames = keyof TXLifeCycleFns;
 
 type FireTransaction<CallerStateModel extends ArbitraryState = ArbitraryState> =
   ({
@@ -104,3 +107,22 @@ export const TXBuilder = ({
   );
 };
 export const useTxBuilder = () => useContext(TxBuilderContext);
+
+console.log(
+  'Bundled',
+  bundleLifeCycleFns({
+    appEffects: {
+      onTxHash: (txHash: string) => {
+        console.log(`${txHash} 1`);
+      },
+    },
+    componentEffects: {
+      onTxHash: (txHash: string) => {
+        console.log(`${txHash} 2`);
+      },
+      onPollError: (error: unknown) => {
+        console.log(`${error} 3`);
+      },
+    },
+  })
+);

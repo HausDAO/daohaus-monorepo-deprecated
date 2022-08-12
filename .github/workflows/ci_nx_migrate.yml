@@ -37,7 +37,6 @@ jobs:
           registry-url: https://registry.npmjs.org
       - run: npm install -g nx
       - name: Install dependencies
-        if: steps.nrwl-workspace-outdated.outputs.outdated == 'true'
         run: yarn install --frozen-lockfile
       - name: Check if @nrwl/workspace is outdated
         id: nrwl-workspace-outdated

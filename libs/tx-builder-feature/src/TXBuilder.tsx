@@ -12,15 +12,16 @@ import { FindTxQuery, IFindQueryResult } from '@daohaus/dao-data';
 import { bundleLifeCycleFns } from './utils/lifeCycleFns';
 
 export type TXLifeCycleFns = {
+  onRequestSign?: () => void;
   onTxHash?: (txHash: string) => void;
   onTxError?: (error: unknown) => void;
   onTxSuccess?: (txHash: string) => void;
-  onPollFire?: () => void;
+  onPollStart?: () => void;
   onPollError?: (error: unknown) => void;
   onPollSuccess?: (result: IFindQueryResult<FindTxQuery> | undefined) => void;
 };
 
-export type LifeCycleNames = keyof TXLifeCycleFns;
+export type LifeCycleNames = keyof Required<TXLifeCycleFns>;
 
 type FireTransaction<CallerStateModel extends ArbitraryState = ArbitraryState> =
   ({

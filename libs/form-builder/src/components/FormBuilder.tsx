@@ -91,6 +91,9 @@ export function FormBuilder<Lookup extends LookupType>({
           formValues,
         },
         lifeCycleFns: {
+          onRequestSign() {
+            setStatus('Requesting Signature');
+          },
           onTxHash() {
             setStatus('Transaction Submitted');
           },
@@ -110,7 +113,7 @@ export function FormBuilder<Lookup extends LookupType>({
             });
             console.log('txSuccess');
           },
-          onPollFire() {
+          onPollStart() {
             setStatus('Polling Subgraph');
             console.log('poll fire');
           },

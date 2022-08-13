@@ -8,10 +8,11 @@ export const bundleLifeCycleFns = ({
   componentEffects: TXLifeCycleFns;
 }): TXLifeCycleFns => {
   const allCycles: LifeCycleNames[] = [
+    'onRequestSign',
     'onTxHash',
     'onTxError',
     'onTxSuccess',
-    'onPollFire',
+    'onPollStart',
     'onPollError',
     'onPollSuccess',
   ];

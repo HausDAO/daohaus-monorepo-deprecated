@@ -53,6 +53,10 @@ export const executeTx = async (args: {
         chainId,
         txHash,
       },
+      onPollStart() {
+        lifeCycleFns?.onPollStart?.();
+        console.log('**Polling**');
+      },
       onPollSuccess(result) {
         lifeCycleFns?.onPollSuccess?.(result);
         console.log('**Poll Successful**');
@@ -117,7 +121,6 @@ export async function prepareTX(args: {
       safeId,
       appState,
     });
-
     console.log('**PROCESSED ARGS**', processedArgs);
     if (!address) return;
     const contract = new ethers.Contract(
@@ -125,6 +128,7 @@ export async function prepareTX(args: {
       abi,
       provider.getSigner().connectUnchecked()
     );
+    lifeCycleFns?.onRequestSign?.();
     const ethersTx = await contract.functions[method](...processedArgs);
     executeTx({ ...args, ethersTx });
   } catch (error) {

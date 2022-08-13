@@ -7,7 +7,7 @@ import {
 } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 
-import { FormLayout } from '@daohaus/ui';
+import { FormLayout, H3, useToast } from '@daohaus/ui';
 import {
   isValidNetwork,
   LookupType,
@@ -76,13 +76,15 @@ export function FormBuilder<Lookup extends LookupType>({
   } = form;
 
   const [isSubmitting] = useState(false);
-
+  const [status, setStatus] = useState<null | string>(null);
   const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
   const formDisabled = isSubmitting;
+  const { defaultToast, errorToast, successToast } = useToast();
   const { fireTransaction } = useTxBuilder?.() || {};
 
   const handleTopLevelSubmit = async (formValues: FieldValues) => {
     if (form.tx) {
+      setStatus('Compiling Transaction Data');
       return await fireTransaction({
         tx: form.tx,
         callerState: {
@@ -90,22 +92,38 @@ export function FormBuilder<Lookup extends LookupType>({
         },
         lifeCycleFns: {
           onTxHash() {
-            console.log('txHash');
+            setStatus('Transaction Submitted');
           },
           onTxError(error) {
-            error instanceof Error && console.log(error);
-            console.log('txError');
+            setStatus('Transaction Error');
+            const errMsg =
+              error instanceof Error
+                ? error.message
+                : 'Could decode error message';
+            errorToast({ title: 'Transaction Error', description: errMsg });
           },
           onTxSuccess() {
+            setStatus('Transaction Success');
+            defaultToast({
+              title: 'Transaction Success',
+              description: 'Please wait for subgraph to sync',
+            });
             console.log('txSuccess');
           },
           onPollFire() {
+            setStatus('Polling Subgraph');
             console.log('poll fire');
           },
-          onPollError() {
-            console.log('poll error');
+          onPollError(error) {
+            setStatus('Polling Error');
+            const errMsg =
+              error instanceof Error
+                ? error.message
+                : 'Could decode error message';
+            errorToast({ title: 'Subgraph Poll Error', description: errMsg });
           },
           onPollSuccess() {
+            setStatus('Polling Success: Transaction Complete!');
             console.log('poll success');
           },
         },
@@ -137,6 +155,7 @@ export function FormBuilder<Lookup extends LookupType>({
             ))}
             {log && <Logger />}
             {devtool && <DevTool control={control} />}
+            <H3>{status}</H3>
             <FormFooter
               submitDisabled={submitDisabled}
               submitButtonText={submitButtonText}

@@ -20,6 +20,7 @@ type Poll<T> = ({
   test: PollTest<T>;
   interval?: number;
   variables: Parameters<typeof poll>;
+  onPollStart?: () => void;
   onPollSuccess?: (result: IFindQueryResult<FindTxQuery> | undefined) => void;
   onPollError?: (error: unknown) => void;
   onPollTimeout?: (error: unknown) => void;
@@ -63,18 +64,20 @@ export const standardGraphPoll: Poll<FindTxQuery> = async ({
   onPollSuccess,
   onPollError,
   onPollTimeout,
+  onPollStart,
   maxTries = 12,
 }) => {
+  onPollStart?.();
   let count = 0;
   const pollId = setInterval(async () => {
     if (count < maxTries) {
       try {
         const result = await poll(variables);
+        console.log('**POLL RESULT**');
         console.log('result', result);
         const testPassed = test(result);
         if (testPassed) {
           console.log('TEST PASSED');
-          console.log('result', result);
           onPollSuccess?.(result);
           clearInterval(pollId);
           return result;

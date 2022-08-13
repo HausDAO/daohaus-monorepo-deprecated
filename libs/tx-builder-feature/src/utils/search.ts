@@ -1,8 +1,12 @@
 import {
+  ABI,
   ArbitraryState,
   isArgType,
+  JSONDetailsSearch,
   StringSearch,
+  ValidNetwork,
 } from '@daohaus/common-utilities';
+import { processArg } from './args';
 
 export const checkArgType = (arg: unknown) => {
   if (isArgType(arg)) {
@@ -77,4 +81,43 @@ export const searchArg = ({
     );
   }
   return checkArgType(searchApp(appState, searchString, shouldThrow));
+};
+
+export const handleDetailsJSON = async ({
+  arg,
+  appState,
+  localABIs,
+  chainId,
+  safeId,
+}: {
+  arg: JSONDetailsSearch;
+  appState: ArbitraryState;
+  localABIs: Record<string, ABI>;
+  chainId: ValidNetwork;
+  safeId?: string;
+}) => {
+  const detailsList = await Promise.all(
+    Object.entries(arg.jsonSchema).map(async ([key, arg]) => {
+      return {
+        id: key,
+        value: await processArg({
+          arg,
+          chainId,
+          safeId,
+          localABIs,
+          appState,
+        }),
+      };
+    })
+  );
+  if (!detailsList) {
+    console.log('arg', arg);
+    throw new Error(`Error Compiling JSON Details`);
+  }
+
+  return JSON.stringify(
+    detailsList.reduce((acc, arg) => {
+      return { ...acc, [arg.id]: arg.value };
+    }, {})
+  );
 };

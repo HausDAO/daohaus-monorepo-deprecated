@@ -10,7 +10,7 @@ import {
 } from '@daohaus/common-utilities';
 import { EXPIRY, FORM } from './constants';
 import { handleGasEstimate, handleMulticallArg } from './multicall';
-import { searchArg } from './search';
+import { handleDetailsJSON, searchArg } from './search';
 
 const isSearchArg = (arg: ValidArgType): arg is StringSearch => {
   return typeof arg === 'string' && arg[0] === '.';
@@ -65,9 +65,19 @@ export const processArg = async ({
         })
       : calcExpiry(arg.fallback);
   }
-  throw new Error(
-    `ArgType: ${typeof arg === 'string' ? arg : arg.type} not found.`
-  );
+  if (arg?.type === 'JSONDetails') {
+    const result = await handleDetailsJSON({
+      arg,
+      chainId,
+      safeId,
+      localABIs,
+      appState,
+    });
+    return result;
+  }
+  console.log('**DEBUG**');
+  console.log('arg', arg);
+  throw new Error(`ArgType not found.`);
 };
 
 export const processArgs = async ({

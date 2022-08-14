@@ -9,6 +9,7 @@ import { DevTool } from '@hookform/devtools';
 
 import { FormLayout, useToast } from '@daohaus/ui';
 import {
+  handleErrorMessage,
   isValidNetwork,
   LookupType,
   RequiredFields,
@@ -113,11 +114,10 @@ export function FormBuilder<Lookup extends LookupType>({
           },
           onTxError(error) {
             setStatus(StatusMsg.TxErr);
-            console.log('error', error);
-            const errMsg =
-              error instanceof Error
-                ? error.message
-                : 'Could decode error message';
+            const errMsg = handleErrorMessage({
+              error,
+              fallback: 'Could not decode error message',
+            });
             setIsLoading(false);
             errorToast({ title: StatusMsg.TxErr, description: errMsg });
           },
@@ -133,10 +133,10 @@ export function FormBuilder<Lookup extends LookupType>({
           },
           onPollError(error) {
             setStatus(StatusMsg.PollError);
-            const errMsg =
-              error instanceof Error
-                ? error.message
-                : 'Could decode error message';
+            const errMsg = handleErrorMessage({
+              error,
+              fallback: 'Could not decode poll error message',
+            });
             setIsLoading(false);
             errorToast({ title: StatusMsg.PollError, description: errMsg });
           },

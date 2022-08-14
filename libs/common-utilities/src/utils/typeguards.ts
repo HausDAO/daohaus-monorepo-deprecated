@@ -12,6 +12,7 @@ export const isBoolean = (item: unknown): item is boolean =>
   typeof item === 'boolean';
 export const isNumberish = (item: unknown): item is string | number =>
   isNumber(item) || isNumberString(item);
+
 // general 'is' guards that help us verify shapes of data
 
 export const isArgType = (item: unknown): item is ArgType => {

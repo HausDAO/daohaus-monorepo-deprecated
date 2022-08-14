@@ -81,13 +81,15 @@ export const processArg = async ({
     return result;
   }
   if (arg?.type === 'proposalExpiry') {
-    return arg.search
-      ? searchArg({
-          appState,
-          searchString: `${FORM}${EXPIRY}`,
-          shouldThrow: true,
-        })
-      : calcExpiry(arg.fallback);
+    if (arg.search) {
+      const result = searchArg({
+        appState,
+        searchString: arg.search,
+        shouldThrow: false,
+      });
+      return typeof result === 'number' ? result : arg.fallback;
+    }
+    return arg.fallback;
   }
   if (arg?.type === 'JSONDetails') {
     const result = await handleDetailsJSON({
@@ -124,7 +126,6 @@ export const processArgs = async ({
   if (staticArgs) {
     return staticArgs;
   }
-
   if (argCallback) {
     return handleArgCallback({
       tx,

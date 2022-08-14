@@ -199,7 +199,7 @@ export const buildMultiCallTX = ({
 }): TXLego => {
   return {
     id,
-    method: 'multicall',
+    method: 'submitProposal',
     contract: {
       ...BaalContractBase,
       type: 'static',

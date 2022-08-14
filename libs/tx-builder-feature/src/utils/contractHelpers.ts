@@ -11,7 +11,9 @@ import {
   isEthAddress,
   ArgType,
   EthAddress,
+  RemoteContract,
 } from '@daohaus/common-utilities';
+import { fetchABI } from './abi';
 import { isSearchArg } from './args';
 import { searchArg } from './search';
 
@@ -81,14 +83,16 @@ const processLocalContract = ({
   localContract,
   chainId,
   localABIs,
+  appState,
 }: {
   localContract: LocalContract;
   chainId: ValidNetwork;
   localABIs: Record<string, ABI>;
+  appState: ArbitraryState;
 }): ProcessedContract => {
-  const { keychain, contractName } = localContract;
+  const { targetAddress, contractName } = localContract;
   const abi = localABIs[contractName];
-  const address = keychain[chainId];
+  const address = handleTargetAddress({ targetAddress, chainId, appState });
   if (!address) {
     throw new Error(
       `No address found for contract ${contractName} on ${chainId}`
@@ -102,30 +106,66 @@ const processLocalContract = ({
   };
 };
 
+const processRemoteContract = async ({
+  localContract,
+  chainId,
+  appState,
+}: {
+  localContract: RemoteContract;
+  chainId: ValidNetwork;
+  appState: ArbitraryState;
+}) => {
+  const { targetAddress, contractName } = localContract;
+  const address = handleTargetAddress({ targetAddress, chainId, appState });
+
+  const abi = await fetchABI({
+    contractAddress: address,
+    chainId,
+  });
+  return {
+    type: 'processed',
+    abi,
+    address,
+    contractName,
+  };
+};
+
 export const processContractLego = async ({
   contract,
   chainId,
   localABIs,
+  appState,
 }: {
   contract: ContractLego;
   chainId: ValidNetwork;
   localABIs: Record<string, ABI>;
+  appState: ArbitraryState;
 }) => {
   if (contract.type === 'static') {
     return processStaticContract({
       localContract: contract as StaticContract,
       chainId,
+      appState,
     });
   }
-
   if (contract.type === 'local') {
     return processLocalContract({
       localContract: contract as LocalContract,
       chainId,
       localABIs,
+      appState,
     });
   }
 
+  if (contract.type === 'remote') {
+    const processedContract = await processRemoteContract({
+      localContract: contract as RemoteContract,
+      chainId,
+      appState,
+    });
+
+    return processedContract;
+  }
   if (contract.type === 'processed') {
     return contract;
   }

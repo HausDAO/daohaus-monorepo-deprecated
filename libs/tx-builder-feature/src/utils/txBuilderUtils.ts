@@ -11,13 +11,19 @@ import {
 import { pollLastTX, standardGraphPoll, testLastTX } from './polling';
 import { processArgs } from './args';
 import { processContractLego } from './contractHelpers';
-import { TXLifeCycleFns } from '../TXBuilder';
+import { ArgCallback, TXLifeCycleFns } from '../TXBuilder';
 
 export type TxRecord = Record<string, TXLego>;
+export type MassState = {
+  tx: TXLego;
+  chainId: ValidNetwork;
+  safeId?: string;
+  daoid?: string;
+  localABIs: Record<string, ABI>;
+  appState: ArbitraryState;
+};
 
-// REVIEW
-
-// THE console logs below are to help devs monitor and debug their txs.
+// The console logs below are to help devs monitor and debug their txs.
 
 export const executeTx = async (args: {
   tx: TXLego;
@@ -99,9 +105,18 @@ export async function prepareTX(args: {
   appState: ArbitraryState;
   lifeCycleFns: TXLifeCycleFns;
   localABIs: Record<string, ABI>;
+  argCallbackRecord: Record<string, ArgCallback>;
 }) {
-  const { tx, chainId, safeId, provider, localABIs, lifeCycleFns, appState } =
-    args;
+  const {
+    argCallbackRecord,
+    tx,
+    chainId,
+    safeId,
+    provider,
+    localABIs,
+    lifeCycleFns,
+    appState,
+  } = args;
   console.log('**APPLICATION STATE**', appState);
   try {
     const processedContract = await processContractLego({
@@ -120,6 +135,7 @@ export async function prepareTX(args: {
       chainId,
       safeId,
       appState,
+      argCallbackRecord,
     });
     console.log('**PROCESSED ARGS**', processedArgs);
     if (!address) return;

@@ -23,6 +23,9 @@ export type TXLifeCycleFns = {
 
 export type LifeCycleNames = keyof Required<TXLifeCycleFns>;
 
+export type ArgCallback = (
+  state: ArbitraryState
+) => ArgType[] | Promise<ArgType[]>;
 type FireTransaction<CallerStateModel extends ArbitraryState = ArbitraryState> =
   ({
     tx,
@@ -59,7 +62,7 @@ type BuilderProps<ApplicationState extends ArbitraryState = ArbitraryState> = {
   appState: ApplicationState;
   txLifeCycleFns?: TXLifeCycleFns;
   localABIs?: Record<string, ABI>;
-  argCallbacks?: Record<string, (args: ArbitraryState) => ArgType[]>;
+  argCallbackRecord?: Record<string, (args: ArbitraryState) => ArgType[]>;
 };
 
 export const TXBuilder = ({
@@ -71,6 +74,7 @@ export const TXBuilder = ({
   children,
   localABIs = {},
   txLifeCycleFns = {},
+  argCallbackRecord = {},
 }: BuilderProps) => {
   const [transactions, setTransactions] = useState<TxRecord>({});
   const txAmt = useMemo(() => {

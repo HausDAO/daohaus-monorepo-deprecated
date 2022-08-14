@@ -8,12 +8,38 @@ import {
   ValidArgType,
   ValidNetwork,
 } from '@daohaus/common-utilities';
+import { ArgCallback } from '../TXBuilder';
 import { EXPIRY, FORM } from './constants';
 import { handleGasEstimate, handleMulticallArg } from './multicall';
 import { handleDetailsJSON, searchArg } from './search';
 
 const isSearchArg = (arg: ValidArgType): arg is StringSearch => {
   return typeof arg === 'string' && arg[0] === '.';
+};
+
+const handleArgCallback = async ({
+  tx,
+  chainId,
+  safeId,
+  localABIs,
+  appState,
+  argCallbackRecord,
+}: {
+  tx: TXLego;
+  chainId: ValidNetwork;
+  safeId?: string;
+  localABIs: Record<string, ABI>;
+  appState: ArbitraryState;
+  argCallbackRecord: Record<string, ArgCallback>;
+}) => {
+  const callbackKey = tx.argCallback;
+
+  if (callbackKey && argCallbackRecord[callbackKey]) {
+    const callback = argCallbackRecord[callbackKey];
+    const result = await callback({ tx, chainId, safeId, localABIs, appState });
+    return result;
+  }
+  throw new Error(`Could not find argCallback: ${callbackKey}`);
 };
 
 export const processArg = async ({
@@ -86,12 +112,14 @@ export const processArgs = async ({
   safeId,
   localABIs,
   appState,
+  argCallbackRecord,
 }: {
   tx: TXLego;
   chainId: ValidNetwork;
   safeId?: string;
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
+  argCallbackRecord: Record<string, ArgCallback>;
 }) => {
   const { argCallback, args, staticArgs } = tx;
 
@@ -100,7 +128,14 @@ export const processArgs = async ({
   }
 
   if (argCallback) {
-    return [];
+    return handleArgCallback({
+      tx,
+      chainId,
+      safeId,
+      localABIs,
+      appState,
+      argCallbackRecord,
+    });
   }
 
   if (args) {

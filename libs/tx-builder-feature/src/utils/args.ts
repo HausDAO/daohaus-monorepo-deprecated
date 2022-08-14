@@ -93,11 +93,16 @@ export const processArgs = async ({
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
 }) => {
-  const { argCallback, args } = tx;
+  const { argCallback, args, staticArgs } = tx;
+
+  if (staticArgs) {
+    return staticArgs;
+  }
 
   if (argCallback) {
     return [];
   }
+
   if (args) {
     return await Promise.all(
       args?.map(

@@ -95,7 +95,7 @@ export type TXLegoBase = {
   status?: TxStates;
   args?: ValidArgType[];
   argCallback?: string;
-  staticArgs: ArgType[];
+  staticArgs?: ArgType[];
 };
 
 export type TXLego = RequireOnlyOne<

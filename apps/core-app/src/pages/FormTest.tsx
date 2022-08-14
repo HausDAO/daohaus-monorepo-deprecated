@@ -30,7 +30,7 @@ const TestBaalContract: ContractLego = {
   type: 'static',
   contractName: 'TestBaal',
   abi: BAAL_ABI,
-  keychain: {
+  targetAddress: {
     '0x5': '0x24357654d64da97a55fb2f73c5b66d1927ab1e4c',
   },
 };
@@ -39,7 +39,7 @@ const Poster: ContractLego = {
   type: 'static',
   contractName: 'Poster',
   abi: POSTER_ABI,
-  keychain: {
+  targetAddress: {
     '0x5': '0x000000000000cd17345801aa8147b8d3950260ff',
   },
 };

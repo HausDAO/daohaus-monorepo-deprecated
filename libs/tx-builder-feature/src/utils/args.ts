@@ -13,7 +13,7 @@ import { EXPIRY, FORM } from './constants';
 import { handleGasEstimate, handleMulticallArg } from './multicall';
 import { handleDetailsJSON, searchArg } from './search';
 
-const isSearchArg = (arg: ValidArgType): arg is StringSearch => {
+export const isSearchArg = (arg: ValidArgType): arg is StringSearch => {
   return typeof arg === 'string' && arg[0] === '.';
 };
 
@@ -56,9 +56,7 @@ export const processArg = async ({
   appState: ArbitraryState;
 }): Promise<ArgType> => {
   if (isSearchArg(arg)) {
-    const res = searchArg({ appState, searchString: arg, shouldThrow: true });
-    console.log('res', res);
-    return res;
+    return searchArg({ appState, searchString: arg, shouldThrow: true });
   }
   if (arg?.type === 'static') {
     return arg.value;

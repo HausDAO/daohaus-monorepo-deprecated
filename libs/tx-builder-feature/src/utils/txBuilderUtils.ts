@@ -137,7 +137,9 @@ export async function prepareTX(args: {
       appState,
       argCallbackRecord,
     });
+
     console.log('**PROCESSED ARGS**', processedArgs);
+
     if (!address) return;
     const contract = new ethers.Contract(
       address,

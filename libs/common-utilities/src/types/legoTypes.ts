@@ -1,7 +1,7 @@
 import { JSXElementConstructor } from 'react';
 import { ValidateField } from '../utils';
 import { ABI, ArgType } from './contract';
-import { RequireOnlyOne } from './general';
+import { EthAddress, RequireOnlyOne } from './general';
 import { Keychain } from './keychains';
 
 export type LookupType = Record<
@@ -107,17 +107,17 @@ export type StaticContract = {
   contractName: string;
   type: 'static';
   abi: ABI;
-  keychain: Keychain;
+  targetAddress: Keychain | StringSearch | EthAddress;
 };
 export type LocalContract = {
   contractName: string;
   type: 'local';
-  keychain: Keychain;
+  targetAddress: Keychain | StringSearch | EthAddress;
 };
 export type RemoteContract = {
   contractName: string;
   type: 'remote';
-  keychain: Keychain;
+  targetAddress: Keychain | StringSearch | EthAddress;
 };
 export type ProcessedContract = {
   type: 'processed';

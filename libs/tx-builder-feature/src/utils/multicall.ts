@@ -6,10 +6,13 @@ import {
   encodeFunction,
   ENDPOINTS,
   EstmimateGas,
+  JSONDetailsSearch,
+  MulticallAction,
   MulticallArg,
+  TXLego,
   ValidNetwork,
 } from '@daohaus/common-utilities';
-import { GNOSIS_MULTISEND_ABI } from '@daohaus/contract-utilities';
+import { BAAL_ABI, GNOSIS_MULTISEND_ABI } from '@daohaus/contract-utilities';
 import { encodeMultiSend, MetaTransaction } from '@gnosis.pm/safe-contracts';
 import { getAddress } from 'ethers/lib/utils';
 import { processArg } from './args';
@@ -169,4 +172,38 @@ export const encodeMultiAction = (rawMulti: MetaTransaction[]) => {
   return encodeFunction(GNOSIS_MULTISEND_ABI, 'multiSend', [
     encodeMultiSend(rawMulti),
   ]);
+};
+
+const BaalContract = {
+  type: 'local',
+  contractName: 'Baal',
+  abi: BAAL_ABI,
+};
+
+const basicDetails: JSONDetailsSearch = {
+  type: 'JSONDetails',
+  jsonSchema: {
+    title: '.formValues.title',
+    description: '.formValues.description',
+    proposalType: { type: 'static', value: 'Multicall Proposal' },
+  },
+};
+
+export const buildMultiCallTX = ({
+  id,
+  baalAddress = '.daoid',
+  actions,
+  JSONDetails = basicDetails,
+}: {
+  id: string;
+  baalAddress?: string;
+  JSONDetails?: JSONDetailsSearch;
+  actions: MulticallAction[];
+}): TXLego => {
+  return {
+    id,
+    contract: {
+      ...BaalContract,
+    },
+  };
 };

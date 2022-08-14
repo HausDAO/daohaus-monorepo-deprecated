@@ -108,6 +108,7 @@ export const TXBuilder = ({
       provider,
       setTransactions,
       appState: wholeState,
+      argCallbackRecord,
       lifeCycleFns: bundleLifeCycleFns({
         appEffects: txLifeCycleFns,
         componentEffects: lifeCycleFns,

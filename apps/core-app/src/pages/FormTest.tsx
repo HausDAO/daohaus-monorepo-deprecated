@@ -13,6 +13,7 @@ import {
   FormLego,
 } from '@daohaus/haus-form-builder';
 import { Tooltip } from '@daohaus/ui';
+import { buildMultiCallTX } from '@daohaus/tx-builder-feature';
 
 const sampleDefaultData = {
   daoContract: '0x756ee8B8E898D497043c2320d9909f1DD5a7077F',
@@ -26,15 +27,6 @@ const AppFieldLookup = {
 export const CustomFields = { ...CoreFieldLookup, ...AppFieldLookup };
 type CustomFields = typeof CustomFields;
 
-const TestBaalContract: ContractLego = {
-  type: 'static',
-  contractName: 'TestBaal',
-  abi: BAAL_ABI,
-  targetAddress: {
-    '0x5': '0x24357654d64da97a55fb2f73c5b66d1927ab1e4c',
-  },
-};
-
 const Poster: ContractLego = {
   type: 'static',
   contractName: 'Poster',
@@ -42,52 +34,6 @@ const Poster: ContractLego = {
   targetAddress: {
     '0x5': '0x000000000000cd17345801aa8147b8d3950260ff',
   },
-};
-
-const testActions: MulticallAction[] = [
-  {
-    contract: Poster,
-    method: 'post',
-    args: [
-      '.formValues.title',
-      { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
-    ],
-  },
-  {
-    contract: Poster,
-    method: 'post',
-    args: [
-      '.formValues.description',
-      { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
-    ],
-  },
-];
-
-const Test: TXLego = {
-  id: 'TestTX',
-  contract: TestBaalContract,
-  method: 'submitProposal',
-  args: [
-    {
-      type: 'multicall',
-      actions: testActions,
-    },
-    {
-      type: 'proposalExpiry',
-      fallback: toSeconds(14, 'days'),
-    },
-    {
-      type: 'estimateGas',
-      actions: testActions,
-    },
-    {
-      type: 'JSONDetails',
-      jsonSchema: {
-        title: '.formValues.title',
-        description: '.formValues.description',
-      },
-    },
-  ],
 };
 
 const TestForm: FormLego = {
@@ -110,7 +56,27 @@ const TestForm: FormLego = {
       placeholder: 'Enter description',
     },
   ],
-  tx: Test,
+  tx: buildMultiCallTX({
+    id: 'TEST_TX',
+    actions: [
+      {
+        contract: Poster,
+        method: 'post',
+        args: [
+          '.formValues.title',
+          { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
+        ],
+      },
+      {
+        contract: Poster,
+        method: 'post',
+        args: [
+          '.formValues.description',
+          { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
+        ],
+      },
+    ],
+  }),
 };
 
 export function FormTest() {

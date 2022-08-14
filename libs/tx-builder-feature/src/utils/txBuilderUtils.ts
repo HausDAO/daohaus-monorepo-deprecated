@@ -123,6 +123,7 @@ export async function prepareTX(args: {
       localABIs,
       contract: tx.contract,
       chainId,
+      appState,
     });
     console.log('**PROCESSED CONTRACT**', processedContract);
 

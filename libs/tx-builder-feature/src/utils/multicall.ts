@@ -6,16 +6,27 @@ import {
   encodeFunction,
   ENDPOINTS,
   EstmimateGas,
+  EthAddress,
   JSONDetailsSearch,
+  Keychain,
   MulticallAction,
   MulticallArg,
+  StringSearch,
+  toSeconds,
   TXLego,
   ValidNetwork,
 } from '@daohaus/common-utilities';
-import { BAAL_ABI, GNOSIS_MULTISEND_ABI } from '@daohaus/contract-utilities';
+import { GNOSIS_MULTISEND_ABI } from '@daohaus/contract-utilities';
 import { encodeMultiSend, MetaTransaction } from '@gnosis.pm/safe-contracts';
 import { getAddress } from 'ethers/lib/utils';
 import { processArg } from './args';
+import {
+  BaalContractBase,
+  basicDetails,
+  CURRENT_DAO,
+  EXPIRY,
+  FORM,
+} from './constants';
 import { processContractLego } from './contractHelpers';
 
 export const estimateGas = async ({
@@ -108,6 +119,7 @@ export const handleMulticallArg = async ({
         contract,
         chainId,
         localABIs,
+        appState,
       });
       const processedArgs = await Promise.all(
         args.map(
@@ -174,36 +186,40 @@ export const encodeMultiAction = (rawMulti: MetaTransaction[]) => {
   ]);
 };
 
-const BaalContract = {
-  type: 'local',
-  contractName: 'Baal',
-  abi: BAAL_ABI,
-};
-
-const basicDetails: JSONDetailsSearch = {
-  type: 'JSONDetails',
-  jsonSchema: {
-    title: '.formValues.title',
-    description: '.formValues.description',
-    proposalType: { type: 'static', value: 'Multicall Proposal' },
-  },
-};
-
 export const buildMultiCallTX = ({
   id,
-  baalAddress = '.daoid',
+  baalAddress = CURRENT_DAO,
   actions,
   JSONDetails = basicDetails,
 }: {
   id: string;
-  baalAddress?: string;
+  baalAddress?: StringSearch | Keychain | EthAddress;
   JSONDetails?: JSONDetailsSearch;
   actions: MulticallAction[];
 }): TXLego => {
   return {
     id,
+    method: 'multicall',
     contract: {
-      ...BaalContract,
+      ...BaalContractBase,
+      type: 'static',
+      targetAddress: baalAddress,
     },
+    args: [
+      {
+        type: 'multicall',
+        actions,
+      },
+      {
+        type: 'proposalExpiry',
+        search: `${FORM}${EXPIRY}`,
+        fallback: toSeconds(14, 'days'),
+      },
+      {
+        type: 'estimateGas',
+        actions,
+      },
+      JSONDetails,
+    ],
   };
 };

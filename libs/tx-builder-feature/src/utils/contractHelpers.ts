@@ -9,7 +9,6 @@ import {
   Keychain,
   ArbitraryState,
   isEthAddress,
-  ArgType,
   EthAddress,
   RemoteContract,
 } from '@daohaus/common-utilities';
@@ -107,27 +106,35 @@ const processLocalContract = ({
 };
 
 const processRemoteContract = async ({
-  localContract,
+  remoteContract,
   chainId,
   appState,
 }: {
-  localContract: RemoteContract;
+  remoteContract: RemoteContract;
   chainId: ValidNetwork;
   appState: ArbitraryState;
-}) => {
-  const { targetAddress, contractName } = localContract;
+}): Promise<ProcessedContract> => {
+  const { targetAddress, contractName } = remoteContract;
   const address = handleTargetAddress({ targetAddress, chainId, appState });
 
   const abi = await fetchABI({
     contractAddress: address,
     chainId,
   });
-  return {
-    type: 'processed',
-    abi,
-    address,
-    contractName,
-  };
+
+  if (abi && address) {
+    return {
+      type: 'processed',
+      abi,
+      address,
+      contractName,
+    };
+  }
+  console.log('**DEBUG**');
+  console.log('remoteContract', remoteContract);
+  console.log('address', address);
+  console.log('abi', abi);
+  throw new Error(`Could not process remote contract ${contractName}`);
 };
 
 export const processContractLego = async ({
@@ -159,11 +166,10 @@ export const processContractLego = async ({
 
   if (contract.type === 'remote') {
     const processedContract = await processRemoteContract({
-      localContract: contract as RemoteContract,
+      remoteContract: contract as RemoteContract,
       chainId,
       appState,
     });
-
     return processedContract;
   }
   if (contract.type === 'processed') {

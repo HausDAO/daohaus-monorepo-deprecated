@@ -1,10 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { RiAlertLine } from 'react-icons/ri';
-import { v4 as uuidv4 } from 'uuid';
+import { RiAlertLine, RiBookOpenLine, RiCommandLine } from 'react-icons/ri';
 
-import { ParXs } from '../../atoms/Typography';
 import { AppSwitcher } from './AppSwitcher';
-import { Button } from '../../atoms/Button/Button';
 
 export default {
   title: 'Molecules/AppSwitcher',
@@ -17,38 +14,33 @@ const Template: ComponentStory<typeof AppSwitcher> = (args) => (
   </div>
 );
 
-// const networkPanels = [
-//   'Mainnet',
-//   'Arbitrum',
-//   'Celo',
-//   'Gnosis',
-//   'Optimism',
-//   'Gnosis',
-//   'Polygon',
-//   'Kovan',
-//   'Rinkeby',
-// ].map((item, index) => (
-// <DropdownMenuItem key={index} spacing="0.7rem">
-//   <Button secondary fullWidth leftAlign>
-//     {item}
-//   </Button>
-// </DropdownMenuItem>
-// ));
+const otherApps = [
+  {
+    name: 'Hub',
+    url: 'https://hub.daohaus.fun/',
+    icon: RiCommandLine,
+  },
+  {
+    name: 'Docs',
+    url: 'https://storybook.daohaus.fun/',
+    icon: RiBookOpenLine,
+  },
+  {
+    name: 'DAOHaus',
+    url: 'https://daohaus.club/',
+    icon: RiCommandLine,
+  },
+];
 
-export const FullDropdown = Template.bind({});
+const currentApp = {
+  name: 'Summoner',
+  url: 'https://summon.daohaus.fun/',
+  icon: RiCommandLine,
+};
 
-// FullDropdown.args = {
-//   menuMinWidth: '26rem',
-//   align: 'end',
-//   trigger: (
-//     <Button IconLeft={RiAlertLine} tertiary>
-//       Network Unavailable
-//     </Button>
-//   ),
-//   children: [
-//     // <DropdownMenuLabel key={uuidv4()}>
-//     //   <ParXs>Switch to available network</ParXs>
-//     // </DropdownMenuLabel>,
-//     ...networkPanels,
-//   ],
-// };
+export const DaoHausAppSwitcher = Template.bind({});
+
+DaoHausAppSwitcher.args = {
+  currentApp: currentApp,
+  apps: otherApps,
+};

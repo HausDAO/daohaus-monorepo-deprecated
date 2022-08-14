@@ -1,19 +1,62 @@
 import styled from 'styled-components';
 import * as Dropdown from '@radix-ui/react-dropdown-menu';
-import { Link } from '../../atoms';
+
+import { Theme } from '../../../types/theming';
+import { Button, Link } from '../../atoms';
 
 export const DropdownMenu = Dropdown.Root;
 export const DropdownMenuTrigger = styled(Dropdown.Trigger)``;
 
 type MenuContentType = {
-  bg: string;
+  bgmenu?: string;
   minwidth: string;
+  theme: Theme;
 };
 
 export const DropdownMenuContent = styled(Dropdown.DropdownMenuContent)`
-  background-color: ${(props: MenuContentType) => props.bg};
+  background-color: ${(props: MenuContentType) =>
+    props.bgmenu ? props.bgmenu : props.theme.dropdown.bgMenu};
   padding: 0.4rem;
   min-width: ${(props: MenuContentType) => props.minwidth};
+`;
+
+export const DropdownMenuItem = styled(Dropdown.Item)`
+  margin-bottom: ${(props: { spacing?: string }) => props.spacing};
+`;
+
+export const DropdownMenuLabel = styled(Dropdown.Label)`
+  display: flex;
+  align-items: flex-start;
+  padding: 1.2rem;
+  min-height: 4.8rem;
+`;
+
+export const DropdownButton = styled(Button)`
+  background-color: ${({ theme }: { theme: Theme }) => theme.dropdown.bgItem};
+  border: 0.1rem solid ${({ theme }: { theme: Theme }) => theme.dropdown.bgItem};
+  color: ${({ theme }: { theme: Theme }) => theme.dropdown.text};
+
+  :hover {
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.dropdown.hoverItem};
+    border: 0.1rem solid
+      ${({ theme }: { theme: Theme }) => theme.dropdown.hoverItem};
+  }
+
+  :focus {
+    background-color: ${({ theme }: { theme: Theme }) =>
+      theme.dropdown.focusItem};
+    border: 0.1rem solid
+      ${({ theme }: { theme: Theme }) => theme.dropdown.focusItem};
+  }
+
+  :disabled {
+    background-color: ${({ theme }: { theme: Theme }) => theme.dropdown.bgItem};
+    border: 0.1rem solid
+      ${({ theme }: { theme: Theme }) => theme.dropdown.bgItem};
+    color: ${({ theme }: { theme: Theme }) => theme.dropdown.textDisabled};
+    cursor: not-allowed;
+  }
 `;
 
 /*
@@ -24,8 +67,10 @@ export const DropdownMenuContent = styled(Dropdown.DropdownMenuContent)`
  */
 
 /*
- * Following are styled as
+ * Following are styled as Links
  */
+
+// TODO update colors to be dropdown specific
 export const DropdownTriggerLink = styled.button`
   background-color: transparent;
   border: none;
@@ -47,15 +92,18 @@ export const DropdownTriggerLink = styled.button`
     color: ${(props) => props.theme.navTabs.navLinkHoverColor};
     text-decoration: none;
   }
+
   &.selected {
     color: white;
     border-bottom: 2px ${(props) => props.theme.navTabs.navLinkColor} solid;
   }
+
   &.navTabs {
     padding-bottom: 1rem;
   }
 `;
 
+// TODO Update theme colors to be dropdown specific
 export const DropdownLink = styled(Link)`
   border-radius: 2px;
   color: ${(props) => props.theme.navTabs.navLinkColor};
@@ -73,17 +121,6 @@ export const DropdownLink = styled(Link)`
     border-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBorder};
     text-decoration: none;
   }
-`;
-
-export const DropdownMenuItem = styled(Dropdown.Item)`
-  margin-bottom: ${(props: { spacing?: string }) => props.spacing};
-`;
-
-export const DropdownMenuLabel = styled(Dropdown.Label)`
-  display: flex;
-  align-items: flex-start;
-  padding: 1.2rem;
-  min-height: 4.8rem;
 `;
 
 // TODO Add Dropdown styles for Checkbox, Radio, and Radio Group

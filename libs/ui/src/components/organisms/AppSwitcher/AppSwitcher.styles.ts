@@ -5,7 +5,12 @@ import { DropdownButton } from '../../molecules';
 
 export const AppSwitcherTrigger = styled(DropdownButton)`
   min-width: ${({ minWidth }: { minWidth: string }) => minWidth};
-  padding: 0 16px;
+  padding: 0 4px 0 16px;
+
+  &[data-state='open'] {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
 
   svg.icon-right {
     color: ${({ theme }: { theme: Theme }) => theme.primary};

@@ -7,7 +7,7 @@ import {
 } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 
-import { FormLayout, H3, useToast } from '@daohaus/ui';
+import { FormLayout, H3, SuccessToast, useToast } from '@daohaus/ui';
 import {
   isValidNetwork,
   LookupType,
@@ -51,6 +51,16 @@ type BuilderProps<Lookup extends LookupType> = {
   onError?: () => void;
 };
 
+export enum StatusMsg {
+  Compile = 'Compiling Transaction Data',
+  Request = 'Requesting Signature',
+  Await = 'Transaction Submitted',
+  TxErr = 'Transaction Error',
+  TxSuccess = 'Transaction Success',
+  PollStart = 'Polling Subgraph',
+  PollSuccess = 'Success: TX Confirmed!',
+  PollError = 'Poll Error',
+}
 export function FormBuilder<Lookup extends LookupType>({
   form,
   onSubmit,
@@ -59,7 +69,7 @@ export function FormBuilder<Lookup extends LookupType>({
 }: BuilderProps<Lookup>) {
   const { chainId } = useHausConnect();
 
-  const methods = useForm({ mode: 'onTouched', defaultValues });
+  const methods = useForm({ mode: 'onChange', defaultValues });
   const {
     formState: { isValid },
     control,
@@ -76,7 +86,8 @@ export function FormBuilder<Lookup extends LookupType>({
   } = form;
 
   const [isSubmitting] = useState(false);
-  const [status, setStatus] = useState<null | string>(null);
+  const [status, setStatus] = useState<null | StatusMsg>(null);
+  const [txHash, setTxHash] = useState<null | string>(null);
   const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
   const formDisabled = isSubmitting;
   const { defaultToast, errorToast, successToast } = useToast();
@@ -84,7 +95,7 @@ export function FormBuilder<Lookup extends LookupType>({
 
   const handleTopLevelSubmit = async (formValues: FieldValues) => {
     if (form.tx) {
-      setStatus('Compiling Transaction Data');
+      setStatus(StatusMsg.Compile);
       return await fireTransaction({
         tx: form.tx,
         callerState: {
@@ -92,42 +103,45 @@ export function FormBuilder<Lookup extends LookupType>({
         },
         lifeCycleFns: {
           onRequestSign() {
-            setStatus('Requesting Signature');
+            setStatus(StatusMsg.Request);
           },
-          onTxHash() {
-            setStatus('Transaction Submitted');
+          onTxHash(txHash) {
+            setTxHash(txHash);
+            setStatus(StatusMsg.Await);
           },
           onTxError(error) {
-            setStatus('Transaction Error');
+            setStatus(StatusMsg.TxErr);
+            console.log('error', error);
             const errMsg =
               error instanceof Error
                 ? error.message
                 : 'Could decode error message';
-            errorToast({ title: 'Transaction Error', description: errMsg });
+            errorToast({ title: StatusMsg.TxErr, description: errMsg });
           },
           onTxSuccess() {
-            setStatus('Transaction Success');
+            setStatus(StatusMsg.TxSuccess);
             defaultToast({
-              title: 'Transaction Success',
+              title: StatusMsg.TxSuccess,
               description: 'Please wait for subgraph to sync',
             });
-            console.log('txSuccess');
           },
           onPollStart() {
-            setStatus('Polling Subgraph');
-            console.log('poll fire');
+            setStatus(StatusMsg.PollStart);
           },
           onPollError(error) {
-            setStatus('Polling Error');
+            setStatus(StatusMsg.PollError);
             const errMsg =
               error instanceof Error
                 ? error.message
                 : 'Could decode error message';
-            errorToast({ title: 'Subgraph Poll Error', description: errMsg });
+            errorToast({ title: StatusMsg.PollError, description: errMsg });
           },
           onPollSuccess() {
-            setStatus('Polling Success: Transaction Complete!');
-            console.log('poll success');
+            setStatus(StatusMsg.PollSuccess);
+            successToast({
+              title: StatusMsg.PollSuccess,
+              description: 'Transaction cycle complete.',
+            });
           },
         },
       });
@@ -158,10 +172,11 @@ export function FormBuilder<Lookup extends LookupType>({
             ))}
             {log && <Logger />}
             {devtool && <DevTool control={control} />}
-            <H3>{status}</H3>
+
             <FormFooter
               submitDisabled={submitDisabled}
               submitButtonText={submitButtonText}
+              status={status}
             />
           </form>
         </FormLayout>

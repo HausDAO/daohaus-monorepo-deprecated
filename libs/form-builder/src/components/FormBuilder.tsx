@@ -7,7 +7,7 @@ import {
 } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 
-import { FormLayout, H3, SuccessToast, useToast } from '@daohaus/ui';
+import { FormLayout, useToast } from '@daohaus/ui';
 import {
   isValidNetwork,
   LookupType,
@@ -85,16 +85,18 @@ export function FormBuilder<Lookup extends LookupType>({
     requiredFields = {},
   } = form;
 
-  const [isSubmitting] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState<null | StatusMsg>(null);
   const [txHash, setTxHash] = useState<null | string>(null);
-  const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
-  const formDisabled = isSubmitting;
+  const submitDisabled = !isValid || isLoading || !isValidNetwork(chainId);
+  const formDisabled = isLoading;
   const { defaultToast, errorToast, successToast } = useToast();
   const { fireTransaction } = useTxBuilder?.() || {};
 
   const handleTopLevelSubmit = async (formValues: FieldValues) => {
     if (form.tx) {
+      setIsLoading(true);
+      setTxHash(null);
       setStatus(StatusMsg.Compile);
       return await fireTransaction({
         tx: form.tx,
@@ -116,6 +118,7 @@ export function FormBuilder<Lookup extends LookupType>({
               error instanceof Error
                 ? error.message
                 : 'Could decode error message';
+            setIsLoading(false);
             errorToast({ title: StatusMsg.TxErr, description: errMsg });
           },
           onTxSuccess() {
@@ -134,10 +137,12 @@ export function FormBuilder<Lookup extends LookupType>({
               error instanceof Error
                 ? error.message
                 : 'Could decode error message';
+            setIsLoading(false);
             errorToast({ title: StatusMsg.PollError, description: errMsg });
           },
           onPollSuccess() {
             setStatus(StatusMsg.PollSuccess);
+            setIsLoading(false);
             successToast({
               title: StatusMsg.PollSuccess,
               description: 'Transaction cycle complete.',
@@ -177,6 +182,7 @@ export function FormBuilder<Lookup extends LookupType>({
               submitDisabled={submitDisabled}
               submitButtonText={submitButtonText}
               status={status}
+              txHash={txHash}
             />
           </form>
         </FormLayout>

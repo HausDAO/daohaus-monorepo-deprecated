@@ -1,8 +1,8 @@
 import React, { RefObject } from 'react';
-import { DialogContentProps } from '@radix-ui/react-dialog';
 import { RiCloseFill } from 'react-icons/ri';
 
-import { Button, ButtonProps, H5 } from '../../atoms';
+import { ModalProps } from '../../../types/modal.types';
+import { Button, H5 } from '../../atoms';
 import {
   ModalRoot,
   ModalPrimitaveTrigger,
@@ -17,14 +17,6 @@ import {
   ButtonContainer,
   CloseIcon,
 } from './Modal.styles';
-
-type ModalProps = DialogContentProps & {
-  title: string;
-  description?: string;
-  alignButtons: 'start' | 'end';
-  leftButton?: ButtonProps;
-  rightButton?: ButtonProps;
-};
 
 type Ref =
   | ((instance: HTMLDivElement | null) => void)

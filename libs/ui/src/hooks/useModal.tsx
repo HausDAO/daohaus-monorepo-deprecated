@@ -1,10 +1,17 @@
-import { useState } from 'react';
+import React, { useContext } from 'react';
+import { HausThemeContext } from '../theme';
+import { ModalProps } from '../types/modal.types';
 
 export const useModal = () => {
-  const [isShown, setIsShown] = useState<boolean>(false);
-  const toggle = () => setIsShown(!isShown);
-  return {
-    isShown,
-    toggle,
+  const { setModal } = useContext(HausThemeContext);
+
+  const defaultModal = ({ title, children, description }: ModalProps): void => {
+    setModal({
+      title,
+      children,
+      description,
+    });
   };
+
+  return { setModal, defaultModal };
 };

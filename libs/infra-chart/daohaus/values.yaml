@@ -85,4 +85,4 @@ dao-consumer-job:
   image:
     registry: 'registry.digitalocean.com/daohaus'
     repository: 'dao_consumer_job'
-    tag: ''
+    tag: 'sha-19e4fa9'

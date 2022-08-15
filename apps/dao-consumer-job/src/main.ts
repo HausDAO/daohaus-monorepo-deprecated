@@ -1,13 +1,27 @@
 import { Haus } from '@daohaus/dao-data';
 const { TileDocument } = await import('@ceramicnetwork/stream-tile');
 import { Keychain, DAO_PRODUCER_QUEUE } from '@daohaus/common-utilities';
-const { vaultModel } = await import('@daohaus/ceramic-model-utilities');
 const { WebClient } = await import('@self.id/web');
 import { fromString } from 'uint8arrays';
 const { DID } = await import('dids');
 const { getResolver } = await import('key-did-resolver');
 const { Ed25519Provider } = await import('key-did-provider-ed25519');
 import * as Queue from 'bull';
+
+// Generated from model utilities lib
+const vaultModel = {
+  definitions: {
+    vault: 'kjzl6cwe1jw146jbaylxm56vzugr00iq6gi9ud7u27308vldmwggx4zk5xfivh6',
+  },
+  schemas: {
+    Vault:
+      'ceramic://k3y52l7qbv1fry0mbtoky183ps5hq9jn3d7s3z69l66zh7ketfxhwvjb1gsslg6ps',
+  },
+  tiles: {
+    exampleVault:
+      'kjzl6cwe1jw1463wgfyzupnzpu02tng5a8f923uzy5vabatge6d35j7rteg26li',
+  },
+};
 
 const CERAMIC_NODE = process.env.CERAMIC_NODE || 'http://localhost:7007';
 const CERAMIC_NETWORK = (process.env.CERAMIC_NETWORK || 'testnet-clay') as

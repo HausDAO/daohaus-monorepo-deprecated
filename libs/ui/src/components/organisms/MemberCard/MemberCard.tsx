@@ -3,9 +3,8 @@ import { RiArrowDropDownLine } from 'react-icons/ri';
 
 import {
   generateExplorerLink,
-  Keychain,
   truncateAddress,
-  getNetworkName,
+  ValidNetwork,
 } from '@daohaus/common-utilities';
 import { AccountProfile } from '@daohaus/dao-data';
 
@@ -19,11 +18,11 @@ import {
   ProfileAvatar,
 } from '../../molecules';
 import { MemberCardTrigger } from './MemberCard.styles';
-import { useToast } from '../../../hooks';
+import { useToast, useCopyToClipboard } from '../../../hooks';
 
 type MemberCardProps = {
   profile: AccountProfile;
-  explorerNetworkId: keyof Keychain;
+  explorerNetworkId: ValidNetwork;
   minWidth?: string;
   menuBg?: string;
   className?: string;
@@ -35,10 +34,7 @@ export const MemberCard = ({
   explorerNetworkId,
   minWidth = '17.8rem',
 }: MemberCardProps) => {
-  const { successToast } = useToast();
-
-  // Memo
-  const networkName = getNetworkName(explorerNetworkId);
+  const [value, copy] = useCopyToClipboard();
 
   const explorerLink = useMemo(() => {
     if (explorerNetworkId) {
@@ -51,10 +47,8 @@ export const MemberCard = ({
   }, [profile, explorerNetworkId]);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(`${profile.address}`);
-    successToast({
-      title: 'Address copied to clipboard',
-    });
+    const shortAddress = truncateAddress(profile.address);
+    copy(shortAddress);
   };
 
   return (
@@ -84,7 +78,7 @@ export const MemberCard = ({
       </DropdownMenuItem>
       <DropdownMenuItem>
         <DropdownLink href={explorerLink} linkType="external">
-          <ParMd>{networkName}</ParMd>
+          <ParMd>Block Explorer</ParMd>
         </DropdownLink>
       </DropdownMenuItem>
       <DropdownMenuItem>

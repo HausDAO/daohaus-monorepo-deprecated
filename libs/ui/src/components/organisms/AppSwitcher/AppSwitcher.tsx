@@ -5,22 +5,22 @@ import { RiArrowDropDownLine } from 'react-icons/ri';
 import { Dropdown, DropdownMenuItem, DropdownButton } from '../../molecules';
 import { AppSwitcherTrigger } from './AppSwitcher.styles';
 
-type DaoHauseApp = {
+type DaoHausApp = {
   name: string;
   url: string;
   icon: IconType;
 };
 
 type AppSwitcherProps = {
-  currentApp: DaoHauseApp;
-  apps: DaoHauseApp[];
+  currentApp: DaoHausApp;
+  apps: DaoHausApp[];
   spacing?: string;
   minWidth?: string;
   menuBg?: string;
   className?: string;
 };
 
-const getApps = (apps: DaoHauseApp[]) => {
+const getApps = (apps: DaoHausApp[]) => {
   return apps.map((app, index) => (
     <DropdownMenuItem key={index} asChild>
       <DropdownButton fullWidth leftAlign IconLeft={app.icon}>

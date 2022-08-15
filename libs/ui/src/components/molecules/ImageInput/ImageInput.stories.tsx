@@ -1,15 +1,15 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { FileInput } from './FileInput';
+import { ImageInput } from './ImageInput';
 
 export default {
-  title: 'Molecules/Form/FileInput',
-  component: FileInput,
-} as ComponentMeta<typeof FileInput>;
+  title: 'Molecules/Form/ImageInput',
+  component: ImageInput,
+} as ComponentMeta<typeof ImageInput>;
 
-const Template: ComponentStory<typeof FileInput> = (args) => {
+const Template: ComponentStory<typeof ImageInput> = (args) => {
   return (
     <div style={{ margin: '4rem' }}>
-      <FileInput {...args} />
+      <ImageInput {...args} />
     </div>
   );
 };

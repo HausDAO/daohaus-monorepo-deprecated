@@ -2,18 +2,17 @@ import { useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { Buildable, Field } from '../../../types/formAndField';
-import { Avatar, Button, Icon } from '../../atoms';
+import { Avatar, Button, FileInput, Icon } from '../../atoms';
 import { FieldWrapper } from '../FieldWrapper';
-import { WrappedInput } from '../WrappedInput';
 import {
   CancelIcon,
   FileInputContents,
-  HiddenWrappedInput,
   ImageDisplayWrapper,
-} from './FileInput.styles';
+} from './ImageInput.styles';
 
-export const FileInput = ({
+export const ImageInput = ({
   id,
+  rules,
   buttonText,
   accept,
   displayAvatarImage = false,
@@ -56,24 +55,17 @@ export const FileInput = ({
         >
           {buttonText}
         </Button>
-        <input
+
+        <FileInput
           {...props}
-          {...register(id)}
+          {...register(id, rules)}
           id={id}
-          type="file"
           multiple={false}
-          style={{ display: 'none' }}
+          accept={accept}
           ref={upload}
           onChange={handleImageChange}
-        />{' '}
-        {/* <HiddenWrappedInput
-          {...props}
-          id={id}
-          type="file"
-          multiple={false}
-          onChange={handleImageChange}
-          // ref={upload}
-        /> */}
+          className="hidden-input"
+        />
         {displayAvatarImage && imageUrl && (
           <ImageDisplayWrapper>
             <Avatar src={imageUrl} size="xl" />

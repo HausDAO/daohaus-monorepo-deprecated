@@ -7,6 +7,10 @@ import { WrappedInput } from '../WrappedInput';
 export const FileInputContents = styled.div`
   padding: 3.6rem 0;
   display: flex;
+
+  .hidden-input {
+    display: none;
+  }
 `;
 
 export const ImageDisplayWrapper = styled.div`

@@ -36,14 +36,17 @@ export type PrimitiveSizable = {
 };
 
 export type PrimitiveAddons = {
-  rightAddon?: React.ReactNode
-}
+  rightAddon?: React.ReactNode;
+};
 
 export type HasRules = {
   rules?: RegisterOptions;
 };
 
-type FieldWrapper = PrimitiveWrapper & PrimitiveElement & PrimitiveSizable & PrimitiveAddons;
+type FieldWrapper = PrimitiveWrapper &
+  PrimitiveElement &
+  PrimitiveSizable &
+  PrimitiveAddons;
 
 export type Buildable<T> = T & FieldWrapper & HasRules;
 
@@ -68,7 +71,7 @@ export type Field = {
 
 export type OptionType = {
   name: string;
-  value: string;
+  value: string | number;
   key?: string;
 };
 export type SelectProps = {

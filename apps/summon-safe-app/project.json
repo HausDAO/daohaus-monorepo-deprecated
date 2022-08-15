@@ -1,5 +1,4 @@
 {
-  "root": "apps/summon-safe-app",
   "sourceRoot": "apps/summon-safe-app/src",
   "projectType": "application",
   "targets": {
@@ -56,7 +55,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/apps/summon-safe-app"],
       "options": {
-        "jestConfig": "apps/summon-safe-app/jest.config.js",
+        "jestConfig": "apps/summon-safe-app/jest.config.ts",
         "passWithNoTests": true
       }
     },

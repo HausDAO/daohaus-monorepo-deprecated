@@ -10,6 +10,13 @@ export const conversionFns = {
 export const toSeconds = (amt: number, unit: keyof typeof conversionFns) =>
   conversionFns[unit]?.(amt);
 
+export const unixTimeInSeconds = () => {
+  return Math.floor(Date.now() / 1000);
+};
+
+export const calcExpiry = (duration: number) => {
+  return unixTimeInSeconds() + duration;
+};
 export const formatPeriods = (duration: string) => {
   if (duration) {
     let s = Number(duration);

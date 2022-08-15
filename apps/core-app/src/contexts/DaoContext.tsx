@@ -27,6 +27,7 @@ import {
 } from '../utils/contextHelpers';
 
 export type TDao = DaoWithTokenDataQuery['dao'];
+export type TMembers = ListMembersQuery['members'];
 
 export const defaultDaoData = {
   dao: null,

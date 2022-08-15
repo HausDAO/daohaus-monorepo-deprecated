@@ -1,8 +1,9 @@
 {
   "name": "@daohaus/ui",
-  "version": "0.0.13",
+  "version": "0.0.15",
   "main": "./ui.umd.js",
   "module": "./ui.es.js",
+  "typings": "./src/index.d.ts",
   "homepage": "https://github.com/HausDAO/daohaus-monorepo#readme",
   "issues": "https://github.com/HausDAO/daohaus-monorepo/issues?q=is%3Aissue+is%3Aopen+label%3Acore-ui",
   "license": "MIT",

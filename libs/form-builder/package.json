@@ -1,8 +1,22 @@
 {
   "name": "@daohaus/haus-form-builder",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./form-builder.umd.js",
   "module": "./form-builder.es.js",
+  "typings": "./src/index.d.ts",
+  "homepage": "https://github.com/HausDAO/daohaus-monorepo#readme",
+  "issues": "https://github.com/HausDAO/daohaus-monorepo/issues?q=is%3Aissue+is%3Aopen+label%3Acore-ui",
+  "license": "MIT",
+  "keywords": [
+    "daohaus",
+    "daohaus form builder",
+    "daohaus form-builder"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:HausDAO/daohaus-monorepo.git",
+    "directory": "libs/ui"
+  },
   "exports": {
     ".": {
       "import": "./form-builder.es.js",

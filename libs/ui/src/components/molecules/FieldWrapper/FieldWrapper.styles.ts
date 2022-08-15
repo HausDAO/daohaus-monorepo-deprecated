@@ -30,6 +30,25 @@ export const LabelContainer = styled.label`
   }
 `;
 
+export const BottomContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  width: 100%;
+  max-width: ${field.size.md};
+  &.long {
+    max-width: ${field.size.lg};
+  }
+  &.full {
+    max-width: ${field.size.full};
+  }
+`;
+
+export const RightAddonContainer = styled.div`
+  padding-left: 1em;
+`;
+
 export const RequiredAsterisk = styled.span`
   margin-right: 8px;
   font-weight: ${font.weight.bold};

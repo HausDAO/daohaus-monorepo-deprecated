@@ -4,15 +4,24 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build": {
+    "vite-build": {
       "executor": "@nxext/vite:package",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/ui",
-        "configFile": "@nxext/vite/plugins/vite-package",
+        "configFile": "libs/ui/vite.config.ts",
         "frameworkConfigFile": "@nxext/react/plugins/vite",
         "entryFile": "src/index.ts",
         "generatePackageJson": true
+      }
+    },
+    "build": {
+      "outputs": ["{options.outputPath}"],
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "outputPath": "dist/libs/ui",
+        "command": "tsc --project libs/ui/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
+        "color": true
       },
       "dependsOn": [
         {
@@ -24,15 +33,6 @@
           "projects": "self"
         }
       ]
-    },
-    "vite-build": {
-      "outputs": ["{options.outputPath}"],
-      "executor": "@nrwl/workspace:run-commands",
-      "options": {
-        "outputPath": "dist/libs/ui",
-        "command": "tsc --project libs/ui/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
-        "color": true
-      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
@@ -74,13 +74,22 @@
         "config": {
           "configFolder": "libs/ui/.storybook"
         },
-
         "quiet": false
       },
       "configurations": {
         "ci": {
           "quiet": true
         }
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional",
+        "tagPrefix": "${projectName}@",
+        "noVerify": true,
+        "baseBranch": "develop",
+        "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
       }
     },
     "deploy": {
@@ -97,7 +106,7 @@
         "registrySeedVarName": "DAOHAUS_UI_DEVELOP_SKYNET_SEED",
         "registryDataKey": "skylink.txt",
         "portalUrl": "https://skynetfree.net",
-        "skynetJwtVarName": "SKYNET_JWT"
+        "skynetApiKeyVarName": "SKYNET_API_KEY"
       },
       "dependsOn": [{ "target": "build-storybook", "projects": "self" }]
     }

@@ -13,8 +13,11 @@ export namespace validators {
 
     const member = Member.load(memberId);
     if (!member || member.shares == constants.BIGINT_ZERO) {
+      log.info('no member or shares', []);
+
       return false;
     }
+
     return true;
   }
 }

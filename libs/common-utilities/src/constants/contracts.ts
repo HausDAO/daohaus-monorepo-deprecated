@@ -1,6 +1,19 @@
-import { KeychainList } from '..';
+import { KeychainList, ValidNetwork } from '..';
 
-export const CONTRACTS: KeychainList = {
+export type ContractKey =
+  | 'V3_FACTORY'
+  | 'LOOT_SINGLETON'
+  | 'SHARES_SINGLETON'
+  | 'BAAL_SINGLETON'
+  | 'GNOSIS_MULTISEND'
+  | 'TRIBUTE_MINION'
+  | 'POSTER';
+
+export type AddressKeyChain = { [key in ValidNetwork]?: string };
+// export type ContractAddressList = Record<ContractKey, KeychainList>;
+export type ContractAddressList = Record<ContractKey, AddressKeyChain>;
+
+export const CONTRACTS: ContractAddressList = {
   V3_FACTORY: {
     '0x5': '0x0C5fd8AAdF995e11E5Ac1CD72139Ee4fd72cDeFC',
   },

@@ -1,9 +1,6 @@
-import { ethers } from 'ethers';
-
 import { Keychain } from '@daohaus/common-utilities';
 import {
   AccountProfile,
-  BasicProfile,
   ICrossNetworkMemberListArguments,
   DaoTokenBalances,
   ListMembershipsDocument,
@@ -14,24 +11,26 @@ import {
   ITransformedMembershipsQuery,
   Dao_OrderBy,
   Member_Filter,
+  LensProfile,
 } from './types';
 import {
   transformMembershipList,
   transformProfile,
 } from './utils/transformers';
-import { graphFetch } from './utils';
+import { graphFetch, graphFetchList } from './utils';
 import Query from './Query';
 import { Dao_Filter } from './types';
+import {
+  ListProfileDocument,
+  ListProfileQuery,
+  ListProfileQueryVariables,
+} from './subgraph/queries-lens/profiles.generated';
 
 export default class Profile {
   query: Query;
-  providers?: Keychain;
-  ceramicNode: string;
 
-  constructor(query: Query, providers?: Keychain, node?: string) {
+  constructor(query: Query) {
     this.query = query;
-    this.providers = providers;
-    this.ceramicNode = node || '';
   }
 
   public async get({
@@ -48,10 +47,11 @@ export default class Profile {
       'memberAddress'
     >;
   }): Promise<AccountProfile> {
-    const ens = await this.getEns(address);
-    const basicProfile = await this.getBasicProfile('0x1', address);
+    const lensProfile = await this.getLensProfile({
+      memberAddress: address,
+    } as ListProfileQueryVariables);
 
-    let profile = transformProfile(address, ens, basicProfile);
+    let profile = transformProfile(address, lensProfile);
 
     if (includeDaosOptions) {
       const daoRes = await this.listDaosByMember({
@@ -66,37 +66,21 @@ export default class Profile {
     return profile;
   }
 
-  private async getBasicProfile(
-    chain: keyof Keychain = '0x1',
-    address: string
-  ): Promise<BasicProfile> {
-    const { Core } = await import('@self.id/core');
-    const { Caip10Link } = await import('@ceramicnetwork/stream-caip10-link');
-    const core = new Core({
-      ceramic: this.ceramicNode || 'https://gateway.ceramic.network',
+  private async getLensProfile({
+    memberAddress,
+  }: {
+    memberAddress: ListProfileQueryVariables;
+  }): Promise<LensProfile> {
+    const url = 'https://api.lens.dev';
+
+    const res = await graphFetchList<
+      ListProfileQuery,
+      ListProfileQueryVariables
+    >(ListProfileDocument, url, {
+      memberAddress,
     });
-    const link = await Caip10Link.fromAccount(
-      core.ceramic,
-      `${address.toLowerCase()}@eip155:${Number(chain)}`
-    );
 
-    const profile = await core.get('basicProfile', link.did || '');
-    if (Object.keys(profile).length === 0) {
-      return {};
-    }
-
-    return profile;
-  }
-
-  private async getEns(address: string): Promise<string | null> {
-    if (this.providers && this.providers['0x1']) {
-      const provider = new ethers.providers.JsonRpcProvider(
-        this.providers['0x1']
-      );
-      return await provider.lookupAddress(address);
-    } else {
-      return null;
-    }
+    return res.profiles.items[0];
   }
 
   public async listDaosByMember({

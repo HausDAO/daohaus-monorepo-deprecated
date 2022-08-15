@@ -10,7 +10,7 @@
       "options": {
         "outputPath": "dist/libs/daohaus-connect-feature",
         "frameworkConfigFile": "@nxext/react/plugins/vite",
-        "configFile": "libs/tx-builder-feature/vite.config.ts",
+        "configFile": "libs/daohaus-connect-feature/vite.config.ts",
         "entryFile": "src/index.ts",
         "generatePackageJson": true
       }
@@ -45,6 +45,16 @@
       "options": {
         "jestConfig": "libs/daohaus-connect-feature/jest.config.ts",
         "passWithNoTests": true
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional",
+        "tagPrefix": "${projectName}@",
+        "noVerify": true,
+        "baseBranch": "develop",
+        "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
       }
     },
     "deploy": {

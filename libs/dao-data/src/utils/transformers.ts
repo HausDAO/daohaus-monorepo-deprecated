@@ -4,11 +4,13 @@ import {
   ITransformedMembership,
   IFindQueryResult,
   AccountProfile,
-  BasicProfile,
   TokenBalance,
   DaoTokenBalances,
   QueryProposal,
   ListMembershipsQuery,
+  DaoProfile,
+  ListDaosQuery,
+  LensProfile,
 } from '../types';
 import { getProposalStatus } from './proposalsStatus';
 
@@ -23,18 +25,21 @@ export const transformProposal = (
 
 export const transformProfile = (
   address: string,
-  ens: string | null,
-  profile: BasicProfile
+  profile: LensProfile
 ): AccountProfile => {
   return {
     address,
-    ens,
-    ...profile,
+    name: profile?.name,
+    ens: profile?.onChainIdentity?.ens?.name,
     image:
-      profile.image?.original?.src &&
-      `https://daohaus.mypinata.cloud/ipfs/${profile.image.original.src.match(
-        /Qm[a-zA-Z0-9/.]+/
-      )}`,
+      profile?.picture?.__typename === 'MediaSet'
+        ? `https://daohaus.mypinata.cloud/ipfs/${profile.picture.original.url.match(
+            /Qm[a-zA-Z0-9/.]+/
+          )}`
+        : '',
+    description: profile?.bio,
+    lensHandle: profile?.handle,
+    lensId: profile?.id,
   };
 };
 
@@ -87,4 +92,28 @@ export const transformMembershipList = (
       return list;
     }
   }, []);
+};
+
+export const addDaoProfileFields = (
+  dao: ListDaosQuery['daos'][number]
+): DaoProfile | undefined => {
+  if (!dao.profile || !dao.profile.length) return;
+
+  try {
+    const obj = JSON.parse(dao.profile[0].content);
+    return {
+      description: obj.description,
+      longDescription: obj.longDescription,
+      avatarImg:
+        obj.avatarImg &&
+        `https://daohaus.mypinata.cloud/ipfs/${obj.avatarImg.match(
+          /Qm[a-zA-Z0-9/.]+/
+        )}`,
+      tags: obj.tags,
+      links: obj.links,
+    };
+  } catch (e) {
+    console.log('daoprofile parsing error', e);
+    return;
+  }
 };

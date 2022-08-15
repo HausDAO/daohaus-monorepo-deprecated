@@ -67,7 +67,6 @@
         "passWithNoTests": true
       }
     },
-
     "deploy": {
       "executor": "@alexkeating/nx-skynet:deploy",
       "options": {
@@ -75,7 +74,7 @@
         "registrySeedVarName": "DAOHAUS_CORE_UI_SKYNET_SEED",
         "registryDataKey": "skylink.txt",
         "portalUrl": "https://skynetfree.net",
-        "skynetJwtVarName": "SKYNET_JWT"
+        "skynetApiKeyVarName": "SKYNET_API_KEY"
       }
     },
     "deployStaging": {
@@ -85,7 +84,7 @@
         "registrySeedVarName": "DAOHAUS_CORE_UI_DEVELOP_SKYNET_SEED",
         "registryDataKey": "skylink.txt",
         "portalUrl": "https://skynetfree.net",
-        "skynetJwtVarName": "SKYNET_JWT"
+        "skynetApiKeyVarName": "SKYNET_API_KEY"
       }
     }
   },

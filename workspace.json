@@ -1,9 +1,8 @@
 {
   "version": 2,
   "projects": {
-    "abi-utilities": "libs/abi-utilities",
-    "baal-contract-service": "libs/baal-contract-service",
     "common-utilities": "libs/common-utilities",
+    "contract-utilities": "libs/contract-utilities",
     "core-app": "apps/core-app",
     "dao-data": "libs/dao-data",
     "dao-producer-job": "apps/dao-producer-job",
@@ -15,6 +14,7 @@
     "infra-chart-ipfs": "libs/infra-chart/ipfs",
     "infra-chart-job": "libs/infra-chart/job",
     "summon-app": "apps/summon-app",
+    "summon-safe-app": "apps/summon-safe-app",
     "tx-builder-feature": "libs/tx-builder-feature",
     "ui": "libs/ui",
     "v3-subgraph": "apps/v3-subgraph"

@@ -43,8 +43,7 @@ Our libraries in the `libs` folder are structured to be consumed by our apps as 
 
 | Lib                                                      | Entry Point                    |
 | -------------------------------------------------------- | ------------------------------ |
-| [ABI Utilities](./libs/abi-utilities/)                   | `libs/abi-utilities`           |
-| [Baal Contract Service](./libs/baal-contract-service/)   | `libs/baal-contract-service`   |
+| [Contract Utilities](./libs/contract-utilties/)          | `libs/contract-utilties`       |
 | [Common Utilities](./libs/common-utilities/)             | `libs/common-utilities`        |
 | [DAO Data SDK](./libs/dao-data)                          | `libs/dao-data-sdk`            |
 | [Component Library (UI)](./libs/ui)                      | `libs/ui`                      |
@@ -62,9 +61,11 @@ Here is a basic guide. Each package README (and `project.json`) will have more d
 ```bash
 
 `git clone git@github.com:HausDAO/daohaus-monorepo.git` or `git@github.com:HausDAO/daohaus-monorepo.git`
-
 # clone the entire monorepo at the top level on the develop branch
-
+`nvm use`
+# switch to node 16.16.0
+`yarn global add nx`
+# download nx globally for running nx commands
 `yarn`
 # run yarn to install all of the packages and dependencies
 

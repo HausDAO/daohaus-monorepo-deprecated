@@ -1,4 +1,4 @@
-import { ChangeEventHandler } from 'react';
+import React, { ChangeEventHandler } from 'react';
 import { RegisterOptions } from 'react-hook-form';
 
 export type ErrorMessage = {
@@ -35,11 +35,15 @@ export type PrimitiveSizable = {
   full?: boolean;
 };
 
+export type PrimitiveAddons = {
+  rightAddon?: React.ReactNode
+}
+
 export type HasRules = {
   rules?: RegisterOptions;
 };
 
-type FieldWrapper = PrimitiveWrapper & PrimitiveElement & PrimitiveSizable;
+type FieldWrapper = PrimitiveWrapper & PrimitiveElement & PrimitiveSizable & PrimitiveAddons;
 
 export type Buildable<T> = T & FieldWrapper & HasRules;
 

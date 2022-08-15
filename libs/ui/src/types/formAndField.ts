@@ -58,7 +58,6 @@ export type Field = {
   address?: boolean;
   long?: boolean;
   full?: boolean;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
 } & PrimitiveElement;
 
 // & PrimitiveWrapper &

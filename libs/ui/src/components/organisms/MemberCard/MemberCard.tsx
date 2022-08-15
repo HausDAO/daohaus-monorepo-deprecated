@@ -48,7 +48,7 @@ export const MemberCard = ({
 
   const handleCopy = () => {
     const shortAddress = truncateAddress(profile.address);
-    copy(shortAddress);
+    copy(shortAddress, 'Success!');
   };
 
   return (

@@ -10,14 +10,6 @@
         "lintFilePatterns": ["libs/ceramic-model-utilities/**/*.ts"]
       }
     },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/ceramic-model-utilities"],
-      "options": {
-        "jestConfig": "libs/ceramic-model-utilities/jest.config.ts",
-        "passWithNoTests": true
-      }
-    },
     "publishBuild": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {

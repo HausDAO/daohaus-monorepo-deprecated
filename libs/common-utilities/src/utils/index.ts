@@ -9,3 +9,4 @@ export * from './units';
 export * from './object';
 export * from './time';
 export * from './validation';
+export * from './error';

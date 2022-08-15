@@ -65,7 +65,7 @@ export const SummonerForm = ({
       fireTransaction({
         tx: {
           ...SummonTX,
-          args,
+          staticArgs: args,
         },
         lifeCycleFns: {
           onTxHash(txHash) {

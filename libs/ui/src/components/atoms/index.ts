@@ -3,6 +3,7 @@ export * from './Button';
 export * from './Label';
 export * from './Input';
 export * from './HelperTexts';
+export * from './FileInput';
 export * from './TextArea';
 export * from './Tooltip';
 export * from './Typography';

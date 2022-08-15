@@ -1,4 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+
 import { MemberCard } from './MemberCard';
 
 export default {
@@ -7,31 +8,37 @@ export default {
 } as ComponentMeta<typeof MemberCard>;
 
 const Template: ComponentStory<typeof MemberCard> = (args) => (
-  <MemberCard {...args} />
+  <div style={{ display: 'flex', width: '100%', justifyContent: 'flex-end' }}>
+    <MemberCard {...args} />
+  </div>
 );
 
-export const MemberCardExample = Template.bind({});
-MemberCardExample.args = {
-  navLinks: [
-    { label: 'Home', href: '/home' },
-    { label: 'Proposals', href: '/proposals' },
-    { label: 'Vaults', href: '/vaults' },
-    { label: 'Members', href: '/members' },
-  ],
+export const MemberCardWithName = Template.bind({});
+
+MemberCardWithName.args = {
+  ceramicProfile: {
+    name: 'DAO Guy',
+    ens: 'daoguy.eth',
+    address: '0xA8cadC2268B01395f8573682fb9DD00Bd582E8A0',
+  },
+  explorerNetworkId: '0x5',
 };
 
-export const MemberCardWithDropdown = Template.bind({});
-MemberCardWithDropdown.args = {
-  navLinks: [
-    { label: 'Home', href: '/home' },
-    { label: 'Proposals', href: '/proposals' },
-    { label: 'Vaults', href: '/vaults' },
-    { label: 'Members', href: '/members' },
-  ],
-  dropdownLinks: [
-    { label: 'Dropdown Link 1', href: '/dropdown1' },
-    { label: 'Dropdown Link 2', href: '/dropdown2' },
-    { label: 'Dropdown Link 3', href: '/dropdown3' },
-    { label: 'Dropdown Link 4', href: '/dropdown4' },
-  ],
+export const MemberCardWithEns = Template.bind({});
+
+MemberCardWithEns.args = {
+  ceramicProfile: {
+    ens: 'daoguy.eth',
+    address: '0xA8cadC2268B01395f8573682fb9DD00Bd582E8A0',
+  },
+  explorerNetworkId: '0x5',
+};
+
+export const MemberCardWithAddress = Template.bind({});
+
+MemberCardWithAddress.args = {
+  ceramicProfile: {
+    address: '0xA8cadC2268B01395f8573682fb9DD00Bd582E8A0',
+  },
+  explorerNetworkId: '0x5',
 };

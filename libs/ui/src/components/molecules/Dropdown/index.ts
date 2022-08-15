@@ -5,4 +5,5 @@ export {
   DropdownButton,
   DropdownTriggerLink,
   DropdownLink,
+  DropdownText,
 } from './Dropdown.styles';

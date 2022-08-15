@@ -1,10 +1,10 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { RiAlertLine, RiBookOpenLine, RiCommandLine } from 'react-icons/ri';
+import { RiBookOpenLine, RiCommandLine } from 'react-icons/ri';
 
 import { AppSwitcher } from './AppSwitcher';
 
 export default {
-  title: 'Molecules/AppSwitcher',
+  title: 'Organisms/AppSwitcher',
   component: AppSwitcher,
 } as ComponentMeta<typeof AppSwitcher>;
 

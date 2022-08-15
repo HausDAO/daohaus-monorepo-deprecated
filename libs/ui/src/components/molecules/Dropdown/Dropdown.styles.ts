@@ -106,9 +106,10 @@ export const DropdownTriggerLink = styled.button`
 // TODO Update theme colors to be dropdown specific
 export const DropdownLink = styled(Link)`
   border-radius: 2px;
-  color: ${(props) => props.theme.navTabs.navLinkColor};
+  color: ${(props) => props.theme.dropdown.text};
   cursor: pointer;
   display: flex;
+  padding: 1rem;
   transition: 0.2s all;
   width: 100%;
 
@@ -120,6 +121,34 @@ export const DropdownLink = styled(Link)`
     background-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBg};
     border-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBorder};
     text-decoration: none;
+  }
+
+  &.disabled {
+    color: ${(props) => props.theme.dropdown.textDisabled};
+  }
+`;
+
+export const DropdownText = styled.div`
+  border-radius: 2px;
+  color: ${(props) => props.theme.dropdown.text};
+  cursor: pointer;
+  display: flex;
+  padding: 1rem;
+  transition: 0.2s all;
+  width: 100%;
+
+  svg {
+    margin-left: 0.3rem;
+  }
+
+  :hover {
+    background-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBg};
+    border-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBorder};
+    text-decoration: none;
+  }
+
+  &.disabled {
+    color: ${(props) => props.theme.dropdown.textDisabled};
   }
 `;
 

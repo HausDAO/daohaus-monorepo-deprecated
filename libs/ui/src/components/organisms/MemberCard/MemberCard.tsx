@@ -7,6 +7,7 @@ import {
   truncateAddress,
   getNetworkName,
 } from '@daohaus/common-utilities';
+import { AccountProfile } from '@daohaus/dao-data';
 
 import { ParMd } from '../../atoms';
 
@@ -21,12 +22,7 @@ import { MemberCardTrigger } from './MemberCard.styles';
 import { useToast } from '../../../hooks';
 
 type MemberCardProps = {
-  ceramicProfile: {
-    name?: string;
-    ens?: string;
-    address: string;
-    image?: string;
-  };
+  profile: AccountProfile;
   explorerNetworkId: keyof Keychain;
   minWidth?: string;
   menuBg?: string;
@@ -35,7 +31,7 @@ type MemberCardProps = {
 
 export const MemberCard = ({
   className,
-  ceramicProfile,
+  profile,
   explorerNetworkId,
   minWidth = '17.8rem',
 }: MemberCardProps) => {
@@ -48,14 +44,14 @@ export const MemberCard = ({
     if (explorerNetworkId) {
       return generateExplorerLink({
         chainId: explorerNetworkId,
-        address: ceramicProfile.address,
+        address: profile.address,
         type: 'address',
       });
     }
-  }, [ceramicProfile, explorerNetworkId]);
+  }, [profile, explorerNetworkId]);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(`${ceramicProfile.address}`);
+    navigator.clipboard.writeText(`${profile.address}`);
     successToast({
       title: 'Address copied to clipboard',
     });
@@ -71,23 +67,18 @@ export const MemberCard = ({
           minWidth={minWidth}
           IconRight={RiArrowDropDownLine}
         >
-          <ProfileAvatar
-            address={ceramicProfile.address}
-            image={ceramicProfile.image}
-          />
-          {(ceramicProfile.name || ceramicProfile.ens) && (
-            <ParMd>
-              {ceramicProfile.name ? ceramicProfile.name : ceramicProfile.ens}
-            </ParMd>
+          <ProfileAvatar address={profile.address} image={profile.image} />
+          {(profile.name || profile.ens) && (
+            <ParMd>{profile.name ? profile.name : profile.ens}</ParMd>
           )}
-          {!ceramicProfile.name && !ceramicProfile.ens && (
-            <ParMd>{truncateAddress(ceramicProfile.address)}</ParMd>
+          {!profile.name && !profile.ens && (
+            <ParMd>{truncateAddress(profile.address)}</ParMd>
           )}
         </MemberCardTrigger>
       }
     >
       <DropdownMenuItem>
-        <DropdownLink href={`/profile/${ceramicProfile.address}`}>
+        <DropdownLink href={`/profile/${profile.address}`}>
           <ParMd>View Profile</ParMd>
         </DropdownLink>
       </DropdownMenuItem>

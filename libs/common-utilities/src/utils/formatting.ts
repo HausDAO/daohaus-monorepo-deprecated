@@ -10,3 +10,11 @@ export const handlePluralNoun = (noun: Noun, count: number) =>
 export const fromWei = (amt: string): string => {
   return ethers.utils.formatEther(amt).toString();
 };
+export const isJSON = (obj: unknown) => {
+  try {
+    JSON.parse(obj as string);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};

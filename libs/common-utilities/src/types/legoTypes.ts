@@ -1,6 +1,7 @@
 import { JSXElementConstructor } from 'react';
 import { ValidateField } from '../utils';
 import { ABI, ArgType } from './contract';
+import { EthAddress, RequireOnlyOne } from './general';
 import { Keychain } from './keychains';
 
 export type LookupType = Record<
@@ -34,41 +35,98 @@ export type FormLegoBase<Lookup extends LookupType = LookupType> = {
 
 export type RequiredFields = Record<string, boolean>;
 
-type SearchArgs = {
-  type: 'searchArgs';
-  args: string[];
-};
-type CallbackArgs = {
-  type: 'callbackArgs';
-  callbackName: string;
-};
-type StaticArgs = ArgType[];
-export type ArgAggrageteType = SearchArgs | CallbackArgs | StaticArgs;
-export type TxStates = 'idle' | 'submitting' | 'polling' | 'failed' | 'success';
+export type StringSearch = `.${string}`;
 
-export type TXLego = {
+type DetailsSchema = Record<string, ValidArgType>;
+export type JSONDetailsSearch = {
+  type: 'JSONDetails';
+  jsonSchema: DetailsSchema;
+};
+export type MulticallAction = {
+  contract: ContractLego;
+  method: string;
+  args: ValidArgType[];
+};
+export type MulticallArg = {
+  type: 'multicall';
+  actions: MulticallAction[];
+};
+export type EstmimateGas = {
+  type: 'estimateGas';
+  actions: MulticallAction[];
+  bufferPercentage?: number;
+};
+
+type ProposalExpiry = {
+  type: 'proposalExpiry';
+  search?: StringSearch;
+  fallback: number;
+};
+
+type StaticArg = {
+  type: 'static';
+  value: ArgType;
+};
+
+export type ValidArgType =
+  | StringSearch
+  | JSONDetailsSearch
+  | EstmimateGas
+  | MulticallArg
+  | ProposalExpiry
+  | StaticArg;
+
+export type TxStates =
+  | 'idle'
+  | 'submitting'
+  | 'polling'
+  | 'pollFailed'
+  | 'failed'
+  | 'success';
+
+export type TXLegoBase = {
   id: string;
   contract: ContractLego;
   method: string;
-  custonPoll?: string;
+  customPoll?: string;
   txSuccessMessage?: string;
   finalSuccessMessage?: string;
   errorMessage?: string;
   status?: TxStates;
-  args: ArgAggrageteType;
+  args?: ValidArgType[];
+  argCallback?: string;
+  staticArgs?: ArgType[];
 };
 
+export type TXLego = RequireOnlyOne<
+  TXLegoBase,
+  'args' | 'argCallback' | 'staticArgs'
+>;
+
+export type StaticContract = {
+  contractName: string;
+  type: 'static';
+  abi: ABI;
+  targetAddress: Keychain | StringSearch | EthAddress;
+};
 export type LocalContract = {
   contractName: string;
   type: 'local';
-  abi: ABI;
-  keychain: Keychain;
+  targetAddress: Keychain | StringSearch | EthAddress;
 };
-
 export type RemoteContract = {
   contractName: string;
   type: 'remote';
-  keychain: Keychain;
+  targetAddress: Keychain | StringSearch | EthAddress;
 };
-
-export type ContractLego = LocalContract | RemoteContract;
+export type ProcessedContract = {
+  type: 'processed';
+  contractName: string;
+  abi: ABI;
+  address: string;
+};
+export type ContractLego =
+  | StaticContract
+  | RemoteContract
+  | LocalContract
+  | ProcessedContract;

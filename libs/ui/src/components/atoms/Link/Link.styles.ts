@@ -13,7 +13,7 @@ const LinkStyles = css`
   font-weight: ${font.weight.reg};
   font-size: ${font.size.md};
   text-decoration: none;
-
+  letter-spacing: 1.5px;
   :hover {
     text-decoration: underline;
   }

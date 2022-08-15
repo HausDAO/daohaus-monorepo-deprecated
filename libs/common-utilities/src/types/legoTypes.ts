@@ -88,7 +88,7 @@ export type TXLegoBase = {
   id: string;
   contract: ContractLego;
   method: string;
-  custonPoll?: string;
+  customPoll?: string;
   txSuccessMessage?: string;
   finalSuccessMessage?: string;
   errorMessage?: string;

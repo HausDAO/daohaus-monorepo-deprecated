@@ -60,7 +60,7 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
       {isSm ? (
         <div className="mobile-box">
           <Dropdown
-            bg={theme.navTabs.bg}
+            menuBg={theme.navTabs.bg}
             align={dropdownMenuAlign}
             spacing={dropdownMenuSpacing}
             trigger={
@@ -68,22 +68,20 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
                 Mobile
               </Button>
             }
-            items={mobileLinks.map((mobileLink) => {
+          >
+            {mobileLinks.map((mobileLink) => {
               const selected = location.pathname.includes(mobileLink.href);
-              return {
-                type: 'clickable',
-                content: (
-                  <DropdownLink
-                    key={mobileLink.label}
-                    href={mobileLink.href}
-                    selected={selected}
-                  >
-                    {mobileLink.label}
-                  </DropdownLink>
-                ),
-              };
+              return (
+                <DropdownLink
+                  key={mobileLink.label}
+                  href={mobileLink.href}
+                  selected={selected}
+                >
+                  {mobileLink.label}
+                </DropdownLink>
+              );
             })}
-          />
+          </Dropdown>
         </div>
       ) : (
         <div className="nav-link-list">
@@ -97,7 +95,7 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
           })}
           {dropdownLinks.length > 0 && (
             <Dropdown
-              bg={theme.navTabs.bg}
+              menuBg={theme.navTabs.bg}
               align={dropdownMenuAlign}
               spacing={dropdownMenuSpacing}
               trigger={
@@ -106,22 +104,20 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
                   <RiArrowDropDownLine />
                 </DropdownLinkTrigger>
               }
-              items={dropdownLinks.map((dropdownLink) => {
+            >
+              {dropdownLinks.map((dropdownLink, index) => {
                 const selected = location.pathname.includes(dropdownLink.href);
-                return {
-                  type: 'clickable',
-                  content: (
-                    <DropdownLink
-                      key={dropdownLink.label}
-                      href={dropdownLink.href}
-                      selected={selected}
-                    >
-                      {dropdownLink.label}
-                    </DropdownLink>
-                  ),
-                };
+                return (
+                  <DropdownLink
+                    key={`${dropdownLink.label}-${index}`}
+                    href={dropdownLink.href}
+                    selected={selected}
+                  >
+                    {dropdownLink.label}
+                  </DropdownLink>
+                );
               })}
-            />
+            </Dropdown>
           )}
         </div>
       )}

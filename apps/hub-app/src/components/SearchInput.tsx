@@ -34,7 +34,7 @@ const SearchInput = ({ searchTerm, setSearchTerm }: SearchInputProps) => {
     <StyledInput
       icon={IconSearch}
       id="table-search"
-      placeholder="Search Daos"
+      placeholder="Search DAOs"
       onChange={setSearchTerm}
       defaultValue={searchTerm}
     />

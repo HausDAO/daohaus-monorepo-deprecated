@@ -1,12 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import styled from 'styled-components';
-import { breakpoints, H5, ParLg, ParMd, Dropdown, Bold } from '@daohaus/ui';
-import { Avatar, Button, Link as ExternalLink } from '@daohaus/ui';
 import { indigoDark } from '@radix-ui/colors';
-import { SELF_ID_URL } from '../constants';
 import { BiChevronDown } from 'react-icons/bi';
+
+import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+import {
+  breakpoints,
+  H5,
+  ParLg,
+  ParMd,
+  Dropdown,
+  DropdownMenuItem,
+  Bold,
+  Avatar,
+  Button,
+  Link as ExternalLink,
+} from '@daohaus/ui';
+
+import { LENS_PROFILE_URL } from '../constants';
 
 const ProfileContainer = styled.div`
   display: flex;
@@ -97,37 +109,30 @@ export const HeaderProfile = () => {
       <StyledAvatar src={profile?.image || ''} size="lg" alt="profile image" />
       <div>
         <NameContainer>
-          {profile?.name && <H5>{profile?.name || ''}</H5>}
+          {profile?.name && <H5>{profile?.name}</H5>}
           {profile?.emoji && (
             <ParLg as="span" role="img" aria-label="profile emoji">
-              {profile?.emoji || ''}
+              {profile?.emoji}
             </ParLg>
           )}
         </NameContainer>
       </div>
       <Dropdown
-        bg={indigoDark.indigo3}
+        menuBg={indigoDark.indigo3}
         align="end"
         trigger={<StyledButton IconRight={StyledChevron}>Profile</StyledButton>}
-        items={[
-          {
-            type: 'clickable',
-            content: (
-              <StyledExternalLink href={SELF_ID_URL}>
-                <StyledParMd>Edit SELF_ID</StyledParMd>
-              </StyledExternalLink>
-            ),
-          },
-          {
-            type: 'clickable',
-            content: (
-              <StyledLink to={`/profile/${address}`}>
-                <StyledParMd>View Public</StyledParMd>
-              </StyledLink>
-            ),
-          },
-        ]}
-      />
+      >
+        <DropdownMenuItem asChild>
+          <StyledExternalLink href={LENS_PROFILE_URL} linkType="external">
+            <StyledParMd>Edit Lens Profile</StyledParMd>
+          </StyledExternalLink>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <StyledLink to={`/profile/${address}`}>
+            <StyledParMd>View Public Profile</StyledParMd>
+          </StyledLink>
+        </DropdownMenuItem>
+      </Dropdown>
     </ProfileContainer>
   );
 };

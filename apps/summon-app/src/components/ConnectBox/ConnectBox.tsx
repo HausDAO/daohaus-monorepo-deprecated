@@ -23,7 +23,7 @@ export const ConnectBox = () => {
   return (
     <ConnectBoxContainer>
       <div className="inner">
-        <ParSm>Connect wallet to a DAO</ParSm>
+        <ParSm>Connect wallet to summon a DAO</ParSm>
         <Button onClick={connectWallet} sm type="button">
           Connect
         </Button>

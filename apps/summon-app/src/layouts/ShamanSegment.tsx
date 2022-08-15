@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { FormSegment, ParSm, Link, WrappedTextArea } from '@daohaus/ui';
+import { INFO_COPY } from '@daohaus/common-utilities';
 
 import { TextAreaSection } from '../layouts/FormLayouts';
 import { transformShamans, validateShamanData } from '../utils/common';
 import { FORM_KEYS } from '../utils/formKeys';
-import { INFO_COPY } from '../utils/content';
 
 export const ShamanSegment = ({ formDisabled }: { formDisabled: boolean }) => {
   const {
@@ -33,10 +33,14 @@ export const ShamanSegment = ({ formDisabled }: { formDisabled: boolean }) => {
   return (
     <FormSegment
       title="Starting Shamans"
-      description="Shamans are very powerful as they can have administrative control over voting and non-voting stakes. Be very careful adding shamans. "
+      description="Shamans are very powerful as they can have administrative control over voting and non-voting stakes. Be very careful adding Shamans. "
       formArea={
         <TextAreaSection>
-          <Link className="link" href="/">
+          <Link
+            className="link"
+            href="https://baal-docs.vercel.app/tools/shaman"
+            linkType="external"
+          >
             How to add a Shaman
           </Link>
           <ParSm className="number-display">{amtShamans} Shamans</ParSm>

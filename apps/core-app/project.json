@@ -67,7 +67,6 @@
         "passWithNoTests": true
       }
     },
-
     "deploy": {
       "executor": "@alexkeating/nx-skynet:deploy",
       "options": {

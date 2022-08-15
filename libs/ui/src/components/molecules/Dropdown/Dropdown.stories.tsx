@@ -1,13 +1,16 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { RiAlertLine } from 'react-icons/ri';
+import { v4 as uuidv4 } from 'uuid';
 
 import { ParXs } from '../../atoms/Typography';
 import { Button } from '../../atoms/Button/Button';
-import { DropdownItem, Dropdown } from './Dropdown';
+import { Dropdown } from './Dropdown';
+import { DropdownMenuItem, DropdownMenuLabel } from './Dropdown.styles';
 
 export default {
   title: 'Molecules/Dropdown',
   component: Dropdown,
+  subcomponents: { DropdownMenuItem },
 } as ComponentMeta<typeof Dropdown>;
 
 const Template: ComponentStory<typeof Dropdown> = (args) => (
@@ -15,6 +18,7 @@ const Template: ComponentStory<typeof Dropdown> = (args) => (
     <Dropdown {...args} />
   </div>
 );
+
 const networkPanels = [
   'Mainnet',
   'Arbitrum',
@@ -25,28 +29,28 @@ const networkPanels = [
   'Polygon',
   'Kovan',
   'Rinkeby',
-].map((item) => ({
-  type: 'clickable',
-  content: (
+].map((item, index) => (
+  <DropdownMenuItem key={index} spacing="0.7rem">
     <Button secondary fullWidth leftAlign>
       {item}
     </Button>
-  ),
-})) as DropdownItem[];
+  </DropdownMenuItem>
+));
 
 export const FullDropdown = Template.bind({});
 
 FullDropdown.args = {
-  spacing: '0.7rem',
-  width: '26rem',
+  menuMinWidth: '26rem',
   align: 'end',
   trigger: (
     <Button IconLeft={RiAlertLine} tertiary>
       Network Unavailable
     </Button>
   ),
-  items: [
-    { type: 'label', content: <ParXs>Switch to available network</ParXs> },
+  children: [
+    <DropdownMenuLabel key={uuidv4()}>
+      <ParXs>Switch to available network</ParXs>
+    </DropdownMenuLabel>,
     ...networkPanels,
   ],
 };

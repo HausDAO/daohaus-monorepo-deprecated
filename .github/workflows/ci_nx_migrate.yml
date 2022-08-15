@@ -44,7 +44,9 @@ jobs:
           IS_OUTDATED=$(test ! -z "$(npm outdated @nrwl/workspace)" && echo true || echo false)
           echo $IS_OUTDATED
           echo "::set-output name=outdated::$IS_OUTDATED"
-
+      - name: Test mono pre migrations
+        if: steps.nrwl-workspace-outdated.outputs.outdated == 'true'
+        run: NODE_OPTIONS=--experimental-vm-modules nx affected:test --base $BASE
       - name: Update @nrwl/workspace
         if: steps.nrwl-workspace-outdated.outputs.outdated == 'true'
         run: echo 1 | nx migrate latest
@@ -61,8 +63,6 @@ jobs:
       - name: Run @nrwl/workspace migrations
         if: steps.nrwl-workspace-has-migrations.outputs.has_migrations == 'true'
         run: npx nx migrate --run-migrations
-      - name: Test mono pre migrations
-        run: NODE_OPTIONS=--experimental-vm-modules nx affected:test --base $BASE
       - name: Setup git user to "🤖 Moloch Bot"
         shell: bash
         run: git config user.email "-" && git config user.name "🤖 Moloch Bot"

@@ -9,7 +9,6 @@ import {
   ValidNetwork,
 } from '@daohaus/common-utilities';
 import { ArgCallback } from '../TXBuilder';
-import { EXPIRY, FORM } from './constants';
 import { handleGasEstimate, handleMulticallArg } from './multicall';
 import { handleDetailsJSON, searchArg } from './search';
 
@@ -87,9 +86,11 @@ export const processArg = async ({
         searchString: arg.search,
         shouldThrow: false,
       });
-      return typeof result === 'number' ? result : arg.fallback;
+      return typeof result === 'number'
+        ? calcExpiry(result)
+        : calcExpiry(arg.fallback);
     }
-    return arg.fallback;
+    return calcExpiry(arg.fallback);
   }
   if (arg?.type === 'JSONDetails') {
     const result = await handleDetailsJSON({

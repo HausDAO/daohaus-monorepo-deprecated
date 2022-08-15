@@ -114,7 +114,6 @@ export const handleMulticallArg = async ({
   const encodedActions = await Promise.all(
     arg.actions.map(async (action) => {
       const { contract, method, args } = action;
-
       const processedContract = await processContractLego({
         contract,
         chainId,
@@ -126,7 +125,6 @@ export const handleMulticallArg = async ({
           async (arg) => await processArg({ arg, chainId, localABIs, appState })
         )
       );
-
       return txActionToMetaTx({
         abi: processedContract.abi,
         method,

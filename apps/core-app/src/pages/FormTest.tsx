@@ -1,25 +1,8 @@
 import { POSTER_ABI } from '@daohaus/contract-utilities';
 
 import { ContractLego, POSTER_TAGS } from '@daohaus/common-utilities';
-import {
-  CoreFieldLookup,
-  FormBuilder,
-  FormLego,
-} from '@daohaus/haus-form-builder';
-import { Tooltip } from '@daohaus/ui';
+import { FormBuilder, FormLego } from '@daohaus/haus-form-builder';
 import { buildMultiCallTX } from '@daohaus/tx-builder-feature';
-
-const sampleDefaultData = {
-  daoContract: '0x756ee8B8E898D497043c2320d9909f1DD5a7077F',
-  daoName: 'DAO Name here',
-};
-
-const AppFieldLookup = {
-  tooltip: Tooltip,
-};
-
-export const CustomFields = { ...CoreFieldLookup, ...AppFieldLookup };
-type CustomFields = typeof CustomFields;
 
 const Poster: ContractLego = {
   type: 'static',
@@ -74,13 +57,7 @@ const TestForm: FormLego = {
 };
 
 export function FormTest() {
-  return (
-    <FormBuilder
-      form={TestForm}
-      customFields={CustomFields}
-      defaultValues={sampleDefaultData}
-    />
-  );
+  return <FormBuilder form={TestForm} />;
 }
 
 export default FormTest;

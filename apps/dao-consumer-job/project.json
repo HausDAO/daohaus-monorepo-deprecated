@@ -36,14 +36,6 @@
         "lintFilePatterns": ["apps/dao-consumer-job/**/*.ts"]
       }
     },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/dao-consumer-job"],
-      "options": {
-        "jestConfig": "apps/dao-consumer-job/jest.config.ts",
-        "passWithNoTests": true
-      }
-    },
     "docker-build": {
       "executor": "@nx-tools/nx-docker:build",
       "options": {

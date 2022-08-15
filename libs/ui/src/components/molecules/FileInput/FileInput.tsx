@@ -4,9 +4,11 @@ import { useFormContext } from 'react-hook-form';
 import { Buildable, Field } from '../../../types/formAndField';
 import { Avatar, Button, Icon } from '../../atoms';
 import { FieldWrapper } from '../FieldWrapper';
+import { WrappedInput } from '../WrappedInput';
 import {
   CancelIcon,
   FileInputContents,
+  HiddenWrappedInput,
   ImageDisplayWrapper,
 } from './FileInput.styles';
 
@@ -63,7 +65,15 @@ export const FileInput = ({
           style={{ display: 'none' }}
           ref={upload}
           onChange={handleImageChange}
-        />
+        />{' '}
+        {/* <HiddenWrappedInput
+          {...props}
+          id={id}
+          type="file"
+          multiple={false}
+          onChange={handleImageChange}
+          // ref={upload}
+        /> */}
         {displayAvatarImage && imageUrl && (
           <ImageDisplayWrapper>
             <Avatar src={imageUrl} size="xl" />

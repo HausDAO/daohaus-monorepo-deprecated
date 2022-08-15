@@ -58,10 +58,11 @@ export enum StatusMsg {
   Await = 'Transaction Submitted',
   TxErr = 'Transaction Error',
   TxSuccess = 'Transaction Success',
-  PollStart = 'Polling Subgraph',
+  PollStart = 'Syncing TX (Subgraph)',
   PollSuccess = 'Success: TX Confirmed!',
-  PollError = 'Poll Error',
+  PollError = 'Sync Error (Subgraph)',
 }
+
 export function FormBuilder<Lookup extends LookupType>({
   form,
   onSubmit,

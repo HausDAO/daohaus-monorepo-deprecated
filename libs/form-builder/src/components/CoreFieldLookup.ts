@@ -22,4 +22,5 @@ export const CoreFieldLookup = {
   splitColumn: SplitColumnLayout,
   formSegment: SegmentRender,
   csInput: CSInput,
+  tributeInput: WrappedInput,
 };

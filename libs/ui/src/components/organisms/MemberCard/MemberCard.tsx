@@ -1,18 +1,18 @@
 import React, { useMemo } from 'react';
+import { RiArrowDropDownLine } from 'react-icons/ri';
 
 import {
   generateExplorerLink,
   Keychain,
   truncateAddress,
+  getNetworkName,
 } from '@daohaus/common-utilities';
-import { RiArrowDropDownLine } from 'react-icons/ri';
 
 import { ParMd } from '../../atoms';
 
 import {
   Dropdown,
   DropdownLink,
-  DropdownButton,
   DropdownText,
   DropdownMenuItem,
   ProfileAvatar,
@@ -27,7 +27,7 @@ type MemberCardProps = {
     address: string;
     image?: string;
   };
-  explorerNetworkId?: keyof Keychain;
+  explorerNetworkId: keyof Keychain;
   minWidth?: string;
   menuBg?: string;
   className?: string;
@@ -40,6 +40,9 @@ export const MemberCard = ({
   minWidth = '17.8rem',
 }: MemberCardProps) => {
   const { successToast } = useToast();
+
+  // Memo
+  const networkName = getNetworkName(explorerNetworkId);
 
   const explorerLink = useMemo(() => {
     if (explorerNetworkId) {
@@ -90,7 +93,7 @@ export const MemberCard = ({
       </DropdownMenuItem>
       <DropdownMenuItem>
         <DropdownLink href={explorerLink} linkType="external">
-          <ParMd>Block Scout</ParMd>
+          <ParMd>{networkName}</ParMd>
         </DropdownLink>
       </DropdownMenuItem>
       <DropdownMenuItem>

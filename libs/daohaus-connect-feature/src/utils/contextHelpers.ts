@@ -1,5 +1,4 @@
 import {
-  extractKeychain,
   isValidNetwork,
   ReactSetter,
   truncateAddress,

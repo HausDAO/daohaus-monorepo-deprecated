@@ -61,7 +61,7 @@ jobs:
       - name: Run @nrwl/workspace migrations
         if: steps.nrwl-workspace-has-migrations.outputs.has_migrations == 'true'
         run: npx nx migrate --run-migrations
-      - name: Test mono
+      - name: Test mono pre migrations
         run: NODE_OPTIONS=--experimental-vm-modules nx affected:test --base $BASE
       - name: Setup git user to "🤖 Moloch Bot"
         shell: bash
@@ -79,14 +79,13 @@ jobs:
       - name: Get current nx version
         id: nx-version
         run: echo "::set-output name=version::$(npm view @nrwl/workspace version)"
-      - name: Test mono post changes
+      - name: Test mono post migrations
         run: NODE_OPTIONS=--experimental-vm-modules nx affected:test --base $BASE
-      - name: Push changes
+      - name: Create NX Migration Branch
         if: steps.nrwl-workspace-outdated.outputs.outdated == 'true'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: update-nrwl-workspace-${{ steps.nx-version.outputs.version }}
-          tags: true
+        run: |
+          BRANCH="update-nrwl-workspace-${{ steps.nx-version.outputs.version }}"
+          git checkout -b "${BRANCH}"
+          git push -f --set-upstream origin "${BRANCH}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

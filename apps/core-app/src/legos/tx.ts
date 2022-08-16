@@ -14,9 +14,9 @@ export const TX = {
           {
             type: 'JSONDetails',
             jsonSchema: {
-              title: `.formData.title,`,
-              description: `.formData.description,`,
-              link: `.formData.link,`,
+              title: `.formValues.title`,
+              description: `.formValues.description`,
+              link: `.formValues.link`,
               proposalType: { type: 'static', value: 'Signal Proposal' },
             },
           },

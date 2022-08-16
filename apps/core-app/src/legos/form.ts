@@ -1,5 +1,6 @@
 import { CustomFormLego } from './config';
 import { FIELD } from './fields';
+import { TX } from './tx';
 
 export const FORM: Record<string, CustomFormLego> = {
   SHARE_SWAP: {
@@ -16,6 +17,7 @@ export const FORM: Record<string, CustomFormLego> = {
     subtitle: 'This is a test form',
     description: 'This is a test form',
     requiredFields: { title: true, description: true },
+    tx: TX.POST_SIGNAL,
     fields: [FIELD.TITLE, FIELD.DESCRIPTION, FIELD.LINK],
   },
 };

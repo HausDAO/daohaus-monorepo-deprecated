@@ -3,7 +3,7 @@ import { CustomFields } from '../legos/config';
 import { FORM } from '../legos/form';
 
 export function FormTest() {
-  return <FormBuilder form={FORM.SHARE_SWAP} customFields={CustomFields} />;
+  return <FormBuilder form={FORM.SIGNAL} customFields={CustomFields} />;
 }
 
 export default FormTest;

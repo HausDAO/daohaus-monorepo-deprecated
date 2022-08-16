@@ -215,7 +215,7 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             <Grid item xs={5}>
               <Toggle
                 id="votingTransferable"
-                label="Voting Stake Transferable?"
+                label="Voting Stake"
                 required
                 control={methods.control}
                 shouldUnregister={false}
@@ -224,7 +224,7 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             <Grid item xs={5}>
               <Toggle
                 id="nonVotingTransferable"
-                label="Non-Voting Transferable?"
+                label="Non-Voting Stake"
                 required
                 control={methods.control}
                 shouldUnregister={false}
@@ -237,8 +237,8 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             Proposal Timing
           </Title>
           <Text size="md">
-            Define your timing for Voting and Grace periods. You can update
-            these settings through a proposal.
+            Define your timing for voting and grace periods. These settings can
+            be updated later through a proposal.
           </Text>
           <StyledPairInputContainer
             container
@@ -281,7 +281,7 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
           <Title size="sm" withoutMargin>
             Advanced Governance
           </Title>
-          <Text size="md">Modify some advanced governance features.</Text>
+          <Text size="md">Customize advanced governance features.</Text>
           <StyledPairInputContainer
             container
             direction="row"
@@ -344,8 +344,8 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             Starting Shamans
           </Title>
           <Text size="md">
-            Shamans are very powerful as they can have administrative control
-            over voting and non-voting stakes. Be very careful adding shamans.
+            Shamans are powerful and have control over key components of the
+            DAO. Use caution in the spirit world.
           </Text>
           <RecordsDataTable
             id="shamans"
@@ -372,9 +372,8 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             Starting Members
           </Title>
           <Text size="md">
-            You must have at least one member to start. Add other starting
-            members as desired. You can always add more members later through a
-            proposal or a shaman.
+            You must have at least one member to summon. Add other summoning
+            members as desired. Members can be added later through a proposal.
           </Text>
           <RecordsDataTable
             id="members"

@@ -65,7 +65,7 @@ export const SummonerForm = ({
       fireTransaction({
         tx: {
           ...SummonTX,
-          args,
+          staticArgs: args,
         },
         lifeCycleFns: {
           onTxHash(txHash) {
@@ -171,7 +171,13 @@ export const SummonerForm = ({
         <ShamanSegment formDisabled={formDisabled} />
         <MembersSegment formDisabled={formDisabled} />
         {!isConnected && <ConnectBox />}
-        <Button fullWidth lg type="submit" disabled={submitDisabled}>
+        <Button
+          fullWidth
+          centerAlign
+          lg
+          type="submit"
+          disabled={submitDisabled}
+        >
           Summon DAO
         </Button>
       </form>

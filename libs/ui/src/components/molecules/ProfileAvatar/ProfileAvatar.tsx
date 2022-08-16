@@ -3,7 +3,7 @@ import { Avatar } from '../../atoms';
 import makeBlockie from 'ethereum-blockies-base64';
 import styled from 'styled-components';
 
-type ProfileAvatarProps = Parameters<typeof Avatar>[0] & {
+export type ProfileAvatarProps = Parameters<typeof Avatar>[0] & {
   address?: string;
   image?: string;
 };

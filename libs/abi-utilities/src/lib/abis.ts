@@ -6,7 +6,7 @@ import GNOSIS_PROXY from '../abi/gnosisProxy.json';
 import LOOT from '../abi/loot.json';
 import POSTER from '../abi/poster.json';
 import SHARES from '../abi/shares.json';
-import SUPERFLUID_PROXY from '../abi/superfluidProxy.json';
+import SUPERFLUID_PROXY from '../abi/superFluidProxy.json';
 import TRIBUTE_MINION from '../abi/tributeMinion.json';
 
 type ContractABIKey =

@@ -14,7 +14,7 @@ export const useToast = () => {
     setToast({
       title,
       description,
-      toastType: 'error',
+      toastType: 'default',
     });
   };
 

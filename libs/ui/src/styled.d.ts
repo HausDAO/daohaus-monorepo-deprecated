@@ -38,6 +38,17 @@ declare module 'styled-components' {
       activeNavLinkDropdownBg: string;
       activeNavLinkDropdownBorder: string;
     };
+    appSwitcher: {
+      bg: string;
+      navLinkColor: string;
+      navLinkHoverColor: string;
+      navLinkSelected: string;
+      navLinkDropdownText: string;
+      hoverNavLinkDropdownBg: string;
+      hoverNavLinkDropdownBorder: string;
+      activeNavLinkDropdownBg: string;
+      activeNavLinkDropdownBorder: string;
+    };
     card: {
       bg: string;
       border: string;
@@ -82,7 +93,13 @@ declare module 'styled-components' {
       bg: string;
     };
     dropdown: {
-      bg: string;
+      text: string;
+      textDisabled: string;
+      bgMenu: string;
+      bgItem: string;
+      hoverItem: string;
+      focusItem: string;
+      acttiveItem: string;
     };
     checkbox: {
       bg: string;

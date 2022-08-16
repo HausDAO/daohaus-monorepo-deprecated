@@ -20,6 +20,8 @@ import {
   TertiaryLightButton,
 } from './atoms/button';
 import { FieldTheme, FieldThemeDark } from './atoms/field';
+import { AppSwitcherDark, AppSwitcherLight } from './organisms/app-switcher';
+import { DropdownDark, DropdownLight } from './molecules/dropdown';
 
 export const defaultDarkTheme: Theme = {
   themeName: 'dark',
@@ -33,16 +35,11 @@ export const defaultDarkTheme: Theme = {
   disabled: neutralDark.bgSolid,
   transparent: utilityDark.transparent,
   info: utilityDark.info,
-  navTabs: {
-    bg: secondaryDark.bgSubtle,
-    navLinkColor: secondaryDark.bgSolid,
-    navLinkHoverColor: secondaryDark.bgSolidHover,
-    navLinkSelected: secondaryDark.textHighContrast,
-    navLinkDropdownText: secondaryDark.textHighContrast,
-    hoverNavLinkDropdownBg: secondaryDark.elementBgHover,
-    hoverNavLinkDropdownBorder: secondaryDark.elementBorderHover,
-    activeNavLinkDropdownBg: secondaryDark.bgSolid,
-    activeNavLinkDropdownBorder: secondaryDark.elementBorderSubtle,
+  // *** ATOMS *** //
+  button: {
+    primary: PrimaryDarkButton,
+    secondary: SecondaryDarkButton,
+    tertiary: TertiaryDarkButton,
   },
   card: {
     bg: secondaryDark.bgSubtle,
@@ -63,21 +60,6 @@ export const defaultDarkTheme: Theme = {
     errorBg: utilityDark.dangerBg,
     errorBorder: utilityDark.dangerBorder,
   },
-  field: FieldThemeDark,
-  button: {
-    primary: PrimaryDarkButton,
-    secondary: SecondaryDarkButton,
-    tertiary: TertiaryDarkButton,
-  },
-  link: {
-    color: primaryDark.bgSolidHover,
-  },
-  tooltip: {
-    bg: secondaryDark.elementBg,
-  },
-  dropdown: {
-    bg: secondaryDark.bgSubtle,
-  },
   checkbox: {
     bg: secondaryDark.elementBg,
     border: secondaryDark.elementBorderSubtle,
@@ -95,6 +77,10 @@ export const defaultDarkTheme: Theme = {
     activeFocusBorder: primaryDark.bgSolidHover,
     activeDisabledBg: neutralDark.bgSubtle,
     activeDisabledBorder: neutralDark.bgSolid,
+  },
+  field: FieldThemeDark,
+  link: {
+    color: primaryDark.bgSolidHover,
   },
   radio: {
     item: {
@@ -155,6 +141,11 @@ export const defaultDarkTheme: Theme = {
       activeDisabledBorder: neutralDark.bgSolid,
     },
   },
+  // *** MOLECULES *** //
+  dropdown: DropdownDark,
+  tooltip: {
+    bg: secondaryDark.elementBg,
+  },
   toast: {
     bg: secondaryDark.elementBg,
     border: secondaryDark.elementBgActive,
@@ -174,10 +165,19 @@ export const defaultDarkTheme: Theme = {
       error: utilityDark.danger,
     },
   },
-  modal: {
+  // *** ORGANISMS *** //
+  navTabs: {
     bg: secondaryDark.bgSubtle,
-    color: secondaryDark.textHighContrast,
+    navLinkColor: secondaryDark.bgSolid,
+    navLinkHoverColor: secondaryDark.bgSolidHover,
+    navLinkSelected: secondaryDark.textHighContrast,
+    navLinkDropdownText: secondaryDark.textHighContrast,
+    hoverNavLinkDropdownBg: secondaryDark.elementBgHover,
+    hoverNavLinkDropdownBorder: secondaryDark.elementBorderHover,
+    activeNavLinkDropdownBg: secondaryDark.bgSolid,
+    activeNavLinkDropdownBorder: secondaryDark.elementBorderSubtle,
   },
+  appSwitcher: AppSwitcherDark,
 };
 
 export const defaultLightTheme: Theme = {
@@ -192,26 +192,21 @@ export const defaultLightTheme: Theme = {
   info: utility.info,
   transparent: utility.transparent,
   disabled: neutral.bgSolid,
-  navTabs: {
-    bg: secondary.bgSubtle,
-    navLinkColor: secondary.bgSolid,
-    navLinkHoverColor: secondary.bgSolidHover,
-    navLinkSelected: secondary.textHighContrast,
-    navLinkDropdownText: secondary.textHighContrast,
-    hoverNavLinkDropdownBg: secondary.elementBgHover,
-    hoverNavLinkDropdownBorder: secondary.elementBorderHover,
-    activeNavLinkDropdownBg: secondary.bgSolid,
-    activeNavLinkDropdownBorder: secondary.elementBorderSubtle,
+  // *** ATOMS *** //
+  button: {
+    primary: PrimaryLightButton,
+    secondary: SecondaryLightButton,
+    tertiary: TertiaryLightButton,
   },
   card: {
-    bg: secondary.elementBg,
-    border: secondary.elementBorder,
-    hoverBg: secondary.elementBgHover,
+    bg: secondary.bgSubtle,
+    border: secondary.elementBgActive,
+    hoverBg: secondary.elementBg,
     hoverBorder: secondary.elementBorderSubtle,
-    focusBg: secondary.elementBg,
+    focusBg: secondary.bgSubtle,
     focusBorder: secondary.elementBorder,
     disabledBg: neutral.bgSubtle,
-    disabledBorder: neutral.elementBorderSubtle,
+    disabledBorder: neutral.elementBgActive,
     successText: utility.successText,
     successBg: utility.successBg,
     successBorder: utility.successBorder,
@@ -222,60 +217,49 @@ export const defaultLightTheme: Theme = {
     errorBg: utility.dangerBg,
     errorBorder: utility.dangerBorder,
   },
-  field: FieldTheme,
-  button: {
-    primary: PrimaryLightButton,
-    secondary: SecondaryLightButton,
-    tertiary: TertiaryLightButton,
-  },
-  link: {
-    color: primaryDark.bgSolidHover,
-  },
-  tooltip: {
-    bg: secondary.elementBg,
-  },
-  dropdown: {
-    bg: secondary.bgSubtle,
-  },
   checkbox: {
     bg: secondary.elementBg,
     border: secondary.elementBorderSubtle,
     hoverBg: secondary.elementBgHover,
     hoverBorder: secondary.elementBorderSubtle,
     focusBg: secondary.elementBg,
-    focusBorder: secondary.elementBorderSubtle,
+    focusBorder: secondary.elementBorder,
     disabledBg: neutral.bgSubtle,
     disabledBorder: neutral.elementBorderSubtle,
-    activeBg: primary.elementBg,
-    activeBorder: primary.bgSolid,
-    activeHoverBg: primary.elementBgHover,
-    activeHoverBorder: primary.bgSolid,
-    activeFocusBg: primary.elementBg,
-    activeFocusBorder: primary.bgSolidHover,
+    activeBg: primaryDark.elementBg,
+    activeBorder: primaryDark.bgSolid,
+    activeHoverBg: primaryDark.elementBgHover,
+    activeHoverBorder: primaryDark.bgSolid,
+    activeFocusBg: primaryDark.elementBg,
+    activeFocusBorder: primaryDark.bgSolidHover,
     activeDisabledBg: neutral.bgSubtle,
     activeDisabledBorder: neutral.bgSolid,
   },
+  field: FieldTheme,
+  link: {
+    color: primaryDark.bgSolidHover,
+  },
   radio: {
     item: {
-      bg: secondary.bgSolid,
-      border: secondary.bgSolid,
-      hoverBg: secondary.bgSolidHover,
-      hoverBorder: secondary.bgSolidHover,
-      focusBg: secondary.bgSolid,
-      focusBorder: secondary.textLowContrast,
-      disabledBg: neutral.bgSolid,
-      disabledBorder: neutral.bgSolid,
-      activeBg: primary.bgSolid,
-      activeBorder: primary.bgSolid,
-      activeHoverBg: primary.bgSolidHover,
-      activeHoverBorder: primary.bgSolidHover,
-      activeFocusBg: primary.bgSolid,
-      activeFocusBorder: primary.textLowContrast,
+      bg: secondary.elementBg,
+      border: secondary.elementBorderSubtle,
+      hoverBg: secondary.elementBgHover,
+      hoverBorder: secondary.elementBorderSubtle,
+      focusBg: secondary.elementBg,
+      focusBorder: secondary.elementBorder,
+      disabledBg: neutral.bgSubtle,
+      disabledBorder: neutral.elementBorderSubtle,
+      activeBg: primaryDark.bgSolid,
+      activeBorder: primaryDark.bgSolid,
+      activeHoverBg: primaryDark.bgSolidHover,
+      activeHoverBorder: primaryDark.bgSolidHover,
+      activeFocusBg: primaryDark.bgSolid,
+      activeFocusBorder: primaryDark.textLowContrast,
       activeDisabledBg: neutral.bgSolid,
       activeDisabledBorder: neutral.bgSolid,
     },
     indicator: {
-      bg: primary.elementBg,
+      bg: primaryDark.elementBg,
       disabledBg: neutral.bg,
     },
   },
@@ -285,13 +269,13 @@ export const defaultLightTheme: Theme = {
     borderColor: utility.transparent,
   },
   spinner: {
-    topColor: primary.bgSolid,
-    bottomColor: primary.elementBgHover,
+    topColor: primaryDark.bgSolid,
+    bottomColor: primaryDark.elementBgHover,
   },
   switch: {
     bar: {
       bg: secondary.elementBorderSubtle,
-      activeBg: primary.elementBorderSubtle,
+      activeBg: primaryDark.elementBorderSubtle,
       disabledBg: neutral.elementBorderSubtle,
       activeDisabledBg: neutral.elementBorderSubtle,
     },
@@ -304,15 +288,20 @@ export const defaultLightTheme: Theme = {
       focusBorder: secondary.textLowContrast,
       disabledBg: neutral.bgSolid,
       disabledBorder: neutral.bgSolid,
-      activeBg: primary.bgSolid,
-      activeBorder: primary.bgSolid,
-      activeHoverBg: primary.bgSolidHover,
-      activeHoverBorder: primary.bgSolidHover,
-      activeFocusBg: primary.bgSolid,
-      activeFocusBorder: primary.textLowContrast,
+      activeBg: primaryDark.bgSolid,
+      activeBorder: primaryDark.bgSolid,
+      activeHoverBg: primaryDark.bgSolidHover,
+      activeHoverBorder: primaryDark.bgSolidHover,
+      activeFocusBg: primaryDark.bgSolid,
+      activeFocusBorder: primaryDark.textLowContrast,
       activeDisabledBg: neutral.bgSolid,
       activeDisabledBorder: neutral.bgSolid,
     },
+  },
+  // *** MOLECULES *** //
+  dropdown: DropdownLight,
+  tooltip: {
+    bg: secondary.elementBg,
   },
   toast: {
     bg: secondary.elementBg,
@@ -333,8 +322,17 @@ export const defaultLightTheme: Theme = {
       error: utility.danger,
     },
   },
-  modal: {
+  // *** ORGANISMS *** //
+  navTabs: {
     bg: secondary.bgSubtle,
-    color: secondary.textHighContrast,
+    navLinkColor: secondary.bgSolid,
+    navLinkHoverColor: secondary.bgSolidHover,
+    navLinkSelected: secondary.textHighContrast,
+    navLinkDropdownText: secondary.textHighContrast,
+    hoverNavLinkDropdownBg: secondary.elementBgHover,
+    hoverNavLinkDropdownBorder: secondary.elementBorderHover,
+    activeNavLinkDropdownBg: secondary.bgSolid,
+    activeNavLinkDropdownBorder: secondary.elementBorderSubtle,
   },
+  appSwitcher: AppSwitcherLight,
 };

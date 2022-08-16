@@ -44,6 +44,7 @@ ReactDOM.render(
     </BrowserRouter>
   </StrictMode>,
   document.getElementById('root')
+)
 ```
 
 After including the `<HausConnectProvider/>` component in your app, you'll be able to access the associated Context throughout your app.

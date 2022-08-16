@@ -6,11 +6,14 @@
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
+      "dependsOn": ["^build"],
       "options": {
         "outputPath": "dist/libs/dao-data",
         "main": "libs/dao-data/src/index.ts",
         "tsConfig": "libs/dao-data/tsconfig.lib.json",
-        "assets": ["libs/dao-data/*.md"]
+        "assets": ["libs/dao-data/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true,
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "lint": {

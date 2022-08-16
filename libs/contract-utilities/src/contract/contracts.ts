@@ -34,9 +34,6 @@ export const getContractAddressesForChain = (
 ): string | null => {
   if (!CONTRACTS?.[contractKey]?.[chainId]) {
     return null;
-    // throw new Error(
-    //   `Unknown (${contractKey}) for chain id (${chainId}). No known contracts have been deployed on this chain for this contract.`
-    // );
   }
   return CONTRACTS[contractKey][chainId] as string;
 };
@@ -64,25 +61,42 @@ export const getContractsForChain = (
     gnosisMultisend: getContractAddressesForChain('GNOSIS_MULTISEND', chainId)
   };
 
-  /* prettier-ignore */
   const contracts: Contracts = {
-    baalContract: BaalContract.create({address: addresses.baal, provider: signerOrProvider}),
-    baalSummonerContract: BaalSummonerContract.create({address: addresses.baalSummoner, provider: signerOrProvider}),
+    baalContract: BaalContract.create({
+      address: addresses.baal,
+      provider: signerOrProvider,
+    }),
+    baalSummonerContract: BaalSummonerContract.create({
+      address: addresses.baalSummoner,
+      provider: signerOrProvider,
+    }),
   };
 
   if (onlyContracts) {
     return contracts;
   }
 
-  /* prettier-ignore */
   return {
     ...contracts,
     baalFactory: BaalFactory.connect(addresses.baal, signerOrProvider),
-    baalSummonerFactory: BaalSummonerFactory.connect(addresses.baalSummoner, signerOrProvider),
-    lootFactory: addresses.loot ? LootFactory.connect(addresses.loot, signerOrProvider) : null,
-    sharesFactory: addresses.shares ? SharesFactory.connect(addresses.shares, signerOrProvider) : null,
-    tributeMinionFactory: addresses.tributeMinion ? TributeMinionFactory.connect(addresses.tributeMinion, signerOrProvider) : null,
-    posterFactory: addresses.poster ? PosterFactory.connect(addresses.poster, signerOrProvider) : null,
-    gnosisMultisendFactory: addresses.gnosisMultisend ? MultiSendFactory.connect(addresses.gnosisMultisend,  signerOrProvider) : null,
+    baalSummonerFactory: BaalSummonerFactory.connect(
+      addresses.baalSummoner,
+      signerOrProvider
+    ),
+    lootFactory: addresses.loot
+      ? LootFactory.connect(addresses.loot, signerOrProvider)
+      : null,
+    sharesFactory: addresses.shares
+      ? SharesFactory.connect(addresses.shares, signerOrProvider)
+      : null,
+    tributeMinionFactory: addresses.tributeMinion
+      ? TributeMinionFactory.connect(addresses.tributeMinion, signerOrProvider)
+      : null,
+    posterFactory: addresses.poster
+      ? PosterFactory.connect(addresses.poster, signerOrProvider)
+      : null,
+    gnosisMultisendFactory: addresses.gnosisMultisend
+      ? MultiSendFactory.connect(addresses.gnosisMultisend, signerOrProvider)
+      : null,
   } as ContractsAndFactories;
 };

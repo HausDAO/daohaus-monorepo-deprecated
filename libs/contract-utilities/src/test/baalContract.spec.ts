@@ -7,21 +7,16 @@ describe('baal contract loads', () => {
   let baalOnlyContracts: Contracts;
 
   it('should include contracts of the chainId', () => {
-    baalOnlyContracts = getContractsForChain(
-      '0x5',
-      new ethers.providers.JsonRpcProvider(),
-      true
-    );
+    /* prettier-ignore */
+    baalOnlyContracts = getContractsForChain('0x5', new ethers.providers.JsonRpcProvider(), true);
 
     expect(baalOnlyContracts.baalContract).toBeDefined();
     expect(baalOnlyContracts.baalSummonerContract).toBeDefined();
     expect(Object.keys(baalOnlyContracts).length).toBe(2);
   });
   it('should include contracts of the chainId', () => {
-    baal = getContractsForChain(
-      '0x5',
-      new ethers.providers.JsonRpcProvider()
-    ) as ContractsAndFactories;
+    /* prettier-ignore */
+    baal = getContractsForChain('0x5', new ethers.providers.JsonRpcProvider()) as ContractsAndFactories;
 
     expect(baal.baalContract).toBeDefined();
     expect(baal.baalSummonerContract).toBeDefined();

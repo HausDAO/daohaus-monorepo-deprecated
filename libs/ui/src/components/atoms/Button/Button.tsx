@@ -11,8 +11,8 @@ export type ButtonProps = {
   className?: string;
   disabled?: boolean;
   fullWidth?: boolean;
-  IconLeft?: IconType | React.FC;
-  IconRight?: IconType | React.FC;
+  IconLeft?: IconType | React.ReactNode;
+  IconRight?: IconType | React.ReactNode;
   leftAlign?: boolean;
   lg?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;

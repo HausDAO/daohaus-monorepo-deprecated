@@ -1,5 +1,10 @@
 import { FormSegment, SplitColumn, WrappedInput } from '@daohaus/ui';
-import { INFO_COPY } from '@daohaus/common-utilities';
+import {
+  INFO_COPY,
+  toBaseUnits,
+  ValErrMsgs,
+  ValidateField,
+} from '@daohaus/common-utilities';
 
 import { FORM_KEYS } from '../utils/formKeys';
 
@@ -61,7 +66,12 @@ export const AdvancedSegment = ({
                   full
                   info={INFO_COPY.NEW_OFFERING}
                   disabled={formDisabled}
-                  rules={{ required: 'This value is required' }}
+                  rules={{
+                    required: 'This value is required',
+                    validate: (val) =>
+                      ValidateField.number(val) ? true : ValErrMsgs.number,
+                    setValueAs: (val) => toBaseUnits(val),
+                  }}
                 />
               ),
             },

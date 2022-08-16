@@ -87,3 +87,10 @@ export type SelectProps = {
 
 export type InputSelectProps = Field &
   SelectProps & { selectId: string; selectPlaceholder?: string };
+
+export type FileInputProps = Field & {
+  multiple?: boolean;
+  accept?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
+  className?: string;
+};

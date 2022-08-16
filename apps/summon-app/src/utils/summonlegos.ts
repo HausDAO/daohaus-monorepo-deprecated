@@ -3,9 +3,9 @@ import { ContractLego, CONTRACTS } from '@daohaus/common-utilities';
 
 const BaalSummonerContract: ContractLego = {
   contractName: 'BaalSummoner',
-  type: 'local',
+  type: 'static',
   abi: BAAL_SUMMONER_ABI,
-  keychain: CONTRACTS.V3_FACTORY,
+  targetAddress: CONTRACTS.V3_FACTORY,
 };
 
 export const SummonTX = {

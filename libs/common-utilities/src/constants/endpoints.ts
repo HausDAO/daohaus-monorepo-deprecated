@@ -5,9 +5,9 @@ export const ENDPOINTS: KeychainList = {
     '0x5': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli',
   },
   // RPC: {
-  // '0x1': `https://${process.env['NX_RIVET_KEY']}.eth.rpc.rivet.cloud/`,
-  // '0x5': `https://${process.env['NX_RIVET_KEY']}.goerli.rpc.rivet.cloud/`,
-  // '0x64': 'https://rpc.gnosischain.com/',
+  //   '0x1': `https://${process.env['NX_RIVET_KEY']}.eth.rpc.rivet.cloud/`,
+  //   '0x5': `https://${process.env['NX_RIVET_KEY']}.goerli.rpc.rivet.cloud/`,
+  //   '0x64': 'https://rpc.gnosischain.com/',
   // },
   EXPLORER: {
     '0x1': 'https://etherscan.io',
@@ -25,6 +25,10 @@ export const ENDPOINTS: KeychainList = {
     '0xa': 'https://safe-transaction.optimism.gnosis.io/api/v1',
     '0x89': 'https://safe-transaction.polygon.gnosis.io/api/v1',
     '0xa4b1': 'https://safe-transaction.arbitrum.gnosis.io/api/v1',
+  },
+  GAS_ESTIMATE: {
+    '0x5':
+      'https://safe-transaction.goerli.gnosis.io/api/v1/safes/0x1A3Bc7b8Df22eC917aB4260a951987D975906843/multisig-transactions/estimations/',
   },
   GNOSIS_SAFE_UI: {
     '0x1': 'https://gnosis-safe.io/app/eth',

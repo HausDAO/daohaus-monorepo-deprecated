@@ -1,4 +1,4 @@
-import { KeychainList, ValidNetwork } from '..';
+import { ValidNetwork } from '..';
 
 export type ContractKey =
   | 'V3_FACTORY'
@@ -10,7 +10,6 @@ export type ContractKey =
   | 'POSTER';
 
 export type AddressKeyChain = { [key in ValidNetwork]?: string };
-// export type ContractAddressList = Record<ContractKey, KeychainList>;
 export type ContractAddressList = Record<ContractKey, AddressKeyChain>;
 
 export const CONTRACTS: ContractAddressList = {

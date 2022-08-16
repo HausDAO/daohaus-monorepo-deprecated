@@ -1,23 +1,31 @@
 import { providers } from 'ethers';
 import { createContext, useState, useMemo, useContext, ReactNode } from 'react';
 import {
+  ABI,
   ArbitraryState,
   ArgType,
   isValidNetwork,
   TXLego,
 } from '@daohaus/common-utilities';
-import { TxRecord, handleFireTx } from './utils/txBuilderUtils';
+import { TxRecord, prepareTX } from './utils/txBuilderUtils';
 import { FindTxQuery, IFindQueryResult } from '@daohaus/dao-data';
+import { bundleLifeCycleFns } from './utils/lifeCycleFns';
 
 export type TXLifeCycleFns = {
+  onRequestSign?: () => void;
   onTxHash?: (txHash: string) => void;
   onTxError?: (error: unknown) => void;
   onTxSuccess?: (txHash: string) => void;
-  onPollFire?: () => void;
+  onPollStart?: () => void;
   onPollError?: (error: unknown) => void;
   onPollSuccess?: (result: IFindQueryResult<FindTxQuery> | undefined) => void;
 };
 
+export type LifeCycleNames = keyof Required<TXLifeCycleFns>;
+
+export type ArgCallback = (
+  state: ArbitraryState
+) => ArgType[] | Promise<ArgType[]>;
 type FireTransaction<CallerStateModel extends ArbitraryState = ArbitraryState> =
   ({
     tx,
@@ -47,18 +55,26 @@ export const TxBuilderContext = createContext<TxContext>({
 
 type BuilderProps<ApplicationState extends ArbitraryState = ArbitraryState> = {
   chainId: string | undefined | null;
+  safeId?: string;
+  daoId?: string;
   provider: providers.Web3Provider | undefined | null;
   children: ReactNode;
   appState: ApplicationState;
   txLifeCycleFns?: TXLifeCycleFns;
+  localABIs?: Record<string, ABI>;
+  argCallbackRecord?: Record<string, (args: ArbitraryState) => ArgType[]>;
 };
 
 export const TXBuilder = ({
   chainId,
+  safeId,
+  daoId,
   provider,
   appState,
   children,
-  txLifeCycleFns,
+  localABIs = {},
+  txLifeCycleFns = {},
+  argCallbackRecord = {},
 }: BuilderProps) => {
   const [transactions, setTransactions] = useState<TxRecord>({});
   const txAmt = useMemo(() => {
@@ -76,15 +92,28 @@ export const TXBuilder = ({
       );
       return;
     }
-    const wholeState = { ...appState, ...callerState };
+    const wholeState = {
+      ...appState,
+      ...callerState,
+      chainId,
+      safeId,
+      daoId,
+      localABIs,
+    };
 
-    await handleFireTx({
+    await prepareTX({
       tx,
       chainId,
+      safeId,
       provider,
       setTransactions,
       appState: wholeState,
-      lifeCycleFns,
+      argCallbackRecord,
+      lifeCycleFns: bundleLifeCycleFns({
+        appEffects: txLifeCycleFns,
+        componentEffects: lifeCycleFns,
+      }),
+      localABIs,
     });
   };
 

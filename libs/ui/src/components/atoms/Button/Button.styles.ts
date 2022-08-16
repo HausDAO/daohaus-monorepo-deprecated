@@ -15,6 +15,7 @@ export const ButtonBase = styled.button`
   font-size: ${font.size.md};
   font-weight: ${font.weight.bold};
   height: 4.8rem;
+  justify-content: flex-end;
   letter-spacing: 1.8px;
   min-width: 8.5rem;
   padding: 1.2rem;

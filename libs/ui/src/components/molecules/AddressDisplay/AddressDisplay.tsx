@@ -13,7 +13,7 @@ import {
   AddressDataMd,
 } from './AddressDisplay.styles';
 import { Icon, Link } from '../../atoms';
-import { useToast } from '../../../hooks';
+import { useCopyToClipboard, useToast } from '../../../hooks';
 import { useMemo } from 'react';
 
 type AddressDisplayProps = {
@@ -33,7 +33,7 @@ export const AddressDisplay = ({
   ...props
 }: AddressDisplayProps) => {
   const theme = useTheme() as Theme;
-  const { successToast } = useToast();
+  const [value, copyToClipboard] = useCopyToClipboard();
 
   const explorerLink = useMemo(() => {
     if (explorerNetworkId) {
@@ -46,10 +46,11 @@ export const AddressDisplay = ({
   }, [address, txHash, explorerNetworkId]);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(`${address}`);
-    successToast({
-      title: `${txHash ? 'Transaction Hash' : 'Address'} copied to clipboard`,
-    });
+    const shortAddress = truncateAddress(address);
+    copyToClipboard(
+      shortAddress,
+      `Success ${txHash ? 'Transaction Hash:' : 'Address:'}`
+    );
   };
 
   return (

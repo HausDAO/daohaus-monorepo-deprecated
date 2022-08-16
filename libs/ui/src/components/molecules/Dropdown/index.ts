@@ -1,2 +1,9 @@
 export * from './Dropdown';
-export * from './Dropdown.styles';
+export {
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownButton,
+  DropdownTriggerLink,
+  DropdownLink,
+  DropdownText,
+} from './Dropdown.styles';

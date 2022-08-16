@@ -6,18 +6,21 @@
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
+      "dependsOn": ["^build"],
       "options": {
         "outputPath": "dist/libs/dao-data",
         "main": "libs/dao-data/src/index.ts",
         "tsConfig": "libs/dao-data/tsconfig.lib.json",
-        "assets": ["libs/dao-data/*.md"]
-      },
-      "dependsOn": [
-        {
-          "target": "build",
-          "projects": "dependencies"
-        }
-      ]
+        "dependsOn": [
+          {
+            "target": "build",
+            "projects": "dependencies"
+          }
+        ],
+        "assets": ["libs/dao-data/*.md"],
+        "updateBuildableProjectDepsInPackageJson": true,
+        "buildableProjectDepsInPackageJsonType": "dependencies"
+      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
@@ -40,7 +43,7 @@
         "preset": "conventional",
         "tagPrefix": "${projectName}@",
         "noVerify": true,
-        "baseBranch": "develop",
+        "baseBranch": "master",
         "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
       }
     },

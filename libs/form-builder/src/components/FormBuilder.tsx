@@ -7,8 +7,9 @@ import {
 } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 
-import { FormLayout } from '@daohaus/ui';
+import { FormLayout, useToast } from '@daohaus/ui';
 import {
+  handleErrorMessage,
   isValidNetwork,
   LookupType,
   RequiredFields,
@@ -51,6 +52,17 @@ type BuilderProps<Lookup extends LookupType> = {
   onError?: () => void;
 };
 
+export enum StatusMsg {
+  Compile = 'Compiling Transaction Data',
+  Request = 'Requesting Signature',
+  Await = 'Transaction Submitted',
+  TxErr = 'Transaction Error',
+  TxSuccess = 'Transaction Success',
+  PollStart = 'Syncing TX (Subgraph)',
+  PollSuccess = 'Success: TX Confirmed!',
+  PollError = 'Sync Error (Subgraph)',
+}
+
 export function FormBuilder<Lookup extends LookupType>({
   form,
   onSubmit,
@@ -59,7 +71,7 @@ export function FormBuilder<Lookup extends LookupType>({
 }: BuilderProps<Lookup>) {
   const { chainId } = useHausConnect();
 
-  const methods = useForm({ mode: 'onTouched', defaultValues });
+  const methods = useForm({ mode: 'onChange', defaultValues });
   const {
     formState: { isValid },
     control,
@@ -75,45 +87,73 @@ export function FormBuilder<Lookup extends LookupType>({
     requiredFields = {},
   } = form;
 
-  const [isSubmitting] = useState(false);
-
-  const submitDisabled = !isValid || isSubmitting || !isValidNetwork(chainId);
-  const formDisabled = isSubmitting;
+  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState<null | StatusMsg>(null);
+  const [txHash, setTxHash] = useState<null | string>(null);
+  const submitDisabled = !isValid || isLoading || !isValidNetwork(chainId);
+  const formDisabled = isLoading;
+  const { defaultToast, errorToast, successToast } = useToast();
   const { fireTransaction } = useTxBuilder?.() || {};
 
   const handleTopLevelSubmit = async (formValues: FieldValues) => {
     if (form.tx) {
-      fireTransaction({
+      setIsLoading(true);
+      setTxHash(null);
+      setStatus(StatusMsg.Compile);
+      return await fireTransaction({
         tx: form.tx,
         callerState: {
-          fromCallerState: {
-            foo: 'bar',
-          },
+          formValues,
         },
         lifeCycleFns: {
-          onTxHash() {
-            console.log('txHash');
+          onRequestSign() {
+            setStatus(StatusMsg.Request);
           },
-          onTxError() {
-            console.log('txError');
+          onTxHash(txHash) {
+            setTxHash(txHash);
+            setStatus(StatusMsg.Await);
+          },
+          onTxError(error) {
+            setStatus(StatusMsg.TxErr);
+            const errMsg = handleErrorMessage({
+              error,
+              fallback: 'Could not decode error message',
+            });
+            setIsLoading(false);
+            errorToast({ title: StatusMsg.TxErr, description: errMsg });
           },
           onTxSuccess() {
-            console.log('txSuccess');
+            setStatus(StatusMsg.TxSuccess);
+            defaultToast({
+              title: StatusMsg.TxSuccess,
+              description: 'Please wait for subgraph to sync',
+            });
           },
-          onPollFire() {
-            console.log('poll fire');
+          onPollStart() {
+            setStatus(StatusMsg.PollStart);
           },
-          onPollError() {
-            console.log('poll error');
+          onPollError(error) {
+            setStatus(StatusMsg.PollError);
+            const errMsg = handleErrorMessage({
+              error,
+              fallback: 'Could not decode poll error message',
+            });
+            setIsLoading(false);
+            errorToast({ title: StatusMsg.PollError, description: errMsg });
           },
           onPollSuccess() {
-            console.log('poll success');
+            setStatus(StatusMsg.PollSuccess);
+            setIsLoading(false);
+            successToast({
+              title: StatusMsg.PollSuccess,
+              description: 'Transaction cycle complete.',
+            });
           },
         },
       });
     }
     if (onSubmit) {
-      await onSubmit?.(formValues);
+      return await onSubmit?.(formValues);
     }
     console.error('FormBuilder: onSubmit not implemented');
   };
@@ -138,9 +178,12 @@ export function FormBuilder<Lookup extends LookupType>({
             ))}
             {log && <Logger />}
             {devtool && <DevTool control={control} />}
+
             <FormFooter
               submitDisabled={submitDisabled}
               submitButtonText={submitButtonText}
+              status={status}
+              txHash={txHash}
             />
           </form>
         </FormLayout>

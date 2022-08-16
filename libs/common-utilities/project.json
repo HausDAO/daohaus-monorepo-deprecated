@@ -11,7 +11,9 @@
         "main": "libs/common-utilities/src/index.ts",
         "tsConfig": "libs/common-utilities/tsconfig.lib.json",
         "assets": ["libs/common-utilities/*.md"],
-        "generatePackageJson": true
+        "generatePackageJson": true,
+        "updateBuildableProjectDepsInPackageJson": true,
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "lint": {

@@ -60,7 +60,7 @@ export const StakeTokensSegment = ({
                   full
                   disabled={formDisabled}
                   rules={{
-                    required: 'Token name is required',
+                    required: 'Token symbol is required',
                     maxLength: {
                       value: 5,
                       message:

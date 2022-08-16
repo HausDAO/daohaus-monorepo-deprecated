@@ -143,6 +143,10 @@ export const defaultDarkTheme: Theme = {
   },
   // *** MOLECULES *** //
   dropdown: DropdownDark,
+  modal: {
+    bg: secondary.bgSubtle,
+    color: secondary.textHighContrast,
+  },
   tooltip: {
     bg: secondaryDark.elementBg,
   },
@@ -300,6 +304,10 @@ export const defaultLightTheme: Theme = {
   },
   // *** MOLECULES *** //
   dropdown: DropdownLight,
+  modal: {
+    bg: secondary.bgSubtle,
+    color: secondary.textHighContrast,
+  },
   tooltip: {
     bg: secondary.elementBg,
   },

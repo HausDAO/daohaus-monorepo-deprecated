@@ -45,6 +45,7 @@ export const HausThemeProvider = ({
 }: ProviderProps) => {
   const [theme, setTheme] = useState(startDark ? defaultDark : defaultLight);
   const [toast, setToast] = useState<CustomToastProps | null>(null);
+  const [modal, setModal] = useState<ModalProps | null>(null);
 
   useEffect(() => {
     setTheme(startDark ? defaultDark : defaultLight);
@@ -64,7 +65,7 @@ export const HausThemeProvider = ({
 
   return (
     <HausThemeContext.Provider
-      value={{ theme, setTheme, toggleLightDark, setToast }}
+      value={{ theme, setTheme, toggleLightDark, setToast, setModal }}
     >
       <ThemeProvider theme={theme}>
         <ToastProvider duration={toast?.duration || DEFAULT_TOAST_DURATION}>

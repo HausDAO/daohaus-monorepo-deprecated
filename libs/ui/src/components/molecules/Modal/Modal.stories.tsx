@@ -2,6 +2,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Button } from '../../atoms';
 
 import { Modal, ModalContent, ModalTrigger } from './Modal';
+import { useModal } from '../../../hooks/useModal';
 
 export default {
   title: 'Molecules/Modal',
@@ -13,6 +14,7 @@ const Template: ComponentStory<typeof ModalContent> = ({
   children,
   ...args
 }) => {
+  const { setModal } = useModal();
   return (
     <Modal>
       <ModalTrigger asChild>

@@ -45,7 +45,7 @@ export const AdvancedSegment = ({
                   disabled={formDisabled}
                   rules={{
                     required: 'This value is required',
-                    validate: (val) => ValidateField.number(val),
+                    validate: (val) => ValidateField.percent(val),
                   }}
                 />
               ),

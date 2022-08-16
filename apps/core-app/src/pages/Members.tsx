@@ -1,15 +1,30 @@
 import styled from 'styled-components';
+import {
+  SingleColumnLayout,
+  Card,
+  widthQuery,
+  AddressDisplay,
+} from '@daohaus/ui';
 
-import { SingleColumnLayout, Card, widthQuery } from '@daohaus/ui';
-import { useMembers, useDao, useMembership } from '../contexts/DaoContext';
+import {
+  useMembers,
+  useDao,
+  useMembership,
+  TMembers,
+} from '../contexts/DaoContext';
 import { MembersOverview } from '../components/MembersOverview';
 import { ProfileLink } from '../components/ProfileLink';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+import { DaoTable } from '../components/DaohausTable';
 import { useMemo } from 'react';
-import { getMemberFromMemberList } from '../utils/general';
-import { RiContactsBookUploadLine } from 'react-icons/ri';
+import { Column, Row } from 'react-table';
+import {
+  formatDateFromSeconds,
+  formatDateTimeFromSeconds,
+  fromWei,
+  votingPowerPercentage,
+} from '@daohaus/common-utilities';
 
-const MemmberContainer = styled(Card)`
+const MemberContainer = styled(Card)`
   width: 110rem;
   padding: 3rem;
   border: none;
@@ -20,12 +35,79 @@ const MemmberContainer = styled(Card)`
   }
 `;
 
+export type MembersTableType = TMembers[number];
+
 export function Members() {
-  const { members } = useMembers();
   const { dao } = useDao();
+  const { members } = useMembers();
   const { membership } = useMembership();
 
-  console.log('membership', membership);
+  console.log('members', members);
+  const tableData = useMemo(() => {
+    return members;
+  }, [members]);
+
+  const columns = useMemo<Column<MembersTableType>[]>(
+    () => [
+      {
+        Header: 'Member',
+        accessor: 'memberAddress',
+        Cell: ({ value }: { value: string }) => {
+          return <AddressDisplay address={value} truncate />;
+        },
+      },
+      {
+        Header: 'Join Date',
+        accessor: 'createdAt',
+        Cell: ({ value }: { value: string }) => {
+          return <div>{formatDateFromSeconds(value)}</div>;
+        },
+      },
+      {
+        Header: 'Power',
+        accessor: 'delegateShares',
+        Cell: ({ value }: { value: string }) => {
+          return (
+            <div>{votingPowerPercentage(dao?.totalShares || '0', value)}</div>
+          );
+        },
+      },
+      {
+        Header: () => {
+          return <div>{dao?.shareTokenName}</div>;
+        },
+        accessor: 'shares',
+        Cell: ({ value }: { value: string }) => {
+          return <div>{fromWei(value)}</div>;
+        },
+      },
+      {
+        Header: () => {
+          return <div>{dao?.lootTokenName}</div>;
+        },
+        accessor: 'loot',
+        Cell: ({ value }: { value: string }) => {
+          return <div>{fromWei(value)}</div>;
+        },
+      },
+      {
+        Header: 'Delegated To',
+        accessor: 'delegatingTo',
+        Cell: ({
+          value,
+          row,
+        }: {
+          value: string;
+          row: Row<MembersTableType>;
+        }) => {
+          return (
+            <div>{value === row.original.memberAddress ? '--' : value}</div>
+          );
+        },
+      },
+    ],
+    [dao]
+  );
 
   return (
     <SingleColumnLayout
@@ -34,9 +116,16 @@ export function Members() {
         membership && <ProfileLink memberAddress={membership.memberAddress} />
       }
     >
-      <MemmberContainer>
-        {dao && members && <MembersOverview dao={dao} members={members} />}
-      </MemmberContainer>
+      <MemberContainer>
+        {dao && members && (
+          <>
+            <MembersOverview dao={dao} />
+            {tableData && columns && (
+              <DaoTable tableData={tableData} columns={columns} />
+            )}
+          </>
+        )}
+      </MemberContainer>
     </SingleColumnLayout>
   );
 }

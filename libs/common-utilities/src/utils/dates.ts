@@ -10,6 +10,16 @@ export const formatDateTimeFromSeconds = (
   return format(new Date(Number(seconds) * 1000), 'h:m aaa MMMM do y');
 };
 
+export const formatDateFromSeconds = (
+  seconds: string | undefined
+): string | undefined => {
+  if (!seconds) {
+    return;
+  }
+
+  return format(new Date(Number(seconds) * 1000), 'mm/dd/yy');
+};
+
 export const formatDistanceToNowFromSeconds = (
   seconds: string | undefined
 ): string | undefined => {

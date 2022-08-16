@@ -31,6 +31,7 @@ import {
 
 export type TDao = DaoWithTokenDataQuery['dao'];
 export type TMembers = ListMembersQuery['members'];
+export type TMembership = FindMemberQuery['member'];
 
 export const defaultDaoData = {
   dao: null,

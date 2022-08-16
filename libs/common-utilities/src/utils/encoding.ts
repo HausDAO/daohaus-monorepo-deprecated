@@ -22,7 +22,7 @@ export const encodeFunction = (
     const ethersInterface = new ethers.utils.Interface(abiString);
     return ethersInterface.encodeFunctionData(fnName, functionArgs);
   } catch (error) {
-    console.log('error', error);
+    console.error('error', error);
     return {
       error: true,
       message:
@@ -39,4 +39,3 @@ export const getNonce = (length = 24) => {
   }
   return text;
 };
-

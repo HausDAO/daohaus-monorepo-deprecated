@@ -2,7 +2,6 @@ import { FormSegment, SplitColumn, WrappedInput } from '@daohaus/ui';
 import {
   INFO_COPY,
   toBaseUnits,
-  ValErrMsgs,
   ValidateField,
 } from '@daohaus/common-utilities';
 
@@ -30,7 +29,10 @@ export const AdvancedSegment = ({
                   info={INFO_COPY.QUORUM}
                   defaultValue="0"
                   disabled={formDisabled}
-                  rules={{ required: 'This value is required' }}
+                  rules={{
+                    required: 'This value is required',
+                    validate: (val) => ValidateField.number(val),
+                  }}
                 />
               ),
               right: (
@@ -41,7 +43,10 @@ export const AdvancedSegment = ({
                   info={INFO_COPY.MIN_RETENTION}
                   full
                   disabled={formDisabled}
-                  rules={{ required: 'This value is required' }}
+                  rules={{
+                    required: 'This value is required',
+                    validate: (val) => ValidateField.number(val),
+                  }}
                 />
               ),
             },
@@ -55,7 +60,10 @@ export const AdvancedSegment = ({
                   full
                   info={INFO_COPY.SPONSOR_THRESHOLD}
                   disabled={formDisabled}
-                  rules={{ required: 'This value is required' }}
+                  rules={{
+                    required: 'This value is required',
+                    validate: (val) => ValidateField.number(val),
+                  }}
                 />
               ),
               right: (
@@ -68,8 +76,7 @@ export const AdvancedSegment = ({
                   disabled={formDisabled}
                   rules={{
                     required: 'This value is required',
-                    validate: (val) =>
-                      ValidateField.number(val) ? true : ValErrMsgs.number,
+                    validate: (val) => ValidateField.number(val),
                     setValueAs: (val) => toBaseUnits(val),
                   }}
                 />

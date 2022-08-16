@@ -52,6 +52,8 @@ const governanceConfigTX = (formValues: FormValues) => {
       'governanceConfigTX recieved arguments in the wrong shape or type'
     );
   }
+
+  console.log('newOffering', newOffering);
   const encodedValues = encodeValues(
     ['uint32', 'uint32', 'uint256', 'uint256', 'uint256', 'uint256'],
     [

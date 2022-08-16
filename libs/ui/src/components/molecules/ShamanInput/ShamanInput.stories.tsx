@@ -23,8 +23,8 @@ const Template: ComponentStory<typeof ShamanInput> = (args) => {
 export const FullShamanInput = Template.bind({});
 FullShamanInput.args = {
   id: 'example',
-  label: 'Complete Input',
-  placeholder: 'placeholder',
+  label: 'Shaman Input',
+  placeholder: 'Shaman permissions',
   helperText: 'Test the action/controls',
   info: 'This is controlled by the info prop',
   address: false,

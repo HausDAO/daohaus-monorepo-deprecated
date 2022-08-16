@@ -65,6 +65,7 @@ jobs:
         run: npx nx affected --base $BASE --target=version --parallel 1
       - name: Create Release Branch
         run: |
+          git push origin --tags
           CURRENT_DATE=$(date +'%Y-%m-%d-%I%M%S')
           BRANCH="bump-lib-versions-${CURRENT_DATE}"
           git checkout -b "${BRANCH}"

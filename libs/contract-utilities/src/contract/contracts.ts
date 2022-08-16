@@ -34,9 +34,6 @@ export const getContractAddressesForChain = (
 ): string | null => {
   if (!CONTRACTS?.[contractKey]?.[chainId]) {
     return null;
-    // throw new Error(
-    //   `Unknown (${contractKey}) for chain id (${chainId}). No known contracts have been deployed on this chain for this contract.`
-    // );
   }
   return CONTRACTS[contractKey][chainId] as string;
 };

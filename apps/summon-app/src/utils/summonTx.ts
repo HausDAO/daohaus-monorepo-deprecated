@@ -53,7 +53,6 @@ const governanceConfigTX = (formValues: FormValues) => {
     );
   }
 
-  console.log('newOffering', newOffering);
   const encodedValues = encodeValues(
     ['uint32', 'uint32', 'uint256', 'uint256', 'uint256', 'uint256'],
     [

@@ -1,6 +1,6 @@
-import React, { JSXElementConstructor, RefObject } from 'react';
+import React, { RefObject } from 'react';
 import classNames from 'classnames';
-import { IconType, IconBaseProps } from 'react-icons';
+import { IconType } from 'react-icons';
 
 import { ButtonBase } from './Button.styles';
 

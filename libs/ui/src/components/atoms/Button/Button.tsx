@@ -1,6 +1,6 @@
-import React, { RefObject } from 'react';
+import React, { JSXElementConstructor, RefObject } from 'react';
 import classNames from 'classnames';
-import { IconType } from 'react-icons';
+import { IconType, IconBaseProps } from 'react-icons';
 
 import { ButtonBase } from './Button.styles';
 
@@ -11,8 +11,20 @@ export type ButtonProps = {
   className?: string;
   disabled?: boolean;
   fullWidth?: boolean;
-  IconLeft?: IconType | React.ReactNode;
-  IconRight?: IconType | React.ReactNode;
+  IconLeft?:
+    | IconType
+    | React.FunctionComponent<
+        React.SVGProps<SVGSVGElement> & {
+          title?: string | undefined;
+        }
+      >;
+  IconRight?:
+    | IconType
+    | React.FunctionComponent<
+        React.SVGProps<SVGSVGElement> & {
+          title?: string | undefined;
+        }
+      >;
   leftAlign?: boolean;
   lg?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;

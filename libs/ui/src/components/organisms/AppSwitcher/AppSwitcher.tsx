@@ -8,7 +8,7 @@ import { AppSwitcherTrigger } from './AppSwitcher.styles';
 type DaoHausApp = {
   name: string;
   url: string;
-  icon: IconType;
+  icon: JSX.Element;
 };
 
 type AppSwitcherProps = {

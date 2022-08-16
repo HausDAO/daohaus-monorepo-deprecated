@@ -1,7 +1,10 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { RiBookOpenLine, RiCommandLine } from 'react-icons/ri';
 
 import { AppSwitcher } from './AppSwitcher';
+import { ReactComponent as Daohaus } from '../../../assets/Daohaus.svg';
+import { ReactComponent as Docs } from '../../../assets/Docs.svg';
+import { ReactComponent as Hub } from '../../../assets/Hub.svg';
+import { ReactComponent as Summoner } from '../../../assets/Summoner.svg';
 
 export default {
   title: 'Organisms/AppSwitcher',
@@ -18,24 +21,24 @@ const otherApps = [
   {
     name: 'Hub',
     url: 'https://hub.daohaus.fun/',
-    icon: RiCommandLine,
+    icon: Hub,
   },
   {
     name: 'Docs',
     url: 'https://storybook.daohaus.fun/',
-    icon: RiBookOpenLine,
+    icon: Docs,
   },
   {
     name: 'DAOHaus',
     url: 'https://daohaus.club/',
-    icon: RiCommandLine,
+    icon: Daohaus,
   },
 ];
 
 const currentApp = {
   name: 'Summoner',
   url: 'https://summon.daohaus.fun/',
-  icon: RiCommandLine,
+  icon: Summoner,
 };
 
 export const DaoHausAppSwitcher = Template.bind({});

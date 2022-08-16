@@ -1,5 +1,9 @@
 import { FormSegment, SplitColumn, WrappedInput } from '@daohaus/ui';
-import { INFO_COPY } from '@daohaus/common-utilities';
+import {
+  INFO_COPY,
+  toBaseUnits,
+  ValidateField,
+} from '@daohaus/common-utilities';
 
 import { FORM_KEYS } from '../utils/formKeys';
 
@@ -25,7 +29,10 @@ export const AdvancedSegment = ({
                   info={INFO_COPY.QUORUM}
                   defaultValue="0"
                   disabled={formDisabled}
-                  rules={{ required: 'This value is required' }}
+                  rules={{
+                    required: 'This value is required',
+                    validate: (val) => ValidateField.percent(val),
+                  }}
                 />
               ),
               right: (
@@ -36,7 +43,10 @@ export const AdvancedSegment = ({
                   info={INFO_COPY.MIN_RETENTION}
                   full
                   disabled={formDisabled}
-                  rules={{ required: 'This value is required' }}
+                  rules={{
+                    required: 'This value is required',
+                    validate: (val) => ValidateField.percent(val),
+                  }}
                 />
               ),
             },
@@ -50,7 +60,10 @@ export const AdvancedSegment = ({
                   full
                   info={INFO_COPY.SPONSOR_THRESHOLD}
                   disabled={formDisabled}
-                  rules={{ required: 'This value is required' }}
+                  rules={{
+                    required: 'This value is required',
+                    validate: (val) => ValidateField.number(val),
+                  }}
                 />
               ),
               right: (
@@ -61,7 +74,11 @@ export const AdvancedSegment = ({
                   full
                   info={INFO_COPY.NEW_OFFERING}
                   disabled={formDisabled}
-                  rules={{ required: 'This value is required' }}
+                  rules={{
+                    required: 'This value is required',
+                    validate: (val) => ValidateField.number(val),
+                    setValueAs: (val) => toBaseUnits(val),
+                  }}
                 />
               ),
             },

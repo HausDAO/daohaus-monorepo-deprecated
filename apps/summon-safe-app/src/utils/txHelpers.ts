@@ -1,5 +1,5 @@
 import { Contract, utils } from 'ethers';
-import { BAAL_ABI, BAAL_SUMMONER_ABI } from '@daohaus/contract-utilities';
+import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import { ENDPOINTS, ValidNetwork } from '@daohaus/common-utilities';
 import SafeAppsSDK, {
   GatewayTransactionDetails,
@@ -19,7 +19,7 @@ export const calculateBaalAddress = async (
   saltNonce: string
 ) => {
   const { V3_FACTORY } = handleKeychains(chainId);
-  const baalFactory = new Contract(V3_FACTORY, BAAL_SUMMONER_ABI);
+  const baalFactory = new Contract(V3_FACTORY, LOCAL_ABI.BAAL_SUMMONER);
   const rs: string = await sdk.eth.call([
     {
       to: V3_FACTORY,
@@ -28,7 +28,7 @@ export const calculateBaalAddress = async (
     'latest',
   ]);
   const templateAddress = `0x${rs.substring(rs.length - 40, rs.length)}`;
-  const baalSingleton = new Contract(templateAddress, BAAL_ABI);
+  const baalSingleton = new Contract(templateAddress, LOCAL_ABI.BAAL);
   const moduleProxyFactory = new Contract(
     // TODO: default value when Goerli. It is not currently supported by Zodiac
     // TODO: In fact, current moduleProxyFactory used by baalFactory was deployed by us.

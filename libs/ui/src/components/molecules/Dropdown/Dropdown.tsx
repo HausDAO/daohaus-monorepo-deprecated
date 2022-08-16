@@ -59,7 +59,7 @@ export const Dropdown = ({
         alignOffset={alignOffset}
         avoidCollisions={avoidCollisions}
         className={className}
-        bg={menuBg || theme.dropdown.bg}
+        bgmenu={menuBg}
         minwidth={menuMinWidth}
       >
         {children}

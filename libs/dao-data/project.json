@@ -37,7 +37,7 @@
         "preset": "conventional",
         "tagPrefix": "${projectName}@",
         "noVerify": true,
-        "baseBranch": "develop",
+        "baseBranch": "master",
         "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
       }
     },

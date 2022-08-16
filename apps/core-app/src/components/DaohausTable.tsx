@@ -1,17 +1,9 @@
 import React from 'react';
-import { ITransformedMembership } from '@daohaus/dao-data';
-import { useTable, Column, UseTableRowProps } from 'react-table';
+import { useTable, Column } from 'react-table';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
-import { ProfileAvatar } from '@daohaus/ui';
-import { readableNumbers, truncateAddress } from '@daohaus/common-utilities';
-import { TMembership } from '../contexts/DaoContext';
-import { MembersTableType } from '../pages/Members';
-// import { Tag } from './Tag';
 
-// interface IDaoTableData {
-//   daoData: ITransformedMembership[];
-// }
+import { MembersTableType } from '../pages/Members';
 
 const Table = styled.table`
   width: 100%;
@@ -36,34 +28,6 @@ const Td = styled.td`
 `;
 
 const TBody = styled.tbody``;
-
-const Highlight = styled.p`
-  color: ${indigoDark.indigo9};
-`;
-
-const FirstHeader = styled.p`
-  text-align: left;
-  padding-left: 1.6rem;
-`;
-
-const FirstCell = styled.div`
-  text-align: left;
-  display: flex;
-  gap: 1.2rem;
-  align-items: center;
-`;
-
-const StyledLink = styled.a`
-  text-decoration: none;
-  color: unset;
-`;
-
-// type HubTableType = Omit<ITransformedMembership, 'name'> & {
-//   name: { name?: string; address: string; networkId?: string };
-// };
-
-// export const DaoTable = ({ daoData }: IDaoTableData) => {
-// to take the table data and columns
 
 export type DaoTableProps = {
   tableData: MembersTableType[];

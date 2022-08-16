@@ -3,14 +3,24 @@ import { useParams } from 'react-router-dom';
 
 type ProfileLinkProps = {
   memberAddress: string;
+  sm?: boolean;
+  lg?: boolean;
+  buttonText?: string;
 };
 
-export const ProfileLink = ({ memberAddress }: ProfileLinkProps) => {
+export const ProfileLink = ({
+  memberAddress,
+  sm = false,
+  lg = false,
+  buttonText = 'Profile',
+}: ProfileLinkProps) => {
   const { daoid, daochain } = useParams();
 
   return (
     <Link href={`/molochv3/${daoid}/${daochain}/members/${memberAddress}`}>
-      <Button>Profile</Button>
+      <Button sm={sm} lg={lg}>
+        {buttonText}
+      </Button>
     </Link>
   );
 };

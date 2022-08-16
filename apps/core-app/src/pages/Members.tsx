@@ -19,7 +19,6 @@ import { useMemo } from 'react';
 import { Column, Row } from 'react-table';
 import {
   formatDateFromSeconds,
-  formatDateTimeFromSeconds,
   fromWei,
   votingPowerPercentage,
 } from '@daohaus/common-utilities';
@@ -33,16 +32,23 @@ const MemberContainer = styled(Card)`
     max-width: 100%;
     min-width: 0;
   }
+  @media ${widthQuery.md} {
+    .hide-sm {
+      display: none;
+    }
+  }
 `;
 
 export type MembersTableType = TMembers[number];
 
 export function Members() {
   const { dao } = useDao();
-  const { members } = useMembers();
+  const { members, membersSort, membersPaging } = useMembers();
   const { membership } = useMembership();
 
-  console.log('members', members);
+  console.log('membersSort', membersSort);
+  console.log('membersPaging', membersPaging);
+
   const tableData = useMemo(() => {
     return members;
   }, [members]);
@@ -57,18 +63,24 @@ export function Members() {
         },
       },
       {
-        Header: 'Join Date',
+        Header: () => {
+          return <div className="hide-sm">Join Date</div>;
+        },
         accessor: 'createdAt',
         Cell: ({ value }: { value: string }) => {
-          return <div>{formatDateFromSeconds(value)}</div>;
+          return <div className="hide-sm">{formatDateFromSeconds(value)}</div>;
         },
       },
       {
-        Header: 'Power',
+        Header: () => {
+          return <div className="hide-sm">Power</div>;
+        },
         accessor: 'delegateShares',
         Cell: ({ value }: { value: string }) => {
           return (
-            <div>{votingPowerPercentage(dao?.totalShares || '0', value)}</div>
+            <div className="hide-sm">
+              {votingPowerPercentage(dao?.totalShares || '0', value)}
+            </div>
           );
         },
       },
@@ -91,7 +103,9 @@ export function Members() {
         },
       },
       {
-        Header: 'Delegated To',
+        Header: () => {
+          return <div className="hide-sm">Delegated To</div>;
+        },
         accessor: 'delegatingTo',
         Cell: ({
           value,
@@ -101,8 +115,20 @@ export function Members() {
           row: Row<MembersTableType>;
         }) => {
           return (
-            <div>{value === row.original.memberAddress ? '--' : value}</div>
+            <div className="hide-sm">
+              {value === row.original.memberAddress ? (
+                '--'
+              ) : (
+                <AddressDisplay address={value} truncate />
+              )}
+            </div>
           );
+        },
+      },
+      {
+        accessor: 'id',
+        Cell: ({ row }: { row: Row<MembersTableType> }) => {
+          return <ProfileLink sm memberAddress={row.original.memberAddress} />;
         },
       },
     ],
@@ -113,7 +139,12 @@ export function Members() {
     <SingleColumnLayout
       title="Members"
       actions={
-        membership && <ProfileLink memberAddress={membership.memberAddress} />
+        membership && (
+          <ProfileLink
+            memberAddress={membership.memberAddress}
+            buttonText="My Profile"
+          />
+        )
       }
     >
       <MemberContainer>

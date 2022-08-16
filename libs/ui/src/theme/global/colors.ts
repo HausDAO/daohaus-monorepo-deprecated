@@ -15,8 +15,8 @@ import {
   slateDark,
 } from '@radix-ui/colors';
 
-/**
- * * COLORS
+/*
+ * COLORS
  * We're leveraging Radix Colors (https://www.radix-ui.com/colors) for the DAO
  * Haus Component Lib. Additionally we're following the scale provided by Radix.
  * To understand why each alias is mapping to each number in the scale please

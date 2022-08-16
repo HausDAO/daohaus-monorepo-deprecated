@@ -1,6 +1,7 @@
 import { Keychain, ReactSetter } from '@daohaus/common-utilities';
 import {
   DaoWithTokenDataQuery,
+  FindMemberQuery,
   Haus,
   ITransformedProposalListQuery,
   ListMembersQuery,
@@ -49,6 +50,45 @@ export const loadDao = async ({
   } finally {
     if (shouldUpdate) {
       setDaoLoading(false);
+    }
+  }
+};
+
+export const loadMembership = async ({
+  daoid,
+  daochain,
+  address,
+  setMembership,
+  setMembershipLoading,
+  shouldUpdate,
+}: {
+  daoid: string;
+  daochain: keyof Keychain;
+  address: string;
+  setMembership: ReactSetter<FindMemberQuery['member'] | undefined>;
+  setMembershipLoading: ReactSetter<boolean>;
+  shouldUpdate: boolean;
+}) => {
+  try {
+    setMembershipLoading(true);
+    const haus = Haus.create();
+    const memberRes = await haus.query.findMember({
+      networkId: daochain,
+      dao: daoid,
+      memberAddress: address.toLowerCase(),
+    });
+
+    if (memberRes?.data?.member && shouldUpdate) {
+      setMembership(memberRes.data.member);
+    } else {
+      setMembership(undefined);
+    }
+  } catch (error) {
+    console.error(error);
+    setMembership(undefined);
+  } finally {
+    if (shouldUpdate) {
+      setMembershipLoading(false);
     }
   }
 };

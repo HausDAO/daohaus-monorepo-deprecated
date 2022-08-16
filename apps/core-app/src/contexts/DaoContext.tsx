@@ -1,6 +1,7 @@
 import { Keychain } from '@daohaus/common-utilities';
 import {
   DaoWithTokenDataQuery,
+  FindMemberQuery,
   ITransformedProposalListQuery,
   ListMembersQuery,
   Member_Filter,
@@ -10,6 +11,7 @@ import {
   Proposal_Filter,
   Proposal_OrderBy,
 } from '@daohaus/dao-data';
+import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import {
   createContext,
   ReactNode,
@@ -22,6 +24,7 @@ import {
 import { useParams } from 'react-router-dom';
 import {
   loadDao,
+  loadMembership,
   loadMembersList,
   loadProposalsList,
 } from '../utils/contextHelpers';
@@ -33,6 +36,11 @@ export const defaultDaoData = {
   dao: null,
   isDaoLoading: false,
   refreshDao: async () => {
+    return;
+  },
+  membership: null,
+  isMembershipLoading: false,
+  refreshMembership: async () => {
     return;
   },
   members: null,
@@ -86,6 +94,12 @@ export type DaoConnectDaoType = {
   refreshAll: () => Promise<void>;
 };
 
+export type DaoConnectMembershipType = {
+  membership: FindMemberQuery['member'] | null | undefined;
+  isMembershipLoading: boolean;
+  refreshMembership: () => Promise<void>;
+};
+
 export type DaoConnectMembersType = {
   members: ListMembersQuery['members'] | null | undefined;
   isMembersLoading: boolean;
@@ -120,6 +134,7 @@ export type DaoConnectProposalsType = {
 
 interface DaoConnectType
   extends DaoConnectDaoType,
+    DaoConnectMembershipType,
     DaoConnectMembersType,
     DaoConnectProposalsType {}
 
@@ -130,10 +145,17 @@ type DaoContextProviderProps = {
 };
 
 export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
+  const { address } = useHausConnect();
+
   const { daochain, daoid } = useParams();
 
   const [dao, setDao] = useState<DaoWithTokenDataQuery['dao'] | undefined>();
   const [isDaoLoading, setDaoLoading] = useState(false);
+
+  const [membership, setMembership] = useState<
+    FindMemberQuery['member'] | undefined
+  >();
+  const [isMembershipLoading, setMembershipLoading] = useState(false);
 
   const [members, setMembers] = useState<
     ListMembersQuery['members'] | undefined
@@ -187,6 +209,26 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
 
   useEffect(() => {
     let shouldUpdate = true;
+    if (daochain && daoid && address) {
+      console.log(daochain, daoid, address);
+
+      loadMembership({
+        daoid,
+        daochain: daochain as keyof Keychain,
+        address,
+        setMembership,
+        setMembershipLoading,
+        shouldUpdate,
+      });
+
+      return () => {
+        shouldUpdate = false;
+      };
+    }
+  }, [daochain, daoid, address]);
+
+  useEffect(() => {
+    let shouldUpdate = true;
     if (daochain && daoid) {
       loadMembersList({
         filter: { dao: daoid, ...membersFilter },
@@ -229,6 +271,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
     refreshDao();
     refreshMembers();
     refreshProposals();
+    refreshMembership();
   };
 
   const refreshDao = async () => {
@@ -242,7 +285,18 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
       });
     }
   };
-
+  const refreshMembership = async () => {
+    if (daochain && daoid && address) {
+      loadMembership({
+        daoid,
+        daochain: daochain as keyof Keychain,
+        address,
+        setMembership,
+        setMembershipLoading,
+        shouldUpdate: true,
+      });
+    }
+  };
   const refreshMembers = async () => {
     if (daochain && daoid) {
       loadMembersList({
@@ -257,7 +311,6 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
       });
     }
   };
-
   const refreshProposals = async () => {
     if (daochain && daoid) {
       loadProposalsList({
@@ -288,6 +341,9 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
         dao,
         isDaoLoading,
         refreshDao,
+        membership,
+        isMembershipLoading,
+        refreshMembership,
         members,
         isMembersLoading,
         refreshMembers,
@@ -324,6 +380,15 @@ export const useDao = (): DaoConnectDaoType => {
     isDaoLoading,
     refreshDao,
     refreshAll,
+  };
+};
+export const useMembership = (): DaoConnectMembershipType => {
+  const { membership, isMembershipLoading, refreshMembership } =
+    useContext(DaoContext);
+  return {
+    membership,
+    isMembershipLoading,
+    refreshMembership,
   };
 };
 export const useMembers = (): DaoConnectMembersType => {

@@ -48,7 +48,7 @@ type MembersOverviewProps = {
 export const MembersOverview = ({ dao, members }: MembersOverviewProps) => {
   const { daoid, daochain } = useParams();
 
-  console.log('dao', dao);
+  // console.log('dao', dao);
 
   return (
     <MembersOverviewCard>

@@ -1,12 +1,13 @@
 import styled from 'styled-components';
 
 import { SingleColumnLayout, Card, widthQuery } from '@daohaus/ui';
-import { useMembers, useDao } from '../contexts/DaoContext';
+import { useMembers, useDao, useMembership } from '../contexts/DaoContext';
 import { MembersOverview } from '../components/MembersOverview';
 import { ProfileLink } from '../components/ProfileLink';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { useMemo } from 'react';
 import { getMemberFromMemberList } from '../utils/general';
+import { RiContactsBookUploadLine } from 'react-icons/ri';
 
 const MemmberContainer = styled(Card)`
   width: 110rem;
@@ -22,21 +23,15 @@ const MemmberContainer = styled(Card)`
 export function Members() {
   const { members } = useMembers();
   const { dao } = useDao();
-  const { address } = useHausConnect();
+  const { membership } = useMembership();
 
-  const userMember = useMemo(() => {
-    console.log('members', members);
-    if (!members || !address) return null;
-    return getMemberFromMemberList(members, address);
-  }, [address, members]);
-
-  console.log('userMember', userMember);
+  console.log('membership', membership);
 
   return (
     <SingleColumnLayout
       title="Members"
       actions={
-        userMember && <ProfileLink memberAddress={userMember.memberAddress} />
+        membership && <ProfileLink memberAddress={membership.memberAddress} />
       }
     >
       <MemmberContainer>

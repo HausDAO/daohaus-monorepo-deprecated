@@ -1,6 +1,6 @@
 import { TDao, TMembers } from '../contexts/DaoContext';
 
-export const hasNoDaoProfile = (dao: TDao): boolean => {
+export const missingDaoProfileData = (dao: TDao): boolean => {
   if (!dao?.profile || !dao.profile.length) return true;
   return dao.description === '' && dao.avatarImg === '';
 };

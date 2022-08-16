@@ -36,14 +36,17 @@ export type PrimitiveSizable = {
 };
 
 export type PrimitiveAddons = {
-  rightAddon?: React.ReactNode
-}
+  rightAddon?: React.ReactNode;
+};
 
 export type HasRules = {
   rules?: RegisterOptions;
 };
 
-type FieldWrapper = PrimitiveWrapper & PrimitiveElement & PrimitiveSizable & PrimitiveAddons;
+type FieldWrapper = PrimitiveWrapper &
+  PrimitiveElement &
+  PrimitiveSizable &
+  PrimitiveAddons;
 
 export type Buildable<T> = T & FieldWrapper & HasRules;
 
@@ -84,3 +87,10 @@ export type SelectProps = {
 
 export type InputSelectProps = Field &
   SelectProps & { selectId: string; selectPlaceholder?: string };
+
+export type FileInputProps = Field & {
+  multiple?: boolean;
+  accept?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement> | undefined;
+  className?: string;
+};

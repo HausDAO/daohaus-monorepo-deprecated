@@ -7,7 +7,7 @@ export const pinataIpfsPost = async ({
 }: {
   creds: { pinata_api_key: string; pinata_api_secret: string };
   formData: FormData;
-}) => {
+}): Promise<Response | undefined> => {
   try {
     const response = await fetch(PINATA_PIN_FILE_API, {
       method: 'POST',
@@ -20,5 +20,6 @@ export const pinataIpfsPost = async ({
     return response.json();
   } catch (err) {
     console.error(err);
+    return;
   }
 };

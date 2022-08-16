@@ -3,7 +3,16 @@ import { FormProvider, SubmitHandler, useForm } from 'react-hook-form';
 import { Container, Grid } from '@material-ui/core';
 import { useSafeAppsSDK } from '@gnosis.pm/safe-apps-react-sdk';
 import { MultisigExecutionDetails } from '@gnosis.pm/safe-react-gateway-sdk';
-import { Button, Divider, ExplorerButton, GenericModal, Icon, Loader, Text, Title } from '@gnosis.pm/safe-react-components';
+import {
+  Button,
+  Divider,
+  ExplorerButton,
+  GenericModal,
+  Icon,
+  Loader,
+  Text,
+  Title,
+} from '@gnosis.pm/safe-react-components';
 import styled from 'styled-components';
 
 import InputText from '../components/InputText';
@@ -13,23 +22,63 @@ import Toggle from '../components/Toggle';
 
 import { FormValues } from '../types/form';
 import { VALID_NETWORKS } from '../utils/chain';
-import { transformMemberData, transformShamans, validateMemberData, validateShamanData } from '../utils/common';
+import {
+  transformMemberData,
+  transformShamans,
+  validateMemberData,
+  validateShamanData,
+} from '../utils/common';
 import { assembleTxArgs, handleKeychains } from '../utils/summonTx';
-import { calculateBaalAddress, encodeAddModule, encodeSummonBaal, pollSafeTx } from '../utils/txHelpers';
+import {
+  calculateBaalAddress,
+  encodeAddModule,
+  encodeSummonBaal,
+  pollSafeTx,
+} from '../utils/txHelpers';
 
 const SHAMAN_PROPS: Array<Column> = [
-  { field: 'shamanAddress', headerName: 'Shaman Address', flex: 1, sortable: false, placeholder: '0x123...' },
-  { field: 'shamanPermissions', headerName: 'Permissions', flex: 0, sortable: false, placeholder: '3' },
+  {
+    field: 'shamanAddress',
+    headerName: 'Shaman Address',
+    flex: 1,
+    sortable: false,
+    placeholder: '0x123...',
+  },
+  {
+    field: 'shamanPermissions',
+    headerName: 'Permissions',
+    flex: 0,
+    sortable: false,
+    placeholder: '3',
+  },
 ];
 
 const MEMBER_PROPS: Array<Column> = [
-  { field: 'memberAddress', headerName: 'Address', flex: 1, sortable: false, placeholder: '0x123...' },
-  { field: 'memberShares', headerName: 'Voting Stake', flex: 0, sortable: false, placeholder: '10' },
-  { field: 'memberLoot', headerName: 'Non-Voting Stake', flex: 0, sortable: false, placeholder: '10' },
+  {
+    field: 'memberAddress',
+    headerName: 'Address',
+    flex: 1,
+    sortable: false,
+    placeholder: '0x123...',
+  },
+  {
+    field: 'memberShares',
+    headerName: 'Voting Stake',
+    flex: 0,
+    sortable: false,
+    placeholder: '10',
+  },
+  {
+    field: 'memberLoot',
+    headerName: 'Non-Voting Stake',
+    flex: 0,
+    sortable: false,
+    placeholder: '10',
+  },
 ];
 
 type SummonFormProps = {
-  resetTab: () => void
+  resetTab: () => void;
 };
 
 const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
@@ -59,7 +108,11 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
       const chainId = VALID_NETWORKS[safe.chainId];
       const summonArgs = assembleTxArgs(formValues, chainId, safe.safeAddress);
       const [, , saltNonce] = summonArgs;
-      const expectedBaalAddress = await calculateBaalAddress(chainId, sdk, saltNonce as string);
+      const expectedBaalAddress = await calculateBaalAddress(
+        chainId,
+        sdk,
+        saltNonce as string
+      );
       const { V3_FACTORY } = handleKeychains(chainId);
 
       const { safeTxHash } = await sdk.txs.send({
@@ -72,12 +125,15 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
           {
             to: V3_FACTORY,
             value: '0',
-            data: encodeSummonBaal(summonArgs.map(a => a as string)),
+            data: encodeSummonBaal(summonArgs.map((a) => a as string)),
           },
         ],
       });
       currentTx = await sdk.txs.getBySafeTxHash(safeTxHash);
-      if ((currentTx.detailedExecutionInfo as MultisigExecutionDetails)?.confirmationsRequired > 1) {
+      if (
+        (currentTx.detailedExecutionInfo as MultisigExecutionDetails)
+          ?.confirmationsRequired > 1
+      ) {
         setRequireSignatures(true);
       }
       setIsSubmitting(true);
@@ -93,17 +149,22 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
       setIsSubmitting(false);
       setTxExplorerURI('');
     }
-  }
+  };
 
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleFormSubmit)} noValidate>
-        <Title size='md'>Summon a Baal</Title>
-        <StyledContainer container direction='column' justifyContent='center' spacing={3}>
+        <Title size="md">Summon a Baal</Title>
+        <StyledContainer
+          container
+          direction="column"
+          justifyContent="center"
+          spacing={3}
+        >
           <InputText
-            id='daoName'
-            label='DAO Name'
-            placeholder='Braid Guild'
+            id="daoName"
+            label="DAO Name"
+            placeholder="DAO Name"
             required
             disabled={formDisabled}
             control={methods.control}
@@ -111,14 +172,23 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
           />
           <Divider />
 
-          <Title size='sm' withoutMargin>Stake Tokens</Title>
-          <Text size='md'>The Stake tokens represent both voting weight and economic stake within the DAO.</Text>
-          <StyledPairInputContainer container direction='row' justifyContent='space-between'>
+          <Title size="sm" withoutMargin>
+            Stake Tokens
+          </Title>
+          <Text size="md">
+            The Stake tokens represent both voting weight and economic stake
+            within the DAO.
+          </Text>
+          <StyledPairInputContainer
+            container
+            direction="row"
+            justifyContent="space-between"
+          >
             <Grid item xs={5}>
               <InputText
-                id='tokenName'
-                label='Name'
-                placeholder='Voting Stake'
+                id="tokenName"
+                label="Name"
+                placeholder="Voting Stake"
                 required
                 disabled={formDisabled}
                 control={methods.control}
@@ -127,9 +197,9 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             </Grid>
             <Grid item xs={5}>
               <InputText
-                id='tokenSymbol'
-                label='Symbol'
-                placeholder='vSTK'
+                id="tokenSymbol"
+                label="Symbol"
+                placeholder="vSTK"
                 required
                 disabled={formDisabled}
                 control={methods.control}
@@ -137,11 +207,15 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
               />
             </Grid>
           </StyledPairInputContainer>
-          <StyledPairInputContainer container direction='row' justifyContent='space-between'>
+          <StyledPairInputContainer
+            container
+            direction="row"
+            justifyContent="space-between"
+          >
             <Grid item xs={5}>
               <Toggle
-                id='votingTransferable'
-                label='Voting Stake Transferable?'
+                id="votingTransferable"
+                label="Voting Stake Transferable?"
                 required
                 control={methods.control}
                 shouldUnregister={false}
@@ -149,8 +223,8 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             </Grid>
             <Grid item xs={5}>
               <Toggle
-                id='nonVotingTransferable'
-                label='Non-Voting Transferable?'
+                id="nonVotingTransferable"
+                label="Non-Voting Transferable?"
                 required
                 control={methods.control}
                 shouldUnregister={false}
@@ -159,15 +233,24 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
           </StyledPairInputContainer>
           <Divider />
 
-          <Title size='sm' withoutMargin>Proposal Timing</Title>
-          <Text size='md'>Define your timing for Voting and Grace periods. You can update these settings through a proposal.</Text>
-          <StyledPairInputContainer container direction='row' justifyContent='space-between'>
+          <Title size="sm" withoutMargin>
+            Proposal Timing
+          </Title>
+          <Text size="md">
+            Define your timing for Voting and Grace periods. You can update
+            these settings through a proposal.
+          </Text>
+          <StyledPairInputContainer
+            container
+            direction="row"
+            justifyContent="space-between"
+          >
             <Grid item xs={5}>
               <TimePicker
-                id='votingPeriodInSeconds'
-                label='Voting Period'
-                defaultValue='days'
-                placeholder='0'
+                id="votingPeriodInSeconds"
+                label="Voting Period"
+                defaultValue="days"
+                placeholder="0"
                 required
                 disabled={formDisabled}
                 control={methods.control}
@@ -179,10 +262,10 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             </Grid>
             <Grid item xs={5}>
               <TimePicker
-                id='gracePeriodInSeconds'
-                label='Grace Period'
-                defaultValue='days'
-                placeholder='0'
+                id="gracePeriodInSeconds"
+                label="Grace Period"
+                defaultValue="days"
+                placeholder="0"
                 required
                 disabled={formDisabled}
                 control={methods.control}
@@ -194,15 +277,21 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             </Grid>
           </StyledPairInputContainer>
           <Divider />
-          
-          <Title size='sm' withoutMargin>Advanced Governance</Title>
-          <Text size='md'>Modify some advanced governance features.</Text>
-          <StyledPairInputContainer container direction='row' justifyContent='space-between'>
+
+          <Title size="sm" withoutMargin>
+            Advanced Governance
+          </Title>
+          <Text size="md">Modify some advanced governance features.</Text>
+          <StyledPairInputContainer
+            container
+            direction="row"
+            justifyContent="space-between"
+          >
             <Grid item xs={5}>
               <InputText
-                id='quorum'
-                label='Quorum %'
-                placeholder='0'
+                id="quorum"
+                label="Quorum %"
+                placeholder="0"
                 required
                 disabled={formDisabled}
                 control={methods.control}
@@ -211,9 +300,9 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             </Grid>
             <Grid item xs={5}>
               <InputText
-                id='minRetention'
-                label='Min. Retention %'
-                placeholder='66'
+                id="minRetention"
+                label="Min. Retention %"
+                placeholder="66"
                 required
                 disabled={formDisabled}
                 control={methods.control}
@@ -221,12 +310,16 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
               />
             </Grid>
           </StyledPairInputContainer>
-          <StyledPairInputContainer container direction='row' justifyContent='space-between'>
+          <StyledPairInputContainer
+            container
+            direction="row"
+            justifyContent="space-between"
+          >
             <Grid item xs={5}>
               <InputText
-                id='sponsorThreshold'
-                label='Sponsor Threshold'
-                placeholder='0'
+                id="sponsorThreshold"
+                label="Sponsor Threshold"
+                placeholder="0"
                 required
                 disabled={formDisabled}
                 control={methods.control}
@@ -235,9 +328,9 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             </Grid>
             <Grid item xs={5}>
               <InputText
-                id='newOffering'
-                label='New Offering (ETH)'
-                placeholder='0'
+                id="newOffering"
+                label="New Offering (ETH)"
+                placeholder="0"
                 required
                 disabled={formDisabled}
                 control={methods.control}
@@ -246,15 +339,20 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             </Grid>
           </StyledPairInputContainer>
           <Divider />
-          
-          <Title size='sm' withoutMargin>Starting Shamans</Title>
-          <Text size='md'>Shamans are very powerful as they can have administrative control over voting and non-voting stakes. Be very careful adding shamans.</Text>
+
+          <Title size="sm" withoutMargin>
+            Starting Shamans
+          </Title>
+          <Text size="md">
+            Shamans are very powerful as they can have administrative control
+            over voting and non-voting stakes. Be very careful adding shamans.
+          </Text>
           <RecordsDataTable
-            id='shamans'
-            label='Shamans'
-            description='Addresses & Permissions'
-            placeholder='0xbeef 3'
-            tooltip='Input Shaman list with contract address and permission level per row using spaces. E.g. 0xbeef 3'
+            id="shamans"
+            label="Shamans"
+            description="Addresses & Permissions"
+            placeholder="0xbeef 3"
+            tooltip="Input Shaman list with contract address and permission level per row using spaces. E.g. 0xbeef 3"
             columns={SHAMAN_PROPS}
             required={false}
             disabled={formDisabled}
@@ -269,15 +367,21 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
             getValues={methods.getValues}
           />
           <Divider />
-          
-          <Title size='sm' withoutMargin>Starting Members</Title>
-          <Text size='md'>You must have at least one member to start. Add other starting members as desired. You can always add more members later through a proposal or a shaman.</Text>
+
+          <Title size="sm" withoutMargin>
+            Starting Members
+          </Title>
+          <Text size="md">
+            You must have at least one member to start. Add other starting
+            members as desired. You can always add more members later through a
+            proposal or a shaman.
+          </Text>
           <RecordsDataTable
-            id='members'
-            label='Members'
-            description='Addresses & Stake Amounts'
-            placeholder='0xbeef 10 10'
-            tooltip='Input member list with member address, voting stake amount, and no-voting stake amount per row using spaces. E.g. 0xdeed 10 10 \n0xbeef 0 10'
+            id="members"
+            label="Members"
+            description="Addresses & Stake Amounts"
+            placeholder="0xbeef 10 10"
+            tooltip="Input member list with member address, voting stake amount, and no-voting stake amount per row using spaces. E.g. 0xdeed 10 10 \n0xbeef 0 10"
             columns={MEMBER_PROPS}
             required
             disabled={formDisabled}
@@ -293,37 +397,44 @@ const SummonForm: React.FC<SummonFormProps> = (props: SummonFormProps) => {
           />
           <Divider />
 
-          <Button size='lg' textSize='xl' color='primary' type='submit'>SUMMON DAO</Button>
+          <Button size="lg" textSize="xl" color="primary" type="submit">
+            SUMMON DAO
+          </Button>
         </StyledContainer>
       </form>
       {isSubmitting && (
         <GenericModal
           onClose={() => setIsSubmitting(false)}
-          title='Summoning DAO'
-          body={(
+          title="Summoning DAO"
+          body={
             <LoaderContainer>
-              <Loader size='md' />
+              <Loader size="md" />
               {txExplorerURI && (
                 <>
-                  <ExplorerButton explorerUrl={() => ({
-                    alt: 'Summoner Tx Hash',
-                    url: txExplorerURI,
+                  <ExplorerButton
+                    explorerUrl={() => ({
+                      alt: 'Summoner Tx Hash',
+                      url: txExplorerURI,
                     })}
                   />
-                  <Text size='md'>View Tx in Explorer</Text>
+                  <Text size="md">View Tx in Explorer</Text>
                 </>
               )}
               {requireSignatures && (
-                <Text size='md' strong>Tx will be queued for signatures confirmation</Text>
+                <Text size="md" strong>
+                  Tx will be queued for signatures confirmation
+                </Text>
               )}
             </LoaderContainer>
-          )}
+          }
         />
       )}
       {error && (
         <StyledErrorContainer>
-          <Icon type='error' size='sm' color='error' />
-          <Text size='lg' color='error' strong>{error}</Text>
+          <Icon type="error" size="sm" color="error" />
+          <Text size="lg" color="error" strong>
+            {error}
+          </Text>
         </StyledErrorContainer>
       )}
     </FormProvider>
@@ -335,7 +446,7 @@ const StyledContainer = styled(Grid)`
 `;
 
 const StyledPairInputContainer = styled(Grid)`
-  margin-top: 20px
+  margin-top: 20px;
 `;
 
 const LoaderContainer = styled.div`

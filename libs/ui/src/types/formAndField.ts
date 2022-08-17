@@ -71,7 +71,7 @@ export type Field = {
 
 export type OptionType = {
   name: string;
-  value: string;
+  value: string | number;
   key?: string;
 };
 export type SelectProps = {

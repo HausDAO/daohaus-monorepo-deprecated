@@ -17,7 +17,7 @@ export const formatDateFromSeconds = (
     return;
   }
 
-  return format(new Date(Number(seconds) * 1000), 'mm/dd/yy');
+  return format(new Date(Number(seconds) * 1000), 'M / dd / yy');
 };
 
 export const formatDistanceToNowFromSeconds = (

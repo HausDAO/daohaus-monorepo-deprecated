@@ -20,11 +20,12 @@ import {
   useState,
   SetStateAction,
   Dispatch,
+  useRef,
 } from 'react';
 import { useParams } from 'react-router-dom';
 import {
   loadDao,
-  loadMembership,
+  loadUserMembership,
   loadMembersList,
   loadProposalsList,
 } from '../utils/contextHelpers';
@@ -39,9 +40,9 @@ export const defaultDaoData = {
   refreshDao: async () => {
     return;
   },
-  membership: null,
-  isMembershipLoading: false,
-  refreshMembership: async () => {
+  userMembership: null,
+  isUserMembershipLoading: false,
+  refreshUserMembership: async () => {
     return;
   },
   members: null,
@@ -49,6 +50,16 @@ export const defaultDaoData = {
   refreshMembers: async () => {
     return;
   },
+  membersQueryOptions: {
+    filter: undefined,
+    ordering: undefined,
+    paging: { offset: 0, pageSize: 5 },
+    nextPaging: undefined,
+  },
+  setMembersQueryOptions: () => {
+    return;
+  },
+
   membersFilter: undefined,
   setMembersFilter: () => {
     return;
@@ -95,16 +106,27 @@ export type DaoConnectDaoType = {
   refreshAll: () => Promise<void>;
 };
 
-export type DaoConnectMembershipType = {
-  membership: FindMemberQuery['member'] | null | undefined;
-  isMembershipLoading: boolean;
-  refreshMembership: () => Promise<void>;
+export type DaoConnectUserMembershipType = {
+  userMembership: FindMemberQuery['member'] | null | undefined;
+  isUserMembershipLoading: boolean;
+  refreshUserMembership: () => Promise<void>;
+};
+
+export type MemberQueryOptions = {
+  filter: Member_Filter | undefined;
+  ordering: Ordering<Member_OrderBy> | undefined;
+  paging: Paging | undefined;
+  nextPaging: Paging | undefined;
 };
 
 export type DaoConnectMembersType = {
   members: ListMembersQuery['members'] | null | undefined;
   isMembersLoading: boolean;
   refreshMembers: () => Promise<void>;
+
+  membersQueryOptions: MemberQueryOptions;
+  setMembersQueryOptions: Dispatch<SetStateAction<MemberQueryOptions>>;
+
   membersFilter: Member_Filter | undefined;
   setMembersFilter: Dispatch<SetStateAction<Member_Filter | undefined>>;
   membersSort: Ordering<Member_OrderBy> | undefined;
@@ -135,7 +157,7 @@ export type DaoConnectProposalsType = {
 
 interface DaoConnectType
   extends DaoConnectDaoType,
-    DaoConnectMembershipType,
+    DaoConnectUserMembershipType,
     DaoConnectMembersType,
     DaoConnectProposalsType {}
 
@@ -153,25 +175,26 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   const [dao, setDao] = useState<DaoWithTokenDataQuery['dao'] | undefined>();
   const [isDaoLoading, setDaoLoading] = useState(false);
 
-  const [membership, setMembership] = useState<
+  const [userMembership, setUserMembership] = useState<
     FindMemberQuery['member'] | undefined
   >();
-  const [isMembershipLoading, setMembershipLoading] = useState(false);
+  const [isUserMembershipLoading, setUserMembershipLoading] = useState(false);
 
   const [members, setMembers] = useState<
     ListMembersQuery['members'] | undefined
   >();
   const [isMembersLoading, setMembersLoading] = useState(false);
+
+  const [membersQueryOptions, setMembersQueryOptions] =
+    useState<MemberQueryOptions>(defaultDaoData.membersQueryOptions);
+
   const [membersFilter, setMembersFilter] = useState<
     Member_Filter | undefined
   >();
   const [membersSort, setMembersSort] = useState<
     Ordering<Member_OrderBy> | undefined
   >();
-  const [membersPaging, setMembersPaging] = useState<Paging | undefined>({
-    offset: 0,
-    pageSize: 5,
-  });
+  const [membersPaging, setMembersPaging] = useState<Paging | undefined>();
   const [membersNextPaging, setMembersNextPaging] = useState<
     Paging | undefined
   >();
@@ -201,52 +224,64 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
         setDaoLoading,
         shouldUpdate,
       });
-
-      return () => {
-        shouldUpdate = false;
-      };
     }
+
+    return () => {
+      shouldUpdate = false;
+    };
   }, [daochain, daoid]);
 
   useEffect(() => {
     let shouldUpdate = true;
     if (daochain && daoid && address) {
-      console.log(daochain, daoid, address);
-
-      loadMembership({
+      loadUserMembership({
         daoid,
         daochain: daochain as keyof Keychain,
         address,
-        setMembership,
-        setMembershipLoading,
+        setUserMembership,
+        setUserMembershipLoading,
         shouldUpdate,
       });
-
-      return () => {
-        shouldUpdate = false;
-      };
     }
+    return () => {
+      shouldUpdate = false;
+    };
   }, [daochain, daoid, address]);
 
+  // TODO: more testing here - does this work with sort and filter...
+  const membersPagingRef = useRef<Paging | null>(null);
   useEffect(() => {
     let shouldUpdate = true;
-    if (daochain && daoid) {
+    console.log('outside', membersPagingRef);
+    // need to set ref on the paging
+
+    if (
+      daochain &&
+      daoid &&
+      membersPagingRef.current !== membersQueryOptions.paging
+    ) {
+      console.log(
+        'inside membersQueryOptions.paging',
+        membersQueryOptions.paging
+      );
+      if (membersQueryOptions.paging) {
+        membersPagingRef.current = membersQueryOptions.paging;
+      }
       loadMembersList({
-        filter: { dao: daoid, ...membersFilter },
-        ordering: membersSort,
-        paging: membersPaging,
+        filter: { dao: daoid, ...membersQueryOptions.filter },
+        ordering: membersQueryOptions.ordering,
+        paging: membersQueryOptions.paging,
         daochain: daochain as keyof Keychain,
         setData: setMembers,
         setLoading: setMembersLoading,
-        setNextPaging: setMembersNextPaging,
+        setMembersQueryOptions,
         shouldUpdate,
       });
-
-      return () => {
-        shouldUpdate = false;
-      };
     }
-  }, [daochain, daoid, membersFilter, membersSort, membersPaging]);
+    return () => {
+      shouldUpdate = false;
+    };
+  }, [daochain, daoid, membersQueryOptions]);
 
   useEffect(() => {
     let shouldUpdate = true;
@@ -261,18 +296,18 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
         setNextPaging: setProposalsNextPaging,
         shouldUpdate,
       });
-
-      return () => {
-        shouldUpdate = false;
-      };
     }
+
+    return () => {
+      shouldUpdate = false;
+    };
   }, [daochain, daoid, proposalsFilter, proposalsSort, proposalsPaging]);
 
   const refreshAll = async () => {
     refreshDao();
     refreshMembers();
     refreshProposals();
-    refreshMembership();
+    refreshUserMembership();
   };
 
   const refreshDao = async () => {
@@ -286,14 +321,14 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
       });
     }
   };
-  const refreshMembership = async () => {
+  const refreshUserMembership = async () => {
     if (daochain && daoid && address) {
-      loadMembership({
+      loadUserMembership({
         daoid,
         daochain: daochain as keyof Keychain,
         address,
-        setMembership,
-        setMembershipLoading,
+        setUserMembership,
+        setUserMembershipLoading,
         shouldUpdate: true,
       });
     }
@@ -301,9 +336,9 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   const refreshMembers = async () => {
     if (daochain && daoid) {
       loadMembersList({
-        filter: { dao: daoid, ...membersFilter },
-        ordering: membersSort,
-        paging: membersPaging,
+        filter: { dao: daoid, ...membersQueryOptions.filter },
+        ordering: membersQueryOptions.ordering,
+        paging: membersQueryOptions.paging,
         daochain: daochain as keyof Keychain,
         setData: setMembers,
         setLoading: setMembersLoading,
@@ -329,7 +364,10 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
 
   const getNextPage = async (entity: string): Promise<void> => {
     if (entity === 'members' && membersNextPaging) {
-      setMembersPaging(membersNextPaging);
+      // setMembersPaging(membersNextPaging);
+      setMembersQueryOptions((prevState) => {
+        return { ...prevState, paging: prevState.nextPaging };
+      });
     }
     if (entity === 'proposal' && proposalsNextPaging) {
       setProposalsPaging(proposalsNextPaging);
@@ -342,12 +380,14 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
         dao,
         isDaoLoading,
         refreshDao,
-        membership,
-        isMembershipLoading,
-        refreshMembership,
+        userMembership,
+        isUserMembershipLoading,
+        refreshUserMembership,
         members,
         isMembersLoading,
         refreshMembers,
+        membersQueryOptions,
+        setMembersQueryOptions,
         membersFilter,
         setMembersFilter,
         membersSort,
@@ -383,13 +423,13 @@ export const useDao = (): DaoConnectDaoType => {
     refreshAll,
   };
 };
-export const useMembership = (): DaoConnectMembershipType => {
-  const { membership, isMembershipLoading, refreshMembership } =
+export const useUserMembership = (): DaoConnectUserMembershipType => {
+  const { userMembership, isUserMembershipLoading, refreshUserMembership } =
     useContext(DaoContext);
   return {
-    membership,
-    isMembershipLoading,
-    refreshMembership,
+    userMembership,
+    isUserMembershipLoading,
+    refreshUserMembership,
   };
 };
 export const useMembers = (): DaoConnectMembersType => {
@@ -397,6 +437,8 @@ export const useMembers = (): DaoConnectMembersType => {
     members,
     isMembersLoading,
     refreshMembers,
+    membersQueryOptions,
+    setMembersQueryOptions,
     membersFilter,
     setMembersFilter,
     membersSort,
@@ -410,6 +452,8 @@ export const useMembers = (): DaoConnectMembersType => {
     members,
     isMembersLoading,
     refreshMembers,
+    membersQueryOptions,
+    setMembersQueryOptions,
     membersFilter,
     setMembersFilter,
     membersSort,

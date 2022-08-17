@@ -12,6 +12,8 @@ import {
   Proposal_Filter,
   Proposal_OrderBy,
 } from '@daohaus/dao-data';
+import deepEqual from 'deep-eql';
+import { MemberQueryOptions } from '../contexts/DaoContext';
 
 export const loadDao = async ({
   daoid,
@@ -54,23 +56,23 @@ export const loadDao = async ({
   }
 };
 
-export const loadMembership = async ({
+export const loadUserMembership = async ({
   daoid,
   daochain,
   address,
-  setMembership,
-  setMembershipLoading,
+  setUserMembership,
+  setUserMembershipLoading,
   shouldUpdate,
 }: {
   daoid: string;
   daochain: keyof Keychain;
   address: string;
-  setMembership: ReactSetter<FindMemberQuery['member'] | undefined>;
-  setMembershipLoading: ReactSetter<boolean>;
+  setUserMembership: ReactSetter<FindMemberQuery['member'] | undefined>;
+  setUserMembershipLoading: ReactSetter<boolean>;
   shouldUpdate: boolean;
 }) => {
   try {
-    setMembershipLoading(true);
+    setUserMembershipLoading(true);
     const haus = Haus.create();
     const memberRes = await haus.query.findMember({
       networkId: daochain,
@@ -79,16 +81,16 @@ export const loadMembership = async ({
     });
 
     if (memberRes?.data?.member && shouldUpdate) {
-      setMembership(memberRes.data.member);
+      setUserMembership(memberRes.data.member);
     } else {
-      setMembership(undefined);
+      setUserMembership(undefined);
     }
   } catch (error) {
     console.error(error);
-    setMembership(undefined);
+    setUserMembership(undefined);
   } finally {
     if (shouldUpdate) {
-      setMembershipLoading(false);
+      setUserMembershipLoading(false);
     }
   }
 };
@@ -100,7 +102,7 @@ export const loadMembersList = async ({
   daochain,
   setData,
   setLoading,
-  setNextPaging,
+  setMembersQueryOptions,
   shouldUpdate,
 }: {
   filter: Member_Filter;
@@ -109,7 +111,7 @@ export const loadMembersList = async ({
   daochain: keyof Keychain;
   setData: ReactSetter<ListMembersQuery['members'] | undefined>;
   setLoading: ReactSetter<boolean>;
-  setNextPaging: ReactSetter<Paging | undefined>;
+  setMembersQueryOptions: ReactSetter<MemberQueryOptions>;
   shouldUpdate: boolean;
 }) => {
   try {
@@ -123,15 +125,16 @@ export const loadMembersList = async ({
     });
 
     if (shouldUpdate) {
-      if (res.nextPaging) {
-        setNextPaging(res.nextPaging);
-      }
+      // setNextPaging(res.nextPaging);
+      setMembersQueryOptions((prevState) => {
+        return { ...prevState, nextPaging: res.nextPaging };
+      });
 
       setData((prevState) => {
-        if (prevState) {
-          return [...prevState, ...res.items];
-        } else {
+        if (deepEqual(prevState, res.items) || !prevState) {
           return res.items;
+        } else {
+          return [...prevState, ...res.items];
         }
       });
     }
@@ -179,7 +182,14 @@ export const loadProposalsList = async ({
         setNextPaging(res.nextPaging);
       }
 
-      setData(res.items);
+      setData((prevState) => {
+        if (deepEqual(prevState, res.items)) return res.items;
+        if (prevState) {
+          return [...prevState, ...res.items];
+        } else {
+          return res.items;
+        }
+      });
     }
   } catch (error) {
     console.error(error);

@@ -9,19 +9,20 @@ import {
 import {
   useMembers,
   useDao,
-  useMembership,
   TMembers,
+  useUserMembership,
 } from '../contexts/DaoContext';
 import { MembersOverview } from '../components/MembersOverview';
 import { ProfileLink } from '../components/ProfileLink';
 import { DaoTable } from '../components/DaohausTable';
-import { useMemo } from 'react';
-import { Column, Row } from 'react-table';
+import { MouseEvent, useMemo } from 'react';
+import { Column, HeaderGroup, Row } from 'react-table';
 import {
   formatDateFromSeconds,
   fromWei,
   votingPowerPercentage,
 } from '@daohaus/common-utilities';
+import { TableHeaderCell } from '../components/SortableTableHeaderCell';
 
 const MemberContainer = styled(Card)`
   width: 110rem;
@@ -43,11 +44,18 @@ export type MembersTableType = TMembers[number];
 
 export function Members() {
   const { dao } = useDao();
-  const { members, membersSort, membersPaging } = useMembers();
-  const { membership } = useMembership();
+  const {
+    members,
+    setMembersPaging,
+    membersNextPaging,
+    setMembersSort,
+    membersQueryOptions,
+    setMembersQueryOptions,
+  } = useMembers();
+  const { userMembership } = useUserMembership();
 
-  console.log('membersSort', membersSort);
-  console.log('membersPaging', membersPaging);
+  // console.log('membersSort', membersSort);
+  // console.log('membersNextPaging', membersNextPaging);
 
   const tableData = useMemo(() => {
     return members;
@@ -64,7 +72,16 @@ export function Members() {
       },
       {
         Header: () => {
-          return <div className="hide-sm">Join Date</div>;
+          return (
+            // <TableHeaderCell
+            //   className="hide-sm"
+            //   label="Join Date"
+            //   sortable
+            //   orderBy={column.id}
+            //   handleColumnSort={handleColumnSort}
+            // />
+            <div className="hide-sm">Join Date</div>
+          );
         },
         accessor: 'createdAt',
         Cell: ({ value }: { value: string }) => {
@@ -72,7 +89,7 @@ export function Members() {
         },
       },
       {
-        Header: () => {
+        Header: (props) => {
           return <div className="hide-sm">Power</div>;
         },
         accessor: 'delegateShares',
@@ -135,13 +152,30 @@ export function Members() {
     [dao]
   );
 
+  const handleLoadMore = (event: MouseEvent<HTMLButtonElement>) => {
+    // setMembersPaging(membersNextPaging);
+    setMembersQueryOptions((prevState) => {
+      return { ...prevState, paging: prevState.nextPaging };
+    });
+  };
+
+  const handleColumnSort = (
+    orderBy: string,
+    orderDirection: 'asc' | 'desc'
+  ) => {
+    // TODO: how can we dynamically pass the proper order by here
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    setMembersSort({ orderBy, orderDirection });
+  };
+
   return (
     <SingleColumnLayout
       title="Members"
       actions={
-        membership && (
+        userMembership && (
           <ProfileLink
-            memberAddress={membership.memberAddress}
+            memberAddress={userMembership.memberAddress}
             buttonText="My Profile"
           />
         )
@@ -152,7 +186,13 @@ export function Members() {
           <>
             <MembersOverview dao={dao} />
             {tableData && columns && (
-              <DaoTable tableData={tableData} columns={columns} />
+              <DaoTable
+                tableData={tableData}
+                columns={columns}
+                hasNextPaging={membersQueryOptions.nextPaging !== undefined}
+                handleLoadMore={handleLoadMore}
+                handleColumnSort={handleColumnSort}
+              />
             )}
           </>
         )}

@@ -1,9 +1,12 @@
-import React from 'react';
-import { useTable, Column } from 'react-table';
+import React, { MouseEvent } from 'react';
+import { useTable, Column, HeaderGroup } from 'react-table';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
 
 import { MembersTableType } from '../pages/Members';
+import { Button } from '@daohaus/ui';
+import { RiArrowDownSFill, RiArrowUpSFill } from 'react-icons/ri';
+import { TableHeaderCell } from './SortableTableHeaderCell';
 
 const Table = styled.table`
   width: 100%;
@@ -11,6 +14,7 @@ const Table = styled.table`
   line-height: 2.4rem;
   border-collapse: collapse;
   text-align: left;
+  margin-bottom: 2rem;
 `;
 
 const Thead = styled.thead``;
@@ -32,6 +36,9 @@ const TBody = styled.tbody``;
 export type DaoTableProps = {
   tableData: MembersTableType[];
   columns: Column<MembersTableType>[];
+  hasNextPaging: boolean;
+  handleLoadMore: (event: MouseEvent<HTMLButtonElement>) => void;
+  handleColumnSort: (orderBy: string, orderDirection: 'asc' | 'desc') => void;
 };
 
 // TS Challenge figure out how to pass generics for the table props
@@ -40,7 +47,13 @@ export type DaoTableProps = {
 //   columns: Column<T>[];
 // };
 // export const DaoTable = <T,>({ tableData, columns }: DaoTableProps<T>) => {
-export const DaoTable = ({ tableData, columns }: DaoTableProps) => {
+export const DaoTable = ({
+  tableData,
+  columns,
+  hasNextPaging,
+  handleLoadMore,
+  handleColumnSort,
+}: DaoTableProps) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
       columns: columns,
@@ -48,28 +61,50 @@ export const DaoTable = ({ tableData, columns }: DaoTableProps) => {
     });
 
   return (
-    <Table {...getTableProps}>
-      <Thead>
-        {headerGroups.map((headerGroup) => (
-          <Tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <Th {...column.getHeaderProps()}>{column.render('Header')}</Th>
-            ))}
-          </Tr>
-        ))}
-      </Thead>
-      <TBody {...getTableBodyProps()}>
-        {rows.map((row, i) => {
-          prepareRow(row);
-          return (
-            <Tr {...row.getRowProps()}>
-              {row.cells.map((cell) => {
-                return <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>;
+    <>
+      <Table {...getTableProps}>
+        <Thead>
+          {headerGroups.map((headerGroup) => (
+            <Tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => {
+                return (
+                  <Th {...column.getHeaderProps()}>
+                    {column.render('Header')}
+
+                    {/* // TODO this here or not??!?!? */}
+                    {/* <TableHeaderCell
+                      className="hide-sm"
+                      label="Join Date"
+                      sortable
+                      orderBy={column.id}
+                      handleColumnSort={handleColumnSort}
+                    /> */}
+                  </Th>
+                );
               })}
             </Tr>
-          );
-        })}
-      </TBody>
-    </Table>
+          ))}
+        </Thead>
+        <TBody {...getTableBodyProps()}>
+          {rows.map((row, i) => {
+            prepareRow(row);
+            return (
+              <Tr {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  return (
+                    <Td {...cell.getCellProps()}>{cell.render('Cell')}</Td>
+                  );
+                })}
+              </Tr>
+            );
+          })}
+        </TBody>
+      </Table>
+      {hasNextPaging && (
+        <Button tertiary sm onClick={handleLoadMore}>
+          Load More
+        </Button>
+      )}
+    </>
   );
 };

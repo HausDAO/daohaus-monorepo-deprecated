@@ -14,5 +14,8 @@ dependencies:
 - name: job
   repository: file://../job
   version: 0.1.0
-digest: sha256:ac0b50517cb2e53aab0efc9e9be8643b0b3844d23029c44f519dd4ac5d9499c0
-generated: "2022-07-25T11:42:26.808474229-04:00"
+- name: job
+  repository: file://../job
+  version: 0.1.0
+digest: sha256:6fe783648be878bdeda71408cb0abf01ec54fc68afd483f92d8c35ca90804d83
+generated: "2022-08-16T18:12:58.035138114-04:00"

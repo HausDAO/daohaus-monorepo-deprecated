@@ -70,3 +70,19 @@ dao-producer-job:
     registry: 'registry.digitalocean.com/daohaus'
     repository: 'dao_producer_job'
     tag: 'sha-ab2a920'
+dao-consumer-job:
+  jobName: 'dao-consumer-job'
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  envVars:
+    - name: REDIS_HOST
+      value: 'redis://redis:6379'
+  image:
+    registry: 'registry.digitalocean.com/daohaus'
+    repository: 'dao_consumer_job'
+    tag: 'sha-19e4fa9'

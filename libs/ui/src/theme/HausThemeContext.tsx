@@ -61,7 +61,7 @@ export const HausThemeProvider = ({
 
   return (
     <HausThemeContext.Provider
-      value={{ theme, setTheme, toggleLightDark, setToast, setModal }}
+      value={{ theme, setTheme, toggleLightDark, setToast }}
     >
       <ThemeProvider theme={theme}>
         <ToastProvider duration={toast?.duration || DEFAULT_TOAST_DURATION}>

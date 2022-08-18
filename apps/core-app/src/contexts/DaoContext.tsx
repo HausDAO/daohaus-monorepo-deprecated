@@ -45,6 +45,9 @@ export const defaultDaoData = {
     return;
   },
   members: null,
+  setMembers: () => {
+    return;
+  },
   isMembersLoading: false,
   refreshMembers: async () => {
     return;
@@ -103,6 +106,7 @@ export type DaoConnectUserMembershipType = {
 
 export type DaoConnectMembersType = {
   members: ListMembersQuery['members'] | null | undefined;
+  setMembers: Dispatch<SetStateAction<ListMembersQuery['members'] | undefined>>;
   isMembersLoading: boolean;
   refreshMembers: () => Promise<void>;
   membersFilter: Member_Filter | undefined;
@@ -228,13 +232,19 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   useEffect(() => {
     let shouldUpdate = true;
     // SPEC:
-    // - load 25 per page
+    // - load 25 per page (5 in test) - x
     // - reset paging on sort and filter
+    //   - could do set state in sort function/but might trigger useeffect twice
     // - paging update keep sort and filter
-    // - if paging update add to items
+    //   - how to detect it's just this in the use effect?
+    //   - if paging update add to items
     // - if filter/sort replace items
 
+    // can we move out of the effect
+    // then effect on separate things?
+
     if (daoid && daochain) {
+      console.log('trigger');
       loadMembersList({
         filter: { dao: daoid, ...membersFilter },
         ordering: membersSort,
@@ -250,6 +260,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
       shouldUpdate = false;
     };
   }, [daochain, daoid, membersFilter, membersSort, membersPaging]);
+  // }, [daochain, daoid, refreshMembers]);
 
   useEffect(() => {
     let shouldUpdate = true;
@@ -349,6 +360,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
         isUserMembershipLoading,
         refreshUserMembership,
         members,
+        setMembers,
         isMembersLoading,
         refreshMembers,
         membersFilter,
@@ -398,6 +410,7 @@ export const useUserMembership = (): DaoConnectUserMembershipType => {
 export const useMembers = (): DaoConnectMembersType => {
   const {
     members,
+    setMembers,
     isMembersLoading,
     refreshMembers,
     membersFilter,
@@ -411,6 +424,7 @@ export const useMembers = (): DaoConnectMembersType => {
   } = useContext(DaoContext);
   return {
     members,
+    setMembers,
     isMembersLoading,
     refreshMembers,
     membersFilter,

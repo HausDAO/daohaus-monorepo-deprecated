@@ -4,6 +4,8 @@ import {
   Card,
   widthQuery,
   AddressDisplay,
+  Spinner,
+  useBreakpoint,
 } from '@daohaus/ui';
 
 import {
@@ -30,6 +32,7 @@ const MemberContainer = styled(Card)`
   padding: 3rem;
   border: none;
   margin-bottom: 3rem;
+  min-height: 20rem;
   @media ${widthQuery.lg} {
     max-width: 100%;
     min-width: 0;
@@ -45,12 +48,18 @@ export type MembersTableType = TMembers[number];
 
 export function Members() {
   const { dao } = useDao();
-  const { members, setMembersPaging, membersNextPaging, setMembersSort } =
-    useMembers();
+  const {
+    members,
+    setMembersPaging,
+    membersNextPaging,
+    setMembersSort,
+    setMembers,
+  } = useMembers();
   const { userMembership } = useUserMembership();
+  const isMobile = useBreakpoint(widthQuery.sm);
 
   // console.log('membersSort', membersSort);
-  console.log('membersNextPaging', membersNextPaging);
+  // console.log('membersNextPaging', membersNextPaging);
 
   const tableData = useMemo(() => {
     return members;
@@ -159,6 +168,8 @@ export function Members() {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     setMembersSort({ orderBy, orderDirection });
+    setMembersPaging(defaultDaoData.membersPaging);
+    setMembers(undefined);
   };
 
   return (
@@ -174,19 +185,17 @@ export function Members() {
       }
     >
       <MemberContainer>
-        {dao && members && (
-          <>
-            <MembersOverview dao={dao} />
-            {tableData && columns && (
-              <DaoTable
-                tableData={tableData}
-                columns={columns}
-                hasNextPaging={membersNextPaging !== undefined}
-                handleLoadMore={handleLoadMore}
-                handleColumnSort={handleColumnSort}
-              />
-            )}
-          </>
+        {dao && <MembersOverview dao={dao} />}
+        {dao && members && tableData && columns ? (
+          <DaoTable
+            tableData={tableData}
+            columns={columns}
+            hasNextPaging={membersNextPaging !== undefined}
+            handleLoadMore={handleLoadMore}
+            handleColumnSort={handleColumnSort}
+          />
+        ) : (
+          <Spinner size={isMobile ? '8rem' : '16rem'} padding="6rem" />
         )}
       </MemberContainer>
     </SingleColumnLayout>

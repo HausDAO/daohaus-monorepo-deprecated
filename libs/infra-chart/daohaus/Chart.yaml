@@ -41,3 +41,7 @@ dependencies:
     name: job
     version: '0.1.0'
     repository: file://../job
+  - alias: dao-consumer-job
+    name: job
+    version: '0.1.0'
+    repository: file://../job

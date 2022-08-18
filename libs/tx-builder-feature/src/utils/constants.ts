@@ -1,5 +1,5 @@
 import { JSONDetailsSearch } from '@daohaus/common-utilities';
-import { BAAL_ABI } from '@daohaus/contract-utilities';
+import { LOCAL_ABI } from '@daohaus/abi-utilities';
 
 export const EXPIRY = '.expiry';
 export const FORM = '.formData';
@@ -7,7 +7,7 @@ export const CURRENT_DAO = '.daoId';
 export const BaalContractBase = {
   type: 'local',
   contractName: 'Baal',
-  abi: BAAL_ABI,
+  abi: LOCAL_ABI.BAAL,
 };
 
 export const basicDetails: JSONDetailsSearch = {

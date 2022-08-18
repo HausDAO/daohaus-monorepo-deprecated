@@ -16,7 +16,7 @@ import {
   TXLego,
   ValidNetwork,
 } from '@daohaus/common-utilities';
-import { GNOSIS_MULTISEND_ABI } from '@daohaus/contract-utilities';
+import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import { encodeMultiSend, MetaTransaction } from '@gnosis.pm/safe-contracts';
 import { getAddress } from 'ethers/lib/utils';
 import { processArg } from './args';
@@ -179,7 +179,7 @@ export const handleGasEstimate = async ({
   }
 };
 export const encodeMultiAction = (rawMulti: MetaTransaction[]) => {
-  return encodeFunction(GNOSIS_MULTISEND_ABI, 'multiSend', [
+  return encodeFunction(LOCAL_ABI.GNOSIS_MULTISEND, 'multiSend', [
     encodeMultiSend(rawMulti),
   ]);
 };

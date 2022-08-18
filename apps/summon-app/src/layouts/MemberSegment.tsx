@@ -33,13 +33,13 @@ export const MembersSegment = ({ formDisabled }: { formDisabled: boolean }) => {
   return (
     <FormSegment
       title="Starting Members"
-      description="You must have at least one member to start. Add other starting members as desired. You can always add more members later through a proposal or a shaman."
+      description="You must have at least one member to summon. Add other summoning members as desired. Members can be added later through a proposal."
       formArea={
         <TextAreaSection style={{ width: '100%' }}>
           <ParSm className="number-display">{amtMembers} Members</ParSm>
           <WrappedTextArea
             label="Addresses & Stake Amounts"
-            placeholder="0x00000000000000000000000000 30 10"
+            placeholder="0x00000000000000000000000000 30 0"
             id={FORM_KEYS.MEMBERS}
             info={INFO_COPY.MEMBERS}
             full

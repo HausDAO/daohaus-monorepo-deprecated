@@ -67,8 +67,7 @@ export function Members() {
         Header: 'Member',
         accessor: 'memberAddress',
         Cell: ({ value }: { value: string }) => {
-          // return <AddressDisplay address={value} truncate />;
-          // return <MemberCar address={value} truncate />;
+          return <AddressDisplay address={value} truncate />;
         },
       },
       {

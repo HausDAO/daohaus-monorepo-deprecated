@@ -13,11 +13,11 @@ export const FORM: Record<string, CustomFormLego> = {
   },
   SIGNAL: {
     id: 'test',
-    title: 'Test Form',
-    subtitle: 'This is a test form',
-    description: 'This is a test form',
+    title: 'Signal Form',
+    subtitle: 'Signal Proposal',
+    description: 'Ratify test on chain using a DAO proposal',
     requiredFields: { title: true, description: true },
     tx: TX.POST_SIGNAL,
-    fields: [FIELD.TITLE, FIELD.DESCRIPTION, FIELD.LINK],
+    fields: [FIELD.TITLE, FIELD.DESCRIPTION, FIELD.LINK, FIELD.TRIBUTE],
   },
 };

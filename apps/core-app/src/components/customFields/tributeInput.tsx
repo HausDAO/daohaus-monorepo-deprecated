@@ -6,6 +6,7 @@ import { useDao } from '../../contexts/DaoContext';
 type TributeInputProps = Omit<InputSelectProps, 'options'>;
 
 const tokenArrayFromDaoContext = (dao: DaoWithTokenData) => {
+  console.log('dao', dao);
   return [];
 };
 

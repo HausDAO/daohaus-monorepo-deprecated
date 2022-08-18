@@ -158,7 +158,7 @@ export const SummonerForm = ({
         <div>
           <WrappedInput
             id={FORM_KEYS.DAO_NAME}
-            placeholder="Braid Guild"
+            placeholder="DAO Name"
             full
             disabled={formDisabled}
             rules={{ required: 'DAO name is required' }}

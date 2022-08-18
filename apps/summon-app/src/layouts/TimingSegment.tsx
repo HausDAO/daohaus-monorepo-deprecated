@@ -7,7 +7,8 @@ export const TimingSegment = ({ formDisabled }: { formDisabled: boolean }) => {
   return (
     <FormSegment
       title="Proposal Timing"
-      description="Define your timing for Voting and Grace periods. You can update these settings through a proposal."
+      description="Define your timing for voting and grace periods. These settings can
+      be updated later through a proposal."
       formArea={
         <SplitColumn
           rows={{

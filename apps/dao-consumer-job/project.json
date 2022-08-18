@@ -1,0 +1,68 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/dao-consumer-job/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "command": "tsc --project ./apps/dao-consumer-job/tsconfig.app.json && cp ./apps/dao-consumer-job/package.json ./dist/apps/dao-consumer-job"
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/dao-consumer-job",
+        "tsConfig": "./apps/dao-consumer-job/tsconfig.app.json",
+        "main": "./apps/dao-consumer-job/src/main.ts"
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ],
+      "configurations": {
+        "production": {
+          "buildTarget": "dao-consumer-job:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/dao-consumer-job/**/*.ts"]
+      }
+    },
+    "docker-build": {
+      "executor": "@nx-tools/nx-docker:build",
+      "options": {
+        "metadata": {
+          "images": ["registry.digitalocean.com/daohaus/dao_consumer_job"],
+          "load": true,
+          "tags": ["type=sha"]
+        }
+      }
+    },
+    "docker-push": {
+      "executor": "@nx-tools/nx-docker:build",
+      "options": {
+        "push": true,
+        "metadata": {
+          "images": ["registry.digitalocean.com/daohaus/dao_consumer_job"],
+          "tags": ["type=sha"]
+        }
+      }
+    },
+    "docker-login": {
+      "executor": "@nrwl/workspace:run-commands",
+      "options": {
+        "commands": ["doctl registry login --expiry-seconds 1200"],
+        "parallel": false
+      }
+    }
+  },
+  "tags": []
+}

@@ -1,12 +1,11 @@
 import React, { MouseEvent } from 'react';
-import { useTable, Column, HeaderGroup } from 'react-table';
+import { useTable, Column } from 'react-table';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
 
 import { MembersTableType } from '../pages/Members';
 import { Button } from '@daohaus/ui';
-import { RiArrowDownSFill, RiArrowUpSFill } from 'react-icons/ri';
-import { TableHeaderCell } from './SortableTableHeaderCell';
+import { ColumnSortIcons } from './ColumnSortIcons';
 
 const Table = styled.table`
   width: 100%;
@@ -25,6 +24,13 @@ const Th = styled.th`
   padding: 2rem 0.5rem;
 `;
 
+const HeaderCellContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 1rem;
+`;
+
 const Tr = styled.tr``;
 
 const Td = styled.td`
@@ -39,6 +45,7 @@ export type DaoTableProps = {
   hasNextPaging: boolean;
   handleLoadMore: (event: MouseEvent<HTMLButtonElement>) => void;
   handleColumnSort: (orderBy: string, orderDirection: 'asc' | 'desc') => void;
+  sortableColumns: string[];
 };
 
 // TS Challenge figure out how to pass generics for the table props
@@ -53,6 +60,7 @@ export const DaoTable = ({
   hasNextPaging,
   handleLoadMore,
   handleColumnSort,
+  sortableColumns,
 }: DaoTableProps) => {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({
@@ -69,27 +77,15 @@ export const DaoTable = ({
               {headerGroup.headers.map((column) => {
                 return (
                   <Th {...column.getHeaderProps()}>
-                    {column.render('Header')}
-
-                    <div>
-                      <RiArrowDownSFill
-                        onClick={() =>
-                          handleColumnSort('memberAddress', 'desc')
-                        }
-                      />
-                      <RiArrowUpSFill
-                        onClick={() => handleColumnSort('memberAddress', 'asc')}
-                      />
-                    </div>
-
-                    {/* // TODO this here or not??!?!? */}
-                    {/* <TableHeaderCell
-                      className="hide-sm"
-                      label="Join Date"
-                      sortable
-                      orderBy={column.id}
-                      handleColumnSort={handleColumnSort}
-                    /> */}
+                    <HeaderCellContainer>
+                      {column.render('Header')}
+                      {sortableColumns.includes(column.id) && (
+                        <ColumnSortIcons
+                          orderBy={column.id}
+                          handleColumnSort={handleColumnSort}
+                        />
+                      )}
+                    </HeaderCellContainer>
                   </Th>
                 );
               })}

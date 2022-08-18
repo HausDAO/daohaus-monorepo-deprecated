@@ -60,7 +60,7 @@ export const defaultDaoData = {
   setMembersSort: () => {
     return;
   },
-  membersPaging: { offset: 0, pageSize: 5 },
+  membersPaging: { offset: 0, pageSize: 25 },
   membersNextPaging: undefined,
   setMembersPaging: () => {
     return;
@@ -78,7 +78,7 @@ export const defaultDaoData = {
   setProposalsSort: () => {
     return;
   },
-  proposalsPaging: undefined,
+  proposalsPaging: { offset: 0, pageSize: 10 },
   proposalsNextPaging: undefined,
   setProposalsPaging: () => {
     return;
@@ -231,20 +231,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
 
   useEffect(() => {
     let shouldUpdate = true;
-    // SPEC:
-    // - load 25 per page (5 in test) - x
-    // - reset paging on sort and filter
-    //   - could do set state in sort function/but might trigger useeffect twice
-    // - paging update keep sort and filter
-    //   - how to detect it's just this in the use effect?
-    //   - if paging update add to items
-    // - if filter/sort replace items
-
-    // can we move out of the effect
-    // then effect on separate things?
-
     if (daoid && daochain) {
-      console.log('trigger');
       loadMembersList({
         filter: { dao: daoid, ...membersFilter },
         ordering: membersSort,
@@ -260,7 +247,6 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
       shouldUpdate = false;
     };
   }, [daochain, daoid, membersFilter, membersSort, membersPaging]);
-  // }, [daochain, daoid, refreshMembers]);
 
   useEffect(() => {
     let shouldUpdate = true;

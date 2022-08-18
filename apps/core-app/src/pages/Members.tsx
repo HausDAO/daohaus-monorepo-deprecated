@@ -1,4 +1,6 @@
+import { MouseEvent, useMemo } from 'react';
 import styled from 'styled-components';
+import { Column, Row } from 'react-table';
 import {
   SingleColumnLayout,
   Card,
@@ -7,6 +9,11 @@ import {
   Spinner,
   useBreakpoint,
 } from '@daohaus/ui';
+import {
+  formatDateFromSeconds,
+  fromWei,
+  votingPowerPercentage,
+} from '@daohaus/common-utilities';
 
 import {
   useMembers,
@@ -18,14 +25,6 @@ import {
 import { MembersOverview } from '../components/MembersOverview';
 import { ProfileLink } from '../components/ProfileLink';
 import { DaoTable } from '../components/DaohausTable';
-import { MouseEvent, useMemo } from 'react';
-import { Column, HeaderGroup, Row } from 'react-table';
-import {
-  formatDateFromSeconds,
-  fromWei,
-  votingPowerPercentage,
-} from '@daohaus/common-utilities';
-import { TableHeaderCell } from '../components/SortableTableHeaderCell';
 
 const MemberContainer = styled(Card)`
   width: 110rem;
@@ -58,9 +57,6 @@ export function Members() {
   const { userMembership } = useUserMembership();
   const isMobile = useBreakpoint(widthQuery.sm);
 
-  // console.log('membersSort', membersSort);
-  // console.log('membersNextPaging', membersNextPaging);
-
   const tableData = useMemo(() => {
     return members;
   }, [members]);
@@ -76,16 +72,7 @@ export function Members() {
       },
       {
         Header: () => {
-          return (
-            // <TableHeaderCell
-            //   className="hide-sm"
-            //   label="Join Date"
-            //   sortable
-            //   orderBy={column.id}
-            //   handleColumnSort={handleColumnSort}
-            // />
-            <div className="hide-sm">Join Date</div>
-          );
+          return <div className="hide-sm">Join Date</div>;
         },
         accessor: 'createdAt',
         Cell: ({ value }: { value: string }) => {
@@ -93,7 +80,7 @@ export function Members() {
         },
       },
       {
-        Header: (props) => {
+        Header: () => {
           return <div className="hide-sm">Power</div>;
         },
         accessor: 'delegateShares',
@@ -156,6 +143,10 @@ export function Members() {
     [dao]
   );
 
+  // TODO: Move these into the context as new hooks:
+  // - loadMoreMembers (adds on to current members list - this is default)
+  // - loadNextPageMembers (replaces current list)
+  // - sort/filter (replaces current list)
   const handleLoadMore = (event: MouseEvent<HTMLButtonElement>) => {
     setMembersPaging(membersNextPaging);
   };
@@ -193,6 +184,7 @@ export function Members() {
             hasNextPaging={membersNextPaging !== undefined}
             handleLoadMore={handleLoadMore}
             handleColumnSort={handleColumnSort}
+            sortableColumns={['createdAt', 'shares', 'loot', 'delegateShares']}
           />
         ) : (
           <Spinner size={isMobile ? '8rem' : '16rem'} padding="6rem" />

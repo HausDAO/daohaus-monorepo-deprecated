@@ -1,5 +1,6 @@
 export * from './Avatar';
 export * from './Button';
+export * from './Checkbox';
 export * from './Label';
 export * from './Input';
 export * from './HelperTexts';

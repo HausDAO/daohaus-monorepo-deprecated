@@ -32,6 +32,29 @@ const TestForm: FormLego = {
       label: 'Description',
       placeholder: 'Enter description',
     },
+    {
+      id: 'checkGate',
+      type: 'checkGate',
+      gateLabel: 'Toggle field',
+      fields: [
+        {
+          id: 'title',
+          selectId: 'selectID',
+          type: 'inputSelect',
+          label: 'Title',
+          // placeholder: 'Enter title',
+          
+          // info: 'This is controlled by the info prop',
+          options: [
+            { value: `${3600 * 24}`, name: 'Days' },
+            { value: `${3600}`, name: 'Hours' },
+            { value: `${60}`, name: 'Minutes' },
+          ],
+          // helperText: 'Test the action/controls',
+          // selectPlaceholder: '-period-',
+        },
+      ]
+    },
   ],
   tx: buildMultiCallTX({
     id: 'TEST_TX',

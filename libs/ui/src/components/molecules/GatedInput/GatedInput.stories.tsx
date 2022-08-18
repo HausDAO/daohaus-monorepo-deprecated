@@ -49,7 +49,7 @@ FullGatedInput.args = {
   error: undefined,
   success: undefined,
   input: WrappedInput,
-  updateHelperMsg: (formValues) => `This is the new value: ${formValues['example']}`,
+  updateHelperMsg: (formValues) => `This is the new value: ${formValues}`,
   children: defautExplanationText,
 };
 
@@ -71,7 +71,8 @@ FullGatedInputSelect.args = {
   selectPlaceholder: '-period-',
   input: WrappedInputSelect,
   updateHelperMsg: (formValues) =>
-    `This is the new value: ${formValues['selectID'] ? formValues['inputId'] * formValues['selectID'] : 0} seconds`,
+    `This is the new value: ${formValues.length ? formValues[0] * formValues[1] : 0} seconds`,
+  customWatchers: ['inputId', 'selectID'],
   children: (
     <ParXs style={{marginTop: '5px'}}>
       The expiration Date includes Voting and Grace periods. Adjust the days or hours
@@ -98,7 +99,7 @@ FullGatedSelect.args = {
   warning: undefined,
   error: undefined,
   input: WrappedSelect,
-  updateHelperMsg: (formValues) => `This is the new value: ${formValues['example'] || ''}`,
+  updateHelperMsg: (formValues) => `This is the new value: ${formValues || ''}`,
   children: defautExplanationText,
 };
 
@@ -138,6 +139,6 @@ FullGatedTextArea.args = {
   error: undefined,
   success: undefined,
   input: WrappedTextArea,
-  updateHelperMsg: (formValues) => `This is the new value: ${formValues['example'] || ''}`,
+  updateHelperMsg: (formValues) => `This is the new value: ${formValues || ''}`,
   children: defautExplanationText,
 };

@@ -10,16 +10,19 @@ type GatedInputProps = IGatedInput & {
   gatedId: string;
   gateLabel: string;
   input: FunctionComponent<Buildable<IGatedInput>>;
-  updateHelperMsg?: (value: FieldValues) => string; 
+  updateHelperMsg?: (value: FieldValues) => string;
+  customWatchers?: readonly string[];
   children?: ReactNode;
+  // field: ReactNode; // TOOD: static vs function components
 };
 
-export const GatedInput = ({ children, gatedId, gateLabel, input: Input, ...props }: Buildable<GatedInputProps>) => {
+export const GatedInput = ({ children, customWatchers, gatedId, gateLabel, input: Input, ...props }: Buildable<GatedInputProps>) => {
+  
   const { watch } = useFormContext();
-  const { updateHelperMsg } = props;
+  const { id, updateHelperMsg } = props;
   const [gatedOn, toggleGate]= useState(false);
   const [helperText, setHelperText] = useState(props.helperText || '');
-  const inputValues = watch();
+  const inputValues = customWatchers ? watch(customWatchers) : watch(id);
 
   const onCheckedChanged = (checked: CheckedState) => {
     toggleGate(checked.valueOf() as boolean);

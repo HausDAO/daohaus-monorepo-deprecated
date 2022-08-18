@@ -10,8 +10,9 @@ import {
 } from '@daohaus/ui';
 import { SegmentRender } from './SegmentRender';
 import { SplitColumnLayout } from './SplitRender';
+import { CheckGate } from './CheckGate';
 
-export const CoreFieldLookup = {
+export const FieldsBase = {
   input: WrappedInput,
   inputSelect: WrappedInputSelect,
   textarea: WrappedTextArea,
@@ -19,8 +20,13 @@ export const CoreFieldLookup = {
   radio: WrappedRadio,
   select: WrappedSelect,
   checkBox: WrappedCheckbox,
-  splitColumn: SplitColumnLayout,
-  formSegment: SegmentRender,
   csInput: CSInput,
   tributeInput: WrappedInput,
+};
+
+export const CoreFieldLookup = {
+  ...FieldsBase,
+  checkGate: CheckGate,
+  formSegment: SegmentRender,
+  splitColumn: SplitColumnLayout,
 };

@@ -18,7 +18,7 @@ import {
   ProfileAvatar,
 } from '../../molecules';
 import { MemberCardTrigger } from './MemberCard.styles';
-import { useToast, useCopyToClipboard } from '../../../hooks';
+import { useCopyToClipboard } from '../../../hooks';
 
 type MemberCardProps = {
   profile: AccountProfile;

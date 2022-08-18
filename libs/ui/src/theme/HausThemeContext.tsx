@@ -10,14 +10,12 @@ import './global/fonts.css';
 import { Toast } from '../components';
 import { ToastProvider } from '../components/molecules/Toast/Toast.styles';
 import { CustomToastProps } from '../types/toast.types';
-import { ModalProps } from '../types/modal.types';
 
 type HausUI = {
   theme: Theme;
   setTheme: ReactSetter<Theme>;
   toggleLightDark: () => void;
   setToast: (toast: CustomToastProps) => void;
-  setModal: (modal: ModalProps) => void;
 };
 
 type ProviderProps = {
@@ -32,7 +30,6 @@ export const HausThemeContext = createContext<HausUI>({
   setTheme: () => null,
   toggleLightDark: (): void => undefined,
   setToast: (): void => undefined,
-  setModal: (): void => undefined,
 });
 
 const DEFAULT_TOAST_DURATION = 6000;
@@ -45,7 +42,6 @@ export const HausThemeProvider = ({
 }: ProviderProps) => {
   const [theme, setTheme] = useState(startDark ? defaultDark : defaultLight);
   const [toast, setToast] = useState<CustomToastProps | null>(null);
-  const [modal, setModal] = useState<ModalProps | null>(null);
 
   useEffect(() => {
     setTheme(startDark ? defaultDark : defaultLight);

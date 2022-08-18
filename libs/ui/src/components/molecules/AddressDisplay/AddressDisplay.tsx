@@ -13,7 +13,7 @@ import {
   AddressDataMd,
 } from './AddressDisplay.styles';
 import { Icon, Link } from '../../atoms';
-import { useCopyToClipboard, useToast } from '../../../hooks';
+import { useCopyToClipboard } from '../../../hooks';
 import { useMemo } from 'react';
 
 type AddressDisplayProps = {

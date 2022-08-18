@@ -24,20 +24,20 @@ const Template: ComponentStory<typeof DialogContent> = ({
     </Dialog>
   );
 };
-export const MoleculeDialog = Template.bind({});
+export const DialogMolecule = Template.bind({});
 
-MoleculeDialog.args = {
+DialogMolecule.args = {
   title: 'Title goes here',
 };
 
-export const MoleculeDialogDescription = Template.bind({});
-MoleculeDialogDescription.args = {
+export const DialogDescription = Template.bind({});
+DialogDescription.args = {
   title: 'Title goes here',
   description: 'Description Goes here and has more detail/text than the title',
 };
 
-export const MoleculeDialogOneButton = Template.bind({});
-MoleculeDialogOneButton.args = {
+export const DialogOneButton = Template.bind({});
+DialogOneButton.args = {
   title: 'Title goes here',
   description: 'Description Goes here and has more detail/text than the title',
   leftButton: {

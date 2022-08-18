@@ -20,7 +20,7 @@ export const TX = {
               proposalType: { type: 'static', value: 'Signal Proposal' },
             },
           },
-          { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
+          { type: 'static', value: POSTER_TAGS.signalProposal },
         ],
       },
     ],

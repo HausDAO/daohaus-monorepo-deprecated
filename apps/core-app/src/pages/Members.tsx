@@ -11,6 +11,7 @@ import {
   useDao,
   TMembers,
   useUserMembership,
+  defaultDaoData,
 } from '../contexts/DaoContext';
 import { MembersOverview } from '../components/MembersOverview';
 import { ProfileLink } from '../components/ProfileLink';
@@ -44,18 +45,12 @@ export type MembersTableType = TMembers[number];
 
 export function Members() {
   const { dao } = useDao();
-  const {
-    members,
-    setMembersPaging,
-    membersNextPaging,
-    setMembersSort,
-    membersQueryOptions,
-    setMembersQueryOptions,
-  } = useMembers();
+  const { members, setMembersPaging, membersNextPaging, setMembersSort } =
+    useMembers();
   const { userMembership } = useUserMembership();
 
   // console.log('membersSort', membersSort);
-  // console.log('membersNextPaging', membersNextPaging);
+  console.log('membersNextPaging', membersNextPaging);
 
   const tableData = useMemo(() => {
     return members;
@@ -153,10 +148,7 @@ export function Members() {
   );
 
   const handleLoadMore = (event: MouseEvent<HTMLButtonElement>) => {
-    // setMembersPaging(membersNextPaging);
-    setMembersQueryOptions((prevState) => {
-      return { ...prevState, paging: prevState.nextPaging };
-    });
+    setMembersPaging(membersNextPaging);
   };
 
   const handleColumnSort = (
@@ -189,7 +181,7 @@ export function Members() {
               <DaoTable
                 tableData={tableData}
                 columns={columns}
-                hasNextPaging={membersQueryOptions.nextPaging !== undefined}
+                hasNextPaging={membersNextPaging !== undefined}
                 handleLoadMore={handleLoadMore}
                 handleColumnSort={handleColumnSort}
               />

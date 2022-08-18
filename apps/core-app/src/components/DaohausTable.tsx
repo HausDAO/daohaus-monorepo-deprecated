@@ -71,6 +71,17 @@ export const DaoTable = ({
                   <Th {...column.getHeaderProps()}>
                     {column.render('Header')}
 
+                    <div>
+                      <RiArrowDownSFill
+                        onClick={() =>
+                          handleColumnSort('memberAddress', 'desc')
+                        }
+                      />
+                      <RiArrowUpSFill
+                        onClick={() => handleColumnSort('memberAddress', 'asc')}
+                      />
+                    </div>
+
                     {/* // TODO this here or not??!?!? */}
                     {/* <TableHeaderCell
                       className="hide-sm"

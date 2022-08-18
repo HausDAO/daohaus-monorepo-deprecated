@@ -13,7 +13,7 @@ import {
   Proposal_OrderBy,
 } from '@daohaus/dao-data';
 import deepEqual from 'deep-eql';
-import { MemberQueryOptions } from '../contexts/DaoContext';
+// import { MemberQueryOptions } from '../contexts/DaoContext';
 
 export const loadDao = async ({
   daoid,
@@ -102,7 +102,7 @@ export const loadMembersList = async ({
   daochain,
   setData,
   setLoading,
-  setMembersQueryOptions,
+  setNextPaging,
   shouldUpdate,
 }: {
   filter: Member_Filter;
@@ -111,7 +111,7 @@ export const loadMembersList = async ({
   daochain: keyof Keychain;
   setData: ReactSetter<ListMembersQuery['members'] | undefined>;
   setLoading: ReactSetter<boolean>;
-  setMembersQueryOptions: ReactSetter<MemberQueryOptions>;
+  setNextPaging: ReactSetter<Paging | undefined>;
   shouldUpdate: boolean;
 }) => {
   try {
@@ -125,16 +125,14 @@ export const loadMembersList = async ({
     });
 
     if (shouldUpdate) {
-      // setNextPaging(res.nextPaging);
-      setMembersQueryOptions((prevState) => {
-        return { ...prevState, nextPaging: res.nextPaging };
-      });
+      setNextPaging(res.nextPaging);
 
       setData((prevState) => {
-        if (deepEqual(prevState, res.items) || !prevState) {
-          return res.items;
-        } else {
+        if (deepEqual(prevState, res.items)) return res.items;
+        if (prevState) {
           return [...prevState, ...res.items];
+        } else {
+          return res.items;
         }
       });
     }
@@ -178,9 +176,7 @@ export const loadProposalsList = async ({
     });
 
     if (shouldUpdate) {
-      if (res.nextPaging) {
-        setNextPaging(res.nextPaging);
-      }
+      setNextPaging(res.nextPaging);
 
       setData((prevState) => {
         if (deepEqual(prevState, res.items)) return res.items;

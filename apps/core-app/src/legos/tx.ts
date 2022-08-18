@@ -14,6 +14,7 @@ export const TX = {
           {
             type: 'JSONDetails',
             jsonSchema: {
+              daoId: `.daoId`,
               title: `.formValues.title`,
               description: `.formValues.description`,
               link: `.formValues.link`,

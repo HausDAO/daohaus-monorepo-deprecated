@@ -123,6 +123,7 @@ export const loadProfile = async ({
   networks: NetworkConfigs;
 }) => {
   try {
+    console.log('address', address);
     setProfileLoading(true);
     const haus = Haus.create();
     const profile = await haus.profile.get({ address: address });

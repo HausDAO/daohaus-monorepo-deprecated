@@ -33,7 +33,7 @@ export const AddressDisplay = ({
   ...props
 }: AddressDisplayProps) => {
   const theme = useTheme() as Theme;
-  const [value, copyToClipboard] = useCopyToClipboard();
+  const copyToClipboard = useCopyToClipboard();
 
   const explorerLink = useMemo(() => {
     if (explorerNetworkId) {

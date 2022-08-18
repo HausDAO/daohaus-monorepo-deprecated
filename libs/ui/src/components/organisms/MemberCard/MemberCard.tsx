@@ -34,7 +34,7 @@ export const MemberCard = ({
   explorerNetworkId,
   minWidth = '17.8rem',
 }: MemberCardProps) => {
-  const [value, copy] = useCopyToClipboard();
+  const copy = useCopyToClipboard();
 
   const explorerLink = useMemo(() => {
     if (explorerNetworkId) {

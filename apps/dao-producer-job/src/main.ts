@@ -1,5 +1,5 @@
 import { Haus } from '@daohaus/dao-data';
-import { Keychain } from '@daohaus/common-utilities';
+import { Keychain, DAO_PRODUCER_QUEUE } from '@daohaus/common-utilities';
 import * as Queue from 'bull';
 
 const SLEEP_TIME = parseInt(process.env.SLEEP_TIME) || 300;
@@ -23,7 +23,7 @@ function sleep(time) {
 
 const main = async () => {
   console.log('Start processing daos');
-  const producerQueue = new Queue('dao-producer', REDIS_HOST);
+  const producerQueue = new Queue(DAO_PRODUCER_QUEUE, REDIS_HOST);
   try {
     const haus = Haus.create();
     for (const networkId of networks) {

@@ -7,12 +7,12 @@ const VAL_MSG = {
   LOOT_ERR:
     'Loot is required and must be a number. Check formatting rules in tooltip above.',
   SHARE_ERR:
-    'Shares are required and must be a number. Check formatting rules in tooltip above',
+    'Shares are required and must be a number. Check formatting rules in tooltip above.',
   ADDRESS_ERR:
-    'Member addresses are required and must be valid Ethereum Addresses. Check formatting rules in tooltip above',
+    'Member addresses are required and must be valid Ethereum addresses. Check formatting rules in tooltip above.',
   SHAMAN_ADDR_ERR:
-    'Shaman addresses are required and must valid ethereum addresses',
-  PERMISSION_ERR: 'Shaman permissions are required and must be a number',
+    'Shaman addresses are required and must be valid Ethereum addresses.',
+  PERMISSION_ERR: 'Shaman permissions are required and must be a number.',
 };
 
 ////////////////////Members Segment////////////////////////

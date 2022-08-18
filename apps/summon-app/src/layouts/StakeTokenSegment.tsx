@@ -60,7 +60,7 @@ export const StakeTokensSegment = ({
                   full
                   disabled={formDisabled}
                   rules={{
-                    required: 'Token name is required',
+                    required: 'Token symbol is required',
                     maxLength: {
                       value: 5,
                       message:
@@ -75,7 +75,7 @@ export const StakeTokensSegment = ({
               left: (
                 <WrappedSwitch
                   id={FORM_KEYS.VOTE_TOKEN_TRANSFER}
-                  label="Voting Stake Transferable?"
+                  label="Voting Stake"
                   info={INFO_COPY.STAKE_TRANSFER}
                   disabled={formDisabled}
                   switches={[
@@ -90,7 +90,7 @@ export const StakeTokensSegment = ({
               right: (
                 <WrappedSwitch
                   id={FORM_KEYS.NV_TOKEN_TRANSFER}
-                  label="Non-Voting Transferable?"
+                  label="Non-Voting Stake"
                   disabled={formDisabled}
                   info={INFO_COPY.NV_STAKE_TRANSFER}
                   switches={[

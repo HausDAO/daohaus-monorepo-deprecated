@@ -57,8 +57,8 @@ export const DialogContent = React.forwardRef(
             </HeaderContainer>
             <DialogBody>
               <DialogDescription>{description}</DialogDescription>
-              {children}
             </DialogBody>
+            {children}
           </div>
           {(leftButton || rightButton) && (
             <ButtonContainer align={alignButtons}>

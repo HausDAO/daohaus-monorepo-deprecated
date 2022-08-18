@@ -197,7 +197,7 @@ declare module 'styled-components' {
         error: string;
       };
     };
-    modal: {
+    dialog: {
       bg: string;
       color: string;
     };

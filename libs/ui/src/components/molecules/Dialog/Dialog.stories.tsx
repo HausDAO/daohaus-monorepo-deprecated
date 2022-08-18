@@ -1,5 +1,7 @@
+import { Checkbox } from '@radix-ui/react-checkbox';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Button } from '../../atoms';
+import { Button, H5, Input, ParMd } from '../../atoms';
+import { WrappedInput, WrappedRadio } from '../index';
 
 import { Dialog, DialogContent, DialogTrigger } from './Dialog';
 
@@ -59,4 +61,31 @@ MoleculeDialogBothButtons.args = {
     onClick: () => alert('Right button clicked'),
     children: 'Right Button',
   },
+};
+
+export const MoleculeDialogWithComponentInside = Template.bind({});
+MoleculeDialogWithComponentInside.args = {
+  title: 'Title goes here',
+  description: 'Description Goes here and has more detail/text than the title',
+  alignButtons: 'start',
+  leftButton: {
+    onClick: () => alert('Left button clicked'),
+    children: 'Left Button',
+  },
+  rightButton: {
+    onClick: () => alert('Right button clicked'),
+    children: 'Right Button',
+  },
+  children: [
+    <div>
+      <ParMd>Welcome to a Modal</ParMd>
+      <WrappedInput
+        id={Math.random().toString()}
+        label="Test"
+        full
+        info="Enter a number here"
+        defaultValue="0"
+      />
+    </div>,
+  ],
 };

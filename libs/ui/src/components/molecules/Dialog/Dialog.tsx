@@ -1,22 +1,22 @@
 import React, { RefObject } from 'react';
 import { RiCloseFill } from 'react-icons/ri';
 
-import { ModalProps } from '../../../types/modal.types';
+import { DialogProps } from '../../../types/dialog.types';
 import { Button, H5 } from '../../atoms';
 import {
-  ModalRoot,
-  ModalPrimitaveTrigger,
-  ModalTitle,
-  ModalDescription,
-  ModalClose,
-  ModalPortal,
-  StyledModalContent,
-  StyledModalOverlay,
+  DialogRoot,
+  DialogPrimitaveTrigger,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+  DialogPortal,
+  StyledDialogContent,
+  StyledDialogOverlay,
   HeaderContainer,
-  ModalBody,
+  DialogBody,
   ButtonContainer,
   CloseIcon,
-} from './Modal.styles';
+} from './Dialog.styles';
 
 type Ref =
   | ((instance: HTMLDivElement | null) => void)
@@ -24,10 +24,10 @@ type Ref =
   | null
   | undefined;
 
-export const Modal = ModalRoot;
-export const ModalTrigger = ModalPrimitaveTrigger;
+export const Dialog = DialogRoot;
+export const DialogTrigger = DialogPrimitaveTrigger;
 
-export const ModalContent = React.forwardRef(
+export const DialogContent = React.forwardRef(
   (
     {
       title,
@@ -37,28 +37,28 @@ export const ModalContent = React.forwardRef(
       leftButton,
       rightButton,
       ...props
-    }: ModalProps,
+    }: DialogProps,
     ref: Ref
   ) => {
     return (
-      <ModalPortal>
-        <StyledModalOverlay />
-        <StyledModalContent {...props} ref={ref}>
+      <DialogPortal>
+        <StyledDialogOverlay />
+        <StyledDialogContent {...props} ref={ref}>
           <div>
             <HeaderContainer>
-              <ModalTitle asChild>
+              <DialogTitle asChild>
                 <H5>{title}</H5>
-              </ModalTitle>
-              <ModalClose asChild>
+              </DialogTitle>
+              <DialogClose asChild>
                 <CloseIcon>
                   <RiCloseFill aria-hidden />
                 </CloseIcon>
-              </ModalClose>
+              </DialogClose>
             </HeaderContainer>
-            <ModalBody>
-              <ModalDescription>{description}</ModalDescription>
+            <DialogBody>
+              <DialogDescription>{description}</DialogDescription>
               {children}
-            </ModalBody>
+            </DialogBody>
           </div>
           {(leftButton || rightButton) && (
             <ButtonContainer align={alignButtons}>
@@ -74,8 +74,8 @@ export const ModalContent = React.forwardRef(
               )}
             </ButtonContainer>
           )}
-        </StyledModalContent>
-      </ModalPortal>
+        </StyledDialogContent>
+      </DialogPortal>
     );
   }
 );

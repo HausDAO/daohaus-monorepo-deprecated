@@ -1,45 +1,43 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Button } from '../../atoms';
 
-import { Modal, ModalContent, ModalTrigger } from './Modal';
-import { useModal } from '../../../hooks/useModal';
+import { Dialog, DialogContent, DialogTrigger } from './Dialog';
 
 export default {
-  title: 'Molecules/Modal',
-  component: Modal,
-} as ComponentMeta<typeof Modal>;
+  title: 'Molecules/Dialog',
+  component: Dialog,
+} as ComponentMeta<typeof Dialog>;
 
-const Template: ComponentStory<typeof ModalContent> = ({
+const Template: ComponentStory<typeof DialogContent> = ({
   title,
   children,
   ...args
 }) => {
-  const { setModal } = useModal();
   return (
-    <Modal>
-      <ModalTrigger asChild>
-        <Button>Fire Modal</Button>
-      </ModalTrigger>
-      <ModalContent title={title} {...args}>
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Fire Dialog</Button>
+      </DialogTrigger>
+      <DialogContent title={title} {...args}>
         {children}
-      </ModalContent>
-    </Modal>
+      </DialogContent>
+    </Dialog>
   );
 };
-export const MoleculeModal = Template.bind({});
+export const MoleculeDialog = Template.bind({});
 
-MoleculeModal.args = {
+MoleculeDialog.args = {
   title: 'Title goes here',
 };
 
-export const MoleculeModalDescription = Template.bind({});
-MoleculeModalDescription.args = {
+export const MoleculeDialogDescription = Template.bind({});
+MoleculeDialogDescription.args = {
   title: 'Title goes here',
   description: 'Description Goes here and has more detail/text than the title',
 };
 
-export const MoleculeModalOneButton = Template.bind({});
-MoleculeModalOneButton.args = {
+export const MoleculeDialogOneButton = Template.bind({});
+MoleculeDialogOneButton.args = {
   title: 'Title goes here',
   description: 'Description Goes here and has more detail/text than the title',
   leftButton: {
@@ -48,8 +46,8 @@ MoleculeModalOneButton.args = {
   },
 };
 
-export const MoleculeModalBothButtons = Template.bind({});
-MoleculeModalBothButtons.args = {
+export const MoleculeDialogBothButtons = Template.bind({});
+MoleculeDialogBothButtons.args = {
   title: 'Title goes here',
   description: 'Description Goes here and has more detail/text than the title',
   alignButtons: 'start',

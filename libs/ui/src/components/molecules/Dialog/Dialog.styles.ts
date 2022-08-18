@@ -1,4 +1,4 @@
-import * as ModalPrimitive from '@radix-ui/react-dialog';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
 import styled, { keyframes } from 'styled-components';
 
 // Move into colors for any overlays
@@ -6,19 +6,19 @@ import { indigoDarkA } from '@radix-ui/colors';
 
 import { Theme } from '../../../types/theming';
 
-export const ModalRoot = ModalPrimitive.Root;
-export const ModalPrimitaveTrigger = ModalPrimitive.Trigger;
-export const ModalClose = ModalPrimitive.Close;
-export const ModalPortal = ModalPrimitive.Portal;
-export const ModalTitle = ModalPrimitive.Title;
-export const ModalDescription = ModalPrimitive.Description;
+export const DialogRoot = DialogPrimitive.Root;
+export const DialogPrimitaveTrigger = DialogPrimitive.Trigger;
+export const DialogClose = DialogPrimitive.Close;
+export const DialogPortal = DialogPrimitive.Portal;
+export const DialogTitle = DialogPrimitive.Title;
+export const DialogDescription = DialogPrimitive.Description;
 
 const overlayShow = keyframes`
   0% { opacity: 0 };
   100% { opacity: 1 };
 `;
 
-export const StyledModalOverlay = styled(ModalPrimitive.Overlay)`
+export const StyledDialogOverlay = styled(DialogPrimitive.Overlay)`
   background-color: ${() => indigoDarkA.indigoA4};
   position: fixed;
   inset: 0;
@@ -32,7 +32,7 @@ const contentShow = keyframes`
   100% { opacity: 1; transform: translate(-50%, -50%) scale(1) };
 `;
 
-export const StyledModalContent = styled(ModalPrimitive.Content)`
+export const StyledDialogContent = styled(DialogPrimitive.Content)`
   background-color: ${({ theme }: { theme: Theme }) => theme.modal.bg};
   border-radius: 8px;
   box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
@@ -58,7 +58,7 @@ export const StyledModalContent = styled(ModalPrimitive.Content)`
   }
 `;
 
-export const ModalBody = styled.div`
+export const DialogBody = styled.div`
   display: flex;
   height: auto;
   width: 100%;

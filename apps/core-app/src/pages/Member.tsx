@@ -17,11 +17,11 @@ import { formatValueTo, fromWei, Keychain } from '@daohaus/common-utilities';
 
 import { useDao } from '../contexts/DaoContext';
 import { loadMember } from '../utils/dataFetchHelpers';
-import { FindMemberQuery } from '@daohaus/dao-data';
-import { indigoDark } from '@radix-ui/colors';
+import { AccountProfile, FindMemberQuery, Haus } from '@daohaus/dao-data';
 import { BsShareFill, BsArrowLeft } from 'react-icons/bs';
+import { Profile } from '../components/Profile';
 
-const OverviewCard = styled(Card)`
+const ProfileCard = styled(Card)`
   width: 64rem;
   padding: 2rem;
   border: none;
@@ -79,6 +79,9 @@ export function Member() {
   >();
   const [currentMemberLoading, setCurrentMemberLoading] =
     useState<boolean>(false);
+  const [currentProfile, setCurrentProfile] = useState<
+    AccountProfile | undefined
+  >();
   const { successToast } = useToast();
 
   console.log('currentMember', dao);
@@ -99,6 +102,27 @@ export function Member() {
       shouldUpdate = false;
     };
   }, [daochain, daoid, memberAddress]);
+
+  useEffect(() => {
+    const getProfile = async (shouldUpdate: boolean, address: string) => {
+      if (shouldUpdate) {
+        const haus = Haus.create();
+        const profile = await haus.profile.get({
+          address,
+        });
+
+        console.log('profile', profile);
+        setCurrentProfile(profile);
+      }
+    };
+    let shouldUpdate = true;
+    if (daochain && currentMember) {
+      getProfile(shouldUpdate, currentMember.memberAddress);
+    }
+    return () => {
+      shouldUpdate = false;
+    };
+  }, [currentMember, daochain]);
 
   const handleOnClick = () => {
     navigator.clipboard.writeText(`${window.location.href}`);
@@ -126,7 +150,8 @@ export function Member() {
               Share Profile
             </Button>
           </ButtonsContainer>
-          <OverviewCard>
+          <ProfileCard>
+            {currentProfile && <Profile profile={currentProfile} />}
             {/* <DataGrid>
               <DataIndicator
                 label="Vault Total"
@@ -142,7 +167,7 @@ export function Member() {
                 data={dao.proposalCount}
               />
             </DataGrid> */}
-          </OverviewCard>
+          </ProfileCard>
         </>
       )}
     </SingleColumnLayout>

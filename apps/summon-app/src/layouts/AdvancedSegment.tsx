@@ -15,7 +15,7 @@ export const AdvancedSegment = ({
   return (
     <FormSegment
       title="Advanced Governance"
-      description="Modify some advanced governance features."
+      description="Customize advanced governance features."
       formArea={
         <SplitColumn
           rows={[

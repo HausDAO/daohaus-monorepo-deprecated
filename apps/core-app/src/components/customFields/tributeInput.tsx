@@ -3,9 +3,7 @@ import {
   CONTRACTS,
   isEthAddress,
   isValidNetwork,
-  Keychain,
   ReactSetter,
-  ValidNetwork,
 } from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { createContract } from '@daohaus/tx-builder-feature';
@@ -13,6 +11,7 @@ import {
   Buildable,
   ErrorMessage,
   InputSelectProps,
+  ParMd,
   SuccessMessage,
   WrappedInput,
 } from '@daohaus/ui';
@@ -61,6 +60,8 @@ const fetchUserERC20 = async ({
   setNeedsApproval: ReactSetter<boolean>;
   setTokenData: ReactSetter<null | TokenData>;
 }) => {
+  setFetchState(TokenFetchStates.Loading);
+
   if (!tokenAddress) {
     return setFetchState(TokenFetchStates.Idle);
   }
@@ -72,6 +73,7 @@ const fetchUserERC20 = async ({
     !CONTRACTS.TRIBUTE_MINION[chainId]
   )
     return setFetchState(TokenFetchStates.NotValidNetwork);
+
   const spenderAddress = CONTRACTS.TRIBUTE_MINION[chainId];
   const contract = createContract({
     address: tokenAddress,
@@ -96,6 +98,10 @@ const fetchUserERC20 = async ({
     if (tokenData && shouldUpdate) {
       setTokenData(tokenData);
       setFetchState(TokenFetchStates.Success);
+
+      allowance.toString() === '0'
+        ? setNeedsApproval(true)
+        : setNeedsApproval(false);
     }
   } catch (error) {
     console.error(error);
@@ -161,6 +167,7 @@ export const TributeInput = (
           success={tokenName}
           error={tokenError}
         />
+        {needsApproval && <ParMd>Needs Approval</ParMd>}
       </FieldSpacer>
       <FieldSpacer>
         <WrappedInput full label="Token Amount" id={amtId} />

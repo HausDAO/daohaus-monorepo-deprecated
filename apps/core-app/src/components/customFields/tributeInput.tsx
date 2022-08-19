@@ -8,13 +8,18 @@ import {
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { createContract } from '@daohaus/tx-builder-feature';
 import {
+  border,
   Buildable,
+  Button,
   ErrorMessage,
   InputSelectProps,
   ParMd,
+  ParXs,
   SuccessMessage,
+  Theme,
   WrappedInput,
 } from '@daohaus/ui';
+import { orange, orangeDark } from '@radix-ui/colors';
 
 import { useEffect, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
@@ -167,11 +172,46 @@ export const TributeInput = (
           success={tokenName}
           error={tokenError}
         />
-        {needsApproval && <ParMd>Needs Approval</ParMd>}
+        {needsApproval && <TemporaryWarning tokenName={tokenData?.tokenName} />}
       </FieldSpacer>
       <FieldSpacer>
         <WrappedInput full label="Token Amount" id={amtId} />
       </FieldSpacer>
     </>
+  );
+};
+
+const TempWarningBox = styled.div`
+  padding: 1.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: ${({ theme }: { theme: Theme }) => theme.warningBg};
+  border-radius: ${border.radius};
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.warningBorder};
+  color: ${({ theme }: { theme: Theme }) => theme.warning};
+`;
+
+const WarningButton = styled(Button)`
+  background-color: ${orangeDark.orange9};
+  border: 1px solid ${orangeDark.orange9};
+  :hover {
+    background-color: ${orangeDark.orange10};
+    border: 1px solid ${orangeDark.orange10};
+  }
+  :active {
+    background-color: ${orangeDark.orange9};
+    border: 1px solid ${orangeDark.orange9};
+  }
+`;
+
+const TemporaryWarning = ({ tokenName }: { tokenName: string | undefined }) => {
+  return (
+    <TempWarningBox>
+      <ParXs>You must approve {tokenName || 'Token'} to submit</ParXs>
+      <WarningButton sm type="button">
+        Approve
+      </WarningButton>
+    </TempWarningBox>
   );
 };

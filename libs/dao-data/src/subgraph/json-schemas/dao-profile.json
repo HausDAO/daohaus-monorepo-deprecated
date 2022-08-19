@@ -24,7 +24,9 @@
     },
     "avatarImg": {
       "description": "Avatar image of the DAO",
-      "pattern": "Qm[1-9A-Za-z]{44}"
+      "properties": {
+        "callbackUrl": { "$ref": "#/definitions/saneUrl" }
+      }
     },
     "tags": {
       "description": "Tags for the DAO",
@@ -59,5 +61,8 @@
       }
     }
   },
-  "required": ["daoId", "name"]
+  "required": ["daoId", "name"],
+  "definitions": {
+    "saneUrl": { "format": "uri", "pattern": "^https?://" }
+  }
 }

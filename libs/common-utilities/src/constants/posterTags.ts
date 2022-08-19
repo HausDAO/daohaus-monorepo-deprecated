@@ -5,4 +5,5 @@ export type PosterTags =
 export const POSTER_TAGS = {
   summoner: 'daohaus.summoner.daoProfile',
   daoProfileUpdate: 'daohaus.shares.daoProfile',
+  signalProposal: 'daohaus.proposal.signalProposal',
 };

@@ -46,6 +46,19 @@
         "anonymous": false,
         "inputs": [
             {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "id",
+                "type": "uint256"
+            }
+        ],
+        "name": "Snapshot",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
                 "indexed": true,
                 "internalType": "address",
                 "name": "from",
@@ -66,6 +79,19 @@
         ],
         "name": "Transfer",
         "type": "event"
+    },
+    {
+        "inputs": [],
+        "name": "DOMAIN_SEPARATOR",
+        "outputs": [
+            {
+                "internalType": "bytes32",
+                "name": "",
+                "type": "bytes32"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
     },
     {
         "inputs": [
@@ -137,6 +163,30 @@
             }
         ],
         "name": "balanceOf",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "account",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "snapshotId",
+                "type": "uint256"
+            }
+        ],
+        "name": "balanceOfAt",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -261,7 +311,7 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "",
+                "name": "owner",
                 "type": "address"
             }
         ],
@@ -290,7 +340,7 @@
             },
             {
                 "internalType": "uint256",
-                "name": "amount",
+                "name": "value",
                 "type": "uint256"
             },
             {
@@ -299,9 +349,19 @@
                 "type": "uint256"
             },
             {
-                "internalType": "bytes",
-                "name": "signature",
-                "type": "bytes"
+                "internalType": "uint8",
+                "name": "v",
+                "type": "uint8"
+            },
+            {
+                "internalType": "bytes32",
+                "name": "r",
+                "type": "bytes32"
+            },
+            {
+                "internalType": "bytes32",
+                "name": "s",
+                "type": "bytes32"
             }
         ],
         "name": "permit",
@@ -329,6 +389,13 @@
     },
     {
         "inputs": [],
+        "name": "snapshot",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
         "name": "symbol",
         "outputs": [
             {
@@ -343,6 +410,25 @@
     {
         "inputs": [],
         "name": "totalSupply",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "snapshotId",
+                "type": "uint256"
+            }
+        ],
+        "name": "totalSupplyAt",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -399,7 +485,7 @@
         "outputs": [
             {
                 "internalType": "bool",
-                "name": "success",
+                "name": "",
                 "type": "bool"
             }
         ],

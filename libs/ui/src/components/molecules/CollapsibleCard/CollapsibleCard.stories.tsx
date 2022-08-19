@@ -10,9 +10,19 @@ const Template: ComponentStory<typeof CollapsibleCard> = (args) => {
   return <CollapsibleCard {...args}>{args.children}</CollapsibleCard>;
 };
 
-export const CardMolecule = Template.bind({});
+export const CollapsibleCardMolecule = Template.bind({});
 
-CardMolecule.args = {
+CollapsibleCardMolecule.args = {
+  children: (
+    <div>
+      <p>Content in a Card</p>
+    </div>
+  ),
+};
+
+export const ProposalCardExample = Template.bind({});
+
+ProposalCardExample.args = {
   children: (
     <div>
       <p>Content in a Card</p>

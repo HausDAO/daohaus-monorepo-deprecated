@@ -27,6 +27,23 @@
         "jestConfig": "libs/abi-utilities/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional",
+        "tagPrefix": "${projectName}@",
+        "noVerify": true,
+        "baseBranch": "master",
+        "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
+      }
+    },
+    "deploy": {
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "access": "public",
+        "noBuild": true
+      }
     }
   },
   "tags": []

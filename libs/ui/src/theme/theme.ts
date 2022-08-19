@@ -147,7 +147,7 @@ export const defaultDarkTheme: Theme = {
     bg: secondaryDark.bgSubtle,
     bgInnerCard: secondaryDark.elementBgActive,
     border: secondaryDark.bgSubtle,
-    borderInnerCard: secondaryDark.elementBgActive,
+    borderInnerCard: secondaryDark.elementBorderSubtle,
     hoverBg: secondaryDark.elementBg,
     hoverBorder: secondaryDark.elementBorderSubtle,
     focusBg: secondaryDark.bgSubtle,

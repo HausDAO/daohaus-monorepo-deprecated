@@ -24,9 +24,11 @@ export const StyledCollapsibleCardTrigger = Collapsible.Trigger;
 
 export const StyledCollapsibleCardButton = styled(DropdownTriggerLink)`
   margin-left: auto;
+  padding: 0;
   font-size: 14px;
 
-  svg.icon-right {
+  svg {
+    font-size: 20px;
     margin-left: auto;
   }
 

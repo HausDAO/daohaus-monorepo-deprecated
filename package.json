@@ -10,8 +10,8 @@
   "private": true,
   "dependencies": {
     "@ceramicnetwork/http-client": "^2.3.0",
-    "@glazed/devtools": "^0.2.0",
     "@daohaus/baal-contracts": "^0.3.3",
+    "@glazed/devtools": "^0.2.0",
     "@gnosis.pm/safe-apps-react-sdk": "^4.5.0",
     "@gnosis.pm/safe-apps-web3modal": "^12.0.0",
     "@gnosis.pm/safe-contracts": "^1.3.0",
@@ -115,6 +115,7 @@
     "@swc/jest": "^0.2.21",
     "@testing-library/react": "13.3.0",
     "@typechain/ethers-v5": "^10.0.0",
+    "@types/deep-eql": "^4.0.0",
     "@types/jest": "27.0.2",
     "@types/node": "16.11.7",
     "@types/numbro": "^1.9.3",

@@ -17,7 +17,7 @@ export const ProfileLink = ({
   const { daoid, daochain } = useParams();
 
   return (
-    <Link href={`/molochv3/${daoid}/${daochain}/members/${memberAddress}`}>
+    <Link href={`/molochv3/${daochain}/${daoid}/members/${memberAddress}`}>
       <Button sm={sm} lg={lg}>
         {buttonText}
       </Button>

@@ -11,6 +11,7 @@ import {
 } from '@daohaus/ui';
 import {
   formatDateFromSeconds,
+  formatValueTo,
   fromWei,
   votingPowerPercentage,
 } from '@daohaus/common-utilities';
@@ -98,7 +99,15 @@ export function Members() {
         },
         accessor: 'shares',
         Cell: ({ value }: { value: string }) => {
-          return <div>{fromWei(value)}</div>;
+          return (
+            <div>
+              {formatValueTo({
+                value: fromWei(value),
+                decimals: 2,
+                format: 'number',
+              })}
+            </div>
+          );
         },
       },
       {
@@ -107,7 +116,15 @@ export function Members() {
         },
         accessor: 'loot',
         Cell: ({ value }: { value: string }) => {
-          return <div>{fromWei(value)}</div>;
+          return (
+            <div>
+              {formatValueTo({
+                value: fromWei(value),
+                decimals: 2,
+                format: 'number',
+              })}
+            </div>
+          );
         },
       },
       {

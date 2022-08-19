@@ -13,7 +13,6 @@ import {
   Proposal_OrderBy,
 } from '@daohaus/dao-data';
 import deepEqual from 'deep-eql';
-// import { MemberQueryOptions } from '../contexts/DaoContext';
 
 export const loadDao = async ({
   daoid,

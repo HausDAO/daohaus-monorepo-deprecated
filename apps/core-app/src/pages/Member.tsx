@@ -8,7 +8,6 @@ import {
   widthQuery,
 } from '@daohaus/ui';
 import { useDao } from '../contexts/DaoContext';
-import { DaoProfile } from '../components/DaoProfile';
 import { formatValueTo, fromWei } from '@daohaus/common-utilities';
 
 const OverviewCard = styled(Card)`
@@ -41,17 +40,14 @@ const DataGrid = styled.div`
   }
 `;
 
-export function DaoOverview() {
+export function Member() {
   const { dao } = useDao();
 
-  console.log('dao', dao);
-
   return (
-    <SingleColumnLayout>
+    <SingleColumnLayout title="Member Profile">
       {dao && (
         <>
           <OverviewCard>
-            <DaoProfile dao={dao} />
             <DataGrid>
               <DataIndicator
                 label="Vault Total"
@@ -99,4 +95,4 @@ export function DaoOverview() {
   );
 }
 
-export default DaoOverview;
+export default Member;

@@ -83,6 +83,7 @@ export const HomeDashboard = ({
           switchSortBy={switchSortBy}
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
+          totalDaos={daoData.length}
         />
         <NoDaosFound />
       </Body>
@@ -102,6 +103,7 @@ export const HomeDashboard = ({
         switchSortBy={switchSortBy}
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
+        totalDaos={daoData.length}
       />
       {isMobile ? (
         <Mobile daoData={daoData} />

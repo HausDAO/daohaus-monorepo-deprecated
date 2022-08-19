@@ -1749,10 +1749,10 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@daohaus/baal-contracts@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@daohaus/baal-contracts/-/baal-contracts-0.3.3.tgz#8aff0381c1714f6f0863c53d9351499d95b3ca96"
-  integrity sha512-ronUZQrp1bUrQcAdaThttIF11OFChj2la8jsbZEwGmDPFpK7tUAGCMvLW7ZFh3SWOZVqdnCboPGMSpSkrhleRA==
+"@daohaus/baal-contracts@^0.3.4":
+  version "0.3.4"
+  resolved "https://registry.yarnpkg.com/@daohaus/baal-contracts/-/baal-contracts-0.3.4.tgz#3df260b982c9deae6acd802331a226bce5d06e8b"
+  integrity sha512-fxy/kNRzde+RCABqVn5KEKtEklfxGJrcRTH3hjmEyOE0Tx/3l++eVk1bmjpUwhHDXiXWA5HT4uM8xd1Z6jEWFg==
   dependencies:
     "@gnosis.pm/zodiac" "^1.0.3"
     hardhat-contract-sizer "^2.4.0"

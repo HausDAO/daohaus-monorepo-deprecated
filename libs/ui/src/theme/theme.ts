@@ -144,7 +144,7 @@ export const defaultDarkTheme: Theme = {
   // *** MOLECULES *** //
   dropdown: DropdownDark,
   tooltip: {
-    bg: secondaryDark.elementBg,
+    bg: secondaryDark.tooltipBg,
   },
   toast: {
     bg: secondaryDark.elementBg,

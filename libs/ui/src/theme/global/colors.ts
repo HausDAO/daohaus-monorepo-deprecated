@@ -84,6 +84,7 @@ export const secondaryDark = {
   bgSolidHover: indigoDark.indigo10,
   textLowContrast: indigoDark.indigo11,
   textHighContrast: indigoDark.indigo12,
+  tooltipBg: indigoDark.indigo6,
 };
 
 // * Neutral Colors

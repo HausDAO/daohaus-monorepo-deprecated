@@ -1,12 +1,13 @@
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import {
   CONTRACTS,
+  handleErrorMessage,
   isEthAddress,
   isValidNetwork,
   ReactSetter,
 } from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { createContract } from '@daohaus/tx-builder-feature';
+import { createContract, useTxBuilder } from '@daohaus/tx-builder-feature';
 import {
   border,
   Buildable,
@@ -17,13 +18,15 @@ import {
   ParXs,
   SuccessMessage,
   Theme,
+  useToast,
   WrappedInput,
 } from '@daohaus/ui';
-import { orange, orangeDark } from '@radix-ui/colors';
+import { orangeDark } from '@radix-ui/colors';
 
 import { useEffect, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 import styled from 'styled-components';
+import { TX } from '../../legos/tx';
 
 type TributeInputProps = Omit<InputSelectProps, 'options'>;
 
@@ -205,7 +208,52 @@ const WarningButton = styled(Button)`
   }
 `;
 
+enum TxStates {
+  Idle = 'Idle',
+  Loading = 'Loading',
+  Error = 'Error',
+  Success = 'Token Approved!',
+}
+
 const TemporaryWarning = ({ tokenName }: { tokenName: string | undefined }) => {
+  const { fireTransaction } = useTxBuilder();
+  const [txState, setTxState] = useState(TxStates.Idle);
+  const { errorToast, successToast } = useToast();
+
+  const handleApprove = async () => {
+    setTxState(TxStates.Loading);
+
+    await fireTransaction({
+      tx: TX.APPROVE_TOKEN,
+      lifeCycleFns: {
+        onTxError(error) {
+          const errMsg = handleErrorMessage({
+            error,
+            fallback: 'Could not decode error message',
+          });
+          setTxState(TxStates.Error);
+          errorToast({ title: TxStates.Error, description: errMsg });
+        },
+        onPollSuccess() {
+          setTxState(TxStates.Success);
+          successToast({
+            title: TxStates.Success,
+            description: 'Approval sent',
+          });
+        },
+        onPollError(error) {
+          const errMsg = handleErrorMessage({
+            error,
+            fallback: 'Could not decode error message',
+          });
+          setTxState(TxStates.Error);
+          errorToast({ title: TxStates.Error, description: errMsg });
+        },
+      },
+    });
+    setTxState(TxStates.Idle);
+  };
+
   return (
     <TempWarningBox>
       <ParXs>You must approve {tokenName || 'Token'} to submit</ParXs>

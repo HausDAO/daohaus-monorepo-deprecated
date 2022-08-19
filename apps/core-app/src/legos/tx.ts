@@ -1,9 +1,9 @@
-import { POSTER_TAGS } from '@daohaus/common-utilities';
+import { CONTRACTS, POSTER_TAGS, TXLego } from '@daohaus/common-utilities';
 import { buildMultiCallTX } from '@daohaus/tx-builder-feature';
-
+import { MaxUint256 } from '@ethersproject/constants';
 import { CONTRACT } from './contracts';
 
-export const TX = {
+export const TX: Record<string, TXLego> = {
   POST_SIGNAL: buildMultiCallTX({
     id: 'POST_SIGNAL',
     actions: [
@@ -25,4 +25,13 @@ export const TX = {
       },
     ],
   }),
+  APPROVE_TOKEN: {
+    id: 'APPROVE_TOKEN',
+    contract: CONTRACT.ERC_20,
+    method: 'approve',
+    args: [
+      { type: 'singleton', keychain: CONTRACTS.TRIBUTE_MINION },
+      { type: 'static', value: MaxUint256 },
+    ],
+  },
 };

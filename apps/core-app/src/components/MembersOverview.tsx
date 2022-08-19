@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import { Card, Theme, DataIndicator, widthQuery } from '@daohaus/ui';
 
-import { TDao, TMembers } from '../contexts/DaoContext';
-import { daysToWeeks } from 'date-fns';
+import { TDao } from '../contexts/DaoContext';
 import { formatValueTo, fromWei } from '@daohaus/common-utilities';
 
 const MembersOverviewCard = styled(Card)`

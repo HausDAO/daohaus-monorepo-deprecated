@@ -16,6 +16,7 @@ import {
   InputSelectProps,
   ParMd,
   ParXs,
+  Spinner,
   SuccessMessage,
   Theme,
   useToast,
@@ -120,7 +121,7 @@ const fetchUserERC20 = async ({
 export const TributeInput = (
   props: Buildable<TributeInputProps> & { addressId?: string; amtId?: string }
 ) => {
-  const { id, addressId = 'tokenAddress', amtId = 'tokenAmount' } = props;
+  const { addressId = 'tokenAddress', amtId = 'tokenAmount' } = props;
 
   const { control } = useFormContext();
   const { address, chainId } = useHausConnect();
@@ -175,7 +176,13 @@ export const TributeInput = (
           success={tokenName}
           error={tokenError}
         />
-        {needsApproval && <TemporaryWarning tokenName={tokenData?.tokenName} />}
+        {needsApproval && tokenData && (
+          <TemporaryWarning
+            setNeedsApproval={setNeedsApproval}
+            tokenName={tokenData?.tokenName}
+            tokenAddress={tokenAddress}
+          />
+        )}
       </FieldSpacer>
       <FieldSpacer>
         <WrappedInput full label="Token Amount" id={amtId} />
@@ -215,7 +222,15 @@ enum TxStates {
   Success = 'Token Approved!',
 }
 
-const TemporaryWarning = ({ tokenName }: { tokenName: string | undefined }) => {
+const TemporaryWarning = ({
+  tokenName,
+  tokenAddress,
+  setNeedsApproval,
+}: {
+  tokenName?: string;
+  tokenAddress?: string;
+  setNeedsApproval: ReactSetter<boolean>;
+}) => {
   const { fireTransaction } = useTxBuilder();
   const [txState, setTxState] = useState(TxStates.Idle);
   const { errorToast, successToast } = useToast();
@@ -225,40 +240,34 @@ const TemporaryWarning = ({ tokenName }: { tokenName: string | undefined }) => {
 
     await fireTransaction({
       tx: TX.APPROVE_TOKEN,
+      callerState: {
+        tokenAddress,
+      },
       lifeCycleFns: {
         onTxError(error) {
-          const errMsg = handleErrorMessage({
-            error,
-            fallback: 'Could not decode error message',
-          });
+          const errMsg = handleErrorMessage({ error });
           setTxState(TxStates.Error);
           errorToast({ title: TxStates.Error, description: errMsg });
+          setTxState(TxStates.Idle);
         },
-        onPollSuccess() {
+        onTxSuccess() {
+          setNeedsApproval(false);
           setTxState(TxStates.Success);
           successToast({
             title: TxStates.Success,
-            description: 'Approval sent',
+            description: `DAOhaus is approved to spend ${tokenName} on your behalf.`,
           });
-        },
-        onPollError(error) {
-          const errMsg = handleErrorMessage({
-            error,
-            fallback: 'Could not decode error message',
-          });
-          setTxState(TxStates.Error);
-          errorToast({ title: TxStates.Error, description: errMsg });
+          setTxState(TxStates.Idle);
         },
       },
     });
-    setTxState(TxStates.Idle);
   };
 
   return (
     <TempWarningBox>
       <ParXs>You must approve {tokenName || 'Token'} to submit</ParXs>
-      <WarningButton sm type="button">
-        Approve
+      <WarningButton sm type="button" onClick={handleApprove}>
+        {txState === TxStates.Loading ? 'Loading...' : 'Approve'}
       </WarningButton>
     </TempWarningBox>
   );

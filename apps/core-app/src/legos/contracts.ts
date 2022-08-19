@@ -14,6 +14,6 @@ export const CONTRACT: Record<string, ContractLego> = {
     type: 'static',
     contractName: 'ERC20',
     abi: LOCAL_ABI.ERC20,
-    targetAddress: '.formValues.tokenAddress',
+    targetAddress: '.tokenAddress',
   },
 };

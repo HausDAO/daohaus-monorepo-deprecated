@@ -34,4 +34,28 @@ export const TX: Record<string, TXLego> = {
       { type: 'static', value: MaxUint256 },
     ],
   },
+  ISSUE: buildMultiCallTX({
+    id: 'ISSUE',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        proposalType: { type: 'static', value: 'Issue Tokens Proposal' },
+      },
+    },
+    actions: [
+      {
+        contract: CONTRACT.CURRENT_DAO,
+        method: 'mintShares',
+        args: ['.formValues.recipient', '.formValues.sharesRequested'],
+      },
+      {
+        contract: CONTRACT.CURRENT_DAO,
+        method: 'mintLoot',
+        args: ['.formValues.recipient', '.formValues.lootRequested'],
+      },
+    ],
+  }),
 };

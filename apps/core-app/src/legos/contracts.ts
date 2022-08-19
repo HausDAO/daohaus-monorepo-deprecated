@@ -16,4 +16,10 @@ export const CONTRACT: Record<string, ContractLego> = {
     abi: LOCAL_ABI.ERC20,
     targetAddress: '.tokenAddress',
   },
+  CURRENT_DAO: {
+    type: 'static',
+    contractName: 'Current DAO (Baal)',
+    abi: LOCAL_ABI.BAAL,
+    targetAddress: '.daoId',
+  },
 };

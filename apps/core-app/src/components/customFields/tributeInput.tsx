@@ -14,9 +14,7 @@ import {
   Button,
   ErrorMessage,
   InputSelectProps,
-  ParMd,
   ParXs,
-  Spinner,
   SuccessMessage,
   Theme,
   useToast,
@@ -185,7 +183,12 @@ export const TributeInput = (
         )}
       </FieldSpacer>
       <FieldSpacer>
-        <WrappedInput full label="Token Amount" id={amtId} />
+        <WrappedInput
+          full
+          label="Token Amount"
+          id={amtId}
+          disabled={needsApproval}
+        />
       </FieldSpacer>
     </>
   );
@@ -248,7 +251,6 @@ const TemporaryWarning = ({
           const errMsg = handleErrorMessage({ error });
           setTxState(TxStates.Error);
           errorToast({ title: TxStates.Error, description: errMsg });
-          setTxState(TxStates.Idle);
         },
         onTxSuccess() {
           setNeedsApproval(false);
@@ -257,7 +259,6 @@ const TemporaryWarning = ({
             title: TxStates.Success,
             description: `DAOhaus is approved to spend ${tokenName} on your behalf.`,
           });
-          setTxState(TxStates.Idle);
         },
       },
     });

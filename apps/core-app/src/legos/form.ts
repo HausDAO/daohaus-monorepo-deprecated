@@ -20,4 +20,35 @@ export const FORM: Record<string, CustomFormLego> = {
     tx: TX.POST_SIGNAL,
     fields: [FIELD.TITLE, FIELD.DESCRIPTION, FIELD.LINK, FIELD.TRIBUTE],
   },
+  ISSUE: {
+    id: 'ISSUE',
+    title: 'Issue DAO Tokens',
+    subtitle: 'Token Proposal',
+    description:
+      'Request membership or increased stake in the DAO. Any tribute must be available in your wallet when proposal is executed.',
+    log: true,
+    devtool: true,
+    tx: TX.ISSUE,
+    requiredFields: {
+      title: true,
+      description: true,
+      sharesRequested: true,
+      lootRequested: true,
+      recipient: true,
+    },
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      {
+        id: 'recipient',
+        type: 'nestedArray',
+        label: 'Recipient',
+        // expectType: 'ethAddress',
+        placeholder: '0x...',
+      },
+      { ...FIELD.TO_WEI, label: 'Shares Requested', id: 'sharesRequested' },
+      { ...FIELD.TO_WEI, label: 'Loot Requested', id: 'lootRequested' },
+    ],
+  },
 };

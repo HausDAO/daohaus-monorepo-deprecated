@@ -7,6 +7,8 @@ export function Dao() {
   const { daochain, daoid } = useParams();
   const { provider } = useHausConnect();
   const { dao } = useDao();
+
+  console.log('dao.safeAddress', dao?.safeAddress);
   return (
     <TXBuilder
       chainId={daochain}

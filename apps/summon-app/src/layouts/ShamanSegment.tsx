@@ -26,14 +26,14 @@ export const ShamanSegment = ({ formDisabled }: { formDisabled: boolean }) => {
       return;
     }
     if (!errors?.[FORM_KEYS.SHAMANS] && touchedFields[FORM_KEYS.SHAMANS]) {
-      setHelperText('Seems like a valid response');
+      setHelperText('Formatting is valid.');
     }
   }, [shamans, errors, touchedFields]);
 
   return (
     <FormSegment
       title="Starting Shamans"
-      description="Shamans are very powerful as they can have administrative control over voting and non-voting stakes. Be very careful adding Shamans. "
+      description="Shamans are powerful and have control over key components of the DAO. Use caution in the spirit world."
       formArea={
         <TextAreaSection>
           <Link

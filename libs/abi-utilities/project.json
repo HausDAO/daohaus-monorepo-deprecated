@@ -1,0 +1,50 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/abi-utilities/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/abi-utilities",
+        "main": "libs/abi-utilities/src/index.ts",
+        "tsConfig": "libs/abi-utilities/tsconfig.lib.json",
+        "assets": ["libs/abi-utilities/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/abi-utilities/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/abi-utilities"],
+      "options": {
+        "jestConfig": "libs/abi-utilities/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional",
+        "tagPrefix": "${projectName}@",
+        "noVerify": true,
+        "baseBranch": "master",
+        "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
+      }
+    },
+    "deploy": {
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "access": "public",
+        "noBuild": true
+      }
+    }
+  },
+  "tags": []
+}

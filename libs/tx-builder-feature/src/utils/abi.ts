@@ -1,10 +1,7 @@
 import { ethers } from 'ethers';
 import { ABI, isJSON, Keychain, ValidNetwork } from '@daohaus/common-utilities';
 import { cacheABI, getCachedABI } from './cache';
-import {
-  GNOSIS_PROXY_ABI,
-  SUPERFLUID_PROXY_ABI,
-} from '@daohaus/contract-utilities';
+import { LOCAL_ABI } from '@daohaus/abi-utilities';
 
 const isGnosisProxy = (abi: ABI) => {
   return (
@@ -55,7 +52,7 @@ const getABIUrl = ({
 const getGnosisMasterCopy = async (address: string, chainId: ValidNetwork) => {
   const gnosisProxyContract = createContract({
     address,
-    abi: GNOSIS_PROXY_ABI,
+    abi: LOCAL_ABI.GNOSIS_PROXY,
     chainId,
   });
   const masterCopy = await gnosisProxyContract?.['masterCopy']?.();
@@ -147,7 +144,7 @@ export const processABI = async ({
   } else if (isSuperfluidProxy(abi)) {
     const proxyEthersContract = createContract({
       address: contractAddress,
-      abi: SUPERFLUID_PROXY_ABI,
+      abi: LOCAL_ABI.SUPERFLUID_PROXY,
       chainId,
     });
     const sfProxyAddr = await proxyEthersContract?.['getCodeAddress']?.();

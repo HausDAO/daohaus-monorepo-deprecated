@@ -6,43 +6,47 @@
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
+      "dependsOn": ["^build"],
       "options": {
         "outputPath": "dist/libs/contract-utilities",
         "main": "libs/contract-utilities/src/index.ts",
         "tsConfig": "libs/contract-utilities/tsconfig.lib.json",
-        "assets": [
-          "libs/contract-utilities/*.md"
-        ]
+        "updateBuildableProjectDepsInPackageJson": true,
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "assets": ["libs/contract-utilities/*.md"]
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
-      "outputs": [
-        "{options.outputFile}"
-      ],
+      "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": [
-          "libs/contract-utilities/**/*.{ts,tsx,js,jsx}"
-        ]
+        "lintFilePatterns": ["libs/contract-utilities/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": [
-        "coverage/libs/contract-utilities"
-      ],
+      "outputs": ["coverage/libs/contract-utilities"],
       "options": {
         "jestConfig": "libs/contract-utilities/jest.config.ts",
         "passWithNoTests": true
       }
     },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional",
+        "tagPrefix": "${projectName}@",
+        "noVerify": true,
+        "baseBranch": "master",
+        "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
+      }
+    },
     "deploy": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {
-        "access": "public"
+        "access": "public",
+        "noBuild": true
       }
     }
   }

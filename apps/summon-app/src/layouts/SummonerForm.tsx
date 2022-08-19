@@ -158,7 +158,7 @@ export const SummonerForm = ({
         <div>
           <WrappedInput
             id={FORM_KEYS.DAO_NAME}
-            placeholder="Braid Guild"
+            placeholder="DAO Name"
             full
             disabled={formDisabled}
             rules={{ required: 'DAO name is required' }}
@@ -171,7 +171,13 @@ export const SummonerForm = ({
         <ShamanSegment formDisabled={formDisabled} />
         <MembersSegment formDisabled={formDisabled} />
         {!isConnected && <ConnectBox />}
-        <Button fullWidth lg type="submit" disabled={submitDisabled}>
+        <Button
+          fullWidth
+          centerAlign
+          lg
+          type="submit"
+          disabled={submitDisabled}
+        >
           Summon DAO
         </Button>
       </form>

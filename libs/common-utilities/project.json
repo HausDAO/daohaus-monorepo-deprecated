@@ -11,7 +11,9 @@
         "main": "libs/common-utilities/src/index.ts",
         "tsConfig": "libs/common-utilities/tsconfig.lib.json",
         "assets": ["libs/common-utilities/*.md"],
-        "generatePackageJson": true
+        "generatePackageJson": true,
+        "updateBuildableProjectDepsInPackageJson": true,
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "lint": {
@@ -35,7 +37,7 @@
         "preset": "conventional",
         "tagPrefix": "${projectName}@",
         "noVerify": true,
-        "baseBranch": "develop",
+        "baseBranch": "master",
         "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
       }
     },
@@ -43,6 +45,17 @@
       "executor": "ngx-deploy-npm:deploy",
       "options": {
         "access": "public"
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/common-utilities",
+        "tsConfig": "./libs/common-utilities/tsconfig.lib.json",
+        "main": "./libs/common-utilities/src/index.ts",
+
+        "watch": true
       }
     }
   },

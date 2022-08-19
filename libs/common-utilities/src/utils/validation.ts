@@ -12,6 +12,7 @@ export const ValErrMsgs = {
   ethAddress: 'Field must be an Ethereum address',
   url: 'Field must be a valid URL',
   email: 'Field must be a valid email',
+  percent: 'Field must be a valid percentage',
 };
 export const ValidateField = {
   number: (val: unknown) => (isNumberish(val) ? true : ValErrMsgs.number),
@@ -28,4 +29,8 @@ export const ValidateField = {
       : ValErrMsgs.url,
   email: (val: unknown) =>
     isString(val) && /^[^@]+@[^@]+\.[^@]+$/.test(val) ? true : ValErrMsgs.email,
+  percent: (val: unknown, range: [number, number] = [0, 100]) =>
+    isNumberish(val) && Number(val) >= range[0] && Number(val) <= range[1]
+      ? true
+      : ValErrMsgs.percent,
 };

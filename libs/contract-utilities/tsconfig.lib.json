@@ -5,7 +5,8 @@
     "types": ["node"],
     "declaration": true,
     "composite": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "declaration": true
   },
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
   "include": ["**/*.ts", "**/*.spec.ts", "**/*.json"]

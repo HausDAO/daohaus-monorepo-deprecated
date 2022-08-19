@@ -1,10 +1,10 @@
-import { BAAL_SUMMONER_ABI } from '@daohaus/contract-utilities';
+import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import { ContractLego, CONTRACTS } from '@daohaus/common-utilities';
 
 const BaalSummonerContract: ContractLego = {
   contractName: 'BaalSummoner',
   type: 'static',
-  abi: BAAL_SUMMONER_ABI,
+  abi: LOCAL_ABI.BAAL_SUMMONER,
   targetAddress: CONTRACTS.V3_FACTORY,
 };
 

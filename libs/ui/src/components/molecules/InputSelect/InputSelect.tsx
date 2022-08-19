@@ -24,6 +24,7 @@ export const InputSelect = ({
 }) => {
   const classes = classNames({ long, full });
   const selectClasses = classNames({ 'match-long': long, 'match-full': full });
+
   return (
     <InputSelectBox className={classes}>
       <Input

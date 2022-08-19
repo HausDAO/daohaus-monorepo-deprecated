@@ -80,7 +80,9 @@ export const DaoCard = ({
             <Bold>
               {readableNumbers.toNumber({ value: activeMemberCount })}
             </Bold>{' '}
-            Members
+            {readableNumbers.toNumber({ value: activeMemberCount }) === '1'
+              ? 'Member'
+              : 'Members'}
           </ParMd>
         )}
         {fiatTotal != null && (
@@ -99,7 +101,9 @@ export const DaoCard = ({
             <Bold>
               {readableNumbers.toNumber({ value: totalProposalCount })}
             </Bold>{' '}
-            Proposals
+            {readableNumbers.toNumber({ value: totalProposalCount }) === '1'
+              ? 'Proposal'
+              : 'Proposals'}
           </ParMd>
         )}
         {votingPower > 0 ? (

@@ -1,5 +1,10 @@
 [
     {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
         "inputs": [
             {
                 "internalType": "address",
@@ -624,25 +629,6 @@
         "type": "function"
     },
     {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "account",
-                "type": "address"
-            }
-        ],
-        "name": "getCurrentVotes",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "votes",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
         "inputs": [],
         "name": "getGuard",
         "outputs": [
@@ -650,30 +636,6 @@
                 "internalType": "address",
                 "name": "_guard",
                 "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "account",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "timeStamp",
-                "type": "uint256"
-            }
-        ],
-        "name": "getPriorVotes",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "votes",
-                "type": "uint256"
             }
         ],
         "stateMutability": "view",
@@ -960,19 +922,13 @@
         "type": "function"
     },
     {
-        "inputs": [
+        "inputs": [],
+        "name": "multisendLibrary",
+        "outputs": [
             {
                 "internalType": "address",
                 "name": "",
                 "type": "address"
-            }
-        ],
-        "name": "nonces",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
             }
         ],
         "stateMutability": "view",
@@ -1354,6 +1310,19 @@
         "type": "function"
     },
     {
+        "inputs": [],
+        "name": "status",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "internalType": "bytes",
@@ -1408,6 +1377,11 @@
     {
         "inputs": [
             {
+                "internalType": "address",
+                "name": "voter",
+                "type": "address"
+            },
+            {
                 "internalType": "uint32",
                 "name": "id",
                 "type": "uint32"
@@ -1418,9 +1392,19 @@
                 "type": "bool"
             },
             {
-                "internalType": "bytes",
-                "name": "signature",
-                "type": "bytes"
+                "internalType": "uint8",
+                "name": "v",
+                "type": "uint8"
+            },
+            {
+                "internalType": "bytes32",
+                "name": "r",
+                "type": "bytes32"
+            },
+            {
+                "internalType": "bytes32",
+                "name": "s",
+                "type": "bytes32"
             }
         ],
         "name": "submitVoteWithSig",

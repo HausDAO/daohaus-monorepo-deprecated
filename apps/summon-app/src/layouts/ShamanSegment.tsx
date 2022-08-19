@@ -26,7 +26,7 @@ export const ShamanSegment = ({ formDisabled }: { formDisabled: boolean }) => {
       return;
     }
     if (!errors?.[FORM_KEYS.SHAMANS] && touchedFields[FORM_KEYS.SHAMANS]) {
-      setHelperText('Seems like a valid response');
+      setHelperText('Formatting is valid.');
     }
   }, [shamans, errors, touchedFields]);
 

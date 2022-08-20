@@ -107,7 +107,11 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
           );
         },
         Header: () => {
-          return <FirstHeader>3 Daos</FirstHeader>;
+          return (
+            <FirstHeader>
+              {daoData?.length} {daoData.length === 1 ? 'DAO' : 'DAOs'}
+            </FirstHeader>
+          );
         },
       },
       {

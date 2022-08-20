@@ -26,7 +26,7 @@ export const MembersSegment = ({ formDisabled }: { formDisabled: boolean }) => {
       return;
     }
     if (!errors?.[FORM_KEYS.MEMBERS] && touchedFields[FORM_KEYS.MEMBERS]) {
-      setHelperText('Seems like a valid response');
+      setHelperText('Formatting is valid.');
     }
   }, [members, errors, touchedFields]);
 

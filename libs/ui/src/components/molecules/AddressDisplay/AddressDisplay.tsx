@@ -13,7 +13,7 @@ import {
   AddressDataMd,
 } from './AddressDisplay.styles';
 import { Icon, Link } from '../../atoms';
-import { useCopyToClipboard, useToast } from '../../../hooks';
+import { useCopyToClipboard } from '../../../hooks';
 import { useMemo } from 'react';
 
 type AddressDisplayProps = {
@@ -33,7 +33,7 @@ export const AddressDisplay = ({
   ...props
 }: AddressDisplayProps) => {
   const theme = useTheme() as Theme;
-  const [value, copyToClipboard] = useCopyToClipboard();
+  const copyToClipboard = useCopyToClipboard();
 
   const explorerLink = useMemo(() => {
     if (explorerNetworkId) {

@@ -3,13 +3,7 @@ import { CustomFields } from '../legos/config';
 import { FORM } from '../legos/form';
 
 export function FormTest() {
-  return (
-    <FormBuilder
-      form={FORM.ISSUE}
-      customFields={CustomFields}
-      defaultValues={{ lootRequested: '0', sharesRequested: '0' }}
-    />
-  );
+  return <FormBuilder form={FORM.SIGNAL} customFields={CustomFields} />;
 }
 
 export default FormTest;

@@ -6,6 +6,7 @@ import {
   isValidNetwork,
   ReactSetter,
   toBaseUnits,
+  toWholeUnits,
 } from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { createContract, useTxBuilder } from '@daohaus/tx-builder-feature';
@@ -122,9 +123,9 @@ export const TributeInput = (
 ) => {
   const { addressId = 'tokenAddress', amtId = 'tokenAmount' } = props;
 
-  const { control } = useFormContext();
+  const { control, setValue } = useFormContext();
   const { address, chainId } = useHausConnect();
-  const [tokenAddress] = useWatch({
+  const tokenAddress = useWatch({
     name: addressId,
     control,
   });
@@ -167,13 +168,28 @@ export const TributeInput = (
   const tokenAmtRules: RegisterOptions = {
     ...props.rules,
     required: true,
-    setValueAs: (val) => toBaseUnits(val),
+    setValueAs: (val) => {
+      if (val === '') return '';
+      return toBaseUnits(val);
+    },
   };
 
   const tokenAddressRules: RegisterOptions = {
     ...props.rules,
     required: true,
   };
+
+  const handleMax = () => {
+    if (tokenData) {
+      setValue(amtId, toWholeUnits(tokenData.balance, tokenData?.decimals));
+    }
+  };
+
+  const maxButton = tokenData?.balance && tokenData?.decimals && (
+    <Button sm secondary onClick={handleMax} type="button">
+      Max: {toWholeUnits(tokenData?.balance, tokenData?.decimals)}
+    </Button>
+  );
 
   return (
     <>
@@ -202,6 +218,7 @@ export const TributeInput = (
           id={amtId}
           disabled={needsApproval}
           rules={tokenAmtRules}
+          rightAddon={maxButton}
         />
       </FieldSpacer>
     </>

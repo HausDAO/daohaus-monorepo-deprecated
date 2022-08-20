@@ -17,6 +17,7 @@ export const FORM: Record<string, CustomFormLego> = {
     subtitle: 'Signal Proposal',
     description: 'Ratify test on chain using a DAO proposal',
     requiredFields: { title: true, description: true },
+    log: true,
     tx: TX.POST_SIGNAL,
     fields: [FIELD.TITLE, FIELD.DESCRIPTION, FIELD.LINK, FIELD.TRIBUTE],
   },

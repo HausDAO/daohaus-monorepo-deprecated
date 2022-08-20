@@ -140,4 +140,34 @@ export namespace parser {
 
     return true;
   }
+
+  export function createDaoSignal(daoAddress: string, event: NewPost): boolean {
+    if (daoAddress === null) {
+      return false;
+    }
+
+    let dao = Dao.load(daoAddress);
+    if (!dao) {
+      return false;
+    }
+
+    let entityId = daoAddress
+      .concat('-record-')
+      .concat(event.block.timestamp.toString())
+      .concat(event.logIndex.toString());
+
+    let entity = new Record(entityId);
+
+    entity.createdAt = event.block.timestamp.toString();
+    entity.createdBy = event.params.user;
+    entity.dao = daoAddress;
+    entity.tag = event.params.tag;
+    entity.table = 'signal';
+    entity.contentType = 'json';
+    entity.content = event.params.content;
+
+    entity.save();
+
+    return true;
+  }
 }

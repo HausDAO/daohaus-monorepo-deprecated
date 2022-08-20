@@ -13,7 +13,7 @@ export const WrappedInputSelect = ({
   const { register } = useFormContext();
 
   return (
-    <FieldWrapper {...props} id={id}>
+    <FieldWrapper {...props} id={id} rules={rules}>
       <InputSelect
         {...props}
         registerInput={register(id, rules)}

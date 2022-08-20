@@ -5,6 +5,7 @@ import {
   isEthAddress,
   isValidNetwork,
   ReactSetter,
+  toBaseUnits,
 } from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { createContract, useTxBuilder } from '@daohaus/tx-builder-feature';
@@ -23,7 +24,7 @@ import {
 import { orangeDark } from '@radix-ui/colors';
 
 import { useEffect, useState } from 'react';
-import { useFormContext, useWatch } from 'react-hook-form';
+import { RegisterOptions, useFormContext, useWatch } from 'react-hook-form';
 import styled from 'styled-components';
 import { TX } from '../../legos/tx';
 
@@ -123,8 +124,8 @@ export const TributeInput = (
 
   const { control } = useFormContext();
   const { address, chainId } = useHausConnect();
-  const [tokenAddress, tokenAmt] = useWatch({
-    name: [addressId, amtId],
+  const [tokenAddress] = useWatch({
+    name: addressId,
     control,
   });
   const [fetchState, setFetchState] = useState(TokenFetchStates.Idle);
@@ -163,6 +164,17 @@ export const TributeInput = (
         } as ErrorMessage)
       : undefined;
 
+  const tokenAmtRules: RegisterOptions = {
+    ...props.rules,
+    required: true,
+    setValueAs: (val) => toBaseUnits(val),
+  };
+
+  const tokenAddressRules: RegisterOptions = {
+    ...props.rules,
+    required: true,
+  };
+
   return (
     <>
       <FieldSpacer>
@@ -173,6 +185,7 @@ export const TributeInput = (
           helperText={fetchState}
           success={tokenName}
           error={tokenError}
+          rules={tokenAddressRules}
         />
         {needsApproval && tokenData && (
           <TemporaryWarning
@@ -188,6 +201,7 @@ export const TributeInput = (
           label="Token Amount"
           id={amtId}
           disabled={needsApproval}
+          rules={tokenAmtRules}
         />
       </FieldSpacer>
     </>

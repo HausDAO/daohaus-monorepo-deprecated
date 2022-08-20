@@ -19,7 +19,7 @@ export const FORM: Record<string, CustomFormLego> = {
     requiredFields: { title: true, description: true },
     log: true,
     tx: TX.POST_SIGNAL,
-    fields: [FIELD.TITLE, FIELD.DESCRIPTION, FIELD.LINK, FIELD.TRIBUTE],
+    fields: [FIELD.TITLE, FIELD.DESCRIPTION, FIELD.LINK],
   },
   ISSUE: {
     id: 'ISSUE',
@@ -45,7 +45,6 @@ export const FORM: Record<string, CustomFormLego> = {
         id: 'recipient',
         type: 'nestedArray',
         label: 'Recipient',
-        // expectType: 'ethAddress',
         placeholder: '0x...',
       },
       { ...FIELD.TO_WEI, label: 'Shares Requested', id: 'sharesRequested' },

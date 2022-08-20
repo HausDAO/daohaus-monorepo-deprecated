@@ -24,7 +24,11 @@ export const FIELD: Record<string, CustomFieldLego> = {
     id: 'tribute',
     type: 'tributeInput',
     label: 'Tribute',
-    selectId: 'TRIBUTE_SELECT',
+  },
+  PAYMENT: {
+    id: 'payment',
+    type: 'paymentInput',
+    label: 'Payment Requested',
   },
   TO_WEI: {
     id: 'shouldOverwrite',

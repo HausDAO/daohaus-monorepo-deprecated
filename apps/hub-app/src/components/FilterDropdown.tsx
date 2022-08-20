@@ -11,7 +11,7 @@ import {
   Theme,
 } from '@daohaus/ui';
 import { ParSm } from '@daohaus/ui';
-import { networkData } from '@daohaus/common-utilities';
+import { NETWORK_DATA } from '@daohaus/common-utilities';
 import { indigoDark } from '@radix-ui/colors';
 import { FILTER_TYPE } from '../utils/constants';
 
@@ -46,7 +46,7 @@ const FilterDropdown = ({
 }: FilterDropdownProps) => {
   const theme = useTheme();
 
-  const networkButtons = Object.values(networkData).map((network) => {
+  const networkButtons = Object.values(NETWORK_DATA).map((network) => {
     const isActive = filterNetworks[network.chainId];
     return (
       <DropdownMenuItem key={network.chainId} asChild>

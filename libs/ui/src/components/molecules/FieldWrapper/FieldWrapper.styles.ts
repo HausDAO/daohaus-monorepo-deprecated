@@ -32,8 +32,6 @@ export const LabelContainer = styled.label`
 
 export const BottomContainer = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin-bottom: 12px;
   width: 100%;
   max-width: ${field.size.md};
@@ -45,8 +43,13 @@ export const BottomContainer = styled.div`
   }
 `;
 
+export const LeftAddonContainer = styled.div`
+  min-width: 60%;
+`;
+
 export const RightAddonContainer = styled.div`
   padding-left: 1em;
+  min-width: 40%;
 `;
 
 export const RequiredAsterisk = styled.span`

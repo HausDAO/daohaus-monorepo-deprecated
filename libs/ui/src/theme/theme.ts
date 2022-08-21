@@ -313,6 +313,16 @@ export const defaultLightTheme: Theme = {
     },
   },
   // *** MOLECULES *** //
+  collapsibleCard: {
+    bg: secondary.bgSubtle,
+    bgInnerCard: secondary.elementBgActive,
+    border: secondary.bgSubtle,
+    borderInnerCard: secondary.elementBorderSubtle,
+    hoverBg: secondary.elementBg,
+    hoverBorder: secondary.elementBorderSubtle,
+    focusBg: secondary.bgSubtle,
+    focusBorder: secondary.elementBorder,
+  },
   dropdown: DropdownLight,
   dialog: {
     bg: secondary.bgSubtle,

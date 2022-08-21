@@ -2,16 +2,22 @@ import {
   isValidNetwork,
   NETWORK_DATA,
   ReactSetter,
+  toWholeUnits,
   ValidNetwork,
 } from '@daohaus/common-utilities';
 import { DaoWithTokenData, TokenBalance } from '@daohaus/dao-data';
 import { FieldSpacer } from '@daohaus/haus-form-builder';
-import { Buildable, WrappedInput, WrappedInputSelect } from '@daohaus/ui';
+import {
+  Buildable,
+  Button,
+  WrappedInput,
+  WrappedInputSelect,
+} from '@daohaus/ui';
 import { useMemo, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useDao } from '../../contexts/DaoContext';
 
-const IS_NETWORK_TOKEN = 'isNetworkToken';
 const EMPTY_BALANCE = { networkToken: null, erc20s: null };
 
 enum InputStates {
@@ -79,13 +85,28 @@ export const processDaoTokenData = (
   return { networkToken, erc20s };
 };
 
+const getTokenBalance = (
+  erc20s: ERC20Data[] | null,
+  paymentTokenAddr: string
+) => {
+  if (!Array.isArray(erc20s) || !paymentTokenAddr) {
+    return '';
+  }
+  const token = erc20s.find(({ address }) => address === paymentTokenAddr);
+
+  return toWholeUnits(token?.daoBalance || '0', token?.decimals);
+};
+
 export const PaymentInput = (
   props: Buildable<{ amtId?: string; addressId?: string }>
 ) => {
   const { daochain } = useParams();
-  const { amtId = 'paymentAmt', addressId = 'paymentAddress' } = props;
+  const { amtId = 'paymentTokenAmt', addressId = 'paymentTokenAddress' } =
+    props;
   const { dao } = useDao();
+  const { watch } = useFormContext();
 
+  const paymentTokenAddr = watch(addressId);
   const [inputState, setInputState] = useState(InputStates.Loading);
 
   const { networkToken, erc20s } = useMemo(() => {
@@ -97,12 +118,17 @@ export const PaymentInput = (
 
   const selectOptions = useMemo(() => {
     if (erc20s) {
-      return erc20s.map((token) => ({
+      const options = erc20s.map((token) => ({
         name: token.symbol,
         value: token.address,
       }));
+
+      return options;
     }
   }, [erc20s]);
+
+  const tokenBalance = getTokenBalance(erc20s, paymentTokenAddr);
+
   return (
     <>
       <FieldSpacer>
@@ -110,8 +136,15 @@ export const PaymentInput = (
           {...props}
           id={amtId}
           label="Request ERC-20"
+          defaultValue="0"
           selectId={addressId}
+          selectPlaceholder="--"
           options={selectOptions || []}
+          rightAddon={
+            <Button secondary sm>
+              Max: {tokenBalance}
+            </Button>
+          }
         />
       </FieldSpacer>
       <FieldSpacer>
@@ -119,6 +152,7 @@ export const PaymentInput = (
           {...props}
           id={'valueRequested'}
           label={`Request ${networkToken?.name}`}
+          defaultValue="0"
         />
       </FieldSpacer>
     </>

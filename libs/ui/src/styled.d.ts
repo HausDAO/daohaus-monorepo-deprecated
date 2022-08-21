@@ -207,5 +207,9 @@ declare module 'styled-components' {
         error: string;
       };
     };
+    dialog: {
+      bg: string;
+      color: string;
+    };
   }
 }

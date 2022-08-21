@@ -142,7 +142,6 @@ export const defaultDarkTheme: Theme = {
     },
   },
   // *** MOLECULES *** //
-  dropdown: DropdownDark,
   collapsibleCard: {
     bg: secondaryDark.bgSubtle,
     bgInnerCard: secondaryDark.elementBgActive,
@@ -152,6 +151,11 @@ export const defaultDarkTheme: Theme = {
     hoverBorder: secondaryDark.elementBorderSubtle,
     focusBg: secondaryDark.bgSubtle,
     focusBorder: secondaryDark.elementBorder,
+  },
+  dropdown: DropdownDark,
+  dialog: {
+    bg: secondaryDark.bgSubtle,
+    color: secondaryDark.textHighContrast,
   },
   tooltip: {
     bg: secondaryDark.elementBg,
@@ -310,6 +314,10 @@ export const defaultLightTheme: Theme = {
   },
   // *** MOLECULES *** //
   dropdown: DropdownLight,
+  dialog: {
+    bg: secondary.bgSubtle,
+    color: secondary.textHighContrast,
+  },
   tooltip: {
     bg: secondary.elementBg,
   },

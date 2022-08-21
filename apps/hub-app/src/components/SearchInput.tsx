@@ -27,14 +27,19 @@ const IconSearch = styled(BiSearch)`
 type SearchInputProps = {
   searchTerm: string;
   setSearchTerm: (event: ChangeEvent<HTMLInputElement>) => void;
+  totalDaos: number;
 };
 
-const SearchInput = ({ searchTerm, setSearchTerm }: SearchInputProps) => {
+const SearchInput = ({
+  searchTerm,
+  setSearchTerm,
+  totalDaos,
+}: SearchInputProps) => {
   return (
     <StyledInput
       icon={IconSearch}
       id="table-search"
-      placeholder="Search DAOs"
+      placeholder={`Search ${totalDaos} ${totalDaos === 1 ? 'DAO' : 'DAOs'}`}
       onChange={setSearchTerm}
       defaultValue={searchTerm}
     />

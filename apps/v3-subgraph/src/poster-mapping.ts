@@ -11,6 +11,7 @@ export function handleNewPost(event: NewPost): void {
   let validTags = [
     constants.DAOHAUS_SUMMONER_DAO_PROFILE_TAG,
     constants.DAOHAUS_SHARES_DAO_PROFILE_TAG,
+    constants.DAOHAUS_PROPOSAL_SIGNAL,
   ];
   let validTag = validTags.includes(event.params.tag.toHexString());
   if (!validTag) {
@@ -47,6 +48,12 @@ export function handleNewPost(event: NewPost): void {
     validators.isShareholder(event.params.user, daoId.data)
   ) {
     parser.createDaoProfile(object, daoId.data, event);
+    return;
+  }
+
+  if (event.params.tag.toHexString() == constants.DAOHAUS_PROPOSAL_SIGNAL) {
+    log.info('&&& creating summon record', [event.params.content]);
+    parser.createDaoSignal(daoId.data, event);
     return;
   }
 }

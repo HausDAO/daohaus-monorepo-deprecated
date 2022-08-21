@@ -86,7 +86,11 @@ export type SelectProps = {
 } & PrimitiveElement;
 
 export type InputSelectProps = Field &
-  SelectProps & { selectId: string; selectPlaceholder?: string };
+  SelectProps & {
+    selectId: string;
+    selectPlaceholder?: string;
+    selectDefault?: string;
+  };
 
 export type FileInputProps = Field & {
   multiple?: boolean;

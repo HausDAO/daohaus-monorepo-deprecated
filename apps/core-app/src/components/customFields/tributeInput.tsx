@@ -9,13 +9,13 @@ import {
   toWholeUnits,
 } from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+import { FieldSpacer } from '@daohaus/haus-form-builder';
 import { createContract, useTxBuilder } from '@daohaus/tx-builder-feature';
 import {
   border,
   Buildable,
   Button,
   ErrorMessage,
-  InputSelectProps,
   ParXs,
   SuccessMessage,
   Theme,
@@ -28,10 +28,6 @@ import { useEffect, useState } from 'react';
 import { RegisterOptions, useFormContext, useWatch } from 'react-hook-form';
 import styled from 'styled-components';
 import { TX } from '../../legos/tx';
-
-const FieldSpacer = styled.div`
-  margin-bottom: 3.6rem;
-`;
 
 type TokenData = {
   allowance: string;

@@ -28,6 +28,7 @@ export type PrimitiveElement = {
   success?: SuccessMessage;
   className?: string;
   disabled?: boolean;
+  hidden?: boolean;
 };
 
 export type PrimitiveSizable = {

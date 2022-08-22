@@ -44,6 +44,7 @@ export const FieldWrapper = ({
   success,
   warning,
   helperText,
+  hidden,
   long,
   full,
   address,
@@ -51,7 +52,7 @@ export const FieldWrapper = ({
   rules,
   rightAddon,
 }: Buildable<{ children: ReactNode }>) => {
-  const classes = classNames({ long: long || address, full });
+  const classes = classNames({ long: long || address, full, hidden });
   const { getFieldState } = useFormContext();
 
   const fieldError = getFieldState(id).error;

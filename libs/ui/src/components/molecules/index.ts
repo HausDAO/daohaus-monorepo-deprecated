@@ -5,6 +5,7 @@ export * from './Dialog';
 export * from './Dropdown';
 export * from './FieldWrapper';
 export * from './CheckGate';
+export * from './UnlockToken';
 export * from './ProfileAvatar';
 export * from './Toast';
 export * from './TimePicker';

@@ -3,7 +3,7 @@ import { ParXs } from '../Typography';
 
 import { FieldAlertWrapper } from './FieldAlert.styles';
 
-export type AlertProps = {
+export type FieldAlertProps = {
   className?: string;
   message: string;
   action?: React.ReactNode;
@@ -15,7 +15,7 @@ type Ref =
   | null
   | undefined;
 
-export const FieldAlert: React.FC<AlertProps> = forwardRef(
+export const FieldAlert: React.FC<FieldAlertProps> = forwardRef(
   ({ className, message, action }, ref: Ref) => {
     return (
       <FieldAlertWrapper className={className}>

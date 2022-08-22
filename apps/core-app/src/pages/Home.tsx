@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
 import { HausLayout } from '@daohaus/daohaus-connect-feature';
 
 export function Home() {
-  return (
-    <HausLayout navLinks={[{ label: 'NavLink', href: '/' }]}>Hi!</HausLayout>
-  );
+  useEffect(() => {
+    window.location.href = 'https://hub.daohaus.fun';
+  }, []);
+
+  return <HausLayout>-</HausLayout>;
 }
 
 export default Home;

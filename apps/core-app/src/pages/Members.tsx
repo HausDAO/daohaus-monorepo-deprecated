@@ -195,7 +195,7 @@ export function Members() {
       <MemberContainer>
         {dao && <MembersOverview dao={dao} />}
         {dao && members && tableData && columns ? (
-          <DaoTable
+          <DaoTable<MembersTableType>
             tableData={tableData}
             columns={columns}
             hasNextPaging={membersNextPaging !== undefined}

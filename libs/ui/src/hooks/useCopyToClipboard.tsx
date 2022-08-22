@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { useToast } from './useToast';
 
@@ -9,7 +9,7 @@ type CopyFn = (
   toastDescription?: string
 ) => Promise<boolean>; // Return success
 
-export const useCopyToClipboard = (): [CopiedValue, CopyFn] => {
+export const useCopyToClipboard = (): CopyFn => {
   const [copiedText, setCopiedText] = useState<CopiedValue>(null);
   const { successToast, errorToast } = useToast();
 
@@ -42,7 +42,7 @@ export const useCopyToClipboard = (): [CopiedValue, CopyFn] => {
     }
   };
 
-  return [copiedText, copy];
+  return copy;
 };
 
 export default useCopyToClipboard;

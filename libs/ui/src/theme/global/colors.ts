@@ -152,5 +152,8 @@ export const utilityDark = {
   dangerBg: redDark.red3,
   dangerBorder: redDark.red7,
   info: blueDark.blue9,
+  infoText: blueDark.blue12,
+  infoBg: blueDark.blue3,
+  infoBorder: blueDark.blue7,
   transparent: 'transparent',
 };

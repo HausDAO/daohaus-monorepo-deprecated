@@ -15,6 +15,7 @@ import {
   BottomContainer,
   FieldWrapperBase,
   LabelContainer,
+  LeftAddonContainer,
   RequiredAsterisk,
   RightAddonContainer,
 } from './FieldWrapper.styles';
@@ -70,12 +71,14 @@ export const FieldWrapper = ({
       </LabelContainer>
       <div className="field-slot">{children}</div>
       <BottomContainer className={classes}>
-        <HelperTextFactory
-          error={error || fieldError}
-          success={success}
-          warning={warning}
-          helperText={helperText}
-        />
+        <LeftAddonContainer>
+          <HelperTextFactory
+            error={error || fieldError}
+            success={success}
+            warning={warning}
+            helperText={helperText}
+          />
+        </LeftAddonContainer>
         {rightAddon && (
           <RightAddonContainer>{rightAddon}</RightAddonContainer>
         )}

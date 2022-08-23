@@ -1,16 +1,11 @@
-import {
-  NetworkType,
-  NETWORK_DATA,
-  ReactSetter,
-  ValidNetwork,
-} from '@daohaus/common-utilities';
+import { NETWORK_DATA, ValidNetwork } from '@daohaus/common-utilities';
 import { DaoWithTokenData, TokenBalance } from '@daohaus/dao-data';
 
 const isNetworkToken = (tokenData: TokenBalance) => {
   return !tokenData.token;
 };
 
-type TokenData = {
+export type TokenData = {
   decimals: number;
   name: string;
   symbol: string;

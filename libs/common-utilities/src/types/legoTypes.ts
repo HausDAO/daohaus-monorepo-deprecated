@@ -45,6 +45,8 @@ export type JSONDetailsSearch = {
 export type MulticallAction = {
   contract: ContractLego;
   method: string;
+  value?: ValidArgType;
+  operations?: ValidArgType;
   args: ValidArgType[];
 };
 export type MulticallArg = {

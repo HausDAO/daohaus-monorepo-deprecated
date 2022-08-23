@@ -214,9 +214,13 @@ export const buildMultiCallTX = ({
         fallback: toSeconds(14, 'days'),
       },
       {
-        type: 'estimateGas',
-        actions,
+        type: 'static',
+        value: 0,
       },
+      // {
+      //   type: 'estimateGas',
+      //   actions,
+      // },
       JSONDetails,
     ],
   };

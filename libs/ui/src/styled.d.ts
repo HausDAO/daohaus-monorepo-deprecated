@@ -23,6 +23,8 @@ declare module 'styled-components' {
     secondary: string;
     error: string;
     warning: string;
+    warningBg: string;
+    warningBorder: string;
     success: string;
     disabled: string;
     transparent: string;

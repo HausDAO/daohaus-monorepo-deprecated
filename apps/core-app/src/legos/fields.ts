@@ -26,4 +26,9 @@ export const FIELD: Record<string, CustomFieldLego> = {
     label: 'Tribute',
     selectId: 'TRIBUTE_SELECT',
   },
+  TO_WEI: {
+    id: 'shouldOverwrite',
+    type: 'toWeiInput',
+    label: 'Should Overwrite',
+  },
 };

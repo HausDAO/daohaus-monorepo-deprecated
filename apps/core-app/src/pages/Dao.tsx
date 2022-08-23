@@ -7,6 +7,7 @@ export function Dao() {
   const { daochain, daoid } = useParams();
   const { provider } = useHausConnect();
   const { dao } = useDao();
+
   return (
     <TXBuilder
       chainId={daochain}

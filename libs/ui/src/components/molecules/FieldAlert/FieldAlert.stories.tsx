@@ -1,10 +1,10 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Button } from '../Button';
+import { Button } from '../../atoms';
 
 import { FieldAlert } from './FieldAlert';
 
 export default {
-  title: 'Atoms/FieldAlert',
+  title: 'Molecules/Form/FieldAlert',
   component: FieldAlert,
 } as ComponentMeta<typeof FieldAlert>;
 
@@ -12,37 +12,36 @@ const Template: ComponentStory<typeof FieldAlert> = (args) => {
   return <FieldAlert {...args}>{args.children}</FieldAlert>;
 };
 
-export const AtomFieldAlert = Template.bind({});
+export const MoleculeFieldAlert = Template.bind({});
 
-AtomFieldAlert.args = {
-  message: 'This is a message',
-  action: <Button>Click Me</Button>,
+MoleculeFieldAlert.args = {
+  message: 'This is a message with no children',
 };
 
-export const InfoAtomFieldAlert = Template.bind({});
-InfoAtomFieldAlert.args = {
-  message: 'This is a message',
-  action: <Button>Click Me</Button>,
+export const InfoMoleculeFieldAlert = Template.bind({});
+InfoMoleculeFieldAlert.args = {
+  message: 'This is a message with children',
+  children: <Button>Click Me</Button>,
   className: 'info',
 };
 
-export const WarningAtomFieldAlert = Template.bind({});
-WarningAtomFieldAlert.args = {
-  message: 'This is a message',
-  action: <Button>Click Me</Button>,
+export const WarningMoleculeFieldAlert = Template.bind({});
+WarningMoleculeFieldAlert.args = {
+  message: 'This is a message with children',
+  children: <Button>Click Me</Button>,
   className: 'warning',
 };
 
-export const ErrorAtomFieldAlert = Template.bind({});
-ErrorAtomFieldAlert.args = {
-  message: 'This is a message',
-  action: <Button>Click Me</Button>,
+export const ErrorMoleculeFieldAlert = Template.bind({});
+ErrorMoleculeFieldAlert.args = {
+  message: 'This is a message with children',
+  children: <Button>Click Me</Button>,
   className: 'error',
 };
 
-export const FullAtomFieldAlert = Template.bind({});
-FullAtomFieldAlert.args = {
-  message: 'This is a message',
-  action: <Button>Click Me</Button>,
+export const FullMoleculeFieldAlert = Template.bind({});
+FullMoleculeFieldAlert.args = {
+  message: 'This is a message with children',
+  children: <Button>Click Me</Button>,
   className: 'full',
 };

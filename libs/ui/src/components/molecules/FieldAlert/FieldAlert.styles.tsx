@@ -27,6 +27,21 @@ export const FieldAlertWrapper = styled.div<{
     color: ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningText};
     background: ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningBg};
     border: 1px solid ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningBorder};
+    p {
+      color: ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningText};
+    }
+    button {
+      background-color: ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningButtonBg};
+      border: 1px solid ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningButtonBorder};
+      :hover {
+        background-color: ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningButtonBg};
+        border: 1px solid ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningButtonBorder};
+      }
+      :active {
+        background-color: ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningButtonBg};
+        border: 1px solid ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningButtonBorder};
+      }
+    }
   }
 
   &.info {

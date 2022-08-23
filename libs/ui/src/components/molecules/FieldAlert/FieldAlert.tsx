@@ -1,12 +1,14 @@
+import { orangeDark } from '@radix-ui/colors';
 import { forwardRef, RefObject } from 'react';
-import { ParXs } from '../Typography';
+import styled from 'styled-components';
+import { Button } from '../../atoms/Button';
+import { ParXs } from '../../atoms/Typography';
 
 import { FieldAlertWrapper } from './FieldAlert.styles';
 
 export type FieldAlertProps = {
   className?: string;
   message: string;
-  action?: React.ReactNode;
 };
 
 type Ref =
@@ -16,11 +18,11 @@ type Ref =
   | undefined;
 
 export const FieldAlert: React.FC<FieldAlertProps> = forwardRef(
-  ({ className, message, action }, ref: Ref) => {
+  ({ className, message, children }, ref: Ref) => {
     return (
       <FieldAlertWrapper className={className}>
         <ParXs>{message}</ParXs>
-        {action}
+        {children}
       </FieldAlertWrapper>
     );
   }

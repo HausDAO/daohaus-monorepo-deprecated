@@ -109,8 +109,4 @@ export function DaoTable<T extends object>({
       )}
     </>
   );
-<<<<<<< HEAD
 }
-=======
-};
->>>>>>> develop

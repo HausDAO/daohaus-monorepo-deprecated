@@ -3,14 +3,16 @@ import { TributeInput } from '../components/customFields/tributeInput';
 import { FieldLegoBase, FormLegoBase } from '@daohaus/common-utilities';
 import { ToWeiInput } from '../components/customFields/toWeiInput';
 import { NestedArray } from '../components/customFields/nestedArrayInput';
-import { PaymentInput } from '../components/customFields/PaymentInput';
+import { RequestNativeToken } from '../components/customFields/RequestNativeToken';
+import { RequestERC20 } from '../components/customFields/RequestERC20';
 
 export const CustomFields = {
   ...CoreFieldLookup,
   tributeInput: TributeInput,
-  paymentInput: PaymentInput,
   toWeiInput: ToWeiInput,
   nestedArray: NestedArray,
+  requestNativeToken: RequestNativeToken,
+  requestERC20: RequestERC20,
 };
 
 export type CustomFieldLego = FieldLegoBase<typeof CustomFields>;

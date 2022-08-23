@@ -25,10 +25,14 @@ export const FIELD: Record<string, CustomFieldLego> = {
     type: 'tributeInput',
     label: 'Tribute',
   },
-  PAYMENT: {
+  REQUEST_TOKEN: {
     id: 'payment',
-    type: 'paymentInput',
-    label: 'Payment Requested',
+    type: 'requestERC20',
+    label: 'Requested ERC20',
+  },
+  REQUEST_TOKEN_AMOUNT: {
+    id: 'paymentAmount',
+    type: 'requestNativeToken',
   },
   TO_WEI: {
     id: 'shouldOverwrite',

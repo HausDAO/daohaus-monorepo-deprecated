@@ -60,6 +60,6 @@ export const FORM: Record<string, CustomFormLego> = {
     requiredFields: { title: true, description: true },
     log: true,
     tx: TX.POST_SIGNAL,
-    fields: [FIELD.TITLE, FIELD.DESCRIPTION, FIELD.LINK, FIELD.PAYMENT],
+    fields: [FIELD.TITLE, FIELD.DESCRIPTION, FIELD.LINK, FIELD.REQUEST_TOKEN],
   },
 };

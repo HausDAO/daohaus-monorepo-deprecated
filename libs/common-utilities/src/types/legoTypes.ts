@@ -68,10 +68,16 @@ type StaticArg = {
   value: ArgType;
 };
 
+type SingletonSearch = {
+  type: 'singleton';
+  keychain: Keychain;
+};
+
 export type ValidArgType =
   | StringSearch
   | JSONDetailsSearch
   | EstmimateGas
+  | SingletonSearch
   | MulticallArg
   | ProposalExpiry
   | StaticArg;
@@ -89,10 +95,6 @@ export type TXLegoBase = {
   contract: ContractLego;
   method: string;
   customPoll?: string;
-  txSuccessMessage?: string;
-  finalSuccessMessage?: string;
-  errorMessage?: string;
-  status?: TxStates;
   args?: ValidArgType[];
   argCallback?: string;
   staticArgs?: ArgType[];

@@ -1,7 +1,15 @@
-import { isValidNetwork, toWholeUnits } from '@daohaus/common-utilities';
+import {
+  handleBaseUnits,
+  ignoreEmpty,
+  ignoreEmptyVal,
+  isValidNetwork,
+  toBaseUnits,
+  toWholeUnits,
+  ValidateField,
+} from '@daohaus/common-utilities';
 import { Buildable, Button, WrappedInputSelect } from '@daohaus/ui';
 import { useMemo } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { RegisterOptions, useFormContext, Validate } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useDao } from '../../contexts/DaoContext';
 import { getErc20s, TokenData } from '../../utils/tokenData';
@@ -53,15 +61,37 @@ export const RequestERC20 = (
     }
   }, [erc20s]);
 
-  const tokenBalance = getTokenBalance(erc20s, paymentTokenAddr);
+  const selectedToken = useMemo(() => {
+    if (erc20s && paymentTokenAddr) {
+      return erc20s.find(({ address }) => address === paymentTokenAddr);
+    }
+  }, [paymentTokenAddr, erc20s]);
+
+  const tokenBalance = selectedToken?.daoBalance
+    ? toWholeUnits(selectedToken?.daoBalance, selectedToken?.decimals)
+    : '0';
 
   const setMax = () => {
-    const selectedToken = erc20s?.find(
-      ({ address }) => address === paymentTokenAddr
-    );
-
     if (!selectedToken) return;
     setValue(amtId, tokenBalance);
+  };
+
+  const newRules: RegisterOptions = {
+    setValueAs: (value) => handleBaseUnits(value, selectedToken?.decimals),
+    validate: {
+      number: (value) => ignoreEmptyVal(value, ValidateField.number),
+      daoHasBalance: (val) => {
+        return (
+          selectedToken &&
+          ignoreEmptyVal(val, (val) =>
+            Number(val) > Number(selectedToken?.daoBalance || 0)
+              ? 'Amount exceeds DAO Balance'
+              : true
+          )
+        );
+      },
+    },
+    ...props.rules,
   };
 
   return (
@@ -78,6 +108,7 @@ export const RequestERC20 = (
           Max: {tokenBalance}
         </Button>
       }
+      rules={newRules}
     />
   );
 };

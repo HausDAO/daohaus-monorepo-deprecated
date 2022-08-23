@@ -1,3 +1,5 @@
+import { validateSDL } from 'graphql/validation/validate';
+import { Validate } from 'react-hook-form';
 import {
   isArray,
   isBoolean,
@@ -5,6 +7,7 @@ import {
   isNumberish,
   isString,
 } from './typeguards';
+import { toBaseUnits } from './units';
 export const ValErrMsgs = {
   number: 'Field must be a number',
   boolean: 'Field must be a boolean',
@@ -34,3 +37,13 @@ export const ValidateField = {
       ? true
       : ValErrMsgs.percent,
 };
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const ignoreEmptyVal = (val: any, validator: Validate<any>) =>
+  val === '' ? true : validator(val);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const ignoreEmpty = (val: any, validator: Validate<any>) =>
+  val === '' ? true : validator(val);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const handleBaseUnits = (val: any, decimals = 18) =>
+  ValidateField.number(val) === true ? toBaseUnits(val, decimals) : val;

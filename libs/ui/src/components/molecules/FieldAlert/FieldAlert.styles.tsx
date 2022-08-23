@@ -26,21 +26,18 @@ export const FieldAlertWrapper = styled.div<{
   &.warning {
     color: ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningText};
     background: ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningBg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningBorder};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningBorder};
   }
 
   &.info {
     color: ${({ theme }: { theme: Theme }) => theme.fieldAlert.infoText};
     background: ${({ theme }: { theme: Theme }) => theme.fieldAlert.infoBg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.fieldAlert.infoBorder};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.fieldAlert.infoBorder};
   }
 
   &.error {
     color: ${({ theme }: { theme: Theme }) => theme.fieldAlert.errorText};
     background: ${({ theme }: { theme: Theme }) => theme.fieldAlert.errorBg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.fieldAlert.errorBorder};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.fieldAlert.errorBorder};
   }
 `;

@@ -31,7 +31,7 @@ export const RequestERC20 = (
   const { amtId = 'paymentTokenAmt', addressId = 'paymentTokenAddress' } =
     props;
   const { dao } = useDao();
-  const { watch } = useFormContext();
+  const { watch, setValue } = useFormContext();
 
   const paymentTokenAddr = watch(addressId);
 
@@ -52,7 +52,17 @@ export const RequestERC20 = (
       return options;
     }
   }, [erc20s]);
+
   const tokenBalance = getTokenBalance(erc20s, paymentTokenAddr);
+
+  const setMax = () => {
+    const selectedToken = erc20s?.find(
+      ({ address }) => address === paymentTokenAddr
+    );
+
+    if (!selectedToken) return;
+    setValue(amtId, tokenBalance);
+  };
 
   return (
     <WrappedInputSelect
@@ -64,7 +74,7 @@ export const RequestERC20 = (
       selectPlaceholder="--"
       options={selectOptions || []}
       rightAddon={
-        <Button secondary sm>
+        <Button secondary sm type="button" onClick={setMax}>
           Max: {tokenBalance}
         </Button>
       }

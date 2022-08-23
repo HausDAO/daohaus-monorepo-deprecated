@@ -2,6 +2,16 @@ import { CustomFormLego } from './config';
 import { FIELD } from './fields';
 import { TX } from './tx';
 
+export const getFormLegoById = (
+  id: CustomFormLego['id']
+): CustomFormLego | undefined => {
+  const formKey = Object.keys(FORM).find((key) => {
+    return FORM[key].id === id;
+  });
+  if (!formKey) return;
+  return FORM[formKey];
+};
+
 export const FORM: Record<string, CustomFormLego> = {
   SHARE_SWAP: {
     id: 'SHARE_SWAP',
@@ -12,7 +22,7 @@ export const FORM: Record<string, CustomFormLego> = {
     fields: [FIELD.TITLE, FIELD.DESCRIPTION, FIELD.LINK],
   },
   SIGNAL: {
-    id: 'test',
+    id: 'signal',
     title: 'Signal Form',
     subtitle: 'Signal Proposal',
     description: 'Ratify test on chain using a DAO proposal',

@@ -12,6 +12,7 @@ import { BsPlusLg } from 'react-icons/bs';
 
 import { useProposals } from '../contexts/DaoContext';
 import { NewProposalList } from '../components/NewProposalList';
+import { FORM } from '../legos/form';
 
 const LeftCard = styled(Card)`
   width: 100%;
@@ -22,6 +23,8 @@ const LeftCard = styled(Card)`
     min-width: 0;
   }
 `;
+
+export const VALID_NEW_PROPOSALS = [FORM.SIGNAL, FORM.SHARE_SWAP];
 
 export function Proposals() {
   const { proposals } = useProposals();
@@ -35,7 +38,7 @@ export function Proposals() {
             <Button IconLeft={BsPlusLg}>New Proposal</Button>
           </DialogTrigger>
           <DialogContent title="Choose Proposal Type">
-            <NewProposalList />
+            <NewProposalList proposalLegos={VALID_NEW_PROPOSALS} />
           </DialogContent>
         </Dialog>
       }

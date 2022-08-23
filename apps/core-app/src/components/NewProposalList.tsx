@@ -1,10 +1,12 @@
 import { FormLego } from '@daohaus/haus-form-builder';
-import { Bold, DataSm, Icon, Link, ParMd, Tag, Theme } from '@daohaus/ui';
+import { Bold, DataSm, Link, ParMd, Theme } from '@daohaus/ui';
 import { RiArrowRightSLine } from 'react-icons/ri';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { GovernanceProposal } from '../data/customForms';
+import { CustomFormLego } from '../legos/config';
 import { FORM } from '../legos/form';
+import { VALID_NEW_PROPOSALS } from '../pages/Proposals';
 
 const ListContainer = styled.div`
   margin-top: 5rem;
@@ -33,19 +35,20 @@ const StyledIcon = styled(RiArrowRightSLine)`
   font-size: 3rem;
 `;
 
-const newProposals = [GovernanceProposal, FORM.SIGNAL];
+type NewProposalListProps = {
+  proposalLegos: CustomFormLego[];
+};
 
-console.log(JSON.stringify(FORM.SIGNAL));
-
-export const NewProposalList = () => {
+export const NewProposalList = ({ proposalLegos }: NewProposalListProps) => {
   const { daochain, daoid } = useParams();
   return (
     <ListContainer>
-      {newProposals.map((proposalLego: FormLego) => (
+      {proposalLegos.map((proposalLego: CustomFormLego) => (
         <ListItemContainer
-          href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=${window.btoa(
-            JSON.stringify(proposalLego)
-          )}`}
+          //   href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=${window.btoa(
+          //     JSON.stringify(proposalLego)
+          //   )}`}
+          href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=${proposalLego.id}`}
         >
           <ListItem>
             <ParMd>

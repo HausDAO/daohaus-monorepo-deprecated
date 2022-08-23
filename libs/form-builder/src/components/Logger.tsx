@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useFormContext, useWatch } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 export const Logger = () => {
   const { watch } = useFormContext();

@@ -26,7 +26,7 @@ export const CollapsibleCard = ({
 }: CardProps) => {
   return (
     <StyledCollapsibleCard open={open} onChange={onChange} width={width}>
-      <InnerCard width={'90%'}>
+      <InnerCard>
         {children}
         <StyledCollapsibleCardTrigger asChild>
           <StyledCollapsibleCardButton>
@@ -39,16 +39,5 @@ export const CollapsibleCard = ({
         {collapsibleContent ? collapsibleContent : <p>No Content found</p>}
       </StyledCollapsibleContent>
     </StyledCollapsibleCard>
-  );
-};
-
-export const CollapsibleCardTrigger = () => {
-  return (
-    <StyledCollapsibleCardTrigger asChild>
-      <StyledCollapsibleCardButton>
-        Expand Me
-        <RiArrowDropDownLine />
-      </StyledCollapsibleCardButton>
-    </StyledCollapsibleCardTrigger>
   );
 };

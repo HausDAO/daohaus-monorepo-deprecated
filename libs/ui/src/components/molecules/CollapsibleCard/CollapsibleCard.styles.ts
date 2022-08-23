@@ -8,6 +8,7 @@ import { Theme } from '../../../types';
 
 export const StyledCollapsibleCard = styled(Collapsible.Root)`
   ${CardStyles}
+  width: ${(props) => props.width};
 `;
 
 export const InnerCard = styled(Card)`
@@ -23,9 +24,18 @@ export const InnerCard = styled(Card)`
 export const StyledCollapsibleCardTrigger = Collapsible.Trigger;
 
 export const StyledCollapsibleCardButton = styled(DropdownTriggerLink)`
+  color: ${({ theme }: { theme: Theme }) => theme.collapsibleCard.text};
   margin-left: auto;
   padding: 0;
   font-size: 14px;
+
+  :hover {
+    color: ${({ theme }: { theme: Theme }) => theme.collapsibleCard.hoverText};
+  }
+
+  :focus {
+    color: ${({ theme }: { theme: Theme }) => theme.collapsibleCard.focusText};
+  }
 
   svg {
     font-size: 20px;
@@ -50,11 +60,11 @@ const close = keyframes({
 });
 
 export const StyledCollapsibleContent = styled(Collapsible.Content)`
-  /* TODO Animations? */
-  /* &[data-state='open'] {
+  overflow: hidden;
+  &[data-state='open'] {
     animation: ${open} 300ms ease-out;
   }
   &[data-state='closed'] {
     animation: ${close} 300ms ease-out;
-  } */
+  }
 `;

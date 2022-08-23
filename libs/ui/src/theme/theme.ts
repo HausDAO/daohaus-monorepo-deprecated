@@ -143,14 +143,11 @@ export const defaultDarkTheme: Theme = {
   },
   // *** MOLECULES *** //
   collapsibleCard: {
-    bg: secondaryDark.bgSubtle,
+    text: primaryDark.textLowContrast,
+    hoverText: primaryDark.bgSolidHover,
+    focusText: primaryDark.textHighContrast,
     bgInnerCard: secondaryDark.elementBgActive,
-    border: secondaryDark.bgSubtle,
     borderInnerCard: secondaryDark.elementBorderSubtle,
-    hoverBg: secondaryDark.elementBg,
-    hoverBorder: secondaryDark.elementBorderSubtle,
-    focusBg: secondaryDark.bgSubtle,
-    focusBorder: secondaryDark.elementBorder,
   },
   dropdown: DropdownDark,
   dialog: {
@@ -314,14 +311,11 @@ export const defaultLightTheme: Theme = {
   },
   // *** MOLECULES *** //
   collapsibleCard: {
-    bg: secondary.bgSubtle,
+    text: primary.textLowContrast,
+    hoverText: primary.bgSolidHover,
+    focusText: primary.textHighContrast,
     bgInnerCard: secondary.elementBgActive,
-    border: secondary.bgSubtle,
     borderInnerCard: secondary.elementBorderSubtle,
-    hoverBg: secondary.elementBg,
-    hoverBorder: secondary.elementBorderSubtle,
-    focusBg: secondary.bgSubtle,
-    focusBorder: secondary.elementBorder,
   },
   dropdown: DropdownLight,
   dialog: {

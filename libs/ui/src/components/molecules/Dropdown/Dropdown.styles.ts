@@ -75,7 +75,7 @@ export const DropdownTriggerLink = styled.button`
   background-color: transparent;
   border: none;
   border-bottom: 2px transparent solid;
-  color: ${(props) => props.theme.primary};
+  color: ${(props) => props.theme.dropdown.text};
   cursor: pointer;
   display: inline-flex;
   align-items: center;

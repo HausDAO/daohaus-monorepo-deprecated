@@ -4,7 +4,7 @@ export const GovernanceProposal: FormLego = {
   id: 'GovernanceProposal',
   title: 'Update Governance Settings',
   subtitle: 'Settings',
-  description: 'Learn more about governance settings.',
+  description: 'Update timing and advanced governance',
   submitButtonText: 'Submit Proposal',
   devtool: true,
   requiredFields: {

@@ -1,12 +1,17 @@
 import React, { useMemo } from 'react';
 
 import { DataMd, H2 } from '../../atoms';
-import { BiColumnBox } from './BiColumn.styles';
+import {
+  ActionButtonContainer,
+  BiColumnBox,
+  TitleContainerWithActions,
+} from './BiColumn.styles';
 
 type BiColumnLayoutProps = {
   title?: 'string' | React.ReactNode;
   subtitle?: 'string' | React.ReactNode;
   description?: 'string' | React.ReactNode;
+  actions?: React.ReactNode;
   left: React.ReactNode;
   right: React.ReactNode;
 };
@@ -17,6 +22,7 @@ export const BiColumnLayout = ({
   title,
   subtitle,
   description,
+  actions,
 }: BiColumnLayoutProps) => {
   const sectionSubtitle = useMemo(() => {
     if (!subtitle) return null;
@@ -27,9 +33,26 @@ export const BiColumnLayout = ({
 
   const sectionTitle = useMemo(() => {
     if (!title) return null;
-    if (typeof title === 'string') return <H2 className="title">{title}</H2>;
-    return <div className="title">{title}</div>;
-  }, [title]);
+
+    if (!actions)
+      return typeof title === 'string' ? (
+        <H2 className="title">{title}</H2>
+      ) : (
+        <div className="title">{title}</div>
+      );
+    return (
+      <TitleContainerWithActions>
+        {typeof title === 'string' ? (
+          <H2 className="title">{title}</H2>
+        ) : (
+          <div className="title">{title}</div>
+        )}
+        {actions && <ActionButtonContainer>{actions}</ActionButtonContainer>}
+      </TitleContainerWithActions>
+    );
+    // if (typeof title === 'string') return <H2 className="title">{title}</H2>;
+    // return <div className="title">{title}</div>;
+  }, [title, actions]);
 
   const sectionDescription = useMemo(() => {
     if (!description) return null;

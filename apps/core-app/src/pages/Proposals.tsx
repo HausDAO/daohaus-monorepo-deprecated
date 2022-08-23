@@ -1,7 +1,17 @@
 import styled from 'styled-components';
+import {
+  BiColumnLayout,
+  Button,
+  Card,
+  widthQuery,
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+} from '@daohaus/ui';
+import { BsPlusLg } from 'react-icons/bs';
 
-import { BiColumnLayout, Card, widthQuery } from '@daohaus/ui';
 import { useProposals } from '../contexts/DaoContext';
+import { NewProposalList } from '../components/NewProposalList';
 
 const LeftCard = styled(Card)`
   width: 100%;
@@ -18,8 +28,17 @@ export function Proposals() {
 
   return (
     <BiColumnLayout
-      subtitle="DAO"
       title="Proposals"
+      actions={
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button IconLeft={BsPlusLg}>New Proposal</Button>
+          </DialogTrigger>
+          <DialogContent title="Choose Proposal Type">
+            <NewProposalList />
+          </DialogContent>
+        </Dialog>
+      }
       left={<LeftCard>{JSON.stringify(proposals, null, 2)}</LeftCard>}
       right={null}
     />

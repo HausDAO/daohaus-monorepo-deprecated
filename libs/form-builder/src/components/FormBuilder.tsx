@@ -91,6 +91,7 @@ export function FormBuilder<Lookup extends LookupType>({
   const [status, setStatus] = useState<null | StatusMsg>(null);
   const [txHash, setTxHash] = useState<null | string>(null);
   const submitDisabled = !isValid || isLoading || !isValidNetwork(chainId);
+  console.log({ submitDisabled, isValid, network: isValidNetwork(chainId) });
   const formDisabled = isLoading;
   const { defaultToast, errorToast, successToast } = useToast();
   const { fireTransaction } = useTxBuilder?.() || {};

@@ -39,4 +39,16 @@ export const FIELD: Record<string, CustomFieldLego> = {
     type: 'toWeiInput',
     label: 'Should Overwrite',
   },
+  NAME: {
+    id: 'name',
+    type: 'input',
+    label: 'DAO Name',
+    placeholder: 'DAO Name',
+  },
+  TAGS: {
+    id: 'tags',
+    type: 'tagsInput',
+    label: 'Tags (seperated by commas)',
+    placeholder: 'DAO Name',
+  },
 };

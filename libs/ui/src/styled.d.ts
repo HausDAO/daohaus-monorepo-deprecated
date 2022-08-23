@@ -99,6 +99,8 @@ declare module 'styled-components' {
       warningText: string;
       warningBg: string;
       warningBorder: string;
+      warningButtonBg: string;
+      warningButtonBorder: string;
       errorText: string;
       errorBg: string;
       errorBorder: string;

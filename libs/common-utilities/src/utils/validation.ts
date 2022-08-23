@@ -1,4 +1,3 @@
-import { validateSDL } from 'graphql/validation/validate';
 import { Validate } from 'react-hook-form';
 import {
   isArray,

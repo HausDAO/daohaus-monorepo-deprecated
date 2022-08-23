@@ -73,11 +73,17 @@ type SingletonSearch = {
   keychain: Keychain;
 };
 
+type NestedArray = {
+  type: 'nestedArray';
+  args: ValidArgType[];
+};
+
 export type ValidArgType =
   | StringSearch
   | JSONDetailsSearch
   | EstmimateGas
   | SingletonSearch
+  | NestedArray
   | MulticallArg
   | ProposalExpiry
   | StaticArg;

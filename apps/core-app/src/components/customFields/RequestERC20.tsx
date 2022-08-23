@@ -1,36 +1,22 @@
 import {
   handleBaseUnits,
-  ignoreEmpty,
   ignoreEmptyVal,
   isValidNetwork,
-  toBaseUnits,
   toWholeUnits,
   ValidateField,
 } from '@daohaus/common-utilities';
 import { Buildable, Button, WrappedInputSelect } from '@daohaus/ui';
 import { useMemo } from 'react';
-import { RegisterOptions, useFormContext, Validate } from 'react-hook-form';
+import { RegisterOptions, useFormContext } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import { useDao } from '../../contexts/DaoContext';
-import { getErc20s, TokenData } from '../../utils/tokenData';
+import { getErc20s } from '../../utils/tokenData';
 
 export enum InputStates {
   Loading,
   InvalidNetwork = 'Invalid Network',
   CorruptTokenData = 'Corrupt Token Data',
 }
-
-const getTokenBalance = (
-  erc20s: TokenData[] | null,
-  paymentTokenAddr: string
-) => {
-  if (!Array.isArray(erc20s) || !paymentTokenAddr) {
-    return '';
-  }
-  const token = erc20s.find(({ address }) => address === paymentTokenAddr);
-
-  return toWholeUnits(token?.daoBalance || '0', token?.decimals);
-};
 
 export const RequestERC20 = (
   props: Buildable<{ amtId?: string; addressId?: string }>

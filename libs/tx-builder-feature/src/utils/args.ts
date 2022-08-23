@@ -77,6 +77,14 @@ export const processArg = async ({
   if (arg?.type === 'singleton') {
     return handleKeychainArg({ chainId, keychain: arg.keychain });
   }
+  if (arg?.type === 'nestedArray') {
+    return Promise.all(
+      arg.args.map(
+        async (arg) =>
+          await processArg({ arg, chainId, safeId, localABIs, appState })
+      )
+    );
+  }
   if (arg?.type === 'multicall') {
     const result = await handleMulticallArg({
       arg,

@@ -28,6 +28,7 @@ const ListItem = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  word-wrap: break-word;
 `;
 
 const StyledIcon = styled(RiArrowRightSLine)`

@@ -30,7 +30,7 @@ export const FIELD: Record<string, CustomFieldLego> = {
     type: 'requestERC20',
     label: 'Requested ERC20',
   },
-  REQUEST_TOKEN_AMOUNT: {
+  REQUEST_NATIVE_TOKEN: {
     id: 'paymentAmount',
     type: 'requestNativeToken',
   },

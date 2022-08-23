@@ -1,6 +1,7 @@
 import { Keychain, ReactSetter } from '@daohaus/common-utilities';
 import {
   DaoWithTokenDataQuery,
+  FindMemberQuery,
   Haus,
   ITransformedProposalListQuery,
   ListMembersQuery,
@@ -11,6 +12,7 @@ import {
   Proposal_Filter,
   Proposal_OrderBy,
 } from '@daohaus/dao-data';
+import deepEqual from 'deep-eql';
 
 export const loadDao = async ({
   daoid,
@@ -53,6 +55,45 @@ export const loadDao = async ({
   }
 };
 
+export const loadUserMembership = async ({
+  daoid,
+  daochain,
+  address,
+  setUserMembership,
+  setUserMembershipLoading,
+  shouldUpdate,
+}: {
+  daoid: string;
+  daochain: keyof Keychain;
+  address: string;
+  setUserMembership: ReactSetter<FindMemberQuery['member'] | undefined>;
+  setUserMembershipLoading: ReactSetter<boolean>;
+  shouldUpdate: boolean;
+}) => {
+  try {
+    setUserMembershipLoading(true);
+    const haus = Haus.create();
+    const memberRes = await haus.query.findMember({
+      networkId: daochain,
+      dao: daoid,
+      memberAddress: address.toLowerCase(),
+    });
+
+    if (memberRes?.data?.member && shouldUpdate) {
+      setUserMembership(memberRes.data.member);
+    } else {
+      setUserMembership(undefined);
+    }
+  } catch (error) {
+    console.error(error);
+    setUserMembership(undefined);
+  } finally {
+    if (shouldUpdate) {
+      setUserMembershipLoading(false);
+    }
+  }
+};
+
 export const loadMembersList = async ({
   filter,
   ordering,
@@ -83,11 +124,10 @@ export const loadMembersList = async ({
     });
 
     if (shouldUpdate) {
-      if (res.nextPaging) {
-        setNextPaging(res.nextPaging);
-      }
+      setNextPaging(res.nextPaging);
 
       setData((prevState) => {
+        if (deepEqual(prevState, res.items)) return res.items;
         if (prevState) {
           return [...prevState, ...res.items];
         } else {
@@ -135,11 +175,16 @@ export const loadProposalsList = async ({
     });
 
     if (shouldUpdate) {
-      if (res.nextPaging) {
-        setNextPaging(res.nextPaging);
-      }
+      setNextPaging(res.nextPaging);
 
-      setData(res.items);
+      setData((prevState) => {
+        if (deepEqual(prevState, res.items)) return res.items;
+        if (prevState) {
+          return [...prevState, ...res.items];
+        } else {
+          return res.items;
+        }
+      });
     }
   } catch (error) {
     console.error(error);

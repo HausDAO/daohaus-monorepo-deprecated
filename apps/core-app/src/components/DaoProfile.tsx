@@ -18,7 +18,7 @@ import {
 
 import { TDao } from '../contexts/DaoContext';
 import { TagList } from './TagList';
-import { hasNoProfile } from '../utils/profileHelpers';
+import { missingDaoProfileData } from '../utils/general';
 
 const DaoProfileContainer = styled.div`
   width: 100%;
@@ -65,7 +65,7 @@ export const DaoProfile = ({ dao }: DaoProfileProps) => {
   const { daochain, daoid } = useParams();
 
   const missingProfile = useMemo(() => {
-    if (!hasNoProfile(dao)) return null;
+    if (!missingDaoProfileData(dao)) return null;
     return (
       <MissingProfileCard>
         <ParXs>

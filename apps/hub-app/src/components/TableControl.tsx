@@ -54,6 +54,7 @@ type TableControlProps = {
   switchSortBy: (event: ChangeEvent<HTMLSelectElement>) => void;
   searchTerm: string;
   setSearchTerm: (event: ChangeEvent<HTMLInputElement>) => void;
+  totalDaos: number;
 };
 
 const TableControl = ({
@@ -67,12 +68,17 @@ const TableControl = ({
   switchSortBy,
   searchTerm,
   setSearchTerm,
+  totalDaos,
 }: TableControlProps) => {
   const isMobile = useBreakpoint(widthQuery.sm);
 
   return (
     <Layout>
-      <SearchInput searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      <SearchInput
+        searchTerm={searchTerm}
+        setSearchTerm={setSearchTerm}
+        totalDaos={totalDaos}
+      />
       <div className="button-box">
         <FilterDropdown
           filterNetworks={filterNetworks}

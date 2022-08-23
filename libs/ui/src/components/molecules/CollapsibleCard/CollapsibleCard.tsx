@@ -11,8 +11,9 @@ import {
 import { RiArrowDropDownLine } from 'react-icons/ri';
 
 export type CardProps = CollapsibleProps & {
-  width: string;
   collapsibleContent?: React.ReactNode;
+  triggerLabel: string;
+  width: string;
 };
 
 export const CollapsibleContent = StyledCollapsibleContent;
@@ -23,6 +24,7 @@ export const CollapsibleCard = ({
   width = 'fit-content',
   children,
   collapsibleContent,
+  triggerLabel = 'Show More',
 }: CardProps) => {
   return (
     <StyledCollapsibleCard open={open} onChange={onChange} width={width}>
@@ -30,7 +32,7 @@ export const CollapsibleCard = ({
         {children}
         <StyledCollapsibleCardTrigger asChild>
           <StyledCollapsibleCardButton>
-            Expand Me
+            {triggerLabel}
             <RiArrowDropDownLine />
           </StyledCollapsibleCardButton>
         </StyledCollapsibleCardTrigger>

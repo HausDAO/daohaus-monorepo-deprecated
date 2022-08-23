@@ -3,7 +3,6 @@ import {
   DropdownMenuProps,
   DropdownMenuContentProps,
 } from '@radix-ui/react-dropdown-menu';
-import { useTheme } from 'styled-components';
 
 import {
   DropdownMenu,
@@ -42,7 +41,6 @@ export const Dropdown = ({
   menuBg,
   children,
 }: DropdownProps) => {
-  const theme = useTheme();
   return (
     <DropdownMenu
       open={open}

@@ -85,18 +85,6 @@ export const processDaoTokenData = (
   return { networkToken, erc20s };
 };
 
-const getTokenBalance = (
-  erc20s: ERC20Data[] | null,
-  paymentTokenAddr: string
-) => {
-  if (!Array.isArray(erc20s) || !paymentTokenAddr) {
-    return '';
-  }
-  const token = erc20s.find(({ address }) => address === paymentTokenAddr);
-
-  return toWholeUnits(token?.daoBalance || '0', token?.decimals);
-};
-
 export const PaymentInput = (
   props: Buildable<{ amtId?: string; addressId?: string }>
 ) => {
@@ -116,45 +104,15 @@ export const PaymentInput = (
     return EMPTY_BALANCE;
   }, [dao, daochain]);
 
-  const selectOptions = useMemo(() => {
-    if (erc20s) {
-      const options = erc20s.map((token) => ({
-        name: token.symbol,
-        value: token.address,
-      }));
-
-      return options;
-    }
-  }, [erc20s]);
-
-  const tokenBalance = getTokenBalance(erc20s, paymentTokenAddr);
-
+  const setmax = () => {
+    return 0;
+  };
   return (
-    <>
-      <FieldSpacer>
-        <WrappedInputSelect
-          {...props}
-          id={amtId}
-          label="Request ERC-20"
-          defaultValue="0"
-          selectId={addressId}
-          selectPlaceholder="--"
-          options={selectOptions || []}
-          rightAddon={
-            <Button secondary sm>
-              Max: {tokenBalance}
-            </Button>
-          }
-        />
-      </FieldSpacer>
-      <FieldSpacer>
-        <WrappedInput
-          {...props}
-          id={'valueRequested'}
-          label={`Request ${networkToken?.name}`}
-          defaultValue="0"
-        />
-      </FieldSpacer>
-    </>
+    <WrappedInput
+      {...props}
+      id={'valueRequested'}
+      label={`Request ${networkToken?.name}`}
+      defaultValue="0"
+    />
   );
 };

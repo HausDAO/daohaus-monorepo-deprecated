@@ -1,5 +1,6 @@
 import {
   CSInput,
+  ShamanInput,
   WrappedCheckbox,
   WrappedInput,
   WrappedInputSelect,
@@ -25,4 +26,5 @@ export const CoreFieldLookup = {
   checkRender: CheckRender,
   formSegment: SegmentRender,
   splitColumn: SplitColumnLayout,
+  shamanPermissions: ShamanInput,
 };

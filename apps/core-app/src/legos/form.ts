@@ -36,8 +36,6 @@ export const FORM: Record<string, CustomFormLego> = {
     subtitle: 'Token Proposal',
     description:
       'Request membership or increased stake in the DAO. Any tribute must be available in your wallet when proposal is executed.',
-    log: true,
-    devtool: true,
     tx: TX.ISSUE,
     requiredFields: {
       title: true,
@@ -58,6 +56,19 @@ export const FORM: Record<string, CustomFormLego> = {
       },
       { ...FIELD.TO_WEI, label: 'Shares Requested', id: 'sharesRequested' },
       { ...FIELD.TO_WEI, label: 'Loot Requested', id: 'lootRequested' },
+    ],
+  },
+  ADD_SHAMAN: {
+    id: 'ADD_SHAMAN',
+    title: 'Add a Shaman',
+    description: 'Learn more about Shamans in our documentation.',
+    subtitle: 'Add Shaman Proposal',
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      FIELD.SHAMAN_ADDRESS,
+      FIELD.SHAMAN_PERMISSIONS,
     ],
   },
   TEST: {

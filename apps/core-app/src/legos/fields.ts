@@ -39,4 +39,16 @@ export const FIELD: Record<string, CustomFieldLego> = {
     type: 'toWeiInput',
     label: 'Should Overwrite',
   },
+  SHAMAN_ADDRESS: {
+    id: 'shamanAddress',
+    type: 'input',
+    label: 'Shaman Address',
+    placeholder: '0x1234...5678',
+    expectType: 'ethAddress',
+  },
+  SHAMAN_PERMISSIONS: {
+    id: 'shamanPermission',
+    type: 'shamanPermissions',
+    label: 'Permission Level',
+  },
 };

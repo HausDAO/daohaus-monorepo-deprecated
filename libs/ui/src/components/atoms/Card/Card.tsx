@@ -1,4 +1,4 @@
-import React, { ReactNode, RefObject } from 'react';
+import React, { ReactNode } from 'react';
 
 import { BaseCard } from './Card.styles';
 
@@ -8,16 +8,17 @@ export type CardProps = {
   success?: boolean;
   warning?: boolean;
   error?: boolean;
+  width?: string;
 };
 
-type Ref =
-  | ((instance: HTMLBaseElement | null) => void)
-  | RefObject<HTMLBaseElement>
-  | null
-  | undefined;
-
-export const Card = React.forwardRef(
-  ({ className, children }: CardProps, ref: Ref) => {
-    return <BaseCard className={className}>{children}</BaseCard>;
-  }
-);
+export const Card = ({
+  className,
+  width = 'fit-content',
+  children,
+}: CardProps) => {
+  return (
+    <BaseCard className={className} width={width}>
+      {children}
+    </BaseCard>
+  );
+};

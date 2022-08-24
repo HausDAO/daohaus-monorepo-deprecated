@@ -157,7 +157,7 @@ export const defaultDarkTheme: Theme = {
     color: secondaryDark.textHighContrast,
   },
   tooltip: {
-    bg: secondaryDark.elementBg,
+    bg: secondaryDark.elementBorderSubtle,
   },
   toast: {
     bg: secondaryDark.elementBg,
@@ -327,7 +327,7 @@ export const defaultLightTheme: Theme = {
     color: secondary.textHighContrast,
   },
   tooltip: {
-    bg: secondary.elementBg,
+    bg: secondary.elementBorderSubtle,
   },
   toast: {
     bg: secondary.elementBg,

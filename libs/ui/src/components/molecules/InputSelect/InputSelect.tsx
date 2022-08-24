@@ -18,6 +18,8 @@ export const InputSelect = ({
   selectPlaceholder,
   registerSelect = {},
   registerInput = {},
+  defaultValue,
+  selectDefault,
 }: InputSelectProps & {
   registerSelect?: UseFormRegisterReturn | Record<string, unknown>;
   registerInput?: UseFormRegisterReturn | Record<string, unknown>;
@@ -35,11 +37,13 @@ export const InputSelect = ({
         error={error}
         warning={warning}
         full
+        defaultValue={defaultValue}
         {...registerInput}
       />
       <Select
         id={selectId}
         options={options}
+        defaultValue={selectDefault}
         disabled={disabled}
         className="select"
         containerClassName={`select-box ${selectClasses}`}

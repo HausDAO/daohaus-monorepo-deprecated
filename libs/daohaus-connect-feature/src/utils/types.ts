@@ -15,7 +15,7 @@ export type WalletStateType = {
   chainId?: string | null | undefined;
   address?: string | null | undefined;
 };
-export type UserProfile = (AccountProfile & { displayName?: string });
+export type UserProfile = AccountProfile & { displayName?: string };
 export type ModalOptions = Partial<ICoreOptions>;
 
 export type NetworkConfig = {
@@ -24,6 +24,7 @@ export type NetworkConfig = {
   name: string;
   symbol: string;
   explorer: string;
+  tokenDecimals: number;
   rpc: string;
 };
 export type NetworkConfigs = Keychain<NetworkConfig>;

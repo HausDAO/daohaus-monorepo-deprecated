@@ -126,6 +126,7 @@ export const utility = {
   successBg: green.green3,
   successBorder: green.green7,
   warning: orange.orange9,
+
   warningText: orange.orange12,
   warningBg: orange.orange3,
   warningBorder: orange.orange7,

@@ -70,6 +70,13 @@ declare module 'styled-components' {
       errorBg: string;
       errorBorder: string;
     };
+    collapsibleCard: {
+      text: string;
+      hoverText: string;
+      focusText: string;
+      bgInnerCard: string;
+      borderInnerCard: string;
+    };
     field: {
       bg: string;
       border: string;

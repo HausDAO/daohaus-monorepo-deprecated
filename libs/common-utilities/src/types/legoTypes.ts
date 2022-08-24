@@ -45,6 +45,8 @@ export type JSONDetailsSearch = {
 export type MulticallAction = {
   contract: ContractLego;
   method: string;
+  value?: ValidArgType;
+  operations?: ValidArgType;
   args: ValidArgType[];
 };
 export type MulticallArg = {
@@ -73,11 +75,17 @@ type SingletonSearch = {
   keychain: Keychain;
 };
 
+type NestedArray = {
+  type: 'nestedArray';
+  args: ValidArgType[];
+};
+
 export type ValidArgType =
   | StringSearch
   | JSONDetailsSearch
   | EstmimateGas
   | SingletonSearch
+  | NestedArray
   | MulticallArg
   | ProposalExpiry
   | StaticArg;

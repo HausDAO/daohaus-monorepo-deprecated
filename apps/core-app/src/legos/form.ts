@@ -21,7 +21,7 @@ export const FORM: Record<string, CustomFormLego> = {
     fields: [FIELD.TITLE, FIELD.DESCRIPTION, FIELD.LINK],
   },
   SIGNAL: {
-    id: 'signal',
+    id: 'SIGNAL',
     title: 'Signal Form',
     subtitle: 'Signal Proposal',
     description: 'Ratify on chain using a DAO proposal',
@@ -58,6 +58,22 @@ export const FORM: Record<string, CustomFormLego> = {
       },
       { ...FIELD.TO_WEI, label: 'Shares Requested', id: 'sharesRequested' },
       { ...FIELD.TO_WEI, label: 'Loot Requested', id: 'lootRequested' },
+    ],
+  },
+  TEST: {
+    id: 'TEST',
+    title: 'Test Form',
+    subtitle: 'Test Proposal',
+    description:
+      'Test your proposal like a champ with this shiny new Test Form.',
+    requiredFields: { title: true, description: true },
+    log: true,
+    tx: TX.POST_SIGNAL,
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      FIELD.REQUEST_NATIVE_TOKEN,
     ],
   },
 };

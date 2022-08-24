@@ -2,7 +2,7 @@ import { MouseEvent, ChangeEvent, useEffect, useState } from 'react';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import {
   isValidNetwork,
-  networkData,
+  NETWORK_DATA,
   ValidNetwork,
 } from '@daohaus/common-utilities';
 
@@ -27,7 +27,7 @@ const HomePage = () => {
   const { isConnected, address } = useHausConnect();
   const [daoData, setDaoData] = useState<ITransformedMembership[]>([]);
   const [filterNetworks, setFilterNetworks] = useState<Record<string, string>>(
-    Object.keys(networkData).reduce(
+    Object.keys(NETWORK_DATA).reduce(
       (acc, networkId) => ({ ...acc, [networkId]: networkId }),
       {}
     )

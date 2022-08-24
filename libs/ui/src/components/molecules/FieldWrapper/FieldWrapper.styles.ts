@@ -16,6 +16,9 @@ export const FieldWrapperBase = styled.div`
   &.full {
     max-width: ${field.size.full};
   }
+  &.hidden {
+    display: none;
+  }
 `;
 
 export const LabelContainer = styled.label`

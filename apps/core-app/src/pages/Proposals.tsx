@@ -13,6 +13,7 @@ import { BsPlusLg } from 'react-icons/bs';
 import { useProposals } from '../contexts/DaoContext';
 import { NewProposalList } from '../components/NewProposalList';
 import { FORM } from '../legos/form';
+import { useMemo } from 'react';
 
 const LeftCard = styled(Card)`
   width: 100%;
@@ -29,6 +30,10 @@ export const VALID_NEW_PROPOSALS = [FORM.SIGNAL, FORM.SHARE_SWAP];
 export function Proposals() {
   const { proposals } = useProposals();
 
+  const newProposals = useMemo(() => {
+    return Object.keys(FORM).map((key) => FORM[key]);
+  }, []);
+
   return (
     <BiColumnLayout
       title="Proposals"
@@ -38,7 +43,7 @@ export function Proposals() {
             <Button IconLeft={BsPlusLg}>New Proposal</Button>
           </DialogTrigger>
           <DialogContent title="Choose Proposal Type">
-            <NewProposalList proposalLegos={VALID_NEW_PROPOSALS} />
+            <NewProposalList proposalLegos={newProposals} />
           </DialogContent>
         </Dialog>
       }

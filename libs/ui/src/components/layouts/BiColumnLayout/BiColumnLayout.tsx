@@ -50,8 +50,6 @@ export const BiColumnLayout = ({
         {actions && <ActionButtonContainer>{actions}</ActionButtonContainer>}
       </TitleContainerWithActions>
     );
-    // if (typeof title === 'string') return <H2 className="title">{title}</H2>;
-    // return <div className="title">{title}</div>;
   }, [title, actions]);
 
   const sectionDescription = useMemo(() => {

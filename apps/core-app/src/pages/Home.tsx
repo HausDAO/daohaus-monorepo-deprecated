@@ -1,12 +1,11 @@
-import { useEffect } from 'react';
-import { HausLayout } from '@daohaus/daohaus-connect-feature';
+import { useLayoutEffect } from 'react';
 
 export function Home() {
-  useEffect(() => {
+  useLayoutEffect(() => {
     window.location.href = 'https://hub.daohaus.fun';
   }, []);
 
-  return <HausLayout>-</HausLayout>;
+  return null;
 }
 
 export default Home;

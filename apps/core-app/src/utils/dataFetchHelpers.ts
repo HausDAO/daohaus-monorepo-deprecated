@@ -81,7 +81,7 @@ export const loadMember = async ({
 
     if (memberRes?.data?.member && shouldUpdate) {
       setMember(memberRes.data.member);
-    } else {
+    } else if (shouldUpdate) {
       setMember(undefined);
     }
   } catch (error) {

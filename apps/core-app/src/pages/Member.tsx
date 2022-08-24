@@ -18,7 +18,7 @@ import {
 import {
   formatValueTo,
   Keychain,
-  networkData,
+  NETWORK_DATA,
   memberTokenBalanceShare,
   memberUsdValueShare,
 } from '@daohaus/common-utilities';
@@ -141,7 +141,6 @@ export function Member() {
       return dao.tokenBalances
         .filter((bal) => Number(bal.balance))
         .map((bal) => {
-          console.log('bal', bal);
           return {
             token: {
               address: bal.tokenAddress || '0x0',
@@ -179,7 +178,7 @@ export function Member() {
         accessor: 'token',
         Cell: ({ value }: { value: TokenTableType['token'] }) => {
           return value.address === '0x0' ? (
-            <DataMd>{networkData[daochain as keyof Keychain]?.symbol}</DataMd>
+            <DataMd>{NETWORK_DATA[daochain as keyof Keychain]?.symbol}</DataMd>
           ) : (
             <AddressDisplay
               address={value.address}

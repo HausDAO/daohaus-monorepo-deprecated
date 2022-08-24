@@ -1,7 +1,6 @@
-import { Checkbox } from '@radix-ui/react-checkbox';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Button, H5, Input, ParMd } from '../../atoms';
-import { WrappedInput, WrappedRadio } from '../index';
+import { Button, ParMd } from '../../atoms';
+import { WrappedInput } from '../index';
 
 import { Dialog, DialogContent, DialogTrigger } from './Dialog';
 

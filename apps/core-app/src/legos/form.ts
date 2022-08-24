@@ -69,7 +69,7 @@ export const FORM: Record<string, CustomFormLego> = {
       shamanAddress: true,
       shamanPermission: true,
     },
-    log: true,
+    tx: TX.ADD_SHAMAN,
     fields: [
       FIELD.TITLE,
       FIELD.DESCRIPTION,

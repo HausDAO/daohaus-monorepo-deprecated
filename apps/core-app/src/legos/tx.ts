@@ -58,4 +58,26 @@ export const TX: Record<string, TXLego> = {
       },
     ],
   }),
+  ADD_SHAMAN: buildMultiCallTX({
+    id: 'ADD_SHAMAN',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        proposalType: { type: 'static', value: 'Add Shaman Proposal' },
+      },
+    },
+    actions: [
+      {
+        contract: CONTRACT.CURRENT_DAO,
+        method: 'setShamans',
+        args: [
+          { type: 'nestedArray', args: ['.formValues.shamanAddress'] },
+          { type: 'nestedArray', args: ['.formValues.shamanPermission'] },
+        ],
+      },
+    ],
+  }),
 };

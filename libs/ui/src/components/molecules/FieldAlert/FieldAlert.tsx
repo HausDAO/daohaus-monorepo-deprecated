@@ -1,7 +1,4 @@
-import { orangeDark } from '@radix-ui/colors';
 import { forwardRef, RefObject } from 'react';
-import styled from 'styled-components';
-import { Button } from '../../atoms/Button';
 import { ParXs } from '../../atoms/Typography';
 
 import { FieldAlertWrapper } from './FieldAlert.styles';

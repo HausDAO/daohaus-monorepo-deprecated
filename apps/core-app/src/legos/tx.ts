@@ -58,4 +58,53 @@ export const TX: Record<string, TXLego> = {
       },
     ],
   }),
+  ISSUE_ERC20: buildMultiCallTX({
+    id: 'ISSUE_ERC20',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        proposalType: { type: 'static', value: 'Issue Funding Proposal' },
+      },
+    },
+    actions: [
+      {
+        // contract: {
+        //   ...CONTRACT.ERC20,
+        //   targetAddress: '.formValues.paymentTokenAddress',
+        // },
+        contract: CONTRACT.ERC_20_FUNDING,
+        method: 'tranfer',
+        args: ['.formValues.recipient', '.formValues.paymentTokenAmt'],
+      },
+    ],
+  }),
+  ISSUE_NETWORK_TOKEN: buildMultiCallTX({
+    id: 'ISSUE_NETWORK_TOKEN',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        proposalType: { type: 'static', value: 'Issue Funding Proposal' },
+      },
+    },
+    actions: [
+      {
+        // contract: {
+        //   ...CONTRACT.ERC20,
+        //   targetAddress: '.formValues.paymentTokenAddress',
+        // },
+        // need to overwrite the data here to 0x0 and add to value
+        // walk through the action encoding
+        contract: CONTRACT.ERC_20_FUNDING,
+        method: 'tranfer',
+        args: ['.formValues.recipient', '.formValues.paymentTokenAmt'],
+      },
+    ],
+    value: '.formValues.paymentAmount',
+  }),
 };

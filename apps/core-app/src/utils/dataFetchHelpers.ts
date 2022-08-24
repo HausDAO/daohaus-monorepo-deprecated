@@ -55,23 +55,23 @@ export const loadDao = async ({
   }
 };
 
-export const loadUserMembership = async ({
+export const loadMember = async ({
   daoid,
   daochain,
   address,
-  setUserMembership,
-  setUserMembershipLoading,
+  setMember,
+  setMemberLoading,
   shouldUpdate,
 }: {
   daoid: string;
   daochain: keyof Keychain;
   address: string;
-  setUserMembership: ReactSetter<FindMemberQuery['member'] | undefined>;
-  setUserMembershipLoading: ReactSetter<boolean>;
+  setMember: ReactSetter<FindMemberQuery['member'] | undefined>;
+  setMemberLoading: ReactSetter<boolean>;
   shouldUpdate: boolean;
 }) => {
   try {
-    setUserMembershipLoading(true);
+    setMemberLoading(true);
     const haus = Haus.create();
     const memberRes = await haus.query.findMember({
       networkId: daochain,
@@ -80,16 +80,16 @@ export const loadUserMembership = async ({
     });
 
     if (memberRes?.data?.member && shouldUpdate) {
-      setUserMembership(memberRes.data.member);
-    } else {
-      setUserMembership(undefined);
+      setMember(memberRes.data.member);
+    } else if (shouldUpdate) {
+      setMember(undefined);
     }
   } catch (error) {
     console.error(error);
-    setUserMembership(undefined);
+    setMember(undefined);
   } finally {
     if (shouldUpdate) {
-      setUserMembershipLoading(false);
+      setMemberLoading(false);
     }
   }
 };

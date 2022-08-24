@@ -24,3 +24,17 @@ export const BiColumnBox = styled.div`
     }
   }
 `;
+
+export const TitleContainerWithActions = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+`;
+
+export const ActionButtonContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 3rem;
+`;

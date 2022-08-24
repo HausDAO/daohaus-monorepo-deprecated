@@ -44,8 +44,6 @@ const DataGrid = styled.div`
 export function DaoOverview() {
   const { dao } = useDao();
 
-  console.log('dao', dao);
-
   return (
     <SingleColumnLayout>
       {dao && (

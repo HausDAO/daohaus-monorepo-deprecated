@@ -22,6 +22,7 @@ type AddressDisplayProps = {
   copy?: boolean;
   truncate?: boolean;
   txHash?: boolean;
+  textOverride?: string;
 };
 
 export const AddressDisplay = ({
@@ -30,6 +31,7 @@ export const AddressDisplay = ({
   copy,
   truncate,
   txHash,
+  textOverride,
   ...props
 }: AddressDisplayProps) => {
   const theme = useTheme() as Theme;
@@ -53,10 +55,12 @@ export const AddressDisplay = ({
     );
   };
 
+  const displayAddress = truncate ? truncateAddress(address) : address;
+
   return (
     <AddressContainer>
       <AddressDataMd {...props}>
-        {truncate ? truncateAddress(address) : address}
+        {textOverride ? textOverride : displayAddress}
       </AddressDataMd>
       {copy && (
         <AddressCopyIcon>

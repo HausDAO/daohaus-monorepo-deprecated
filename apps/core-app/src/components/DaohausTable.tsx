@@ -3,7 +3,6 @@ import { useTable, Column } from 'react-table';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
 
-import { MembersTableType } from '../pages/Members';
 import { Button } from '@daohaus/ui';
 import { ColumnSortIcons } from './ColumnSortIcons';
 
@@ -39,31 +38,26 @@ const Td = styled.td`
 
 const TBody = styled.tbody``;
 
-export type DaoTableProps = {
-  tableData: MembersTableType[];
-  columns: Column<MembersTableType>[];
-  hasNextPaging: boolean;
-  handleLoadMore: (event: MouseEvent<HTMLButtonElement>) => void;
-  handleColumnSort: (orderBy: string, orderDirection: 'asc' | 'desc') => void;
+export type DaoTableProps<T extends object> = {
+  tableData: T[];
+  columns: Column<T>[];
+
+  hasNextPaging?: boolean;
+  handleLoadMore?: (event: MouseEvent<HTMLButtonElement>) => void;
+  handleColumnSort?: (orderBy: string, orderDirection: 'asc' | 'desc') => void;
   sortableColumns: string[];
 };
 
-// TS Challenge figure out how to pass generics for the table props
-// type DaoTableProps<T extends object> = {
-//   tableData: T[];
-//   columns: Column<T>[];
-// };
-// export const DaoTable = <T,>({ tableData, columns }: DaoTableProps<T>) => {
-export const DaoTable = ({
+export function DaoTable<T extends object>({
   tableData,
   columns,
   hasNextPaging,
   handleLoadMore,
   handleColumnSort,
   sortableColumns,
-}: DaoTableProps) => {
+}: DaoTableProps<T>) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({
+    useTable<T>({
       columns: columns,
       data: tableData,
     });
@@ -79,12 +73,13 @@ export const DaoTable = ({
                   <Th {...column.getHeaderProps()}>
                     <HeaderCellContainer>
                       {column.render('Header')}
-                      {sortableColumns.includes(column.id) && (
-                        <ColumnSortIcons
-                          orderBy={column.id}
-                          handleColumnSort={handleColumnSort}
-                        />
-                      )}
+                      {sortableColumns.includes(column.id) &&
+                        handleColumnSort && (
+                          <ColumnSortIcons
+                            orderBy={column.id}
+                            handleColumnSort={handleColumnSort}
+                          />
+                        )}
                     </HeaderCellContainer>
                   </Th>
                 );
@@ -107,11 +102,11 @@ export const DaoTable = ({
           })}
         </TBody>
       </Table>
-      {hasNextPaging && (
+      {hasNextPaging && handleLoadMore && (
         <Button tertiary sm onClick={handleLoadMore}>
           Load More
         </Button>
       )}
     </>
   );
-};
+}

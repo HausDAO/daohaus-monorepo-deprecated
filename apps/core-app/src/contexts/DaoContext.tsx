@@ -24,10 +24,10 @@ import {
 import { useParams } from 'react-router-dom';
 import {
   loadDao,
-  loadUserMembership,
+  loadMember,
   loadMembersList,
   loadProposalsList,
-} from '../utils/contextHelpers';
+} from '../utils/dataFetchHelpers';
 
 export type TDao = DaoWithTokenDataQuery['dao'];
 export type TMembers = ListMembersQuery['members'];
@@ -215,12 +215,12 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   useEffect(() => {
     let shouldUpdate = true;
     if (daochain && daoid && address) {
-      loadUserMembership({
+      loadMember({
         daoid,
         daochain: daochain as keyof Keychain,
         address,
-        setUserMembership,
-        setUserMembershipLoading,
+        setMember: setUserMembership,
+        setMemberLoading: setUserMembershipLoading,
         shouldUpdate,
       });
     }
@@ -288,12 +288,12 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   };
   const refreshUserMembership = async () => {
     if (daochain && daoid && address) {
-      loadUserMembership({
+      loadMember({
         daoid,
         daochain: daochain as keyof Keychain,
         address,
-        setUserMembership,
-        setUserMembershipLoading,
+        setMember: setUserMembership,
+        setMemberLoading: setUserMembershipLoading,
         shouldUpdate: true,
       });
     }

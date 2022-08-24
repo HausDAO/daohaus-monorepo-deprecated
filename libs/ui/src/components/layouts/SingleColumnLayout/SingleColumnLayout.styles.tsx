@@ -37,6 +37,7 @@ export const TitleContainerWithActions = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  width: 100%;
 `;
 
 export const ActionButtonContainer = styled.div`

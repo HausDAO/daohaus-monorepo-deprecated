@@ -23,12 +23,14 @@ export const InputSelect = ({
   registerInput?: UseFormRegisterReturn | Record<string, unknown>;
 }) => {
   const classes = classNames({ long, full });
+  const selectClasses = classNames({ 'match-long': long, 'match-full': full });
+
   return (
     <InputSelectBox className={classes}>
       <Input
         id={id}
         disabled={disabled}
-        className="input"
+        className={`input ${classes}`}
         placeholder={placeholder}
         error={error}
         warning={warning}
@@ -40,7 +42,7 @@ export const InputSelect = ({
         options={options}
         disabled={disabled}
         className="select"
-        containerClassName="select-box"
+        containerClassName={`select-box ${selectClasses}`}
         placeholder={selectPlaceholder}
         error={error}
         warning={warning}

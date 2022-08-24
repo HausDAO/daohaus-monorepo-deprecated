@@ -38,10 +38,6 @@ export const FieldWrapperWithButtonComponent = Template.bind({});
 FieldWrapperWithButtonComponent.args = {
   children: <DummyField>Sample dummy component</DummyField>,
   label: 'Label',
-  success: {
-    type: 'success',
-    message: 'This is Success helper text',
-  },
   info: 'Cooltip text',
   rightAddon: <Button tertiary sm>Button Label</Button>,
 };

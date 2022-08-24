@@ -1,11 +1,6 @@
 import { Paging } from '../types';
 
-export const DEFAULT_RECORDS_PER_PAGE = 100;
-
-export const defaultPagination: Paging = {
-  pageSize: 2,
-  offset: 0,
-};
+export const DEFAULT_RECORDS_PER_PAGE = 25;
 
 export interface ILightEntity {
   readonly id: string;

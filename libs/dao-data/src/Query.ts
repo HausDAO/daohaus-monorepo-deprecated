@@ -298,34 +298,37 @@ export default class Query {
       const gnosisUrl = this.endpoints['GNOSIS_API'][networkId];
 
       if (includeTokens && daoRes?.data?.dao && gnosisUrl) {
-        const res = await fetch.get<TokenBalance[]>(
-          `${gnosisUrl}/safes/${ethers.utils.getAddress(
-            daoRes.data.dao.safeAddress
-          )}/balances/usd/`
-        );
+        try {
+          const res = await fetch.get<TokenBalance[]>(
+            `${gnosisUrl}/safes/${ethers.utils.getAddress(
+              daoRes.data.dao.safeAddress
+            )}/balances/usd/`
+          );
 
-        return {
-          data: {
-            dao: {
-              ...daoRes.data.dao,
-              ...addDaoProfileFields(daoRes.data.dao),
-              ...transformTokenBalances(res, daoRes.data.dao.safeAddress),
-            },
-          },
-        };
-      } else {
-        if (daoRes.data?.dao) {
           return {
             data: {
               dao: {
                 ...daoRes.data.dao,
                 ...addDaoProfileFields(daoRes.data.dao),
+                ...transformTokenBalances(res, daoRes.data.dao.safeAddress),
               },
             },
           };
-        } else {
-          return daoRes;
+        } catch (err) {
+          console.error('gnosis api fetch error', err);
         }
+      }
+      if (daoRes.data?.dao) {
+        return {
+          data: {
+            dao: {
+              ...daoRes.data.dao,
+              ...addDaoProfileFields(daoRes.data.dao),
+            },
+          },
+        };
+      } else {
+        return daoRes;
       }
     } catch (err) {
       return {

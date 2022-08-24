@@ -55,7 +55,7 @@ export const generateRules = ({
   const oldRules = field.rules || {};
 
   return pipe(
-    updateValidate(handleTypeValidation(field)),
-    updateRequired(handleRequiredField(field, requiredFields))
+    updateRequired(handleRequiredField(field, requiredFields)),
+    updateValidate(handleTypeValidation(field))
   )(oldRules);
 };

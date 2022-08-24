@@ -18,29 +18,35 @@ export const InputSelect = ({
   selectPlaceholder,
   registerSelect = {},
   registerInput = {},
+  defaultValue,
+  selectDefault,
 }: InputSelectProps & {
   registerSelect?: UseFormRegisterReturn | Record<string, unknown>;
   registerInput?: UseFormRegisterReturn | Record<string, unknown>;
 }) => {
   const classes = classNames({ long, full });
+  const selectClasses = classNames({ 'match-long': long, 'match-full': full });
+
   return (
     <InputSelectBox className={classes}>
       <Input
         id={id}
         disabled={disabled}
-        className="input"
+        className={`input ${classes}`}
         placeholder={placeholder}
         error={error}
         warning={warning}
         full
+        defaultValue={defaultValue}
         {...registerInput}
       />
       <Select
         id={selectId}
         options={options}
+        defaultValue={selectDefault}
         disabled={disabled}
         className="select"
-        containerClassName="select-box"
+        containerClassName={`select-box ${selectClasses}`}
         placeholder={selectPlaceholder}
         error={error}
         warning={warning}

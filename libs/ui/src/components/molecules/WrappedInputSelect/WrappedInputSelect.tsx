@@ -19,7 +19,7 @@ export const WrappedInputSelect = ({
         registerInput={register(id, rules)}
         registerSelect={register(selectId)}
         id={id}
-        selectId={id}
+        selectId={selectId}
       />
     </FieldWrapper>
   );

@@ -11,6 +11,7 @@
   "dependencies": {
     "@ceramicnetwork/http-client": "^2.3.0",
     "@daohaus/baal-contracts": "^0.3.3",
+    "@ethersproject/constants": "^5.6.1",
     "@glazed/devtools": "^0.2.0",
     "@gnosis.pm/safe-apps-react-sdk": "^4.5.0",
     "@gnosis.pm/safe-apps-web3modal": "^12.0.0",
@@ -30,6 +31,7 @@
     "@radix-ui/react-avatar": "^0.1.4",
     "@radix-ui/react-checkbox": "0.1.6-rc.8",
     "@radix-ui/react-dialog": "^1.0.0",
+    "@radix-ui/react-collapsible": "^1.0.0",
     "@radix-ui/react-dropdown-menu": "^0.1.6",
     "@radix-ui/react-radio-group": "^0.1.5",
     "@radix-ui/react-separator": "^0.1.4",

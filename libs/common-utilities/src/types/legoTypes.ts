@@ -45,6 +45,8 @@ export type JSONDetailsSearch = {
 export type MulticallAction = {
   contract: ContractLego;
   method: string;
+  value?: ValidArgType;
+  operations?: ValidArgType;
   args: ValidArgType[];
 };
 export type MulticallArg = {
@@ -68,10 +70,22 @@ type StaticArg = {
   value: ArgType;
 };
 
+type SingletonSearch = {
+  type: 'singleton';
+  keychain: Keychain;
+};
+
+type NestedArray = {
+  type: 'nestedArray';
+  args: ValidArgType[];
+};
+
 export type ValidArgType =
   | StringSearch
   | JSONDetailsSearch
   | EstmimateGas
+  | SingletonSearch
+  | NestedArray
   | MulticallArg
   | ProposalExpiry
   | StaticArg;
@@ -89,10 +103,6 @@ export type TXLegoBase = {
   contract: ContractLego;
   method: string;
   customPoll?: string;
-  txSuccessMessage?: string;
-  finalSuccessMessage?: string;
-  errorMessage?: string;
-  status?: TxStates;
   args?: ValidArgType[];
   argCallback?: string;
   staticArgs?: ArgType[];

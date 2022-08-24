@@ -50,7 +50,7 @@ export const Select = forwardRef(
           disabled={disabled}
         >
           {placeholder && <StyledOption value="">{placeholder}</StyledOption>}
-          {options.map((option) => (
+          {options?.map((option) => (
             <StyledOption key={option.key || option.value} value={option.value}>
               {option.name}
             </StyledOption>

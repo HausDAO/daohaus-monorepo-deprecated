@@ -10,7 +10,8 @@ type CopyFn = (
 ) => Promise<boolean>; // Return success
 
 export const useCopyToClipboard = (): CopyFn => {
-  const [copiedText, setCopiedText] = useState<CopiedValue>(null);
+  // ! Will we need to get the text back from this hook? Does firing the Toast from the hook make sense?
+  const [copiedText, setCopiedText] = useState<CopiedValue>(null); // eslint-disable-line no-eval
   const { successToast, errorToast } = useToast();
 
   const copy: CopyFn = async (

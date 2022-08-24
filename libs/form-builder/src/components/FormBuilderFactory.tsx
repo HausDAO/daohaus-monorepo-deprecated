@@ -1,14 +1,10 @@
 import { LookupType } from '@daohaus/common-utilities';
 import { useMemo } from 'react';
-import styled from 'styled-components';
 import { FieldLego } from '../types/formLegoTypes';
 import { generateRules } from '../utils/rules';
 import { CoreFieldLookup } from './CoreFieldLookup';
+import { FieldSpacer } from './FieldSpacer';
 import { useFormBuilder } from './FormBuilder';
-
-const FieldSpacer = styled.div`
-  margin-bottom: 3.6rem;
-`;
 
 export const FormBuilderFactory = ({
   spacing = true,

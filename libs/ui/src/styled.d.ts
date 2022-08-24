@@ -23,6 +23,8 @@ declare module 'styled-components' {
     secondary: string;
     error: string;
     warning: string;
+    warningBg: string;
+    warningBorder: string;
     success: string;
     disabled: string;
     transparent: string;
@@ -67,6 +69,13 @@ declare module 'styled-components' {
       errorText: string;
       errorBg: string;
       errorBorder: string;
+    };
+    collapsibleCard: {
+      text: string;
+      hoverText: string;
+      focusText: string;
+      bgInnerCard: string;
+      borderInnerCard: string;
     };
     field: {
       bg: string;

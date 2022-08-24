@@ -1,27 +1,27 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { ShamanInput } from './ShamanInput';
+import { ShamanPermission } from './ShamanPermission';
 import { useFormContext } from 'react-hook-form';
 import { H3 } from '../../atoms/Typography';
 
 export default {
-  title: 'Molecules/Form/ShamanInput',
-  component: ShamanInput,
-} as ComponentMeta<typeof ShamanInput>;
+  title: 'Molecules/Form/ShamanPermission',
+  component: ShamanPermission,
+} as ComponentMeta<typeof ShamanPermission>;
 
-const Template: ComponentStory<typeof ShamanInput> = (args) => {
+const Template: ComponentStory<typeof ShamanPermission> = (args) => {
   const { watch } = useFormContext();
   const value = watch();
 
   return (
     <div style={{ margin: '4rem' }}>
-      <ShamanInput {...args} />
+      <ShamanPermission {...args} />
       <H3>{value[args.id] || 'Input text will appear here'}</H3>
     </div>
   );
 };
 
-export const FullShamanInput = Template.bind({});
-FullShamanInput.args = {
+export const FullShamanPermission = Template.bind({});
+FullShamanPermission.args = {
   id: 'example',
   label: 'Shaman Input',
   placeholder: 'Shaman permissions',

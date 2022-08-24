@@ -6,7 +6,7 @@ export * from './Dialog';
 export * from './Dropdown';
 export * from './FieldWrapper';
 export * from './ProfileAvatar';
-export * from './ShamanInput';
+export * from './ShamanPermission';
 export * from './Toast';
 export * from './TimePicker';
 export * from './WrappedInput';

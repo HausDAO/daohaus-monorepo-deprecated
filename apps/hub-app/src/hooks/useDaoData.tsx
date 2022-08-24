@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { Haus, ITransformedMembership } from '@daohaus/dao-data';
-import { networkData, ValidNetwork } from '@daohaus/common-utilities';
+import { NETWORK_DATA, ValidNetwork } from '@daohaus/common-utilities';
 
 const temporaryInitHaus = () => {
   return Haus.create();
@@ -14,7 +14,7 @@ const useDaoData = () => {
   const [daoData, setDaoData] = useState<ITransformedMembership[]>([]);
 
   const [filterNetworks] = useState<Record<string, string>>(
-    Object.keys(networkData).reduce(
+    Object.keys(NETWORK_DATA).reduce(
       (acc, networkId) => ({ [networkId]: networkId }),
       {}
     )

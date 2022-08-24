@@ -32,11 +32,12 @@ export const searchApp = (
   pathString: StringSearch,
   shouldThrow = false
 ) => {
-  const result = deepSearch(appState, pathString) || undefined;
+  const result = deepSearch(appState, pathString);
 
-  if (result === undefined || result === '' || result === null) {
+  if (result == null) {
     if (shouldThrow) {
       console.log('**Application State**', appState);
+      console.log('result', result);
       throw new Error(`Could not find ${pathString}`);
     } else {
       return false;

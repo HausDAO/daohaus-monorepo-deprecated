@@ -63,6 +63,12 @@ export const FORM: Record<string, CustomFormLego> = {
     title: 'Add a Shaman',
     description: 'Learn more about Shamans in our documentation.',
     subtitle: 'Add Shaman Proposal',
+    requiredFields: {
+      title: true,
+      description: true,
+      shamanAddress: true,
+      shamanPermission: true,
+    },
     log: true,
     fields: [
       FIELD.TITLE,

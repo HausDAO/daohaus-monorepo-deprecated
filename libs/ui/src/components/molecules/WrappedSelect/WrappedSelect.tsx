@@ -10,7 +10,7 @@ export const WrappedSelect = ({
 }: Buildable<SelectProps>) => {
   const { register } = useFormContext();
   return (
-    <FieldWrapper {...props} id={id}>
+    <FieldWrapper {...props} id={id} rules={rules}>
       <Select {...register(id, rules)} {...props} id={id} />
     </FieldWrapper>
   );

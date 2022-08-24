@@ -11,6 +11,7 @@ import Proposals from './pages/Proposals';
 import Vaults from './pages/Vaults';
 import FormTest from './pages/FormTest';
 import Settings from './pages/Settings';
+import NewProposal from './pages/NewProposal';
 
 const Routes = () => {
   return (
@@ -27,6 +28,7 @@ const Routes = () => {
         <Route index element={<DaoOverview />} />
         <Route path="formtest" element={<FormTest />} />
         <Route path="proposals" element={<Proposals />} />
+        <Route path="new-proposal" element={<NewProposal />} />
         <Route path="proposal/:proposalId" element={<Proposals />} />
         <Route path="vaults" element={<Vaults />} />
         <Route path="members" element={<Members />} />

@@ -83,7 +83,7 @@ export const txActionToMetaTx = ({
   address: string;
   method: string;
   args: ReadonlyArray<ArgType>;
-  value?: string | number;
+  value?: number;
   operation?: number;
 }): MetaTransaction => {
   const encodedData = encodeFunction(abi, method, args);
@@ -113,7 +113,7 @@ export const handleMulticallArg = async ({
 }) => {
   const encodedActions = await Promise.all(
     arg.actions.map(async (action) => {
-      const { contract, method, args } = action;
+      const { contract, method, args, value, operations } = action;
       const processedContract = await processContractLego({
         contract,
         chainId,
@@ -125,11 +125,26 @@ export const handleMulticallArg = async ({
           async (arg) => await processArg({ arg, chainId, localABIs, appState })
         )
       );
+      const processValue = value
+        ? await processArg({ arg: value, chainId, localABIs, appState })
+        : 0;
+
+      const processedOperations = operations
+        ? await processArg({
+            arg: operations,
+            chainId,
+            localABIs,
+            appState,
+          })
+        : 0;
+
       return txActionToMetaTx({
         abi: processedContract.abi,
         method,
         address: processedContract.address,
         args: processedArgs,
+        value: Number(processValue),
+        operation: Number(processedOperations),
       });
     })
   );
@@ -214,9 +229,13 @@ export const buildMultiCallTX = ({
         fallback: toSeconds(14, 'days'),
       },
       {
-        type: 'estimateGas',
-        actions,
+        type: 'static',
+        value: 0,
       },
+      // {
+      //   type: 'estimateGas',
+      //   actions,
+      // },
       JSONDetails,
     ],
   };

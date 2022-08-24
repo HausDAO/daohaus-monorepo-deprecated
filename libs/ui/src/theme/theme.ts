@@ -31,6 +31,8 @@ export const defaultDarkTheme: Theme = {
   secondary: secondary.bgSolid,
   error: utilityDark.danger,
   warning: utilityDark.warning,
+  warningBg: utilityDark.warningBg,
+  warningBorder: utilityDark.warningBorder,
   success: utilityDark.success,
   disabled: neutralDark.bgSolid,
   transparent: utilityDark.transparent,
@@ -142,13 +144,20 @@ export const defaultDarkTheme: Theme = {
     },
   },
   // *** MOLECULES *** //
+  collapsibleCard: {
+    text: primaryDark.textLowContrast,
+    hoverText: primaryDark.bgSolidHover,
+    focusText: primaryDark.textHighContrast,
+    bgInnerCard: secondaryDark.elementBgActive,
+    borderInnerCard: secondaryDark.elementBorderSubtle,
+  },
   dropdown: DropdownDark,
   dialog: {
     bg: secondaryDark.bgSubtle,
     color: secondaryDark.textHighContrast,
   },
   tooltip: {
-    bg: secondaryDark.elementBg,
+    bg: secondaryDark.elementBorderSubtle,
   },
   toast: {
     bg: secondaryDark.elementBg,
@@ -192,6 +201,8 @@ export const defaultLightTheme: Theme = {
   secondary: secondary.bgSolid,
   error: utility.danger,
   warning: utility.warning,
+  warningBg: utility.warningBg,
+  warningBorder: utility.warningBorder,
   success: utility.success,
   info: utility.info,
   transparent: utility.transparent,
@@ -303,13 +314,20 @@ export const defaultLightTheme: Theme = {
     },
   },
   // *** MOLECULES *** //
+  collapsibleCard: {
+    text: primary.textLowContrast,
+    hoverText: primary.bgSolidHover,
+    focusText: primary.textHighContrast,
+    bgInnerCard: secondary.elementBgActive,
+    borderInnerCard: secondary.elementBorderSubtle,
+  },
   dropdown: DropdownLight,
   dialog: {
     bg: secondary.bgSubtle,
     color: secondary.textHighContrast,
   },
   tooltip: {
-    bg: secondary.elementBg,
+    bg: secondary.elementBorderSubtle,
   },
   toast: {
     bg: secondary.elementBg,

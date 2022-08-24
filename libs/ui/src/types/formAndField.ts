@@ -88,7 +88,11 @@ export type SelectProps = {
 } & PrimitiveElement & PrimitiveWrapper;
 
 export type InputSelectProps = Field &
-  SelectProps & { selectId: string; selectPlaceholder?: string };
+  SelectProps & {
+    selectId: string;
+    selectPlaceholder?: string;
+    selectDefault?: string;
+  };
 
 export type SwitchComponentProps = SwitchProps & {
   fieldLabel: string;

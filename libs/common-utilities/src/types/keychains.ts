@@ -11,5 +11,6 @@ export type NetworkType = {
   networkId: number;
   name: string;
   symbol: string;
-  [index: string]: ValidKey | Record<ValidKey, unknown>;
+  tokenDecimals: number;
+  // [index: string]: ValidKey | Record<ValidKey, unknown>;
 };

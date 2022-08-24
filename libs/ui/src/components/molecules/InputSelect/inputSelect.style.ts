@@ -10,7 +10,7 @@ export const InputSelectBox = styled.div`
   max-width: ${field.size.md};
 
   .select {
-    max-width: 10rem;
+    max-width: 100%;
     padding: 0 0.8rem;
     border-radius: 0 ${field.borderRadius} ${field.borderRadius} 0;
     border-left: none;
@@ -43,6 +43,12 @@ export const InputSelectBox = styled.div`
       right: 0.6rem;
       color: ${({ theme }: { theme: Theme }) =>
         theme.button.secondary.disabledText};
+    }
+    &.match-long {
+      max-width: 16rem;
+    }
+    &.match-full {
+      max-width: 18rem;
     }
   }
 

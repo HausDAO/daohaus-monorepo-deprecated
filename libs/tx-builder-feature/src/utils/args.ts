@@ -3,6 +3,7 @@ import {
   ArbitraryState,
   ArgType,
   calcExpiry,
+  Keychain,
   StringSearch,
   TXLego,
   ValidArgType,
@@ -14,6 +15,19 @@ import { handleDetailsJSON, searchArg } from './search';
 
 export const isSearchArg = (arg: ValidArgType): arg is StringSearch => {
   return typeof arg === 'string' && arg[0] === '.';
+};
+
+const handleKeychainArg = ({
+  chainId,
+  keychain,
+}: {
+  chainId: ValidNetwork;
+  keychain: Keychain;
+}) => {
+  if (!keychain[chainId]) {
+    throw new Error(`Could not find keychain for chainId: ${chainId}`);
+  }
+  return keychain[chainId] as string;
 };
 
 const handleArgCallback = async ({
@@ -59,6 +73,17 @@ export const processArg = async ({
   }
   if (arg?.type === 'static') {
     return arg.value;
+  }
+  if (arg?.type === 'singleton') {
+    return handleKeychainArg({ chainId, keychain: arg.keychain });
+  }
+  if (arg?.type === 'nestedArray') {
+    return Promise.all(
+      arg.args.map(
+        async (arg) =>
+          await processArg({ arg, chainId, safeId, localABIs, appState })
+      )
+    );
   }
   if (arg?.type === 'multicall') {
     const result = await handleMulticallArg({

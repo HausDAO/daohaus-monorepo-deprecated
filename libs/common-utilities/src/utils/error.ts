@@ -6,10 +6,10 @@ const hasMessage = (value: any): value is HasMessage =>
 
 export const handleErrorMessage = ({
   error,
-  fallback,
+  fallback = 'Could not decode error message',
 }: {
   error: unknown;
-  fallback: string;
+  fallback?: string;
 }) => {
   if (hasMessage(error)) {
     return error.message;

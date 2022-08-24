@@ -1,4 +1,6 @@
-export type ArgType = string | number | boolean | ArgType[];
+import { BigNumber } from 'ethers';
+
+export type ArgType = string | number | boolean | BigNumber | ArgType[];
 export type JsonFragmentType = {
   readonly name?: string;
   readonly indexed?: boolean;

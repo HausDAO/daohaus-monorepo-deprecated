@@ -53,6 +53,7 @@ HelperTextPriority.args = {
   ),
   label: 'Read code in docs section',
   helperText: 'This should not appear',
+  hidden: false,
   success: {
     type: 'success',
     message: 'This should not appear',

@@ -75,11 +75,10 @@ export const DropdownTriggerLink = styled.button`
   background-color: transparent;
   border: none;
   border-bottom: 2px transparent solid;
-  color: ${(props) => props.theme.navTabs.navLinkColor};
+  color: ${(props) => props.theme.dropdown.text};
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  font-size: 2.4rem;
   letter-spacing: 1.5px;
   padding-bottom: 1rem;
   transition: 0.2s all;

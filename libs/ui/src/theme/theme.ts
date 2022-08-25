@@ -22,6 +22,7 @@ import {
 import { FieldTheme, FieldThemeDark } from './atoms/field';
 import { AppSwitcherDark, AppSwitcherLight } from './organisms/app-switcher';
 import { DropdownDark, DropdownLight } from './molecules/dropdown';
+import { orangeDark } from '@radix-ui/colors';
 
 export const defaultDarkTheme: Theme = {
   themeName: 'dark',
@@ -82,19 +83,13 @@ export const defaultDarkTheme: Theme = {
   },
   field: FieldThemeDark,
   fieldAlert: {
-    bg: secondaryDark.elementBg,
-    border: secondaryDark.elementBgActive,
-    infoText: utilityDark.infoText,
-    infoBg: utilityDark.infoBg,
-    infoBorder: utilityDark.infoBorder,
-    warningText: utilityDark.warningSecondary,
-    warningBg: utilityDark.warningBgSecondary,
-    warningBorder: utilityDark.warningBorderSecondary,
+    bg: primaryDark.elementBg,
+    border: primaryDark.elementBorderSubtle,
+    warningText: orangeDark.orange10,
+    warningBg: orangeDark.orange2,
+    warningBorder: orangeDark.orange5,
     warningButtonBg: utilityDark.warning,
     warningButtonBorder: utilityDark.warning,
-    errorText: utilityDark.dangerText,
-    errorBg: utilityDark.dangerBg,
-    errorBorder: utilityDark.dangerBorder,
   },
   link: {
     color: primaryDark.bgSolidHover,
@@ -267,19 +262,13 @@ export const defaultLightTheme: Theme = {
   },
   field: FieldTheme,
   fieldAlert: {
-    bg: secondaryDark.elementBg,
-    border: secondaryDark.elementBgActive,
-    infoText: utilityDark.infoText,
-    infoBg: utilityDark.infoBg,
-    infoBorder: utilityDark.infoBorder,
-    warningText: utilityDark.warningSecondary,
-    warningBg: utilityDark.warningBgSecondary,
-    warningBorder: utilityDark.warningBorderSecondary,
+    bg: primary.elementBg,
+    border: primary.elementBorderSubtle,
+    warningText: orangeDark.orange10,
+    warningBg: orangeDark.orange2,
+    warningBorder: orangeDark.orange5,
     warningButtonBg: utilityDark.warning,
     warningButtonBorder: utilityDark.warning,
-    errorText: utilityDark.dangerText,
-    errorBg: utilityDark.dangerBg,
-    errorBorder: utilityDark.dangerBorder,
   },
   link: {
     color: primaryDark.bgSolidHover,

@@ -15,18 +15,14 @@ export const FieldAlertWrapper = styled.div<{
   align-items: center;
   border-radius: ${border.radius};
   max-width: 600px;
-  color: ${({ theme }: { theme: Theme }) => theme.fontColor};
-  background: ${({ theme }: { theme: Theme }) => theme.primary};
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary};
+  background: ${({ theme }: { theme: Theme }) => theme.fieldAlert.bg};
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.fieldAlert.border};
 
   &.full {
     max-width: ${field.size.full};
   }
 
   &.warning {
-    color: ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningText};
-    background: ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningBg};
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningBorder};
     p {
       color: ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningText};
     }
@@ -42,17 +38,5 @@ export const FieldAlertWrapper = styled.div<{
         border: 1px solid ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningButtonBorder};
       }
     }
-  }
-
-  &.info {
-    color: ${({ theme }: { theme: Theme }) => theme.fieldAlert.infoText};
-    background: ${({ theme }: { theme: Theme }) => theme.fieldAlert.infoBg};
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.fieldAlert.infoBorder};
-  }
-
-  &.error {
-    color: ${({ theme }: { theme: Theme }) => theme.fieldAlert.errorText};
-    background: ${({ theme }: { theme: Theme }) => theme.fieldAlert.errorBg};
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.fieldAlert.errorBorder};
   }
 `;

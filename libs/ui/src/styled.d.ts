@@ -93,17 +93,11 @@ declare module 'styled-components' {
     fieldAlert: {
       bg: string;
       border: string;
-      infoText: string;
-      infoBg: string;
-      infoBorder: string;
       warningText: string;
       warningBg: string;
       warningBorder: string;
       warningButtonBg: string;
       warningButtonBorder: string;
-      errorText: string;
-      errorBg: string;
-      errorBorder: string;
     };
     button: {
       primary: ButtonColorTargets;

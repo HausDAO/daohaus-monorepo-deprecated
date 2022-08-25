@@ -59,7 +59,7 @@ export const NewProposalList = ({ proposalLegos }: NewProposalListProps) => {
   return (
     <ListContainer>
       {proposalLegos.map((proposalLego: CustomFormLego) => (
-        <ListItemContainer>
+        <ListItemContainer key={proposalLego.id}>
           <ListItemLink
             href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=${proposalLego.id}`}
           >

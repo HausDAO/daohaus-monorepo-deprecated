@@ -145,7 +145,7 @@ export const TX: Record<string, TXLego> = {
     actions: [
       {
         contract: {
-          // REVIEW - contract/abi/args/method matter here just putting something
+          // REVIEW - contract/abi/args/method don't matter here just putting something
           type: 'static',
           contractName: 'NETWORK',
           abi: LOCAL_ABI.ERC20,

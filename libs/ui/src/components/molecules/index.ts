@@ -5,6 +5,8 @@ export * from './DataIndicator';
 export * from './Dialog';
 export * from './Dropdown';
 export * from './FieldWrapper';
+export * from './CheckGate';
+export * from './FieldAlert';
 export * from './ProfileAvatar';
 export * from './ShamanPermission';
 export * from './Toast';

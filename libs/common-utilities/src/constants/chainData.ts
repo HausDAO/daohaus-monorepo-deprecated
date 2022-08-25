@@ -20,6 +20,13 @@ export const isValidNetwork = (
     : VALID_NETWORKS[str as ValidNetwork] !== undefined;
 
 export const NETWORK_DATA: Keychain<NetworkType> = {
+  '0x1': {
+    chainId: '0x1',
+    networkId: 1,
+    name: 'Ethereum',
+    symbol: 'ETH',
+    tokenDecimals: 18,
+  },
   '0x5': {
     chainId: '0x5',
     networkId: 5,
@@ -27,10 +34,24 @@ export const NETWORK_DATA: Keychain<NetworkType> = {
     symbol: 'ETH',
     tokenDecimals: 18,
   },
-  '0x1': {
-    chainId: '0x1',
-    networkId: 1,
-    name: 'Ethereum',
+  '0x64': {
+    chainId: '0x64',
+    networkId: 64,
+    name: 'Gnosis Chain',
+    symbol: 'xDai',
+    tokenDecimals: 18,
+  },
+  '0xa4b1': {
+    chainId: '0xa4b1',
+    networkId: 42161,
+    name: 'Arbitrum',
+    symbol: 'ETH',
+    tokenDecimals: 18,
+  },
+  '0xa': {
+    chainId: '0xa',
+    networkId: 10,
+    name: 'Optimism',
     symbol: 'ETH',
     tokenDecimals: 18,
   },

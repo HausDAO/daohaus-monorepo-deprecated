@@ -1,7 +1,10 @@
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { AddressDisplay, Button, ParLg, ParMd } from '@daohaus/ui';
-import { Keychain } from '@daohaus/common-utilities';
+import {
+  formatShortDateTimeFromSeconds,
+  Keychain,
+} from '@daohaus/common-utilities';
 
 import { TProposals } from '../contexts/DaoContext';
 
@@ -15,9 +18,10 @@ const OverviewHeader = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
 `;
 
-const SubmitedContainer = styled.div`
+const SubmittedContainer = styled.div`
   display: flex;
   gap: 1rem;
   margin-top: 2.1rem;
@@ -36,13 +40,14 @@ export const ProposalCardOverview = ({
     <OverviewContainer>
       <OverviewHeader>
         <ParMd>
-          {proposal.proposalType} | {proposal.createdAt}
+          {proposal.proposalType} |{' '}
+          {formatShortDateTimeFromSeconds(proposal.createdAt)}
         </ParMd>
         <Button secondary>View Details</Button>
       </OverviewHeader>
       <ParLg color="white">{proposal.title}</ParLg>
       <ParMd>{proposal.description}</ParMd>
-      <SubmitedContainer>
+      <SubmittedContainer>
         <ParMd>Submitted by</ParMd>
         <AddressDisplay
           truncate
@@ -50,7 +55,7 @@ export const ProposalCardOverview = ({
           copy
           explorerNetworkId={daochain as keyof Keychain}
         />
-      </SubmitedContainer>
+      </SubmittedContainer>
     </OverviewContainer>
   );
 };

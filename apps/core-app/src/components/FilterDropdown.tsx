@@ -46,7 +46,7 @@ const FilterDropdown = ({ filter, toggleFilter }: FilterDropdownProps) => {
     >
       {Object.keys(PROPOSAL_FILTERS).map((filterKey) => {
         return (
-          <DropdownMenuItem asChild>
+          <DropdownMenuItem asChild key={filterKey}>
             <DropdownButton
               secondary
               fullWidth
@@ -56,8 +56,6 @@ const FilterDropdown = ({ filter, toggleFilter }: FilterDropdownProps) => {
               IconRight={filter === filterKey ? AiOutlineCheck : undefined}
               className={filter === filterKey ? 'selected' : ''}
             >
-              {/* <div style={{ width: '100%' }}>I am a Delegate</div>
-               */}
               {PROPOSAL_FILTERS[filterKey]}
             </DropdownButton>
           </DropdownMenuItem>

@@ -1,4 +1,10 @@
 export const PROPOSAL_FILTERS: { [key: string]: string } = {
-  UNSPONSORED: 'Needs Sponsor',
-  VOTING: 'In Voting',
+  unsponsored: 'Unsponsored',
+  voting: 'In Voting',
+  grace: 'In Grace',
+  needsProcessing: 'Ready to Process',
+  passed: 'Passed',
+  actionFailed: 'Action Failed',
+  failed: 'Defeated',
+  expired: 'Expired',
 };

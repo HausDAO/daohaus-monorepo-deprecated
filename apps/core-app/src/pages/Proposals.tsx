@@ -2,8 +2,6 @@ import { ChangeEvent, MouseEvent, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import {
   Button,
-  Card,
-  widthQuery,
   Dialog,
   DialogTrigger,
   DialogContent,
@@ -16,16 +14,7 @@ import { NewProposalList } from '../components/NewProposalList';
 import { FORM } from '../legos/form';
 import SearchInput from '../components/SearchInput';
 import FilterDropdown from '../components/FilterDropdown';
-
-const LeftCard = styled(Card)`
-  width: 100%;
-  min-width: 54rem;
-  max-width: 64rem;
-  @media ${widthQuery.md} {
-    max-width: 100%;
-    min-width: 0;
-  }
-`;
+import { BaseProposalCard } from '../components/BaseProposalCard';
 
 const ActionsContainer = styled.div`
   width: 100%;
@@ -83,7 +72,8 @@ export function Proposals() {
           </DialogContent>
         </Dialog>
       </ActionsContainer>
-      <LeftCard>{JSON.stringify(proposals, null, 2)}</LeftCard>
+      {proposals &&
+        proposals.map((proposal) => <BaseProposalCard proposal={proposal} />)}
     </SingleColumnLayout>
   );
 }

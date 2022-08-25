@@ -31,6 +31,7 @@ import {
 
 export type TDao = DaoWithTokenDataQuery['dao'];
 export type TMembers = ListMembersQuery['members'];
+export type TProposals = ITransformedProposalListQuery['proposals'];
 export type TMembership = FindMemberQuery['member'];
 
 export const defaultDaoData = {

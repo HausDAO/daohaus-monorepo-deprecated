@@ -12,21 +12,17 @@ import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { FieldSpacer } from '@daohaus/haus-form-builder';
 import { createContract, useTxBuilder } from '@daohaus/tx-builder-feature';
 import {
-  border,
   Buildable,
   Button,
   ErrorMessage,
-  ParXs,
+  FieldAlert,
   SuccessMessage,
-  Theme,
   useToast,
   WrappedInput,
 } from '@daohaus/ui';
-import { orangeDark } from '@radix-ui/colors';
 
 import { useEffect, useState } from 'react';
 import { RegisterOptions, useFormContext, useWatch } from 'react-hook-form';
-import styled from 'styled-components';
 import { TX } from '../../legos/tx';
 
 type TokenData = {
@@ -219,30 +215,6 @@ export const TributeInput = (
   );
 };
 
-const TempWarningBox = styled.div`
-  padding: 1.6rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: ${({ theme }: { theme: Theme }) => theme.warningBg};
-  border-radius: ${border.radius};
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.warningBorder};
-  color: ${({ theme }: { theme: Theme }) => theme.warning};
-`;
-
-const WarningButton = styled(Button)`
-  background-color: ${orangeDark.orange9};
-  border: 1px solid ${orangeDark.orange9};
-  :hover {
-    background-color: ${orangeDark.orange10};
-    border: 1px solid ${orangeDark.orange10};
-  }
-  :active {
-    background-color: ${orangeDark.orange9};
-    border: 1px solid ${orangeDark.orange9};
-  }
-`;
-
 enum TxStates {
   Idle = 'Idle',
   Loading = 'Loading',
@@ -290,11 +262,13 @@ const TemporaryWarning = ({
   };
 
   return (
-    <TempWarningBox>
-      <ParXs>You must approve {tokenName || 'Token'} to submit</ParXs>
-      <WarningButton sm type="button" onClick={handleApprove}>
+    <FieldAlert
+      className="warning"
+      message={`You must approve ${tokenName || 'Token'} to submit`}
+    >
+      <Button sm type="button" onClick={handleApprove}>
         {txState === TxStates.Loading ? 'Loading...' : 'Approve'}
-      </WarningButton>
-    </TempWarningBox>
+      </Button>
+    </FieldAlert>
   );
 };

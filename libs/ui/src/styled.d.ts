@@ -90,6 +90,15 @@ declare module 'styled-components' {
       disabledBorder: string;
       disabledPlaceholder: string;
     };
+    fieldAlert: {
+      bg: string;
+      border: string;
+      warningText: string;
+      warningBg: string;
+      warningBorder: string;
+      warningButtonBg: string;
+      warningButtonBorder: string;
+    };
     button: {
       primary: ButtonColorTargets;
       secondary: ButtonColorTargets;

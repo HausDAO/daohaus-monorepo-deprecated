@@ -74,10 +74,10 @@ export const DaoCard = ({
           )}
         </div>
         {isDelegate && <Tag>Delegate</Tag>}
-        <ParLg className="dao-title">
-          {name ? charLimit(name, 21) : charLimit(dao, 21)}{' '}
-        </ParLg>
       </div>
+      <ParLg className="dao-title">
+        {name ? charLimit(name, 21) : charLimit(dao, 21)}{' '}
+      </ParLg>
       <div className="stats-box">
         {activeMemberCount && (
           <ParMd>

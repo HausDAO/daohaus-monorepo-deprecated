@@ -155,6 +155,7 @@ export const FORM: Record<string, CustomFormLego> = {
     description:
       'Request membership or increased stake in the DAO. Any tribute must be available in your wallet when proposal is executed.',
     subtitle: 'Token Proposal',
+    tx: TX.TOKENS_FOR_SHARES,
     requiredFields: {
       title: true,
       description: true,

@@ -12,6 +12,7 @@ import Vaults from './pages/Vaults';
 import FormTest from './pages/FormTest';
 import Settings from './pages/Settings';
 import NewProposal from './pages/NewProposal';
+import UpdateSettings from './pages/UpdateSettings';
 
 const Routes = () => {
   return (
@@ -34,6 +35,7 @@ const Routes = () => {
         <Route path="members" element={<Members />} />
         <Route path="members/:memberAddress" element={<Member />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="settings/update" element={<UpdateSettings />} />
       </Route>
     </RoutesDom>
   );

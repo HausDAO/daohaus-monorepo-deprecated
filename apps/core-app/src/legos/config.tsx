@@ -6,6 +6,7 @@ import { NestedArray } from '../components/customFields/nestedArrayInput';
 import { RequestNativeToken } from '../components/customFields/RequestNativeToken';
 import { RequestERC20 } from '../components/customFields/RequestERC20';
 import { ShamanDeluxe } from '../components/customFields/ShamanDeluxe';
+import { TagsInput } from '../components/customFields/tagsInput';
 
 export const CustomFields = {
   ...CoreFieldLookup,
@@ -15,6 +16,7 @@ export const CustomFields = {
   requestNativeToken: RequestNativeToken,
   requestERC20: RequestERC20,
   shamanPermissionDeluxe: ShamanDeluxe,
+  tagsInput: TagsInput,
 };
 
 export type CustomFieldLego = FieldLegoBase<typeof CustomFields>;

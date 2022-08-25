@@ -39,21 +39,16 @@ export const FIELD: Record<string, CustomFieldLego> = {
     type: 'toWeiInput',
     label: 'Should Overwrite',
   },
-  SHAMAN_ADDRESS: {
-    id: 'shamanAddress',
+  NAME: {
+    id: 'name',
     type: 'input',
-    label: 'Shaman Address',
-    placeholder: '0x1234...5678',
-    expectType: 'ethAddress',
+    label: 'DAO Name',
+    placeholder: 'DAO Name',
   },
-  SHAMAN_PERMISSIONS: {
-    id: 'shamanPermission',
-    type: 'shamanPermissions',
-    label: 'Permission Level',
-  },
-  SHAMAN_DELUXE: {
-    id: 'shamanPermission',
-    type: 'shamanPermissionDeluxe',
-    label: 'Permission Level',
+  TAGS: {
+    id: 'tags',
+    type: 'tagsInput',
+    label: 'Tags (seperated by commas)',
+    placeholder: 'DAO Name',
   },
 };

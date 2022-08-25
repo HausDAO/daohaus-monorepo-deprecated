@@ -80,4 +80,34 @@ export const TX: Record<string, TXLego> = {
       },
     ],
   }),
+  UPDATE_METADATA_SETTINGS: {
+    id: 'UPDATE_METADATA_SETTINGS',
+    contract: CONTRACT.POSTER,
+    method: 'post',
+    args: [
+      {
+        type: 'JSONDetails',
+        jsonSchema: {
+          daoId: '.daoId',
+          name: '.formValues.name',
+          description: '.formValues.description',
+          longDescription: '.formValues.long_description',
+          avatarImg: '.formValues.icon',
+          tags: '.formValues.tags',
+          links: {
+            type: 'JSONDetails',
+            jsonSchema: {
+              discord: '.formValues.discord',
+              github: '.formValues.github',
+              medium: '.formValues.medium',
+              telegram: '.formValues.telegram',
+              twitter: '.formValues.twitter',
+              other: '.formValues.other',
+            },
+          },
+        },
+      },
+      { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
+    ],
+  },
 };

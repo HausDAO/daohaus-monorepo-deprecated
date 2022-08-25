@@ -48,6 +48,9 @@ export type MulticallAction = {
   value?: ValidArgType;
   operations?: ValidArgType;
   args: ValidArgType[];
+  // working here
+  to?: ValidArgType;
+  data?: string;
 };
 export type MulticallArg = {
   type: 'multicall';

@@ -109,7 +109,7 @@ export const FORM: Record<string, CustomFormLego> = {
     subtitle: 'Funding Proposal',
     description: 'Ask the DAO for funds.',
     log: true,
-    tx: TX.ISSUE,
+    tx: TX.ISSUE_NETWORK_TOKEN,
     requiredFields: {
       title: true,
       description: true,

@@ -1,4 +1,10 @@
-import { CONTRACTS, POSTER_TAGS, TXLego } from '@daohaus/common-utilities';
+import { LOCAL_ABI } from '@daohaus/abi-utilities';
+import {
+  CONTRACTS,
+  ENCODED_0X0_DATA,
+  POSTER_TAGS,
+  TXLego,
+} from '@daohaus/common-utilities';
 import { buildMultiCallTX } from '@daohaus/tx-builder-feature';
 import { MaxUint256 } from '@ethersproject/constants';
 import { CONTRACT } from './contracts';
@@ -66,7 +72,10 @@ export const TX: Record<string, TXLego> = {
         title: '.formValues.title',
         description: '.formValues.description',
         link: '.formValues.link',
-        proposalType: { type: 'static', value: 'Issue Funding Proposal' },
+        proposalType: {
+          type: 'static',
+          value: 'Issue ERC20 Token Funding Proposal',
+        },
       },
     },
     actions: [
@@ -76,7 +85,7 @@ export const TX: Record<string, TXLego> = {
         //   targetAddress: '.formValues.paymentTokenAddress',
         // },
         contract: CONTRACT.ERC_20_FUNDING,
-        method: 'tranfer',
+        method: 'transfer',
         args: ['.formValues.recipient', '.formValues.paymentTokenAmt'],
       },
     ],
@@ -89,22 +98,26 @@ export const TX: Record<string, TXLego> = {
         title: '.formValues.title',
         description: '.formValues.description',
         link: '.formValues.link',
-        proposalType: { type: 'static', value: 'Issue Funding Proposal' },
+        proposalType: {
+          type: 'static',
+          value: 'Issue Network Token Funding Proposal',
+        },
       },
     },
     actions: [
       {
-        // contract: {
-        //   ...CONTRACT.ERC20,
-        //   targetAddress: '.formValues.paymentTokenAddress',
-        // },
-        // need to overwrite the data here to 0x0 and add to value
-        // walk through the action encoding
-        contract: CONTRACT.ERC_20_FUNDING,
-        method: 'tranfer',
-        args: ['.formValues.recipient', '.formValues.paymentTokenAmt'],
+        contract: {
+          // REVIEW - contract/abi/args/method matter here just putting something
+          type: 'static',
+          contractName: 'NETWORK',
+          abi: LOCAL_ABI.ERC20,
+          targetAddress: '.formValues.recipient',
+        },
+        method: 'noMethod',
+        args: [],
+        value: '.formValues.paymentAmount',
+        data: ENCODED_0X0_DATA,
       },
     ],
-    value: '.formValues.paymentAmount',
   }),
 };

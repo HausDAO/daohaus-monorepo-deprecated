@@ -1,0 +1,66 @@
+---
+name: Report Bug
+description: Report a reproducible bug or issue
+labels: ["bug", "beta"]
+body:
+  - type: input
+    attributes:
+      label: Feature
+      description: What feature are you using?
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: App Affected
+      description: In which app are you encountering this bug?
+      options:
+        - label: "[Admin](https://admin.daohaus.fun)"
+        - label: "[Summon](https://summon.daohaus.fun)"
+        - label: "[Hub](https://hub.daohaus.fun)"
+        - label: "Toolbox"
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen with this feature?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Actual behavior
+      description: What happened that didn't meet your expectations?
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps to reproduce
+      description: |
+        If applicable, can you lay out the steps needed to reproduce this issue?
+      placeholder: |
+        1.
+        2.
+        3.
+    validations:
+      required: false
+  - type: dropdown
+    attributes:
+      label: Browser
+      description: Which browser is this issue occuring in?
+      multiple: true
+      options:
+        - N/A
+        - Firefox
+        - Chrome
+        - Brave
+        - Safari
+        - Internet Explorer
+        - Other
+  - type: textarea
+    attributes:
+      label: Screenshots and context
+      placeholder: |
+        Place additional information that will help address this issue here.
+        You can add screenshots by pasting from your clipboard.
+    validations:
+      required: false

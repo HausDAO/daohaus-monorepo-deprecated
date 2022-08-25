@@ -2,7 +2,6 @@ import {
   CONTRACTS,
   NestedArray,
   POSTER_TAGS,
-  StringSearch,
   TXLego,
   ValidArgType,
 } from '@daohaus/common-utilities';

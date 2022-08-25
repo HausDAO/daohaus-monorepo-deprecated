@@ -1,6 +1,7 @@
 import {
   createContext,
   ReactNode,
+  SetStateAction,
   useCallback,
   useContext,
   useEffect,
@@ -8,7 +9,7 @@ import {
   useState,
 } from 'react';
 
-import { isValidNetwork } from '@daohaus/common-utilities';
+import { isValidNetwork, ReactSetter } from '@daohaus/common-utilities';
 
 import {
   getModal,
@@ -47,7 +48,8 @@ export type UserConnectType = {
   networks: NetworkConfigs;
   switchNetwork: (chainId: string) => void;
   isProfileLoading: boolean;
-  isDaoScope: boolean;
+  setDaoChainId: ReactSetter<string | null>;
+  daoChainId: string | null;
   validNetwork: boolean;
 };
 
@@ -75,6 +77,8 @@ export const HausConnectProvider = ({
     ens: undefined,
   });
   const [isProfileLoading, setProfileLoading] = useState(false);
+  const [daoChainId, setDaoChainId] = useState<string | null>(null);
+
   const isConnected = useMemo(
     () => !!provider && !!address && !!chainId,
     [provider, address, chainId]
@@ -84,9 +88,9 @@ export const HausConnectProvider = ({
     () => !!chainId && isValidNetwork(chainId, networks),
     [chainId, networks]
   );
+
   // TODO, detect if we're in DAOscope by looking at the url.
   //  Or we could use DAOcontext to add to this state on context mount/unmount
-  const isDaoScope = false;
 
   const connectWallet = useCallback(async () => {
     handleConnectWallet({
@@ -142,7 +146,8 @@ export const HausConnectProvider = ({
         switchNetwork,
         profile,
         isProfileLoading,
-        isDaoScope,
+        setDaoChainId,
+        daoChainId,
         validNetwork,
       }}
     >

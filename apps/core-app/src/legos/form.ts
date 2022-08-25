@@ -34,6 +34,7 @@ export const FORM: Record<string, CustomFormLego> = {
     id: 'ISSUE',
     title: 'Issue DAO Tokens',
     subtitle: 'Token Proposal',
+    log: true,
     description:
       'Request membership or increased stake in the DAO. Any tribute must be available in your wallet when proposal is executed.',
     tx: TX.ISSUE,
@@ -50,8 +51,9 @@ export const FORM: Record<string, CustomFormLego> = {
       FIELD.LINK,
       {
         id: 'recipient',
-        type: 'nestedArray',
+        type: 'input',
         label: 'Recipient',
+        expectType: 'ethAddress',
         placeholder: '0x...',
       },
       { ...FIELD.TO_WEI, label: 'Shares Requested', id: 'sharesRequested' },

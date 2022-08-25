@@ -1,21 +1,26 @@
 import { FormBuilder } from '@daohaus/haus-form-builder';
+import { useMemo } from 'react';
 import { useDao } from '../contexts/DaoContext';
 import { CustomFields } from '../legos/config';
 import { FORM } from '../legos/form';
 
 export function UpdateSettings() {
   const { dao } = useDao();
-  const links = dao?.links && JSON.parse(dao?.links);
-  const defaultFields = {
-    name: dao?.name,
-    icon: dao?.avatarImg,
-    tags: dao?.tags?.join(', '),
-    description: dao?.description,
-    long_description: dao?.longDescription,
-    ...links,
-  };
+
+  const defaultFields = useMemo(() => {
+    const links = dao && JSON.parse(dao?.links as string);
+    return {
+      name: dao?.name,
+      icon: dao?.avatarImg,
+      tags: dao?.tags?.join(', '),
+      description: dao?.description,
+      long_description: dao?.longDescription,
+      ...links,
+    };
+  }, [dao]);
 
   if (!dao) {
+    // TODO handle loading state
     return null;
   }
 

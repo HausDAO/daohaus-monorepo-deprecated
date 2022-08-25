@@ -103,6 +103,9 @@ declare module 'styled-components' {
       primary: ButtonColorTargets;
       secondary: ButtonColorTargets;
       tertiary: ButtonColorTargets;
+      success: ButtonColorTargets;
+      warning: ButtonColorTargets;
+      danger: ButtonColorTargets;
     };
     link: {
       color: string;

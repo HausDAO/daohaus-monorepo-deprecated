@@ -56,7 +56,7 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
                 </ParMd>
               )}
               <ParXs color={theme.button.primary.text}>
-                {(networkName && `@${networkName}`) || 'Unknown'}
+                {(networkName && `@${networkName}`) || 'Wrong Network'}
               </ParXs>
             </div>
           </Container>

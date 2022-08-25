@@ -9,7 +9,7 @@ import {
   useState,
 } from 'react';
 
-import { isValidNetwork } from '@daohaus/common-utilities';
+import { isValidNetwork, ReactSetter } from '@daohaus/common-utilities';
 
 import {
   getModal,
@@ -48,7 +48,7 @@ export type UserConnectType = {
   networks: NetworkConfigs;
   switchNetwork: (chainId: string) => void;
   isProfileLoading: boolean;
-  setDaoChainId: React.Dispatch<SetStateAction<string | null>>;
+  setDaoChainId: ReactSetter<string | null>;
   daoChainId: string | null;
   validNetwork: boolean;
 };

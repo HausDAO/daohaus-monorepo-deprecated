@@ -22,7 +22,7 @@ export const NetworkButton = ({ isSm }: { isSm: boolean }) => {
 
   if (!isConnected) return null;
 
-  if (daoChainId !== chainId) return <NotchainId isSm={isSm} />;
+  if (daoChainId !== chainId) return <NotDaoNetwork isSm={isSm} />;
 
   if (!validNetwork) return <NotSupportedNetwork isSm={isSm} />;
 
@@ -51,8 +51,7 @@ export const getNetworkPanels = (
     );
   });
 
-export const NotchainId = ({ isSm }: { isSm: boolean }) => {
-  //  In the future, this will come from the dao context
+export const NotDaoNetwork = ({ isSm }: { isSm: boolean }) => {
   const { switchNetwork, daoChainId } = useHausConnect();
 
   const handleSwitchNetwork = () => {

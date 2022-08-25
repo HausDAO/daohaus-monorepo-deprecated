@@ -18,14 +18,11 @@ import {
 import { useHausConnect } from '../../HausConnectContext';
 
 export const NetworkButton = ({ isSm }: { isSm: boolean }) => {
-  const { isDaoScope, validNetwork, isConnected } = useHausConnect();
+  const { chainId, validNetwork, isConnected, daoChainId } = useHausConnect();
 
   if (!isConnected) return null;
 
-  if (
-    isDaoScope /*AND user's network is different from DAO's network (in DAO context)*/
-  )
-    return <NotDaoNetwork isSm={isSm} />;
+  if (daoChainId !== chainId) return <NotDaoNetwork isSm={isSm} />;
 
   if (!validNetwork) return <NotSupportedNetwork isSm={isSm} />;
 
@@ -55,12 +52,10 @@ export const getNetworkPanels = (
   });
 
 export const NotDaoNetwork = ({ isSm }: { isSm: boolean }) => {
-  //  In the future, this will come from the dao context
-  const { switchNetwork } = useHausConnect();
-  const sampleDaoNetworkId = '0x1';
+  const { switchNetwork, daoChainId } = useHausConnect();
 
   const handleSwitchNetwork = () => {
-    switchNetwork(sampleDaoNetworkId);
+    switchNetwork(daoChainId as string);
   };
 
   return (
@@ -70,7 +65,9 @@ export const NotDaoNetwork = ({ isSm }: { isSm: boolean }) => {
       onClick={handleSwitchNetwork}
       sm={isSm}
     >
-      {isSm ? '' : `Switch to ${getNetworkName(sampleDaoNetworkId)}`}
+      {isSm && daoChainId
+        ? ''
+        : `Switch to ${getNetworkName(daoChainId as string)}`}
     </WarningButton>
   );
 };

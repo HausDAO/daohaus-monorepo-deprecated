@@ -1,7 +1,20 @@
-import { CONTRACTS, POSTER_TAGS, TXLego } from '@daohaus/common-utilities';
+import {
+  CONTRACTS,
+  NestedArray,
+  POSTER_TAGS,
+  TXLego,
+  ValidArgType,
+} from '@daohaus/common-utilities';
 import { buildMultiCallTX } from '@daohaus/tx-builder-feature';
 import { MaxUint256 } from '@ethersproject/constants';
 import { CONTRACT } from './contracts';
+
+const nestInArray = (arg: ValidArgType | ValidArgType[]): NestedArray => {
+  return {
+    type: 'nestedArray',
+    args: Array.isArray(arg) ? arg : [arg],
+  };
+};
 
 export const TX: Record<string, TXLego> = {
   POST_SIGNAL: buildMultiCallTX({
@@ -49,12 +62,18 @@ export const TX: Record<string, TXLego> = {
       {
         contract: CONTRACT.CURRENT_DAO,
         method: 'mintShares',
-        args: ['.formValues.recipient', '.formValues.sharesRequested'],
+        args: [
+          nestInArray('.formValues.recipient'),
+          nestInArray('.formValues.sharesRequested'),
+        ],
       },
       {
         contract: CONTRACT.CURRENT_DAO,
         method: 'mintLoot',
-        args: ['.formValues.recipient', '.formValues.lootRequested'],
+        args: [
+          nestInArray('.formValues.recipient'),
+          nestInArray('.formValues.lootRequested'),
+        ],
       },
     ],
   }),
@@ -74,8 +93,8 @@ export const TX: Record<string, TXLego> = {
         contract: CONTRACT.CURRENT_DAO,
         method: 'setShamans',
         args: [
-          { type: 'nestedArray', args: ['.formValues.shamanAddress'] },
-          { type: 'nestedArray', args: ['.formValues.shamanPermission'] },
+          nestInArray('.formValues.shamanAddress'),
+          nestInArray('.formValues.shamanName'),
         ],
       },
     ],

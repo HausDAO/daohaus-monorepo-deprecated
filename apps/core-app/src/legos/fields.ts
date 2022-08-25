@@ -58,38 +58,11 @@ export const FIELD: Record<string, CustomFieldLego> = {
     customFields: CustomFields,
     components: [
       {
-        id: 'expiryValue',
-        type: 'inputSelect',
-        defaultValue: '0',
-        selectDefault: `${3600 * 24}`,
-        label: 'Expiration',
-        selectId: 'expiryPeriod',
-        options: [
-          { value: `${1}`, name: 'Seconds' },
-          { value: `${60}`, name: 'Minutes' },
-          { value: `${3600}`, name: 'Hours' },
-          { value: `${3600 * 24}`, name: 'Days' },
-        ],
-      },
-      {
-        id: 'highlightProposalExpiry',
-        type: 'highlightInputText',
-        description: 'Expiration will be on:',
-        highlightColor: '#B4D7CE',
-        highlightInputId: 'proposalExpiryString',
-      },
-      {
-        id: 'expirationDateDescription',
-        type: 'highlightInputText',
-        description:
-          'The expiration date includes Voting and Grace Periods. Adjust the days or hour to update the expiration.',
-      },
-      {
-        id: 'proposalExpiryString',
-        // @ts-expect-error: cannot resolve type using custom fields sent from the core-app
+        id: 'proposalExpiry',
+        // @ts-expect-error: cannot resolve type within checkRender using custom fields sent from the core-app
         type: 'proposalExpiry',
-        hidden: true,
-        periodFieldIds: ['expiryValue', 'expiryPeriod'],
+        defaultValue: '0',
+        label: 'Expiration',
       },
     ],
   },

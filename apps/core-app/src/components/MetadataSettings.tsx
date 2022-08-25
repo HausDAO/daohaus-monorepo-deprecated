@@ -6,6 +6,8 @@ import {
   DataIndicator,
   AddressDisplay,
   ParSm,
+  Button,
+  Link,
 } from '@daohaus/ui';
 
 import { TDao } from '../contexts/DaoContext';
@@ -52,12 +54,15 @@ type MetadataSettingsProps = {
 };
 
 export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
-  const { daochain } = useParams();
+  const { daochain, daoid } = useParams();
 
   return (
     <>
       <MetaCardHeader>
         <H3>Metadata</H3>
+        <Link href={`/molochv3/${daochain}/${daoid}/settings/update`}>
+          <Button>Update Settings</Button>
+        </Link>
       </MetaCardHeader>
       <MetaContent>
         <div>

@@ -22,6 +22,7 @@ import {
 import { FieldTheme, FieldThemeDark } from './atoms/field';
 import { AppSwitcherDark, AppSwitcherLight } from './organisms/app-switcher';
 import { DropdownDark, DropdownLight } from './molecules/dropdown';
+import { orangeDark } from '@radix-ui/colors';
 
 export const defaultDarkTheme: Theme = {
   themeName: 'dark',
@@ -81,6 +82,15 @@ export const defaultDarkTheme: Theme = {
     activeDisabledBorder: neutralDark.bgSolid,
   },
   field: FieldThemeDark,
+  fieldAlert: {
+    bg: primaryDark.elementBg,
+    border: primaryDark.elementBorderSubtle,
+    warningText: orangeDark.orange10,
+    warningBg: orangeDark.orange2,
+    warningBorder: orangeDark.orange5,
+    warningButtonBg: utilityDark.warning,
+    warningButtonBorder: utilityDark.warning,
+  },
   link: {
     color: primaryDark.bgSolidHover,
   },
@@ -251,6 +261,15 @@ export const defaultLightTheme: Theme = {
     activeDisabledBorder: neutral.bgSolid,
   },
   field: FieldTheme,
+  fieldAlert: {
+    bg: primary.elementBg,
+    border: primary.elementBorderSubtle,
+    warningText: orangeDark.orange10,
+    warningBg: orangeDark.orange2,
+    warningBorder: orangeDark.orange5,
+    warningButtonBg: utilityDark.warning,
+    warningButtonBorder: utilityDark.warning,
+  },
   link: {
     color: primaryDark.bgSolidHover,
   },

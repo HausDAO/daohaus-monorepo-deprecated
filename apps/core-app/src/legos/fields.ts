@@ -4,7 +4,7 @@ export const FIELD: Record<string, CustomFieldLego> = {
   TITLE: {
     id: 'title',
     type: 'input',
-    label: 'Title',
+    label: 'Proposal Name',
     placeholder: 'Enter title',
   },
   DESCRIPTION: {
@@ -38,5 +38,17 @@ export const FIELD: Record<string, CustomFieldLego> = {
     id: 'shouldOverwrite',
     type: 'toWeiInput',
     label: 'Should Overwrite',
+  },
+  NAME: {
+    id: 'name',
+    type: 'input',
+    label: 'DAO Name',
+    placeholder: 'DAO Name',
+  },
+  TAGS: {
+    id: 'tags',
+    type: 'tagsInput',
+    label: 'Tags (seperated by commas)',
+    placeholder: 'DAO Name',
   },
 };

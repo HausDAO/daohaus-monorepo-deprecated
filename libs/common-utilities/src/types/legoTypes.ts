@@ -78,7 +78,7 @@ type SingletonSearch = {
   keychain: Keychain;
 };
 
-type NestedArray = {
+export type NestedArray = {
   type: 'nestedArray';
   args: ValidArgType[];
 };

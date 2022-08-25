@@ -1,4 +1,4 @@
-import { CustomFieldLego } from './config';
+import { CustomFields, CustomFieldLego } from './config';
 
 export const FIELD: Record<string, CustomFieldLego> = {
   TITLE: {
@@ -50,5 +50,47 @@ export const FIELD: Record<string, CustomFieldLego> = {
     type: 'tagsInput',
     label: 'Tags (seperated by commas)',
     placeholder: 'DAO Name',
+  },
+  PROPOSAL_EXPIRY: {
+    id: 'checkRender',
+    type: 'checkRender',
+    gateLabel: 'Add Expiration Date',
+    customFields: CustomFields,
+    components: [
+      {
+        id: 'expiryValue',
+        type: 'inputSelect',
+        defaultValue: '0',
+        selectDefault: `${3600 * 24}`,
+        label: 'Expiration',
+        selectId: 'expiryPeriod',
+        options: [
+          { value: `${1}`, name: 'Seconds' },
+          { value: `${60}`, name: 'Minutes' },
+          { value: `${3600}`, name: 'Hours' },
+          { value: `${3600 * 24}`, name: 'Days' },
+        ],
+      },
+      {
+        id: 'highlightProposalExpiry',
+        type: 'highlightInputText',
+        description: 'Expiration will be on:',
+        highlightColor: '#B4D7CE',
+        highlightInputId: 'proposalExpiryString',
+      },
+      {
+        id: 'expirationDateDescription',
+        type: 'highlightInputText',
+        description:
+          'The expiration date includes Voting and Grace Periods. Adjust the days or hour to update the expiration.',
+      },
+      {
+        id: 'proposalExpiryString',
+        // @ts-expect-error: cannot resolve type using custom fields sent from the core-app
+        type: 'proposalExpiry',
+        hidden: true,
+        periodFieldIds: ['expiryValue', 'expiryPeriod'],
+      },
+    ],
   },
 };

@@ -103,8 +103,6 @@ export type SwitchComponentProps = SwitchProps & {
   
 export type Switchable = { switches: SwitchComponentProps[] };
 
-export type IGatedInput = Field & InputSelectProps & Switchable;
-
 export type FileInputProps = Field & {
   multiple?: boolean;
   accept?: string;

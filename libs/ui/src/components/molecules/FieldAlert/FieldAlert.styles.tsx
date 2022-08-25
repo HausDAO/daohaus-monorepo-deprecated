@@ -23,6 +23,8 @@ export const FieldAlertWrapper = styled.div<{
   }
 
   &.warning {
+    background: ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningBg};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningBorder};
     p {
       color: ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningText};
     }

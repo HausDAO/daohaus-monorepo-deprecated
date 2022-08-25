@@ -36,9 +36,6 @@ export const ShamanDeluxe = (
   const oldShamanLevel = useMemo(() => {
     if (!dao || !shamanPermission || !shamanAddress) return;
 
-    // Spelling error 'shamen' exists on the type definiton in Dao data.
-    // This is a temporary fix until the type definition is updated.
-    // Didin't want to break antything.
     return dao?.shamen?.find((shaman) => shaman.shamanAddress === shamanAddress)
       ?.permissions;
   }, [dao, shamanPermission, shamanAddress]);

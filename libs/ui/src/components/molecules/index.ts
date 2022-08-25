@@ -1,6 +1,5 @@
 export * from './AddressDisplay';
 export * from './CSInput';
-export * from './CheckGate';
 export * from './DataIndicator';
 export * from './Dialog';
 export * from './Dropdown';

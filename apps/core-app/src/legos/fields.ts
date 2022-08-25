@@ -51,4 +51,9 @@ export const FIELD: Record<string, CustomFieldLego> = {
     type: 'shamanPermissions',
     label: 'Permission Level',
   },
+  SHAMAN_DELUXE: {
+    id: 'shamanPermission',
+    type: 'shamanPermissionDeluxe',
+    label: 'Permission Level',
+  },
 };

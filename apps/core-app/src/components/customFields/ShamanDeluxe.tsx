@@ -57,7 +57,7 @@ export const ShamanDeluxe = (
   return (
     <>
       <ShamanPermission {...props} rules={newRules} />
-      {isNumberish(shamanPermission) && (
+      {isNumberish(shamanPermission) && isNumberish(oldShamanLevel) && (
         <DeluxeBox>
           <DataSm>
             <Secondary>Shamans Old Permission Level is:</Secondary>{' '}

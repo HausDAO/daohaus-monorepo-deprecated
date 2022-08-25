@@ -46,7 +46,12 @@ export const FormBuilderFactory = ({
       // actual component
       return (
         // @ts-expect-error: explanation above
-        <Component {...field} full disabled={formDisabled} rules={newRules} />
+        <Component
+          {...field}
+          full
+          disabled={formDisabled || field.disabled}
+          rules={newRules}
+        />
       );
     },
     // Ignoring exhaustive deps here so that I can update this component

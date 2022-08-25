@@ -94,7 +94,7 @@ export const FORM: Record<string, CustomFormLego> = {
       FIELD.TITLE,
       FIELD.DESCRIPTION,
       FIELD.LINK,
-      FIELD.SHAMAN_ADDRESS,
+      { ...FIELD.SHAMAN_ADDRESS, disabled: true },
       FIELD.SHAMAN_DELUXE,
     ],
   },

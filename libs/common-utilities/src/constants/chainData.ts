@@ -27,6 +27,13 @@ export const NETWORK_DATA: Keychain<NetworkType> = {
     symbol: 'ETH',
     tokenDecimals: 18,
   },
+  '0x1': {
+    chainId: '0x1',
+    networkId: 1,
+    name: 'Ethereum',
+    symbol: 'ETH',
+    tokenDecimals: 18,
+  },
 };
 
 export const getNetwork = (chainId: string) => {
@@ -36,7 +43,8 @@ export const getNetwork = (chainId: string) => {
   return NETWORK_DATA[chainId];
 };
 
-export const getNetworkName = (chainId: string) => getNetwork(chainId)?.name;
+export const getNetworkName = (chainId: string) =>
+  getNetwork(chainId)?.name || null;
 
 export const addKeychain = (
   keychain: Keychain<unknown>,

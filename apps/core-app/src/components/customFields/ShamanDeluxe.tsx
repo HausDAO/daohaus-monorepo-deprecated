@@ -1,8 +1,14 @@
-import { isNumberish, SHAMAN_PERMISSIONS } from '@daohaus/common-utilities';
-import { Buildable, DataSm, ShamanPermission } from '@daohaus/ui';
 import { ComponentProps, useMemo } from 'react';
-import { useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
+import { RegisterOptions, useFormContext } from 'react-hook-form';
+
+import {
+  ignoreEmptyVal,
+  isNumberish,
+  SHAMAN_PERMISSIONS,
+} from '@daohaus/common-utilities';
+import { Buildable, DataSm, ShamanPermission } from '@daohaus/ui';
+
 import { useDao } from '../../contexts/DaoContext';
 
 const Secondary = styled.span`
@@ -27,7 +33,7 @@ export const ShamanDeluxe = (
 
   const [shamanPermission, shamanAddress] = watch([id, watchAddressField]);
 
-  const selectedShamanLevel = useMemo(() => {
+  const oldShamanLevel = useMemo(() => {
     if (!dao || !shamanPermission || !shamanAddress) return;
 
     // Spelling error 'shamen' exists on the type definiton in Dao data.
@@ -37,14 +43,25 @@ export const ShamanDeluxe = (
       ?.permissions;
   }, [dao, shamanPermission, shamanAddress]);
 
+  const newRules: RegisterOptions = {
+    validate: (val) =>
+      ignoreEmptyVal(val, (val) => {
+        if (oldShamanLevel == null) return true;
+        return Number(oldShamanLevel) > Number(val)
+          ? true
+          : 'Shaman permission level can only go down';
+      }),
+    ...props.rules,
+  };
+
   return (
     <>
-      <ShamanPermission {...props} />
-      {isNumberish(selectedShamanLevel) && isNumberish(shamanPermission) && (
+      <ShamanPermission {...props} rules={newRules} />
+      {isNumberish(shamanPermission) && (
         <DeluxeBox>
           <DataSm>
             <Secondary>Shamans Old Permission Level is:</Secondary>{' '}
-            {SHAMAN_PERMISSIONS?.[Number(selectedShamanLevel)]?.displayName}
+            {SHAMAN_PERMISSIONS?.[Number(oldShamanLevel)]?.displayName}
           </DataSm>
           <DataSm>
             <Secondary>Shamans New Permission Level is:</Secondary>{' '}

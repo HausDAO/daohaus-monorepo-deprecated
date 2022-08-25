@@ -1,3 +1,4 @@
+/* eslint-disable */
 module.exports = {
   displayName: 'summon-safe-app',
   preset: '../../jest.preset.js',

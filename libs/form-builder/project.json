@@ -39,7 +39,7 @@
       "executor": "@nrwl/jest:jest",
       "outputs": ["coverage/libs/form-builder"],
       "options": {
-        "jestConfig": "libs/form-builder/jest.config.js",
+        "jestConfig": "libs/form-builder/jest.config.ts",
         "passWithNoTests": true
       }
     }

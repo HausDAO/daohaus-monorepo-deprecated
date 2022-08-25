@@ -71,7 +71,6 @@
         ]
       }
     },
-
     "serve": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],

@@ -14,5 +14,5 @@ export const ToWeiInput = (props: Buildable<Field>) => {
     ...props.rules,
   };
 
-  return <WrappedInput {...props} rules={newRules} />;
+  return <WrappedInput {...props} rules={newRules} defaultValue="0" />;
 };

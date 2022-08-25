@@ -49,7 +49,13 @@ export const FORM: Record<string, CustomFormLego> = {
       FIELD.TITLE,
       FIELD.DESCRIPTION,
       FIELD.LINK,
-
+      {
+        id: 'recipient',
+        type: 'input',
+        label: 'Recipient',
+        expectType: 'ethAddress',
+        placeholder: '0x...',
+      },
       { ...FIELD.TO_WEI, label: 'Shares Requested', id: 'sharesRequested' },
       { ...FIELD.TO_WEI, label: 'Loot Requested', id: 'lootRequested' },
     ],

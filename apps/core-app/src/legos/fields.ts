@@ -4,7 +4,7 @@ export const FIELD: Record<string, CustomFieldLego> = {
   TITLE: {
     id: 'title',
     type: 'input',
-    label: 'Title',
+    label: 'Proposal Name',
     placeholder: 'Enter title',
   },
   DESCRIPTION: {

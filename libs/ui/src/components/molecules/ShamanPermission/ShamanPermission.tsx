@@ -6,7 +6,7 @@ export const ShamanPermission = (
   props: Buildable<Omit<SelectProps, 'options'>>
 ) => {
   const { id = 'shamanPermission' } = props;
-  const options = Object.values(SHAMAN_PERMISSIONS).map((permission) => ({
+  const options = SHAMAN_PERMISSIONS.map((permission) => ({
     name: permission.displayName,
     value: permission.id,
   }));

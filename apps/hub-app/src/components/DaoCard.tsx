@@ -133,7 +133,7 @@ export const DaoCard = ({
         )}
       </div>
       <div className="tag-box">
-        <Tag>{getNetwork(networkId as string)?.name}</Tag>
+        <Tag className="network">{getNetwork(networkId as string)?.name}</Tag>
         <Tag>{contractType}</Tag>
       </div>
       <a

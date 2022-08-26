@@ -125,6 +125,7 @@ export const processArg = async ({
         searchString: arg.search,
         shouldThrow: false,
       });
+
       return typeof result === 'number'
         ? calcExpiry(result)
         : calcExpiry(arg.fallback);

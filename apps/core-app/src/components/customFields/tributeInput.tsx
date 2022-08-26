@@ -192,6 +192,7 @@ export const TributeInput = (
           success={tokenName}
           error={tokenError}
           rules={tokenAddressRules}
+          placeholder="0x..."
         />
         {needsApproval && tokenData && (
           <TemporaryWarning
@@ -209,6 +210,7 @@ export const TributeInput = (
           disabled={needsApproval}
           rules={tokenAmtRules}
           rightAddon={maxButton}
+          defaultValue="0"
         />
       </FieldSpacer>
     </>

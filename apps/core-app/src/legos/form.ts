@@ -57,8 +57,16 @@ export const FORM: Record<string, CustomFormLego> = {
         expectType: 'ethAddress',
         placeholder: '0x...',
       },
-      { ...FIELD.TO_WEI, label: 'Shares Requested', id: 'sharesRequested' },
-      { ...FIELD.TO_WEI, label: 'Loot Requested', id: 'lootRequested' },
+      {
+        ...FIELD.TO_WEI,
+        label: 'Voting Token Requested',
+        id: 'sharesRequested',
+      },
+      {
+        ...FIELD.TO_WEI,
+        label: 'Non-Voting Token Requested',
+        id: 'lootRequested',
+      },
     ],
   },
   ADD_SHAMAN: {
@@ -306,6 +314,36 @@ export const FORM: Record<string, CustomFormLego> = {
           },
         ],
       },
+    ],
+  },
+  TOKENS_FOR_SHARES: {
+    id: 'TOKENS_FOR_SHARES',
+    title: 'Swap Tokens for Shares',
+    description:
+      'Request membership or increased stake in the DAO. Any tribute must be available in your wallet when proposal is executed.',
+    subtitle: 'Token Proposal',
+    tx: TX.TOKENS_FOR_SHARES,
+    requiredFields: {
+      title: true,
+      description: true,
+      sharesRequested: true,
+      lootRequested: true,
+    },
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      {
+        ...FIELD.TO_WEI,
+        label: 'Voting Token Requested',
+        id: 'sharesRequested',
+      },
+      {
+        ...FIELD.TO_WEI,
+        label: 'Non-Voting Token Requested',
+        id: 'lootRequested',
+      },
+      FIELD.TRIBUTE,
     ],
   },
 };

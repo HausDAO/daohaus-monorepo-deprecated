@@ -1,3 +1,4 @@
+import { SUMMON_COPY } from '../data/copy';
 import { CustomFormLego } from './config';
 import { FIELD } from './fields';
 import { TX } from './tx';
@@ -147,6 +148,16 @@ export const FORM: Record<string, CustomFormLego> = {
     subtitle: 'Governance Setting Proposal',
     description: 'Learn more about Governanace Settings in our documentation.',
     tx: TX.UPDATE_GOV_SETTINGS,
+    requiredFields: {
+      title: true,
+      description: true,
+      votingPeriod: true,
+      gracePeriod: true,
+      quorum: true,
+      minRetention: true,
+      sponsorThreshold: true,
+      newOffering: true,
+    },
     fields: [
       FIELD.TITLE,
       FIELD.DESCRIPTION,
@@ -167,11 +178,13 @@ export const FORM: Record<string, CustomFormLego> = {
                   id: 'votingPeriod',
                   type: 'timePicker',
                   label: 'Voting Period',
+                  info: SUMMON_COPY.VOTING_PERIOD,
                 },
                 right: {
                   id: 'gracePeriod',
                   type: 'timePicker',
                   label: 'Grace Period',
+                  info: SUMMON_COPY.GRACE_PERIOD,
                 },
               },
             ],
@@ -196,6 +209,7 @@ export const FORM: Record<string, CustomFormLego> = {
                   expectType: 'percent',
                   label: 'Quorum %',
                   placeholder: '20',
+                  info: SUMMON_COPY.QUORUM,
                 },
                 right: {
                   id: 'minRetention',
@@ -203,6 +217,7 @@ export const FORM: Record<string, CustomFormLego> = {
                   label: 'Min Retention',
                   expectType: 'percent',
                   placeholder: '66',
+                  info: SUMMON_COPY.MIN_RETENTION,
                 },
               },
               {
@@ -213,6 +228,7 @@ export const FORM: Record<string, CustomFormLego> = {
                   expectType: 'number',
                   label: 'Sponsor Threshold',
                   placeholder: '1',
+                  info: SUMMON_COPY.SPONSOR_THRESHOLD,
                 },
                 right: {
                   id: 'newOffering',
@@ -220,6 +236,7 @@ export const FORM: Record<string, CustomFormLego> = {
                   label: 'New Offering',
                   expectType: 'number',
                   placeholder: '0',
+                  info: SUMMON_COPY.NEW_OFFERING,
                 },
               },
             ],

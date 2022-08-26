@@ -130,6 +130,66 @@ export const TX: Record<string, TXLego> = {
       { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
     ],
   },
+  UPDATE_GOV_SETTINGS: buildMultiCallTX({
+    id: 'UPDATE_GOV_SETTINGS',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        proposalType: { type: 'static', value: 'Governance Settings Proposal' },
+      },
+    },
+    actions: [
+      {
+        contract: CONTRACT.CURRENT_DAO,
+        method: 'setGovernanceConfig',
+        args: [
+          {
+            type: 'argEncode',
+            args: [
+              '.formValues.votingPeriodInSeconds',
+              '.formValues.gracePeriodInSeconds',
+              '.formValues.newOffering',
+              '.formValues.quorum',
+              '.formValues.sponsorThreshold',
+              '.formValues.minRetention',
+            ],
+            solidityTypes: [
+              'uint32',
+              'uint32',
+              'uint256',
+              'uint256',
+              'uint256',
+              'uint256',
+            ],
+          },
+        ],
+      },
+    ],
+  }),
+  TOKEN_SETTINGS: buildMultiCallTX({
+    id: 'TOKEN_SETTINGS',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        vTokenTransferable: '.formValues.vStake',
+        nvTokenTransferable: '.formValues.nvStake',
+        proposalType: { type: 'static', value: 'Token Settings Proposal' },
+      },
+    },
+    actions: [
+      {
+        contract: CONTRACT.CURRENT_DAO,
+        method: 'setAdminConfig',
+        args: ['.formValues.vStake', '.formValues.nvStake'],
+      },
+    ],
+  }),
   TOKENS_FOR_SHARES: {
     id: 'TOKENS_FOR_SHARES',
     contract: CONTRACT.TRIBUTE_MINION,

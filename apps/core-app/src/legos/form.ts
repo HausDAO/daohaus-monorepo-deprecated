@@ -146,6 +146,7 @@ export const FORM: Record<string, CustomFormLego> = {
     title: 'Update Governance Settings',
     subtitle: 'Governance Setting Proposal',
     description: 'Learn more about Governanace Settings in our documentation.',
+    tx: TX.UPDATE_GOV_SETTINGS,
     fields: [
       FIELD.TITLE,
       FIELD.DESCRIPTION,
@@ -226,6 +227,5 @@ export const FORM: Record<string, CustomFormLego> = {
         ],
       },
     ],
-    // requiredFields: {}
   },
 };

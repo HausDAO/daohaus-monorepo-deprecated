@@ -129,4 +129,30 @@ export const TX: Record<string, TXLego> = {
       { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
     ],
   },
+  UPDATE_GOV_SETTINGS: buildMultiCallTX({
+    id: 'UPDATE_GOV_SETTINGS',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        proposalType: { type: 'static', value: 'Governance Settings Proposal' },
+      },
+    },
+    actions: [
+      {
+        contract: CONTRACT.CURRENT_DAO,
+        method: 'setGovernanceConfig',
+        args: [
+          '.formValues.votingPeriodInSeconds',
+          '.formValues.gracePeriodInSeconds',
+          '.formValues.newOffering',
+          '.formValues.quorum',
+          '.formValues.sponsorThreshold',
+          '.formValues.minRetention',
+        ],
+      },
+    ],
+  }),
 };

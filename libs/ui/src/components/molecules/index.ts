@@ -6,6 +6,8 @@ export * from './Dropdown';
 export * from './FieldWrapper';
 export * from './CheckGate';
 export * from './FieldAlert';
+export * from './HighlightInputText';
+export * from './InputSelect';
 export * from './ProfileAvatar';
 export * from './ShamanPermission';
 export * from './Toast';

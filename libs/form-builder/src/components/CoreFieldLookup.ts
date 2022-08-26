@@ -1,5 +1,6 @@
 import {
   CSInput,
+  HighlightInputText,
   ShamanPermission,
   TimePicker,
   WrappedCheckbox,
@@ -17,6 +18,7 @@ import { SplitColumnLayout } from './SplitRender';
 export const CoreFieldLookup = {
   input: WrappedInput,
   inputSelect: WrappedInputSelect,
+  highlightInputText: HighlightInputText,
   textarea: WrappedTextArea,
   switch: WrappedSwitch,
   radio: WrappedRadio,

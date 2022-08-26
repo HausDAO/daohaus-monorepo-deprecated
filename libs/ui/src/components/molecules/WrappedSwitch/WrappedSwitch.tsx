@@ -1,11 +1,26 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import type { Buildable, Switchable } from '../../../types/formAndField';
+import type {
+  Buildable,
+  ConditionLabel,
+  Switchable,
+} from '../../../types/formAndField';
 import { Switch } from '../../atoms/Switch';
 import { FieldWrapper } from '../FieldWrapper/FieldWrapper';
 
-export const WrappedSwitch = (
-  props: Buildable<Switchable>
+const handleFieldLabel = (
+  fieldLabel: string | ConditionLabel,
+  switchOn: boolean
 ) => {
+  if (typeof fieldLabel === 'string') {
+    return fieldLabel;
+  }
+  if (switchOn) {
+    return fieldLabel.on;
+  }
+  return fieldLabel.off;
+};
+
+export const WrappedSwitch = (props: Buildable<Switchable>) => {
   const {
     id,
     helperText,
@@ -18,7 +33,8 @@ export const WrappedSwitch = (
     disabled,
     rules,
   } = props;
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
+
   return (
     <FieldWrapper
       id={id}
@@ -30,6 +46,7 @@ export const WrappedSwitch = (
       warning={warning}
     >
       {switches.map((switchProps) => {
+        const switchValue = watch(switchProps.id);
         return (
           <Controller
             key={switchProps.id}
@@ -44,6 +61,10 @@ export const WrappedSwitch = (
                   {...switchProps}
                   switchOn={field.value}
                   onCheckedChange={field.onChange}
+                  fieldLabel={handleFieldLabel(
+                    switchProps.fieldLabel,
+                    switchValue
+                  )}
                   disabled={disabled}
                   ref={field.ref}
                 />

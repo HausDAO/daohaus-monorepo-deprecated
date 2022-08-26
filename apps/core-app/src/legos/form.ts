@@ -245,4 +245,63 @@ export const FORM: Record<string, CustomFormLego> = {
       },
     ],
   },
+  TOKEN_SETTINGS: {
+    id: 'TOKEN_SETTINGS',
+    title: 'Change Token Settings',
+    subtitle: 'Token Settings Proposal',
+    description: 'Learn more about Token Settings in our documentation.',
+    tx: TX.UPDATE_TOKEN_SETTINGS,
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      {
+        id: 'tokenSettings',
+        type: 'formSegment',
+        title: 'DAO Tokens',
+        description: 'Update your token transferability',
+        fields: [
+          {
+            id: 'split',
+            type: 'splitColumn',
+            rows: [
+              {
+                rowId: 'row1',
+                left: {
+                  id: 'vStake',
+                  type: 'switch',
+                  label: 'Transferable',
+                  info: SUMMON_COPY.STAKE_TRANSFER,
+                  switches: [
+                    {
+                      id: 'votingStake',
+                      fieldLabel: {
+                        off: 'Not Transferable',
+                        on: 'Transferable',
+                      },
+                    },
+                  ],
+                },
+                right: {
+                  id: 'vStake',
+                  type: 'switch',
+                  label: 'Transferable',
+                  info: SUMMON_COPY.NV_STAKE_TRANSFER,
+                  switches: [
+                    {
+                      id: 'nvStake',
+                      fieldLabel: {
+                        off: 'Not Transferable',
+                        on: 'Transferable',
+                      },
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 };

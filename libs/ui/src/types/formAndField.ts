@@ -85,7 +85,8 @@ export type SelectProps = {
   long?: boolean;
   full?: boolean;
   placeholder?: string;
-} & PrimitiveElement & PrimitiveWrapper;
+} & PrimitiveElement &
+  PrimitiveWrapper;
 
 export type InputSelectProps = Field &
   SelectProps & {
@@ -94,13 +95,18 @@ export type InputSelectProps = Field &
     selectDefault?: string;
   };
 
+export type ConditionLabel = {
+  on: string;
+  off: string;
+};
+
 export type SwitchComponentProps = SwitchProps & {
-  fieldLabel: string;
+  fieldLabel: string | ConditionLabel;
   id: string;
   className?: string;
   disabled?: boolean;
 };
-  
+
 export type Switchable = { switches: SwitchComponentProps[] };
 
 export type IGatedInput = Field & InputSelectProps & Switchable;

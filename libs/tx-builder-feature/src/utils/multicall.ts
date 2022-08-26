@@ -115,18 +115,15 @@ export const handleMulticallArg = async ({
 }) => {
   const encodedActions = await Promise.all(
     arg.actions.map(async (action) => {
-      const { contract, method, args, value, operations } = action;
+      const { contract, method, args, value, operations, data } = action;
+
       const processedContract = await processContractLego({
         contract,
         chainId,
         localABIs,
         appState,
       });
-      const processedArgs = await Promise.all(
-        args.map(
-          async (arg) => await processArg({ arg, chainId, localABIs, appState })
-        )
-      );
+
       const processValue = value
         ? await processArg({ arg: value, chainId, localABIs, appState })
         : 0;
@@ -139,6 +136,22 @@ export const handleMulticallArg = async ({
             appState,
           })
         : 0;
+
+      // Early return if encoded data is passed and args do not need processing
+      if (data) {
+        return {
+          to: processedContract.address,
+          data,
+          value: Number(processValue),
+          operation: Number(processedOperations),
+        };
+      }
+
+      const processedArgs = await Promise.all(
+        args.map(
+          async (arg) => await processArg({ arg, chainId, localABIs, appState })
+        )
+      );
 
       return txActionToMetaTx({
         abi: processedContract.abi,

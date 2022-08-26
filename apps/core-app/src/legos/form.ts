@@ -347,3 +347,55 @@ export const FORM: Record<string, CustomFormLego> = {
     ],
   },
 };
+
+export const TABULA_FORMS: Record<string, CustomFormLego> = {
+  CREATE_PUBLICATION: {
+    id: 'CREATE_PUBLICATION',
+    title: 'Start Publication',
+    subtitle: 'Publication Proposal',
+    description: 'Start a new DAO publication on Tabula.gg!',
+    tx: TX.CREATE_PUBLICATION,
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      {
+        id: 'pubData',
+        type: 'formSegment',
+        title: 'Publication Data',
+        description: 'Some information about your publication.',
+        fields: [
+          {
+            id: 'pubName',
+            type: 'input',
+            label: 'Publication Name',
+            placeholder: 'Name',
+          },
+          {
+            id: 'tags',
+            type: 'csInput',
+            label: 'Publication Name',
+            placeholder: 'comma, separated, tags',
+            itemNoun: {
+              singular: 'tag',
+              plural: 'tags',
+            },
+          },
+          {
+            id: 'pubDescription',
+            type: 'textarea',
+            label: 'Publication Description',
+            placeholder: 'Description',
+          },
+          {
+            id: 'pubImage',
+            type: 'input',
+            label: 'Publication Image',
+            placeholder: 'Image URL',
+            expectType: 'url',
+          },
+        ],
+      },
+    ],
+  },
+};

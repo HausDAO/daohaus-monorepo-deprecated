@@ -151,7 +151,6 @@ export const HausConnectProvider = ({
         switchNetwork,
         profile,
         isProfileLoading,
-        setDaoChainId,
         daoChainId,
         validNetwork,
       }}

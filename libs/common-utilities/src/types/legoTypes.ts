@@ -75,6 +75,12 @@ type SingletonSearch = {
   keychain: Keychain;
 };
 
+export type ArgEncode = {
+  type: 'argEncode';
+  args: ValidArgType[];
+  solidityTypes: string[];
+};
+
 export type NestedArray = {
   type: 'nestedArray';
   args: ValidArgType[];
@@ -88,7 +94,8 @@ export type ValidArgType =
   | NestedArray
   | MulticallArg
   | ProposalExpiry
-  | StaticArg;
+  | StaticArg
+  | ArgEncode;
 
 export type TxStates =
   | 'idle'

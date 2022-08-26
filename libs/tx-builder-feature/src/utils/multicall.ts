@@ -1,9 +1,11 @@
 import {
   ABI,
   ArbitraryState,
+  ArgEncode,
   ArgType,
   CONTRACTS,
   encodeFunction,
+  encodeValues,
   ENDPOINTS,
   EstmimateGas,
   EthAddress,
@@ -239,4 +241,32 @@ export const buildMultiCallTX = ({
       JSONDetails,
     ],
   };
+};
+
+export const handleArgEncode = async ({
+  arg,
+  chainId,
+  safeId,
+  localABIs,
+  appState,
+}: {
+  arg: ArgEncode;
+  chainId: ValidNetwork;
+  safeId?: string;
+  localABIs: Record<string, ABI>;
+  appState: ArbitraryState;
+}) => {
+  const { args, solidityTypes } = arg;
+  if (args.length !== solidityTypes.length) {
+    throw new Error(`Arguments and types must be the same length`);
+  }
+
+  const processedArgs = await Promise.all(
+    args.map(
+      async (arg) => await processArg({ arg, chainId, localABIs, appState })
+    )
+  );
+  console.log('processedArgs', processedArgs);
+
+  return encodeValues(solidityTypes, processedArgs);
 };

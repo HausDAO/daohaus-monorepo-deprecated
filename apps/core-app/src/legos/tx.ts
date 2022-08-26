@@ -1,7 +1,9 @@
+import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import {
   CONTRACTS,
   NestedArray,
   POSTER_TAGS,
+  ENCODED_0X0_DATA,
   toSeconds,
   TXLego,
   ValidArgType,
@@ -100,6 +102,57 @@ export const TX: Record<string, TXLego> = {
       },
     ],
   }),
+  ISSUE_ERC20: buildMultiCallTX({
+    id: 'ISSUE_ERC20',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        proposalType: {
+          type: 'static',
+          value: 'Issue ERC20 Token Funding Proposal',
+        },
+      },
+    },
+    actions: [
+      {
+        contract: CONTRACT.ERC_20_FUNDING,
+        method: 'transfer',
+        args: ['.formValues.recipient', '.formValues.paymentTokenAmt'],
+      },
+    ],
+  }),
+  ISSUE_NETWORK_TOKEN: buildMultiCallTX({
+    id: 'ISSUE_NETWORK_TOKEN',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        proposalType: {
+          type: 'static',
+          value: 'Issue Network Token Funding Proposal',
+        },
+      },
+    },
+    actions: [
+      {
+        contract: {
+          type: 'static',
+          contractName: 'NETWORK',
+          abi: LOCAL_ABI.ERC20,
+          targetAddress: '.formValues.recipient',
+        },
+        method: 'noMethod',
+        args: [],
+        value: '.formValues.paymentAmount',
+        data: ENCODED_0X0_DATA,
+      },
+    ],
+  }),
   UPDATE_METADATA_SETTINGS: {
     id: 'UPDATE_METADATA_SETTINGS',
     contract: CONTRACT.POSTER,
@@ -130,6 +183,66 @@ export const TX: Record<string, TXLego> = {
       { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
     ],
   },
+  UPDATE_GOV_SETTINGS: buildMultiCallTX({
+    id: 'UPDATE_GOV_SETTINGS',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        proposalType: { type: 'static', value: 'Governance Settings Proposal' },
+      },
+    },
+    actions: [
+      {
+        contract: CONTRACT.CURRENT_DAO,
+        method: 'setGovernanceConfig',
+        args: [
+          {
+            type: 'argEncode',
+            args: [
+              '.formValues.votingPeriodInSeconds',
+              '.formValues.gracePeriodInSeconds',
+              '.formValues.newOffering',
+              '.formValues.quorum',
+              '.formValues.sponsorThreshold',
+              '.formValues.minRetention',
+            ],
+            solidityTypes: [
+              'uint32',
+              'uint32',
+              'uint256',
+              'uint256',
+              'uint256',
+              'uint256',
+            ],
+          },
+        ],
+      },
+    ],
+  }),
+  TOKEN_SETTINGS: buildMultiCallTX({
+    id: 'TOKEN_SETTINGS',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        vTokenTransferable: '.formValues.vStake',
+        nvTokenTransferable: '.formValues.nvStake',
+        proposalType: { type: 'static', value: 'Token Settings Proposal' },
+      },
+    },
+    actions: [
+      {
+        contract: CONTRACT.CURRENT_DAO,
+        method: 'setAdminConfig',
+        args: ['.formValues.vStake', '.formValues.nvStake'],
+      },
+    ],
+  }),
   TOKENS_FOR_SHARES: {
     id: 'TOKENS_FOR_SHARES',
     contract: CONTRACT.TRIBUTE_MINION,

@@ -141,4 +141,91 @@ export const FORM: Record<string, CustomFormLego> = {
       FIELD.TAGS,
     ],
   },
+  UPDATE_GOV_SETTINGS: {
+    id: 'UPDATE_GOV_SETTINGS',
+    title: 'Update Governance Settings',
+    subtitle: 'Governance Setting Proposal',
+    description: 'Learn more about Governanace Settings in our documentation.',
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      {
+        id: 'timing',
+        type: 'formSegment',
+        title: 'Proposal Timing',
+        description: 'Update your timing for Voting and Grace periods.',
+        fields: [
+          {
+            id: 'timingSplit',
+            type: 'splitColumn',
+            rows: [
+              {
+                rowId: 'timingRows',
+                left: {
+                  id: 'votingPeriod',
+                  type: 'timePicker',
+                  label: 'Voting Period',
+                },
+                right: {
+                  id: 'gracePeriod',
+                  type: 'timePicker',
+                  label: 'Grace Period',
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 'advanced',
+        type: 'formSegment',
+        title: 'Advanced Governance',
+        description: 'Modify some advanced governance features.',
+        fields: [
+          {
+            id: 'advancedSplit',
+            type: 'splitColumn',
+            rows: [
+              {
+                rowId: 'row1',
+                left: {
+                  id: 'quorum',
+                  type: 'input',
+                  expectType: 'percent',
+                  label: 'Quorum %',
+                  placeholder: '20',
+                },
+                right: {
+                  id: 'minRetention',
+                  type: 'input',
+                  label: 'Min Retention',
+                  expectType: 'percent',
+                  placeholder: '66',
+                },
+              },
+              {
+                rowId: 'row2',
+                left: {
+                  id: 'sponsorThreshold',
+                  type: 'input',
+                  expectType: 'number',
+                  label: 'Sponsor Threshold',
+                  placeholder: '1',
+                },
+                right: {
+                  id: 'newOffering',
+                  type: 'input',
+                  label: 'New Offering',
+                  expectType: 'number',
+                  placeholder: '0',
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    // requiredFields: {}
+  },
 };

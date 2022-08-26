@@ -3,7 +3,9 @@ import { CustomFields } from '../legos/config';
 import { FORM } from '../legos/form';
 
 export function FormTest() {
-  return <FormBuilder form={FORM.ISSUE} customFields={CustomFields} />;
+  return (
+    <FormBuilder form={FORM.UPDATE_GOV_SETTINGS} customFields={CustomFields} />
+  );
 }
 
 export default FormTest;

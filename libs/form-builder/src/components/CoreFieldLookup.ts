@@ -1,6 +1,7 @@
 import {
   CSInput,
   ShamanPermission,
+  TimePicker,
   WrappedCheckbox,
   WrappedInput,
   WrappedInputSelect,
@@ -27,4 +28,5 @@ export const CoreFieldLookup = {
   formSegment: SegmentRender,
   splitColumn: SplitColumnLayout,
   shamanPermissions: ShamanPermission,
+  timePicker: TimePicker,
 };

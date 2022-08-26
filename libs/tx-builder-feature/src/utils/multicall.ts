@@ -114,18 +114,13 @@ export const handleMulticallArg = async ({
   const encodedActions = await Promise.all(
     arg.actions.map(async (action) => {
       const { contract, method, args, value, operations, data } = action;
+
       const processedContract = await processContractLego({
         contract,
         chainId,
         localABIs,
         appState,
       });
-
-      const processedArgs = await Promise.all(
-        args.map(
-          async (arg) => await processArg({ arg, chainId, localABIs, appState })
-        )
-      );
 
       const processValue = value
         ? await processArg({ arg: value, chainId, localABIs, appState })
@@ -140,8 +135,7 @@ export const handleMulticallArg = async ({
           })
         : 0;
 
-      // REVIEW: ignoring most of the above feels like a hack
-
+      // Early return if encoded data is passed and args do not need processing
       if (data) {
         return {
           to: processedContract.address,
@@ -149,16 +143,22 @@ export const handleMulticallArg = async ({
           value: Number(processValue),
           operation: Number(processedOperations),
         };
-      } else {
-        return txActionToMetaTx({
-          abi: processedContract.abi,
-          method,
-          address: processedContract.address,
-          args: processedArgs,
-          value: Number(processValue),
-          operation: Number(processedOperations),
-        });
       }
+
+      const processedArgs = await Promise.all(
+        args.map(
+          async (arg) => await processArg({ arg, chainId, localABIs, appState })
+        )
+      );
+
+      return txActionToMetaTx({
+        abi: processedContract.abi,
+        method,
+        address: processedContract.address,
+        args: processedArgs,
+        value: Number(processValue),
+        operation: Number(processedOperations),
+      });
     })
   );
 

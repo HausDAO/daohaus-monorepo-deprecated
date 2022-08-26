@@ -117,11 +117,6 @@ export const TX: Record<string, TXLego> = {
     },
     actions: [
       {
-        // REVIEW: Why can't we do this?
-        // contract: {
-        //   ...CONTRACT.ERC20,
-        //   targetAddress: '.formValues.paymentTokenAddress',
-        // },
         contract: CONTRACT.ERC_20_FUNDING,
         method: 'transfer',
         args: ['.formValues.recipient', '.formValues.paymentTokenAmt'],
@@ -145,7 +140,6 @@ export const TX: Record<string, TXLego> = {
     actions: [
       {
         contract: {
-          // REVIEW - contract/abi/args/method don't matter here just putting something
           type: 'static',
           contractName: 'NETWORK',
           abi: LOCAL_ABI.ERC20,

@@ -5,7 +5,7 @@ export default {
   title: 'Atoms/FileInput',
   component: FileInput,
 } as ComponentMeta<typeof FileInput>;
-FileInput.displayName = 'Input';
+
 const Template: ComponentStory<typeof FileInput> = (args) => (
   <FileInput {...args} />
 );

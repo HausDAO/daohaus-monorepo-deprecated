@@ -279,7 +279,7 @@ export const FORM: Record<string, CustomFormLego> = {
                   info: SUMMON_COPY.STAKE_TRANSFER,
                   switches: [
                     {
-                      id: 'votingStake',
+                      id: 'vStake',
                       fieldLabel: {
                         off: 'Not Transferable',
                         on: 'Transferable',

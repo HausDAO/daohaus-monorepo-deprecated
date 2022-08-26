@@ -8,16 +8,19 @@ export default {
   argTypes: {
     theme: {
       description: 'Set the base theme color for the button',
+      defaultValue: 'primary',
       options: ['primary', 'secondary', 'success', 'warning', 'danger'],
       control: { type: 'radio' },
     },
     variant: {
       description: 'Set the variant of the button',
+      defaultValue: 'solid',
       options: ['solid', 'outline', 'link'],
       control: { type: 'radio' },
     },
     size: {
       description: 'Set the size of the button',
+      defaultValue: 'md',
       options: ['sm', 'md', 'lg'],
       control: { type: 'radio' },
     },
@@ -33,7 +36,6 @@ export const BaseButton = Template.bind({});
 BaseButton.args = {
   children: 'Button',
   onClick: () => alert('clicked me'),
-  disabled: false,
   theme: 'primary',
   variant: 'solid',
   size: 'md',
@@ -50,6 +52,12 @@ PrimaryButtonOutline.args = {
   variant: 'outline',
 };
 
+export const PrimaryButtonAsLink = Template.bind({});
+PrimaryButtonAsLink.args = {
+  children: 'Button',
+  variant: 'link',
+};
+
 export const SecondaryButton = Template.bind({});
 SecondaryButton.args = {
   children: 'Button',
@@ -63,49 +71,27 @@ SecondaryButtonOutline.args = {
   variant: 'outline',
 };
 
-export const PrimaryButtonWithIcons = Template.bind({});
-PrimaryButtonWithIcons.args = {
+export const SecondaryButtonAsLink = Template.bind({});
+SecondaryButtonOutline.args = {
   children: 'Button',
-  IconLeft: RiAlertLine,
-  IconRight: RiArrowDropDownLine,
+  theme: 'secondary',
+  variant: 'outline',
 };
 
-export const TertiaryButton = Template.bind({});
-TertiaryButton.args = {
-  children: 'Button',
-};
-
-export const TertiaryButtonWithIcons = Template.bind({});
-TertiaryButtonWithIcons.args = {
-  children: 'Button',
-  IconLeft: RiAlertLine,
-  IconRight: RiArrowDropDownLine,
-};
-
-export const SmallButton = Template.bind({});
-SmallButton.args = {
-  children: 'Button',
-};
-
-export const LargeButton = Template.bind({});
-LargeButton.args = {
-  children: 'Button',
-};
-
-export const IconLeftButton = Template.bind({});
-IconLeftButton.args = {
+export const ButtonLeftIcon = Template.bind({});
+ButtonLeftIcon.args = {
   children: 'Button',
   IconLeft: RiAlertLine,
 };
 
-export const IconRightButton = Template.bind({});
-IconRightButton.args = {
+export const ButtonRightIcon = Template.bind({});
+ButtonRightIcon.args = {
   children: 'Button',
   IconRight: RiArrowDropDownLine,
 };
 
-export const IconBothButton = Template.bind({});
-IconBothButton.args = {
+export const ButtonWithLeftAndRightIcons = Template.bind({});
+ButtonWithLeftAndRightIcons.args = {
   children: 'Button',
   IconLeft: RiAlertLine,
   IconRight: RiArrowDropDownLine,

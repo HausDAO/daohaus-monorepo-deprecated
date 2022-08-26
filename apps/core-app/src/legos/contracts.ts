@@ -1,5 +1,5 @@
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
-import { ContractLego } from '@daohaus/common-utilities';
+import { ContractLego, CONTRACTS } from '@daohaus/common-utilities';
 
 export const CONTRACT: Record<string, ContractLego> = {
   POSTER: {
@@ -27,5 +27,11 @@ export const CONTRACT: Record<string, ContractLego> = {
     contractName: 'Current DAO (Baal)',
     abi: LOCAL_ABI.BAAL,
     targetAddress: '.daoId',
+  },
+  TRIBUTE_MINION: {
+    type: 'static',
+    contractName: 'Tribute Minion',
+    abi: LOCAL_ABI.TRIBUTE_MINION,
+    targetAddress: CONTRACTS.TRIBUTE_MINION,
   },
 };

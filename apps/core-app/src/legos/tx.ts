@@ -2,6 +2,7 @@ import {
   CONTRACTS,
   NestedArray,
   POSTER_TAGS,
+  toSeconds,
   TXLego,
   ValidArgType,
 } from '@daohaus/common-utilities';
@@ -127,6 +128,32 @@ export const TX: Record<string, TXLego> = {
         },
       },
       { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
+    ],
+  },
+  TOKENS_FOR_SHARES: {
+    id: 'TOKENS_FOR_SHARES',
+    contract: CONTRACT.TRIBUTE_MINION,
+    method: 'submitTributeProposal',
+    args: [
+      '.daoId',
+      '.formValues.tokenAddress',
+      '.formValues.tokenAmount',
+      '.formValues.sharesRequested',
+      '.formValues.lootRequested',
+      {
+        type: 'proposalExpiry',
+        search: '.proposalExpiry',
+        fallback: toSeconds(14, 'days'),
+      },
+      {
+        type: 'JSONDetails',
+        jsonSchema: {
+          title: '.formValues.title',
+          description: '.formValues.description',
+          link: '.formValues.link',
+          proposalType: { type: 'static', value: 'Shares X Token Proposal' },
+        },
+      },
     ],
   },
 };

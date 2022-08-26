@@ -130,7 +130,6 @@ export const TX: Record<string, TXLego> = {
       { type: 'static', value: POSTER_TAGS.daoProfileUpdate },
     ],
   },
-<<<<<<< HEAD
   UPDATE_GOV_SETTINGS: buildMultiCallTX({
     id: 'UPDATE_GOV_SETTINGS',
     JSONDetails: {
@@ -191,7 +190,6 @@ export const TX: Record<string, TXLego> = {
       },
     ],
   }),
-=======
   TOKENS_FOR_SHARES: {
     id: 'TOKENS_FOR_SHARES',
     contract: CONTRACT.TRIBUTE_MINION,
@@ -218,5 +216,4 @@ export const TX: Record<string, TXLego> = {
       },
     ],
   },
->>>>>>> 3e04df68af24457d825f204628d140305f0313d3
 };

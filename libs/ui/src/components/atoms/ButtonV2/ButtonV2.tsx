@@ -5,24 +5,22 @@ import { IconType } from 'react-icons';
 import { ButtonBase } from './ButtonV2.styles';
 
 export interface ButtonProps {
-  /* Makes button active */
-  active?: boolean;
-  /** Controls button colors */
-  theme?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
   /* Makes button disabled */
   disabled?: boolean;
   /* Shows loading spinner */
   loading?: boolean;
   /* The label to show in the button when loading is true */
   loadingText?: string;
+  /** Set theme color */
+  theme: 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
   /* Set the original html type of button */
   type?: 'button' | 'reset' | 'submit';
   /* Size of the button */
-  size?: 'sm' | 'md' | 'lg';
+  size: 'sm' | 'md' | 'lg';
   /** Controls button variant */
   variant: 'solid' | 'outline' | 'link';
   /* Width of the button element */
-  width?: 'fit-content' | 'full-width' | string;
+  width: 'fit-content' | 'full-width' | string;
   /* React node */
   children?: React.ReactNode;
   /* Css class name */
@@ -30,7 +28,7 @@ export interface ButtonProps {
   /* On Click handler */
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   /* Adds icon before button label */
-  leftIcon?:
+  IconLeft?:
     | IconType
     | React.FunctionComponent<
         React.SVGProps<SVGSVGElement> & {
@@ -38,7 +36,7 @@ export interface ButtonProps {
         }
       >;
   /* Adds icon after button label */
-  rightIcon?:
+  IconRight?:
     | IconType
     | React.FunctionComponent<
         React.SVGProps<SVGSVGElement> & {
@@ -50,17 +48,15 @@ export interface ButtonProps {
 export const ButtonV2 = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (props, ref) => {
     const {
-      disabled,
       loading,
-      active,
       loadingText,
-      type,
-      leftIcon,
-      rightIcon,
+      type = 'button',
+      IconLeft,
+      IconRight,
       children,
       className,
       theme = 'primary',
-      variant = 'link',
+      variant = 'solid',
       size = 'md',
       width = 'full-width',
       ...rest
@@ -75,11 +71,14 @@ export const ButtonV2 = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <ButtonBase
         {...rest}
         color={theme}
+        buttonWidth={width}
         className={`${classes} ${className}`}
         ref={ref}
         type={type}
       >
+        {IconLeft && <IconLeft className="icon-left" />}
         {children}
+        {IconRight && <IconRight className="icon-right" />}
       </ButtonBase>
     );
   }

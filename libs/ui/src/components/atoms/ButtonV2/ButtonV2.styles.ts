@@ -4,6 +4,7 @@ import { font } from '../../../theme/global/font';
 
 export const ButtonBase = styled.button<{
   color: 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
+  buttonWidth: 'fit-content' | 'full-width' | string;
 }>`
   align-items: center;
   border-radius: 0.4rem;
@@ -17,6 +18,7 @@ export const ButtonBase = styled.button<{
   min-width: 8.5rem;
   padding: 1.2rem;
   transition: 0.2s all;
+  width: ${(props: { buttonWidth?: string }) => props.buttonWidth};
 
   &.solid {
     background-color: ${({ theme, color }) => theme.button[`${color}`].bg};
@@ -96,6 +98,34 @@ export const ButtonBase = styled.button<{
     :disabled {
       color: ${({ theme, color }) => theme.button[`${color}`].disabledBorder};
       cursor: not-allowed;
+    }
+  }
+
+  &.sm {
+    font-size: ${font.size.xs};
+    height: 3.6rem;
+    min-width: 6.6rem;
+    padding: 0.9rem;
+  }
+
+  &.lg {
+    font-size: ${font.size.lg};
+    height: 6rem;
+    min-width: 10.7rem;
+    padding: 1.5rem;
+  }
+
+  svg {
+    width: 2.2rem;
+    height: 2.2rem;
+    margin: 0 auto;
+
+    &.icon-left {
+      margin-right: 1rem;
+    }
+
+    &.icon-right {
+      margin-left: 0.5rem;
     }
   }
 `;

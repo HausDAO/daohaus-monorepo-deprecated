@@ -250,7 +250,7 @@ export const FORM: Record<string, CustomFormLego> = {
     title: 'Change Token Settings',
     subtitle: 'Token Settings Proposal',
     description: 'Learn more about Token Settings in our documentation.',
-    tx: TX.UPDATE_TOKEN_SETTINGS,
+    tx: TX.TOKEN_SETTINGS,
     requiredFields: {
       title: true,
       description: true,

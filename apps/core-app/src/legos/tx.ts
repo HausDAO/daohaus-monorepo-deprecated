@@ -168,4 +168,25 @@ export const TX: Record<string, TXLego> = {
       },
     ],
   }),
+  TOKEN_SETTINGS: buildMultiCallTX({
+    id: 'TOKEN_SETTINGS',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        vTokenTransferable: '.formValues.vStake',
+        nvTokenTransferable: '.formValues.nvStake',
+        proposalType: { type: 'static', value: 'Token Settings Proposal' },
+      },
+    },
+    actions: [
+      {
+        contract: CONTRACT.CURRENT_DAO,
+        method: 'setAdminConfig',
+        args: ['.formValues.vStake', '.formValues.nvStake'],
+      },
+    ],
+  }),
 };

@@ -53,7 +53,7 @@ export const WrappedSwitch = (props: Buildable<Switchable>) => {
             name={switchProps.id}
             rules={rules}
             control={control}
-            defaultValue={switchProps.defaultChecked}
+            defaultValue={switchProps.defaultChecked || false}
             render={({ field }) => {
               return (
                 <Switch

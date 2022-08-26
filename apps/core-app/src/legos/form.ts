@@ -249,6 +249,7 @@ export const FORM: Record<string, CustomFormLego> = {
     id: 'TOKEN_SETTINGS',
     title: 'Change Token Settings',
     subtitle: 'Token Settings Proposal',
+    log: true,
     description: 'Learn more about Token Settings in our documentation.',
     tx: TX.UPDATE_TOKEN_SETTINGS,
     requiredFields: {
@@ -287,7 +288,7 @@ export const FORM: Record<string, CustomFormLego> = {
                   ],
                 },
                 right: {
-                  id: 'vStake',
+                  id: 'nvStake',
                   type: 'switch',
                   label: 'Transferable',
                   info: SUMMON_COPY.NV_STAKE_TRANSFER,

@@ -3,7 +3,9 @@ import { CustomFields } from '../legos/config';
 import { FORM } from '../legos/form';
 
 export function FormTest() {
-  return <FormBuilder form={FORM.ISSUE_ERC20} customFields={CustomFields} />;
+  return (
+    <FormBuilder form={FORM.TOKENS_FOR_SHARES} customFields={CustomFields} />
+  );
 }
 
 export default FormTest;

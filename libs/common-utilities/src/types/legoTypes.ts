@@ -75,7 +75,7 @@ type SingletonSearch = {
   keychain: Keychain;
 };
 
-type ArgEncode = {
+export type ArgEncode = {
   type: 'argEncode';
   args: ValidArgType[];
   solidityTypes: string[];

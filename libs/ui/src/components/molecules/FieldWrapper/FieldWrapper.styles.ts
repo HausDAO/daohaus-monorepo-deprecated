@@ -47,12 +47,13 @@ export const BottomContainer = styled.div`
 `;
 
 export const LeftAddonContainer = styled.div`
-  min-width: 60%;
+  min-width: 70%;
 `;
 
 export const RightAddonContainer = styled.div`
-  padding-left: 1em;
-  min-width: 40%;
+  display: flex;
+  justify-content: flex-end;
+  min-width: 30%;
 `;
 
 export const RequiredAsterisk = styled.span`

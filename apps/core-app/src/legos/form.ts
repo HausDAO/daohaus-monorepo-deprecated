@@ -353,7 +353,7 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
     id: 'CREATE_PUBLICATION',
     title: 'Start Publication',
     subtitle: 'Publication Proposal',
-    description: 'Start a new DAO publication on Tabula.gg!',
+    description: 'Start a new DAO publication on Tabula.gg',
     tx: TABULA_TX.CREATE_PUBLICATION,
     fields: [
       FIELD.TITLE,
@@ -393,6 +393,38 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
             label: 'Publication Image',
             placeholder: 'Image URL',
             expectType: 'url',
+          },
+        ],
+      },
+    ],
+  },
+  CREATE_ARTICLE: {
+    id: 'CREATE_ARTICLE',
+    title: 'Write an Article',
+    subtitle: 'Tabula Article Proposal',
+    description: 'Write an article on Tabula.gg',
+    tx: TABULA_TX.CREATE_PUBLICATION,
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      {
+        id: 'pubData',
+        type: 'formSegment',
+        title: 'Publication Data',
+        description: 'Some information about your publication.',
+        fields: [
+          {
+            id: 'articleTitle',
+            type: 'input',
+            label: 'Article Title',
+            placeholder: "ex. 10 Signs You're a Real Champ",
+          },
+          {
+            id: 'article',
+            type: 'textarea',
+            label: 'Fake MD editor',
+            placeholder: 'Description',
           },
         ],
       },

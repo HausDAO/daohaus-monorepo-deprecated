@@ -5,7 +5,7 @@ import { FORM, TABULA_FORMS } from '../legos/form';
 export function FormTest() {
   return (
     <FormBuilder
-      form={TABULA_FORMS.CREATE_PUBLICATION}
+      form={TABULA_FORMS.CREATE_ARTICLE}
       customFields={CustomFields}
     />
   );

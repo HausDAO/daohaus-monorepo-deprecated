@@ -272,7 +272,7 @@ export const TABULA_TX: Record<string, TXLego> = {
             jsonSchema: {
               action: { type: 'static', value: TABULA_TAGS.ARTICLE_ACTION },
               publicationId: '.formValues.pubId',
-              article: '.formValues.article',
+              article: { type: 'ipfsPinata', content: '.formValues.article' },
               title: '.formValues.articleTitle',
             },
           },

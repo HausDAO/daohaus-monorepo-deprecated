@@ -88,7 +88,7 @@ export type NestedArray = {
 
 export type IPFSPinata = {
   type: 'ipfsPinata';
-  args: ValidArgType[];
+  content: ValidArgType;
 };
 
 export type ValidArgType =

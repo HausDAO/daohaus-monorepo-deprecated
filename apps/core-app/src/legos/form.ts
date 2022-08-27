@@ -1,5 +1,5 @@
 import { SUMMON_COPY } from '../data/copy';
-import { CustomFormLego } from './config';
+import { CustomFieldLego, CustomFormLego } from './config';
 import { FIELD } from './fields';
 import { TABULA_TX, TX } from './tx';
 
@@ -420,12 +420,8 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
             label: 'Article Title',
             placeholder: "ex. 10 Signs You're a Real Champ",
           },
-          {
-            id: 'article',
-            type: 'textarea',
-            label: 'Fake MD editor',
-            placeholder: 'Description',
-          },
+          // @ts-expect-error: cannot resolve nested custom field types
+          FIELD.FAKE_MD,
         ],
       },
     ],

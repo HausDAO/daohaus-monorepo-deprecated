@@ -66,4 +66,9 @@ export const FIELD: Record<string, CustomFieldLego> = {
       },
     ],
   },
+  FAKE_MD: {
+    id: 'fakeMD',
+    type: 'fakeMarkdown',
+    label: 'Real Fake MD Editor',
+  },
 };

@@ -5,7 +5,6 @@ import { FieldWrapper } from '../FieldWrapper/FieldWrapper';
 
 export const WrappedTextArea = ({ rules, ...props }: Buildable<Field>) => {
   const { register } = useFormContext();
-  console.log('props', props);
   return (
     <FieldWrapper {...props} rules={rules}>
       <TextArea {...register(props.id, rules)} {...props} />

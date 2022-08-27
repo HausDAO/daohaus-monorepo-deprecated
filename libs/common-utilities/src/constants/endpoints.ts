@@ -40,6 +40,6 @@ export const ENDPOINTS: KeychainList = {
   },
   TABULA_GRAPH: {
     '0x5':
-      'https://api.thegraph.com/subgraphs/name/auryn-macmillan/tabula-gnosis-chain',
+      'https://api.thegraph.com/subgraphs/name/auryn-macmillan/tabula-goerli',
   },
 };

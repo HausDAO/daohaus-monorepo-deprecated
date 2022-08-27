@@ -173,7 +173,7 @@ export const loadProposalsList = async ({
       ordering,
       paging,
     });
-
+    console.log('res', res);
     if (shouldUpdate) {
       setNextPaging(res.nextPaging);
 

@@ -1,7 +1,7 @@
 import { SUMMON_COPY } from '../data/copy';
 import { CustomFormLego } from './config';
 import { FIELD } from './fields';
-import { TX } from './tx';
+import { TABULA_TX, TX } from './tx';
 
 export const getFormLegoById = (
   id: CustomFormLego['id']
@@ -354,7 +354,7 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
     title: 'Start Publication',
     subtitle: 'Publication Proposal',
     description: 'Start a new DAO publication on Tabula.gg!',
-    tx: TX.CREATE_PUBLICATION,
+    tx: TABULA_TX.CREATE_PUBLICATION,
     fields: [
       FIELD.TITLE,
       FIELD.DESCRIPTION,

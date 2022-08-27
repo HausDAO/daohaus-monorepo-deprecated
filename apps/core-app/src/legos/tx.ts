@@ -2,6 +2,7 @@ import {
   CONTRACTS,
   NestedArray,
   POSTER_TAGS,
+  TABULA_TAGS,
   toSeconds,
   TXLego,
   ValidArgType,
@@ -216,4 +217,68 @@ export const TX: Record<string, TXLego> = {
       },
     ],
   },
+};
+
+export const TABULA_TX: Record<string, TXLego> = {
+  CREATE_PUBLICATION: buildMultiCallTX({
+    id: 'CREATE_PUBLICATION',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        proposalType: { type: 'static', value: 'Create Publication Proposal' },
+      },
+    },
+    actions: [
+      {
+        contract: CONTRACT.POSTER,
+        method: 'post',
+        args: [
+          {
+            type: 'JSONDetails',
+            jsonSchema: {
+              action: { type: 'static', value: TABULA_TAGS.PUB_ACTION },
+              title: '.formValues.pubName',
+              tags: '.formValues.tags',
+              description: '.formValues.pubDescription',
+              image: '.formValues.pubImage',
+            },
+          },
+          { type: 'static', value: TABULA_TAGS.PUBLICATION },
+        ],
+      },
+    ],
+  }),
+  CREATE_ARTICLE: buildMultiCallTX({
+    id: 'CREATE_ARTICLE',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        proposalType: { type: 'static', value: 'Create Article Proposal' },
+      },
+    },
+    actions: [
+      {
+        contract: CONTRACT.POSTER,
+        method: 'post',
+        args: [
+          {
+            type: 'JSONDetails',
+            jsonSchema: {
+              action: { type: 'static', value: TABULA_TAGS.ARTICLE_ACTION },
+              publicationId: '.formValues.pubId',
+              article: '.formValues.article',
+              title: '.formValues.articleTitle',
+            },
+          },
+          { type: 'static', value: TABULA_TAGS.PUBLICATION },
+        ],
+      },
+    ],
+  }),
 };

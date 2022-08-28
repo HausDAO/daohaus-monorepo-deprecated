@@ -404,7 +404,14 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
     subtitle: 'Tabula Article Proposal',
     description: 'Write an article on Tabula.gg',
     log: true,
-    tx: TABULA_TX.CREATE_PUBLICATION,
+    tx: TABULA_TX.CREATE_ARTICLE,
+    requiredFields: {
+      title: true,
+      description: true,
+      articleTitle: true,
+      fakeMD: true,
+      pub_id: true,
+    },
     fields: [
       FIELD.TITLE,
       FIELD.DESCRIPTION,

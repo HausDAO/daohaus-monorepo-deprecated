@@ -20,7 +20,7 @@ import { gql, request } from 'graphql-request';
 import { useFormBuilder } from '@daohaus/haus-form-builder';
 import { FieldValues, UseFormSetValue } from 'react-hook-form';
 
-const PUB_ID = 'pub_id';
+const PUB_ID = 'pubId';
 enum FetchStatus {
   Idle,
   Fetching,

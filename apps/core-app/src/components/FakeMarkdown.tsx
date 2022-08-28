@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   Buildable,
@@ -17,7 +17,10 @@ import {
 } from '@daohaus/common-utilities';
 
 import { gql, request } from 'graphql-request';
+import { useFormBuilder } from '@daohaus/haus-form-builder';
+import { FieldValues, UseFormSetValue } from 'react-hook-form';
 
+const PUB_ID = 'pub_id';
 enum FetchStatus {
   Idle,
   Fetching,
@@ -41,7 +44,8 @@ const query = gql`
 const handleFetchPubId = async (
   safeId: string,
   chainId: ValidNetwork,
-  setPubId: ReactSetter<string | null>,
+  setValue: UseFormSetValue<FieldValues>,
+
   setFetchStatus: ReactSetter<FetchStatus>,
   shouldUpdate: boolean
 ) => {
@@ -59,7 +63,7 @@ const handleFetchPubId = async (
     const pubId = result?.permissions?.[0]?.publication?.id;
     if (!shouldUpdate) return;
     if (pubId) {
-      setPubId(pubId as string);
+      setValue(PUB_ID, pubId);
       setFetchStatus(FetchStatus.Success);
       return;
     }
@@ -69,15 +73,18 @@ const handleFetchPubId = async (
     console.error(e);
     if (!shouldUpdate) return;
     setFetchStatus(FetchStatus.Error);
-    setPubId(null);
+    setValue(PUB_ID, '');
   }
 };
 
 export const FakeMarkdown = (props: Buildable<Field>) => {
-  const [pubId, setPubId] = useState<null | string>(null);
-  const [fetchStatus, setFetchStatus] = useState(FetchStatus.Idle);
+  const { setValue, watch } = useFormBuilder();
   const { dao } = useDao();
   const { daochain } = useParams();
+
+  const pubId = watch(PUB_ID);
+
+  const [fetchStatus, setFetchStatus] = useState(FetchStatus.Idle);
 
   useEffect(() => {
     let shouldUpdate = true;
@@ -86,7 +93,7 @@ export const FakeMarkdown = (props: Buildable<Field>) => {
       handleFetchPubId(
         dao.safeAddress,
         daochain,
-        setPubId,
+        setValue,
         setFetchStatus,
         shouldUpdate
       );
@@ -94,7 +101,7 @@ export const FakeMarkdown = (props: Buildable<Field>) => {
     return () => {
       shouldUpdate = false;
     };
-  }, [dao, daochain]);
+  }, [dao, daochain, setValue]);
 
   const helperText =
     fetchStatus === FetchStatus.Idle || fetchStatus === FetchStatus.Fetching

@@ -1,6 +1,6 @@
 import { FormBuilder } from '@daohaus/haus-form-builder';
 import { CustomFields } from '../legos/config';
-import { FORM, TABULA_FORMS } from '../legos/form';
+import { TABULA_FORMS } from '../legos/form';
 
 export function FormTest() {
   return (

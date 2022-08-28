@@ -1,5 +1,5 @@
 import { SUMMON_COPY } from '../data/copy';
-import { CustomFieldLego, CustomFormLego } from './config';
+import { CustomFormLego } from './config';
 import { FIELD } from './fields';
 import { TABULA_TX, TX } from './tx';
 
@@ -403,6 +403,7 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
     title: 'Write an Article',
     subtitle: 'Tabula Article Proposal',
     description: 'Write an article on Tabula.gg',
+    log: true,
     tx: TABULA_TX.CREATE_PUBLICATION,
     fields: [
       FIELD.TITLE,

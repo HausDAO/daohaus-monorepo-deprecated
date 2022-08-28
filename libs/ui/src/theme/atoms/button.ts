@@ -15,39 +15,39 @@ import {
 } from '../global/colors';
 
 export const PrimaryDarkButton: ButtonColorTargets = {
-  text: primaryDark.bg,
-  bg: primaryDark.bgSolid,
-  border: primaryDark.bgSolid,
-  hoverBg: primaryDark.bgSolidHover,
-  hoverBorder: primaryDark.bgSolidHover,
-  focusBg: primaryDark.bgSolidHover,
-  focusBorder: primaryDark.textLowContrast,
-  disabledBg: primaryDark.elementBorderSubtle,
-  disabledBorder: primaryDark.elementBorderSubtle,
+  text: primaryDark.step1,
+  bg: primaryDark.step9,
+  border: primaryDark.step9,
+  hoverBg: primaryDark.step10,
+  hoverBorder: primaryDark.step10,
+  focusBg: primaryDark.step10,
+  focusBorder: primaryDark.step11,
+  disabledBg: primaryDark.step6,
+  disabledBorder: primaryDark.step6,
 };
 
 export const SecondaryDarkButton: ButtonColorTargets = {
-  text: secondaryDark.textHighContrast,
-  bg: secondaryDark.elementBorderSubtle,
-  border: secondaryDark.elementBorderSubtle,
-  hoverBg: secondaryDark.elementBorder,
-  hoverBorder: secondaryDark.elementBorder,
-  focusBg: secondaryDark.elementBorder,
-  focusBorder: secondaryDark.elementBorderHover,
-  disabledBg: secondaryDark.elementBg,
-  disabledBorder: secondaryDark.elementBg,
+  text: secondaryDark.step12,
+  bg: secondaryDark.step6,
+  border: secondaryDark.step6,
+  hoverBg: secondaryDark.step7,
+  hoverBorder: secondaryDark.step7,
+  focusBg: secondaryDark.step7,
+  focusBorder: secondaryDark.step8,
+  disabledBg: secondaryDark.step3,
+  disabledBorder: secondaryDark.step3,
 };
 
 export const TertiaryDarkButton: ButtonColorTargets = {
-  text: primaryDark.textLowContrast,
+  text: primaryDark.step11,
   bg: utilityDark.transparent,
-  border: primaryDark.textLowContrast,
-  hoverText: primaryDark.bgSolidHover,
-  hoverBorder: primaryDark.bgSolidHover,
-  focusText: primaryDark.textHighContrast,
-  focusBorder: primaryDark.textHighContrast,
-  disabledText: primaryDark.elementBorderSubtle,
-  disabledBorder: primaryDark.elementBorderSubtle,
+  border: primaryDark.step11,
+  hoverText: primaryDark.step10,
+  hoverBorder: primaryDark.step10,
+  focusText: primaryDark.step12,
+  focusBorder: primaryDark.step12,
+  disabledText: primaryDark.step6,
+  disabledBorder: primaryDark.step6,
 };
 
 export const SuccessDarkButton: ButtonColorTargets = {
@@ -87,39 +87,39 @@ export const DangerDarkButton: ButtonColorTargets = {
 };
 
 export const PrimaryLightButton: ButtonColorTargets = {
-  text: primary.bg,
-  bg: primary.bgSolid,
-  border: primary.bgSolid,
-  hoverBg: primary.bgSolidHover,
-  hoverBorder: primary.bgSolidHover,
-  focusBg: primary.bgSolidHover,
-  focusBorder: primary.textLowContrast,
-  disabledBg: primary.elementBorderSubtle,
-  disabledBorder: primary.elementBorderSubtle,
+  text: primary.step1,
+  bg: primary.step9,
+  border: primary.step9,
+  hoverBg: primary.step10,
+  hoverBorder: primary.step10,
+  focusBg: primary.step10,
+  focusBorder: primary.step11,
+  disabledBg: primary.step6,
+  disabledBorder: primary.step6,
 };
 
 export const SecondaryLightButton: ButtonColorTargets = {
-  text: secondary.textHighContrast,
-  bg: secondary.elementBorderSubtle,
-  border: secondary.elementBorderSubtle,
-  hoverBg: secondary.elementBorder,
-  hoverBorder: secondary.elementBorder,
-  focusBg: secondary.elementBorder,
-  focusBorder: secondary.elementBorderHover,
-  disabledBg: secondary.elementBg,
-  disabledBorder: secondary.elementBg,
+  text: secondary.step12,
+  bg: secondary.step6,
+  border: secondary.step6,
+  hoverBg: secondary.step7,
+  hoverBorder: secondary.step7,
+  focusBg: secondary.step7,
+  focusBorder: secondary.step8,
+  disabledBg: secondary.step3,
+  disabledBorder: secondary.step3,
 };
 
 export const TertiaryLightButton: ButtonColorTargets = {
   bg: utility.transparent,
-  text: primary.textLowContrast,
-  border: primary.textLowContrast,
-  hoverText: primary.bgSolidHover,
-  hoverBorder: primary.bgSolidHover,
-  focusText: primary.textHighContrast,
-  focusBorder: primary.textHighContrast,
-  disabledText: primary.elementBorderSubtle,
-  disabledBorder: primary.elementBorderSubtle,
+  text: primary.step11,
+  border: primary.step11,
+  hoverText: primary.step10,
+  hoverBorder: primary.step10,
+  focusText: primary.step12,
+  focusBorder: primary.step12,
+  disabledText: primary.step6,
+  disabledBorder: primary.step6,
 };
 
 export const SuccessLightButton: ButtonColorTargets = {

@@ -20,7 +20,7 @@ export interface ButtonProps {
   /** Controls button variant */
   variant: 'solid' | 'outline' | 'link';
   /* Width of the button element */
-  width: 'fit-content' | 'full-width' | string;
+  width: 'fit-content' | '100%' | string;
   /* React node */
   children?: React.ReactNode;
   /* Css class name */
@@ -58,7 +58,7 @@ export const ButtonV2 = React.forwardRef<HTMLButtonElement, ButtonProps>(
       theme = 'primary',
       variant = 'solid',
       size = 'md',
-      width = 'full-width',
+      width = 'fit-content',
       ...rest
     } = props;
 

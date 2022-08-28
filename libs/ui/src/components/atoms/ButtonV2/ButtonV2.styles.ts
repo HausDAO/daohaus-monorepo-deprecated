@@ -4,7 +4,7 @@ import { font } from '../../../theme/global/font';
 
 export const ButtonBase = styled.button<{
   color: 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
-  buttonWidth: 'fit-content' | 'full-width' | string;
+  buttonWidth: 'fit-content' | '100%' | string;
 }>`
   align-items: center;
   border-radius: 0.4rem;

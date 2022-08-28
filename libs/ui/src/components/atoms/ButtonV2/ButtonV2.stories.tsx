@@ -72,10 +72,10 @@ SecondaryButtonOutline.args = {
 };
 
 export const SecondaryButtonAsLink = Template.bind({});
-SecondaryButtonOutline.args = {
+SecondaryButtonAsLink.args = {
   children: 'Button',
   theme: 'secondary',
-  variant: 'outline',
+  variant: 'link',
 };
 
 export const ButtonLeftIcon = Template.bind({});

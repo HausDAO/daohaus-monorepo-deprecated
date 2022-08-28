@@ -20,9 +20,8 @@ export const handleIPFSPinata = async ({
   localABIs: Record<string, ABI>;
   appState: ArbitraryState;
 }) => {
-  const { content } = arg;
   const processedContent = await processArg({
-    arg: content,
+    arg: arg?.content,
     chainId,
     safeId,
     localABIs,
@@ -33,7 +32,6 @@ export const handleIPFSPinata = async ({
   const pinata_api_secret = import.meta.env['VITE_PINATA_API_SECRET'];
 
   if (!pinata_api_key || !pinata_api_secret) {
-    console.log('import.meta.env', import.meta.env);
     throw new Error(
       'PINATA_API_KEY and PINATA_API_SECRET must be set in the environment'
     );

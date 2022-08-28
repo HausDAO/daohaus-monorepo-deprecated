@@ -1,8 +1,10 @@
+import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import {
   CONTRACTS,
   NestedArray,
   POSTER_TAGS,
   TABULA_TAGS,
+  ENCODED_0X0_DATA,
   toSeconds,
   TXLego,
   ValidArgType,
@@ -98,6 +100,57 @@ export const TX: Record<string, TXLego> = {
           nestInArray('.formValues.shamanAddress'),
           nestInArray('.formValues.shamanName'),
         ],
+      },
+    ],
+  }),
+  ISSUE_ERC20: buildMultiCallTX({
+    id: 'ISSUE_ERC20',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        proposalType: {
+          type: 'static',
+          value: 'Issue ERC20 Token Funding Proposal',
+        },
+      },
+    },
+    actions: [
+      {
+        contract: CONTRACT.ERC_20_FUNDING,
+        method: 'transfer',
+        args: ['.formValues.recipient', '.formValues.paymentTokenAmt'],
+      },
+    ],
+  }),
+  ISSUE_NETWORK_TOKEN: buildMultiCallTX({
+    id: 'ISSUE_NETWORK_TOKEN',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        proposalType: {
+          type: 'static',
+          value: 'Issue Network Token Funding Proposal',
+        },
+      },
+    },
+    actions: [
+      {
+        contract: {
+          type: 'static',
+          contractName: 'NETWORK',
+          abi: LOCAL_ABI.ERC20,
+          targetAddress: '.formValues.recipient',
+        },
+        method: 'noMethod',
+        args: [],
+        value: '.formValues.paymentAmount',
+        data: ENCODED_0X0_DATA,
       },
     ],
   }),

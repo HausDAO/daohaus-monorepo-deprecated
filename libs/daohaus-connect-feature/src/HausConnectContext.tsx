@@ -1,7 +1,6 @@
 import {
   createContext,
   ReactNode,
-  SetStateAction,
   useCallback,
   useContext,
   useEffect,

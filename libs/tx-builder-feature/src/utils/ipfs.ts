@@ -2,7 +2,7 @@ import {
   ABI,
   ArbitraryState,
   IPFSPinata,
-  pinataIpfsPost,
+  pinataPostJSON,
   ValidNetwork,
 } from '@daohaus/common-utilities';
 import { processArg } from './args';
@@ -39,7 +39,7 @@ export const handleIPFSPinata = async ({
     );
   }
 
-  const res = await pinataIpfsPost({
+  const res = await pinataPostJSON({
     creds: {
       pinata_api_key,
       pinata_api_secret,

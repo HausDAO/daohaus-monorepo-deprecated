@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import {
   FieldValues,
   FormProvider as RHFProvider,
@@ -21,7 +21,6 @@ import { Logger } from './Logger';
 import { FormFooter } from './formFooter';
 import { FormBuilderFactory } from './FormBuilderFactory';
 import { useTxBuilder } from '@daohaus/tx-builder-feature';
-import { CoreFieldLookup } from './CoreFieldLookup';
 
 type FormContext<Lookup extends LookupType> = {
   form?: FormLego<Lookup>;

@@ -1,12 +1,19 @@
 export const PINATA_PIN_JSON = 'https://api.pinata.cloud/pinning/pinJSONToIPFS';
 
-export const pinataIpfsPost = async ({
+type JSONResponse = {
+  IpfsHash: string;
+  pinSize: number;
+  Timestamp: string;
+  isDuplicate: boolean;
+};
+
+export const pinataPostJSON = async ({
   creds,
   jsonString,
 }: {
   creds: { pinata_api_key: string; pinata_api_secret: string };
   jsonString: string;
-}): Promise<{ IpfsHash: string }> => {
+}): Promise<JSONResponse> => {
   try {
     const response = await fetch(PINATA_PIN_JSON, {
       method: 'POST',
@@ -19,7 +26,7 @@ export const pinataIpfsPost = async ({
     });
     const data = await response.json();
     if (typeof data?.IpfsHash === 'string') {
-      return data as { IpfsHash: string };
+      return data as JSONResponse;
     } else {
       console.log('response', response);
       throw new Error(`IPFS Pin failed.`);

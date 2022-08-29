@@ -32,7 +32,7 @@ export const BaseTag = styled.div<{
   border-radius: ${border.radius};
   color: ${({ tagColor }) => `${darkTagColors[`${tagColor}11`]}`};
   min-height: 2.6rem;
-  min-width: 5.2rem;
+  min-width: fit-content;
   padding: 0.2rem 0.5rem;
 
   :hover {

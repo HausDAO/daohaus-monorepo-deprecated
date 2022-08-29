@@ -6,6 +6,9 @@ export default {
   component: TextArea,
 } as ComponentMeta<typeof TextArea>;
 
+// Setting displayName manually since Storybook displays it as [Object, object]
+TextArea.displayName = 'TextArea';
+
 const Template: ComponentStory<typeof TextArea> = (args) => (
   <TextArea {...args} />
 );

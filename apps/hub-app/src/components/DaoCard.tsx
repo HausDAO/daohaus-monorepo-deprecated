@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-import { charLimit, readableNumbers } from '@daohaus/common-utilities';
+import {
+  charLimit,
+  getNetwork,
+  readableNumbers,
+} from '@daohaus/common-utilities';
 import { Bold, border, Button, ParLg, ParMd, ProfileAvatar } from '@daohaus/ui';
 import { Tag } from './Tag';
 import { AlertCircle } from './AlertCircle';
@@ -129,7 +133,7 @@ export const DaoCard = ({
         )}
       </div>
       <div className="tag-box">
-        <Tag>{networkId}</Tag>
+        <Tag>{getNetwork(networkId as string)?.name}</Tag>
         <Tag>{contractType}</Tag>
       </div>
       <a

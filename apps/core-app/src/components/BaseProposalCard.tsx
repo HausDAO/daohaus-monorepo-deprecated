@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Card, ParLg, widthQuery } from '@daohaus/ui';
+import { Card, ParLg, ParSm, widthQuery } from '@daohaus/ui';
 
 import { TProposals } from '../contexts/DaoContext';
 import { ProposalCardOverview } from './ProposalCardOverview';
@@ -48,6 +48,7 @@ export const BaseProposalCard = ({ proposal }: BaseProposalCardProps) => {
       </LeftCard>
       <RightCard>
         <ParLg>actions</ParLg>
+        <ParSm>status: {proposal.status}</ParSm>
       </RightCard>
     </ProposalCardContainer>
   );

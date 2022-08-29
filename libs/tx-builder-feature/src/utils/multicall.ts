@@ -4,6 +4,7 @@ import {
   ArgType,
   CONTRACTS,
   encodeFunction,
+  encodeValues,
   ENDPOINTS,
   EstmimateGas,
   EthAddress,
@@ -121,12 +122,6 @@ export const handleMulticallArg = async ({
         appState,
       });
 
-      const processedArgs = await Promise.all(
-        args.map(
-          async (arg) => await processArg({ arg, chainId, localABIs, appState })
-        )
-      );
-
       const processValue = value
         ? await processArg({ arg: value, chainId, localABIs, appState })
         : 0;
@@ -140,8 +135,7 @@ export const handleMulticallArg = async ({
           })
         : 0;
 
-      // REVIEW: ignoring most of the above feels like a hack
-
+      // Early return if encoded data is passed and args do not need processing
       if (data) {
         return {
           to: processedContract.address,
@@ -149,16 +143,22 @@ export const handleMulticallArg = async ({
           value: Number(processValue),
           operation: Number(processedOperations),
         };
-      } else {
-        return txActionToMetaTx({
-          abi: processedContract.abi,
-          method,
-          address: processedContract.address,
-          args: processedArgs,
-          value: Number(processValue),
-          operation: Number(processedOperations),
-        });
       }
+
+      const processedArgs = await Promise.all(
+        args.map(
+          async (arg) => await processArg({ arg, chainId, localABIs, appState })
+        )
+      );
+
+      return txActionToMetaTx({
+        abi: processedContract.abi,
+        method,
+        address: processedContract.address,
+        args: processedArgs,
+        value: Number(processValue),
+        operation: Number(processedOperations),
+      });
     })
   );
 
@@ -252,4 +252,32 @@ export const buildMultiCallTX = ({
       JSONDetails,
     ],
   };
+};
+
+export const handleArgEncode = async ({
+  arg,
+  chainId,
+  safeId,
+  localABIs,
+  appState,
+}: {
+  arg: ArgEncode;
+  chainId: ValidNetwork;
+  safeId?: string;
+  localABIs: Record<string, ABI>;
+  appState: ArbitraryState;
+}) => {
+  const { args, solidityTypes } = arg;
+  if (args.length !== solidityTypes.length) {
+    throw new Error(`Arguments and types must be the same length`);
+  }
+
+  const processedArgs = await Promise.all(
+    args.map(
+      async (arg) => await processArg({ arg, chainId, localABIs, appState })
+    )
+  );
+  console.log('processedArgs', processedArgs);
+
+  return encodeValues(solidityTypes, processedArgs);
 };

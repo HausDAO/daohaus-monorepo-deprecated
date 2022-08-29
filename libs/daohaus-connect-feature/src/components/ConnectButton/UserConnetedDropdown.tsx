@@ -24,6 +24,8 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
 
   const [open, setOpen] = useState(false);
   const classes = classNames({ 'mobile-connect-btn': isSm });
+  const networkName = getNetworkName(chainId as string);
+
   return (
     <Dropdown
       spacing="0.7rem"
@@ -54,9 +56,7 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
                 </ParMd>
               )}
               <ParXs color={theme.button.primary.text}>
-                {chainId && validNetwork
-                  ? `@${getNetworkName(chainId)}`
-                  : 'Wrong Network'}
+                {(networkName && `@${networkName}`) || 'Wrong Network'}
               </ParXs>
             </div>
           </Container>

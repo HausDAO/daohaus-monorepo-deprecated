@@ -10,7 +10,11 @@ import {
   ValidNetwork,
 } from '@daohaus/common-utilities';
 import { ArgCallback } from '../TXBuilder';
-import { handleGasEstimate, handleMulticallArg } from './multicall';
+import {
+  handleArgEncode,
+  handleGasEstimate,
+  handleMulticallArg,
+} from './multicall';
 import { handleDetailsJSON, searchArg } from './search';
 
 export const isSearchArg = (arg: ValidArgType): arg is StringSearch => {
@@ -94,6 +98,16 @@ export const processArg = async ({
     });
     return result;
   }
+  if (arg?.type === 'argEncode') {
+    const result = await handleArgEncode({
+      arg,
+      chainId,
+      safeId,
+      localABIs,
+      appState,
+    });
+    return result;
+  }
   if (arg?.type === 'estimateGas') {
     const result = await handleGasEstimate({
       arg,
@@ -111,6 +125,7 @@ export const processArg = async ({
         searchString: arg.search,
         shouldThrow: false,
       });
+
       return typeof result === 'number'
         ? calcExpiry(result)
         : calcExpiry(arg.fallback);

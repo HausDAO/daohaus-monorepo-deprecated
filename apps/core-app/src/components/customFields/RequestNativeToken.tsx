@@ -1,8 +1,13 @@
-import { isValidNetwork, toWholeUnits } from '@daohaus/common-utilities';
-import { Buildable, Button, WrappedInput } from '@daohaus/ui';
 import { useMemo } from 'react';
-import { useFormContext } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import { RegisterOptions, useFormContext } from 'react-hook-form';
+import {
+  isValidNetwork,
+  toWholeUnits,
+  handleBaseUnits,
+} from '@daohaus/common-utilities';
+import { Buildable, Button, WrappedInput } from '@daohaus/ui';
+
 import { useDao } from '../../contexts/DaoContext';
 import { getNetworkToken } from '../../utils/tokenData';
 
@@ -41,6 +46,11 @@ export const RequestNativeToken = (
     );
   };
 
+  const newRules: RegisterOptions = {
+    setValueAs: (value) => handleBaseUnits(value, 18),
+    ...props.rules,
+  };
+
   return (
     <WrappedInput
       {...props}
@@ -56,6 +66,7 @@ export const RequestNativeToken = (
           )}
         </Button>
       }
+      rules={newRules}
     />
   );
 };

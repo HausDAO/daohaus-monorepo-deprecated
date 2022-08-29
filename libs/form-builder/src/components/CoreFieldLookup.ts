@@ -1,5 +1,8 @@
 import {
   CSInput,
+  HighlightInputText,
+  ShamanPermission,
+  TimePicker,
   WrappedCheckbox,
   WrappedInput,
   WrappedInputSelect,
@@ -15,6 +18,7 @@ import { SplitColumnLayout } from './SplitRender';
 export const CoreFieldLookup = {
   input: WrappedInput,
   inputSelect: WrappedInputSelect,
+  highlightInputText: HighlightInputText,
   textarea: WrappedTextArea,
   switch: WrappedSwitch,
   radio: WrappedRadio,
@@ -25,4 +29,6 @@ export const CoreFieldLookup = {
   checkRender: CheckRender,
   formSegment: SegmentRender,
   splitColumn: SplitColumnLayout,
+  shamanPermissions: ShamanPermission,
+  timePicker: TimePicker,
 };

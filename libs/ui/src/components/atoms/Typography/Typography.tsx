@@ -94,6 +94,8 @@ export const Light = styled.span`
 `;
 export const Bold = styled.span`
   font-weight: ${font.weight.bold};
+  color: ${({ theme, color }: { color?: string; theme: Theme }) =>
+    color || theme.fontColor};
 `;
 export const ExtraBold = styled.span`
   font-weight: ${font.weight.black};

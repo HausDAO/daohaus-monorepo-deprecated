@@ -1,4 +1,8 @@
-import { FieldValidationType, ValidateField } from '@daohaus/common-utilities';
+import {
+  FieldValidationType,
+  ValidateField,
+  ValueOf,
+} from '@daohaus/common-utilities';
 import { RegisterOptions } from 'react-hook-form';
 import { FieldLego } from '../types';
 
@@ -38,11 +42,27 @@ export const handleRequiredField = (
 
 // VALIDATION UTILS
 
+const allowEmpty = (
+  value: unknown,
+  validateFn: ValueOf<typeof ValidateField>
+) => {
+  if (!value) {
+    return true;
+  }
+  return validateFn(value);
+};
+
 export const hasTypeValidation = (field: FieldLego) =>
   field.expectType !== undefined;
 export const handleTypeValidation = (field: FieldLego) =>
   hasTypeValidation(field)
-    ? { validate: ValidateField[field.expectType as FieldValidationType] }
+    ? {
+        validate: (val: unknown) =>
+          allowEmpty(
+            val,
+            ValidateField[field.expectType as FieldValidationType]
+          ),
+      }
     : {};
 
 export const generateRules = ({

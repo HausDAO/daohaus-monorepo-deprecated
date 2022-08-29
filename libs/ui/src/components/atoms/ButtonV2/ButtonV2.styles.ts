@@ -13,7 +13,7 @@ export const ButtonBase = styled.button<{
   font-size: ${font.size.md};
   font-weight: ${font.weight.bold};
   height: 4.8rem;
-  justify-content: left;
+  justify-content: center;
   letter-spacing: 1.8px;
   min-width: 8.5rem;
   padding: 1.2rem;
@@ -52,25 +52,25 @@ export const ButtonBase = styled.button<{
   &.outline {
     background-color: transparent;
     border: 0.1rem solid
-      ${({ theme, color }) => theme.button[`${color}`].border};
-    color: ${({ theme, color }) => theme.button[`${color}`].border};
+      ${({ theme, color }) => theme.button[`${color}`].outline};
+    color: ${({ theme, color }) => theme.button[`${color}`].outline};
 
     :hover {
       border: 0.1rem solid
-        ${({ theme, color }) => theme.button[`${color}`].hoverBorder};
-      color: ${({ theme, color }) => theme.button[`${color}`].hoverBorder};
+        ${({ theme, color }) => theme.button[`${color}`].outlineHover};
+      color: ${({ theme, color }) => theme.button[`${color}`].outlineHover};
     }
 
     :focus {
       border: 0.1rem solid
-        ${({ theme, color }) => theme.button[`${color}`].focusBorder};
-      color: ${({ theme, color }) => theme.button[`${color}`].focusBorder};
+        ${({ theme, color }) => theme.button[`${color}`].outlineFocus};
+      color: ${({ theme, color }) => theme.button[`${color}`].outlineFocus};
     }
 
     :disabled {
       border: 0.1rem solid
-        ${({ theme, color }) => theme.button[`${color}`].disabledBorder};
-      color: ${({ theme, color }) => theme.button[`${color}`].disabledBorder};
+        ${({ theme, color }) => theme.button[`${color}`].outlineDisabled};
+      color: ${({ theme, color }) => theme.button[`${color}`].outlineDisabled};
       cursor: not-allowed;
     }
   }
@@ -85,18 +85,19 @@ export const ButtonBase = styled.button<{
     padding: 0;
     background-color: transparent;
     border: none;
-    color: ${({ theme, color }) => theme.button[`${color}`].border};
+    color: ${({ theme, color }) => theme.button[`${color}`].outline};
 
     :hover {
-      color: ${({ theme, color }) => theme.button[`${color}`].hoverBorder};
+      color: ${({ theme, color }) => theme.button[`${color}`].outlineHover};
+      text-decoration: underline;
     }
 
     :focus {
-      color: ${({ theme, color }) => theme.button[`${color}`].focusBorder};
+      color: ${({ theme, color }) => theme.button[`${color}`].outlineFocus};
     }
 
     :disabled {
-      color: ${({ theme, color }) => theme.button[`${color}`].disabledBorder};
+      color: ${({ theme, color }) => theme.button[`${color}`].outlineDisabled};
       cursor: not-allowed;
     }
   }

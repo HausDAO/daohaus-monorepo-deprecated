@@ -24,6 +24,10 @@ export const PrimaryDarkButton: ButtonColorTargets = {
   focusBorder: primaryDark.textLowContrast,
   disabledBg: primaryDark.elementBorderSubtle,
   disabledBorder: primaryDark.elementBorderSubtle,
+  outline: primaryDark.bgSolid,
+  outlineHover: primaryDark.bgSolidHover,
+  outlineFocus: primaryDark.textLowContrast,
+  outlineDisabled: primaryDark.elementBorderSubtle,
 };
 
 export const SecondaryDarkButton: ButtonColorTargets = {
@@ -36,8 +40,13 @@ export const SecondaryDarkButton: ButtonColorTargets = {
   focusBorder: secondaryDark.elementBorderHover,
   disabledBg: secondaryDark.elementBg,
   disabledBorder: secondaryDark.elementBg,
+  outline: secondaryDark.bgSolid,
+  outlineHover: secondaryDark.bgSolidHover,
+  outlineFocus: secondaryDark.textLowContrast,
+  outlineDisabled: secondaryDark.elementBorderSubtle,
 };
 
+// TODO Delete this
 export const TertiaryDarkButton: ButtonColorTargets = {
   text: primaryDark.textLowContrast,
   bg: utilityDark.transparent,
@@ -48,6 +57,10 @@ export const TertiaryDarkButton: ButtonColorTargets = {
   focusBorder: primaryDark.textHighContrast,
   disabledText: primaryDark.elementBorderSubtle,
   disabledBorder: primaryDark.elementBorderSubtle,
+  outline: primaryDark.bgSolid,
+  outlineHover: primaryDark.bgSolidHover,
+  outlineFocus: primaryDark.textLowContrast,
+  outlineDisabled: primaryDark.elementBorderSubtle,
 };
 
 export const SuccessDarkButton: ButtonColorTargets = {
@@ -60,6 +73,10 @@ export const SuccessDarkButton: ButtonColorTargets = {
   focusBorder: successDark.step11,
   disabledBg: successDark.step6,
   disabledBorder: successDark.step6,
+  outline: successDark.step9,
+  outlineHover: successDark.step10,
+  outlineFocus: successDark.step11,
+  outlineDisabled: successDark.step6,
 };
 
 export const WarningDarkButton: ButtonColorTargets = {
@@ -72,10 +89,14 @@ export const WarningDarkButton: ButtonColorTargets = {
   focusBorder: warningDark.step11,
   disabledBg: warningDark.step6,
   disabledBorder: warningDark.step6,
+  outline: warningDark.step9,
+  outlineHover: warningDark.step10,
+  outlineFocus: warningDark.step11,
+  outlineDisabled: warningDark.step6,
 };
 
 export const DangerDarkButton: ButtonColorTargets = {
-  text: dangerDark.step1,
+  text: dangerDark.step12,
   bg: dangerDark.step9,
   border: dangerDark.step9,
   hoverBg: dangerDark.step10,
@@ -84,6 +105,10 @@ export const DangerDarkButton: ButtonColorTargets = {
   focusBorder: dangerDark.step11,
   disabledBg: dangerDark.step6,
   disabledBorder: dangerDark.step6,
+  outline: dangerDark.step9,
+  outlineHover: dangerDark.step10,
+  outlineFocus: dangerDark.step11,
+  outlineDisabled: dangerDark.step6,
 };
 
 export const PrimaryLightButton: ButtonColorTargets = {
@@ -96,6 +121,10 @@ export const PrimaryLightButton: ButtonColorTargets = {
   focusBorder: primary.textLowContrast,
   disabledBg: primary.elementBorderSubtle,
   disabledBorder: primary.elementBorderSubtle,
+  outline: primary.bgSolid,
+  outlineHover: primary.bgSolidHover,
+  outlineFocus: primary.textLowContrast,
+  outlineDisabled: primary.elementBorderSubtle,
 };
 
 export const SecondaryLightButton: ButtonColorTargets = {
@@ -108,6 +137,10 @@ export const SecondaryLightButton: ButtonColorTargets = {
   focusBorder: secondary.elementBorderHover,
   disabledBg: secondary.elementBg,
   disabledBorder: secondary.elementBg,
+  outline: secondary.bgSolid,
+  outlineHover: secondary.bgSolidHover,
+  outlineFocus: secondary.textLowContrast,
+  outlineDisabled: secondary.elementBorderSubtle,
 };
 
 export const TertiaryLightButton: ButtonColorTargets = {
@@ -120,6 +153,10 @@ export const TertiaryLightButton: ButtonColorTargets = {
   focusBorder: primary.textHighContrast,
   disabledText: primary.elementBorderSubtle,
   disabledBorder: primary.elementBorderSubtle,
+  outline: primary.bgSolid,
+  outlineHover: primary.bgSolidHover,
+  outlineFocus: primary.textLowContrast,
+  outlineDisabled: primary.elementBorderSubtle,
 };
 
 export const SuccessLightButton: ButtonColorTargets = {
@@ -132,6 +169,10 @@ export const SuccessLightButton: ButtonColorTargets = {
   focusBorder: success.step11,
   disabledBg: success.step6,
   disabledBorder: success.step6,
+  outline: success.step9,
+  outlineHover: success.step10,
+  outlineFocus: success.step11,
+  outlineDisabled: success.step6,
 };
 
 export const WarningLightButton: ButtonColorTargets = {
@@ -144,6 +185,10 @@ export const WarningLightButton: ButtonColorTargets = {
   focusBorder: warning.step11,
   disabledBg: warning.step6,
   disabledBorder: warning.step6,
+  outline: warning.step9,
+  outlineHover: warning.step10,
+  outlineFocus: warning.step11,
+  outlineDisabled: warning.step6,
 };
 
 export const DangerLightButton: ButtonColorTargets = {
@@ -156,4 +201,8 @@ export const DangerLightButton: ButtonColorTargets = {
   focusBorder: danger.step11,
   disabledBg: danger.step6,
   disabledBorder: danger.step6,
+  outline: danger.step9,
+  outlineHover: danger.step10,
+  outlineFocus: danger.step11,
+  outlineDisabled: danger.step6,
 };

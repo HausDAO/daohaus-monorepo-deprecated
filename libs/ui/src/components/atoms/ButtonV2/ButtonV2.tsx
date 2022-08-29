@@ -7,8 +7,10 @@ import { ButtonBase } from './ButtonV2.styles';
 export interface ButtonProps {
   /* Makes button disabled */
   disabled?: boolean;
-  /* Shows loading spinner */
-  loading?: boolean;
+  // ! Not Included untill talk with design
+  // Shows loading spinner */
+  loading: boolean;
+  // ! Not Included untill talk with design
   /* The label to show in the button when loading is true */
   loadingText?: string;
   /** Set theme color */
@@ -48,8 +50,6 @@ export interface ButtonProps {
 export const ButtonV2 = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (props, ref) => {
     const {
-      loading,
-      loadingText,
       type = 'button',
       IconLeft,
       IconRight,

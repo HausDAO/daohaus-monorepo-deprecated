@@ -39,6 +39,9 @@ BaseButton.args = {
   theme: 'primary',
   variant: 'solid',
   size: 'md',
+  disabled: false,
+  loading: true,
+  width: 'fit-content',
 };
 
 export const PrimaryButton = Template.bind({});

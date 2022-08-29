@@ -100,4 +100,5 @@ ButtonWithLeftAndRightIcons.args = {
   children: 'Button',
   IconLeft: RiAlertLine,
   IconRight: RiArrowDropDownLine,
+  width: '100%',
 };

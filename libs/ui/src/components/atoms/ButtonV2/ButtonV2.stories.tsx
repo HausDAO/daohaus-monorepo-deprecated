@@ -27,6 +27,9 @@ export default {
   },
 } as ComponentMeta<typeof ButtonV2>;
 
+// Setting displayName manually since Storybook displays it as [Object, object]
+ButtonV2.displayName = 'ButtonV2';
+
 const Template: ComponentStory<typeof ButtonV2> = (args) => (
   <ButtonV2 {...args} />
 );
@@ -39,6 +42,8 @@ BaseButton.args = {
   theme: 'primary',
   variant: 'solid',
   size: 'md',
+  disabled: false,
+  width: 'fit-content',
 };
 
 export const PrimaryButton = Template.bind({});

@@ -1,9 +1,9 @@
 import { ethers } from 'ethers';
-import { ABI } from '../types';
+import { ABI, ArgType } from '../types';
 
 export const encodeValues = (
   typesArray: string[],
-  valueArray: (string | number)[]
+  valueArray: ArgType[]
 ): string => {
   return ethers.utils.defaultAbiCoder.encode(typesArray, valueArray);
 };

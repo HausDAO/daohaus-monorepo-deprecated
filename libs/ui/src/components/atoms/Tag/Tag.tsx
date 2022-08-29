@@ -7,7 +7,7 @@ import { BaseTag } from './Tag.styles';
 
 export type TagProps = {
   children: ReactNode;
-  tagColor: 'blue' | 'green' | 'pink' | 'violet';
+  tagColor: 'blue' | 'green' | 'pink' | 'violet' | 'yellow' | 'red';
   className?: string;
   IconLeft?: IconType;
   IconRight?: IconType;

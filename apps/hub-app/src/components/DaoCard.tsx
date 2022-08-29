@@ -5,8 +5,15 @@ import {
   getNetwork,
   readableNumbers,
 } from '@daohaus/common-utilities';
-import { Bold, border, Button, ParLg, ParMd, ProfileAvatar } from '@daohaus/ui';
-import { Tag } from './Tag';
+import {
+  Tag,
+  Bold,
+  border,
+  Button,
+  ParLg,
+  ParMd,
+  ProfileAvatar,
+} from '@daohaus/ui';
 import { AlertCircle } from './AlertCircle';
 import { ITransformedMembership } from '@daohaus/dao-data';
 
@@ -37,14 +44,11 @@ const StyledDaoCard = styled.div`
     }
   }
   .tag-box {
+    font-size: 1.4rem;
     margin-bottom: 2.4rem;
-    p {
+    div {
       margin-right: 1.5rem;
     }
-  }
-  .dao-title {
-    font-weight: 700;
-    margin-bottom: 1.9rem;
   }
 `;
 
@@ -77,7 +81,7 @@ export const DaoCard = ({
             <AlertCircle number={activeProposalCount} />
           )}
         </div>
-        {isDelegate && <Tag>Delegate</Tag>}
+        {isDelegate && <Tag tagColor="yellow">Delegate</Tag>}
       </div>
       <ParLg className="dao-title">
         {name ? charLimit(name, 21) : charLimit(dao, 21)}{' '}
@@ -133,8 +137,8 @@ export const DaoCard = ({
         )}
       </div>
       <div className="tag-box">
-        <Tag className="network">{getNetwork(networkId as string)?.name}</Tag>
-        <Tag>{contractType}</Tag>
+        <Tag tagColor="red">{getNetwork(networkId as string)?.name}</Tag>
+        <Tag tagColor="blue">{contractType}</Tag>
       </div>
       <a
         href={`https://admin.daohaus.fun/#/molochv3/${networkId}/${dao}`}

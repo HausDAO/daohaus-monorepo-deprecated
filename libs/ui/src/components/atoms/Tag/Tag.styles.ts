@@ -4,17 +4,26 @@ import { Theme } from '../../../types/theming';
 import { border } from '../../../theme/global/border';
 
 // import styled from 'styled-components';
-import { blueDark, violetDark, pinkDark, greenDark } from '@radix-ui/colors';
+import {
+  blueDark,
+  violetDark,
+  pinkDark,
+  greenDark,
+  yellowDark,
+  redDark,
+} from '@radix-ui/colors';
 
 const darkTagColors = {
   ...blueDark,
   ...violetDark,
   ...pinkDark,
   ...greenDark,
+  ...yellowDark,
+  ...redDark,
 };
 
 export const BaseTag = styled.div<{
-  tagColor: 'blue' | 'green' | 'pink' | 'violet';
+  tagColor: 'blue' | 'green' | 'pink' | 'violet' | 'yellow' | 'red';
 }>`
   display: inline-flex;
   align-items: center;

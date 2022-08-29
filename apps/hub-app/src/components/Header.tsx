@@ -8,7 +8,7 @@ import {
   useBreakpoint,
   widthQuery,
 } from '@daohaus/ui';
-import { ConnectButton } from '@daohaus/daohaus-connect-feature';
+import { DaoHausNav } from '@daohaus/daohaus-connect-feature';
 import { BiCommand, BiChevronDown } from 'react-icons/bi';
 import { indigoDark, amberDark } from '@radix-ui/colors';
 
@@ -86,7 +86,7 @@ const Header = () => {
           <StyledParMd>Summon</StyledParMd>
         </DropdownMenuItem>
       </Dropdown>
-      <ConnectButton isSm={isSm} />
+      <DaoHausNav />
     </HeaderContainer>
   );
 };

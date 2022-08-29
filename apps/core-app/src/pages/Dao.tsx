@@ -6,14 +6,8 @@ import { useEffect } from 'react';
 
 export function Dao() {
   const { daochain, daoid } = useParams();
-  const { provider, setDaoChainId } = useHausConnect();
+  const { provider } = useHausConnect();
   const { dao } = useDao();
-
-  useEffect(() => {
-    if (daochain) {
-      setDaoChainId(daochain);
-    }
-  }, [daochain, setDaoChainId]);
 
   return (
     <TXBuilder

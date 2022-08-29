@@ -31,6 +31,7 @@ import {
 
 export type TDao = DaoWithTokenDataQuery['dao'];
 export type TMembers = ListMembersQuery['members'];
+export type TProposals = ITransformedProposalListQuery['proposals'];
 export type TMembership = FindMemberQuery['member'];
 
 export const defaultDaoData = {
@@ -66,6 +67,9 @@ export const defaultDaoData = {
     return;
   },
   proposals: null,
+  setProposals: () => {
+    return;
+  },
   isProposalsLoading: false,
   refreshProposals: async () => {
     return;
@@ -78,7 +82,7 @@ export const defaultDaoData = {
   setProposalsSort: () => {
     return;
   },
-  proposalsPaging: { offset: 0, pageSize: 10 },
+  proposalsPaging: { offset: 0, pageSize: 3 },
   proposalsNextPaging: undefined,
   setProposalsPaging: () => {
     return;
@@ -123,6 +127,9 @@ export type DaoConnectMembersType = {
 
 export type DaoConnectProposalsType = {
   proposals: ITransformedProposalListQuery['proposals'] | null | undefined;
+  setProposals: Dispatch<
+    SetStateAction<ITransformedProposalListQuery['proposals'] | undefined>
+  >;
   isProposalsLoading: boolean;
   refreshProposals: () => Promise<void>;
   proposalsFilter: Proposal_Filter | undefined;
@@ -190,7 +197,9 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   const [proposalsSort, setProposalsSort] = useState<
     Ordering<Proposal_OrderBy> | undefined
   >();
-  const [proposalsPaging, setProposalsPaging] = useState<Paging | undefined>();
+  const [proposalsPaging, setProposalsPaging] = useState<Paging | undefined>(
+    defaultDaoData.proposalsPaging
+  );
   const [proposalsNextPaging, setProposalsNextPaging] = useState<
     Paging | undefined
   >();
@@ -251,6 +260,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   useEffect(() => {
     let shouldUpdate = true;
     if (daochain && daoid) {
+      console.log('proposalsFilter', proposalsFilter);
       loadProposalsList({
         filter: { dao: daoid, ...proposalsFilter },
         ordering: proposalsSort,
@@ -357,6 +367,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
         setMembersPaging,
         membersNextPaging,
         proposals,
+        setProposals,
         isProposalsLoading,
         refreshProposals,
         proposalsFilter,
@@ -426,6 +437,7 @@ export const useMembers = (): DaoConnectMembersType => {
 export const useProposals = (): DaoConnectProposalsType => {
   const {
     proposals,
+    setProposals,
     isProposalsLoading,
     refreshProposals,
     proposalsFilter,
@@ -439,6 +451,7 @@ export const useProposals = (): DaoConnectProposalsType => {
   } = useContext(DaoContext);
   return {
     proposals,
+    setProposals,
     isProposalsLoading,
     refreshProposals,
     proposalsFilter,

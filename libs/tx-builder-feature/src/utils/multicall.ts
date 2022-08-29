@@ -116,7 +116,6 @@ export const handleMulticallArg = async ({
   const encodedActions = await Promise.all(
     arg.actions.map(async (action) => {
       const { contract, method, args, value, operations, data } = action;
-
       const processedContract = await processContractLego({
         contract,
         chainId,

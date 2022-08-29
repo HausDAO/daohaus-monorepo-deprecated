@@ -1,6 +1,7 @@
 import {
   ABI,
   ArbitraryState,
+  ArgEncode,
   ArgType,
   CONTRACTS,
   encodeFunction,

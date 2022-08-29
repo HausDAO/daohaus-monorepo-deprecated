@@ -291,7 +291,7 @@ export default class Query {
         url,
         networkId,
         {
-          id: dao,
+          id: dao.toLowerCase(),
         }
       );
 

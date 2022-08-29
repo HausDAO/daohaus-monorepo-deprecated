@@ -109,7 +109,7 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
         Header: () => {
           return (
             <FirstHeader>
-              {daoData?.length} {daoData.length === 1 ? 'DAO' : 'DAOs'}
+              {daoData?.length} {daoData?.length === 1 ? 'DAO' : 'DAOs'}
             </FirstHeader>
           );
         },
@@ -179,7 +179,7 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
         },
       },
     ],
-    []
+    [daoData?.length]
   );
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =

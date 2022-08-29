@@ -3,13 +3,23 @@ import { Proposal_Filter } from '../types';
 
 export const statusFilter = (
   status: string,
-  votingPlusGraceDuration?: string
+  votingPlusGraceDuration?: string | number
 ): Proposal_Filter | undefined => {
   const now = `${nowInSeconds()}`;
 
   switch (status) {
     case PROPOSAL_STATUS['unsponsored']: {
-      return { sponsored: false };
+      if (!votingPlusGraceDuration) {
+        return;
+      }
+      const expirationTime = (
+        Number(now) + Number(votingPlusGraceDuration)
+      ).toFixed();
+      return {
+        sponsored: false,
+        cancelled: false,
+        expiration_gt: `${expirationTime}`,
+      };
     }
     case PROPOSAL_STATUS['cancelled']: {
       return { cancelled: true };

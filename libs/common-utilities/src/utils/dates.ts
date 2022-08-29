@@ -10,6 +10,16 @@ export const formatDateTimeFromSeconds = (
   return format(new Date(Number(seconds) * 1000), 'h:m aaa MMMM do y');
 };
 
+export const formatShortDateTimeFromSeconds = (
+  seconds: string | undefined
+): string | undefined => {
+  if (!seconds) {
+    return;
+  }
+
+  return format(new Date(Number(seconds) * 1000), 'MMMM do, h:maaa');
+};
+
 export const formatDateFromSeconds = (
   seconds: string | undefined
 ): string | undefined => {

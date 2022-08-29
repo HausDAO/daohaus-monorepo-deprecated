@@ -43,8 +43,6 @@ export const defaultWalletValues = {
   networks: {},
   switchNetwork: () => undefined,
   isProfileLoading: false,
-  isDaoScope: false,
-  setDaoChainId: () => undefined,
   daoChainId: null,
   validNetwork: false,
 };

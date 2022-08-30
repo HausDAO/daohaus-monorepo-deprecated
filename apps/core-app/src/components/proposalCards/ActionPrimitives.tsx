@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import styled, { useTheme } from 'styled-components';
-
-import { Italic, ParMd } from '@daohaus/ui';
+import { MdOutlineGavel } from 'react-icons/md';
+import { Italic, ParMd, Tooltip } from '@daohaus/ui';
 
 const TemplateBox = styled.div`
   display: flex;
@@ -20,7 +20,29 @@ const TemplateBox = styled.div`
   }
 `;
 
-const QuorumDisplay = styled.div``;
+const QuorumBox = styled.div`
+  display: flex;
+  align-items: center;
+  svg {
+    margin-right: 0.6rem;
+  }
+`;
+
+const QuorumDisplay = ({ quorumAmt }: { quorumAmt: number }) => {
+  const theme = useTheme();
+
+  return (
+    <Tooltip
+      triggerEl={
+        <QuorumBox>
+          <MdOutlineGavel color={theme.tint.secondary} size="1.6rem" />{' '}
+          <ParMd color={theme.tint.secondary}>{quorumAmt}%</ParMd>{' '}
+        </QuorumBox>
+      }
+      side="bottom"
+    />
+  );
+};
 
 export const ActionTemplate = ({
   helperText,

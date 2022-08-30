@@ -1,4 +1,5 @@
 import React, { ChangeEventHandler } from 'react';
+import { SwitchProps } from '@radix-ui/react-switch';
 import { RegisterOptions } from 'react-hook-form';
 
 export type ErrorMessage = {
@@ -27,6 +28,8 @@ export type PrimitiveElement = {
   success?: SuccessMessage;
   className?: string;
   disabled?: boolean;
+  hidden?: boolean;
+  loading?: boolean;
 };
 
 export type PrimitiveSizable = {
@@ -71,7 +74,7 @@ export type Field = {
 
 export type OptionType = {
   name: string;
-  value: string;
+  value: string | number;
   key?: string;
 };
 export type SelectProps = {
@@ -83,10 +86,29 @@ export type SelectProps = {
   long?: boolean;
   full?: boolean;
   placeholder?: string;
-} & PrimitiveElement;
+} & PrimitiveElement &
+  PrimitiveWrapper;
 
 export type InputSelectProps = Field &
-  SelectProps & { selectId: string; selectPlaceholder?: string };
+  SelectProps & {
+    selectId: string;
+    selectPlaceholder?: string;
+    selectDefault?: string;
+  };
+
+export type ConditionLabel = {
+  on: string;
+  off: string;
+};
+
+export type SwitchComponentProps = SwitchProps & {
+  fieldLabel: string | ConditionLabel;
+  id: string;
+  className?: string;
+  disabled?: boolean;
+};
+
+export type Switchable = { switches: SwitchComponentProps[] };
 
 export type FileInputProps = Field & {
   multiple?: boolean;

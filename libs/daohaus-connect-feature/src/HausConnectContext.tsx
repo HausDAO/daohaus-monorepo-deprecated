@@ -33,6 +33,7 @@ import {
   UserProfile,
   WalletStateType,
 } from './utils/types';
+import { useLocation, matchPath } from 'react-router-dom';
 
 export type UserConnectType = {
   provider: ProviderType | null | undefined;
@@ -47,7 +48,7 @@ export type UserConnectType = {
   networks: NetworkConfigs;
   switchNetwork: (chainId: string) => void;
   isProfileLoading: boolean;
-  isDaoScope: boolean;
+  daoChainId: string | null;
   validNetwork: boolean;
 };
 
@@ -75,6 +76,8 @@ export const HausConnectProvider = ({
     ens: undefined,
   });
   const [isProfileLoading, setProfileLoading] = useState(false);
+  const [daoChainId, setDaoChainId] = useState<string | null>(null);
+
   const isConnected = useMemo(
     () => !!provider && !!address && !!chainId,
     [provider, address, chainId]
@@ -84,9 +87,9 @@ export const HausConnectProvider = ({
     () => !!chainId && isValidNetwork(chainId, networks),
     [chainId, networks]
   );
-  // TODO, detect if we're in DAOscope by looking at the url.
-  //  Or we could use DAOcontext to add to this state on context mount/unmount
-  const isDaoScope = false;
+
+  const location = useLocation();
+  const pathMatch = matchPath('molochv3/:daochain/:daoid/*', location.pathname);
 
   const connectWallet = useCallback(async () => {
     handleConnectWallet({
@@ -96,6 +99,12 @@ export const HausConnectProvider = ({
       setWalletState,
     });
   }, [setConnecting, handleModalEvents]);
+
+  useEffect(() => {
+    if (pathMatch?.params?.daochain) {
+      setDaoChainId(pathMatch?.params?.daochain);
+    }
+  }, [pathMatch?.params?.daochain, setDaoChainId]);
 
   useEffect(() => {
     loadWallet({ setConnecting, connectWallet, web3modalOptions });
@@ -142,7 +151,7 @@ export const HausConnectProvider = ({
         switchNetwork,
         profile,
         isProfileLoading,
-        isDaoScope,
+        daoChainId,
         validNetwork,
       }}
     >

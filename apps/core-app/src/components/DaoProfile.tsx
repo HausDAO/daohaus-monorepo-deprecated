@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { Keychain } from '@daohaus/common-utilities';
+import { charLimit, Keychain } from '@daohaus/common-utilities';
 import {
   AddressDisplay,
   border,
@@ -18,7 +18,7 @@ import {
 
 import { TDao } from '../contexts/DaoContext';
 import { TagList } from './TagList';
-import { hasNoProfile } from '../utils/profileHelpers';
+import { missingDaoProfileData } from '../utils/general';
 
 const DaoProfileContainer = styled.div`
   width: 100%;
@@ -65,7 +65,7 @@ export const DaoProfile = ({ dao }: DaoProfileProps) => {
   const { daochain, daoid } = useParams();
 
   const missingProfile = useMemo(() => {
-    if (!hasNoProfile(dao)) return null;
+    if (!missingDaoProfileData(dao)) return null;
     return (
       <MissingProfileCard>
         <ParXs>
@@ -83,7 +83,7 @@ export const DaoProfile = ({ dao }: DaoProfileProps) => {
       <div className="avatar">
         <DaoProfileAvatar address={dao.id} image={dao.avatarImg} />
         <div>
-          <H4>{dao.name}</H4>
+          <H4>{charLimit(dao.name, 21)}</H4>
           <AddressDisplay
             address={dao.id}
             truncate

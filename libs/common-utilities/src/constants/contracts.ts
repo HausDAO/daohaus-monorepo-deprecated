@@ -35,3 +35,38 @@ export const CONTRACTS: ContractAddressList = {
     '0x5': '0x000000000000cd17345801aa8147b8d3950260ff',
   },
 };
+
+export const SHAMAN_PERMISSIONS = [
+  {
+    id: '0',
+    displayName: '0 - No permission',
+  },
+  {
+    id: '1',
+    displayName: '1 - Admin only',
+  },
+  {
+    id: '2',
+    displayName: '2 - Manager only',
+  },
+  {
+    id: '3',
+    displayName: '3 - Admin and manager',
+  },
+  {
+    id: '4',
+    displayName: '4 - Governance only',
+  },
+  {
+    id: '5',
+    displayName: '5 - Admin and governance',
+  },
+  {
+    id: '6',
+    displayName: '6 - Manager and governance',
+  },
+  {
+    id: '7',
+    displayName: '7 - Admin, manager and governance',
+  },
+];

@@ -13,6 +13,10 @@ export type ButtonColorTargets = {
   disabledText?: string;
   disabledBg?: string;
   disabledBorder?: string;
+  outline?: string;
+  outlineHover?: string;
+  outlineFocus?: string;
+  outlineDisabled?: string;
 };
 declare module 'styled-components' {
   export interface DefaultTheme {
@@ -23,6 +27,8 @@ declare module 'styled-components' {
     secondary: string;
     error: string;
     warning: string;
+    warningBg: string;
+    warningBorder: string;
     success: string;
     disabled: string;
     transparent: string;
@@ -68,6 +74,13 @@ declare module 'styled-components' {
       errorBg: string;
       errorBorder: string;
     };
+    collapsibleCard: {
+      text: string;
+      hoverText: string;
+      focusText: string;
+      bgInnerCard: string;
+      borderInnerCard: string;
+    };
     field: {
       bg: string;
       border: string;
@@ -81,10 +94,22 @@ declare module 'styled-components' {
       disabledBorder: string;
       disabledPlaceholder: string;
     };
+    fieldAlert: {
+      bg: string;
+      border: string;
+      warningText: string;
+      warningBg: string;
+      warningBorder: string;
+      warningButtonBg: string;
+      warningButtonBorder: string;
+    };
     button: {
       primary: ButtonColorTargets;
       secondary: ButtonColorTargets;
       tertiary: ButtonColorTargets;
+      success: ButtonColorTargets;
+      warning: ButtonColorTargets;
+      danger: ButtonColorTargets;
     };
     link: {
       color: string;
@@ -196,6 +221,10 @@ declare module 'styled-components' {
         warning: string;
         error: string;
       };
+    };
+    dialog: {
+      bg: string;
+      color: string;
     };
   }
 }

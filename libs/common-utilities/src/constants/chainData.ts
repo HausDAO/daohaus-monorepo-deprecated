@@ -19,12 +19,13 @@ export const isValidNetwork = (
     ? networks[str as ValidNetwork] !== undefined
     : VALID_NETWORKS[str as ValidNetwork] !== undefined;
 
-export const networkData: Keychain<NetworkType> = {
+export const NETWORK_DATA: Keychain<NetworkType> = {
   '0x5': {
     chainId: '0x5',
     networkId: 5,
     name: 'Goerli',
     symbol: 'ETH',
+    tokenDecimals: 18,
   },
 };
 
@@ -32,15 +33,17 @@ export const getNetwork = (chainId: string) => {
   if (!isValidNetwork(chainId)) {
     return null;
   }
-  return networkData[chainId];
+  return NETWORK_DATA[chainId];
 };
 
-export const getNetworkName = (chainId: string) => getNetwork(chainId)?.name;
+export const getNetworkName = (chainId: string) => {
+  return getNetwork(chainId)?.name || null;
+};
 
 export const addKeychain = (
   keychain: Keychain<unknown>,
   property: string,
-  networkList: Keychain<NetworkType> = networkData
+  networkList: Keychain<NetworkType> = NETWORK_DATA
 ) => {
   return Object.values(networkList).reduce((acc, networkObj) => {
     const { chainId } = networkObj;
@@ -55,20 +58,5 @@ export const addKeychain = (
         [property]: keychain[chainId],
       },
     };
-  }, {});
-};
-
-export const extractKeychain = (
-  networkList: Keychain<NetworkType>,
-  property: string
-) => {
-  return Object.values(networkList).reduce((acc, network) => {
-    const { chainId } = network;
-    return network[property]
-      ? {
-          ...acc,
-          [chainId]: network[property],
-        }
-      : acc;
   }, {});
 };

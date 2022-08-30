@@ -23,6 +23,7 @@ DisabledSelect.args = {
   ],
   disabled: true,
 };
+
 export const LongSelect = Template.bind({});
 LongSelect.args = {
   options: [
@@ -31,6 +32,7 @@ LongSelect.args = {
   ],
   long: true,
 };
+
 export const FullWidthSelect = Template.bind({});
 FullWidthSelect.args = {
   options: [
@@ -51,6 +53,7 @@ ErrorSelect.args = {
     message: 'This is an error message',
   },
 };
+
 export const WarningSelect = Template.bind({});
 WarningSelect.args = {
   options: [

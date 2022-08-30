@@ -11,10 +11,12 @@ import {
   SuccessText,
   WarningText,
 } from '../../atoms/HelperTexts';
+import{ Spinner } from '../../atoms/Spinner';
 import {
   BottomContainer,
   FieldWrapperBase,
   LabelContainer,
+  LeftAddonContainer,
   RequiredAsterisk,
   RightAddonContainer,
 } from './FieldWrapper.styles';
@@ -38,11 +40,13 @@ type HelperTextFactoryProps = {
 export const FieldWrapper = ({
   children,
   label,
+  loading,
   info,
   error,
   success,
   warning,
   helperText,
+  hidden,
   long,
   full,
   address,
@@ -50,7 +54,7 @@ export const FieldWrapper = ({
   rules,
   rightAddon,
 }: Buildable<{ children: ReactNode }>) => {
-  const classes = classNames({ long: long || address, full });
+  const classes = classNames({ long: long || address, full, hidden });
   const { getFieldState } = useFormContext();
 
   const fieldError = getFieldState(id).error;
@@ -70,12 +74,15 @@ export const FieldWrapper = ({
       </LabelContainer>
       <div className="field-slot">{children}</div>
       <BottomContainer className={classes}>
-        <HelperTextFactory
-          error={error || fieldError}
-          success={success}
-          warning={warning}
-          helperText={helperText}
-        />
+        <LeftAddonContainer>
+          {loading && <Spinner size='2rem' />}
+          <HelperTextFactory
+            error={error || fieldError}
+            success={success}
+            warning={warning}
+            helperText={helperText}
+          />
+        </LeftAddonContainer>
         {rightAddon && (
           <RightAddonContainer>{rightAddon}</RightAddonContainer>
         )}

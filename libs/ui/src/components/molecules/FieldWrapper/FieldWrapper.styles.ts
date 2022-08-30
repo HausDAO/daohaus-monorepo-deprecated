@@ -16,6 +16,9 @@ export const FieldWrapperBase = styled.div`
   &.full {
     max-width: ${field.size.full};
   }
+  &.hidden {
+    display: none;
+  }
 `;
 
 export const LabelContainer = styled.label`
@@ -32,8 +35,6 @@ export const LabelContainer = styled.label`
 
 export const BottomContainer = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   margin-bottom: 12px;
   width: 100%;
   max-width: ${field.size.md};
@@ -45,8 +46,16 @@ export const BottomContainer = styled.div`
   }
 `;
 
+export const LeftAddonContainer = styled.div`
+  display: flex;
+  align-items: end;
+  min-width: 70%;
+`;
+
 export const RightAddonContainer = styled.div`
-  padding-left: 1em;
+  display: flex;
+  justify-content: flex-end;
+  min-width: 30%;
 `;
 
 export const RequiredAsterisk = styled.span`

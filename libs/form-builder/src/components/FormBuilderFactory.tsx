@@ -1,23 +1,16 @@
-import { LookupType } from '@daohaus/common-utilities';
 import { useMemo } from 'react';
-import styled from 'styled-components';
 import { FieldLego } from '../types/formLegoTypes';
 import { generateRules } from '../utils/rules';
 import { CoreFieldLookup } from './CoreFieldLookup';
+import { FieldSpacer } from './FieldSpacer';
 import { useFormBuilder } from './FormBuilder';
-
-const FieldSpacer = styled.div`
-  margin-bottom: 3.6rem;
-`;
 
 export const FormBuilderFactory = ({
   spacing = true,
   field,
-  customFields,
 }: {
   field: FieldLego;
   spacing?: boolean;
-  customFields?: LookupType;
 }) => {
   const { type } = field;
   const {
@@ -26,7 +19,7 @@ export const FormBuilderFactory = ({
 
   const formState = errors;
 
-  const { formDisabled, requiredFields } = useFormBuilder();
+  const { formDisabled, requiredFields, customFields } = useFormBuilder();
 
   //  Memoizing solves the 'switch-away' mega-bug that was
   //  occuring because of the enumerator patttern selecting
@@ -50,7 +43,12 @@ export const FormBuilderFactory = ({
       // actual component
       return (
         // @ts-expect-error: explanation above
-        <Component {...field} full disabled={formDisabled} rules={newRules} />
+        <Component
+          {...field}
+          full
+          disabled={formDisabled || field.disabled}
+          rules={newRules}
+        />
       );
     },
     // Ignoring exhaustive deps here so that I can update this component

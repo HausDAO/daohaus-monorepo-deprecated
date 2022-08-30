@@ -11,6 +11,7 @@ import {
   H5,
   ProfileAvatar,
   useToast,
+  Tag,
 } from '@daohaus/ui';
 import { ITransformedMembership } from '@daohaus/dao-data';
 import { BsShareFill, BsArrowLeft } from 'react-icons/bs';
@@ -18,7 +19,7 @@ import useDaoData from '../hooks/useDaoData';
 import { Layout } from '../components/Layout';
 import Header from '../components/Header';
 import { Profile } from '../components/Profile';
-import { Tag } from '../components/Tag';
+import { charLimit } from '@daohaus/common-utilities';
 
 const BodyNavArea = styled.div`
   grid-area: profile;
@@ -103,12 +104,16 @@ const DaoCountHeading = styled(H5)`
 const DaoColumn = ({ daoData }: { daoData: ITransformedMembership[] }) => {
   return (
     <StyledUnorderedList>
-      {daoData.map((dao) => {
+      {daoData.map((dao, index) => {
         return (
           <StyledListItem key={dao.dao}>
             <ProfileAvatar size="sm" address={dao.dao} />
-            {dao.name}
-            {dao.isDelegate && <Tag>Delegate</Tag>}
+            {charLimit(dao.name, 32)}
+            {dao.isDelegate && (
+              <Tag tagColor="yellow" key={index}>
+                Delegate
+              </Tag>
+            )}
           </StyledListItem>
         );
       })}

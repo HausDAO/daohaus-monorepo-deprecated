@@ -20,8 +20,8 @@ const Template: ComponentStory<typeof WrappedSelect> = (args) => {
   );
 };
 
-export const FullWrappedInput = Template.bind({});
-FullWrappedInput.args = {
+export const FullWrappedSelect = Template.bind({});
+FullWrappedSelect.args = {
   id: 'example',
   label: 'Complete Select',
   placeholder: 'placeholder',

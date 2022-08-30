@@ -8,8 +8,9 @@ import { border } from '../../../theme/global/border';
 
 export const TooltipProvider = TooltipPrimitive.Provider;
 export const TooltipRoot = TooltipPrimitive.Root;
+export const TooltipPortal = TooltipPrimitive.Portal;
 export const TooltipTrigger = styled(TooltipPrimitive.Trigger)`
-  background-color: ${({ theme }: { theme: Theme }) => theme.bgColor};
+  background-color: transparent;
   border: none;
 
   svg {

@@ -158,10 +158,17 @@ export const SummonerForm = ({
         <div>
           <WrappedInput
             id={FORM_KEYS.DAO_NAME}
-            placeholder="Braid Guild"
+            label="DAO Name"
+            placeholder="DAO Name"
             full
             disabled={formDisabled}
-            rules={{ required: 'DAO name is required' }}
+            rules={{
+              required: 'DAO name is required',
+              maxLength: {
+                value: 128,
+                message: 'DAO name must be 128 characters or less',
+              },
+            }}
           />
           <Divider className="top-divider" />
         </div>

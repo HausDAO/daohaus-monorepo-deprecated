@@ -1,19 +1,26 @@
 import { Controller, useFormContext } from 'react-hook-form';
-import { SwitchProps } from '@radix-ui/react-switch';
-import type { Buildable } from '../../../types/formAndField';
+import type {
+  Buildable,
+  ConditionLabel,
+  Switchable,
+} from '../../../types/formAndField';
 import { Switch } from '../../atoms/Switch';
 import { FieldWrapper } from '../FieldWrapper/FieldWrapper';
 
-type SwitchComponentProps = SwitchProps & {
-  fieldLabel: string;
-  id: string;
-  className?: string;
-  disabled?: boolean;
+const handleFieldLabel = (
+  fieldLabel: string | ConditionLabel,
+  switchOn: boolean
+) => {
+  if (typeof fieldLabel === 'string') {
+    return fieldLabel;
+  }
+  if (switchOn) {
+    return fieldLabel.on;
+  }
+  return fieldLabel.off;
 };
 
-export const WrappedSwitch = (
-  props: Buildable<{ switches: SwitchComponentProps[] }>
-) => {
+export const WrappedSwitch = (props: Buildable<Switchable>) => {
   const {
     id,
     helperText,
@@ -26,7 +33,8 @@ export const WrappedSwitch = (
     disabled,
     rules,
   } = props;
-  const { control } = useFormContext();
+  const { control, watch } = useFormContext();
+
   return (
     <FieldWrapper
       id={id}
@@ -38,13 +46,14 @@ export const WrappedSwitch = (
       warning={warning}
     >
       {switches.map((switchProps) => {
+        const switchValue = watch(switchProps.id);
         return (
           <Controller
             key={switchProps.id}
             name={switchProps.id}
             rules={rules}
             control={control}
-            defaultValue={switchProps.defaultChecked}
+            defaultValue={switchProps.defaultChecked || false}
             render={({ field }) => {
               return (
                 <Switch
@@ -52,6 +61,10 @@ export const WrappedSwitch = (
                   {...switchProps}
                   switchOn={field.value}
                   onCheckedChange={field.onChange}
+                  fieldLabel={handleFieldLabel(
+                    switchProps.fieldLabel,
+                    switchValue
+                  )}
                   disabled={disabled}
                   ref={field.ref}
                 />

@@ -21,25 +21,25 @@ export type CheckboxColorTargets = {
 };
 
 export const LightCheckbox: CheckboxColorTargets = {
-  bg: secondary.elementBg,
-  border: secondary.elementBorderSubtle,
-  activeBorder: primary.bgSolid,
-  hoverBg: secondary.elementBgHover,
-  hoverBorder: secondary.elementBgHover,
-  focusBg: secondary.elementBg,
-  focusBorder: secondary.elementBorderSubtle,
-  disabledBg: neutral.bgSubtle,
-  disabledBorder: neutral.elementBorderSubtle,
+  bg: secondary.step3,
+  border: secondary.step6,
+  activeBorder: primary.step9,
+  hoverBg: secondary.step4,
+  hoverBorder: secondary.step4,
+  focusBg: secondary.step3,
+  focusBorder: secondary.step6,
+  disabledBg: neutral.step2,
+  disabledBorder: neutral.step6,
 };
 
 export const DarkCheckbox: CheckboxColorTargets = {
-  bg: secondaryDark.elementBg,
-  border: secondaryDark.elementBorderSubtle,
-  activeBorder: primaryDark.bgSolid,
-  hoverBg: secondaryDark.elementBgHover,
-  hoverBorder: secondaryDark.elementBgHover,
-  focusBg: secondaryDark.elementBg,
-  focusBorder: secondaryDark.elementBorderSubtle,
-  disabledBg: neutralDark.bgSubtle,
-  disabledBorder: neutralDark.elementBorderSubtle,
+  bg: secondaryDark.step3,
+  border: secondaryDark.step6,
+  activeBorder: primaryDark.step9,
+  hoverBg: secondaryDark.step4,
+  hoverBorder: secondaryDark.step4,
+  focusBg: secondaryDark.step3,
+  focusBorder: secondaryDark.step6,
+  disabledBg: neutralDark.step2,
+  disabledBorder: neutralDark.step6,
 };

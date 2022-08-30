@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
-import { useFormContext, useWatch } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 export const Logger = () => {
-  const { control } = useFormContext();
-  const formValues = useWatch({ control });
+  const { watch } = useFormContext();
+  const formValues = watch();
 
   useEffect(() => {
     if (formValues) {

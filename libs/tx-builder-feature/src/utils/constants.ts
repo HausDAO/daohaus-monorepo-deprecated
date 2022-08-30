@@ -1,8 +1,8 @@
 import { JSONDetailsSearch } from '@daohaus/common-utilities';
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 
-export const EXPIRY = '.expiry';
-export const FORM = '.formData';
+export const EXPIRY = '.proposalExpiry';
+export const FORM = '.formValues';
 export const CURRENT_DAO = '.daoId';
 export const BaalContractBase = {
   type: 'local',

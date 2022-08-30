@@ -29,7 +29,6 @@ import { ProfileLink } from '../components/ProfileLink';
 import { DaoTable } from '../components/DaohausTable';
 
 const MemberContainer = styled(Card)`
-  width: 110rem;
   padding: 3rem;
   border: none;
   margin-bottom: 3rem;

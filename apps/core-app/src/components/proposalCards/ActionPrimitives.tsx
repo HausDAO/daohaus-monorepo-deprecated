@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { MdOutlineGavel } from 'react-icons/md';
 import { Italic, ParMd, Tooltip } from '@daohaus/ui';
-import { RiThumbUpLine } from 'react-icons/ri';
+import { RiThumbDownLine, RiThumbUpLine } from 'react-icons/ri';
 
 const TemplateBox = styled.div`
   display: flex;
@@ -33,7 +33,7 @@ const QuorumBox = styled.div`
   display: flex;
   align-items: center;
   svg {
-    margin-right: 0.6rem;
+    margin-right: 1.2rem;
   }
 `;
 
@@ -63,14 +63,41 @@ const VerdictBox = styled.div`
   }
 `;
 
-export const ProposalPassed = () => {
+export const ProposalPass = ({ text }: { text: string }) => {
   const theme = useTheme();
 
   return (
     <VerdictBox>
       <RiThumbUpLine size="1.6rem" color={theme.tint.secondary} />
-      <ParMd color={theme.tint.secondary}>Proposal Passed</ParMd>
+      <ParMd color={theme.tint.secondary}>{text}</ParMd>
     </VerdictBox>
+  );
+};
+
+export const ProposalFail = ({ text }: { text: string }) => {
+  const theme = useTheme();
+
+  return (
+    <VerdictBox>
+      <RiThumbDownLine size="1.6rem" color={theme.tint.secondary} />
+      <ParMd color={theme.tint.secondary}>{text}</ParMd>
+    </VerdictBox>
+  );
+};
+
+export const Verdict = ({ passed }: { passed: boolean }) => {
+  return passed ? (
+    <ProposalPass text="Proposal Passed" />
+  ) : (
+    <ProposalFail text="Proposal Failed" />
+  );
+};
+
+export const VoteStatus = ({ passed }: { passed: boolean }) => {
+  return passed ? (
+    <ProposalPass text="Proposal is Passing" />
+  ) : (
+    <ProposalFail text="Proposal is Failing" />
   );
 };
 

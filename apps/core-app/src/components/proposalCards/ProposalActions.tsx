@@ -2,7 +2,7 @@ import { ITransformedProposal } from '@daohaus/dao-data';
 import { Italic, ParMd } from '@daohaus/ui';
 import React, { useMemo } from 'react';
 import styled, { useTheme } from 'styled-components';
-import { ActionTemplate, DummyBar, ProposalPassed } from './ActionPrimitives';
+import { ActionTemplate, DummyBar, Verdict } from './ActionPrimitives';
 
 const ActionBox = styled.div`
   display: flex;
@@ -23,7 +23,7 @@ export const ProposalActions = ({
         main={
           <div>
             <DummyBar />
-            <ProposalPassed />
+            <Verdict passed={false} />
           </div>
         }
         helperText="Quorum not met"

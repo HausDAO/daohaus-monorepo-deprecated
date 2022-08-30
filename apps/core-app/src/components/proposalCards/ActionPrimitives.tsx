@@ -28,17 +28,19 @@ const QuorumBox = styled.div`
   }
 `;
 
-const QuorumDisplay = ({ quorumAmt }: { quorumAmt: number }) => {
+const QuorumDisplay = ({ quorumAmt }: { quorumAmt: number | number }) => {
   const theme = useTheme();
 
   return (
     <Tooltip
       triggerEl={
         <QuorumBox>
-          <MdOutlineGavel color={theme.tint.secondary} size="1.6rem" />{' '}
+          <MdOutlineGavel color={theme.tint.secondary} size="1.4rem" />{' '}
           <ParMd color={theme.tint.secondary}>{quorumAmt}%</ParMd>{' '}
         </QuorumBox>
       }
+      content={`${quorumAmt}% ‘Yes’ voting stake was 
+needed to meet Quorum.`}
       side="bottom"
     />
   );
@@ -64,7 +66,7 @@ export const ActionTemplate = ({
     <TemplateBox>
       <div className="top-section">
         {displayUI}
-        <QuorumDisplay />
+        <QuorumDisplay quorumAmt={2} />
       </div>
       <div className="middle-section">{main}</div>
       <div className="bottom-section">

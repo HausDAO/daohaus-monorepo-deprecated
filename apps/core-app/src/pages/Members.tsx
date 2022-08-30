@@ -10,6 +10,7 @@ import {
   useBreakpoint,
 } from '@daohaus/ui';
 import {
+  charLimit,
   formatDateFromSeconds,
   formatValueTo,
   fromWei,
@@ -28,7 +29,6 @@ import { ProfileLink } from '../components/ProfileLink';
 import { DaoTable } from '../components/DaohausTable';
 
 const MemberContainer = styled(Card)`
-  width: 110rem;
   padding: 3rem;
   border: none;
   margin-bottom: 3rem;
@@ -95,7 +95,7 @@ export function Members() {
       },
       {
         Header: () => {
-          return <div>{dao?.shareTokenName}</div>;
+          return <div>{charLimit(dao?.shareTokenName, 6)}</div>;
         },
         accessor: 'shares',
         Cell: ({ value }: { value: string }) => {
@@ -112,7 +112,7 @@ export function Members() {
       },
       {
         Header: () => {
-          return <div>{dao?.lootTokenName}</div>;
+          return <div>{charLimit(dao?.lootTokenName, 6)}</div>;
         },
         accessor: 'loot',
         Cell: ({ value }: { value: string }) => {

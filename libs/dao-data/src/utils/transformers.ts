@@ -101,7 +101,10 @@ export const addDaoProfileFields = (
 
   try {
     const obj = JSON.parse(dao.profile[0].content);
-    const links = obj.links && JSON.parse(obj.links);
+    const links =
+      obj.links && typeof obj.links === 'string'
+        ? JSON.parse(obj.links)
+        : obj.links;
     return {
       description: obj.description,
       longDescription: obj.longDescription,

@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useParams } from 'react-router-dom';
 
 import {
   BiColumnLayout,
@@ -7,12 +9,12 @@ import {
   Spinner,
   widthQuery,
 } from '@daohaus/ui';
-import { useParams } from 'react-router-dom';
-import { useEffect, useMemo, useState } from 'react';
 import { ITransformedProposalQuery } from '@daohaus/dao-data';
-import { loadProposal } from '../utils/dataFetchHelpers';
 import { Keychain } from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+
+import { loadProposal } from '../utils/dataFetchHelpers';
+import { ProposalDetailsOverview } from '../components/ProposalDetailsOverview';
 
 const OverviewCard = styled(Card)`
   width: 64rem;
@@ -76,7 +78,11 @@ export function ProposalDetails() {
     <BiColumnLayout
       title={proposal?.title}
       subtitle={proposal?.proposalType}
-      left={<OverviewCard>poopin</OverviewCard>}
+      left={
+        <OverviewCard>
+          {proposal && <ProposalDetailsOverview proposal={proposal} />}
+        </OverviewCard>
+      }
       right={<RightCard>poopin right</RightCard>}
     />
   );

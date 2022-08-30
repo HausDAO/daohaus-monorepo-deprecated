@@ -8,3 +8,6 @@ export const PROPOSAL_FILTERS: { [key: string]: string } = {
   failed: 'Defeated',
   expired: 'Expired',
 };
+
+export const DEFAULT_PROPOSAL_PAGE_SIZE = 10;
+export const DEFAULT_MEMBERS_PAGE_SIZE = 25;

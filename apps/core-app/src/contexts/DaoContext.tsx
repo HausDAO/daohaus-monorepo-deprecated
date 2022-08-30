@@ -25,6 +25,10 @@ import {
 } from 'react';
 import { useParams } from 'react-router-dom';
 import {
+  DEFAULT_MEMBERS_PAGE_SIZE,
+  DEFAULT_PROPOSAL_PAGE_SIZE,
+} from '../utils/constants';
+import {
   loadConnectedMemberVotesList,
   loadDao,
   loadMember,
@@ -69,7 +73,7 @@ export const defaultDaoData = {
   setMembersSort: () => {
     return;
   },
-  membersPaging: { offset: 0, pageSize: 25 },
+  membersPaging: { offset: 0, pageSize: DEFAULT_MEMBERS_PAGE_SIZE },
   membersNextPaging: undefined,
   setMembersPaging: () => {
     return;
@@ -90,7 +94,7 @@ export const defaultDaoData = {
   setProposalsSort: () => {
     return;
   },
-  proposalsPaging: { offset: 0, pageSize: 3 },
+  proposalsPaging: { offset: 0, pageSize: DEFAULT_PROPOSAL_PAGE_SIZE },
   proposalsNextPaging: undefined,
   setProposalsPaging: () => {
     return;

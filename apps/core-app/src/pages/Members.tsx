@@ -21,7 +21,7 @@ import {
   useMembers,
   useDao,
   TMembers,
-  useUserMembership,
+  useConnectedMembership,
   defaultDaoData,
 } from '../contexts/DaoContext';
 import { MembersOverview } from '../components/MembersOverview';
@@ -55,7 +55,7 @@ export function Members() {
     setMembersSort,
     setMembers,
   } = useMembers();
-  const { userMembership } = useUserMembership();
+  const { connectedMembership } = useConnectedMembership();
   const isMobile = useBreakpoint(widthQuery.sm);
 
   const tableData = useMemo(() => {
@@ -184,9 +184,9 @@ export function Members() {
     <SingleColumnLayout
       title="Members"
       actions={
-        userMembership && (
+        connectedMembership && (
           <ProfileLink
-            memberAddress={userMembership.memberAddress}
+            memberAddress={connectedMembership.memberAddress}
             buttonText="My Profile"
           />
         )

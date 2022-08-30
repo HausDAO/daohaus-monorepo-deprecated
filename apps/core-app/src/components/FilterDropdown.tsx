@@ -24,7 +24,6 @@ const IconFilter = styled(RiFilterFill)`
 `;
 
 type FilterDropdownProps = {
-  // filter: Record<string, string>;
   filter: string;
   toggleFilter: (event: MouseEvent<HTMLButtonElement>) => void;
 };

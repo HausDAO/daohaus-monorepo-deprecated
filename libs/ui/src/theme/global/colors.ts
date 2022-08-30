@@ -126,7 +126,6 @@ export const utility = {
   successBg: green.green3,
   successBorder: green.green7,
   warning: orange.orange9,
-
   warningText: orange.orange12,
   warningBg: orange.orange3,
   warningBorder: orange.orange7,
@@ -153,4 +152,125 @@ export const utilityDark = {
   dangerBorder: redDark.red7,
   info: blueDark.blue9,
   transparent: 'transparent',
+};
+
+// * Utility Colors (New Naming convention)
+export const info = {
+  step1: blue.blue1,
+  step2: blue.blue2,
+  step3: blue.blue3,
+  step4: blue.blue4,
+  step5: blue.blue5,
+  step6: blue.blue6,
+  step7: blue.blue7,
+  step8: blue.blue8,
+  step9: blue.blue9,
+  step10: blue.blue10,
+  step11: blue.blue11,
+  step12: blue.blue12,
+};
+
+export const infoDark = {
+  step1: blueDark.blue1,
+  step2: blueDark.blue2,
+  step3: blueDark.blue3,
+  step4: blueDark.blue4,
+  step5: blueDark.blue5,
+  step6: blueDark.blue6,
+  step7: blueDark.blue7,
+  step8: blueDark.blue8,
+  step9: blueDark.blue9,
+  step10: blueDark.blue10,
+  step11: blueDark.blue11,
+  step12: blueDark.blue12,
+};
+
+export const success = {
+  step1: green.green1,
+  step2: green.green2,
+  step3: green.green3,
+  step4: green.green4,
+  step5: green.green5,
+  step6: green.green6,
+  step7: green.green7,
+  step8: green.green8,
+  step9: green.green9,
+  step10: green.green10,
+  step11: green.green11,
+  step12: green.green12,
+};
+
+export const successDark = {
+  step1: greenDark.green1,
+  step2: greenDark.green2,
+  step3: greenDark.green3,
+  step4: greenDark.green4,
+  step5: greenDark.green5,
+  step6: greenDark.green6,
+  step7: greenDark.green7,
+  step8: greenDark.green8,
+  step9: greenDark.green9,
+  step10: greenDark.green10,
+  step11: greenDark.green11,
+  step12: greenDark.green12,
+};
+
+export const warning = {
+  step1: orange.orange1,
+  step2: orange.orange2,
+  step3: orange.orange3,
+  step4: orange.orange4,
+  step5: orange.orange5,
+  step6: orange.orange6,
+  step7: orange.orange7,
+  step8: orange.orange8,
+  step9: orange.orange9,
+  step10: orange.orange10,
+  step11: orange.orange11,
+  step12: orange.orange12,
+};
+
+export const warningDark = {
+  step1: orangeDark.orange1,
+  step2: orangeDark.orange2,
+  step3: orangeDark.orange3,
+  step4: orangeDark.orange4,
+  step5: orangeDark.orange5,
+  step6: orangeDark.orange6,
+  step7: orangeDark.orange7,
+  step8: orangeDark.orange8,
+  step9: orangeDark.orange9,
+  step10: orangeDark.orange10,
+  step11: orangeDark.orange11,
+  step12: orangeDark.orange12,
+};
+
+export const danger = {
+  step1: red.red1,
+  step2: red.red2,
+  step3: red.red3,
+  step4: red.red4,
+  step5: red.red5,
+  step6: red.red6,
+  step7: red.red7,
+  step8: red.red8,
+  step9: red.red9,
+  step10: red.red10,
+  step11: red.red11,
+  step12: red.red12,
+};
+
+export const dangerDark = {
+  step1: red.red1,
+  step2: red.red2,
+  step3: red.red3,
+  step4: red.red4,
+  step5: red.red5,
+  step6: red.red6,
+  step7: red.red7,
+  step8: red.red8,
+  step9: red.red9,
+  step10: red.red10,
+  step11: red.red11,
+  step12: red.red12,
 };

@@ -3,9 +3,8 @@ import { ITransformedMembership } from '@daohaus/dao-data';
 import { useTable, Column, UseTableRowProps } from 'react-table';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
-import { ProfileAvatar } from '@daohaus/ui';
+import { ProfileAvatar, Tag } from '@daohaus/ui';
 import { readableNumbers, truncateAddress } from '@daohaus/common-utilities';
-import { Tag } from './Tag';
 
 interface IDaoTableData {
   daoData: ITransformedMembership[];
@@ -102,14 +101,18 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
               >
                 {value.name || truncateAddress(value.address)}
               </StyledLink>
-              {row.original.isDelegate && <Tag>Delegate</Tag>}
+              {row.original.isDelegate && (
+                <Tag tagColor="yellow" key={row.id}>
+                  Delegate
+                </Tag>
+              )}
             </FirstCell>
           );
         },
         Header: () => {
           return (
             <FirstHeader>
-              {daoData?.length} {daoData.length === 1 ? 'DAO' : 'DAOs'}
+              {daoData?.length} {daoData?.length === 1 ? 'DAO' : 'DAOs'}
             </FirstHeader>
           );
         },
@@ -179,7 +182,7 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
         },
       },
     ],
-    []
+    [daoData?.length]
   );
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =

@@ -10,6 +10,7 @@ import {
   ValidNetwork,
 } from '@daohaus/common-utilities';
 import { ArgCallback } from '../TXBuilder';
+import { handleIPFSPinata } from './ipfs';
 import {
   handleArgEncode,
   handleGasEstimate,
@@ -100,6 +101,16 @@ export const processArg = async ({
   }
   if (arg?.type === 'argEncode') {
     const result = await handleArgEncode({
+      arg,
+      chainId,
+      safeId,
+      localABIs,
+      appState,
+    });
+    return result;
+  }
+  if (arg?.type === 'ipfsPinata') {
+    const result = await handleIPFSPinata({
       arg,
       chainId,
       safeId,

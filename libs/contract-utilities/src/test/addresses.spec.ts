@@ -1,6 +1,7 @@
 import { getContractAddressesForChain } from '../contract';
 
 describe('baal contract loads', () => {
+  // eslint-disable-next-line
   let contracts: any;
 
   beforeAll(() => {

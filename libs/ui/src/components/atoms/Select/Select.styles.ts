@@ -12,6 +12,7 @@ export const WithIcon = styled.div`
     color: ${({ theme }: { theme: Theme }) => theme.select.text};
     top: 1.4rem;
     right: 2rem;
+    pointer-events: none;
   }
 
   &.long {

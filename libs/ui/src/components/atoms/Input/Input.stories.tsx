@@ -6,7 +6,10 @@ export default {
   title: 'Atoms/Input',
   component: Input,
 } as ComponentMeta<typeof Input>;
+
+// Setting displayName manually since Storybook displays it as [Object, object]
 Input.displayName = 'Input';
+
 const Template: ComponentStory<typeof Input> = (args) => <Input {...args} />;
 
 export const AtomInput = Template.bind({});
@@ -14,6 +17,7 @@ export const AtomInput = Template.bind({});
 AtomInput.args = {
   placeholder: 'Placeholder',
 };
+
 export const InputWithIcon = Template.bind({});
 InputWithIcon.args = {
   placeholder: 'Placeholder',

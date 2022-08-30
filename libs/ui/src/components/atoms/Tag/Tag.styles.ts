@@ -4,17 +4,26 @@ import { Theme } from '../../../types/theming';
 import { border } from '../../../theme/global/border';
 
 // import styled from 'styled-components';
-import { blueDark, violetDark, pinkDark, greenDark } from '@radix-ui/colors';
+import {
+  blueDark,
+  violetDark,
+  pinkDark,
+  greenDark,
+  yellowDark,
+  redDark,
+} from '@radix-ui/colors';
 
 const darkTagColors = {
   ...blueDark,
   ...violetDark,
   ...pinkDark,
   ...greenDark,
+  ...yellowDark,
+  ...redDark,
 };
 
 export const BaseTag = styled.div<{
-  tagColor: 'blue' | 'green' | 'pink' | 'violet';
+  tagColor: 'blue' | 'green' | 'pink' | 'violet' | 'yellow' | 'red';
 }>`
   display: inline-flex;
   align-items: center;
@@ -23,7 +32,7 @@ export const BaseTag = styled.div<{
   border-radius: ${border.radius};
   color: ${({ tagColor }) => `${darkTagColors[`${tagColor}11`]}`};
   min-height: 2.6rem;
-  min-width: 5.2rem;
+  min-width: fit-content;
   padding: 0.2rem 0.5rem;
 
   :hover {

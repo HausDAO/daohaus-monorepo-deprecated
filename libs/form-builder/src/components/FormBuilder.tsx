@@ -27,6 +27,7 @@ type FormContext<Lookup extends LookupType> = {
   requiredFields: RequiredFields;
   formDisabled: boolean;
   submitDisabled: boolean;
+  customFields?: LookupType;
 };
 
 // TS CHALLENGE
@@ -38,6 +39,7 @@ export const FormBuilderContext = createContext<FormContext<any>>({
   requiredFields: {},
   formDisabled: false,
   submitDisabled: false,
+  customFields: undefined,
 });
 
 type BuilderProps<Lookup extends LookupType> = {
@@ -87,13 +89,15 @@ export function FormBuilder<Lookup extends LookupType>({
     requiredFields = {},
   } = form;
 
+  const { fireTransaction } = useTxBuilder?.() || {};
+  const { defaultToast, errorToast, successToast } = useToast();
+
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState<null | StatusMsg>(null);
   const [txHash, setTxHash] = useState<null | string>(null);
+
   const submitDisabled = !isValid || isLoading || !isValidNetwork(chainId);
   const formDisabled = isLoading;
-  const { defaultToast, errorToast, successToast } = useToast();
-  const { fireTransaction } = useTxBuilder?.() || {};
 
   const handleTopLevelSubmit = async (formValues: FieldValues) => {
     if (form.tx) {
@@ -161,7 +165,13 @@ export function FormBuilder<Lookup extends LookupType>({
   return (
     <RHFProvider {...methods}>
       <FormBuilderContext.Provider
-        value={{ requiredFields, form, formDisabled, submitDisabled }}
+        value={{
+          requiredFields,
+          form,
+          formDisabled,
+          submitDisabled,
+          customFields,
+        }}
       >
         <FormLayout title={title} subtitle={subtitle} description={description}>
           <form
@@ -170,11 +180,7 @@ export function FormBuilder<Lookup extends LookupType>({
             noValidate
           >
             {fields?.map((field) => (
-              <FormBuilderFactory
-                key={field.id}
-                field={field}
-                customFields={customFields}
-              />
+              <FormBuilderFactory key={field.id} field={field} />
             ))}
             {log && <Logger />}
             {devtool && <DevTool control={control} />}

@@ -13,11 +13,17 @@ import {
 
 import {
   PrimaryDarkButton,
-  PrimaryLightButton,
   SecondaryDarkButton,
-  SecondaryLightButton,
   TertiaryDarkButton,
+  SuccessDarkButton,
+  WarningDarkButton,
+  DangerDarkButton,
+  PrimaryLightButton,
+  SecondaryLightButton,
   TertiaryLightButton,
+  SuccessLightButton,
+  WarningLightButton,
+  DangerLightButton,
 } from './atoms/button';
 import { FieldTheme, FieldThemeDark } from './atoms/field';
 import { AppSwitcherDark, AppSwitcherLight } from './organisms/app-switcher';
@@ -36,13 +42,16 @@ export const defaultDarkTheme: Theme = {
   warningBorder: utilityDark.warningBorder,
   success: utilityDark.success,
   disabled: neutralDark.bgSolid,
-  transparent: utilityDark.transparent,
+  transparent: 'transparent',
   info: utilityDark.info,
   // *** ATOMS *** //
   button: {
     primary: PrimaryDarkButton,
     secondary: SecondaryDarkButton,
     tertiary: TertiaryDarkButton,
+    success: SuccessDarkButton,
+    warning: WarningDarkButton,
+    danger: DangerDarkButton,
   },
   card: {
     bg: secondaryDark.bgSubtle,
@@ -222,6 +231,9 @@ export const defaultLightTheme: Theme = {
     primary: PrimaryLightButton,
     secondary: SecondaryLightButton,
     tertiary: TertiaryLightButton,
+    success: SuccessLightButton,
+    warning: WarningLightButton,
+    danger: DangerLightButton,
   },
   card: {
     bg: secondary.bgSubtle,

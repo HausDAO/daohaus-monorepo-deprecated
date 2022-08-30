@@ -4,6 +4,7 @@ import {
   FindMemberQuery,
   Haus,
   ITransformedProposalListQuery,
+  ListConnectedMemberProposalsQuery,
   ListMembersQuery,
   Member_Filter,
   Member_OrderBy,
@@ -173,10 +174,60 @@ export const loadProposalsList = async ({
       ordering,
       paging,
     });
-
     if (shouldUpdate) {
       setNextPaging(res.nextPaging);
 
+      setData((prevState) => {
+        if (deepEqual(prevState, res.items)) return res.items;
+        if (prevState) {
+          return [...prevState, ...res.items];
+        } else {
+          return res.items;
+        }
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    setData(undefined);
+  } finally {
+    if (shouldUpdate) {
+      setLoading(false);
+    }
+  }
+};
+
+export const loadConnectedMemberVotesList = async ({
+  filter,
+  ordering,
+  paging,
+  daochain,
+  setData,
+  setLoading,
+  shouldUpdate,
+  memberAddress,
+}: {
+  filter: Proposal_Filter;
+  ordering?: Ordering<Proposal_OrderBy>;
+  paging?: Paging;
+  daochain: keyof Keychain;
+  setData: ReactSetter<
+    ListConnectedMemberProposalsQuery['proposals'] | undefined
+  >;
+  setLoading: ReactSetter<boolean>;
+  shouldUpdate: boolean;
+  memberAddress: string;
+}) => {
+  try {
+    setLoading(true);
+    const haus = Haus.create();
+    const res = await haus.profile.listProposalVotesByMember({
+      networkId: daochain,
+      filter,
+      ordering,
+      paging,
+      memberAddress,
+    });
+    if (shouldUpdate) {
       setData((prevState) => {
         if (deepEqual(prevState, res.items)) return res.items;
         if (prevState) {

@@ -10,12 +10,11 @@ import {
   Link,
 } from '@daohaus/ui';
 
-import { TDao } from '../contexts/DaoContext';
+import { TDao, useConnectedMembership } from '../contexts/DaoContext';
 import { TagList } from '../components/TagList';
 import { useParams } from 'react-router-dom';
 import { Keychain } from '@daohaus/common-utilities';
 
-// putting this in place for when we bring in the action button
 const MetaCardHeader = styled.div`
   display: flex;
   justify-content: space-between;
@@ -55,14 +54,17 @@ type MetadataSettingsProps = {
 
 export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
   const { daochain, daoid } = useParams();
+  const { connectedMembership } = useConnectedMembership();
 
   return (
     <>
       <MetaCardHeader>
         <H3>Metadata</H3>
-        <Link href={`/molochv3/${daochain}/${daoid}/settings/update`}>
-          <Button>Update Settings</Button>
-        </Link>
+        {connectedMembership && Number(connectedMembership.shares) && (
+          <Link href={`/molochv3/${daochain}/${daoid}/settings/update`}>
+            <Button>Update Settings</Button>
+          </Link>
+        )}
       </MetaCardHeader>
       <MetaContent>
         <div>

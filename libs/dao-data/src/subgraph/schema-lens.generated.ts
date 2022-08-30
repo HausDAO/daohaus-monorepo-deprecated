@@ -42,6 +42,8 @@ export interface Scalars {
   Jwt: any;
   /** limit custom scalar type */
   LimitScalar: any;
+  /** Locale scalar type */
+  Locale: any;
   /** Markdown scalar type */
   Markdown: any;
   /** mimetype custom scalar type */
@@ -50,12 +52,20 @@ export interface Scalars {
   NftOwnershipId: any;
   /** Nonce custom scalar type */
   Nonce: any;
+  /** The notification id */
+  NotificationId: any;
   /** ProfileId custom scalar type */
   ProfileId: any;
+  /** proxy action scalar id type */
+  ProxyActionId: any;
   /** Publication id custom scalar type */
   PublicationId: any;
+  /** The publication tag */
+  PublicationTag: any;
   /** Publication url scalar type */
   PublicationUrl: any;
+  /** The reaction id */
+  ReactionId: any;
   /** reference module data scalar type */
   ReferenceModuleData: any;
   /** Query search */
@@ -82,8 +92,17 @@ export interface AchRequest {
   ethereumAddress: Scalars['EthereumAddress'];
   freeTextHandle?: InputMaybe<Scalars['Boolean']>;
   handle?: InputMaybe<Scalars['CreateHandle']>;
+  overrideAlreadyClaimed: Scalars['Boolean'];
   overrideTradeMark: Scalars['Boolean'];
   secret: Scalars['String'];
+}
+
+export interface AllPublicationsTagsRequest {
+  cursor?: InputMaybe<Scalars['Cursor']>;
+  limit?: InputMaybe<Scalars['LimitScalar']>;
+  sort: TagSortCriteria;
+  /** The App Id */
+  source?: InputMaybe<Scalars['Sources']>;
 }
 
 export interface ApprovedAllowanceAmount {
@@ -95,11 +114,14 @@ export interface ApprovedAllowanceAmount {
 }
 
 export interface ApprovedModuleAllowanceAmountRequest {
-  collectModules: Array<CollectModules>;
+  collectModules?: InputMaybe<Array<CollectModules>>;
   /** The contract addresses for the module approved currencies you want to find information on about the user */
   currencies: Array<Scalars['ContractAddress']>;
-  followModules: Array<FollowModules>;
-  referenceModules: Array<ReferenceModules>;
+  followModules?: InputMaybe<Array<FollowModules>>;
+  referenceModules?: InputMaybe<Array<ReferenceModules>>;
+  unknownCollectModules?: InputMaybe<Array<Scalars['ContractAddress']>>;
+  unknownFollowModules?: InputMaybe<Array<Scalars['ContractAddress']>>;
+  unknownReferenceModules?: InputMaybe<Array<Scalars['ContractAddress']>>;
 }
 
 /** The Profile */
@@ -153,13 +175,19 @@ export interface ClaimHandleRequest {
   id?: InputMaybe<Scalars['HandleClaimIdScalar']>;
 }
 
+/** The claim status */
+export type ClaimStatus =
+  | 'ALREADY_CLAIMED'
+  | 'CLAIM_FAILED'
+  | 'NOT_CLAIMED';
+
 export interface ClaimableHandles {
   __typename?: 'ClaimableHandles';
   canClaimFreeTextHandle: Scalars['Boolean'];
   reservedHandles: Array<ReservedClaimableHandle>;
 }
 
-export type CollectModule = FeeCollectModuleSettings | FreeCollectModuleSettings | LimitedFeeCollectModuleSettings | LimitedTimedFeeCollectModuleSettings | RevertCollectModuleSettings | TimedFeeCollectModuleSettings;
+export type CollectModule = FeeCollectModuleSettings | FreeCollectModuleSettings | LimitedFeeCollectModuleSettings | LimitedTimedFeeCollectModuleSettings | RevertCollectModuleSettings | TimedFeeCollectModuleSettings | UnknownCollectModuleSettings;
 
 export interface CollectModuleParams {
   /** The collect fee collect module */
@@ -174,6 +202,8 @@ export interface CollectModuleParams {
   revertCollectModule?: InputMaybe<Scalars['Boolean']>;
   /** The collect timed fee collect module */
   timedFeeCollectModule?: InputMaybe<TimedFeeCollectModuleParams>;
+  /** A unknown collect module */
+  unknownCollectModule?: InputMaybe<UnknownCollectModuleParams>;
 }
 
 /** The collect module types */
@@ -183,7 +213,12 @@ export type CollectModules =
   | 'LimitedFeeCollectModule'
   | 'LimitedTimedFeeCollectModule'
   | 'RevertCollectModule'
-  | 'TimedFeeCollectModule';
+  | 'TimedFeeCollectModule'
+  | 'UnknownCollectModule';
+
+export interface CollectProxyAction {
+  freeCollect?: InputMaybe<FreeCollectProxyAction>;
+}
 
 /** The social comment */
 export interface Comment {
@@ -311,6 +346,8 @@ export interface CreateCollectEip712TypedDataValue {
 
 export interface CreateCollectRequest {
   publicationId: Scalars['InternalPublicationId'];
+  /** The encoded data to collect with if using an unknown module */
+  unknownModuleData?: InputMaybe<Scalars['BlockchainData']>;
 }
 
 /** The broadcast item */
@@ -903,6 +940,7 @@ export interface ExplorePublicationRequest {
   /** If you wish to exclude any results for profile ids */
   excludeProfileIds?: InputMaybe<Array<Scalars['ProfileId']>>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
+  metadata?: InputMaybe<PublicationMetadataFilters>;
   /** If you want the randomizer off (default on) */
   noRandomize?: InputMaybe<Scalars['Boolean']>;
   /** The publication types you want to query */
@@ -974,7 +1012,7 @@ export interface Follow {
   profile: Scalars['ProfileId'];
 }
 
-export type FollowModule = FeeFollowModuleSettings | ProfileFollowModuleSettings | RevertFollowModuleSettings;
+export type FollowModule = FeeFollowModuleSettings | ProfileFollowModuleSettings | RevertFollowModuleSettings | UnknownFollowModuleSettings;
 
 export interface FollowModuleParams {
   /** The follower fee follower module */
@@ -985,6 +1023,8 @@ export interface FollowModuleParams {
   profileFollowModule?: InputMaybe<Scalars['Boolean']>;
   /** The revert follow module */
   revertFollowModule?: InputMaybe<Scalars['Boolean']>;
+  /** A unknown follow module */
+  unknownFollowModule?: InputMaybe<UnknownFollowModuleParams>;
 }
 
 export interface FollowModuleRedeemParams {
@@ -992,19 +1032,26 @@ export interface FollowModuleRedeemParams {
   feeFollowModule?: InputMaybe<FeeFollowModuleRedeemParams>;
   /** The profile follower module */
   profileFollowModule?: InputMaybe<ProfileFollowModuleRedeemParams>;
+  /** A unknown follow module */
+  unknownFollowModule?: InputMaybe<UnknownFollowModuleRedeemParams>;
 }
 
 /** The follow module types */
 export type FollowModules =
   | 'FeeFollowModule'
   | 'ProfileFollowModule'
-  | 'RevertFollowModule';
+  | 'RevertFollowModule'
+  | 'UnknownFollowModule';
 
 export interface FollowOnlyReferenceModuleSettings {
   __typename?: 'FollowOnlyReferenceModuleSettings';
   contractAddress: Scalars['ContractAddress'];
   /** The reference modules enum */
   type: ReferenceModules;
+}
+
+export interface FollowProxyAction {
+  freeFollow?: InputMaybe<FreeFollowProxyAction>;
 }
 
 export interface FollowRequest {
@@ -1070,6 +1117,14 @@ export interface FreeCollectModuleSettings {
   type: CollectModules;
 }
 
+export interface FreeCollectProxyAction {
+  publicationId: Scalars['InternalPublicationId'];
+}
+
+export interface FreeFollowProxyAction {
+  profileId: Scalars['ProfileId'];
+}
+
 export interface GenerateModuleCurrencyApproval {
   __typename?: 'GenerateModuleCurrencyApproval';
   data: Scalars['BlockchainData'];
@@ -1082,8 +1137,17 @@ export interface GenerateModuleCurrencyApprovalDataRequest {
   currency: Scalars['ContractAddress'];
   followModule?: InputMaybe<FollowModules>;
   referenceModule?: InputMaybe<ReferenceModules>;
+  unknownCollectModule?: InputMaybe<Scalars['ContractAddress']>;
+  unknownFollowModule?: InputMaybe<Scalars['ContractAddress']>;
+  unknownReferenceModule?: InputMaybe<Scalars['ContractAddress']>;
   /** Floating point number as string (e.g. 42.009837). The server will move its decimal places for you */
   value: Scalars['String'];
+}
+
+export interface GetPublicationMetadataStatusRequest {
+  publicationId?: InputMaybe<Scalars['InternalPublicationId']>;
+  txHash?: InputMaybe<Scalars['TxHash']>;
+  txId?: InputMaybe<Scalars['TxId']>;
 }
 
 export interface GlobalProtocolStats {
@@ -1204,6 +1268,10 @@ export type MainPostReference = Mirror | Post;
 /** The Media url */
 export interface Media {
   __typename?: 'Media';
+  /** The alt tags for accessibility */
+  altTag?: Maybe<Scalars['String']>;
+  /** The cover for any video or audio you attached */
+  cover?: Maybe<Scalars['String']>;
   /** Height - will always be null on the public API */
   height?: Maybe<Scalars['Int']>;
   /** The image/audio/video mime type for the publication */
@@ -1229,22 +1297,26 @@ export interface MediaSet {
 
 export type MentionPublication = Comment | Post;
 
+/** The metadata attribute input */
+export interface MetadataAttributeInput {
+  /** The display type */
+  displayType?: InputMaybe<PublicationMetadataDisplayTypes>;
+  /** The trait type - can be anything its the name it will render so include spaces */
+  traitType: Scalars['String'];
+  /** The value */
+  value: Scalars['String'];
+}
+
 /** The metadata attribute output */
 export interface MetadataAttributeOutput {
   __typename?: 'MetadataAttributeOutput';
   /** The display type */
-  displayType?: Maybe<MetadataDisplayType>;
+  displayType?: Maybe<PublicationMetadataDisplayTypes>;
   /** The trait type - can be anything its the name it will render so include spaces */
   traitType?: Maybe<Scalars['String']>;
   /** The value */
   value?: Maybe<Scalars['String']>;
 }
-
-/** The metadata display types */
-export type MetadataDisplayType =
-  | 'date'
-  | 'number'
-  | 'string';
 
 /** The metadata output */
 export interface MetadataOutput {
@@ -1253,16 +1325,24 @@ export interface MetadataOutput {
   attributes: Array<MetadataAttributeOutput>;
   /** This is the metadata content for the publication, should be markdown */
   content?: Maybe<Scalars['Markdown']>;
+  /** The content warning for the publication */
+  contentWarning?: Maybe<PublicationContentWarning>;
   /** The image cover for video/music publications */
   cover?: Maybe<MediaSet>;
   /** This is the metadata description */
   description?: Maybe<Scalars['Markdown']>;
   /** This is the image attached to the metadata and the property used to show the NFT! */
   image?: Maybe<Scalars['Url']>;
+  /** The locale of the publication,  */
+  locale?: Maybe<Scalars['Locale']>;
+  /** The main focus of the publication */
+  mainContentFocus: PublicationMainFocus;
   /** The images/audios/videos for the publication */
   media: Array<MediaSet>;
   /** The metadata name */
   name?: Maybe<Scalars['String']>;
+  /** The tags for the publication */
+  tags: Array<Scalars['String']>;
 }
 
 /** The social mirror */
@@ -1341,18 +1421,24 @@ export interface Mutation {
   createBurnProfileTypedData: CreateBurnProfileBroadcastItemResult;
   createCollectTypedData: CreateCollectBroadcastItemResult;
   createCommentTypedData: CreateCommentBroadcastItemResult;
+  createCommentViaDispatcher: RelayResult;
   createFollowTypedData: CreateFollowBroadcastItemResult;
   createMirrorTypedData: CreateMirrorBroadcastItemResult;
+  createMirrorViaDispatcher: RelayResult;
   createPostTypedData: CreatePostBroadcastItemResult;
+  createPostViaDispatcher: RelayResult;
   createSetDefaultProfileTypedData: SetDefaultProfileBroadcastItemResult;
   createSetDispatcherTypedData: CreateSetDispatcherBroadcastItemResult;
   createSetFollowModuleTypedData: CreateSetFollowModuleBroadcastItemResult;
   createSetFollowNFTUriTypedData: CreateSetFollowNftUriBroadcastItemResult;
   createSetProfileImageURITypedData: CreateSetProfileImageUriBroadcastItemResult;
+  createSetProfileImageURIViaDispatcher: RelayResult;
   createSetProfileMetadataTypedData: CreateSetProfileMetadataUriBroadcastItemResult;
+  createSetProfileMetadataViaDispatcher: RelayResult;
   createToggleFollowTypedData: CreateToggleFollowBroadcastItemResult;
   createUnfollowTypedData: CreateUnfollowBroadcastItemResult;
   hidePublication?: Maybe<Scalars['Void']>;
+  proxyAction: Scalars['ProxyActionId'];
   refresh: AuthenticationResult;
   removeReaction?: Maybe<Scalars['Void']>;
   reportPublication?: Maybe<Scalars['Void']>;
@@ -1402,6 +1488,11 @@ export interface MutationCreateCommentTypedDataArgs {
 }
 
 
+export interface MutationCreateCommentViaDispatcherArgs {
+  request: CreatePublicCommentRequest;
+}
+
+
 export interface MutationCreateFollowTypedDataArgs {
   options?: InputMaybe<TypedDataOptions>;
   request: FollowRequest;
@@ -1414,8 +1505,18 @@ export interface MutationCreateMirrorTypedDataArgs {
 }
 
 
+export interface MutationCreateMirrorViaDispatcherArgs {
+  request: CreateMirrorRequest;
+}
+
+
 export interface MutationCreatePostTypedDataArgs {
   options?: InputMaybe<TypedDataOptions>;
+  request: CreatePublicPostRequest;
+}
+
+
+export interface MutationCreatePostViaDispatcherArgs {
   request: CreatePublicPostRequest;
 }
 
@@ -1450,8 +1551,18 @@ export interface MutationCreateSetProfileImageUriTypedDataArgs {
 }
 
 
+export interface MutationCreateSetProfileImageUriViaDispatcherArgs {
+  request: UpdateProfileImageRequest;
+}
+
+
 export interface MutationCreateSetProfileMetadataTypedDataArgs {
   options?: InputMaybe<TypedDataOptions>;
+  request: CreatePublicSetProfileMetadataUriRequest;
+}
+
+
+export interface MutationCreateSetProfileMetadataViaDispatcherArgs {
   request: CreatePublicSetProfileMetadataUriRequest;
 }
 
@@ -1473,6 +1584,11 @@ export interface MutationHidePublicationArgs {
 }
 
 
+export interface MutationProxyActionArgs {
+  request: ProxyActionRequest;
+}
+
+
 export interface MutationRefreshArgs {
   request: RefreshRequest;
 }
@@ -1485,6 +1601,15 @@ export interface MutationRemoveReactionArgs {
 
 export interface MutationReportPublicationArgs {
   request: ReportPublicationRequest;
+}
+
+export interface MutualFollowersProfilesQueryRequest {
+  cursor?: InputMaybe<Scalars['Cursor']>;
+  limit?: InputMaybe<Scalars['LimitScalar']>;
+  /** The profile id your viewing */
+  viewingProfileId: Scalars['ProfileId'];
+  /** The profile id you want the result to come back as your viewing from */
+  yourProfileId: Scalars['ProfileId'];
 }
 
 /** The nft type */
@@ -1556,6 +1681,7 @@ export interface NewCollectNotification {
   __typename?: 'NewCollectNotification';
   collectedPublication: Publication;
   createdAt: Scalars['DateTime'];
+  notificationId: Scalars['NotificationId'];
   wallet: Wallet;
 }
 
@@ -1563,6 +1689,7 @@ export interface NewCommentNotification {
   __typename?: 'NewCommentNotification';
   comment: Comment;
   createdAt: Scalars['DateTime'];
+  notificationId: Scalars['NotificationId'];
   /** The profile */
   profile: Profile;
 }
@@ -1571,6 +1698,7 @@ export interface NewFollowerNotification {
   __typename?: 'NewFollowerNotification';
   createdAt: Scalars['DateTime'];
   isFollowedByMe: Scalars['Boolean'];
+  notificationId: Scalars['NotificationId'];
   wallet: Wallet;
 }
 
@@ -1578,11 +1706,13 @@ export interface NewMentionNotification {
   __typename?: 'NewMentionNotification';
   createdAt: Scalars['DateTime'];
   mentionPublication: MentionPublication;
+  notificationId: Scalars['NotificationId'];
 }
 
 export interface NewMirrorNotification {
   __typename?: 'NewMirrorNotification';
   createdAt: Scalars['DateTime'];
+  notificationId: Scalars['NotificationId'];
   /** The profile */
   profile: Profile;
   publication: MirrorablePublication;
@@ -1633,6 +1763,7 @@ export type Notification = NewCollectNotification | NewCommentNotification | New
 export interface NotificationRequest {
   cursor?: InputMaybe<Scalars['Cursor']>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
+  metadata?: InputMaybe<PublicationMetadataFilters>;
   /** The profile id */
   profileId: Scalars['ProfileId'];
   /** The App Id */
@@ -1647,6 +1778,8 @@ export interface OnChainIdentity {
   proofOfHumanity: Scalars['Boolean'];
   /** The sybil dot org information */
   sybilDotOrg: SybilDotOrgIdentity;
+  /** The worldcoin identity */
+  worldcoin: WorldcoinIdentity;
 }
 
 /** The nft type */
@@ -1656,6 +1789,13 @@ export interface Owner {
   address: Scalars['EthereumAddress'];
   /** number of tokens owner */
   amount: Scalars['Float'];
+}
+
+/** The paginated wallet result */
+export interface PaginatedAllPublicationsTagsResult {
+  __typename?: 'PaginatedAllPublicationsTagsResult';
+  items: Array<TagResult>;
+  pageInfo: PaginatedResultInfo;
 }
 
 /** The paginated followers result */
@@ -1725,6 +1865,12 @@ export interface PaginatedTimelineResult {
 export interface PaginatedWhoCollectedResult {
   __typename?: 'PaginatedWhoCollectedResult';
   items: Array<Wallet>;
+  pageInfo: PaginatedResultInfo;
+}
+
+export interface PaginatedWhoReactedResult {
+  __typename?: 'PaginatedWhoReactedResult';
+  items: Array<WhoReactedResult>;
   pageInfo: PaginatedResultInfo;
 }
 
@@ -1858,6 +2004,7 @@ export interface ProfileOnChainIdentityRequest {
 export interface ProfilePublicationRevenueQueryRequest {
   cursor?: InputMaybe<Scalars['Cursor']>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
+  metadata?: InputMaybe<PublicationMetadataFilters>;
   /** The profile id */
   profileId: Scalars['ProfileId'];
   /** The App Id */
@@ -1876,6 +2023,7 @@ export interface ProfilePublicationRevenueResult {
 export interface ProfilePublicationsForSaleRequest {
   cursor?: InputMaybe<Scalars['Cursor']>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
+  metadata?: InputMaybe<PublicationMetadataFilters>;
   /** Profile id */
   profileId: Scalars['ProfileId'];
   /** The App Id */
@@ -1962,9 +2110,91 @@ export interface ProfileStatsPublicationsTotalArgs {
   forSources: Array<Scalars['Sources']>;
 }
 
+export interface ProxyActionError {
+  __typename?: 'ProxyActionError';
+  lastKnownTxId?: Maybe<Scalars['TxId']>;
+  reason: Scalars['String'];
+}
+
+export interface ProxyActionQueued {
+  __typename?: 'ProxyActionQueued';
+  queuedAt: Scalars['DateTime'];
+}
+
+export interface ProxyActionRequest {
+  collect?: InputMaybe<CollectProxyAction>;
+  follow?: InputMaybe<FollowProxyAction>;
+}
+
+export interface ProxyActionStatusResult {
+  __typename?: 'ProxyActionStatusResult';
+  status: ProxyActionStatusTypes;
+  txHash: Scalars['TxHash'];
+  txId: Scalars['TxId'];
+}
+
+export type ProxyActionStatusResultUnion = ProxyActionError | ProxyActionQueued | ProxyActionStatusResult;
+
+/** The proxy action status */
+export type ProxyActionStatusTypes =
+  | 'COMPLETE'
+  | 'MINTING'
+  | 'TRANSFERRING';
+
 export type Publication = Comment | Mirror | Post;
 
+/** The publication content warning */
+export type PublicationContentWarning =
+  | 'NSFW'
+  | 'SENSITIVE'
+  | 'SPOILER';
+
 export type PublicationForSale = Comment | Post;
+
+/** The publication main focus */
+export type PublicationMainFocus =
+  | 'ARTICLE'
+  | 'AUDIO'
+  | 'EMBED'
+  | 'IMAGE'
+  | 'LINK'
+  | 'TEXT_ONLY'
+  | 'VIDEO';
+
+/** Publication metadata content waring filters */
+export interface PublicationMetadataContentWarningFilter {
+  /** By default all content warnings will be hidden you can include them in your query by adding them to this array. */
+  includeOneOf?: InputMaybe<Array<PublicationContentWarning>>;
+}
+
+/** The publication metadata display types */
+export type PublicationMetadataDisplayTypes =
+  | 'date'
+  | 'number'
+  | 'string';
+
+/** Publication metadata filters */
+export interface PublicationMetadataFilters {
+  contentWarning?: InputMaybe<PublicationMetadataContentWarningFilter>;
+  /**
+   * IOS 639-1 language code aka en or it and ISO 3166-1 alpha-2 region code aka US
+   * or IT aka en-US or it-IT. You can just filter on language if you wish.
+   */
+  locale?: InputMaybe<Scalars['Locale']>;
+  mainContentFocus?: InputMaybe<Array<PublicationMainFocus>>;
+  tags?: InputMaybe<PublicationMetadataTagsFilter>;
+}
+
+/** The metadata attribute output */
+export interface PublicationMetadataMediaInput {
+  /** The alt tags for accessibility */
+  altTag?: InputMaybe<Scalars['String']>;
+  /** The cover for any video or audio you attached */
+  cover?: InputMaybe<Scalars['String']>;
+  item: Scalars['Url'];
+  /** This is the mime type of media */
+  type?: InputMaybe<Scalars['MimeType']>;
+}
 
 export interface PublicationMetadataStatus {
   __typename?: 'PublicationMetadataStatus';
@@ -1976,8 +2206,117 @@ export interface PublicationMetadataStatus {
 /** publication metadata status type */
 export type PublicationMetadataStatusType =
   | 'METADATA_VALIDATION_FAILED'
+  | 'NOT_FOUND'
   | 'PENDING'
   | 'SUCCESS';
+
+/** Publication metadata tag filter */
+export interface PublicationMetadataTagsFilter {
+  /** Needs to only match all */
+  all?: InputMaybe<Array<Scalars['String']>>;
+  /** Needs to only match one of */
+  oneOf?: InputMaybe<Array<Scalars['String']>>;
+}
+
+export interface PublicationMetadataV1Input {
+  /**
+   * A URL to a multi-media attachment for the item. The file extensions GLTF, GLB, WEBM, MP4, M4V, OGV,
+   *       and OGG are supported, along with the audio-only extensions MP3, WAV, and OGA.
+   *       Animation_url also supports HTML pages, allowing you to build rich
+   * experiences and interactive NFTs using JavaScript canvas,
+   *       WebGL, and more. Scripts and relative paths within the HTML page are now
+   * supported. However, access to browser extensions is not supported.
+   */
+  animation_url?: InputMaybe<Scalars['Url']>;
+  /**  This is the appId the content belongs to */
+  appId?: InputMaybe<Scalars['Sources']>;
+  /**  These are the attributes for the item, which will show up on the OpenSea and others NFT trading websites on the item. */
+  attributes: Array<MetadataAttributeInput>;
+  /** The content of a publication. If this is blank `media` must be defined or its out of spec */
+  content?: InputMaybe<Scalars['Markdown']>;
+  /** A human-readable description of the item. */
+  description?: InputMaybe<Scalars['String']>;
+  /**
+   * This is the URL that will appear below the asset's image on OpenSea and others etc
+   *       and will allow users to leave OpenSea and view the item on the site.
+   */
+  external_url?: InputMaybe<Scalars['Url']>;
+  /** legacy to support OpenSea will store any NFT image here. */
+  image?: InputMaybe<Scalars['Url']>;
+  /**
+   * This is the mime type of the image. This is used if your uploading more
+   * advanced cover images as sometimes ipfs does not emit the content header so
+   * this solves that
+   */
+  imageMimeType?: InputMaybe<Scalars['MimeType']>;
+  /**  This is lens supported attached media items to the publication */
+  media?: InputMaybe<Array<PublicationMetadataMediaInput>>;
+  /**
+   * The metadata id can be anything but if your uploading to ipfs you will want it
+   * to be random.. using uuid could be an option!
+   */
+  metadata_id: Scalars['String'];
+  /** Name of the item. */
+  name: Scalars['String'];
+  /** Signed metadata to validate the owner */
+  signatureContext?: InputMaybe<PublicationSignatureContextInput>;
+  /** The metadata version. (1.0.0 | 2.0.0) */
+  version: Scalars['String'];
+}
+
+export interface PublicationMetadataV2Input {
+  /**
+   * A URL to a multi-media attachment for the item. The file extensions GLTF, GLB, WEBM, MP4, M4V, OGV,
+   *       and OGG are supported, along with the audio-only extensions MP3, WAV, and OGA.
+   *       Animation_url also supports HTML pages, allowing you to build rich
+   * experiences and interactive NFTs using JavaScript canvas,
+   *       WebGL, and more. Scripts and relative paths within the HTML page are now
+   * supported. However, access to browser extensions is not supported.
+   */
+  animation_url?: InputMaybe<Scalars['Url']>;
+  /**  This is the appId the content belongs to */
+  appId?: InputMaybe<Scalars['Sources']>;
+  /**  These are the attributes for the item, which will show up on the OpenSea and others NFT trading websites on the item. */
+  attributes: Array<MetadataAttributeInput>;
+  /** The content of a publication. If this is blank `media` must be defined or its out of spec */
+  content?: InputMaybe<Scalars['Markdown']>;
+  /** Ability to add a content warning */
+  contentWarning?: InputMaybe<PublicationContentWarning>;
+  /** A human-readable description of the item. */
+  description?: InputMaybe<Scalars['String']>;
+  /**
+   * This is the URL that will appear below the asset's image on OpenSea and others etc
+   *       and will allow users to leave OpenSea and view the item on the site.
+   */
+  external_url?: InputMaybe<Scalars['Url']>;
+  /** legacy to support OpenSea will store any NFT image here. */
+  image?: InputMaybe<Scalars['Url']>;
+  /**
+   * This is the mime type of the image. This is used if your uploading more
+   * advanced cover images as sometimes ipfs does not emit the content header so
+   * this solves that
+   */
+  imageMimeType?: InputMaybe<Scalars['MimeType']>;
+  /** IOS 639-1 language code aka en or it and ISO 3166-1 alpha-2 region code aka US or IT aka en-US or it-IT */
+  locale: Scalars['Locale'];
+  /** Main content focus that for this publication */
+  mainContentFocus: PublicationMainFocus;
+  /**  This is lens supported attached media items to the publication */
+  media?: InputMaybe<Array<PublicationMetadataMediaInput>>;
+  /**
+   * The metadata id can be anything but if your uploading to ipfs you will want it
+   * to be random.. using uuid could be an option!
+   */
+  metadata_id: Scalars['String'];
+  /** Name of the item. */
+  name: Scalars['String'];
+  /** Signed metadata to validate the owner */
+  signatureContext?: InputMaybe<PublicationSignatureContextInput>;
+  /** Ability to tag your publication */
+  tags?: InputMaybe<Array<Scalars['String']>>;
+  /** The metadata version. (1.0.0 | 2.0.0) */
+  version: Scalars['String'];
+}
 
 export interface PublicationQueryRequest {
   /** The publication id */
@@ -1994,18 +2333,32 @@ export type PublicationReportingFraudSubreason =
 /** Publication reporting illegal subreason */
 export type PublicationReportingIllegalSubreason =
   | 'ANIMAL_ABUSE'
-  | 'HUMAN_ABUSE';
+  | 'DIRECT_THREAT'
+  | 'HUMAN_ABUSE'
+  | 'THREAT_INDIVIDUAL'
+  | 'VIOLENCE';
 
 /** Publication reporting reason */
 export type PublicationReportingReason =
   | 'FRAUD'
   | 'ILLEGAL'
-  | 'SENSITIVE';
+  | 'SENSITIVE'
+  | 'SPAM';
 
 /** Publication reporting sensitive subreason */
 export type PublicationReportingSensitiveSubreason =
   | 'NSFW'
   | 'OFFENSIVE';
+
+/** Publication reporting spam subreason */
+export type PublicationReportingSpamSubreason =
+  | 'FAKE_ENGAGEMENT'
+  | 'MANIPULATION_ALGO'
+  | 'MISLEADING'
+  | 'MISUSE_HASHTAGS'
+  | 'REPETITIVE'
+  | 'SOMETHING_ELSE'
+  | 'UNRELATED';
 
 /** The social comment */
 export interface PublicationRevenue {
@@ -2028,6 +2381,10 @@ export interface PublicationSearchResult {
 }
 
 export type PublicationSearchResultItem = Comment | Post;
+
+export interface PublicationSignatureContextInput {
+  signature: Scalars['String'];
+}
 
 /** Publication sort criteria */
 export type PublicationSortCriteria =
@@ -2066,6 +2423,13 @@ export type PublicationTypes =
   | 'MIRROR'
   | 'POST';
 
+export interface PublicationValidateMetadataResult {
+  __typename?: 'PublicationValidateMetadataResult';
+  /** If `valid` is false it will put a reason why here */
+  reason?: Maybe<Scalars['String']>;
+  valid: Scalars['Boolean'];
+}
+
 export interface PublicationsQueryRequest {
   /** The ethereum address */
   collectedBy?: InputMaybe<Scalars['EthereumAddress']>;
@@ -2073,6 +2437,7 @@ export interface PublicationsQueryRequest {
   commentsOf?: InputMaybe<Scalars['InternalPublicationId']>;
   cursor?: InputMaybe<Scalars['Cursor']>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
+  metadata?: InputMaybe<PublicationMetadataFilters>;
   /** Profile id */
   profileId?: InputMaybe<Scalars['ProfileId']>;
   /** The publication id */
@@ -2085,21 +2450,24 @@ export interface PublicationsQueryRequest {
 
 export interface Query {
   __typename?: 'Query';
+  allPublicationsTags: PaginatedAllPublicationsTagsResult;
   approvedModuleAllowanceAmount: Array<ApprovedAllowanceAmount>;
   challenge: AuthChallengeResult;
   claimableHandles: ClaimableHandles;
+  claimableStatus: ClaimStatus;
   defaultProfile?: Maybe<Profile>;
   doesFollow: Array<DoesFollowResponse>;
   enabledModuleCurrencies: Array<Erc20>;
   enabledModules: EnabledModules;
   exploreProfiles: ExploreProfileResult;
   explorePublications: ExplorePublicationResult;
-  followerNftOwnedTokenIds: FollowerNftOwnedTokenIds;
+  followerNftOwnedTokenIds?: Maybe<FollowerNftOwnedTokenIds>;
   followers: PaginatedFollowersResult;
   following: PaginatedFollowingResult;
   generateModuleCurrencyApprovalData: GenerateModuleCurrencyApproval;
   globalProtocolStats: GlobalProtocolStats;
   hasTxHashBeenIndexed: TransactionResult;
+  mutualFollowersProfiles: PaginatedProfileResult;
   nftOwnershipChallenge: NftOwnershipChallengeResult;
   nfts: NfTsResult;
   notifications: PaginatedNotificationResult;
@@ -2112,15 +2480,27 @@ export interface Query {
   profilePublicationRevenue: ProfilePublicationRevenueResult;
   profilePublicationsForSale: PaginatedProfilePublicationsForSaleResult;
   profiles: PaginatedProfileResult;
+  proxyActionStatus: ProxyActionStatusResultUnion;
   publication?: Maybe<Publication>;
+  publicationMetadataStatus: PublicationMetadataStatus;
   publicationRevenue?: Maybe<PublicationRevenue>;
   publications: PaginatedPublicationResult;
   recommendedProfiles: Array<Profile>;
+  rel?: Maybe<Scalars['Void']>;
   search: SearchResult;
   timeline: PaginatedTimelineResult;
+  txIdToTxHash: Scalars['TxHash'];
+  unknownEnabledModules: EnabledModules;
   userSigNonces: UserSigNonces;
+  validatePublicationMetadata: PublicationValidateMetadataResult;
   verify: Scalars['Boolean'];
   whoCollectedPublication: PaginatedWhoCollectedResult;
+  whoReactedPublication: PaginatedWhoReactedResult;
+}
+
+
+export interface QueryAllPublicationsTagsArgs {
+  request: AllPublicationsTagsRequest;
 }
 
 
@@ -2184,6 +2564,11 @@ export interface QueryHasTxHashBeenIndexedArgs {
 }
 
 
+export interface QueryMutualFollowersProfilesArgs {
+  request: MutualFollowersProfilesQueryRequest;
+}
+
+
 export interface QueryNftOwnershipChallengeArgs {
   request: NftOwnershipChallengeRequest;
 }
@@ -2239,8 +2624,18 @@ export interface QueryProfilesArgs {
 }
 
 
+export interface QueryProxyActionStatusArgs {
+  proxyActionId: Scalars['ProxyActionId'];
+}
+
+
 export interface QueryPublicationArgs {
   request: PublicationQueryRequest;
+}
+
+
+export interface QueryPublicationMetadataStatusArgs {
+  request: GetPublicationMetadataStatusRequest;
 }
 
 
@@ -2254,6 +2649,11 @@ export interface QueryPublicationsArgs {
 }
 
 
+export interface QueryRelArgs {
+  request: RelRequest;
+}
+
+
 export interface QuerySearchArgs {
   request: SearchQueryRequest;
 }
@@ -2264,6 +2664,16 @@ export interface QueryTimelineArgs {
 }
 
 
+export interface QueryTxIdToTxHashArgs {
+  txId: Scalars['TxId'];
+}
+
+
+export interface QueryValidatePublicationMetadataArgs {
+  request: ValidatePublicationMetadataRequest;
+}
+
+
 export interface QueryVerifyArgs {
   request: VerifyRequest;
 }
@@ -2271,6 +2681,11 @@ export interface QueryVerifyArgs {
 
 export interface QueryWhoCollectedPublicationArgs {
   request: WhoCollectedPublicationRequest;
+}
+
+
+export interface QueryWhoReactedPublicationArgs {
+  request: WhoReactedPublicationRequest;
 }
 
 export interface ReactionFieldResolverRequest {
@@ -2292,21 +2707,29 @@ export type ReactionTypes =
   | 'DOWNVOTE'
   | 'UPVOTE';
 
-export type ReferenceModule = FollowOnlyReferenceModuleSettings;
+export type ReferenceModule = FollowOnlyReferenceModuleSettings | UnknownReferenceModuleSettings;
 
 export interface ReferenceModuleParams {
   /** The follower only reference module */
   followerOnlyReferenceModule?: InputMaybe<Scalars['Boolean']>;
+  /** A unknown reference module */
+  unknownReferenceModule?: InputMaybe<UnknownReferenceModuleParams>;
 }
 
 /** The reference module types */
 export type ReferenceModules =
-  | 'FollowerOnlyReferenceModule';
+  | 'FollowerOnlyReferenceModule'
+  | 'UnknownReferenceModule';
 
 /** The refresh request */
 export interface RefreshRequest {
   /** The refresh token */
   refreshToken: Scalars['Jwt'];
+}
+
+export interface RelRequest {
+  ethereumAddress: Scalars['EthereumAddress'];
+  secret: Scalars['String'];
 }
 
 export interface RelayError {
@@ -2343,6 +2766,7 @@ export interface ReportingReasonInputParams {
   fraudReason?: InputMaybe<FraudReasonInputParams>;
   illegalReason?: InputMaybe<IllegalReasonInputParams>;
   sensitiveReason?: InputMaybe<SensitiveReasonInputParams>;
+  spamReason?: InputMaybe<SpamReasonInputParams>;
 }
 
 export interface ReservedClaimableHandle {
@@ -2432,7 +2856,11 @@ export interface SetDefaultProfileEip712TypedDataValue {
 }
 
 export interface SetDispatcherRequest {
-  /** The dispatcher address - they can post, comment, mirror, set follow module, change your profile picture on your behalf. */
+  /**
+   * The dispatcher address - they can post, comment, mirror, set follow module,
+   * change your profile picture on your behalf, if left as none it will use the
+   * built in dispatcher address.
+   */
   dispatcher?: InputMaybe<Scalars['EthereumAddress']>;
   /** If you want to enable or disable it */
   enable?: InputMaybe<Scalars['Boolean']>;
@@ -2455,6 +2883,11 @@ export interface SingleProfileQueryRequest {
   profileId?: InputMaybe<Scalars['ProfileId']>;
 }
 
+export interface SpamReasonInputParams {
+  reason: PublicationReportingReason;
+  subreason: PublicationReportingSpamSubreason;
+}
+
 export interface SybilDotOrgIdentity {
   __typename?: 'SybilDotOrgIdentity';
   source: SybilDotOrgIdentitySource;
@@ -2471,6 +2904,20 @@ export interface SybilDotOrgTwitterIdentity {
   __typename?: 'SybilDotOrgTwitterIdentity';
   handle?: Maybe<Scalars['String']>;
 }
+
+/** The social comment */
+export interface TagResult {
+  __typename?: 'TagResult';
+  /** The tag */
+  tag: Scalars['PublicationTag'];
+  /** The total amount of publication tagged */
+  total: Scalars['Int'];
+}
+
+/** The publications tags sort criteria */
+export type TagSortCriteria =
+  | 'ALPHABETICAL'
+  | 'MOST_POPULAR';
 
 export interface TimedFeeCollectModuleParams {
   /** The collect module amount info */
@@ -2503,6 +2950,7 @@ export interface TimedFeeCollectModuleSettings {
 export interface TimelineRequest {
   cursor?: InputMaybe<Scalars['Cursor']>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
+  metadata?: InputMaybe<PublicationMetadataFilters>;
   /** The profile id */
   profileId: Scalars['ProfileId'];
   /** The App Id */
@@ -2574,6 +3022,56 @@ export interface UnfollowRequest {
   profile: Scalars['ProfileId'];
 }
 
+export interface UnknownCollectModuleParams {
+  contractAddress: Scalars['ContractAddress'];
+  /** The encoded data to submit with the module */
+  data: Scalars['BlockchainData'];
+}
+
+export interface UnknownCollectModuleSettings {
+  __typename?: 'UnknownCollectModuleSettings';
+  /** The data used to setup the module which you can decode with your known ABI  */
+  collectModuleReturnData: Scalars['CollectModuleData'];
+  contractAddress: Scalars['ContractAddress'];
+  /** The collect modules enum */
+  type: CollectModules;
+}
+
+export interface UnknownFollowModuleParams {
+  contractAddress: Scalars['ContractAddress'];
+  /** The encoded data to submit with the module */
+  data: Scalars['BlockchainData'];
+}
+
+export interface UnknownFollowModuleRedeemParams {
+  /** The encoded data to submit with the module */
+  data: Scalars['BlockchainData'];
+}
+
+export interface UnknownFollowModuleSettings {
+  __typename?: 'UnknownFollowModuleSettings';
+  contractAddress: Scalars['ContractAddress'];
+  /** The data used to setup the module which you can decode with your known ABI  */
+  followModuleReturnData: Scalars['FollowModuleData'];
+  /** The follow modules enum */
+  type: FollowModules;
+}
+
+export interface UnknownReferenceModuleParams {
+  contractAddress: Scalars['ContractAddress'];
+  /** The encoded data to submit with the module */
+  data: Scalars['BlockchainData'];
+}
+
+export interface UnknownReferenceModuleSettings {
+  __typename?: 'UnknownReferenceModuleSettings';
+  contractAddress: Scalars['ContractAddress'];
+  /** The data used to setup the module which you can decode with your known ABI  */
+  referenceModuleReturnData: Scalars['ReferenceModuleData'];
+  /** The reference modules enum */
+  type: ReferenceModules;
+}
+
 export interface UpdateProfileImageRequest {
   /** The nft data */
   nftData?: InputMaybe<NftData>;
@@ -2586,6 +3084,11 @@ export interface UserSigNonces {
   __typename?: 'UserSigNonces';
   lensHubOnChainSigNonce: Scalars['Nonce'];
   peripheryOnChainSigNonce: Scalars['Nonce'];
+}
+
+export interface ValidatePublicationMetadataRequest {
+  metadatav1?: InputMaybe<PublicationMetadataV1Input>;
+  metadatav2?: InputMaybe<PublicationMetadataV2Input>;
 }
 
 /** The access request */
@@ -2609,4 +3112,29 @@ export interface WhoCollectedPublicationRequest {
   limit?: InputMaybe<Scalars['LimitScalar']>;
   /** Internal publication id */
   publicationId: Scalars['InternalPublicationId'];
+}
+
+export interface WhoReactedPublicationRequest {
+  cursor?: InputMaybe<Scalars['Cursor']>;
+  limit?: InputMaybe<Scalars['LimitScalar']>;
+  /** Internal publication id */
+  publicationId: Scalars['InternalPublicationId'];
+}
+
+/** The Profile */
+export interface WhoReactedResult {
+  __typename?: 'WhoReactedResult';
+  profile: Profile;
+  /** The reaction */
+  reaction: ReactionTypes;
+  /** The reaction */
+  reactionAt: Scalars['DateTime'];
+  /** The reaction id */
+  reactionId: Scalars['ReactionId'];
+}
+
+export interface WorldcoinIdentity {
+  __typename?: 'WorldcoinIdentity';
+  /** If the profile has verified as a user */
+  isHuman: Scalars['Boolean'];
 }

@@ -25,7 +25,7 @@ const Daos: React.FC<DaosProps> = (props: DaosProps) => {
       setListDaos(daos || []);
       setLoading(false);
     }
-  }, [safe]);
+  }, [loading, safe]);
 
   useEffect(() => {
     if (sdk && connected) {

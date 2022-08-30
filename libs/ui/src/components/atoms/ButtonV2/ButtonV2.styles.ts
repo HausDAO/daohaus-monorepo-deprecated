@@ -119,7 +119,6 @@ export const ButtonBase = styled.button<{
   svg {
     width: 2.2rem;
     height: 2.2rem;
-    margin: 0 auto;
 
     &.icon-left {
       margin-right: 1rem;

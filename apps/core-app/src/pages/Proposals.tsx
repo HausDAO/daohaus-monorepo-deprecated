@@ -1,43 +1,117 @@
+import { MouseEvent, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import {
-  BiColumnLayout,
   Button,
-  Card,
-  widthQuery,
   Dialog,
   DialogTrigger,
   DialogContent,
+  SingleColumnLayout,
 } from '@daohaus/ui';
+import { statusFilter } from '@daohaus/dao-data';
 import { BsPlusLg } from 'react-icons/bs';
 
-import { useProposals } from '../contexts/DaoContext';
+import { defaultDaoData, useDao, useProposals } from '../contexts/DaoContext';
 import { NewProposalList } from '../components/NewProposalList';
 import { FORM } from '../legos/form';
-import { useMemo } from 'react';
+import SearchInput from '../components/SearchInput';
+import FilterDropdown from '../components/FilterDropdown';
+import { BaseProposalCard } from '../components/BaseProposalCard';
+import { PROPOSAL_STATUS } from '@daohaus/common-utilities';
 
-const LeftCard = styled(Card)`
+const ActionsContainer = styled.div`
   width: 100%;
-  min-width: 54rem;
-  max-width: 64rem;
-  @media ${widthQuery.md} {
-    max-width: 100%;
-    min-width: 0;
-  }
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 3rem;
+`;
+
+const SearchFilterContainer = styled.div`
+  display: flex;
+  gap: 2.1rem;
 `;
 
 export const VALID_NEW_PROPOSALS = [FORM.SIGNAL, FORM.SHARE_SWAP];
 
 export function Proposals() {
-  const { proposals } = useProposals();
+  const {
+    proposals,
+    setProposalsPaging,
+    proposalsNextPaging,
+    setProposalsFilter,
+    setProposals,
+  } = useProposals();
+  const { dao } = useDao();
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [filter, setFilter] = useState<string>('');
 
   const newProposals = useMemo(() => {
     return Object.keys(FORM).map((key) => FORM[key]);
   }, []);
 
+  const handleSearchFilter = (term: string) => {
+    setSearchTerm(term);
+    const filterQuery =
+      filter !== ''
+        ? statusFilter(
+            PROPOSAL_STATUS[filter],
+            Number(dao?.votingPeriod) + Number(dao?.gracePeriod)
+          )
+        : undefined;
+
+    if (searchTerm && searchTerm.length > 0) {
+      setProposals(undefined);
+      setProposalsFilter({
+        ...filterQuery,
+        title_contains_nocase: searchTerm,
+      });
+      setProposalsPaging(defaultDaoData.proposalsPaging);
+    } else {
+      setProposals(undefined);
+      setProposalsFilter(filterQuery);
+      setProposalsPaging(defaultDaoData.proposalsPaging);
+    }
+  };
+
+  const toggleFilter = (event: MouseEvent<HTMLButtonElement>) => {
+    const searchQuery =
+      searchTerm !== '' ? { title_contains_nocase: searchTerm } : undefined;
+    setFilter((prevState) => {
+      if (prevState === event.currentTarget.value) {
+        setProposalsFilter(searchQuery);
+        setProposalsPaging(defaultDaoData.proposalsPaging);
+        setProposals(undefined);
+        return '';
+      } else {
+        const votingPlusGraceDuration =
+          Number(dao?.votingPeriod) + Number(dao?.gracePeriod);
+        const filterQuery = statusFilter(
+          PROPOSAL_STATUS[event.currentTarget.value],
+          votingPlusGraceDuration
+        );
+        setProposalsFilter({ ...filterQuery, ...searchQuery });
+        setProposalsPaging(defaultDaoData.proposalsPaging);
+        setProposals(undefined);
+        return event.currentTarget.value;
+      }
+    });
+  };
+
+  const handleLoadMore = (event: MouseEvent<HTMLButtonElement>) => {
+    setProposalsPaging(proposalsNextPaging);
+  };
+
   return (
-    <BiColumnLayout
-      title="Proposals"
-      actions={
+    <SingleColumnLayout title="Proposals">
+      <ActionsContainer>
+        <SearchFilterContainer>
+          <SearchInput
+            searchTerm={searchTerm}
+            setSearchTerm={handleSearchFilter}
+            totalItems={proposals?.length || 0}
+          />
+
+          <FilterDropdown filter={filter} toggleFilter={toggleFilter} />
+        </SearchFilterContainer>
         <Dialog>
           <DialogTrigger asChild>
             <Button IconLeft={BsPlusLg}>New Proposal</Button>
@@ -46,10 +120,18 @@ export function Proposals() {
             <NewProposalList proposalLegos={newProposals} />
           </DialogContent>
         </Dialog>
-      }
-      left={<LeftCard>{JSON.stringify(proposals, null, 2)}</LeftCard>}
-      right={null}
-    />
+      </ActionsContainer>
+      {proposals &&
+        proposals.map((proposal) => (
+          <BaseProposalCard proposal={proposal} key={proposal.id} />
+        ))}
+
+      {proposalsNextPaging !== undefined && (
+        <Button tertiary sm onClick={handleLoadMore}>
+          Show More Proposals
+        </Button>
+      )}
+    </SingleColumnLayout>
   );
 }
 

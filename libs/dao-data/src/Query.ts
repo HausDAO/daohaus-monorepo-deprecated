@@ -31,6 +31,8 @@ import {
   Member_OrderBy,
   Proposal_Filter,
   Proposal_OrderBy,
+  Vote_Filter,
+  Vote_OrderBy,
 } from './subgraph/schema.generated';
 import {
   FindDaoDocument,
@@ -48,6 +50,14 @@ import {
   ListProposalsQuery,
   ListProposalsQueryVariables,
 } from './subgraph/queries/proposals.generated';
+import {
+  FindVoteDocument,
+  FindVoteQuery,
+  FindVoteQueryVariables,
+  ListVotesDocument,
+  ListVotesQuery,
+  ListVotesQueryVariables,
+} from './subgraph/queries/votes.generated';
 import {
   FindTxDocument,
   FindTxQuery,
@@ -212,6 +222,49 @@ export default class Query {
     };
   }
 
+  public async listVotes({
+    networkId,
+    filter,
+    ordering = {
+      orderBy: 'id',
+      orderDirection: 'desc',
+    },
+    paging = {
+      pageSize: DEFAULT_RECORDS_PER_PAGE,
+      offset: 0,
+    },
+  }: IListQueryArguments<Vote_OrderBy, Vote_Filter>): Promise<
+    IListQueryResults<Vote_OrderBy, Vote_Filter, ListVotesQuery['votes']>
+  > {
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
+    if (!url) {
+      throw new HausError({ type: 'INVALID_NETWORK_ERROR' });
+    }
+
+    const res = await graphFetchList<ListVotesQuery, ListVotesQueryVariables>(
+      ListVotesDocument,
+      url,
+      {
+        where: { ...filter, id_gt: paging.lastId || '' },
+        orderBy: paging.lastId ? 'id' : ordering.orderBy,
+        orderDirection: paging.lastId ? 'asc' : ordering.orderDirection,
+        first: paging.pageSize + 1,
+        skip: paging.offset,
+      }
+    );
+
+    const pagingUpdates = createPaging(res['votes'], paging);
+
+    return {
+      networkId,
+      filter,
+      ordering,
+      nextPaging: pagingUpdates.nextPaging,
+      previousPaging: pagingUpdates.previousPaging,
+      items: pagingUpdates.pageItems,
+    };
+  }
+
   public async listTransactions({
     networkId,
     filter,
@@ -291,7 +344,7 @@ export default class Query {
         url,
         networkId,
         {
-          id: dao,
+          id: dao.toLowerCase(),
         }
       );
 
@@ -360,6 +413,36 @@ export default class Query {
         networkId,
         {
           id: `${dao}-member-${memberAddress}`,
+        }
+      );
+    } catch (err) {
+      return {
+        error: new HausError({ type: 'SUBGRAPH_ERROR', errorObject: err }),
+      };
+    }
+  }
+
+  public async findVote({
+    networkId,
+    voteId,
+  }: {
+    networkId: keyof Keychain;
+    voteId: string;
+  }): Promise<IFindQueryResult<FindVoteQuery>> {
+    const url = this.endpoints['V3_SUBGRAPH'][networkId];
+    if (!url) {
+      return {
+        error: new HausError({ type: 'INVALID_NETWORK_ERROR' }),
+      };
+    }
+
+    try {
+      return await graphFetch<FindVoteQuery, FindVoteQueryVariables>(
+        FindVoteDocument,
+        url,
+        networkId,
+        {
+          id: voteId,
         }
       );
     } catch (err) {

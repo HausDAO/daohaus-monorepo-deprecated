@@ -22,7 +22,9 @@ export const NetworkButton = ({ isSm }: { isSm: boolean }) => {
 
   if (!isConnected) return null;
 
-  if (daoChainId !== chainId) return <NotDaoNetwork isSm={isSm} />;
+  if (daoChainId && daoChainId !== chainId) {
+    return <NotDaoNetwork isSm={isSm} />;
+  }
 
   if (!validNetwork) return <NotSupportedNetwork isSm={isSm} />;
 

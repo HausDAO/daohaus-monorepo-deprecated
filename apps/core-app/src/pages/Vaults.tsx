@@ -5,7 +5,6 @@ import { useDao } from '../contexts/DaoContext';
 import { VaultOverview } from '../components/VaultOverview';
 
 const VaultContainer = styled(Card)`
-  width: 110rem;
   padding: 3rem;
   border: none;
   @media ${widthQuery.lg} {

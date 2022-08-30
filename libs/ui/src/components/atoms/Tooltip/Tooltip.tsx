@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import {
   TooltipArrow,
   TooltipContent,
+  TooltipPortal,
   TooltipProvider,
   TooltipRoot,
   TooltipTrigger,
@@ -22,14 +24,34 @@ export const Tooltip = ({
   offset = 18,
   delay = 400,
 }: TooltipProps) => {
+  const [open, setOpen] = useState(false);
+  const [stayOpen, setStayOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+    setStayOpen(true);
+  };
+
+  const handleClickOutside = () => {
+    setOpen(false);
+    setStayOpen(false);
+  };
+
   return (
     <TooltipProvider delayDuration={delay}>
-      <TooltipRoot>
-        <TooltipTrigger>{triggerEl}</TooltipTrigger>
-        <TooltipContent side={side} sideOffset={offset}>
-          {content}
-          <TooltipArrow />
-        </TooltipContent>
+      <TooltipRoot open={open || stayOpen} onOpenChange={setOpen}>
+        <TooltipTrigger onClick={handleClickOpen}>{triggerEl}</TooltipTrigger>
+        <TooltipPortal>
+          <TooltipContent
+            side={side}
+            sideOffset={offset}
+            onEscapeKeyDown={handleClickOutside}
+            onPointerDownOutside={handleClickOutside}
+          >
+            {content}
+            <TooltipArrow />
+          </TooltipContent>
+        </TooltipPortal>
       </TooltipRoot>
     </TooltipProvider>
   );

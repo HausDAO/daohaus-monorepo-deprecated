@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { MdOutlineGavel } from 'react-icons/md';
 import { Italic, ParMd, Tooltip } from '@daohaus/ui';
+import { RiThumbUpLine } from 'react-icons/ri';
 
 const TemplateBox = styled.div`
   display: flex;
@@ -10,6 +11,7 @@ const TemplateBox = styled.div`
 
   .top-section {
     display: flex;
+    margin-bottom: 2.4rem;
     justify-content: space-between;
   }
   .main-section {
@@ -18,6 +20,13 @@ const TemplateBox = styled.div`
   .bottom-section {
     margin-top: auto;
   }
+`;
+
+export const DummyBar = styled.div`
+  width: 100%;
+  height: 1rem;
+  background-color: grey;
+  margin-bottom: 1.2rem;
 `;
 
 const QuorumBox = styled.div`
@@ -43,6 +52,25 @@ const QuorumDisplay = ({ quorumAmt }: { quorumAmt: number | number }) => {
 needed to meet Quorum.`}
       side="bottom"
     />
+  );
+};
+
+const VerdictBox = styled.div`
+  display: flex;
+  align-items: center;
+  svg {
+    margin-right: 0.6rem;
+  }
+`;
+
+export const ProposalPassed = () => {
+  const theme = useTheme();
+
+  return (
+    <VerdictBox>
+      <RiThumbUpLine size="1.6rem" color={theme.tint.secondary} />
+      <ParMd color={theme.tint.secondary}>Proposal Passed</ParMd>
+    </VerdictBox>
   );
 };
 

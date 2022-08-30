@@ -46,7 +46,6 @@ export const ProposalDetailsOverview = ({
 }: ProposalDetailsOverviewProps) => {
   const { daochain } = useParams();
 
-  console.log('proposal', proposal);
   return (
     <OverviewContainer>
       <ParMd>{proposal.description}</ParMd>

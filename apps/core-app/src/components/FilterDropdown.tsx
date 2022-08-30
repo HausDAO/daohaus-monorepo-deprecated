@@ -5,7 +5,7 @@ import { RiFilterFill } from 'react-icons/ri';
 
 import { Button, Dropdown, DropdownMenuItem, Theme } from '@daohaus/ui';
 import { indigoDark } from '@radix-ui/colors';
-import { ProposalListFilters } from '../utils/constants';
+import { PROPOSAL_FILTERS } from '../utils/constants';
 
 const DropdownButton = styled(Button)`
   &.selected {
@@ -24,7 +24,6 @@ const IconFilter = styled(RiFilterFill)`
 `;
 
 type FilterDropdownProps = {
-  // filter: Record<string, string>;
   filter: string;
   toggleFilter: (event: MouseEvent<HTMLButtonElement>) => void;
 };
@@ -40,11 +39,11 @@ const FilterDropdown = ({ filter, toggleFilter }: FilterDropdownProps) => {
       spacing=".6rem"
       trigger={
         <Button secondary IconLeft={IconFilter}>
-          Filter{filter && `: ${ProposalListFilters[filter]}`}
+          Filter{filter && `: ${PROPOSAL_FILTERS[filter]}`}
         </Button>
       }
     >
-      {Object.keys(ProposalListFilters).map((filterKey) => {
+      {Object.keys(PROPOSAL_FILTERS).map((filterKey) => {
         return (
           <DropdownMenuItem asChild key={filterKey}>
             <DropdownButton
@@ -56,7 +55,7 @@ const FilterDropdown = ({ filter, toggleFilter }: FilterDropdownProps) => {
               IconRight={filter === filterKey ? AiOutlineCheck : undefined}
               className={filter === filterKey ? 'selected' : ''}
             >
-              {ProposalListFilters[filterKey]}
+              {PROPOSAL_FILTERS[filterKey]}
             </DropdownButton>
           </DropdownMenuItem>
         );

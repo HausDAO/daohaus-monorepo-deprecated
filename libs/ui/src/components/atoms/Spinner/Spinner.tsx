@@ -56,6 +56,7 @@ const StyledSpinner = styled.div`
     }
   }
 `;
+
 const Container = styled.div`
   display: inline-flex;
   align-items: center;
@@ -64,6 +65,7 @@ const Container = styled.div`
   height: ${(props: SpinnerType) => props.size};
   padding: ${(props: SpinnerType) => props.padding};
 `;
+
 export const Spinner = ({
   topColor,
   bottomColor,

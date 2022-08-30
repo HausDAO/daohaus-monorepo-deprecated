@@ -38,9 +38,9 @@ Once imported you can use it as you would any other Context Provider:
 ReactDOM.render(
   <StrictMode>
     <BrowserRouter>
-        <HausConnectProvider>
-          <App />
-        </HausConnectProvider>
+      <HausConnectProvider>
+        <App />
+      </HausConnectProvider>
     </BrowserRouter>
   </StrictMode>,
   document.getElementById('root')

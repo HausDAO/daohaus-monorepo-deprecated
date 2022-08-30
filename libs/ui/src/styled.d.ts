@@ -13,6 +13,10 @@ export type ButtonColorTargets = {
   disabledText?: string;
   disabledBg?: string;
   disabledBorder?: string;
+  outline?: string;
+  outlineHover?: string;
+  outlineFocus?: string;
+  outlineDisabled?: string;
 };
 declare module 'styled-components' {
   export interface DefaultTheme {
@@ -103,6 +107,9 @@ declare module 'styled-components' {
       primary: ButtonColorTargets;
       secondary: ButtonColorTargets;
       tertiary: ButtonColorTargets;
+      success: ButtonColorTargets;
+      warning: ButtonColorTargets;
+      danger: ButtonColorTargets;
     };
     link: {
       color: string;

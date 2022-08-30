@@ -1,4 +1,3 @@
-import { LookupType } from '@daohaus/common-utilities';
 import { useMemo } from 'react';
 import { FieldLego } from '../types/formLegoTypes';
 import { generateRules } from '../utils/rules';
@@ -9,11 +8,9 @@ import { useFormBuilder } from './FormBuilder';
 export const FormBuilderFactory = ({
   spacing = true,
   field,
-  customFields,
 }: {
   field: FieldLego;
   spacing?: boolean;
-  customFields?: LookupType;
 }) => {
   const { type } = field;
   const {
@@ -22,7 +19,7 @@ export const FormBuilderFactory = ({
 
   const formState = errors;
 
-  const { formDisabled, requiredFields } = useFormBuilder();
+  const { formDisabled, requiredFields, customFields } = useFormBuilder();
 
   //  Memoizing solves the 'switch-away' mega-bug that was
   //  occuring because of the enumerator patttern selecting

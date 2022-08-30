@@ -1,7 +1,7 @@
 import { SUMMON_COPY } from '../data/copy';
 import { CustomFormLego } from './config';
 import { FIELD } from './fields';
-import { TX } from './tx';
+import { TABULA_TX, TX } from './tx';
 
 export const getFormLegoById = (
   id: CustomFormLego['id']
@@ -398,6 +398,94 @@ export const FORM: Record<string, CustomFormLego> = {
         id: 'lootRequested',
       },
       FIELD.TRIBUTE,
+    ],
+  },
+};
+
+export const TABULA_FORMS: Record<string, CustomFormLego> = {
+  CREATE_PUBLICATION: {
+    id: 'CREATE_PUBLICATION',
+    title: 'Start Publication',
+    subtitle: 'Publication Proposal',
+    description: 'Start a new DAO publication on Tabula.gg',
+    tx: TABULA_TX.CREATE_PUBLICATION,
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      {
+        id: 'pubData',
+        type: 'formSegment',
+        title: 'Publication Data',
+        description: 'Some information about your publication.',
+        fields: [
+          {
+            id: 'pubName',
+            type: 'input',
+            label: 'Publication Name',
+            placeholder: 'Name',
+          },
+          {
+            id: 'tags',
+            type: 'csInput',
+            label: 'Publication Name',
+            placeholder: 'comma, separated, tags',
+            itemNoun: {
+              singular: 'tag',
+              plural: 'tags',
+            },
+          },
+          {
+            id: 'pubDescription',
+            type: 'textarea',
+            label: 'Publication Description',
+            placeholder: 'Description',
+          },
+          {
+            id: 'pubImage',
+            type: 'input',
+            label: 'Publication Image',
+            placeholder: 'Image URL',
+            expectType: 'url',
+          },
+        ],
+      },
+    ],
+  },
+  CREATE_ARTICLE: {
+    id: 'CREATE_ARTICLE',
+    title: 'Write an Article',
+    subtitle: 'Tabula Article Proposal',
+    description: 'Write an article on Tabula.gg',
+    log: true,
+    tx: TABULA_TX.CREATE_ARTICLE,
+    requiredFields: {
+      title: true,
+      description: true,
+      articleTitle: true,
+      fakeMD: true,
+      pub_id: true,
+    },
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      {
+        id: 'pubData',
+        type: 'formSegment',
+        title: 'Publication Data',
+        description: 'Some information about your publication.',
+        fields: [
+          {
+            id: 'articleTitle',
+            type: 'input',
+            label: 'Article Title',
+            placeholder: "ex. 10 Signs You're a Real Champ",
+          },
+          // @ts-expect-error: cannot resolve nested custom field types
+          FIELD.FAKE_MD,
+        ],
+      },
     ],
   },
 };

@@ -19,6 +19,7 @@ import useDaoData from '../hooks/useDaoData';
 import { Layout } from '../components/Layout';
 import Header from '../components/Header';
 import { Profile } from '../components/Profile';
+import { charLimit } from '@daohaus/common-utilities';
 
 const BodyNavArea = styled.div`
   grid-area: profile;
@@ -107,7 +108,7 @@ const DaoColumn = ({ daoData }: { daoData: ITransformedMembership[] }) => {
         return (
           <StyledListItem key={dao.dao}>
             <ProfileAvatar size="sm" address={dao.dao} />
-            {dao.name}
+            {charLimit(dao.name, 32)}
             {dao.isDelegate && (
               <Tag tagColor="yellow" key={index}>
                 Delegate

@@ -13,7 +13,7 @@ import {
 import { TDao, useConnectedMembership } from '../contexts/DaoContext';
 import { TagList } from '../components/TagList';
 import { useParams } from 'react-router-dom';
-import { Keychain } from '@daohaus/common-utilities';
+import { charLimit, Keychain } from '@daohaus/common-utilities';
 
 const MetaCardHeader = styled.div`
   display: flex;
@@ -74,7 +74,11 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
           </div>
         </div>
         <div className="section-middle">
-          <DataIndicator label="DAO Name" data={dao.name} size="sm" />
+          <DataIndicator
+            label="DAO Name"
+            data={charLimit(dao.name, 21)}
+            size="sm"
+          />
           <div className="tags">
             <DataIndicator
               label="Description"

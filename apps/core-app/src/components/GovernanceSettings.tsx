@@ -3,6 +3,7 @@ import { H3, H4, DataIndicator, ParSm, widthQuery, Theme } from '@daohaus/ui';
 
 import { TDao } from '../contexts/DaoContext';
 import {
+  charLimit,
   formatPeriods,
   formatValueTo,
   fromWei,
@@ -141,7 +142,11 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
           })}
         />
         <DataIndicator size="sm" label="Symbol" data={dao.shareTokenSymbol} />
-        <DataIndicator size="sm" label="Name" data={dao.shareTokenName} />
+        <DataIndicator
+          size="sm"
+          label="Name"
+          data={charLimit(dao.shareTokenName, 12)}
+        />
         <DataIndicator
           size="sm"
           label="Transferability"
@@ -160,7 +165,11 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
           })}
         />
         <DataIndicator size="sm" label="Symbol" data={dao.lootTokenSymbol} />
-        <DataIndicator size="sm" label="Name" data={dao.lootTokenName} />
+        <DataIndicator
+          size="sm"
+          label="Name"
+          data={charLimit(dao.lootTokenName, 12)}
+        />
         <DataIndicator
           size="sm"
           label="Transferability"

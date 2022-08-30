@@ -8,7 +8,7 @@ export function UpdateSettings() {
   const { dao } = useDao();
 
   const defaultFields = useMemo(() => {
-    const links = dao && JSON.parse(dao?.links as string);
+    const links = dao ? dao?.links : {};
     return {
       name: dao?.name,
       icon: dao?.avatarImg,

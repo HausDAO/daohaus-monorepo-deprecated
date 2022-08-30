@@ -101,6 +101,7 @@ export const addDaoProfileFields = (
 
   try {
     const obj = JSON.parse(dao.profile[0].content);
+    const links = obj.links && JSON.parse(obj.links);
     return {
       description: obj.description,
       longDescription: obj.longDescription,
@@ -110,7 +111,7 @@ export const addDaoProfileFields = (
           /Qm[a-zA-Z0-9/.]+/
         )}`,
       tags: obj.tags,
-      links: obj.links,
+      links,
     };
   } catch (e) {
     console.log('daoprofile parsing error', e);

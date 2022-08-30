@@ -29,7 +29,7 @@ export const NETWORK_DATA: Keychain<NetworkType> = {
   },
 };
 
-export const getNetwork = (chainId: string) => {
+export const getNetwork = (chainId: string | undefined) => {
   if (!isValidNetwork(chainId)) {
     return null;
   }

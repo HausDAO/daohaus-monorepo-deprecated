@@ -15,7 +15,7 @@ import { NewProposalList } from '../components/NewProposalList';
 import { FORM } from '../legos/form';
 import SearchInput from '../components/SearchInput';
 import FilterDropdown from '../components/FilterDropdown';
-import { BaseProposalCard } from '../components/BaseProposalCard';
+import { BaseProposalCard } from '../components/proposalCards/BaseProposalCard';
 import useDebounce from '../utils/debounceHook';
 import { PROPOSAL_STATUS } from '@daohaus/common-utilities';
 

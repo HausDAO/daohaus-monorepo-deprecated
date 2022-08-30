@@ -1,6 +1,12 @@
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
-import { AddressDisplay, Button, ParLg, ParMd } from '@daohaus/ui';
+import styled, { useTheme } from 'styled-components';
+import {
+  AddressDisplay,
+  Button,
+  ParLg,
+  ParMd,
+  TintSecondary,
+} from '@daohaus/ui';
 import {
   formatShortDateTimeFromSeconds,
   Keychain,
@@ -35,20 +41,22 @@ export const ProposalCardOverview = ({
   proposal,
 }: ProposalCardOverviewProps) => {
   const { daochain } = useParams();
-
+  const theme = useTheme();
   return (
     <OverviewContainer>
       <OverviewHeader>
-        <ParMd>
+        <ParMd color={theme.tint.secondary}>
           {proposal.proposalType} |{' '}
           {formatShortDateTimeFromSeconds(proposal.createdAt)}
         </ParMd>
-        <Button secondary>View Details</Button>
+        <Button secondary sm>
+          View Details
+        </Button>
       </OverviewHeader>
       <ParLg color="white">{proposal.title}</ParLg>
       <ParMd>{proposal.description}</ParMd>
       <SubmittedContainer>
-        <ParMd>Submitted by</ParMd>
+        <ParMd color={theme.tint.secondary}>Submitted by</ParMd>
         <AddressDisplay
           truncate
           address={proposal.createdBy}

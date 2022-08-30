@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { Card, ParLg, ParSm, widthQuery } from '@daohaus/ui';
 
-import { TProposals } from '../contexts/DaoContext';
-import { ProposalCardOverview } from './ProposalCardOverview';
+import { TProposals } from '../../contexts/DaoContext';
+import { ProposalCardOverview } from '../ProposalCardOverview';
+import ProposalActions from './ProposalActions';
+import { ITransformedProposal } from '@daohaus/dao-data';
 
 const ProposalCardContainer = styled(Card)`
   display: flex;
@@ -10,8 +12,9 @@ const ProposalCardContainer = styled(Card)`
   gap: 3rem;
   width: 100%;
   margin-bottom: 3rem;
+  padding: 2.3rem 2.5rem;
   border: none;
-  height: 24.8rem;
+  height: 23.8rem;
   max-width: 100vw;
   @media ${widthQuery.sm} {
     flex-direction: column;
@@ -37,7 +40,7 @@ const RightCard = styled.div`
 `;
 
 type BaseProposalCardProps = {
-  proposal: TProposals[number];
+  proposal: ITransformedProposal;
 };
 
 export const BaseProposalCard = ({ proposal }: BaseProposalCardProps) => {
@@ -47,8 +50,7 @@ export const BaseProposalCard = ({ proposal }: BaseProposalCardProps) => {
         <ProposalCardOverview proposal={proposal} />
       </LeftCard>
       <RightCard>
-        <ParLg>actions</ParLg>
-        <ParSm>status: {proposal.status}</ParSm>
+        <ProposalActions proposal={proposal} />
       </RightCard>
     </ProposalCardContainer>
   );

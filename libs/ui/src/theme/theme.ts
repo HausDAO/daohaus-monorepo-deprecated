@@ -44,6 +44,9 @@ export const defaultDarkTheme: Theme = {
   disabled: neutralDark.bgSolid,
   transparent: 'transparent',
   info: utilityDark.info,
+  tint: {
+    secondary: secondaryDark.textLowContrast,
+  },
   // *** ATOMS *** //
   button: {
     primary: PrimaryDarkButton,
@@ -226,6 +229,9 @@ export const defaultLightTheme: Theme = {
   info: utility.info,
   transparent: utility.transparent,
   disabled: neutral.bgSolid,
+  tint: {
+    secondary: secondary.elementBorder,
+  },
   // *** ATOMS *** //
   button: {
     primary: PrimaryLightButton,

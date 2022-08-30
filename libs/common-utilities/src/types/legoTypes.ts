@@ -87,6 +87,11 @@ export type NestedArray = {
   args: ValidArgType[];
 };
 
+export type IPFSPinata = {
+  type: 'ipfsPinata';
+  content: ValidArgType;
+};
+
 export type ValidArgType =
   | StringSearch
   | JSONDetailsSearch
@@ -96,6 +101,7 @@ export type ValidArgType =
   | MulticallArg
   | ProposalExpiry
   | StaticArg
+  | IPFSPinata
   | ArgEncode;
 
 export type TxStates =

@@ -42,7 +42,7 @@ export const ProposalExpiry = ({ id, defaultValue, rules, ...props }: ProposalEx
         Number(dao.votingPeriod) +
         Number(dao.gracePeriod) +
         extendedPeriodSeconds;
-      setValue(id, extendedPeriodSeconds);
+      setValue(id, absoluteExtendedPeriod);
       setValue(
         expiryDateString,
         format(

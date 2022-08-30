@@ -7,7 +7,6 @@ import {
   RiThumbDownLine,
   RiThumbUpLine,
 } from 'react-icons/ri';
-import { toWholeUnits } from '@daohaus/common-utilities';
 
 const TemplateBox = styled.div`
   display: flex;

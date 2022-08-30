@@ -141,6 +141,15 @@ export async function prepareTX(args: {
 
     console.log('**PROCESSED ARGS**', processedArgs);
 
+    // TODO for gasLimit and value
+    // const processOverrides = await
+    // looks in the lego and gets value and/or gasLimit
+    // returns {} or {
+    //   value: '1000000000',
+    //   gasLimit: '1000000',
+    // }
+    // add new overrides to tx lego and it can use the process args stuff and all current arg types
+
     const contract = new ethers.Contract(
       address,
       abi,
@@ -148,6 +157,11 @@ export async function prepareTX(args: {
     );
 
     lifeCycleFns?.onRequestSign?.();
+    // const ethersTx = await contract.functions[method](...processedArgs, {
+    //   value: '1000000000',
+    //   gasLimit: '1000000',
+    // });
+
     const ethersTx = await contract.functions[method](...processedArgs);
     executeTx({ ...args, ethersTx });
   } catch (error) {

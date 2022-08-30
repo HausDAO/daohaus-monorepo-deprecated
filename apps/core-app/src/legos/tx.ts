@@ -270,6 +270,48 @@ export const TX: Record<string, TXLego> = {
       },
     ],
   },
+  GUILDKICK: buildMultiCallTX({
+    id: 'GUILDKICK',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        proposalType: { type: 'static', value: 'GuildKick Proposal' },
+      },
+    },
+    actions: [
+      {
+        contract: CONTRACT.CURRENT_DAO,
+        method: 'mintLoot',
+        args: [
+          {
+            type: 'nestedArray',
+            args: ['.formValues.memberAddress'],
+          },
+          {
+            type: 'nestedArray',
+            args: ['.formValues.memberShares'],
+          },
+        ],
+      },
+      {
+        contract: CONTRACT.CURRENT_DAO,
+        method: 'burnShares',
+        args: [
+          {
+            type: 'nestedArray',
+            args: ['.formValues.memberAddress'],
+          },
+          {
+            type: 'nestedArray',
+            args: ['.formValues.memberShares'],
+          },
+        ],
+      },
+    ],
+  }),
 };
 
 export const TABULA_TX: Record<string, TXLego> = {

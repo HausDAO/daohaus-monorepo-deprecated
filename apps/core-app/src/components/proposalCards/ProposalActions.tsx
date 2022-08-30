@@ -6,6 +6,7 @@ import {
   GasDisplay,
   Verdict,
 } from './ActionPrimitives';
+import { Unsponsored } from './Unsponsored';
 
 const ActionBox = styled.div`
   display: flex;
@@ -21,16 +22,7 @@ export const ProposalActions = ({
 }) => {
   return (
     <ActionBox>
-      <ActionTemplate
-        statusDisplay="Proposal Failed"
-        main={
-          <div>
-            <DummyBar />
-            <Verdict passed={false} />
-          </div>
-        }
-        helperDisplay={<GasDisplay gasAmt="Check" />}
-      />
+      <Unsponsored proposal={proposal} />
     </ActionBox>
   );
 };

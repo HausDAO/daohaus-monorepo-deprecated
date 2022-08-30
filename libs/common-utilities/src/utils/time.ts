@@ -15,8 +15,9 @@ export const unixTimeInSeconds = () => {
 };
 
 export const calcExpiry = (duration: number) => {
-  return unixTimeInSeconds() + duration;
+  return duration > 0 ? unixTimeInSeconds() + duration : 0;
 };
+
 export const formatPeriods = (duration: string) => {
   if (duration) {
     let s = Number(duration);

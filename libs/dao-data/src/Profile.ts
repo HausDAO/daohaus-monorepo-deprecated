@@ -12,12 +12,25 @@ import {
   Dao_OrderBy,
   Member_Filter,
   LensProfile,
+  IListQueryArguments,
+  Proposal_OrderBy,
+  Proposal_Filter,
+  IListQueryResults,
+  ITransformedProposalListQuery,
+  ListConnectedMemberProposalsQueryVariables,
+  ListConnectedMemberProposalsQuery,
+  ListConnectedMemberProposalsDocument,
 } from './types';
 import {
   transformMembershipList,
   transformProfile,
 } from './utils/transformers';
-import { graphFetch, graphFetchList } from './utils';
+import {
+  createPaging,
+  DEFAULT_RECORDS_PER_PAGE,
+  graphFetch,
+  graphFetchList,
+} from './utils';
 import Query from './Query';
 import { Dao_Filter } from './types';
 import {
@@ -25,6 +38,7 @@ import {
   ListProfileQuery,
   ListProfileQueryVariables,
 } from './subgraph/queries-lens/profiles.generated';
+import { HausError } from './HausError';
 
 export default class Profile {
   query: Query;
@@ -155,5 +169,55 @@ export default class Profile {
     } else {
       return { data: { daos: transformedList } };
     }
+  }
+
+  public async listProposalVotesByMember({
+    networkId,
+    filter,
+    memberAddress,
+    ordering = {
+      orderBy: 'id',
+      orderDirection: 'desc',
+    },
+    paging = {
+      pageSize: DEFAULT_RECORDS_PER_PAGE,
+      offset: 0,
+    },
+  }: IListQueryArguments<Proposal_OrderBy, Proposal_Filter> & {
+    memberAddress: string;
+  }): Promise<
+    IListQueryResults<
+      Proposal_OrderBy,
+      Proposal_Filter,
+      ListConnectedMemberProposalsQuery['proposals']
+    >
+  > {
+    const url = this.query.endpoints['V3_SUBGRAPH'][networkId];
+    if (!url) {
+      throw new HausError({ type: 'INVALID_NETWORK_ERROR' });
+    }
+
+    const res = await graphFetchList<
+      ListConnectedMemberProposalsQuery,
+      ListConnectedMemberProposalsQueryVariables
+    >(ListConnectedMemberProposalsDocument, url, {
+      where: { ...filter, id_gt: paging.lastId || '' },
+      memberWhere: { memberAddress },
+      orderBy: paging.lastId ? 'id' : ordering.orderBy,
+      orderDirection: paging.lastId ? 'asc' : ordering.orderDirection,
+      first: paging.pageSize + 1,
+      skip: paging.offset,
+    });
+
+    const pagingUpdates = createPaging(res['proposals'], paging);
+
+    return {
+      networkId,
+      filter,
+      ordering,
+      nextPaging: pagingUpdates.nextPaging,
+      previousPaging: pagingUpdates.previousPaging,
+      items: pagingUpdates.pageItems,
+    };
   }
 }

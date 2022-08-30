@@ -36,7 +36,7 @@ export const getNetwork = (chainId: string | undefined) => {
   return NETWORK_DATA[chainId];
 };
 
-export const getNetworkName = (chainId: string) => {
+export const getNetworkName = (chainId: string | undefined) => {
   return getNetwork(chainId)?.name || null;
 };
 

@@ -4,6 +4,7 @@ query listProposals(
   $first: Int! = 100
   $orderBy: Proposal_orderBy! = id
   $orderDirection: OrderDirection! = asc
+  $connectedAddress: Bytes
 ) {
   proposals: proposals(
     where: $where
@@ -16,7 +17,39 @@ query listProposals(
   }
 }
 
-query findProposal($id: ID!) {
+query listConnectedMemberProposals(
+  $where: Proposal_filter! = {}
+  $memberWhere: Member_filter! = {}
+  $skip: Int! = 0
+  $first: Int! = 100
+  $orderBy: Proposal_orderBy! = id
+  $orderDirection: OrderDirection! = asc
+  $connectedAddress: Bytes
+) {
+  proposals: proposals(
+    where: $where
+    skip: $skip
+    first: $first
+    orderBy: $orderBy
+    orderDirection: $orderDirection
+  ) {
+    id
+    connectedMemberVotes: votes(where: { member_: $memberWhere }) {
+      id
+      txHash
+      createdAt
+      daoAddress
+      approved
+      balance
+      member {
+        id
+        memberAddress
+      }
+    }
+  }
+}
+
+query findProposal($id: ID!, $connectedAddress: Bytes) {
   proposal: proposal(id: $id) {
     ...proposalFields
   }

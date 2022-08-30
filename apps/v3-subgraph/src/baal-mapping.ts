@@ -194,6 +194,7 @@ export function handleSubmitProposal(event: SubmitProposal): void {
         .plus(dao.gracePeriod)
     : constants.BIGINT_ZERO;
 
+  proposal.details = event.params.details;
   let result = parser.getResultFromJson(event.params.details);
   if (result.error != 'none') {
     log.error('details parse error prop: {}', [proposalId]);

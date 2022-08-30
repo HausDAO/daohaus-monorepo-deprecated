@@ -4,6 +4,7 @@ import {
   FindMemberQuery,
   Haus,
   ITransformedProposalListQuery,
+  ListConnectedMemberProposalsQuery,
   ListMembersQuery,
   Member_Filter,
   Member_OrderBy,
@@ -12,6 +13,7 @@ import {
   Proposal_Filter,
   Proposal_OrderBy,
 } from '@daohaus/dao-data';
+import { ErrorMessage } from '@daohaus/ui';
 import deepEqual from 'deep-eql';
 
 export const loadDao = async ({
@@ -145,6 +147,50 @@ export const loadMembersList = async ({
   }
 };
 
+export const isActiveMember = async ({
+  daoid,
+  daochain,
+  address,
+  setMemberLoading,
+}: {
+  daoid: string;
+  daochain: keyof Keychain;
+  address: string;
+  setMemberLoading: ReactSetter<boolean>;
+}): Promise<{ member?: FindMemberQuery['member']; error?: ErrorMessage; }> => {
+  try {
+    setMemberLoading(true);
+    const haus = Haus.create();
+    const memberRes = await haus.query.findMember({
+      networkId: daochain,
+      dao: daoid,
+      memberAddress: address.toLowerCase(),
+    });
+
+    if (memberRes?.data?.member && Number(memberRes?.data?.member?.shares) > 0) {
+      return {
+        member: memberRes?.data?.member,
+      };
+    }
+    return {
+      error: {
+        type: 'error',
+        message: `Member not found`,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      error: {
+        type: 'error',
+        message: `${error}`,
+      },
+    };
+  } finally {
+    setMemberLoading(false);
+  }
+};
+
 export const loadProposalsList = async ({
   filter,
   ordering,
@@ -176,6 +222,57 @@ export const loadProposalsList = async ({
     if (shouldUpdate) {
       setNextPaging(res.nextPaging);
 
+      setData((prevState) => {
+        if (deepEqual(prevState, res.items)) return res.items;
+        if (prevState) {
+          return [...prevState, ...res.items];
+        } else {
+          return res.items;
+        }
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    setData(undefined);
+  } finally {
+    if (shouldUpdate) {
+      setLoading(false);
+    }
+  }
+};
+
+export const loadConnectedMemberVotesList = async ({
+  filter,
+  ordering,
+  paging,
+  daochain,
+  setData,
+  setLoading,
+  shouldUpdate,
+  memberAddress,
+}: {
+  filter: Proposal_Filter;
+  ordering?: Ordering<Proposal_OrderBy>;
+  paging?: Paging;
+  daochain: keyof Keychain;
+  setData: ReactSetter<
+    ListConnectedMemberProposalsQuery['proposals'] | undefined
+  >;
+  setLoading: ReactSetter<boolean>;
+  shouldUpdate: boolean;
+  memberAddress: string;
+}) => {
+  try {
+    setLoading(true);
+    const haus = Haus.create();
+    const res = await haus.profile.listProposalVotesByMember({
+      networkId: daochain,
+      filter,
+      ordering,
+      paging,
+      memberAddress,
+    });
+    if (shouldUpdate) {
       setData((prevState) => {
         if (deepEqual(prevState, res.items)) return res.items;
         if (prevState) {

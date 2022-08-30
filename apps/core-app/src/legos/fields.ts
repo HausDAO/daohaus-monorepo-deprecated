@@ -71,4 +71,10 @@ export const FIELD: Record<string, CustomFieldLego> = {
     type: 'fakeMarkdown',
     label: 'Real Fake MD Editor',
   },
+  APPLICANT: {
+    id: 'applicantAddress',
+    type: 'selectApplicant',
+    label: 'Applicant',
+    daoMemberOnly: false,
+  },
 };

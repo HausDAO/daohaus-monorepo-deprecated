@@ -11,6 +11,7 @@ import {
   SuccessText,
   WarningText,
 } from '../../atoms/HelperTexts';
+import{ Spinner } from '../../atoms/Spinner';
 import {
   BottomContainer,
   FieldWrapperBase,
@@ -39,6 +40,7 @@ type HelperTextFactoryProps = {
 export const FieldWrapper = ({
   children,
   label,
+  loading,
   info,
   error,
   success,
@@ -73,6 +75,7 @@ export const FieldWrapper = ({
       <div className="field-slot">{children}</div>
       <BottomContainer className={classes}>
         <LeftAddonContainer>
+          {loading && <Spinner size='2rem' />}
           <HelperTextFactory
             error={error || fieldError}
             success={success}

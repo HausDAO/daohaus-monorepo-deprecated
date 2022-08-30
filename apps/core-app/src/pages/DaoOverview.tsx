@@ -9,7 +9,7 @@ import {
 } from '@daohaus/ui';
 import { useDao } from '../contexts/DaoContext';
 import { DaoProfile } from '../components/DaoProfile';
-import { formatValueTo, fromWei } from '@daohaus/common-utilities';
+import { charLimit, formatValueTo, fromWei } from '@daohaus/common-utilities';
 
 const OverviewCard = styled(Card)`
   width: 64rem;
@@ -67,9 +67,12 @@ export function DaoOverview() {
             </DataGrid>
           </OverviewCard>
           <TokensCard>
-            <H4>{dao.shareTokenName}</H4>
+            <H4>{charLimit(dao.shareTokenName, 23)}</H4>
             <DataGrid>
-              <DataIndicator label="Voting Tokens" data={dao.shareTokenName} />
+              <DataIndicator
+                label="Voting Tokens"
+                data={charLimit(dao.shareTokenName, 8)}
+              />
               <DataIndicator
                 label="Supply"
                 data={formatValueTo({
@@ -79,7 +82,10 @@ export function DaoOverview() {
                 })}
               />
               <DataIndicator label="Token Holders" data="5" />
-              <DataIndicator label="Economic Tokens" data={dao.lootTokenName} />
+              <DataIndicator
+                label="Economic Tokens"
+                data={charLimit(dao.lootTokenName, 8)}
+              />
               <DataIndicator
                 label="Supply"
                 data={formatValueTo({

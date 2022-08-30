@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { Keychain } from '@daohaus/common-utilities';
+import { charLimit, Keychain } from '@daohaus/common-utilities';
 import {
   AddressDisplay,
   border,
@@ -83,7 +83,7 @@ export const DaoProfile = ({ dao }: DaoProfileProps) => {
       <div className="avatar">
         <DaoProfileAvatar address={dao.id} image={dao.avatarImg} />
         <div>
-          <H4>{dao.name}</H4>
+          <H4>{charLimit(dao.name, 21)}</H4>
           <AddressDisplay
             address={dao.id}
             truncate

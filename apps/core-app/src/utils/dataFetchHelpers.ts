@@ -4,6 +4,7 @@ import {
   FindMemberQuery,
   Haus,
   ITransformedProposalListQuery,
+  ITransformedProposalQuery,
   ListConnectedMemberProposalsQuery,
   ListMembersQuery,
   Member_Filter,
@@ -91,6 +92,48 @@ export const loadMember = async ({
   } finally {
     if (shouldUpdate) {
       setMemberLoading(false);
+    }
+  }
+};
+
+export const loadProposal = async ({
+  daoid,
+  daochain,
+  proposalId,
+  setProposal,
+  setProposalLoading,
+  shouldUpdate,
+  connectedAddress,
+}: {
+  daoid: string;
+  daochain: keyof Keychain;
+  proposalId: string;
+  setProposal: ReactSetter<ITransformedProposalQuery['proposal'] | undefined>;
+  setProposalLoading: ReactSetter<boolean>;
+  shouldUpdate: boolean;
+  connectedAddress?: string | null;
+}) => {
+  try {
+    setProposalLoading(true);
+    const haus = Haus.create();
+    const res = await haus.query.findProposal({
+      networkId: daochain,
+      dao: daoid,
+      proposalId: proposalId.toLowerCase(),
+      connectedAddress,
+    });
+
+    if (res?.data?.proposal && shouldUpdate) {
+      setProposal(res.data.proposal);
+    } else if (shouldUpdate) {
+      setProposal(undefined);
+    }
+  } catch (error) {
+    console.error(error);
+    setProposal(undefined);
+  } finally {
+    if (shouldUpdate) {
+      setProposalLoading(false);
     }
   }
 };

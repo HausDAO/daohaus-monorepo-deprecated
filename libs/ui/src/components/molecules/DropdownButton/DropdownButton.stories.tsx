@@ -1,12 +1,13 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { RiAlertLine, RiArrowDropDownLine } from 'react-icons/ri';
+import { Avatar } from '../../atoms/Avatar';
 import { DropdownButton } from './DropdownButton';
 
 export default {
   title: 'Atoms/DropdownButton',
   component: DropdownButton,
   argTypes: {
-    theme: {
+    colorVariant: {
       description: 'Set the base theme color for the button',
       defaultValue: 'primary',
       options: ['primary', 'secondary'],
@@ -38,10 +39,24 @@ export const BaseDropdownButton = Template.bind({});
 
 BaseDropdownButton.args = {
   children: 'Button',
-  onClick: () => alert('clicked me'),
-  theme: 'primary',
+  colorVariant: 'primary',
   variant: 'solid',
   size: 'md',
   disabled: false,
   width: 'fit-content',
+};
+
+export const ProfileDropdownButton = Template.bind({});
+
+ProfileDropdownButton.args = {
+  children: 'Button',
+  colorVariant: 'primary',
+  variant: 'solid',
+  size: 'md',
+  disabled: false,
+  width: 'fit-content',
+  profile: {
+    src: 'https://bafybeiabmsm2gy3eb7d3b3zx7mqmg7tg54swosqjb2swcwpatgrctu5ry4.ipfs.dweb.link/',
+    alt: 'Jord waz here',
+  },
 };

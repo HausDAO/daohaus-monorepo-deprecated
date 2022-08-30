@@ -82,7 +82,7 @@ export const defaultDaoData = {
   setProposalsSort: () => {
     return;
   },
-  proposalsPaging: { offset: 0, pageSize: 3 },
+  proposalsPaging: { offset: 0, pageSize: 10 },
   proposalsNextPaging: undefined,
   setProposalsPaging: () => {
     return;
@@ -260,7 +260,6 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   useEffect(() => {
     let shouldUpdate = true;
     if (daochain && daoid) {
-      console.log('proposalsFilter', proposalsFilter);
       loadProposalsList({
         filter: { dao: daoid, ...proposalsFilter },
         ordering: proposalsSort,

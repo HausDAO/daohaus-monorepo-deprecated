@@ -14,32 +14,12 @@ query listProposals(
     orderDirection: $orderDirection
   ) {
     ...proposalFields
-    connectedAddressVotes: votes(
-      where: { member_: { memberAddress: $connectedAddress } }
-    ) {
-      id
-      txHash
-      createdAt
-      daoAddress
-      approved
-      balance
-    }
   }
 }
 
 query findProposal($id: ID!, $connectedAddress: Bytes) {
   proposal: proposal(id: $id) {
     ...proposalFields
-    connectedAddressVotes: votes(
-      where: { member_: { memberAddress: $connectedAddress } }
-    ) {
-      id
-      txHash
-      createdAt
-      daoAddress
-      approved
-      balance
-    }
   }
 }
 

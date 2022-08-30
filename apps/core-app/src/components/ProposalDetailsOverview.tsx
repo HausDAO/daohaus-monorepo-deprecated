@@ -2,8 +2,6 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import {
   AddressDisplay,
-  Button,
-  ParLg,
   ParMd,
   Link,
   Theme,
@@ -48,6 +46,7 @@ export const ProposalDetailsOverview = ({
 }: ProposalDetailsOverviewProps) => {
   const { daochain } = useParams();
 
+  console.log('proposal', proposal);
   return (
     <OverviewContainer>
       <ParMd>{proposal.description}</ParMd>
@@ -68,7 +67,11 @@ export const ProposalDetailsOverview = ({
         </div>
         <DataIndicator
           label="Expiration Date"
-          data={formatShortDateTimeFromSeconds(proposal.expiration)}
+          data={
+            +proposal.expiration
+              ? formatShortDateTimeFromSeconds(proposal.expiration)
+              : '--'
+          }
           size="sm"
         />
       </DataContainer>

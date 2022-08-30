@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { AddressDisplay, Button, ParLg, ParMd, Link } from '@daohaus/ui';
 import {
+  charLimit,
   formatShortDateTimeFromSeconds,
   Keychain,
 } from '@daohaus/common-utilities';
@@ -56,7 +57,7 @@ export const ProposalCardOverview = ({
         </StyledLink>
       </OverviewHeader>
       <ParLg color="white">{proposal.title}</ParLg>
-      <ParMd>{proposal.description}</ParMd>
+      <ParMd>{charLimit(proposal.description, 145)}</ParMd>
       <SubmittedContainer>
         <ParMd>Submitted by</ParMd>
         <AddressDisplay

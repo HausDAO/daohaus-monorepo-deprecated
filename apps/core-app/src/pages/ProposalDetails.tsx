@@ -65,7 +65,6 @@ export function ProposalDetails() {
     };
   }, [daochain, daoid, proposalId, address]);
 
-  console.log('proposalId', proposalId, proposal);
   if (proposalLoading) {
     return (
       <SingleColumnLayout>
@@ -83,7 +82,7 @@ export function ProposalDetails() {
           {proposal && <ProposalDetailsOverview proposal={proposal} />}
         </OverviewCard>
       }
-      right={<RightCard>poopin right</RightCard>}
+      right={<RightCard>actions</RightCard>}
     />
   );
 }

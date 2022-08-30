@@ -38,4 +38,8 @@ export const ENDPOINTS: KeychainList = {
     '0x89': 'https://gnosis-safe.io/app/pol',
     '0xa4b1': 'https://gnosis-safe.io/app/arb',
   },
+  TABULA_GRAPH: {
+    '0x5':
+      'https://api.thegraph.com/subgraphs/name/auryn-macmillan/tabula-goerli',
+  },
 };

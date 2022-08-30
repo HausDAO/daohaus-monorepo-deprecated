@@ -7,16 +7,18 @@ import { RequestNativeToken } from '../components/customFields/RequestNativeToke
 import { RequestERC20 } from '../components/customFields/RequestERC20';
 import { ShamanDeluxe } from '../components/customFields/ShamanDeluxe';
 import { TagsInput } from '../components/customFields/tagsInput';
+import { FakeMarkdown } from '../components/FakeMarkdown';
 
 export const CustomFields = {
   ...CoreFieldLookup,
-  proposalExpiry: ProposalExpiry, 
+  proposalExpiry: ProposalExpiry,
   tributeInput: TributeInput,
   toWeiInput: ToWeiInput,
   requestNativeToken: RequestNativeToken,
   requestERC20: RequestERC20,
   shamanPermissionDeluxe: ShamanDeluxe,
   tagsInput: TagsInput,
+  fakeMarkdown: FakeMarkdown,
 };
 
 export type CustomFieldLego = FieldLegoBase<typeof CustomFields>;

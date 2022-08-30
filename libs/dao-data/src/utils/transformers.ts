@@ -101,7 +101,6 @@ export const addDaoProfileFields = (
 
   try {
     const obj = JSON.parse(dao.profile[0].content);
-    console.log('obj', obj);
     const links =
       obj.links && typeof obj.links === 'string'
         ? JSON.parse(obj.links)

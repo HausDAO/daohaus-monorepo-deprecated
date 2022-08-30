@@ -289,8 +289,8 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   const currentDaoProposals = useRef<null | string>(null);
   useEffect(() => {
     let shouldUpdate = true;
-    // console.log('daoid, currentDao', daoid, currentDao);
 
+    console.log('prop useeffect fired');
     if (daochain && daoid) {
       if (
         currentDaoProposals.current &&

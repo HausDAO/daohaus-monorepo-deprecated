@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, useEffect, useMemo, useState } from 'react';
+import { MouseEvent, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import {
   Button,
@@ -16,7 +16,6 @@ import { FORM } from '../legos/form';
 import SearchInput from '../components/SearchInput';
 import FilterDropdown from '../components/FilterDropdown';
 import { BaseProposalCard } from '../components/BaseProposalCard';
-import useDebounce from '../utils/debounceHook';
 import { PROPOSAL_STATUS } from '@daohaus/common-utilities';
 
 const ActionsContainer = styled.div`
@@ -42,16 +41,15 @@ export function Proposals() {
     setProposals,
   } = useProposals();
   const { dao } = useDao();
-  const [searchTerm, setSearchTerm] = useState<string | ''>('');
-  const [filter, setFilter] = useState<string | ''>('');
-
-  const debouncedSearchTerm = useDebounce<string>(searchTerm, 700);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [filter, setFilter] = useState<string>('');
 
   const newProposals = useMemo(() => {
     return Object.keys(FORM).map((key) => FORM[key]);
   }, []);
 
-  useEffect(() => {
+  const handleSearchFilter = (term: string) => {
+    setSearchTerm(term);
     const filterQuery =
       filter !== ''
         ? statusFilter(
@@ -60,26 +58,18 @@ export function Proposals() {
           )
         : undefined;
 
-    if (debouncedSearchTerm && debouncedSearchTerm !== '') {
+    if (searchTerm && searchTerm.length > 0) {
       setProposals(undefined);
       setProposalsFilter({
         ...filterQuery,
-        title_contains_nocase: debouncedSearchTerm,
+        title_contains_nocase: searchTerm,
       });
       setProposalsPaging(defaultDaoData.proposalsPaging);
     } else {
+      setProposals(undefined);
       setProposalsFilter(filterQuery);
       setProposalsPaging(defaultDaoData.proposalsPaging);
-      setProposals(undefined);
     }
-    // TODO: I don't want to fire on these others!!
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedSearchTerm]);
-
-  const handleSearchTermChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm((prevState) =>
-      prevState === event.target.value ? '' : event.target.value
-    );
   };
 
   const toggleFilter = (event: MouseEvent<HTMLButtonElement>) => {
@@ -116,7 +106,7 @@ export function Proposals() {
         <SearchFilterContainer>
           <SearchInput
             searchTerm={searchTerm}
-            setSearchTerm={handleSearchTermChange}
+            setSearchTerm={handleSearchFilter}
             totalItems={proposals?.length || 0}
           />
 

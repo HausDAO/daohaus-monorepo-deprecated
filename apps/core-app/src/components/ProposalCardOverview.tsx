@@ -17,7 +17,14 @@ import { TProposals } from '../contexts/DaoContext';
 const OverviewContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  margin-bottom: 1.1rem;
+  height: 100%;
+  .title {
+    margin-bottom: 1.2rem;
+  }
+  .description {
+    margin-bottom: auto;
+  }
 `;
 
 const OverviewHeader = styled.div`
@@ -53,8 +60,10 @@ export const ProposalCardOverview = ({
           View Details
         </Button>
       </OverviewHeader>
-      <ParLg color="white">{proposal.title}</ParLg>
-      <ParMd>{proposal.description}</ParMd>
+      <ParLg className="title">{proposal.title}</ParLg>
+      <ParMd className="description" color={theme.tint.secondary}>
+        {proposal.description}
+      </ParMd>
       <SubmittedContainer>
         <ParMd color={theme.tint.secondary}>Submitted by</ParMd>
         <AddressDisplay

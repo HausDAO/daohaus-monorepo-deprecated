@@ -2,7 +2,12 @@ import React, { useMemo } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { MdOutlineGavel } from 'react-icons/md';
 import { Italic, ParMd, Tooltip } from '@daohaus/ui';
-import { RiThumbDownLine, RiThumbUpLine } from 'react-icons/ri';
+import {
+  RiGasStationLine,
+  RiThumbDownLine,
+  RiThumbUpLine,
+} from 'react-icons/ri';
+import { toWholeUnits } from '@daohaus/common-utilities';
 
 const TemplateBox = styled.div`
   display: flex;
@@ -102,11 +107,11 @@ export const VoteStatus = ({ passed }: { passed: boolean }) => {
 };
 
 export const ActionTemplate = ({
-  helperText,
+  helperDisplay,
   statusDisplay,
   main,
 }: {
-  helperText?: string;
+  helperDisplay?: string | React.ReactNode;
   statusDisplay?: string | React.ReactNode;
   main?: React.ReactNode;
 }) => {
@@ -117,6 +122,17 @@ export const ActionTemplate = ({
     }
     return statusDisplay;
   }, [statusDisplay]);
+  const helperUI = useMemo(() => {
+    if (typeof helperDisplay === 'string') {
+      return (
+        <ParMd color={theme.tint.secondary}>
+          {' '}
+          <Italic>{helperDisplay}</Italic>
+        </ParMd>
+      );
+    }
+    return helperDisplay;
+  }, [helperDisplay, theme]);
   return (
     <TemplateBox>
       <div className="top-section">
@@ -124,13 +140,31 @@ export const ActionTemplate = ({
         <QuorumDisplay quorumAmt={2} />
       </div>
       <div className="middle-section">{main}</div>
-      <div className="bottom-section">
-        {helperText && (
-          <ParMd color={theme.tint.secondary}>
-            <Italic>{helperText}</Italic>
-          </ParMd>
-        )}
-      </div>
+      <div className="bottom-section">{helperUI}</div>
     </TemplateBox>
+  );
+};
+
+const GasBox = styled.div`
+  display: flex;
+  align-items: center;
+  svg {
+    margin-right: 1.2rem;
+  }
+`;
+
+export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
+  const theme = useTheme();
+  return (
+    <Tooltip
+      triggerEl={
+        <GasBox>
+          <RiGasStationLine color={theme.primary} size="1.6rem" />
+          <ParMd color={theme.primary}>Estimate Gas</ParMd>
+        </GasBox>
+      }
+      content={`If gas is less than ${gasAmt}, the proposal will likely fail.`}
+      side="bottom"
+    />
   );
 };

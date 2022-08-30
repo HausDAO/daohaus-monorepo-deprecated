@@ -1,8 +1,11 @@
 import { ITransformedProposal } from '@daohaus/dao-data';
-import { Italic, ParMd } from '@daohaus/ui';
-import React, { useMemo } from 'react';
-import styled, { useTheme } from 'styled-components';
-import { ActionTemplate, DummyBar, Verdict } from './ActionPrimitives';
+import styled from 'styled-components';
+import {
+  ActionTemplate,
+  DummyBar,
+  GasDisplay,
+  Verdict,
+} from './ActionPrimitives';
 
 const ActionBox = styled.div`
   display: flex;
@@ -26,7 +29,7 @@ export const ProposalActions = ({
             <Verdict passed={false} />
           </div>
         }
-        helperText="Quorum not met"
+        helperDisplay={<GasDisplay gasAmt="Check" />}
       />
     </ActionBox>
   );

@@ -97,12 +97,15 @@ export const transformMembershipList = (
 export const addDaoProfileFields = (
   dao: ListDaosQuery['daos'][number]
 ): DaoProfile | undefined => {
-  console.log('obj', dao);
   if (!dao.profile || !dao.profile.length) return;
 
   try {
     const obj = JSON.parse(dao.profile[0].content);
-    const links = obj.links && JSON.parse(obj.links);
+    console.log('obj', obj);
+    const links =
+      obj.links && typeof obj.links === 'string'
+        ? JSON.parse(obj.links)
+        : obj.links;
     return {
       description: obj.description,
       longDescription: obj.longDescription,

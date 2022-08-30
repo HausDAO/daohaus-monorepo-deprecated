@@ -52,8 +52,6 @@ export function Proposals() {
   }, []);
 
   useEffect(() => {
-    console.log('deboun', debouncedSearchTerm);
-
     const filterQuery =
       filter !== ''
         ? statusFilter(

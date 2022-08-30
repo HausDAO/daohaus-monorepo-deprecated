@@ -21,6 +21,7 @@ import {
   NETWORK_DATA,
   memberTokenBalanceShare,
   memberUsdValueShare,
+  charLimit,
 } from '@daohaus/common-utilities';
 import { AccountProfile, FindMemberQuery, Haus } from '@daohaus/dao-data';
 
@@ -144,7 +145,7 @@ export function Member() {
           return {
             token: {
               address: bal.tokenAddress || '0x0',
-              name: bal.token?.name,
+              name: charLimit(bal.token?.name, 21),
             },
             fiatBalance: formatValueTo({
               value: memberUsdValueShare(

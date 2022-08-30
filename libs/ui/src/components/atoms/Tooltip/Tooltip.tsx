@@ -38,18 +38,14 @@ export const Tooltip = ({
   };
 
   return (
-    <TooltipProvider skipDelayDuration={delay} delayDuration={delay}>
-      <TooltipRoot
-        open={open || stayOpen}
-        onOpenChange={setOpen}
-        delayDuration={delay}
-      >
+    <TooltipProvider delayDuration={delay}>
+      <TooltipRoot open={open || stayOpen} onOpenChange={setOpen}>
         <TooltipTrigger onClick={handleClickOpen}>{triggerEl}</TooltipTrigger>
         <TooltipPortal>
           <TooltipContent
             side={side}
             sideOffset={offset}
-            onEscapeKeyDown={() => setOpen(false)}
+            onEscapeKeyDown={handleClickOutside}
             onPointerDownOutside={handleClickOutside}
           >
             {content}

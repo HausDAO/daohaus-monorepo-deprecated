@@ -240,7 +240,7 @@ export const buildMultiCallTX = ({
       {
         type: 'proposalExpiry',
         search: `${FORM}${EXPIRY}`,
-        fallback: toSeconds(14, 'days'),
+        fallback: 0,
       },
       {
         type: 'static',

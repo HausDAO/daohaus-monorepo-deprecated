@@ -8,13 +8,15 @@ import { CheckGateBox } from './CheckGate.styles';
 type CheckGateProps = {
   gateLabel: string;
   fields: Array<ReactNode>;
+  onUnchecked?: () => void;
 };
 
-export const CheckGate = ({ id, fields, gateLabel, rules, ...props }: Buildable<CheckGateProps>) => {
+export const CheckGate = ({ id, fields, gateLabel, onUnchecked, rules, ...props }: Buildable<CheckGateProps>) => {
   const [gatedOn, toggleGate]= useState(false);
 
   const onCheckedChanged = (checked: CheckedState) => {
     toggleGate(checked.valueOf() as boolean);
+    if (!checked) onUnchecked?.();
   };
 
   return (

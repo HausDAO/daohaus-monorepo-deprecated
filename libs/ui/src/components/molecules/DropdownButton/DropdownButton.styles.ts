@@ -21,6 +21,20 @@ export const DropdownButtonBase = styled(ButtonV2)`
     }
   }
 
+  &.sm {
+    svg {
+      height: 1.8rem;
+      width: 1.8rem;
+    }
+  }
+
+  &.lg {
+    svg {
+      height: 3.2rem;
+      width: 3.2rem;
+    }
+  }
+
   svg {
     &.icon-right {
       margin-left: auto;

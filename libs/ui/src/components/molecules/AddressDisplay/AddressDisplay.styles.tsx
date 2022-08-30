@@ -11,7 +11,7 @@ export const AddressContainer = styled.div`
 `;
 
 export const AddressDataMd = styled(DataMd)`
-  color: ${({ theme }: { theme: Theme }) => theme.secondary};
+  color: ${({ theme }: { theme: Theme }) => theme.tint.secondary};
 `;
 
 export const AddressCopyIcon = styled.div`

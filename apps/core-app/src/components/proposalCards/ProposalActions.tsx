@@ -1,6 +1,5 @@
 import { ITransformedProposal } from '@daohaus/dao-data';
-import { ParMd, TintSecondary } from '@daohaus/ui';
-import React from 'react';
+import { ParMd } from '@daohaus/ui';
 import styled from 'styled-components';
 
 const ActionBox = styled.div`

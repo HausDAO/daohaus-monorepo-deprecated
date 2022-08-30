@@ -1,12 +1,6 @@
 import { useParams } from 'react-router-dom';
 import styled, { useTheme } from 'styled-components';
-import {
-  AddressDisplay,
-  Button,
-  ParLg,
-  ParMd,
-  TintSecondary,
-} from '@daohaus/ui';
+import { AddressDisplay, Button, ParLg, ParMd } from '@daohaus/ui';
 import {
   formatShortDateTimeFromSeconds,
   Keychain,

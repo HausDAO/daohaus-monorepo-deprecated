@@ -14,6 +14,7 @@ import {
   Proposal_Filter,
   Proposal_OrderBy,
 } from '@daohaus/dao-data';
+import { ErrorMessage } from '@daohaus/ui';
 import deepEqual from 'deep-eql';
 
 export const loadDao = async ({
@@ -186,6 +187,53 @@ export const loadMembersList = async ({
     if (shouldUpdate) {
       setLoading(false);
     }
+  }
+};
+
+export const isActiveMember = async ({
+  daoid,
+  daochain,
+  address,
+  setMemberLoading,
+}: {
+  daoid: string;
+  daochain: keyof Keychain;
+  address: string;
+  setMemberLoading: ReactSetter<boolean>;
+}): Promise<{ member?: FindMemberQuery['member']; error?: ErrorMessage }> => {
+  try {
+    setMemberLoading(true);
+    const haus = Haus.create();
+    const memberRes = await haus.query.findMember({
+      networkId: daochain,
+      dao: daoid,
+      memberAddress: address.toLowerCase(),
+    });
+
+    if (
+      memberRes?.data?.member &&
+      Number(memberRes?.data?.member?.shares) > 0
+    ) {
+      return {
+        member: memberRes?.data?.member,
+      };
+    }
+    return {
+      error: {
+        type: 'error',
+        message: `Member not found`,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      error: {
+        type: 'error',
+        message: `${error}`,
+      },
+    };
+  } finally {
+    setMemberLoading(false);
   }
 };
 

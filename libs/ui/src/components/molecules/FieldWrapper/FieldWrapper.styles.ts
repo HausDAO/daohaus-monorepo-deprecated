@@ -47,6 +47,8 @@ export const BottomContainer = styled.div`
 `;
 
 export const LeftAddonContainer = styled.div`
+  display: flex;
+  align-items: end;
   min-width: 70%;
 `;
 

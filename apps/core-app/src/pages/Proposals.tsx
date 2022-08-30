@@ -48,9 +48,8 @@ export function Proposals() {
   const debouncedSearchTerm = useDebounce<string>(searchTerm, 700);
 
   const newProposals = useMemo(() => {
-    console.log('proposals', proposals);
     return Object.keys(FORM).map((key) => FORM[key]);
-  }, [proposals]);
+  }, []);
 
   useEffect(() => {
     console.log('deboun', debouncedSearchTerm);

@@ -2,12 +2,11 @@ import {
   handleErrorMessage,
   isNumberish,
   TXLego,
-  TXLegoBase,
 } from '@daohaus/common-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { useTxBuilder } from '@daohaus/tx-builder-feature';
-import { Button, Italic, ParSm, Spinner, useToast } from '@daohaus/ui';
+import { Italic, ParSm, Spinner, useToast } from '@daohaus/ui';
 import React, { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTheme } from 'styled-components';
@@ -33,7 +32,7 @@ export const Unsponsored = ({
 
   const handleSponsor = () => {
     const { proposalId } = proposal;
-    console.log('proposal', proposal);
+
     if (!proposalId) return;
     setIsLoading(true);
     fireTransaction({

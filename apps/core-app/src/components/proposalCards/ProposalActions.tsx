@@ -1,11 +1,6 @@
 import { ITransformedProposal } from '@daohaus/dao-data';
+import { ParLg } from '@daohaus/ui';
 import styled from 'styled-components';
-import {
-  ActionTemplate,
-  DummyBar,
-  GasDisplay,
-  Verdict,
-} from './ActionPrimitives';
 import { Unsponsored } from './Unsponsored';
 
 const ActionBox = styled.div`
@@ -20,9 +15,17 @@ export const ProposalActions = ({
 }: {
   proposal: ITransformedProposal;
 }) => {
+  if (proposal.status === 'unsponsored') {
+    return (
+      <ActionBox>
+        <Unsponsored proposal={proposal} />
+      </ActionBox>
+    );
+  }
+
   return (
     <ActionBox>
-      <Unsponsored proposal={proposal} />
+      <ParLg>{proposal.status}</ParLg>
     </ActionBox>
   );
 };

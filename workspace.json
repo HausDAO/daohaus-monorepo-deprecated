@@ -21,7 +21,8 @@
     "summon-safe-app": "apps/summon-safe-app",
     "tx-builder-feature": "libs/tx-builder-feature",
     "ui": "libs/ui",
-    "v3-subgraph": "apps/v3-subgraph"
+    "v3-subgraph": "apps/v3-subgraph",
+    "executors": "tools/executors"
   },
   "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

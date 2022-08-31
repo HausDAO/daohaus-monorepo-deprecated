@@ -1,8 +1,10 @@
 {
   "name": "@daohaus/contract-utilities",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Daohaus contract utilties for interacting with the Baal contracts",
   "type": "commonjs",
+  "main": "src/index.js",
+  "types": "src/index.d.ts",
   "homepage": "https://github.com/HausDAO/daohaus-monorepo#readme",
   "issues": "https://github.com/HausDAO/daohaus-monorepo/issues?q=is%3Aissue+is%3Aopen",
   "license": "MIT",

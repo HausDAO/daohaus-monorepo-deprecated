@@ -14,6 +14,7 @@ export default defineConfig({
         format: 'umd',
         inlineDynamicImports: true,
       },
+      external: ['react', 'react-dom'],
     },
   },
 });

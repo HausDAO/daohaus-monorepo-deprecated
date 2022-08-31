@@ -4,14 +4,16 @@
   "projectType": "application",
   "targets": {
     "build": {
-      "executor": "@nrwl/node:webpack",
+      "executor": "@nrwl/webpack:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/dao-producer-job",
         "main": "apps/dao-producer-job/src/main.ts",
         "tsConfig": "apps/dao-producer-job/tsconfig.app.json",
         "assets": ["apps/dao-producer-job/src/assets"],
-        "generatePackageJson": true
+        "generatePackageJson": true,
+        "target": "node",
+        "compiler": "tsc"
       },
       "configurations": {
         "production": {
@@ -74,7 +76,7 @@
       }
     },
     "docker-login": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "commands": ["doctl registry login --expiry-seconds 1200"],
         "parallel": false

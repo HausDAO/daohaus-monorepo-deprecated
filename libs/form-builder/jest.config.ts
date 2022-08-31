@@ -1,3 +1,4 @@
+/* eslint-disable */
 module.exports = {
   displayName: 'form-builder',
   preset: '../../jest.preset.js',

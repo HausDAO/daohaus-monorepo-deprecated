@@ -12,7 +12,7 @@ import {
   DataIndicator,
   widthQuery,
 } from '@daohaus/ui';
-import { AccountProfile } from '@daohaus/dao-data';
+import { AccountProfile } from '@daohaus/common-utilities';
 import {
   formatLongDateFromSeconds,
   formatValueTo,
@@ -153,7 +153,7 @@ export const Profile = ({ profile, membership }: ProfileProps) => {
             })}
           />
           <DataIndicator
-            label="Shares"
+            label="Voting Tokens"
             data={formatValueTo({
               value: fromWei(membership.shares),
               decimals: 2,
@@ -161,7 +161,7 @@ export const Profile = ({ profile, membership }: ProfileProps) => {
             })}
           />
           <DataIndicator
-            label="Loot"
+            label="Non-Voting Tokens"
             data={formatValueTo({
               value: fromWei(membership.loot),
               decimals: 2,

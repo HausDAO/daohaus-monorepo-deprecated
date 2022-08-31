@@ -24,6 +24,7 @@ const tokenConfigTX = (formValues: FormValues) => {
     pauseVoteToken,
     pauseNvToken,
   ]);
+
   if (isString(encoded)) {
     return encoded;
   }

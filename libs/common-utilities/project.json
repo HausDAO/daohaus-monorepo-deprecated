@@ -16,6 +16,14 @@
         "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
+    "vite-build": {
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ]
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
@@ -54,7 +62,6 @@
         "outputPath": "dist/libs/common-utilities",
         "tsConfig": "./libs/common-utilities/tsconfig.lib.json",
         "main": "./libs/common-utilities/src/index.ts",
-
         "watch": true
       }
     }

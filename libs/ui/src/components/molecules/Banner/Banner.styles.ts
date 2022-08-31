@@ -12,7 +12,7 @@ export const StyledBanner = styled.div`
   height: auto;
   justify-content: space-between;
   min-height: 8rem;
-  padding: 2rem;
+  padding: 2rem 4rem;
   width: 100%;
 
   .banner--text-container {

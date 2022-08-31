@@ -7,11 +7,13 @@ export default {
 } as ComponentMeta<typeof Banner>;
 
 const Template: ComponentStory<typeof Banner> = (args) => {
-  return <Banner>{args.children}</Banner>;
+  return <Banner {...args} />;
 };
 
 export const BaseBanner = Template.bind({});
+BaseBanner.args = {};
 
-BaseBanner.args = {
-  children: <p>Content in a Card</p>,
+export const BannerWithCustomText = Template.bind({});
+BannerWithCustomText.args = {
+  bannerText: 'Hello from Rowdy',
 };

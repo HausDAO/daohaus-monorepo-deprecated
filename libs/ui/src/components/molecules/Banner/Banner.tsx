@@ -5,19 +5,19 @@ import { Link, ParMd } from '../../atoms';
 import { StyledBanner } from './Banner.styles';
 
 export type BannerProps = {
-  bannerText: string;
+  bannerText?: string;
   className?: string;
 };
 
-export const Banner = ({ className, bannerText }: BannerProps) => {
+export const Banner = ({
+  className,
+  bannerText = 'DAO Haus V3 is currently in Beta, not all feature will be inplace and bugs may appear.',
+}: BannerProps) => {
   return (
     <StyledBanner className={className}>
       <div className="banner--text-container">
         <RiToolsLine />
-        <ParMd>
-          {bannerText ||
-            'DAO Haus V3 is currently in Beta, not all feature will be inplace and bugs may appear.'}
-        </ParMd>
+        <ParMd>{bannerText}</ParMd>
       </div>
       <div className="banner--link-container">
         <Link

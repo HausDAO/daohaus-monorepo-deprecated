@@ -290,7 +290,6 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   useEffect(() => {
     let shouldUpdate = true;
 
-    console.log('prop useeffect fired');
     if (daochain && daoid) {
       if (
         currentDaoProposals.current &&
@@ -299,6 +298,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
         console.log('CLEAR');
         setProposals(undefined);
       }
+      console.log('prop useeffect fired');
       loadProposalsList({
         filter: { dao: daoid, ...proposalsFilter },
         ordering: proposalsSort,

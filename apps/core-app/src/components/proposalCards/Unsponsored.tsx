@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { useTheme } from 'styled-components';
 import { useDao } from '../../contexts/DaoContext';
 import { PROP_CARD_HELP } from '../../data/copy';
-import { ActionTemplate, DummyBar, GasDisplay } from './ActionPrimitives';
+import { ActionTemplate, DummyBar } from './ActionPrimitives';
 
 export const Unsponsored = ({
   proposal,

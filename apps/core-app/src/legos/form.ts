@@ -6,14 +6,14 @@ import { TABULA_TX, TX } from './tx';
 export const getFormLegoById = (
   id: CustomFormLego['id']
 ): CustomFormLego | undefined => {
-  const formKey = Object.keys(FORM).find((key) => {
-    return FORM[key].id === id;
+  const formKey = Object.keys(PROPOSAL_FORMS).find((key) => {
+    return PROPOSAL_FORMS[key].id === id;
   });
   if (!formKey) return;
-  return FORM[formKey];
+  return PROPOSAL_FORMS[formKey];
 };
 
-export const FORM: Record<string, CustomFormLego> = {
+export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   SHARE_SWAP: {
     id: 'SHARE_SWAP',
     title: 'Swap Tokens for Shares',
@@ -109,22 +109,6 @@ export const FORM: Record<string, CustomFormLego> = {
       FIELD.SHAMAN_DELUXE,
     ],
   },
-  TEST: {
-    id: 'TEST',
-    title: 'Test Form',
-    subtitle: 'Test Proposal',
-    description:
-      'Test your proposal like a champ with this shiny new Test Form.',
-    requiredFields: { title: true, description: true },
-    log: true,
-    tx: TX.POST_SIGNAL,
-    fields: [
-      FIELD.TITLE,
-      FIELD.DESCRIPTION,
-      FIELD.LINK,
-      FIELD.REQUEST_NATIVE_TOKEN,
-    ],
-  },
   ISSUE_ERC20: {
     id: 'ISSUE_ERC20',
     title: 'Issue Funding (ERC20)',
@@ -177,31 +161,6 @@ export const FORM: Record<string, CustomFormLego> = {
         placeholder: '0x...',
       },
       FIELD.REQUEST_NATIVE_TOKEN,
-    ],
-  },
-  METADATA_SETTINGS: {
-    id: 'METADATA_SETTINGS',
-    title: 'Update Metadata Settings',
-    subtitle: 'Settings',
-    requiredFields: { name: true },
-    log: true,
-    tx: TX.UPDATE_METADATA_SETTINGS,
-    fields: [
-      FIELD.NAME,
-      FIELD.DESCRIPTION,
-      {
-        ...FIELD.DESCRIPTION,
-        id: 'long_description',
-        label: 'Long Description',
-      },
-      { ...FIELD.LINK, id: 'icon', label: 'Icon' },
-      { ...FIELD.LINK, id: 'discord', label: 'Discord' },
-      { ...FIELD.LINK, id: 'github', label: 'Github' },
-      { ...FIELD.LINK, id: 'medium', label: 'Medium' },
-      { ...FIELD.LINK, id: 'telegram', label: 'Telegram' },
-      { ...FIELD.LINK, id: 'twitter', label: 'Twitter' },
-      { ...FIELD.LINK, id: 'other', label: 'Other' },
-      FIELD.TAGS,
     ],
   },
   UPDATE_GOV_SETTINGS: {
@@ -511,6 +470,34 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
           FIELD.FAKE_MD,
         ],
       },
+    ],
+  },
+};
+
+export const COMMON_FORMS = {
+  METADATA_SETTINGS: {
+    id: 'METADATA_SETTINGS',
+    title: 'Update Metadata Settings',
+    subtitle: 'Settings',
+    requiredFields: { name: true },
+    log: true,
+    tx: TX.UPDATE_METADATA_SETTINGS,
+    fields: [
+      FIELD.NAME,
+      FIELD.DESCRIPTION,
+      {
+        ...FIELD.DESCRIPTION,
+        id: 'long_description',
+        label: 'Long Description',
+      },
+      { ...FIELD.LINK, id: 'icon', label: 'Icon' },
+      { ...FIELD.LINK, id: 'discord', label: 'Discord' },
+      { ...FIELD.LINK, id: 'github', label: 'Github' },
+      { ...FIELD.LINK, id: 'medium', label: 'Medium' },
+      { ...FIELD.LINK, id: 'telegram', label: 'Telegram' },
+      { ...FIELD.LINK, id: 'twitter', label: 'Twitter' },
+      { ...FIELD.LINK, id: 'other', label: 'Other' },
+      FIELD.TAGS,
     ],
   },
 };

@@ -13,6 +13,7 @@ import FormTest from './pages/FormTest';
 import Settings from './pages/Settings';
 import NewProposal from './pages/NewProposal';
 import UpdateSettings from './pages/UpdateSettings';
+import ProposalDetails from './pages/ProposalDetails';
 
 const Routes = () => {
   return (
@@ -30,7 +31,7 @@ const Routes = () => {
         <Route path="formtest" element={<FormTest />} />
         <Route path="proposals" element={<Proposals />} />
         <Route path="new-proposal" element={<NewProposal />} />
-        <Route path="proposal/:proposalId" element={<Proposals />} />
+        <Route path="proposals/:proposalId" element={<ProposalDetails />} />
         <Route path="vaults" element={<Vaults />} />
         <Route path="members" element={<Members />} />
         <Route path="members/:memberAddress" element={<Member />} />

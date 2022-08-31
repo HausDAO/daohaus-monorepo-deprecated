@@ -1,0 +1,9 @@
+{
+  "executors": {
+    "package-dependencies": {
+      "implementation": "./impl",
+      "schema": "./schema.json",
+      "description": "add dependencies to package.json"
+    }
+  }
+}

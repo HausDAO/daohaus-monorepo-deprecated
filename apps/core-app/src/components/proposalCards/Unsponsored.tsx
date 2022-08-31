@@ -1,5 +1,6 @@
 import { isNumberish } from '@daohaus/common-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
+import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { useTxBuilder } from '@daohaus/tx-builder-feature';
 import { Button, Italic, ParSm } from '@daohaus/ui';
 import React, { useMemo } from 'react';
@@ -18,6 +19,7 @@ export const Unsponsored = ({
   const { daochain } = useParams();
   const { fireTransaction } = useTxBuilder();
   const { connectedMembership } = useConnectedMembership();
+  const { chainId } = useHausConnect();
 
   const { dao } = useDao();
   const theme = useTheme();
@@ -27,12 +29,17 @@ export const Unsponsored = ({
       isNumberish(connectedMembership?.shares) &&
       isNumberish(dao?.sponsorThreshold)
     ) {
-      return (
-        Number(connectedMembership?.shares) > Number(dao?.sponsorThreshold)
-      );
+      return Number(connectedMembership?.shares) > Number(dao?.sponsorThreshold)
+        ? true
+        : PROP_CARD_HELP.UNSPONSORED;
     }
-    return false;
+    return 'Subgraph data not loading or is not in sync';
   }, [dao, connectedMembership]);
+
+  const isConnectedToDao =
+    chainId === daochain
+      ? true
+      : 'You are not connected to the same network as the DAO';
 
   return (
     <ActionTemplate
@@ -40,11 +47,7 @@ export const Unsponsored = ({
       main={
         <div>
           <DummyBar />
-          <GatedButton
-            sm
-            rules={[hasShares]}
-            tooltipContent={PROP_CARD_HELP.UNSPONSORED}
-          >
+          <GatedButton sm rules={[hasShares, isConnectedToDao]}>
             Sponsor Proposal
           </GatedButton>
         </div>

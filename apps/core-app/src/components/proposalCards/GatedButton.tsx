@@ -2,23 +2,26 @@ import { Button, Tooltip } from '@daohaus/ui';
 
 import React, { ComponentProps, useMemo } from 'react';
 
+type Rule = true | string;
+
 export const GatedButton = ({
-  tooltipContent,
   rules,
   ...props
 }: {
-  tooltipContent: string | React.ReactNode;
-  rules: boolean[];
+  rules: Rule[];
 } & ComponentProps<typeof Button>) => {
-  const passesRules = useMemo(() => rules.every((rule) => rule), [rules]);
+  const error = useMemo(
+    () => rules.find((rule) => typeof rule === 'string'),
+    [rules]
+  );
 
-  return passesRules ? (
+  return !error ? (
     <Button {...props} />
   ) : (
     <Tooltip
       triggerAsChild
       triggerEl={<Button disabled {...props} />}
-      content={tooltipContent}
+      content={error}
       side="bottom"
       {...props}
     />

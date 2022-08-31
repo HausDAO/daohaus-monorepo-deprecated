@@ -8,10 +8,12 @@ export const StyledBanner = styled.div`
   background-color: ${({ theme }: { theme: Theme }) => theme.info};
   border: 1px solid ${({ theme }: { theme: Theme }) => theme.info};
   color: ${({ theme }) => theme.fontColor};
-  height: 8rem;
+  flex-wrap: wrap;
+  height: auto;
+  justify-content: space-between;
+  min-height: 8rem;
   padding: 2rem;
   width: 100%;
-  justify-content: space-between;
 
   .banner--text-container {
     align-items: center;

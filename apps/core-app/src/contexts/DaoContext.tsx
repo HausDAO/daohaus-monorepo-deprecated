@@ -28,6 +28,7 @@ import { createDeflate } from 'zlib';
 import {
   DEFAULT_MEMBERS_PAGE_SIZE,
   DEFAULT_PROPOSAL_PAGE_SIZE,
+  DEFAULT_PROPOSAL_SORT,
 } from '../utils/constants';
 import {
   loadConnectedMemberVotesList,
@@ -91,8 +92,7 @@ export const defaultDaoData = {
   setProposalsFilter: () => {
     return;
   },
-  proposalsSort: { orderBy: 'createdAt', orderDirection: 'desc' },
-
+  proposalsSort: DEFAULT_PROPOSAL_SORT,
   setProposalsSort: () => {
     return;
   },

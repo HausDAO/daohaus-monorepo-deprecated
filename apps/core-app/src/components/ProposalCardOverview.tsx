@@ -57,8 +57,6 @@ export const ProposalCardOverview = ({
         </StyledLink>
       </OverviewHeader>
       <ParLg color="white">{proposal.title}</ParLg>
-      <ParLg color="white">{proposal.proposalId}</ParLg>
-
       <ParMd>{charLimit(proposal.description, 145)}</ParMd>
       <SubmittedContainer>
         <ParMd>Submitted by</ParMd>

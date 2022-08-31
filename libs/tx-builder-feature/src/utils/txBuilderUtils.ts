@@ -28,7 +28,11 @@ export type MassState = {
 
 export const executeTx = async (args: {
   tx: TXLego;
-  ethersTx: { hash: string; wait: () => Promise<string> };
+  ethersTx: {
+    hash: string;
+    wait: () => Promise<ethers.providers.TransactionReceipt>;
+  };
+
   setTransactions: ReactSetter<TxRecord>;
   chainId: ValidNetwork;
   lifeCycleFns?: TXLifeCycleFns;
@@ -45,13 +49,18 @@ export const executeTx = async (args: {
     }));
     console.log('**Transaction Pending**');
     const reciept = await ethersTx.wait();
+    console.log('txReciept', reciept);
+
+    if (reciept.status === 0) {
+      throw new Error('CALL_EXCEPTION: txReceipt status 0');
+    }
 
     setTransactions((prevState) => ({
       ...prevState,
       [txHash]: { ...tx, status: 'polling' },
     }));
     console.log('**Transaction Successful**');
-    lifeCycleFns?.onTxSuccess?.(reciept);
+    lifeCycleFns?.onTxSuccess?.(txHash);
 
     standardGraphPoll({
       poll: pollLastTX,

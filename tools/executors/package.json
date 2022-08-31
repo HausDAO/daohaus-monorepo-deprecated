@@ -1,0 +1,27 @@
+{
+  "name": "@daohaus/executors",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "daohaus",
+  "description": "Nx plugin for ViteJs",
+  "homepage": "https://nxext.dev/",
+  "keywords": [
+    "nx",
+    "nx-plugin",
+    "viteJs",
+    "vite"
+  ],
+  "executors": "executors.json",
+  "dependencies": {
+    "@nrwl/devkit": "14.5.0",
+    "tsconfig-paths": "^3.14.1",
+    "globrex": "^0.1.2"
+  },
+  "peerDependencies": {
+    "@nrwl/workspace": "^14.5.0",
+    "vite": "^3.0.5"
+  },
+  "nx-migrations": {
+    "migrations": "./migrations.json"
+  }
+}

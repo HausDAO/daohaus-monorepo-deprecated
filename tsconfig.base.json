@@ -28,7 +28,8 @@
       ],
       "@daohaus/haus-form-builder": ["libs/form-builder/src/index.ts"],
       "@daohaus/tx-builder-feature": ["libs/tx-builder-feature/src/index.ts"],
-      "@daohaus/ui": ["libs/ui/src/index.ts"]
+      "@daohaus/ui": ["libs/ui/src/index.ts"],
+      "@daohaus/executors": ["tools/executors/"]
     }
   },
   "exclude": ["node_modules", "tmp"]

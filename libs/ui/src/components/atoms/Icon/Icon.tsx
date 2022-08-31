@@ -4,6 +4,9 @@ type IconProps = {
   label?: string;
 };
 
-export const Icon: React.FC<IconProps> = ({ label = '', children }) => {
+export const Icon: React.FC<React.PropsWithChildren & IconProps> = ({
+  label = '',
+  children,
+}) => {
   return <AccessibleIcon.Root label={label}>{children}</AccessibleIcon.Root>;
 };

@@ -14,13 +14,12 @@ type Ref =
   | null
   | undefined;
 
-export const FieldAlert: React.FC<FieldAlertProps> = forwardRef(
-  ({ className, message, children }, ref: Ref) => {
+export const FieldAlert: React.FC<React.PropsWithChildren & FieldAlertProps> =
+  forwardRef(({ className, message, children }, ref: Ref) => {
     return (
       <FieldAlertWrapper className={className}>
         <ParXs>{message}</ParXs>
         {children}
       </FieldAlertWrapper>
     );
-  }
-);
+  });

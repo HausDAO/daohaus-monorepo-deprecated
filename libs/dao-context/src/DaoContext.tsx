@@ -205,7 +205,11 @@ export const DaoContextProvider = ({
         setMembers(undefined);
       }
       loadMembersList({
-        filter: { dao: daoid, ...membersFilter },
+        filter: {
+          dao: daoid,
+          sharesLootDelegateShares_gt: '0',
+          ...membersFilter,
+        },
         ordering: membersSort,
         paging: membersPaging,
         daochain: daochain as keyof Keychain,
@@ -323,7 +327,11 @@ export const DaoContextProvider = ({
     if (daochain && daoid) {
       setMembers(undefined);
       loadMembersList({
-        filter: { dao: daoid, ...membersFilter },
+        filter: {
+          dao: daoid,
+          sharesLootDelegateShares_gt: '0',
+          ...membersFilter,
+        },
         ordering: membersSort,
         paging: membersPaging,
         daochain: daochain as keyof Keychain,

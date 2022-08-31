@@ -50,7 +50,6 @@ export const Unsponsored = ({
             title: 'Sponsor Success',
             description: 'Please wait for subgraph to sync',
           });
-          setIsLoading(false);
         },
         onPollError: (error) => {
           const errMsg = handleErrorMessage({

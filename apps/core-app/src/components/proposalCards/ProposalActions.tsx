@@ -23,8 +23,6 @@ export const ProposalActions = ({
     );
   }
 
-  console.log('proposal', proposal);
-
   return (
     <ActionBox>
       <ParLg>{proposal.status}</ParLg>

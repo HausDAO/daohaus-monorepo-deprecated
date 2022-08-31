@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import {
   charLimit,
-  getNetwork,
+  getNetworkName,
   readableNumbers,
 } from '@daohaus/common-utilities';
 import {
@@ -137,7 +137,7 @@ export const DaoCard = ({
         )}
       </div>
       <div className="tag-box">
-        <Tag tagColor="red">{getNetwork(networkId as string)?.name}</Tag>
+        <Tag tagColor="red">{getNetworkName(networkId)}</Tag>
         <Tag tagColor="blue">{contractType}</Tag>
       </div>
       <a

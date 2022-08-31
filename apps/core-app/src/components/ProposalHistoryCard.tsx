@@ -18,13 +18,13 @@ import {
 } from './ProposalHistory';
 import { useParams } from 'react-router-dom';
 import { Keychain } from '@daohaus/common-utilities';
+import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
 
 const ElementContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 1rem;
-  padding: 0 0 2rem 0;
+  padding: 2rem 0;
   border-bottom: 1px solid #ffffff16;
 `;
 
@@ -33,7 +33,6 @@ const VisibleContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0 0 2.4rem 0;
 `;
 
 const ContentContainer = styled.div`
@@ -68,6 +67,13 @@ const DataGrid = styled.div`
 
 const SpacedAddressDisplay = styled(AddressDisplay)`
   margin-top: 1rem;
+`;
+
+const LinkContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 2.5rem;
 `;
 
 const DataPoint = ({
@@ -131,13 +137,22 @@ export const ProposalHistoryCard = ({ element }: ProposalHistoryCardProps) => {
         )}
       </VisibleContainer>
       {element.canExpand && open && (
-        <DataGrid>
-          {/* {element.dataElements.map((data) => (<DataPoint data={data} daochain={daochain} />)} */}
+        <>
+          <DataGrid>
+            {element.dataElements &&
+              element.dataElements.map((data) => (
+                <DataPoint data={data} daochain={daochain} />
+              ))}
+          </DataGrid>
 
-          {element.dataElements.map((data) => (
-            <DataPoint data={data} daochain={daochain} />
-          ))}
-        </DataGrid>
+          {element.txHash && (
+            <LinkContainer>
+              <ExplorerLink address={element.txHash} type="tx">
+                View Transaction
+              </ExplorerLink>
+            </LinkContainer>
+          )}
+        </>
       )}
     </ElementContainer>
   );

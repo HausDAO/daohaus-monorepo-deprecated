@@ -28,8 +28,8 @@ export type ProposalHistoryElement = {
   active: boolean;
   text?: string;
   canExpand: boolean;
-  dataElements: ProposalHistoryElementData[];
-  txHash: string;
+  dataElements?: ProposalHistoryElementData[];
+  txHash?: string;
 };
 
 export const ProposalHistory = ({ proposal }: ProposalHistoryProps) => {
@@ -62,6 +62,11 @@ export const ProposalHistory = ({ proposal }: ProposalHistoryProps) => {
           },
         ],
         txHash: proposal.txHash,
+      },
+      {
+        title: 'Waiting on Sponsor',
+        active: false,
+        canExpand: false,
       },
     ];
   }, [proposal, daochain]);

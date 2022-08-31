@@ -20,9 +20,9 @@ export const Unsponsored = ({
   const sponsorProposal = () => {
     console.log('sponsorProposal');
   };
-  const SponsorButton = useMemo(() => {
-    // if()
-  }, [proposal, dao]);
+  // const SponsorButton = useMemo(() => {
+  //   // if()
+  // }, [proposal, dao]);
   return (
     <ActionTemplate
       statusDisplay="Needs A Sponsor"

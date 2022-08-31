@@ -7,6 +7,7 @@ import {
   RiThumbDownLine,
   RiThumbUpLine,
 } from 'react-icons/ri';
+import { ITransformedProposal } from '@daohaus/dao-data';
 
 const TemplateBox = styled.div`
   display: flex;
@@ -109,10 +110,12 @@ export const ActionTemplate = ({
   helperDisplay,
   statusDisplay,
   main,
+  quorumAmt,
 }: {
   helperDisplay?: string | React.ReactNode;
   statusDisplay?: string | React.ReactNode;
   main?: React.ReactNode;
+  quorumAmt?: number;
 }) => {
   const theme = useTheme();
   const displayUI = useMemo(() => {
@@ -136,7 +139,7 @@ export const ActionTemplate = ({
     <TemplateBox>
       <div className="top-section">
         {displayUI}
-        <QuorumDisplay quorumAmt={2} />
+        {quorumAmt && <QuorumDisplay quorumAmt={2} />}
       </div>
       <div className="middle-section">{main}</div>
       <div className="bottom-section">{helperUI}</div>

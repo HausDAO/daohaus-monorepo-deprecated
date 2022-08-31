@@ -8,6 +8,7 @@ import {
   toSeconds,
   TXLego,
   ValidArgType,
+  TXLegoBase,
 } from '@daohaus/common-utilities';
 import { buildMultiCallTX } from '@daohaus/tx-builder-feature';
 import { MaxUint256 } from '@ethersproject/constants';
@@ -376,4 +377,12 @@ export const TABULA_TX: Record<string, TXLego> = {
       },
     ],
   }),
+};
+
+export const ACTION_TX: Record<string, TXLegoBase> = {
+  SPONSOR: {
+    id: 'SPONSOR',
+    contract: CONTRACT.CURRENT_DAO,
+    method: 'sponsorProposal',
+  },
 };

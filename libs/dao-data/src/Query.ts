@@ -134,7 +134,7 @@ export default class Query {
     networkId,
     filter,
     ordering = {
-      orderBy: 'id',
+      orderBy: 'createdAt',
       orderDirection: 'desc',
     },
     paging = {
@@ -226,7 +226,7 @@ export default class Query {
     networkId,
     filter,
     ordering = {
-      orderBy: 'id',
+      orderBy: 'createdAt',
       orderDirection: 'desc',
     },
     paging = {

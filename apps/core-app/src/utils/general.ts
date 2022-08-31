@@ -1,4 +1,5 @@
 import { TDao, TMembers } from '../contexts/DaoContext';
+import { PROPOSAL_TYPE_LABELS } from './constants';
 
 export const missingDaoProfileData = (dao: TDao): boolean => {
   if (!dao?.profile || !dao.profile.length) return true;
@@ -17,4 +18,11 @@ export const getMemberFromMemberList = (
   console.log('res', res);
 
   return res;
+};
+
+export const getProposalTypeLabel = (proposalType: string | undefined) => {
+  return (
+    (proposalType && PROPOSAL_TYPE_LABELS[proposalType]) ||
+    'Unknown Proposal Type'
+  );
 };

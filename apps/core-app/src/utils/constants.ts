@@ -17,3 +17,13 @@ export const DEFAULT_PROPOSAL_SORT: Ordering<Proposal_OrderBy> = {
   orderBy: 'proposalId',
   orderDirection: 'desc',
 };
+
+export enum ProposalTypeIds {
+  Signal = 'SIGNAL',
+  IssueSharesLoot = 'ISSUE',
+  addShaman = 'ADD_SHAMAN',
+  updateShaman = 'UPDATE_SHAMAN',
+  transferErc20 = 'TRANSFER_ERC20',
+}
+
+export enum ProposalTypeWarnings {}

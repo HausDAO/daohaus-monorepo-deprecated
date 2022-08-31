@@ -120,14 +120,12 @@ export const ButtonBase = styled.button`
   &.sm {
     font-size: ${font.size.xs};
     height: 3.6rem;
-    min-width: 6.6rem;
     padding: 0.9rem;
   }
 
   &.lg {
     font-size: ${font.size.lg};
     height: 6rem;
-    min-width: 10.7rem;
     padding: 1.5rem;
   }
 

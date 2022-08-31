@@ -1,6 +1,6 @@
 {
   "name": "@daohaus/contract-utilities",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Daohaus contract utilties for interacting with the Baal contracts",
   "type": "commonjs",
   "homepage": "https://github.com/HausDAO/daohaus-monorepo#readme",

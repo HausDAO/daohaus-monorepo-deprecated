@@ -10,10 +10,10 @@ import {
   Link,
 } from '@daohaus/ui';
 
-import { TDao, useUserMembership } from '../contexts/DaoContext';
+import { TDao, useConnectedMembership } from '../contexts/DaoContext';
 import { TagList } from '../components/TagList';
 import { useParams } from 'react-router-dom';
-import { Keychain } from '@daohaus/common-utilities';
+import { charLimit, Keychain } from '@daohaus/common-utilities';
 
 const MetaCardHeader = styled.div`
   display: flex;
@@ -54,13 +54,13 @@ type MetadataSettingsProps = {
 
 export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
   const { daochain, daoid } = useParams();
-  const { userMembership } = useUserMembership();
+  const { connectedMembership } = useConnectedMembership();
 
   return (
     <>
       <MetaCardHeader>
         <H3>Metadata</H3>
-        {userMembership && Number(userMembership.shares) && (
+        {connectedMembership && Number(connectedMembership.shares) && (
           <Link href={`/molochv3/${daochain}/${daoid}/settings/update`}>
             <Button>Update Settings</Button>
           </Link>
@@ -74,7 +74,11 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
           </div>
         </div>
         <div className="section-middle">
-          <DataIndicator label="DAO Name" data={dao.name} size="sm" />
+          <DataIndicator
+            label="DAO Name"
+            data={charLimit(dao.name, 21)}
+            size="sm"
+          />
           <div className="tags">
             <DataIndicator
               label="Description"

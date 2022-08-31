@@ -10,6 +10,7 @@ import {
   useBreakpoint,
 } from '@daohaus/ui';
 import {
+  charLimit,
   formatDateFromSeconds,
   formatValueTo,
   fromWei,
@@ -20,7 +21,7 @@ import {
   useMembers,
   useDao,
   TMembers,
-  useUserMembership,
+  useConnectedMembership,
   defaultDaoData,
 } from '../contexts/DaoContext';
 import { MembersOverview } from '../components/MembersOverview';
@@ -28,7 +29,6 @@ import { ProfileLink } from '../components/ProfileLink';
 import { DaoTable } from '../components/DaohausTable';
 
 const MemberContainer = styled(Card)`
-  width: 110rem;
   padding: 3rem;
   border: none;
   margin-bottom: 3rem;
@@ -55,7 +55,7 @@ export function Members() {
     setMembersSort,
     setMembers,
   } = useMembers();
-  const { userMembership } = useUserMembership();
+  const { connectedMembership } = useConnectedMembership();
   const isMobile = useBreakpoint(widthQuery.sm);
 
   const tableData = useMemo(() => {
@@ -95,7 +95,7 @@ export function Members() {
       },
       {
         Header: () => {
-          return <div>{dao?.shareTokenName}</div>;
+          return <div>{charLimit(dao?.shareTokenName, 6)}</div>;
         },
         accessor: 'shares',
         Cell: ({ value }: { value: string }) => {
@@ -112,7 +112,7 @@ export function Members() {
       },
       {
         Header: () => {
-          return <div>{dao?.lootTokenName}</div>;
+          return <div>{charLimit(dao?.lootTokenName, 6)}</div>;
         },
         accessor: 'loot',
         Cell: ({ value }: { value: string }) => {
@@ -184,9 +184,9 @@ export function Members() {
     <SingleColumnLayout
       title="Members"
       actions={
-        userMembership && (
+        connectedMembership && (
           <ProfileLink
-            memberAddress={userMembership.memberAddress}
+            memberAddress={connectedMembership.memberAddress}
             buttonText="My Profile"
           />
         )

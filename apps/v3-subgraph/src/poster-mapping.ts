@@ -3,6 +3,7 @@ import { log } from '@graphprotocol/graph-ts';
 import { parser } from './util/parser';
 import { constants } from './util/constants';
 import { validators } from './util/validators';
+import { addTransaction } from './util/transactions';
 
 // event NewPost(address indexed user, string content, string indexed tag);
 export function handleNewPost(event: NewPost): void {
@@ -33,6 +34,7 @@ export function handleNewPost(event: NewPost): void {
   ) {
     log.info('&&& creating summon record', [event.params.content]);
     parser.createDaoProfileSummoning(object, event.params.user, event);
+    addTransaction(event.block, event.transaction, event.address);
     return;
   }
 
@@ -48,12 +50,14 @@ export function handleNewPost(event: NewPost): void {
     validators.isShareholder(event.params.user, daoId.data)
   ) {
     parser.createDaoProfile(object, daoId.data, event);
+    addTransaction(event.block, event.transaction, event.address);
     return;
   }
 
   if (event.params.tag.toHexString() == constants.DAOHAUS_PROPOSAL_SIGNAL) {
     log.info('&&& creating summon record', [event.params.content]);
     parser.createDaoSignal(daoId.data, event);
+    addTransaction(event.block, event.transaction, event.address);
     return;
   }
 }

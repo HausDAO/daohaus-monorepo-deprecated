@@ -4,7 +4,12 @@ import { useTable, Column, UseTableRowProps } from 'react-table';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
 import { ProfileAvatar, Tag } from '@daohaus/ui';
-import { readableNumbers, truncateAddress } from '@daohaus/common-utilities';
+import {
+  charLimit,
+  getNetworkName,
+  readableNumbers,
+  truncateAddress,
+} from '@daohaus/common-utilities';
 
 interface IDaoTableData {
   daoData: ITransformedMembership[];
@@ -63,7 +68,11 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
   const tableData = React.useMemo<HubTableType[]>(
     () =>
       daoData.map((dao: ITransformedMembership) => ({
-        name: { name: dao.name, address: dao.dao, networkId: dao.networkId },
+        name: {
+          name: charLimit(dao.name, 21),
+          address: dao.dao,
+          networkId: dao.networkId,
+        },
         activeProposalCount: dao.activeProposalCount,
         fiatTotal: dao.fiatTotal,
         activeMemberCount: dao.activeMemberCount,
@@ -99,7 +108,7 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
                 target="_blank"
                 rel="noreferrer"
               >
-                {value.name || truncateAddress(value.address)}
+                {charLimit(value.name, 21) || truncateAddress(value.address)}
               </StyledLink>
               {row.original.isDelegate && (
                 <Tag tagColor="yellow" key={row.id}>
@@ -169,6 +178,9 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
       {
         Header: 'Network',
         accessor: 'networkId',
+        Cell: ({ value }: { value: string | undefined }) => {
+          return <Highlight>{getNetworkName(value)}</Highlight>;
+        },
       },
       {
         Header: 'Delegate',

@@ -2,6 +2,7 @@ import { CoreFieldLookup } from '@daohaus/haus-form-builder';
 import { ProposalExpiry } from '../components/customFields/proposalExpiry';
 import { TributeInput } from '../components/customFields/tributeInput';
 import { FieldLegoBase, FormLegoBase } from '@daohaus/common-utilities';
+import { SelectApplicant } from '../components/customFields/SelectApplicant';
 import { ToWeiInput } from '../components/customFields/toWeiInput';
 import { RequestNativeToken } from '../components/customFields/RequestNativeToken';
 import { RequestERC20 } from '../components/customFields/RequestERC20';
@@ -12,6 +13,7 @@ import { FakeMarkdown } from '../components/FakeMarkdown';
 export const CustomFields = {
   ...CoreFieldLookup,
   proposalExpiry: ProposalExpiry,
+  selectApplicant: SelectApplicant,
   tributeInput: TributeInput,
   toWeiInput: ToWeiInput,
   requestNativeToken: RequestNativeToken,

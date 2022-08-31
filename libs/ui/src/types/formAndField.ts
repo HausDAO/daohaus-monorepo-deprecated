@@ -29,6 +29,7 @@ export type PrimitiveElement = {
   className?: string;
   disabled?: boolean;
   hidden?: boolean;
+  loading?: boolean;
 };
 
 export type PrimitiveSizable = {

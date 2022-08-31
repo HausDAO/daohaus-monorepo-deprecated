@@ -29,14 +29,14 @@ export const NETWORK_DATA: Keychain<NetworkType> = {
   },
 };
 
-export const getNetwork = (chainId: string) => {
+export const getNetwork = (chainId: string | undefined) => {
   if (!isValidNetwork(chainId)) {
     return null;
   }
   return NETWORK_DATA[chainId];
 };
 
-export const getNetworkName = (chainId: string) => {
+export const getNetworkName = (chainId: string | undefined) => {
   return getNetwork(chainId)?.name || null;
 };
 

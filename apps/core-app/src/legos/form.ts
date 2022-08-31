@@ -400,6 +400,31 @@ export const FORM: Record<string, CustomFormLego> = {
       FIELD.TRIBUTE,
     ],
   },
+  GUILDKICK: {
+    id: 'GUILDKICK',
+    title: 'Guild Kick Proposal',
+    subtitle: 'Guild Kick Member',
+    description:
+      'Propose to exchange a member’s voting token balance with non-voting tokens. This will mean they can no longer vote on proposals once passed.',
+    tx: TX.GUILDKICK,
+    requiredFields: {
+      title: true,
+      memberAddress: true,
+    },
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      {
+        ...FIELD.APPLICANT,
+        id: 'memberAddress',
+        label: 'Member',
+        // @ts-expect-error: doing object spread, even if the field definition has the property
+        daoMemberOnly: true,
+      },
+      FIELD.PROPOSAL_EXPIRY,
+    ],
+  },
 };
 
 export const TABULA_FORMS: Record<string, CustomFormLego> = {

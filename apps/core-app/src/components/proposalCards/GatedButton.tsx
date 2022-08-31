@@ -13,11 +13,13 @@ export const GatedButton = ({
   const passesRules = useMemo(() => rules.every((rule) => rule), [rules]);
 
   return passesRules ? (
-    <Button disabled={true} {...props} />
+    <Button {...props} />
   ) : (
     <Tooltip
-      triggerEl={<Button disabled />}
+      triggerAsChild
+      triggerEl={<Button disabled {...props} />}
       content={tooltipContent}
+      side="bottom"
       {...props}
     />
   );

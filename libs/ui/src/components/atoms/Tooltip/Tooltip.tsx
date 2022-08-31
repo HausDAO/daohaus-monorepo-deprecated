@@ -15,6 +15,7 @@ export type TooltipProps = {
   triggerEl?: React.ReactNode;
   offset?: number;
   delay?: number;
+  triggerAsChild?: boolean;
 };
 
 export const Tooltip = ({
@@ -23,6 +24,7 @@ export const Tooltip = ({
   triggerEl = <SmTooltipIcon />,
   offset = 18,
   delay = 400,
+  triggerAsChild = false,
 }: TooltipProps) => {
   const [open, setOpen] = useState(false);
   const [stayOpen, setStayOpen] = useState(false);
@@ -40,7 +42,9 @@ export const Tooltip = ({
   return (
     <TooltipProvider delayDuration={delay}>
       <TooltipRoot open={open || stayOpen} onOpenChange={setOpen}>
-        <TooltipTrigger onClick={handleClickOpen}>{triggerEl}</TooltipTrigger>
+        <TooltipTrigger onClick={handleClickOpen} asChild={triggerAsChild}>
+          {triggerEl}
+        </TooltipTrigger>
         <TooltipPortal>
           <TooltipContent
             side={side}

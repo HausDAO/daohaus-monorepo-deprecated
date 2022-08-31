@@ -7,6 +7,7 @@ import { useTheme } from 'styled-components';
 import { useDao } from '../../contexts/DaoContext';
 import { PROP_CARD_HELP } from '../../data/copy';
 import { ActionTemplate, DummyBar } from './ActionPrimitives';
+import { GatedButton } from './GatedButton';
 
 export const Unsponsored = ({
   proposal,
@@ -29,9 +30,13 @@ export const Unsponsored = ({
       main={
         <div>
           <DummyBar />
-          <Button sm onClick={sponsorProposal}>
+          <GatedButton
+            sm
+            rules={[false]}
+            tooltipContent={PROP_CARD_HELP.UNSPONSORED}
+          >
             Sponsor Proposal
-          </Button>
+          </GatedButton>
         </div>
       }
       helperDisplay={

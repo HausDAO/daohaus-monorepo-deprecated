@@ -42,13 +42,11 @@ const Spacer = styled.div`
   margin-bottom: 2rem;
 `;
 
-type ProposalDetailsOverviewProps = {
+type ProposalDetailsGutsProps = {
   proposal: TProposals[number];
 };
 
-export const ProposalDetailsOverview = ({
-  proposal,
-}: ProposalDetailsOverviewProps) => {
+export const ProposalDetailsGuts = ({ proposal }: ProposalDetailsGutsProps) => {
   const { daochain } = useParams();
 
   return (

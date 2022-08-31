@@ -4,6 +4,7 @@ import {
   FindMemberQuery,
   Haus,
   ITransformedProposalListQuery,
+  ITransformedProposalQuery,
   ListConnectedMemberProposalsQuery,
   ListMembersQuery,
   Member_Filter,
@@ -96,6 +97,48 @@ export const loadMember = async ({
   }
 };
 
+export const loadProposal = async ({
+  daoid,
+  daochain,
+  proposalId,
+  setProposal,
+  setProposalLoading,
+  shouldUpdate,
+  connectedAddress,
+}: {
+  daoid: string;
+  daochain: keyof Keychain;
+  proposalId: string;
+  setProposal: ReactSetter<ITransformedProposalQuery['proposal'] | undefined>;
+  setProposalLoading: ReactSetter<boolean>;
+  shouldUpdate: boolean;
+  connectedAddress?: string | null;
+}) => {
+  try {
+    setProposalLoading(true);
+    const haus = Haus.create();
+    const res = await haus.query.findProposal({
+      networkId: daochain,
+      dao: daoid,
+      proposalId: proposalId.toLowerCase(),
+      connectedAddress,
+    });
+
+    if (res?.data?.proposal && shouldUpdate) {
+      setProposal(res.data.proposal);
+    } else if (shouldUpdate) {
+      setProposal(undefined);
+    }
+  } catch (error) {
+    console.error(error);
+    setProposal(undefined);
+  } finally {
+    if (shouldUpdate) {
+      setProposalLoading(false);
+    }
+  }
+};
+
 export const loadMembersList = async ({
   filter,
   ordering,
@@ -157,7 +200,7 @@ export const isActiveMember = async ({
   daochain: keyof Keychain;
   address: string;
   setMemberLoading: ReactSetter<boolean>;
-}): Promise<{ member?: FindMemberQuery['member']; error?: ErrorMessage; }> => {
+}): Promise<{ member?: FindMemberQuery['member']; error?: ErrorMessage }> => {
   try {
     setMemberLoading(true);
     const haus = Haus.create();
@@ -167,7 +210,10 @@ export const isActiveMember = async ({
       memberAddress: address.toLowerCase(),
     });
 
-    if (memberRes?.data?.member && Number(memberRes?.data?.member?.shares) > 0) {
+    if (
+      memberRes?.data?.member &&
+      Number(memberRes?.data?.member?.shares) > 0
+    ) {
       return {
         member: memberRes?.data?.member,
       };

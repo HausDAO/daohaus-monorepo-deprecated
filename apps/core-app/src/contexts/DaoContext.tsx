@@ -25,6 +25,11 @@ import {
 } from 'react';
 import { useParams } from 'react-router-dom';
 import {
+  DEFAULT_MEMBERS_PAGE_SIZE,
+  DEFAULT_PROPOSAL_PAGE_SIZE,
+  DEFAULT_PROPOSAL_SORT,
+} from '../utils/constants';
+import {
   loadConnectedMemberVotesList,
   loadDao,
   loadMember,
@@ -69,7 +74,7 @@ export const defaultDaoData = {
   setMembersSort: () => {
     return;
   },
-  membersPaging: { offset: 0, pageSize: 25 },
+  membersPaging: { offset: 0, pageSize: DEFAULT_MEMBERS_PAGE_SIZE },
   membersNextPaging: undefined,
   setMembersPaging: () => {
     return;
@@ -86,11 +91,11 @@ export const defaultDaoData = {
   setProposalsFilter: () => {
     return;
   },
-  proposalsSort: undefined,
+  proposalsSort: DEFAULT_PROPOSAL_SORT,
   setProposalsSort: () => {
     return;
   },
-  proposalsPaging: { offset: 0, pageSize: 3 },
+  proposalsPaging: { offset: 0, pageSize: DEFAULT_PROPOSAL_PAGE_SIZE },
   proposalsNextPaging: undefined,
   setProposalsPaging: () => {
     return;
@@ -289,8 +294,6 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   const currentDaoProposals = useRef<null | string>(null);
   useEffect(() => {
     let shouldUpdate = true;
-
-    console.log('prop useeffect fired');
     if (daochain && daoid) {
       if (
         currentDaoProposals.current &&

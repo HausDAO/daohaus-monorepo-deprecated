@@ -10,7 +10,7 @@ export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
   Icon?: IconType;
   selected?: boolean;
   disabled?: boolean;
-  linkType?: 'internal' | 'external';
+  linkType?: 'internal' | 'external' | 'no-icon-external';
   hideIcon?: boolean;
 }
 
@@ -30,7 +30,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     ref
   ) => {
     const classes = classNames({ selected, disabled });
-    if (linkType === 'external') {
+    if (linkType === 'external' || linkType === 'no-icon-external') {
       return (
         <ExternalLink
           href={href}
@@ -39,7 +39,13 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
           ref={ref}
         >
           {children}
-          {Icon ? <Icon /> : <RiExternalLinkLine />}
+          {linkType === 'external' ? (
+            Icon ? (
+              <Icon />
+            ) : (
+              <RiExternalLinkLine />
+            )
+          ) : null}
         </ExternalLink>
       );
     }

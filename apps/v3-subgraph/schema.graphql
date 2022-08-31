@@ -2,7 +2,7 @@ type Dao @entity {
   "unique identifier and primary key of the entity"
   id: ID!
   "timestamp of the block when the dao was summoned"
-  createdAt: String!
+  createdAt: BigInt!
   "address that created the dao"
   createdBy: Bytes!
   "transaction hash of the dao contract deployment"
@@ -70,7 +70,7 @@ type Proposal @entity {
   "unique identifier and primary key of the entity"
   id: ID!
   "block timestamp when the proposal was submitted"
-  createdAt: String!
+  createdAt: BigInt!
   "address that submitted the proposal"
   createdBy: Bytes!
   "related DAO entity"
@@ -177,7 +177,7 @@ type Vote @entity {
   "transaction hash of the vote"
   txHash: Bytes!
   "block timestamp when the vote was submitted"
-  createdAt: String!
+  createdAt: BigInt!
   "contract address of the DAO related to this vote"
   daoAddress: Bytes!
   "indicates yes vote/no vote"
@@ -192,7 +192,7 @@ type Vote @entity {
 
 type Record @entity {
   id: ID!
-  createdAt: String!
+  createdAt: BigInt!
   createdBy: Bytes!
   dao: Dao!
   tag: Bytes!
@@ -205,7 +205,7 @@ type Member @entity {
   "unique identifier and primary key of the entity"
   id: ID!
   "block timestamp when the member entity was created (when the address first recieved shares or loot)"
-  createdAt: String!
+  createdAt: BigInt!
   "transaction where the member was created"
   txHash: Bytes!
   "related dao"
@@ -235,7 +235,7 @@ type RageQuit @entity {
   "unique identifier and primary key of the entity"
   id: ID!
   "block timestamp when the member rage quit"
-  createdAt: String!
+  createdAt: BigInt!
   "the transaction where the RageQuit occurred"
   txHash: Bytes!
   "related DAO"
@@ -256,7 +256,7 @@ type Shaman @entity {
   "unique identifier and primary key of the entity"
   id: ID!
   "block timestamp when the shaman was added"
-  createdAt: String!
+  createdAt: BigInt!
   "related DAO"
   dao: Dao!
   "address of the shaman"
@@ -269,7 +269,7 @@ type EventTransaction @entity {
   "unique identifier and primary key of the entity"
   id: ID!
   "block timestamp of the transaction"
-  createdAt: String!
+  createdAt: BigInt!
   "related DAO"
   dao: Dao
   daoAddress: Bytes

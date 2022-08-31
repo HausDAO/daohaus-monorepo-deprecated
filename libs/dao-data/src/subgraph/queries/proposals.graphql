@@ -52,6 +52,20 @@ query listConnectedMemberProposals(
 query findProposal($id: ID!, $connectedAddress: Bytes) {
   proposal: proposal(id: $id) {
     ...proposalFields
+    connectedMemberVotes: votes(
+      where: { member_: { memberAddress: $connectedAddress } }
+    ) {
+      id
+      txHash
+      createdAt
+      daoAddress
+      approved
+      balance
+      member {
+        id
+        memberAddress
+      }
+    }
   }
 }
 

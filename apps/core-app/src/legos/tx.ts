@@ -23,6 +23,16 @@ const nestInArray = (arg: ValidArgType | ValidArgType[]): NestedArray => {
 export const TX: Record<string, TXLego> = {
   POST_SIGNAL: buildMultiCallTX({
     id: 'POST_SIGNAL',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: `.formValues.title`,
+        description: `.formValues.description`,
+        contentURI: `.formValues.link`,
+        contentURIType: { type: 'static', value: 'url' },
+        proposalType: { type: 'static', value: 'Signal Proposal' },
+      },
+    },
     actions: [
       {
         contract: CONTRACT.POSTER,
@@ -33,7 +43,8 @@ export const TX: Record<string, TXLego> = {
             jsonSchema: {
               title: `.formValues.title`,
               description: `.formValues.description`,
-              link: `.formValues.link`,
+              contentURI: `.formValues.link`,
+              contentURIType: { type: 'static', value: 'url' },
               proposalType: { type: 'static', value: 'Signal Proposal' },
             },
           },
@@ -58,7 +69,8 @@ export const TX: Record<string, TXLego> = {
       jsonSchema: {
         title: '.formValues.title',
         description: '.formValues.description',
-        link: '.formValues.link',
+        contentURI: `.formValues.link`,
+        contentURIType: { type: 'static', value: 'url' },
         proposalType: { type: 'static', value: 'Issue Tokens Proposal' },
       },
     },
@@ -88,7 +100,8 @@ export const TX: Record<string, TXLego> = {
       jsonSchema: {
         title: '.formValues.title',
         description: '.formValues.description',
-        link: '.formValues.link',
+        contentURI: `.formValues.link`,
+        contentURIType: { type: 'static', value: 'url' },
         proposalType: { type: 'static', value: 'Add Shaman Proposal' },
       },
     },
@@ -110,7 +123,8 @@ export const TX: Record<string, TXLego> = {
       jsonSchema: {
         title: '.formValues.title',
         description: '.formValues.description',
-        link: '.formValues.link',
+        contentURI: `.formValues.link`,
+        contentURIType: { type: 'static', value: 'url' },
         proposalType: {
           type: 'static',
           value: 'Issue ERC20 Token Funding Proposal',
@@ -132,7 +146,8 @@ export const TX: Record<string, TXLego> = {
       jsonSchema: {
         title: '.formValues.title',
         description: '.formValues.description',
-        link: '.formValues.link',
+        contentURI: `.formValues.link`,
+        contentURIType: { type: 'static', value: 'url' },
         proposalType: {
           type: 'static',
           value: 'Issue Network Token Funding Proposal',
@@ -191,7 +206,8 @@ export const TX: Record<string, TXLego> = {
       jsonSchema: {
         title: '.formValues.title',
         description: '.formValues.description',
-        link: '.formValues.link',
+        contentURI: `.formValues.link`,
+        contentURIType: { type: 'static', value: 'url' },
         proposalType: { type: 'static', value: 'Governance Settings Proposal' },
       },
     },
@@ -230,7 +246,8 @@ export const TX: Record<string, TXLego> = {
       jsonSchema: {
         title: '.formValues.title',
         description: '.formValues.description',
-        link: '.formValues.link',
+        contentURI: `.formValues.link`,
+        contentURIType: { type: 'static', value: 'url' },
         vTokenTransferable: '.formValues.vStake',
         nvTokenTransferable: '.formValues.nvStake',
         proposalType: { type: 'static', value: 'Token Settings Proposal' },
@@ -264,7 +281,8 @@ export const TX: Record<string, TXLego> = {
         jsonSchema: {
           title: '.formValues.title',
           description: '.formValues.description',
-          link: '.formValues.link',
+          contentURI: `.formValues.link`,
+          contentURIType: { type: 'static', value: 'url' },
           proposalType: { type: 'static', value: 'Shares X Token Proposal' },
         },
       },
@@ -278,6 +296,8 @@ export const TX: Record<string, TXLego> = {
         title: '.formValues.title',
         description: '.formValues.description',
         link: '.formValues.link',
+        contentURI: `.formValues.link`,
+        contentURIType: { type: 'static', value: 'url' },
         proposalType: { type: 'static', value: 'GuildKick Proposal' },
       },
     },
@@ -322,7 +342,8 @@ export const TABULA_TX: Record<string, TXLego> = {
       jsonSchema: {
         title: '.formValues.title',
         description: '.formValues.description',
-        link: '.formValues.link',
+        contentURI: `.formValues.link`,
+        contentURIType: { type: 'static', value: 'url' },
         proposalType: { type: 'static', value: 'Create Publication Proposal' },
       },
     },
@@ -353,7 +374,8 @@ export const TABULA_TX: Record<string, TXLego> = {
       jsonSchema: {
         title: '.formValues.title',
         description: '.formValues.description',
-        link: '.formValues.link',
+        contentURI: `.formValues.link`,
+        contentURIType: { type: 'static', value: 'url' },
         proposalType: { type: 'static', value: 'Create Article Proposal' },
       },
     },

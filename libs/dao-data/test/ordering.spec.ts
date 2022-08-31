@@ -11,7 +11,7 @@ describe('haus', () => {
 
     const res = await haus.query.listDaos({
       networkId,
-      ordering: { orderBy: 'id', orderDirection: 'desc' },
+      ordering: { orderBy: 'createdAt', orderDirection: 'desc' },
       paging: { pageSize: 2, offset: 0 },
     });
 

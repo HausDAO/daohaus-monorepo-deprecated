@@ -103,6 +103,12 @@ export const defaultDarkTheme: Theme = {
   link: {
     color: primaryDark.step10,
   },
+  progress: {
+    bg: neutralDark.step8,
+    green: utilityDark.success,
+    red: utilityDark.danger,
+    transparent: utilityDark.transparent,
+  },
   radio: {
     item: {
       bg: secondaryDark.step3,
@@ -284,6 +290,12 @@ export const defaultLightTheme: Theme = {
   },
   link: {
     color: primaryDark.step10,
+  },
+  progress: {
+    bg: neutral.step10,
+    green: utility.success,
+    red: utility.danger,
+    transparent: utility.transparent,
   },
   radio: {
     item: {

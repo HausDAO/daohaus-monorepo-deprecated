@@ -8,7 +8,7 @@ export type ProgressProps = {
   backgroundColor: string;
   progressSection: {
     percentage: string;
-    color: 'green' | 'red' | 'transparent';
+    color: string;
   }[];
 };
 
@@ -52,7 +52,7 @@ export const Progress = ({
           <ProgressVisualPart
             key={index}
             width={widths[index]}
-            backgroundColor={theme.progress[item.color]}
+            backgroundColor={item.color}
           />
         );
       })}

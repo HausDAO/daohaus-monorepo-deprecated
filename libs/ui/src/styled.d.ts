@@ -116,9 +116,6 @@ declare module 'styled-components' {
     };
     progress: {
       bg: string;
-      green: string;
-      red: string;
-      transparent: string;
     };
     tooltip: {
       bg: string;

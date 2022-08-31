@@ -4,6 +4,14 @@ import { IconType } from 'react-icons';
 
 import { ButtonBase } from './ButtonV2.styles';
 
+export type ButtonColorVariant =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'warning'
+  | 'danger';
+type ButtonWidth = 'fit-content' | '100%' | string;
+
 export interface ButtonProps {
   /* Makes button disabled */
   disabled?: boolean;
@@ -14,7 +22,7 @@ export interface ButtonProps {
   /* The label to show in the button when loading is true */
   loadingText?: string;
   /** Set theme color */
-  theme: 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
+  colorVariant: ButtonColorVariant;
   /* Set the original html type of button */
   type?: 'button' | 'reset' | 'submit';
   /* Size of the button */
@@ -22,7 +30,7 @@ export interface ButtonProps {
   /** Controls button variant */
   variant: 'solid' | 'outline' | 'link';
   /* Width of the button element */
-  width: 'fit-content' | '100%' | string;
+  width: ButtonWidth;
   /* React node */
   children?: React.ReactNode;
   /* Css class name */
@@ -55,7 +63,7 @@ export const ButtonV2 = React.forwardRef<HTMLButtonElement, ButtonProps>(
       IconRight,
       children,
       className,
-      theme = 'primary',
+      colorVariant = 'primary',
       variant = 'solid',
       size = 'md',
       width = 'fit-content',
@@ -70,7 +78,7 @@ export const ButtonV2 = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <ButtonBase
         {...rest}
-        color={theme}
+        colorVariant={colorVariant}
         buttonWidth={width}
         className={`${classes} ${className}`}
         ref={ref}

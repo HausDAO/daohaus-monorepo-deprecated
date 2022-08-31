@@ -12,7 +12,7 @@ import { BsPlusLg } from 'react-icons/bs';
 
 import { defaultDaoData, useDao, useProposals } from '../contexts/DaoContext';
 import { NewProposalList } from '../components/NewProposalList';
-import { FORM } from '../legos/form';
+import { PROPOSAL_FORMS } from '../legos/form';
 import SearchInput from '../components/SearchInput';
 import FilterDropdown from '../components/FilterDropdown';
 import { BaseProposalCard } from '../components/BaseProposalCard';
@@ -30,7 +30,10 @@ const SearchFilterContainer = styled.div`
   gap: 2.1rem;
 `;
 
-export const VALID_NEW_PROPOSALS = [FORM.SIGNAL, FORM.SHARE_SWAP];
+export const VALID_NEW_PROPOSALS = [
+  PROPOSAL_FORMS.SIGNAL,
+  PROPOSAL_FORMS.SHARE_SWAP,
+];
 
 export function Proposals() {
   const {
@@ -45,7 +48,7 @@ export function Proposals() {
   const [filter, setFilter] = useState<string>('');
 
   const newProposals = useMemo(() => {
-    return Object.keys(FORM).map((key) => FORM[key]);
+    return Object.keys(PROPOSAL_FORMS).map((key) => PROPOSAL_FORMS[key]);
   }, []);
 
   const handleSearchFilter = (term: string) => {

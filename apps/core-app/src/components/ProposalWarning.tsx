@@ -1,15 +1,20 @@
 import styled from 'styled-components';
-import { Card, ParXs } from '@daohaus/ui';
+import { Card, ParXs, Theme } from '@daohaus/ui';
 import { useMemo } from 'react';
 import { PROPOSAL_TYPE_WARNINGS } from '../utils/constants';
 import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
 
 const WarningContainer = styled(Card)`
-  /* display: flex; */
-  /* flex-wrap: wrap; */
-  /* justify-content: flex-start; */
   width: 100%;
-  /* gap: 1rem; */
+  background-color: ${({ theme, error }: { theme: Theme; error: boolean }) =>
+    error && theme.card.warningBg};
+  border-color: ${({ theme, error }: { theme: Theme; error: boolean }) =>
+    error && theme.card.warningBorder};
+`;
+
+const StyledParXs = styled(ParXs)`
+  color: ${({ theme, error }: { theme: Theme; error: boolean }) =>
+    error && theme.card.warningText};
 `;
 
 const Spacer = styled.div`
@@ -37,11 +42,15 @@ export const ProposalWarning = ({
       );
     }
   }, [proposalType, decodeError]);
+
+  const hasError =
+    decodeError || warningMessage === PROPOSAL_TYPE_WARNINGS.ERROR_UNKOWN;
+
   return (
-    <WarningContainer>
-      <ParXs>{warningMessage}</ParXs>
+    <WarningContainer error={hasError}>
+      <StyledParXs error={hasError}>{warningMessage}</StyledParXs>
       {decodeError ||
-        (warningMessage === PROPOSAL_TYPE_WARNINGS.ERROR_UNKOWN && (
+        (hasError && (
           <>
             <Spacer />
             <ExplorerLink address={txHash} type="tx">

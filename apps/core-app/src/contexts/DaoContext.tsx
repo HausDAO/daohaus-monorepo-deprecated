@@ -24,7 +24,6 @@ import {
   useRef,
 } from 'react';
 import { useParams } from 'react-router-dom';
-import { createDeflate } from 'zlib';
 import {
   DEFAULT_MEMBERS_PAGE_SIZE,
   DEFAULT_PROPOSAL_PAGE_SIZE,
@@ -306,8 +305,6 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
       loadProposalsList({
         filter: { dao: daoid, ...proposalsFilter },
         ordering: proposalsSort,
-        // ordering: { orderBy: 'createdAt', orderDirection: 'desc' },
-
         paging: proposalsPaging,
         daochain: daochain as keyof Keychain,
         setData: setProposals,

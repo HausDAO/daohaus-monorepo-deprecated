@@ -24,7 +24,6 @@ export const Progress = ({
   const theme = useTheme() as Theme;
   // Starting values needed for the animation
   // Mapped by "progressSection" so it can work with multiple values dynamically
-  // It's an array of percentage widths
   const [widths, setWidths] = useState(
     progressSection.map(() => {
       return '0%';

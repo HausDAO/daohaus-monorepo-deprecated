@@ -48,7 +48,7 @@ export const FIELD: Record<string, CustomFieldLego> = {
   TAGS: {
     id: 'tags',
     type: 'tagsInput',
-    label: 'Tags (seperated by commas)',
+    label: 'Tags (separated by commas)',
     placeholder: 'DAO Name',
   },
   PROPOSAL_EXPIRY: {

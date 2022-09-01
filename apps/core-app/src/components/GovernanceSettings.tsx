@@ -76,7 +76,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
       <div className="description">
         <ParSm>
           <StyledLink
-            href="https://baal-docs.vercel.app/configuration/governance-configuration"
+            href="https://moloch.daohaus.fun/configuration/governance-configuration"
             target="_blank"
             rel="noreferrer"
           >
@@ -134,7 +134,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
       <TokenDataGrid>
         <DataIndicator
           size="sm"
-          label="total"
+          label="Total"
           data={formatValueTo({
             value: fromWei(dao.totalShares),
             decimals: 2,
@@ -157,7 +157,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
       <TokenDataGrid>
         <DataIndicator
           size="sm"
-          label="total"
+          label="Total"
           data={formatValueTo({
             value: fromWei(dao.totalLoot),
             decimals: 2,

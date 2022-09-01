@@ -9,6 +9,8 @@ import {
 } from 'react-icons/ri';
 import { mintDark, tomatoDark } from '@radix-ui/colors';
 import { GatedButton } from './GatedButton';
+import { ITransformedProposal } from '@daohaus/dao-data';
+import { checkHasQuorum } from '@daohaus/common-utilities';
 
 const TemplateBox = styled.div`
   display: flex;
@@ -105,6 +107,23 @@ export const VoteStatus = ({ passing }: { passing: boolean }) => {
   ) : (
     <ProposalFail text="Proposal is Failing" />
   );
+};
+
+export const VotingResults = ({
+  isVoting,
+  proposal,
+}: {
+  isVoting: boolean;
+  proposal: ITransformedProposal;
+}) => {
+  const hasQuorum = checkHasQuorum({
+    yesVotes: Number(proposal.yesBalance),
+    totalShares: Number(proposal.dao.totalShares),
+    quorumPercent: Number(proposal.dao.quorumPercent),
+  });
+  const pass =
+    Number(proposal.yesBalance) > Number(proposal.noBalance) && hasQuorum;
+  return isVoting ? <VoteStatus passing={pass} /> : <Verdict passed={pass} />;
 };
 
 export const ActionTemplate = ({

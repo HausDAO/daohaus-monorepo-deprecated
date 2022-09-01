@@ -8,7 +8,7 @@ import { ITransformedProposal } from '@daohaus/dao-data';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { ParMd, TintSecondary } from '@daohaus/ui';
 import { useMemo } from 'react';
-import { ActionTemplate, DummyBar, Verdict } from './ActionPrimitives';
+import { ActionTemplate, DummyBar, VotingResults } from './ActionPrimitives';
 
 export const GracePeriod = ({
   proposal,
@@ -40,15 +40,6 @@ export const GracePeriod = ({
       separator: '',
     })})`;
 
-  const hasQuorum = checkHasQuorum({
-    yesVotes: Number(proposal.yesBalance),
-    totalShares: Number(proposal.dao.totalShares),
-    quorumPercent: Number(proposal.dao.quorumPercent),
-  });
-
-  const didPass =
-    Number(proposal.yesBalance) > Number(proposal.noBalance) && hasQuorum;
-
   return (
     <ActionTemplate
       statusDisplay={
@@ -59,7 +50,7 @@ export const GracePeriod = ({
       main={
         <>
           <DummyBar />
-          <Verdict passed={didPass} />
+          <VotingResults proposal={proposal} isVoting={false} />
         </>
       }
       helperDisplay={userVoteDisplay}

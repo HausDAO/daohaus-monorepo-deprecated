@@ -39,6 +39,9 @@ export const ProposalActions = ({
       </ActionBox>
     );
   }
+  if (proposal.status === PROPOSAL_STATUS.needsProcessing) {
+    return <ActionBox></ActionBox>;
+  }
 
   return (
     <ActionBox>

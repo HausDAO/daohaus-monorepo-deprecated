@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import { Card, Theme, DataIndicator, widthQuery } from '@daohaus/ui';
 
 import { TDao } from '@daohaus/dao-context';
-import { charLimit, formatValueTo, fromWei } from '@daohaus/common-utilities';
+import { charLimit, formatValueTo } from '@daohaus/common-utilities';
+import { fromWei } from '@daohaus/ethers-utilities';
 
 const MembersOverviewCard = styled(Card)`
   background-color: ${({ theme }: { theme: Theme }) => theme.card.hoverBg};

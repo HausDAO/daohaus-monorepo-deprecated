@@ -1,11 +1,10 @@
+import { ArbitraryState, ValidNetwork } from '@daohaus/common-utilities';
 import {
   ABI,
-  ArbitraryState,
   isArgType,
   JSONDetailsSearch,
   StringSearch,
-  ValidNetwork,
-} from '@daohaus/common-utilities';
+} from '@daohaus/ethers-utilities';
 import { processArg } from './args';
 
 export const checkArgType = (arg: unknown) => {

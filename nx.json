@@ -1,5 +1,5 @@
 {
-  "npmScope": "daohaus-monorepo",
+  "npmScope": "@daohaus",
   "affected": {
     "defaultBase": "master"
   },
@@ -8,7 +8,10 @@
       "dependencies": "*",
       "devDependencies": "*"
     },
-    ".eslintrc.json": "*"
+    ".eslintrc.json": "*",
+    "nx.json": "*",
+    "tsconfig.base.json": "*",
+    "workspace.json": "*"
   },
   "tasksRunnerOptions": {
     "default": {

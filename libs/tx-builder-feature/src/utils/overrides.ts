@@ -1,4 +1,5 @@
-import { ArbitraryState, TXOverrides } from '@daohaus/common-utilities';
+import { ArbitraryState } from '@daohaus/common-utilities';
+import { TXOverrides } from '@daohaus/ethers-utilities';
 
 export const processOverrides = ({
   overrideArgs,

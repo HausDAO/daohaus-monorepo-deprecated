@@ -2,7 +2,7 @@ import {
   FieldLegoBase,
   FormLegoBase,
   LookupType,
-} from '@daohaus/common-utilities';
+} from '@daohaus/ethers-utilities';
 import { CoreFieldLookup } from '../components/CoreFieldLookup';
 
 export type CoreFields = typeof CoreFieldLookup;

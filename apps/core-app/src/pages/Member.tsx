@@ -19,10 +19,12 @@ import {
   formatValueTo,
   Keychain,
   NETWORK_DATA,
-  memberTokenBalanceShare,
-  memberUsdValueShare,
   charLimit,
 } from '@daohaus/common-utilities';
+import {
+  memberTokenBalanceShare,
+  memberUsdValueShare,
+} from '@daohaus/ethers-utilities';
 import { AccountProfile, FindMemberQuery, Haus } from '@daohaus/dao-data';
 
 import { useDao } from '@daohaus/dao-context';

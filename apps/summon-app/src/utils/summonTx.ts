@@ -1,17 +1,20 @@
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import {
-  ArgType,
   CONTRACTS,
-  encodeFunction,
-  encodeValues,
-  getNonce,
   isArray,
   isNumberish,
   isString,
   POSTER_TAGS,
-  toBaseUnits,
   ValidNetwork,
 } from '@daohaus/common-utilities';
+
+import {
+  ArgType,
+  encodeFunction,
+  encodeValues,
+  getNonce,
+  toBaseUnits,
+} from '@daohaus/ethers-utilities';
 
 import { FormValues } from '../types/form';
 import { FORM_KEYS } from './formKeys';

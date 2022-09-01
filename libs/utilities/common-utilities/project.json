@@ -1,0 +1,47 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/utilities/common-utilities/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/utilities/common-utilities",
+        "main": "libs/utilities/common-utilities/src/index.ts",
+        "tsConfig": "libs/utilities/common-utilities/tsconfig.lib.json",
+        "assets": ["utilities/libs/common-utilities/*.md"],
+        "generatePackageJson": true,
+        "updateBuildableProjectDepsInPackageJson": true,
+        "buildableProjectDepsInPackageJsonType": "dependencies"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["utilities/libs/common-utilities/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/utilities/common-utilities"],
+      "options": {
+        "jestConfig": "libs/utilities/common-utilities/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/utilities/common-utilities",
+        "tsConfig": "./libs/utilities/common-utilities/tsconfig.lib.json",
+        "main": "./libs/utilities/common-utilities/src/index.ts",
+
+        "watch": true
+      }
+    }
+  },
+  "tags": ["type:util"]
+}

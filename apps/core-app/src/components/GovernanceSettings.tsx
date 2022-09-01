@@ -15,10 +15,10 @@ import {
   charLimit,
   formatPeriods,
   formatValueTo,
-  fromWei,
   getNetwork,
   INFO_COPY,
 } from '@daohaus/common-utilities';
+import { fromWei } from '@daohaus/ethers-utilities';
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 

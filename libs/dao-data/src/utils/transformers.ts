@@ -1,4 +1,4 @@
-import { votingPowerPercentage } from '@daohaus/common-utilities';
+import { votingPowerPercentage } from '@daohaus/ethers-utilities';
 import {
   ITransformedProposal,
   ITransformedMembership,

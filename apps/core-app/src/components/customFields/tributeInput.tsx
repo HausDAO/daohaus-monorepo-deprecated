@@ -2,12 +2,14 @@ import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import {
   CONTRACTS,
   handleErrorMessage,
-  isEthAddress,
   isValidNetwork,
   ReactSetter,
+} from '@daohaus/common-utilities';
+import {
+  isEthAddress,
   toBaseUnits,
   toWholeUnits,
-} from '@daohaus/common-utilities';
+} from '@daohaus/ethers-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { FieldSpacer } from '@daohaus/haus-form-builder';
 import { createContract, useTxBuilder } from '@daohaus/tx-builder-feature';

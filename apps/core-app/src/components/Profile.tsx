@@ -16,9 +16,8 @@ import { AccountProfile } from '@daohaus/dao-data';
 import {
   formatLongDateFromSeconds,
   formatValueTo,
-  fromWei,
-  votingPowerPercentage,
 } from '@daohaus/common-utilities';
+import { fromWei, votingPowerPercentage } from '@daohaus/ethers-utilities';
 
 import { TMembership, useDao } from '@daohaus/dao-context';
 

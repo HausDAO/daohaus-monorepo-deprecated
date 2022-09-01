@@ -1,4 +1,5 @@
-import { baalTimeToNow, formatShares } from '@daohaus/common-utilities';
+import { baalTimeToNow } from '@daohaus/common-utilities';
+import { formatShares } from '@daohaus/ethers-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { ParMd, TintSecondary } from '@daohaus/ui';

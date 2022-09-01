@@ -1,22 +1,24 @@
 import {
-  ABI,
   ArbitraryState,
+  CONTRACTS,
+  ENDPOINTS,
+  EthAddress,
+  Keychain,
+  ValidNetwork,
+} from '@daohaus/common-utilities';
+import {
+  ABI,
   ArgEncode,
   ArgType,
-  CONTRACTS,
   encodeFunction,
   encodeValues,
-  ENDPOINTS,
   EstmimateGas,
-  EthAddress,
   JSONDetailsSearch,
-  Keychain,
   MulticallAction,
   MulticallArg,
   StringSearch,
   TXLego,
-  ValidNetwork,
-} from '@daohaus/common-utilities';
+} from '@daohaus/ethers-utilities';
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import { encodeMultiSend, MetaTransaction } from '@gnosis.pm/safe-contracts';
 import { getAddress } from 'ethers/lib/utils';

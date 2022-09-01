@@ -4,8 +4,8 @@ import {
   handleErrorMessage,
   isGovernor,
   PROPOSAL_STATUS,
-  TXLego,
 } from '@daohaus/common-utilities';
+import { TXLego } from '@daohaus/ethers-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { useTxBuilder } from '@daohaus/tx-builder-feature';

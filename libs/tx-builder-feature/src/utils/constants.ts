@@ -1,4 +1,4 @@
-import { JSONDetailsSearch } from '@daohaus/common-utilities';
+import { JSONDetailsSearch } from '@daohaus/ethers-utilities';
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 
 export const EXPIRY = '.proposalExpiry';

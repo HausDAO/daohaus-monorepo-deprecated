@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import {
   formatShortDateTimeFromSeconds,
   formatValueTo,
-  fromWei,
   Keychain,
 } from '@daohaus/common-utilities';
+import { fromWei } from '@daohaus/ethers-utilities';
 import { AddressDisplay, DataMd, ParMd } from '@daohaus/ui';
 
 import { TProposals } from '@daohaus/dao-context';

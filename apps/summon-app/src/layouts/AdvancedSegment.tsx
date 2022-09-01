@@ -1,9 +1,6 @@
 import { FormSegment, SplitColumn, WrappedInput } from '@daohaus/ui';
-import {
-  INFO_COPY,
-  toBaseUnits,
-  ValidateField,
-} from '@daohaus/common-utilities';
+import { INFO_COPY, ValidateField } from '@daohaus/common-utilities';
+import { toBaseUnits } from '@daohaus/ethers-utilities';
 
 import { FORM_KEYS } from '../utils/formKeys';
 

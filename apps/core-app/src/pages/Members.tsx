@@ -15,9 +15,8 @@ import {
   charLimit,
   formatDateFromSeconds,
   formatValueTo,
-  fromWei,
-  votingPowerPercentage,
 } from '@daohaus/common-utilities';
+import { fromWei, votingPowerPercentage } from '@daohaus/ethers-utilities';
 
 import {
   useMembers,

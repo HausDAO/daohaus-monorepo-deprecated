@@ -1,9 +1,9 @@
 import {
   ignoreEmptyVal,
   isNumberish,
-  toBaseUnits,
   ValidateField,
 } from '@daohaus/common-utilities';
+import { toBaseUnits } from '@daohaus/ethers-utilities';
 import { Buildable, Field, WrappedInput } from '@daohaus/ui';
 import { RegisterOptions } from 'react-hook-form';
 

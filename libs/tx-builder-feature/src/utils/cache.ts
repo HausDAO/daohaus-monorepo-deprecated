@@ -1,4 +1,5 @@
-import { ABI, ArbitraryState, ValidNetwork } from '@daohaus/common-utilities';
+import { ArbitraryState, ValidNetwork } from '@daohaus/common-utilities';
+import { ABI } from '@daohaus/ethers-utilities';
 import localforage from 'localforage';
 
 const defaultABIStore = {

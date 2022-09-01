@@ -1,15 +1,8 @@
+import { isNumberish } from '@daohaus/common-utilities';
 import { Validate } from 'react-hook-form';
-import { isEthAddress, toBaseUnits } from '../ethers/general';
-import { isArray, isBoolean, isNumberish, isString } from './typeguards';
-export const ValErrMsgs = {
-  number: 'Field must be a number',
-  boolean: 'Field must be a boolean',
-  array: 'Field must be an array',
-  ethAddress: 'Field must be an Ethereum address',
-  url: 'Field must be a valid URL',
-  email: 'Field must be a valid email',
-  percent: 'Field must be a valid percentage',
-};
+import { isBoolean, isArray, isString } from 'util';
+import { isEthAddress, toBaseUnits } from './general';
+
 export const ValidateField = {
   number: (val: unknown) => (isNumberish(val) ? true : ValErrMsgs.number),
   boolean: (val: unknown) => (isBoolean(val) ? true : ValErrMsgs.boolean),
@@ -30,7 +23,15 @@ export const ValidateField = {
       ? true
       : ValErrMsgs.percent,
 };
-
+export const ValErrMsgs = {
+  number: 'Field must be a number',
+  boolean: 'Field must be a boolean',
+  array: 'Field must be an array',
+  ethAddress: 'Field must be an Ethereum address',
+  url: 'Field must be a valid URL',
+  email: 'Field must be a valid email',
+  percent: 'Field must be a valid percentage',
+};
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const ignoreEmptyVal = (val: any, validator: Validate<any>) =>
   val === '' ? true : validator(val);

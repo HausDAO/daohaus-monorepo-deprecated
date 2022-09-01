@@ -1,5 +1,5 @@
 import { ethers } from 'ethers';
-import { ABI, ArgType } from '../types';
+import { ABI, ArgType } from './contract';
 
 export const encodeValues = (
   typesArray: string[],

@@ -4,6 +4,8 @@
     "abi-utilities": "libs/abi-utilities",
     "ceramic-model-utilities": "libs/ceramic-model-utilities",
     "common-utilities": "libs/common-utilities",
+    "base-utilities": "libs/base-utilities",
+    "ethers-utilities": "libs/ethers-utilities",
     "contract-utilities": "libs/contract-utilities",
     "core-app": "apps/core-app",
     "dao-consumer-job": "apps/dao-consumer-job",

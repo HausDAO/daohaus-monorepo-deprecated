@@ -1,0 +1,47 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/common-utilities/base-utilities/base-utilities/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/common-utilities/base-utilities",
+        "main": "libs/common-utilities/base-utilities/src/index.ts",
+        "tsConfig": "libs/common-utilities/base-utilities/tsconfig.lib.json",
+        "assets": ["libs/common-utilities/base-utilities/*.md"],
+        "generatePackageJson": true,
+        "updateBuildableProjectDepsInPackageJson": true,
+        "buildableProjectDepsInPackageJsonType": "dependencies"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/common-utilities/base-utilities/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/common-utilities/base-utilities"],
+      "options": {
+        "jestConfig": "libs/common-utilities/base-utilities/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/common-utilities/base-utilities",
+        "tsConfig": "./libs/common-utilities/base-utilities/tsconfig.lib.json",
+        "main": "./libs/common-utilities/base-utilities/src/index.ts",
+
+        "watch": true
+      }
+    }
+  },
+  "tags": []
+}

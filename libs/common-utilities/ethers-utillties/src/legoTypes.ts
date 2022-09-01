@@ -1,8 +1,21 @@
 import { JSXElementConstructor } from 'react';
-import { ValidateField } from '../utils';
+import {
+  isArray,
+  isBoolean,
+  isNumber,
+  isString,
+  ValidateField,
+} from '../utils';
 import { ABI, ArgType } from './contract';
-import { EthAddress, RequireOnlyOne } from './general';
-import { Keychain } from './keychains';
+import { EthAddress, RequireOnlyOne } from '../types/general';
+import { Keychain } from '../types/keychains';
+
+export const isArgType = (item: unknown): item is ArgType => {
+  if (isArray(item)) {
+    return item.every(isArgType);
+  }
+  return isString(item) || isNumber(item) || isBoolean(item);
+};
 
 export type LookupType = Record<
   string,

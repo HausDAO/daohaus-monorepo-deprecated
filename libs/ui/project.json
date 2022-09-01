@@ -4,30 +4,34 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "vite-build": {
-      "executor": "@nxext/vite:package",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/ui",
-        "configFile": "libs/ui/vite.config.ts",
-        "frameworkConfigFile": "@nxext/react/plugins/vite",
-        "entryFile": "src/index.ts",
-        "generatePackageJson": true
-      }
-    },
     "build": {
+      "executor": "@nrwl/web:rollup",
       "outputs": ["{options.outputPath}"],
-      "executor": "@nrwl/workspace:run-commands",
       "options": {
         "outputPath": "dist/libs/ui",
-        "command": "tsc --project libs/ui/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
-        "color": true
+        "tsConfig": "libs/ui/tsconfig.lib.json",
+        "project": "libs/ui/package.json",
+        "entryFile": "libs/ui/src/index.ts",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "compiler": "babel",
+        "format": ["esm"],
+        "assets": [
+          {
+            "glob": "**/*.svg",
+            "input": "libs/ui/src/assets",
+            "output": "assets/"
+          },
+          {
+            "glob": "package.json",
+            "input": "dist/libs/ui/",
+            "output": "dist/libs/ui/package.json"
+          }
+        ],
+        "updateBuildableProjectDepsInPackageJson": true,
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       },
       "dependsOn": [
-        {
-          "target": "vite-build",
-          "projects": "self"
-        },
         {
           "target": "build-storybook",
           "projects": "self"

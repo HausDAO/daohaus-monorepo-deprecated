@@ -5,13 +5,15 @@ import {
 } from '@daohaus/common-utilities';
 import { QueryProposal } from '../types';
 
-export const isProposalUnsponsored = (proposal: QueryProposal): boolean =>
-  !proposal.sponsored &&
-  !proposal.cancelled &&
-  Number(proposal.expiration) >
-    Number(proposal.votingPeriod) +
-      Number(proposal.gracePeriod) +
-      nowInSeconds();
+export const isProposalUnsponsored = (proposal: QueryProposal): boolean => {
+  const notExpired =
+    Number(proposal.expiration) > 0 ||
+    Number(proposal.expiration) <
+      Number(proposal.votingPeriod) +
+        Number(proposal.gracePeriod) +
+        nowInSeconds();
+  return !proposal.sponsored && !proposal.cancelled && notExpired;
+};
 
 export const isProposalCancelled = (proposal: QueryProposal): boolean =>
   proposal.cancelled;
@@ -49,6 +51,7 @@ export const proposalNeedsProcessing = (proposal: QueryProposal): boolean =>
   !proposal.processed;
 
 export const isProposalFailed = (proposal: QueryProposal): boolean =>
+  proposal.sponsored &&
   nowInSeconds() > Number(proposal.graceEnds) &&
   !proposal.cancelled &&
   (!passedQuorum(proposal) ||

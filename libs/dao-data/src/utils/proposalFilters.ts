@@ -5,7 +5,7 @@ export const statusFilter = (
   status: string,
   votingPlusGraceDuration?: string | number
 ): Proposal_Filter | undefined => {
-  const now = `${nowInSeconds()}`;
+  const now = `${nowInSeconds().toFixed()}`;
 
   switch (status) {
     case PROPOSAL_STATUS['unsponsored']: {

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ITransformedProposal } from '@daohaus/dao-data';
-import { Button } from '@daohaus/ui';
+import { useToast } from '@daohaus/ui';
 import styled from 'styled-components';
 import {
   ActionTemplate,
@@ -9,6 +9,13 @@ import {
   GasDisplay,
   VotingResults,
 } from './ActionPrimitives';
+import { useParams } from 'react-router-dom';
+import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+import { useDao } from '../../contexts/DaoContext';
+import { useTxBuilder } from '@daohaus/tx-builder-feature';
+import { handleErrorMessage, TXLego } from '@daohaus/common-utilities';
+import { ACTION_TX } from '../../legos/tx';
+import { GatedButton } from './GatedButton';
 
 const ProcessBox = styled.div`
   display: flex;
@@ -24,9 +31,64 @@ export const ReadyForProcessing = ({
 }: {
   proposal: ITransformedProposal;
 }) => {
-  console.log('proposal', proposal);
+  const { daochain } = useParams();
+  const { chainId } = useHausConnect();
+  const { fireTransaction } = useTxBuilder();
+  const { errorToast, defaultToast, successToast } = useToast();
+  const { refreshAll } = useDao();
 
-  const processProposal = () => {};
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const processProposal = async () => {
+    const { proposalId, proposalData } = proposal;
+
+    if (!proposalId) return;
+    setIsLoading(true);
+    await fireTransaction({
+      tx: {
+        ...ACTION_TX.PROCESS,
+        staticArgs: [proposalId, proposalData],
+      } as TXLego,
+      lifeCycleFns: {
+        onTxError: (error) => {
+          const errMsg = handleErrorMessage({
+            error,
+          });
+          errorToast({ title: 'Process Failed', description: errMsg });
+          setIsLoading(false);
+        },
+        onTxSuccess: () => {
+          defaultToast({
+            title: 'Process Success',
+            description: 'Please wait for subgraph to sync',
+          });
+        },
+        onPollError: (error) => {
+          const errMsg = handleErrorMessage({
+            error,
+          });
+          errorToast({ title: 'Poll Error', description: errMsg });
+          setIsLoading(false);
+        },
+        onPollSuccess: () => {
+          successToast({
+            title: 'Process Success',
+            description: 'Proposal processed',
+          });
+          refreshAll();
+          setIsLoading(false);
+        },
+      },
+    });
+  };
+
+  const isConnectedToDao =
+    chainId === daochain
+      ? true
+      : 'You are not connected to the same network as the DAO';
+  const isNotLoading = !isLoading
+    ? true
+    : 'Please wait for transaction to complete';
 
   return (
     <ActionTemplate
@@ -43,9 +105,14 @@ export const ReadyForProcessing = ({
             <GasDisplay gasAmt={proposal.actionGasEstimate} />
           )}
 
-          <Button sm onClick={processProposal} className="execute">
+          <GatedButton
+            sm
+            onClick={processProposal}
+            className="execute"
+            rules={[isConnectedToDao, isNotLoading]}
+          >
             Execute
-          </Button>
+          </GatedButton>
         </ProcessBox>
       }
     />

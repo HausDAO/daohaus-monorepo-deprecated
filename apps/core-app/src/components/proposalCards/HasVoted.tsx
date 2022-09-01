@@ -1,11 +1,8 @@
-import {
-  checkHasQuorum,
-  formatValueTo,
-  toWholeUnits,
-} from '@daohaus/common-utilities';
-import { ITransformedProposal } from '@daohaus/dao-data';
 import { ParMd, TintSecondary } from '@daohaus/ui';
-import { ActionTemplate, DummyBar, VoteStatus } from './ActionPrimitives';
+import { formatValueTo, toWholeUnits } from '@daohaus/common-utilities';
+import { ITransformedProposal } from '@daohaus/dao-data';
+
+import { ActionTemplate, DummyBar, VotingResults } from './ActionPrimitives';
 
 export const HasVoted = ({
   proposal,
@@ -18,13 +15,6 @@ export const HasVoted = ({
   userVoteBalance?: string;
   readableTime?: string;
 }) => {
-  const hasQuorum = checkHasQuorum({
-    yesVotes: Number(proposal.yesBalance),
-    totalShares: Number(proposal.dao.totalShares),
-    quorumPercent: Number(proposal.dao.quorumPercent),
-  });
-  const isPassing =
-    Number(proposal.yesBalance) > Number(proposal.noBalance) && hasQuorum;
   const voterHelperText = approved
     ? `You voted Yes (${formatValueTo({
         value: toWholeUnits(userVoteBalance || '0'),
@@ -48,7 +38,7 @@ export const HasVoted = ({
       main={
         <>
           <DummyBar />
-          <VoteStatus passing={isPassing} />
+          <VotingResults proposal={proposal} isVoting={false} />
         </>
       }
       helperDisplay={voterHelperText}

@@ -358,8 +358,6 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   ]);
 
   const refreshAll = async () => {
-    console.log('refreshAll');
-
     refreshDao();
     refreshMembers();
     refreshProposals();
@@ -408,7 +406,6 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   };
   const refreshProposals = async () => {
     if (daochain && daoid) {
-      console.log('refreshProposals');
       setProposals(undefined);
       loadProposalsList({
         filter: { dao: daoid, ...proposalsFilter },

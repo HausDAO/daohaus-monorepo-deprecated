@@ -1,6 +1,5 @@
 export * from './AddressDisplay';
 export * from './CSInput';
-export * from './CollapsibleCard';
 export * from './DataIndicator';
 export * from './Dialog';
 export * from './Dropdown';

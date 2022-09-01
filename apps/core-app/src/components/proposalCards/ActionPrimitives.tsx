@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { MdOutlineGavel } from 'react-icons/md';
-import { Italic, ParMd, Tooltip } from '@daohaus/ui';
+import { Button, Italic, ParMd, Tooltip } from '@daohaus/ui';
 import {
   RiGasStationLine,
   RiThumbDownLine,
   RiThumbUpLine,
 } from 'react-icons/ri';
-import { ITransformedProposal } from '@daohaus/dao-data';
+import { mintDark, tomatoDark } from '@radix-ui/colors';
 
 const TemplateBox = styled.div`
   display: flex;
@@ -170,3 +170,55 @@ export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
     />
   );
 };
+
+export const VoteUpButton = styled(Button)`
+  background-color: ${mintDark.mint10};
+  border: 1px solid ${mintDark.mint10};
+  color: ${mintDark.mint1};
+  min-width: 7rem;
+
+  :hover {
+    background-color: ${mintDark.mint11};
+    border: 1px solid ${mintDark.mint11};
+  }
+  :focus {
+    background-color: ${mintDark.mint11};
+    border: 1px solid ${mintDark.mint11};
+  }
+  :active {
+    background-color: ${mintDark.mint10};
+    border: 1px solid ${mintDark.mint10};
+  }
+  :disabled {
+    background-color: ${mintDark.mint12};
+    border: 1px solid ${mintDark.mint12};
+  }
+`;
+export const VoteDownButton = styled(Button)`
+  background-color: ${tomatoDark.tomato10};
+  border: 1px solid ${tomatoDark.tomato10};
+  color: ${tomatoDark.tomato1};
+  min-width: 7rem;
+
+  :hover {
+    background-color: ${tomatoDark.tomato11};
+    border: 1px solid ${tomatoDark.tomato11};
+  }
+  :focus {
+    background-color: ${tomatoDark.tomato11};
+    border: 1px solid ${tomatoDark.tomato11};
+  }
+  :active {
+    background-color: ${tomatoDark.tomato10};
+    border: 1px solid ${tomatoDark.tomato10};
+  }
+  :disabled {
+    background-color: ${tomatoDark.tomato12};
+    border: 1px solid ${tomatoDark.tomato12};
+  }
+`;
+export const VoteBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;

@@ -81,7 +81,7 @@ export const FIELD: Record<string, CustomFieldLego> = {
     components: [
       {
         id: 'proposalExpiry',
-        // @ts-expect-error: cannot resolve type within checkRender using custom fields sent from the core-app
+        // @ts-expect-error: doing object spread, even if the field definition has the property
         type: 'proposalExpiry',
         defaultValue: '0',
         label: 'Expiration',

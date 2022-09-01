@@ -9,7 +9,8 @@ import {
 } from '@daohaus/ui';
 import { useDao } from '@daohaus/dao-context';
 import { DaoProfile } from '../components/DaoProfile';
-import { charLimit, formatValueTo, fromWei } from '@daohaus/common-utilities';
+import { charLimit, formatValueTo } from '@daohaus/common-utilities';
+import { fromWei } from '@daohaus/ethers-utilities';
 
 const OverviewCard = styled(Card)`
   width: 64rem;

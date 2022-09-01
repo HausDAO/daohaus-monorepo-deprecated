@@ -1,15 +1,17 @@
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import {
   CONTRACTS,
-  NestedArray,
   POSTER_TAGS,
   TABULA_TAGS,
   ENCODED_0X0_DATA,
   toSeconds,
+} from '@daohaus/common-utilities';
+import {
+  NestedArray,
   TXLego,
   ValidArgType,
   TXLegoBase,
-} from '@daohaus/common-utilities';
+} from '@daohaus/ethers-utilities';
 import { buildMultiCallTX } from '@daohaus/tx-builder-feature';
 import { MaxUint256 } from '@ethersproject/constants';
 import { ProposalTypeIds } from '../utils/constants';

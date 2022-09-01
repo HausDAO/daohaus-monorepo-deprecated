@@ -1,11 +1,8 @@
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
-import {
-  isValidNetwork,
-  toWholeUnits,
-  handleBaseUnits,
-} from '@daohaus/common-utilities';
+import { isValidNetwork } from '@daohaus/common-utilities';
+import { toWholeUnits, handleBaseUnits } from '@daohaus/ethers-utilities';
 import { Buildable, Button, WrappedInput } from '@daohaus/ui';
 
 import { useDao } from '@daohaus/dao-context';

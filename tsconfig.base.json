@@ -19,7 +19,12 @@
       "@daohaus/ceramic-model-utilities": [
         "libs/ceramic-model-utilities/src/index.ts"
       ],
-      "@daohaus/common-utilities": ["libs/common-utilities/src/index.ts"],
+      "@daohaus/common-utilities": [
+        "libs/utilities/common-utilities/src/index.ts"
+      ],
+      "@daohaus/ethers-utilities": [
+        "libs/utilities/ethers-utilities/src/index.ts"
+      ],
       "@daohaus/contract-utilities": ["libs/contract-utilities/src/index.ts"],
       "@daohaus/dao-context": ["libs/dao-context/src/index.ts"],
       "@daohaus/dao-data": ["libs/dao-data/src/index.ts"],

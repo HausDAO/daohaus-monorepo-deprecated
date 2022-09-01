@@ -1,17 +1,19 @@
 import {
+  ValidNetwork,
+  Keychain,
+  ArbitraryState,
+  EthAddress,
+} from '@daohaus/common-utilities';
+import {
   StaticContract,
   ProcessedContract,
-  ValidNetwork,
   LocalContract,
   ContractLego,
   ABI,
   StringSearch,
-  Keychain,
-  ArbitraryState,
   isEthAddress,
-  EthAddress,
   RemoteContract,
-} from '@daohaus/common-utilities';
+} from '@daohaus/ethers-utilities';
 import { fetchABI } from './abi';
 import { isSearchArg } from './args';
 import { searchArg } from './search';
@@ -49,7 +51,7 @@ const handleTargetAddress = (args: {
   targetAddress: StringSearch | Keychain;
   chainId: ValidNetwork;
 }): EthAddress => {
-  const address = findTargetAddress(args);
+  const address = findTargetAddress(args) as string;
   if (isEthAddress(address)) return address;
   throw new Error(`Target address: ${address} is not a valid ethereum address`);
 };

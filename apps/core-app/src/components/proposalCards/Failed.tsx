@@ -1,8 +1,5 @@
-import {
-  checkHasQuorum,
-  formatShares,
-  roundedPercentage,
-} from '@daohaus/common-utilities';
+import { checkHasQuorum, roundedPercentage } from '@daohaus/common-utilities';
+import { formatShares } from '@daohaus/ethers-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { useMemo } from 'react';

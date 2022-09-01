@@ -1,5 +1,5 @@
 import { ParMd, TintSecondary } from '@daohaus/ui';
-import { formatShares } from '@daohaus/common-utilities';
+import { formatShares } from '@daohaus/ethers-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
 
 import { ActionTemplate, VotingResults } from './ActionPrimitives';

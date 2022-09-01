@@ -1,11 +1,8 @@
 import React, { MouseEvent } from 'react';
 import { useParams } from 'react-router-dom';
 
-import {
-  formatShares,
-  handleErrorMessage,
-  TXLego,
-} from '@daohaus/common-utilities';
+import { handleErrorMessage } from '@daohaus/common-utilities';
+import { formatShares, TXLego } from '@daohaus/ethers-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { useTxBuilder } from '@daohaus/tx-builder-feature';

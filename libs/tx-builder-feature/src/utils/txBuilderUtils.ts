@@ -1,12 +1,11 @@
 import { ethers, providers } from 'ethers';
 
 import {
-  ABI,
   ArbitraryState,
   ReactSetter,
-  TXLego,
   ValidNetwork,
 } from '@daohaus/common-utilities';
+import { ABI, TXLego } from '@daohaus/ethers-utilities';
 
 import { pollLastTX, standardGraphPoll, testLastTX } from './polling';
 import { processArgs } from './args';
@@ -39,14 +38,14 @@ export const executeTx = async (args: {
   console.log('txHash', txHash);
   try {
     lifeCycleFns?.onTxHash?.(ethersTx.hash);
-    setTransactions((prevState) => ({
+    setTransactions((prevState: TxRecord) => ({
       ...prevState,
       [txHash]: { ...tx, status: 'idle' },
     }));
     console.log('**Transaction Pending**');
     const reciept = await ethersTx.wait();
 
-    setTransactions((prevState) => ({
+    setTransactions((prevState: TxRecord) => ({
       ...prevState,
       [txHash]: { ...tx, status: 'polling' },
     }));
@@ -67,7 +66,7 @@ export const executeTx = async (args: {
       onPollSuccess(result) {
         lifeCycleFns?.onPollSuccess?.(result);
         console.log('**Poll Successful**');
-        setTransactions((prevState) => ({
+        setTransactions((prevState: TxRecord) => ({
           ...prevState,
           [txHash]: { ...tx, status: 'success' },
         }));
@@ -75,7 +74,7 @@ export const executeTx = async (args: {
       onPollError(error) {
         lifeCycleFns?.onPollError?.(error);
         console.log('**Poll Error**');
-        setTransactions((prevState) => ({
+        setTransactions((prevState: TxRecord) => ({
           ...prevState,
           [txHash]: { ...tx, status: 'pollFailed' },
         }));
@@ -89,7 +88,7 @@ export const executeTx = async (args: {
     console.log('**TX Error**');
     console.error(error);
     lifeCycleFns?.onTxError?.(error);
-    setTransactions((prevState) => ({
+    setTransactions((prevState: TxRecord) => ({
       ...prevState,
       [txHash]: { ...tx, status: 'failed' },
     }));

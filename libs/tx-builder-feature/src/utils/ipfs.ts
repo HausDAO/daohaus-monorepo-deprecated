@@ -1,10 +1,9 @@
 import {
-  ABI,
   ArbitraryState,
-  IPFSPinata,
   pinataPostJSON,
   ValidNetwork,
 } from '@daohaus/common-utilities';
+import { ABI, IPFSPinata } from '@daohaus/ethers-utilities';
 import { processArg } from './args';
 
 export const handleIPFSPinata = async ({

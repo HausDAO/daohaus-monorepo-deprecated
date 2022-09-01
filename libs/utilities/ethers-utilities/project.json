@@ -1,0 +1,63 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/utilities/ethers-utilities/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/ethers-utilities",
+        "main": "libs/utilities/ethers-utilities/src/index.ts",
+        "tsConfig": "libs/utilities/ethers-utilities/tsconfig.lib.json",
+        "assets": ["libs/utilities/ethers-utilities/*.md"],
+        "generatePackageJson": true,
+        "updateBuildableProjectDepsInPackageJson": true,
+        "buildableProjectDepsInPackageJsonType": "dependencies"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/utilities/ethers-utilities/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/utilities/ethers-utilities"],
+      "options": {
+        "jestConfig": "libs/utilities/ethers-utilities/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional",
+        "tagPrefix": "${projectName}@",
+        "noVerify": true,
+        "baseBranch": "master",
+        "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
+      }
+    },
+    "deploy": {
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "access": "public"
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/ethers-utilities",
+        "tsConfig": "./libs/utilities/ethers-utilities/tsconfig.lib.json",
+        "main": "./libs/utilities/ethers-utilities/src/index.ts",
+
+        "watch": true
+      }
+    }
+  },
+  "tags": ["type:util"]
+}

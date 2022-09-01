@@ -1,8 +1,5 @@
-import {
-  FieldValidationType,
-  ValidateField,
-  ValueOf,
-} from '@daohaus/common-utilities';
+import { ValidateField, ValueOf } from '@daohaus/common-utilities';
+import { FieldValidationType } from '@daohaus/ethers-utilities';
 import { RegisterOptions } from 'react-hook-form';
 import { FieldLego } from '../types';
 

@@ -2,7 +2,8 @@ import React, { useMemo } from 'react';
 
 import { ITransformedProposal } from '@daohaus/dao-data';
 import { ActionTemplate, Verdict } from './ActionPrimitives';
-import { formatShares, roundedPercentage } from '@daohaus/common-utilities';
+import { roundedPercentage } from '@daohaus/common-utilities';
+import { formatShares } from '@daohaus/ethers-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { VotingBar } from '../VotingBar';
 

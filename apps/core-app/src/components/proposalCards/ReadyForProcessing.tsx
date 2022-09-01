@@ -13,9 +13,9 @@ import {
   isValidNetwork,
   ReactSetter,
   roundedPercentage,
-  TXLego,
   ValidNetwork,
 } from '@daohaus/common-utilities';
+import { TXLego } from '@daohaus/ethers-utilities';
 import { ACTION_TX } from '../../legos/tx';
 import { GatedButton } from './GatedButton';
 import { VotingBar } from '../VotingBar';

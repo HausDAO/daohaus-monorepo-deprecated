@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, Key, useContext, useState } from 'react';
 import {
   FieldValues,
   FormProvider as RHFProvider,
@@ -8,12 +8,8 @@ import {
 import { DevTool } from '@hookform/devtools';
 
 import { FormLayout, useToast } from '@daohaus/ui';
-import {
-  handleErrorMessage,
-  isValidNetwork,
-  LookupType,
-  RequiredFields,
-} from '@daohaus/common-utilities';
+import { handleErrorMessage, isValidNetwork } from '@daohaus/common-utilities';
+import { LookupType, RequiredFields } from '@daohaus/ethers-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 import { FormLego } from '../types';
@@ -188,7 +184,7 @@ export function FormBuilder<Lookup extends LookupType>({
             className="builder-inner-form"
             noValidate
           >
-            {fields?.map((field) => (
+            {fields?.map((field: any) => (
               <FormBuilderFactory key={field?.id} field={field} />
             ))}
             {log && <Logger />}

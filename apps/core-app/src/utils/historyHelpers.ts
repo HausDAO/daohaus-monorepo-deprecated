@@ -4,10 +4,10 @@ import {
   formatPeriods,
   formatShortDateTimeFromSeconds,
   formatValueTo,
-  fromWei,
   NetworkType,
   PROPOSAL_STATUS,
 } from '@daohaus/common-utilities';
+import { fromWei } from '@daohaus/ethers-utilities';
 import { TProposals } from '@daohaus/dao-context';
 
 export type ProposalHistoryElementData = {

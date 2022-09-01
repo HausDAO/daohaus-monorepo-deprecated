@@ -1,5 +1,5 @@
 import {
-  formatDistanceToNow,
+  formatDistanceToNowStrict,
   hoursToSeconds,
   minutesToSeconds,
 } from 'date-fns';
@@ -51,5 +51,5 @@ export const baalTimeToNow = (time: string | number) => {
     );
     return;
   }
-  return formatDistanceToNow(new Date(Number(time) * 1000));
+  return formatDistanceToNowStrict(new Date(Number(time) * 1000));
 };

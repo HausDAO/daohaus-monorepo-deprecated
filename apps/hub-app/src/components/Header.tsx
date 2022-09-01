@@ -70,7 +70,6 @@ const StyledCommand = styled(BiCommand)`
 `;
 
 const Header = () => {
-  const isSm = useBreakpoint(widthQuery.sm);
   return (
     <HeaderContainer>
       <Dropdown

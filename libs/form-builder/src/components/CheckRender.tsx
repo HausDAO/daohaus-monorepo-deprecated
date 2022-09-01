@@ -1,6 +1,5 @@
 import { ComponentProps } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { LookupType } from '@daohaus/common-utilities';
 import { Buildable, CheckGate } from '@daohaus/ui';
 
 import { FormBuilderFactory } from './FormBuilderFactory';

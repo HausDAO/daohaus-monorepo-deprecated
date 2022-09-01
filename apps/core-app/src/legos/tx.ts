@@ -407,4 +407,9 @@ export const ACTION_TX: Record<string, TXLegoBase> = {
     contract: CONTRACT.CURRENT_DAO,
     method: 'sponsorProposal',
   },
+  VOTE: {
+    id: 'VOTE',
+    contract: CONTRACT.CURRENT_DAO,
+    method: 'submitVote',
+  },
 };

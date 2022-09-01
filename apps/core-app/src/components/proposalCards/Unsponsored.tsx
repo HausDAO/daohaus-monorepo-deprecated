@@ -27,7 +27,7 @@ export const Unsponsored = ({
   const { chainId } = useHausConnect();
   const { errorToast, defaultToast, successToast } = useToast();
   const [isLoading, setIsLoading] = React.useState(false);
-  const { dao } = useDao();
+  const { dao, refreshAll } = useDao();
   const theme = useTheme();
 
   const handleSponsor = () => {
@@ -64,6 +64,7 @@ export const Unsponsored = ({
             description: 'Proposal sponsored',
           });
           setIsLoading(false);
+          refreshAll();
         },
       },
     });

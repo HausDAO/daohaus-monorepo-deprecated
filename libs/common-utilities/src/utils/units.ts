@@ -100,6 +100,26 @@ export const formatValueTo = ({
   return `${formatted}${separator}${unit}`;
 };
 
+export const percentage = (value: number, total: number) => {
+  return (value / total) * 100;
+};
+
+export const roundedPercentage = (value: number, total: number) => {
+  return Math.round(percentage(value, total));
+};
+
+export const checkHasQuorum = ({
+  yesVotes,
+  totalShares,
+  quorumPercent,
+}: {
+  yesVotes: number;
+  totalShares: number;
+  quorumPercent: number;
+}) => {
+  return percentage(yesVotes, totalShares) >= quorumPercent;
+};
+
 /*
   https://numbrojs.com/old-format.html
   const string = numbro(1000.23).format('$ 0,0[.]0000 %'); => $ 1000.2300 %

@@ -44,9 +44,12 @@ export const formatPeriods = (duration: string) => {
 };
 
 export const baalTimeToNow = (time: string | number) => {
-  if (isNumberish(time)) {
-    return formatDistanceToNow(new Date(Number(time) * 1000));
+  if (!isNumberish(time)) {
+    console.warn(
+      'baalTimeToNow: time is not a number or numberish string',
+      time
+    );
+    return;
   }
-  console.warn('baalTimeToNow: time is not a number or numberish string', time);
-  return null;
+  return formatDistanceToNow(new Date(Number(time) * 1000));
 };

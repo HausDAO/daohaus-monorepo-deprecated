@@ -99,8 +99,9 @@ export const Verdict = ({ passed }: { passed: boolean }) => {
   );
 };
 
-export const VoteStatus = ({ passed }: { passed: boolean }) => {
-  return passed ? (
+export const VoteStatus = ({ passing }: { passing: boolean }) => {
+  console.log('passing', passing);
+  return passing ? (
     <ProposalPass text="Proposal is Passing" />
   ) : (
     <ProposalFail text="Proposal is Failing" />

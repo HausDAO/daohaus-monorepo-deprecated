@@ -9,7 +9,7 @@ TBD
 ### Subgraph yaml Generation
 
 `nx run v3-subgraph:generate-config --network=goerli`
-`nx run v3-subgraph:generate-config --network=gnosis`
+`nx run v3-subgraph:generate-config --network=xdai`
 
 Supported Networks:
 

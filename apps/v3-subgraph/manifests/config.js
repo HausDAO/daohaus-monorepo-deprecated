@@ -11,7 +11,7 @@ module.exports.config = {
     dataSources: [],
     templates: [],
   },
-  gnosis: {
+  xdai: {
     dataSources: [
       {
         name: 'baalSummoner',
@@ -23,7 +23,7 @@ module.exports.config = {
         name: 'poster',
         template: 'poster-ds.yaml',
         address: '0x000000000000cd17345801aa8147b8d3950260ff',
-        startBlock: 11821598,
+        startBlock: 23990433,
       },
       {
         name: 'tribute-minion-mapping.yaml',

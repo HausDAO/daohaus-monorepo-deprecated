@@ -60,7 +60,9 @@ export const ProposalCardOverview = ({
         <StyledLink
           href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
         >
-          <Button secondary>View Details</Button>
+          <Button secondary sm>
+            View Details
+          </Button>
         </StyledLink>
       </OverviewHeader>
       <ParLg className="title">{proposal.title}</ParLg>

@@ -1,3 +1,6 @@
+import React, { MouseEvent } from 'react';
+import { useParams } from 'react-router-dom';
+
 import {
   formatValueTo,
   handleErrorMessage,
@@ -8,8 +11,7 @@ import { ITransformedProposal } from '@daohaus/dao-data';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { useTxBuilder } from '@daohaus/tx-builder-feature';
 import { ParMd, TintSecondary, useToast } from '@daohaus/ui';
-import React, { MouseEvent } from 'react';
-import { useParams } from 'react-router-dom';
+
 import { useConnectedMembership, useDao } from '../../contexts/DaoContext';
 import { ACTION_TX } from '../../legos/tx';
 import {

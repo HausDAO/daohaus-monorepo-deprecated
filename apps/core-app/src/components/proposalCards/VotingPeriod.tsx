@@ -1,7 +1,9 @@
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
+
 import { baalTimeToNow } from '@daohaus/common-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+
 import { HasVoted } from './HasVoted';
 import { HasNotVoted } from './HasNotVoted';
 

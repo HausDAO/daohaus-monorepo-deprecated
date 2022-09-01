@@ -127,6 +127,9 @@ export const ProposalHistoryCard = ({
     setOpen((prevState) => !prevState);
   };
 
+  const hasProposalVotes =
+    proposal && proposal.votes && proposal.votes.length > 0;
+
   return (
     <ElementContainer>
       <VisibleContainer>
@@ -146,7 +149,7 @@ export const ProposalHistoryCard = ({
             <StyledDownArrow />
           </div>
         )}
-        {element.showVotesButton && proposal && (
+        {element.showVotesButton && hasProposalVotes && (
           <Dialog>
             <DialogTrigger asChild>
               <Button sm secondary>

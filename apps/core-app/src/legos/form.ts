@@ -108,7 +108,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       FIELD.DESCRIPTION,
       FIELD.LINK,
       FIELD.SHAMAN_ADDRESS,
-      FIELD.SHAMAN_PERMISSIONS,
+      FIELD.SHAMAN_PERMISSION,
     ],
   },
   UPDATE_SHAMAN: {

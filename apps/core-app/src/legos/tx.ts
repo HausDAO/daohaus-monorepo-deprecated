@@ -112,7 +112,7 @@ export const TX: Record<string, TXLego> = {
         method: 'setShamans',
         args: [
           nestInArray('.formValues.shamanAddress'),
-          nestInArray('.formValues.shamanName'),
+          nestInArray('.formValues.shamanPermission'),
         ],
       },
     ],

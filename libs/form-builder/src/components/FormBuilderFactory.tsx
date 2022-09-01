@@ -12,6 +12,10 @@ export const FormBuilderFactory = ({
   field: FieldLego;
   spacing?: boolean;
 }) => {
+  if (!field) {
+    console.log('FIELD, ', field);
+  }
+
   const { type } = field;
   const {
     formState: { errors },

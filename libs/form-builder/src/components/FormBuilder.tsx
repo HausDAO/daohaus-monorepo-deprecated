@@ -184,7 +184,7 @@ export function FormBuilder<Lookup extends LookupType>({
             noValidate
           >
             {fields?.map((field) => (
-              <FormBuilderFactory key={field.id} field={field} />
+              <FormBuilderFactory key={field?.id} field={field} />
             ))}
             {log && <Logger />}
             {devtool && <DevTool control={control} />}

@@ -3,6 +3,7 @@ import { ITransformedProposal } from '@daohaus/dao-data';
 import { ParLg } from '@daohaus/ui';
 import styled from 'styled-components';
 import { GracePeriod } from './GracePeriod';
+import { ReadyForProcessing } from './ReadyForProcessing';
 import { Unsponsored } from './Unsponsored';
 import { VotingPeriod } from './VotingPeriod';
 
@@ -40,7 +41,11 @@ export const ProposalActions = ({
     );
   }
   if (proposal.status === PROPOSAL_STATUS.needsProcessing) {
-    return <ActionBox></ActionBox>;
+    return (
+      <ActionBox>
+        <ReadyForProcessing proposal={proposal} />
+      </ActionBox>
+    );
   }
 
   return (

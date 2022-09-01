@@ -11,9 +11,41 @@ module.exports.config = {
     dataSources: [],
     templates: [],
   },
-  xdai: {
-    dataSources: [],
-    templates: [],
+  gnosis: {
+    dataSources: [
+      {
+        name: 'baalSummoner',
+        template: 'baal-summoner-ds.yaml',
+        address: '0x3Bd3fDf6db732F8548638Cd35B98d624c77FB351',
+        startBlock: 23990433,
+      },
+      {
+        name: 'poster',
+        template: 'poster-ds.yaml',
+        address: '0x000000000000cd17345801aa8147b8d3950260ff',
+        startBlock: 11821598,
+      },
+      {
+        name: 'tribute-minion-mapping.yaml',
+        template: 'tribute-minion-ds.yaml',
+        address: '0x9391b6A7c55832a6802484dE054d81496D56545A',
+        startBlock: 23993265,
+      },
+    ],
+    templates: [
+      {
+        name: 'baalTemplate',
+        template: 'baal-template.yaml',
+      },
+      {
+        name: 'sharesTemplate',
+        template: 'shares-template.yaml',
+      },
+      {
+        name: 'lootTemplate',
+        template: 'loot-template.yaml',
+      },
+    ],
   },
   matic: {
     dataSources: [],
@@ -24,14 +56,14 @@ module.exports.config = {
       {
         name: 'baalSummoner',
         template: 'baal-summoner-ds.yaml',
-        address: '0x9AC9d5c6D2f9728cf5c9B6D80D1cdbD4Cf27F58B',
-        startBlock: 7433979,
+        address: '0xEd6AA9879Ed6ba07411C3224F748Dc65D3f8e685',
+        startBlock: 7510135,
       },
       {
         name: 'poster',
         template: 'poster-ds.yaml',
         address: '0x000000000000cd17345801aa8147b8d3950260ff',
-        startBlock: 6918540,
+        startBlock: 6102403,
       },
       {
         name: 'tribute-minion-mapping.yaml',

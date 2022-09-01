@@ -2,6 +2,7 @@ import { ITransformedProposal } from '@daohaus/dao-data';
 import { ParLg } from '@daohaus/ui';
 import styled from 'styled-components';
 import { Unsponsored } from './Unsponsored';
+import { VotingPeriod } from './VotingPeriod';
 
 const ActionBox = styled.div`
   display: flex;
@@ -15,10 +16,17 @@ export const ProposalActions = ({
 }: {
   proposal: ITransformedProposal;
 }) => {
-  if (proposal.status === 'unsponsored') {
+  if (proposal.status === 'Unsponsored') {
     return (
       <ActionBox>
         <Unsponsored proposal={proposal} />
+      </ActionBox>
+    );
+  }
+  if (proposal.status === 'Voting') {
+    return (
+      <ActionBox>
+        <VotingPeriod proposal={proposal} />
       </ActionBox>
     );
   }

@@ -8,6 +8,7 @@ import {
   RiThumbUpLine,
 } from 'react-icons/ri';
 import { mintDark, tomatoDark } from '@radix-ui/colors';
+import { GatedButton } from './GatedButton';
 
 const TemplateBox = styled.div`
   display: flex;
@@ -171,7 +172,7 @@ export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
   );
 };
 
-export const VoteUpButton = styled(Button)`
+export const VoteUpButton = styled(GatedButton)`
   background-color: ${mintDark.mint10};
   border: 1px solid ${mintDark.mint10};
   color: ${mintDark.mint1};
@@ -194,7 +195,7 @@ export const VoteUpButton = styled(Button)`
     border: 1px solid ${mintDark.mint12};
   }
 `;
-export const VoteDownButton = styled(Button)`
+export const VoteDownButton = styled(GatedButton)`
   background-color: ${tomatoDark.tomato10};
   border: 1px solid ${tomatoDark.tomato10};
   color: ${tomatoDark.tomato1};

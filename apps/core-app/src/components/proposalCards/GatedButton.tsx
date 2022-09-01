@@ -20,7 +20,7 @@ export const GatedButton = ({
   ) : (
     <Tooltip
       triggerAsChild
-      triggerEl={<Button disabled {...props} />}
+      triggerEl={<Button {...props} disabled />}
       content={error}
       side="bottom"
       {...props}

@@ -70,7 +70,7 @@ export const ProposalDetailsGuts = ({ proposal }: ProposalDetailsGutsProps) => {
         <DataIndicator
           label="Expiration Date"
           data={
-            +proposal.expiration
+            Number(proposal.expiration)
               ? formatShortDateTimeFromSeconds(proposal.expiration)
               : '--'
           }

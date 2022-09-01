@@ -257,6 +257,7 @@ export const loadProposalsList = async ({
   shouldUpdate: boolean;
 }) => {
   try {
+    console.log('top of fetch', shouldUpdate);
     setLoading(true);
     const haus = Haus.create();
     const res = await haus.query.listProposals({
@@ -265,11 +266,16 @@ export const loadProposalsList = async ({
       ordering,
       paging,
     });
+
+    console.log('res', res);
     if (shouldUpdate) {
       setNextPaging(res.nextPaging);
 
       setData((prevState) => {
         if (deepEqual(prevState, res.items)) return res.items;
+        // TODO this could eff up on a refresh
+        // need to know if it's a full refresh
+        console.log('setting props in state', res.items);
         if (prevState) {
           return [...prevState, ...res.items];
         } else {

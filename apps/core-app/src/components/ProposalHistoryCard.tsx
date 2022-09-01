@@ -1,4 +1,6 @@
+import { useParams } from 'react-router-dom';
 import { MouseEvent, useState } from 'react';
+import { RiArrowUpSLine, RiArrowDownSLine } from 'react-icons/ri';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -9,16 +11,16 @@ import {
   ParMd,
   AddressDisplay,
   DataIndicator,
+  Button,
 } from '@daohaus/ui';
-import { RiArrowUpSLine, RiArrowDownSLine } from 'react-icons/ri';
+import { Keychain } from '@daohaus/common-utilities';
+import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
 
 import {
   ProposalHistoryElement,
   ProposalHistoryElementData,
-} from './ProposalHistory';
-import { useParams } from 'react-router-dom';
-import { Keychain } from '@daohaus/common-utilities';
-import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
+} from '../utils/historyHelpers';
+import { TProposals } from '../contexts/DaoContext';
 
 const ElementContainer = styled.div`
   display: flex;
@@ -63,6 +65,7 @@ const DataGrid = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 2.4rem;
 `;
 
 const SpacedAddressDisplay = styled(AddressDisplay)`
@@ -106,9 +109,13 @@ const DataPoint = ({
 
 type ProposalHistoryCardProps = {
   element: ProposalHistoryElement;
+  proposal?: TProposals[number];
 };
 
-export const ProposalHistoryCard = ({ element }: ProposalHistoryCardProps) => {
+export const ProposalHistoryCard = ({
+  element,
+  proposal,
+}: ProposalHistoryCardProps) => {
   const { daochain } = useParams();
   const [open, setOpen] = useState<boolean>(false);
 
@@ -135,13 +142,20 @@ export const ProposalHistoryCard = ({ element }: ProposalHistoryCardProps) => {
             <StyledDownArrow />
           </div>
         )}
+        {element.showVotesButton && (
+          <Button sm secondary>
+            Show Votes{' '}
+            {proposal &&
+              `(${Number(proposal?.yesVotes) + Number(proposal?.noVotes)})`}
+          </Button>
+        )}
       </VisibleContainer>
       {element.canExpand && open && (
         <>
           <DataGrid>
             {element.dataElements &&
               element.dataElements.map((data) => (
-                <DataPoint data={data} daochain={daochain} />
+                <DataPoint data={data} daochain={daochain} key={data.label} />
               ))}
           </DataGrid>
 

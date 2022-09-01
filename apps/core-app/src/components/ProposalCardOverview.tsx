@@ -50,6 +50,7 @@ export const ProposalCardOverview = ({
 }: ProposalCardOverviewProps) => {
   const { daochain, daoid } = useParams();
   const theme = useTheme();
+
   return (
     <OverviewContainer>
       <OverviewHeader>

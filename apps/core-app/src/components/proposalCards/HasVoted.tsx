@@ -10,13 +10,14 @@ import { ActionTemplate, DummyBar, VoteStatus } from './ActionPrimitives';
 export const HasVoted = ({
   proposal,
   approved,
+  userVoteBalance,
   readableTime,
 }: {
   proposal: ITransformedProposal;
   approved?: boolean;
+  userVoteBalance?: string;
   readableTime?: string;
 }) => {
-  console.log('proposal', proposal);
   const hasQuorum = checkHasQuorum({
     yesVotes: Number(proposal.yesBalance),
     totalShares: Number(proposal.dao.totalShares),
@@ -26,13 +27,13 @@ export const HasVoted = ({
     Number(proposal.yesBalance) > Number(proposal.noBalance) && hasQuorum;
   const voterHelperText = approved
     ? `You voted Yes (${formatValueTo({
-        value: toWholeUnits(proposal.yesBalance),
+        value: toWholeUnits(userVoteBalance || '0'),
         decimals: 2,
         format: 'numberShort',
         separator: '',
       })})`
     : `You voted No (${formatValueTo({
-        value: toWholeUnits(proposal.noBalance),
+        value: toWholeUnits(userVoteBalance || '0'),
         decimals: 2,
         format: 'numberShort',
         separator: '',

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { MdOutlineGavel } from 'react-icons/md';
-import { Button, Italic, ParMd, Tooltip } from '@daohaus/ui';
+import { Italic, ParMd, Tooltip } from '@daohaus/ui';
 import {
   RiGasStationLine,
   RiThumbDownLine,

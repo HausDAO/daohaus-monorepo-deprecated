@@ -16,6 +16,7 @@ export const VotingPeriod = ({
   const readableTime = useMemo(() => {
     return baalTimeToNow(proposal.votingEnds);
   }, [proposal]);
+
   const userVoteData = useMemo(() => {
     if (address && proposal) {
       return proposal?.votes?.find(
@@ -31,6 +32,7 @@ export const VotingPeriod = ({
       proposal={proposal}
       approved={userVoteData?.approved}
       readableTime={readableTime}
+      userVoteBalance={userVoteData?.balance}
     />
   ) : (
     <HasNotVoted proposal={proposal} readableTime={readableTime} />

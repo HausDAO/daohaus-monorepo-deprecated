@@ -1,15 +1,22 @@
-import { ITransformedProposal } from '@daohaus/dao-data';
 import React from 'react';
-import { ActionTemplate, DummyBar, Verdict } from './ActionPrimitives';
 
-export const Passed = (props: { proposal: ITransformedProposal }) => {
+import { ITransformedProposal } from '@daohaus/dao-data';
+import { ActionTemplate, DummyBar, Verdict } from './ActionPrimitives';
+import { roundedPercentage } from '@daohaus/common-utilities';
+
+export const Passed = ({ proposal }: { proposal: ITransformedProposal }) => {
+  const percentYes = roundedPercentage(
+    Number(proposal.yesBalance),
+    Number(proposal.dao.totalShares)
+  );
+
   return (
     <ActionTemplate
       statusDisplay="Proposal Passed"
       main={
         <>
           <DummyBar />
-          <Verdict passed={true} />
+          <Verdict passed={true} appendText={` - ${percentYes}% Yes`} />
         </>
       }
     />

@@ -95,6 +95,7 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
           })}
           {dropdownLinks.length > 0 && (
             <Dropdown
+              modal={false}
               menuBg={theme.navTabs.bg}
               align={dropdownMenuAlign}
               spacing={dropdownMenuSpacing}

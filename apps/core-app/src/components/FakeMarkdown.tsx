@@ -60,6 +60,7 @@ const handleFetchPubId = async (
     const result = await request(subgraphUrl, query, {
       safeId,
     });
+
     const pubId = result?.permissions?.[0]?.publication?.id;
     if (!shouldUpdate) return;
     if (pubId) {

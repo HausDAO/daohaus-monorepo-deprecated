@@ -17,7 +17,7 @@ export const formatShortDateTimeFromSeconds = (
     return;
   }
 
-  return format(new Date(Number(seconds) * 1000), 'MMMM do, h:mmaaa');
+  return format(new Date(Number(seconds) * 1000), 'MMMM do, p');
 };
 
 export const formatDateFromSeconds = (

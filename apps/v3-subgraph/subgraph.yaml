@@ -8,9 +8,9 @@ dataSources:
     name: BaalSummoner
     network: goerli
     source:
-      address: '0x0C5fd8AAdF995e11E5Ac1CD72139Ee4fd72cDeFC'
+      address: '0xEd6AA9879Ed6ba07411C3224F748Dc65D3f8e685'
       abi: BaalSummoner
-      startBlock: 7260411
+      startBlock: 7510135
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -32,7 +32,7 @@ dataSources:
     source:
       address: '0x000000000000cd17345801aa8147b8d3950260ff'
       abi: Poster
-      startBlock: 6918540
+      startBlock: 7510135
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getNetwork } from '@daohaus/common-utilities';
-import { v4 as uuidv4 } from 'uuid';
 
 import { TProposals } from '../contexts/DaoContext';
 import { ProposalHistoryCard } from './ProposalHistoryCard';
@@ -38,7 +37,7 @@ export const ProposalHistory = ({ proposal }: ProposalHistoryProps) => {
           <ProposalHistoryCard
             proposal={proposal}
             element={element}
-            key={uuidv4()}
+            key={element.title}
           />
         );
       })}

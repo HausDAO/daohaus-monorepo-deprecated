@@ -4,7 +4,6 @@ import { RiArrowUpSLine, RiArrowDownSLine } from 'react-icons/ri';
 import styled from 'styled-components';
 
 import {
-  ParXl,
   Bold,
   Theme,
   ParMd,

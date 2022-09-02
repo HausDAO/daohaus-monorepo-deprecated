@@ -31,7 +31,7 @@ export const HasVoted = ({
       main={
         <>
           <VotingBar proposal={proposal} />
-          <VotingResults proposal={proposal} isVoting={false} />
+          <VotingResults proposal={proposal} isVoting={true} />
         </>
       }
       helperDisplay={voterHelperText}

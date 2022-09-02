@@ -34,7 +34,7 @@ export const ProposalWarning = ({
 }: ProposalWarningProps) => {
   const warningMessage: string = useMemo(() => {
     if (decodeError) {
-      return PROPOSAL_TYPE_WARNINGS.ERROR_DECODE;
+      return PROPOSAL_TYPE_WARNINGS.ERROR_CANNOT_DECODE;
     } else {
       return (
         (proposalType && PROPOSAL_TYPE_WARNINGS[proposalType]) ||

@@ -43,12 +43,12 @@ jobs:
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      - name: Save kubeconfig
-        run: doctl kubernetes cluster kubeconfig save daohaus-staging-nyc3-1653325548883
+      # - name: Install doctl
+      #   uses: digitalocean/action-doctl@v2
+      #   with:
+      #     token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      # - name: Save kubeconfig
+      #   run: doctl kubernetes cluster kubeconfig save daohaus-staging-nyc3-1653325548883
       - name: Create env file
         run: |
           touch .env

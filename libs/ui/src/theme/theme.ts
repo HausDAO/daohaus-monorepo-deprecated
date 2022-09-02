@@ -106,6 +106,9 @@ export const defaultDarkTheme: Theme = {
   link: {
     color: primaryDark.step10,
   },
+  progress: {
+    bg: neutralDark.step8,
+  },
   radio: {
     item: {
       bg: secondaryDark.step3,
@@ -290,6 +293,9 @@ export const defaultLightTheme: Theme = {
   },
   link: {
     color: primaryDark.step10,
+  },
+  progress: {
+    bg: neutral.step10,
   },
   radio: {
     item: {

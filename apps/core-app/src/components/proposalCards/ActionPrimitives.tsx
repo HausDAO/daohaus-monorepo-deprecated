@@ -10,7 +10,7 @@ import {
 import { mintDark, tomatoDark } from '@radix-ui/colors';
 import { GatedButton } from './GatedButton';
 import { ITransformedProposal } from '@daohaus/dao-data';
-import { checkHasQuorum } from '@daohaus/common-utilities';
+import { checkHasQuorum, percentage } from '@daohaus/common-utilities';
 
 const TemplateBox = styled.div`
   display: flex;
@@ -146,12 +146,12 @@ export const ActionTemplate = ({
   helperDisplay,
   statusDisplay,
   main,
-  quorumAmt,
+  proposal,
 }: {
   helperDisplay?: string | React.ReactNode;
   statusDisplay?: string | React.ReactNode;
   main?: React.ReactNode;
-  quorumAmt?: number;
+  proposal: ITransformedProposal;
 }) => {
   const theme = useTheme();
   const displayUI = useMemo(() => {
@@ -171,11 +171,17 @@ export const ActionTemplate = ({
     }
     return helperDisplay;
   }, [helperDisplay, theme]);
+
+  const yesPerc = percentage(
+    Number(proposal.yesBalance),
+    Number(proposal.dao.totalShares)
+  );
+
   return (
     <TemplateBox>
       <div className="top-section">
         {displayUI}
-        {quorumAmt && <QuorumDisplay quorumAmt={2} />}
+        <QuorumDisplay yesPerc={yesPerc} daoQuorum={proposal.dao.totalShares} />
       </div>
       <div className="middle-section">{main}</div>
       <div className="bottom-section">{helperUI}</div>

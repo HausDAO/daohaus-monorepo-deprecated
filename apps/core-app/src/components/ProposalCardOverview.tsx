@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { AddressDisplay, Button, ParLg, ParMd, Link } from '@daohaus/ui';
 import {
   charLimit,
@@ -13,7 +13,14 @@ import { getProposalTypeLabel } from '../utils/general';
 const OverviewContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  margin-bottom: 1.1rem;
+  height: 100%;
+  .title {
+    margin-bottom: 1.2rem;
+  }
+  .description {
+    margin-bottom: auto;
+  }
 `;
 
 const OverviewHeader = styled.div`
@@ -43,24 +50,29 @@ export const ProposalCardOverview = ({
   proposal,
 }: ProposalCardOverviewProps) => {
   const { daochain, daoid } = useParams();
+  const theme = useTheme();
 
   return (
     <OverviewContainer>
       <OverviewHeader>
-        <ParMd>
+        <ParMd color={theme.tint.secondary}>
           {getProposalTypeLabel(proposal.proposalType)} |{' '}
           {formatShortDateTimeFromSeconds(proposal.createdAt)}
         </ParMd>
         <StyledLink
           href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
         >
-          <Button secondary>View Details</Button>
+          <Button secondary sm>
+            View Details
+          </Button>
         </StyledLink>
       </OverviewHeader>
-      <ParLg color="white">{proposal.title}</ParLg>
-      <ParMd>{charLimit(proposal.description, 145)}</ParMd>
+      <ParLg className="title">{proposal.title}</ParLg>
+      <ParMd className="description" color={theme.tint.secondary}>
+        {charLimit(proposal.description, 145)}
+      </ParMd>
       <SubmittedContainer>
-        <ParMd>Submitted by</ParMd>
+        <ParMd color={theme.tint.secondary}>Submitted by</ParMd>
         <AddressDisplay
           truncate
           address={proposal.createdBy}

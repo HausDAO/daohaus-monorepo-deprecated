@@ -16,7 +16,6 @@ import {
   Proposal_OrderBy,
   Proposal_Filter,
   IListQueryResults,
-  ITransformedProposalListQuery,
   ListConnectedMemberProposalsQueryVariables,
   ListConnectedMemberProposalsQuery,
   ListConnectedMemberProposalsDocument,

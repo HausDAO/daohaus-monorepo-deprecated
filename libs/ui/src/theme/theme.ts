@@ -44,6 +44,9 @@ export const defaultDarkTheme: Theme = {
   disabled: neutralDark.step9,
   transparent: 'transparent',
   info: utilityDark.info,
+  tint: {
+    secondary: secondaryDark.step11,
+  },
   // *** ATOMS *** //
   button: {
     primary: PrimaryDarkButton,
@@ -228,6 +231,9 @@ export const defaultLightTheme: Theme = {
   success: utility.success,
   info: utility.info,
   transparent: utility.transparent,
+  tint: {
+    secondary: secondary.step11,
+  },
   disabled: neutral.step9,
   // *** ATOMS *** //
   button: {

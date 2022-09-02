@@ -63,6 +63,7 @@ export const AdvancedSegment = ({
                   rules={{
                     required: 'This value is required',
                     validate: (val) => ValidateField.number(val),
+                    setValueAs: (val) => toBaseUnits(val),
                   }}
                 />
               ),

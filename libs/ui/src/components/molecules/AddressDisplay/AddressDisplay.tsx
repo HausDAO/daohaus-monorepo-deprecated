@@ -59,7 +59,7 @@ export const AddressDisplay = ({
 
   return (
     <AddressContainer>
-      <AddressDataMd {...props}>
+      <AddressDataMd>
         {textOverride ? textOverride : displayAddress}
       </AddressDataMd>
       {copy && (

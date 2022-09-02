@@ -2,7 +2,6 @@ import { useParams } from 'react-router-dom';
 import { MouseEvent, useState } from 'react';
 import { RiArrowUpSLine, RiArrowDownSLine } from 'react-icons/ri';
 import styled from 'styled-components';
-import { v4 as uuidv4 } from 'uuid';
 
 import {
   ParXl,
@@ -105,7 +104,7 @@ const DataPoint = ({
   }
 
   if (data.dataType === 'dataIndicator') {
-    return <DataIndicator key={uuidv4()} label={data.label} data={data.data} />;
+    return <DataIndicator label={data.label} data={data.data} />;
   }
 
   return null;

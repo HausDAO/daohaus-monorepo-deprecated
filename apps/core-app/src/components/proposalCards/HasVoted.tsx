@@ -3,6 +3,7 @@ import { formatShares } from '@daohaus/common-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
 
 import { ActionTemplate, DummyBar, VotingResults } from './ActionPrimitives';
+import { VotingBar } from '../VotingBar';
 
 export const HasVoted = ({
   proposal,
@@ -28,7 +29,7 @@ export const HasVoted = ({
       }
       main={
         <>
-          <DummyBar />
+          <VotingBar proposal={proposal} />
           <VotingResults proposal={proposal} isVoting={false} />
         </>
       }

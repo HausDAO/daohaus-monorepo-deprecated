@@ -91,6 +91,7 @@ export const Unsponsored = ({
   return (
     <ActionTemplate
       statusDisplay="Needs A Sponsor"
+      proposal={proposal}
       main={
         <div>
           <VotingBar proposal={proposal} />

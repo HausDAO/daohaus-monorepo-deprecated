@@ -22,6 +22,7 @@ export const HasVoted = ({
 
   return (
     <ActionTemplate
+      proposal={proposal}
       statusDisplay={
         <ParMd>
           Voting ends in <TintSecondary>{readableTime}</TintSecondary>

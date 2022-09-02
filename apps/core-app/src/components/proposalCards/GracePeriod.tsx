@@ -3,7 +3,8 @@ import { ITransformedProposal } from '@daohaus/dao-data';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { ParMd, TintSecondary } from '@daohaus/ui';
 import { useMemo } from 'react';
-import { ActionTemplate, DummyBar, VotingResults } from './ActionPrimitives';
+import { VotingBar } from '../VotingBar';
+import { ActionTemplate, VotingResults } from './ActionPrimitives';
 
 export const GracePeriod = ({
   proposal,
@@ -34,6 +35,7 @@ export const GracePeriod = ({
 
   return (
     <ActionTemplate
+      proposal={proposal}
       statusDisplay={
         <ParMd>
           Grace ends in <TintSecondary>{readableTime}</TintSecondary>
@@ -41,7 +43,7 @@ export const GracePeriod = ({
       }
       main={
         <>
-          <VotingBar proposal={proposal} /> />
+          <VotingBar proposal={proposal} />
           <VotingResults proposal={proposal} isVoting={false} />
         </>
       }

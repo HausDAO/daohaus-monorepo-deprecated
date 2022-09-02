@@ -5,6 +5,7 @@ import { ActionTemplate, Verdict } from './ActionPrimitives';
 export const Expired = ({ proposal }: { proposal: ITransformedProposal }) => {
   return (
     <ActionTemplate
+      proposal={proposal}
       statusDisplay="Proposal expired"
       main={
         <>

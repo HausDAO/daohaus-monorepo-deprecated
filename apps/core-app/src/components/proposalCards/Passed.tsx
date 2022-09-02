@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react';
 
 import { ITransformedProposal } from '@daohaus/dao-data';
-import { ActionTemplate, DummyBar, Verdict } from './ActionPrimitives';
+import { ActionTemplate, Verdict } from './ActionPrimitives';
 import { formatShares, roundedPercentage } from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
+import { VotingBar } from '../VotingBar';
 
 export const Passed = ({ proposal }: { proposal: ITransformedProposal }) => {
   const { address } = useHausConnect();
@@ -31,10 +32,11 @@ export const Passed = ({ proposal }: { proposal: ITransformedProposal }) => {
 
   return (
     <ActionTemplate
+      proposal={proposal}
       statusDisplay="Proposal Passed"
       main={
         <>
-          <VotingBar proposal={proposal} /> />
+          <VotingBar proposal={proposal} />
           <Verdict passed={true} appendText={` - ${percentYes}% Yes`} />
         </>
       }

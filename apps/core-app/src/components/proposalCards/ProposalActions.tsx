@@ -91,6 +91,7 @@ export const ProposalActions = ({
   return (
     <ActionBox>
       <ActionTemplate
+        proposal={proposal}
         statusDisplay="Unknown Status"
         main={<ParMd>Proposal Status {proposal.status} not found</ParMd>}
       />

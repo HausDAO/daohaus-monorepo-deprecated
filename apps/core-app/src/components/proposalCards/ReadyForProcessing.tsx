@@ -97,6 +97,7 @@ export const ReadyForProcessing = ({
 
   return (
     <ActionTemplate
+      proposal={proposal}
       statusDisplay="Ready For Processing"
       main={
         <>

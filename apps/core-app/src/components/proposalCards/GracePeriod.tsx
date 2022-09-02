@@ -1,6 +1,5 @@
 import {
   baalTimeToNow,
-  checkHasQuorum,
   formatValueTo,
   toWholeUnits,
 } from '@daohaus/common-utilities';

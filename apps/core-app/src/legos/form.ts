@@ -189,6 +189,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     id: 'UPDATE_GOV_SETTINGS',
     title: 'Update Governance Settings',
     subtitle: 'Governance Setting Proposal',
+    log: true,
     description: 'Learn more about Governanace Settings in our documentation.',
     tx: TX.UPDATE_GOV_SETTINGS,
     requiredFields: {
@@ -267,7 +268,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                 rowId: 'row2',
                 left: {
                   id: 'sponsorThreshold',
-                  type: 'input',
+                  type: 'toWeiInput',
                   expectType: 'number',
                   label: 'Sponsor Threshold',
                   placeholder: '1',
@@ -275,7 +276,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                 },
                 right: {
                   id: 'newOffering',
-                  type: 'input',
+                  type: 'toWeiInput',
                   label: 'New Offering',
                   expectType: 'number',
                   placeholder: '0',

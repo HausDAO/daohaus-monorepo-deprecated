@@ -13,7 +13,8 @@ import { useTheme } from 'styled-components';
 import { useConnectedMembership, useDao } from '../../contexts/DaoContext';
 import { PROP_CARD_HELP } from '../../data/copy';
 import { ACTION_TX } from '../../legos/tx';
-import { ActionTemplate, DummyBar } from './ActionPrimitives';
+import { VotingBar } from '../VotingBar';
+import { ActionTemplate } from './ActionPrimitives';
 import { GatedButton } from './GatedButton';
 
 export const Unsponsored = ({
@@ -92,7 +93,7 @@ export const Unsponsored = ({
       statusDisplay="Needs A Sponsor"
       main={
         <div>
-          <DummyBar />
+          <VotingBar proposal={proposal} />
           <GatedButton
             sm
             rules={[hasShares, isConnectedToDao]}

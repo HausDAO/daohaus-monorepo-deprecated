@@ -34,7 +34,7 @@ export const Passed = ({ proposal }: { proposal: ITransformedProposal }) => {
       statusDisplay="Proposal Passed"
       main={
         <>
-          <DummyBar />
+          <VotingBar proposal={proposal} /> />
           <Verdict passed={true} appendText={` - ${percentYes}% Yes`} />
         </>
       }

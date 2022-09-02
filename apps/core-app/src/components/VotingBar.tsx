@@ -27,21 +27,15 @@ export const VotingBar = ({ proposal }: { proposal: ITransformedProposal }) => {
         )}%`,
         color: tomatoDark.tomato10,
       },
-      {
-        percentage: `${percentage(
-          Number(proposal.dao.totalShares) -
-            Number(proposal.yesBalance) -
-            Number(proposal.noBalance),
-          Number(proposal.dao.totalShares)
-        )}%`,
-        color: slateDark.slate8,
-      },
     ];
   }, [proposal]);
 
   return (
     <VoteBarBox>
-      <Progress backgroundColor="pink" progressSection={percentages} />
+      <Progress
+        backgroundColor={slateDark.slate8}
+        progressSection={percentages}
+      />
     </VoteBarBox>
   );
 };

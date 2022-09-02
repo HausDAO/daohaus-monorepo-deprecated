@@ -6,7 +6,7 @@ export const ActionFailed = (_props: { proposal: ITransformedProposal }) => {
   return (
     <ActionTemplate
       statusDisplay="External Action Failed"
-      main={<DummyBar />}
+      main={<VotingBar proposal={proposal} /> />}
       helperDisplay={
         <ParSm>
           <Italic>

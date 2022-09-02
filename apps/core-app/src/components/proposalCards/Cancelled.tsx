@@ -1,14 +1,15 @@
 import { ITransformedProposal } from '@daohaus/dao-data';
 import React from 'react';
-import { ActionTemplate, DummyBar, Verdict } from './ActionPrimitives';
+import { VotingBar } from '../VotingBar';
+import { ActionTemplate, Verdict } from './ActionPrimitives';
 
-export const Cancelled = (_props: { proposal: ITransformedProposal }) => {
+export const Cancelled = ({ proposal }: { proposal: ITransformedProposal }) => {
   return (
     <ActionTemplate
       statusDisplay="Proposal Cancelled"
       main={
         <>
-          <DummyBar />
+          <VotingBar proposal={proposal} />
           <Verdict passed={false} />{' '}
         </>
       }

@@ -64,7 +64,7 @@ export const Failed = ({ proposal }: { proposal: ITransformedProposal }) => {
       statusDisplay="Proposal Failed"
       main={
         <>
-          <DummyBar />
+          <VotingBar proposal={proposal} /> />
           <Verdict passed={false} appendText={` - ${percentNo}% No`} />
         </>
       }

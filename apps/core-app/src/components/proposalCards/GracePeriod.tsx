@@ -41,7 +41,7 @@ export const GracePeriod = ({
       }
       main={
         <>
-          <DummyBar />
+          <VotingBar proposal={proposal} /> />
           <VotingResults proposal={proposal} isVoting={false} />
         </>
       }

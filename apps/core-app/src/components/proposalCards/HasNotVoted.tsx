@@ -109,7 +109,7 @@ export const HasNotVoted = ({
       }
       main={
         <div>
-          <DummyBar />
+          <VotingBar proposal={proposal} /> />
           <VoteBox>
             <VoteDownButton
               sm

@@ -56,6 +56,7 @@ export const App = () => {
           {summonState === 'loading' && <SummonerLoading txHash={txHash} />}
           {summonState === 'success' && (
             <SummonerSuccess
+              chainId={chainId}
               daoAddress={daoAddress}
               setSummonState={setSummonState}
             />

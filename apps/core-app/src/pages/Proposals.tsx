@@ -43,7 +43,7 @@ export function Proposals() {
     setProposalsFilter,
     setProposals,
   } = useProposals();
-  const { dao } = useDao();
+  const { dao, refreshAll } = useDao();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filter, setFilter] = useState<string>('');
 
@@ -105,6 +105,7 @@ export function Proposals() {
 
   return (
     <SingleColumnLayout title="Proposals">
+      <Button onClick={refreshAll}>fresh</Button>
       <ActionsContainer>
         <SearchFilterContainer>
           <SearchInput

@@ -17,7 +17,7 @@ import {
   Keychain,
 } from '@daohaus/common-utilities';
 
-import { TDao } from '../contexts/DaoContext';
+import { TDao } from '@daohaus/dao-context';
 
 const VaultOverviewCard = styled(Card)`
   background-color: ${({ theme }: { theme: Theme }) => theme.card.hoverBg};

@@ -1,0 +1,65 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/dao-context/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "vite-build": {
+      "executor": "@nxext/vite:package",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/daohaus-context",
+        "frameworkConfigFile": "@nxext/react/plugins/vite",
+        "configFile": "libs/daohaus-context/vite.config.ts",
+        "entryFile": "src/index.ts",
+        "generatePackageJson": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/workspace:run-commands",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/daohaus-context",
+        "command": "tsc --project libs/daohaus-context/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
+        "color": true
+      },
+      "dependsOn": [
+        {
+          "target": "vite-build",
+          "projects": "self"
+        }
+      ]
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/dao-context/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "version": {
+      "executor": "@jscutlery/semver:version",
+      "options": {
+        "preset": "conventional",
+        "tagPrefix": "${projectName}@",
+        "noVerify": true,
+        "baseBranch": "master",
+        "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/dao-context"],
+      "options": {
+        "jestConfig": "libs/dao-context/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "deploy": {
+      "executor": "ngx-deploy-npm:deploy",
+      "options": {
+        "access": "public"
+      }
+    }
+  }
+}

@@ -23,7 +23,7 @@ import {
   TMembers,
   useConnectedMembership,
   defaultDaoData,
-} from '../contexts/DaoContext';
+} from '@daohaus/dao-context';
 import { MembersOverview } from '../components/MembersOverview';
 import { ProfileLink } from '../components/ProfileLink';
 import { DaoTable } from '../components/DaohausTable';

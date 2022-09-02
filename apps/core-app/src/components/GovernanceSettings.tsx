@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { H3, H4, DataIndicator, ParSm, widthQuery, Theme } from '@daohaus/ui';
 
-import { TDao } from '../contexts/DaoContext';
+import { TDao } from '@daohaus/dao-context';
 import {
   charLimit,
   formatPeriods,

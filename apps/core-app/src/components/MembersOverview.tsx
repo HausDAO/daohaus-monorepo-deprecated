@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Card, Theme, DataIndicator, widthQuery } from '@daohaus/ui';
 
-import { TDao } from '../contexts/DaoContext';
+import { TDao } from '@daohaus/dao-context';
 import { charLimit, formatValueTo, fromWei } from '@daohaus/common-utilities';
 
 const MembersOverviewCard = styled(Card)`

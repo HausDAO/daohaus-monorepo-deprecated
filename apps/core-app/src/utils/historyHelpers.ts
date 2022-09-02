@@ -8,7 +8,7 @@ import {
   NetworkType,
   PROPOSAL_STATUS,
 } from '@daohaus/common-utilities';
-import { TProposals } from '../contexts/DaoContext';
+import { TProposals } from '@daohaus/dao-context';
 
 export type ProposalHistoryElementData = {
   dataType: 'member' | 'dataIndicator';

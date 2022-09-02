@@ -10,17 +10,24 @@ import {
   WrappedInput,
   InputSelect,
 } from '@daohaus/ui';
-import { useDao } from '../../contexts/DaoContext';
+import { useDao } from '@daohaus/dao-context';
 
 const INPUT_ID = 'expiryValue';
-const SELECT_ID = 'expiryPeriod'
+const SELECT_ID = 'expiryPeriod';
 
-type ProposalExpiryProps = Buildable<Field & {
-  defaultValue?: string;
-  label: string;
-}>;
+type ProposalExpiryProps = Buildable<
+  Field & {
+    defaultValue?: string;
+    label: string;
+  }
+>;
 
-export const ProposalExpiry = ({ id, defaultValue, rules, ...props }: ProposalExpiryProps) => {
+export const ProposalExpiry = ({
+  id,
+  defaultValue,
+  rules,
+  ...props
+}: ProposalExpiryProps) => {
   const { watch, register, setValue } = useFormContext();
   const [periodValue, periodMultiplier] = watch([INPUT_ID, SELECT_ID]);
   const { dao } = useDao();
@@ -47,8 +54,8 @@ export const ProposalExpiry = ({ id, defaultValue, rules, ...props }: ProposalEx
         expiryDateString,
         format(
           addSeconds(new Date(), absoluteExtendedPeriod),
-          "MMM dd, yyyy 'at' hh:mmaaa OOO",
-        ),
+          "MMM dd, yyyy 'at' hh:mmaaa OOO"
+        )
       );
     }
   }, [dao, expiryDateString, id, periodValue, periodMultiplier, setValue]);
@@ -69,15 +76,15 @@ export const ProposalExpiry = ({ id, defaultValue, rules, ...props }: ProposalEx
       </FieldSpacer>
       <FieldSpacer>
         <HighlightInputText
-          id='highlightProposalExpiry'
-          description='Expiration will be on:'
-          highlightColor='#B4D7CE'
+          id="highlightProposalExpiry"
+          description="Expiration will be on:"
+          highlightColor="#B4D7CE"
           highlightInputId={expiryDateString}
         />
       </FieldSpacer>
       <HighlightInputText
-        id='expirationDateDescription'
-        description='The expiration date includes Voting and Grace Periods. Adjust the days or hour to update the expiration.'
+        id="expirationDateDescription"
+        description="The expiration date includes Voting and Grace Periods. Adjust the days or hour to update the expiration."
       />
       <WrappedInput id={id} hidden />
       <WrappedInput id={expiryDateString} hidden />

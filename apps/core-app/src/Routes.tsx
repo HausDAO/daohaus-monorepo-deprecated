@@ -1,7 +1,6 @@
 import React from 'react';
 import { Routes as RoutesDom, Route } from 'react-router-dom';
 
-import { DaoContextProvider } from './contexts/DaoContext';
 import Home from './pages/Home';
 import Dao from './pages/Dao';
 import DaoOverview from './pages/DaoOverview';
@@ -19,14 +18,7 @@ const Routes = () => {
   return (
     <RoutesDom>
       <Route path="/" element={<Home />} />
-      <Route
-        path="molochv3/:daochain/:daoid"
-        element={
-          <DaoContextProvider>
-            <Dao />
-          </DaoContextProvider>
-        }
-      >
+      <Route path="molochv3/:daochain/:daoid" element={<Dao />}>
         <Route index element={<DaoOverview />} />
         <Route path="formtest" element={<FormTest />} />
         <Route path="proposals" element={<Proposals />} />

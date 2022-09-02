@@ -7,7 +7,7 @@ import {
   SuccessMessage,
   WrappedTextArea,
 } from '@daohaus/ui';
-import { useDao } from '../contexts/DaoContext';
+import { useDao } from '@daohaus/dao-context';
 import { useParams } from 'react-router-dom';
 import {
   ENDPOINTS,

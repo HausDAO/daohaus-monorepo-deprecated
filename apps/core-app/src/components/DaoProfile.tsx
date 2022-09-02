@@ -15,8 +15,8 @@ import {
   Button,
   Link,
 } from '@daohaus/ui';
+import { TDao } from '@daohaus/dao-context';
 
-import { TDao } from '../contexts/DaoContext';
 import { TagList } from './TagList';
 import { missingDaoProfileData } from '../utils/general';
 

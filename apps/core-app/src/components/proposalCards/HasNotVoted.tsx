@@ -11,7 +11,7 @@ import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { useTxBuilder } from '@daohaus/tx-builder-feature';
 import { ParMd, TintSecondary, useToast } from '@daohaus/ui';
 
-import { useConnectedMembership, useDao } from '../../contexts/DaoContext';
+import { useConnectedMembership, useDao } from '@daohaus/dao-context';
 import { ACTION_TX } from '../../legos/tx';
 import {
   ActionTemplate,

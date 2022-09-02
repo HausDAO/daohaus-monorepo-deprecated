@@ -17,6 +17,7 @@ const ActionBox = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  max-height: 19.2rem;
   width: 31rem;
 `;
 

@@ -17,6 +17,7 @@ import { loadProposal } from '../utils/dataFetchHelpers';
 import { ProposalDetailsGuts } from '../components/ProposalDetailsGuts';
 import { ProposalHistory } from '../components/ProposalHistory';
 import { getProposalTypeLabel } from '../utils/general';
+import { ProposalActions } from '../components/proposalCards/ProposalActions';
 
 const OverviewCard = styled(Card)`
   width: 64rem;
@@ -86,7 +87,7 @@ export function ProposalDetails() {
       }
       right={
         <RightCard>
-          <Card>I am actions </Card>
+          {proposal && <ProposalActions proposal={proposal} />}
           <ProposalHistory proposal={proposal} />
         </RightCard>
       }

@@ -14,6 +14,7 @@ import {
   Dialog,
   DialogTrigger,
   DialogContent,
+  ParLg,
 } from '@daohaus/ui';
 import { Keychain } from '@daohaus/common-utilities';
 import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
@@ -133,9 +134,9 @@ export const ProposalHistoryCard = ({
     <ElementContainer>
       <VisibleContainer>
         <ContentContainer>
-          <ParXl>
+          <ParLg>
             <StyledTitle active={element.active}>{element.title}</StyledTitle>
-          </ParXl>
+          </ParLg>
           {element.text && <ParMd>{element.text}</ParMd>}
         </ContentContainer>
         {element.canExpand && open && (

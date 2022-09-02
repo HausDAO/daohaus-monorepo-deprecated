@@ -181,7 +181,10 @@ export const ActionTemplate = ({
     <TemplateBox>
       <div className="top-section">
         {displayUI}
-        <QuorumDisplay yesPerc={yesPerc} daoQuorum={proposal.dao.totalShares} />
+        <QuorumDisplay
+          yesPerc={yesPerc}
+          daoQuorum={proposal.dao.quorumPercent}
+        />
       </div>
       <div className="middle-section">{main}</div>
       <div className="bottom-section">{helperUI}</div>

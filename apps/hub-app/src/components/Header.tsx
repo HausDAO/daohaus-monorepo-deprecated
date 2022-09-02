@@ -1,13 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  Button,
-  Dropdown,
-  DropdownMenuItem,
-  ParMd,
-  useBreakpoint,
-  widthQuery,
-} from '@daohaus/ui';
+import { Button, Dropdown, DropdownMenuItem, ParMd } from '@daohaus/ui';
 import { DaoHausNav } from '@daohaus/daohaus-connect-feature';
 import { BiCommand, BiChevronDown } from 'react-icons/bi';
 import { indigoDark, amberDark } from '@radix-ui/colors';
@@ -70,7 +63,6 @@ const StyledCommand = styled(BiCommand)`
 `;
 
 const Header = () => {
-  const isSm = useBreakpoint(widthQuery.sm);
   return (
     <HeaderContainer>
       <Dropdown

@@ -101,7 +101,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       FIELD.DESCRIPTION,
       FIELD.LINK,
       FIELD.SHAMAN_ADDRESS,
-      FIELD.SHAMAN_PERMISSIONS,
+      FIELD.SHAMAN_PERMISSION,
     ],
   },
   UPDATE_SHAMAN: {
@@ -260,7 +260,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                 rowId: 'row2',
                 left: {
                   id: 'sponsorThreshold',
-                  type: 'input',
+                  type: 'toWeiInput',
                   expectType: 'number',
                   label: 'Sponsor Threshold',
                   placeholder: '1',
@@ -268,7 +268,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                 },
                 right: {
                   id: 'newOffering',
-                  type: 'input',
+                  type: 'toWeiInput',
                   label: 'New Offering',
                   expectType: 'number',
                   placeholder: '0',

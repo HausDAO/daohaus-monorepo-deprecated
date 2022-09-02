@@ -8,6 +8,7 @@ import {
   toSeconds,
   TXLego,
   ValidArgType,
+  TXLegoBase,
 } from '@daohaus/common-utilities';
 import { buildMultiCallTX } from '@daohaus/tx-builder-feature';
 import { MaxUint256 } from '@ethersproject/constants';
@@ -115,7 +116,7 @@ export const TX: Record<string, TXLego> = {
         method: 'setShamans',
         args: [
           nestInArray('.formValues.shamanAddress'),
-          nestInArray('.formValues.shamanName'),
+          nestInArray('.formValues.shamanPermission'),
         ],
       },
     ],
@@ -411,4 +412,22 @@ export const TABULA_TX: Record<string, TXLego> = {
       },
     ],
   }),
+};
+
+export const ACTION_TX: Record<string, TXLegoBase> = {
+  SPONSOR: {
+    id: 'SPONSOR',
+    contract: CONTRACT.CURRENT_DAO,
+    method: 'sponsorProposal',
+  },
+  VOTE: {
+    id: 'VOTE',
+    contract: CONTRACT.CURRENT_DAO,
+    method: 'submitVote',
+  },
+  PROCESS: {
+    id: 'PROCESS',
+    contract: CONTRACT.CURRENT_DAO,
+    method: 'processProposal',
+  },
 };

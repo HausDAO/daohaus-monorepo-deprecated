@@ -8,9 +8,9 @@
       "executor": "@nxext/vite:package",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/daohaus-context",
+        "outputPath": "dist/libs/dao-context",
         "frameworkConfigFile": "@nxext/react/plugins/vite",
-        "configFile": "libs/daohaus-context/vite.config.ts",
+        "configFile": "libs/dao-context/vite.config.ts",
         "entryFile": "src/index.ts",
         "generatePackageJson": true
       }
@@ -19,8 +19,8 @@
       "executor": "@nrwl/workspace:run-commands",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/libs/daohaus-context",
-        "command": "tsc --project libs/daohaus-context/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
+        "outputPath": "dist/libs/dao-context",
+        "command": "tsc --project libs/dao-context/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
         "color": true
       },
       "dependsOn": [

@@ -14,7 +14,8 @@ import { Keychain } from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 import { loadProposal } from '../utils/dataFetchHelpers';
-import { ProposalDetailsOverview } from '../components/ProposalDetailsOverview';
+import { ProposalDetailsGuts } from '../components/ProposalDetailsGuts';
+import { ProposalHistory } from '../components/ProposalHistory';
 import { getProposalTypeLabel } from '../utils/general';
 
 const OverviewCard = styled(Card)`
@@ -80,10 +81,15 @@ export function ProposalDetails() {
       subtitle={getProposalTypeLabel(proposal?.proposalType)}
       left={
         <OverviewCard>
-          {proposal && <ProposalDetailsOverview proposal={proposal} />}
+          {proposal && <ProposalDetailsGuts proposal={proposal} />}
         </OverviewCard>
       }
-      right={<RightCard>actions</RightCard>}
+      right={
+        <RightCard>
+          <Card>I am actions </Card>
+          <ProposalHistory proposal={proposal} />
+        </RightCard>
+      }
     />
   );
 }

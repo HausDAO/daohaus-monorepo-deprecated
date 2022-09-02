@@ -366,6 +366,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
 
   const refreshDao = async () => {
     if (daochain && daoid) {
+      setDao(undefined);
       loadDao({
         daoid,
         daochain: daochain as keyof Keychain,
@@ -377,6 +378,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   };
   const refreshConnectedMembership = async () => {
     if (daochain && daoid && address) {
+      setConnectedMembership(undefined);
       loadMember({
         daoid,
         daochain: daochain as keyof Keychain,
@@ -389,6 +391,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   };
   const refreshMembers = async () => {
     if (daochain && daoid) {
+      setMembers(undefined);
       loadMembersList({
         filter: { dao: daoid, ...membersFilter },
         ordering: membersSort,
@@ -403,6 +406,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
   };
   const refreshProposals = async () => {
     if (daochain && daoid) {
+      setProposals(undefined);
       loadProposalsList({
         filter: { dao: daoid, ...proposalsFilter },
         ordering: proposalsSort,
@@ -411,12 +415,13 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
         setData: setProposals,
         setLoading: setProposalsLoading,
         setNextPaging: setProposalsNextPaging,
-        shouldUpdate: false,
+        shouldUpdate: true,
       });
     }
   };
   const refreshConnectedMembershipProposalVotes = async () => {
     if (daochain && daoid && address) {
+      setConnectedMembershipProposalVotes(undefined);
       loadConnectedMemberVotesList({
         filter: { dao: daoid, ...proposalsFilter },
         ordering: proposalsSort,
@@ -424,7 +429,7 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
         daochain: daochain as keyof Keychain,
         setData: setConnectedMembershipProposalVotes,
         setLoading: setConnectedMembershipProposalVotesLoading,
-        shouldUpdate: false,
+        shouldUpdate: true,
         memberAddress: address,
       });
     }

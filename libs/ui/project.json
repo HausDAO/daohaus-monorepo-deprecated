@@ -4,7 +4,7 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build": {
+    "vite-build": {
       "executor": "@alexkeating/vite-plugin:package",
       "outputs": ["{options.outputPath}"],
       "options": {
@@ -18,7 +18,7 @@
         "project": "libs/ui"
       }
     },
-    "x-build": {
+    "build": {
       "outputs": ["{options.outputPath}"],
       "executor": "@nrwl/workspace:run-commands",
       "options": {
@@ -28,12 +28,9 @@
       },
       "dependsOn": [
         {
-          "target": "vite-build",
-          "projects": "self"
-        },
-        {
-          "target": "build-storybook",
-          "projects": "self"
+          "target": "x-build",
+          "projects": "dependencies",
+          "params": "forward"
         }
       ]
     },

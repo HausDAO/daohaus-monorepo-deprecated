@@ -38,7 +38,13 @@ const QuorumBox = styled.div`
   }
 `;
 
-const QuorumDisplay = ({ quorumAmt }: { quorumAmt: number | number }) => {
+const QuorumDisplay = ({
+  yesPerc,
+  daoQuorum,
+}: {
+  yesPerc: number | string;
+  daoQuorum: number | string;
+}) => {
   const theme = useTheme();
 
   return (
@@ -46,11 +52,12 @@ const QuorumDisplay = ({ quorumAmt }: { quorumAmt: number | number }) => {
       triggerEl={
         <QuorumBox>
           <MdOutlineGavel color={theme.tint.secondary} size="1.4rem" />{' '}
-          <ParMd color={theme.tint.secondary}>{quorumAmt}%</ParMd>{' '}
+          <ParMd color={theme.tint.secondary}>
+            {yesPerc}/{daoQuorum}%
+          </ParMd>{' '}
         </QuorumBox>
       }
-      content={`${quorumAmt}% ‘Yes’ voting stake was 
-needed to meet Quorum.`}
+      content={`DAO must meet a quorum of ${daoQuorum}% to pass a proposal.`}
       side="bottom"
     />
   );

@@ -22,7 +22,7 @@ import {
   ProposalHistoryElement,
   ProposalHistoryElementData,
 } from '../utils/historyHelpers';
-import { TProposals } from '../contexts/DaoContext';
+import { TProposals } from '@daohaus/dao-context';
 import { VoteList } from './VoteList';
 
 const ElementContainer = styled.div`

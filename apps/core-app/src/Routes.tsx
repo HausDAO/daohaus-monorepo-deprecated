@@ -1,9 +1,8 @@
 import React from 'react';
 import { Routes as RoutesDom, Route } from 'react-router-dom';
+import { Banner } from '@daohaus/ui';
 
-import { DaoContextProvider } from './contexts/DaoContext';
 import Home from './pages/Home';
-import Dao from './pages/Dao';
 import DaoOverview from './pages/DaoOverview';
 import Members from './pages/Members';
 import Member from './pages/Member';
@@ -14,7 +13,7 @@ import Settings from './pages/Settings';
 import NewProposal from './pages/NewProposal';
 import UpdateSettings from './pages/UpdateSettings';
 import ProposalDetails from './pages/ProposalDetails';
-import { Banner } from '@daohaus/ui';
+import { DaoContainer } from './pages/DaoContainer';
 
 const Routes = () => {
   return (
@@ -22,14 +21,7 @@ const Routes = () => {
       <Banner />
       <RoutesDom>
         <Route path="/" element={<Home />} />
-        <Route
-          path="molochv3/:daochain/:daoid"
-          element={
-            <DaoContextProvider>
-              <Dao />
-            </DaoContextProvider>
-          }
-        >
+        <Route path="molochv3/:daochain/:daoid" element={<DaoContainer />}>
           <Route index element={<DaoOverview />} />
           <Route path="formtest" element={<FormTest />} />
           <Route path="proposals" element={<Proposals />} />

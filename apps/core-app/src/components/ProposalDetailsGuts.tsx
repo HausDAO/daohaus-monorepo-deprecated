@@ -13,7 +13,7 @@ import {
   Keychain,
 } from '@daohaus/common-utilities';
 
-import { TProposals } from '../contexts/DaoContext';
+import { TProposals } from '@daohaus/dao-context';
 import { ProposalWarning } from './ProposalWarning';
 
 const OverviewContainer = styled.div`

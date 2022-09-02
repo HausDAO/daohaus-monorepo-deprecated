@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { AddressDisplay, Button, DataSm, widthQuery } from '@daohaus/ui';
 
-import { TDao } from '../contexts/DaoContext';
+import { TDao } from '@daohaus/dao-context';
 import { useParams } from 'react-router-dom';
 import { Keychain } from '@daohaus/common-utilities';
 

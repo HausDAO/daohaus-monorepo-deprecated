@@ -10,7 +10,7 @@ import {
 import { statusFilter } from '@daohaus/dao-data';
 import { BsPlusLg } from 'react-icons/bs';
 
-import { defaultDaoData, useDao, useProposals } from '../contexts/DaoContext';
+import { defaultDaoData, useDao, useProposals } from '@daohaus/dao-context';
 import { NewProposalList } from '../components/NewProposalList';
 import { PROPOSAL_FORMS } from '../legos/form';
 import SearchInput from '../components/SearchInput';

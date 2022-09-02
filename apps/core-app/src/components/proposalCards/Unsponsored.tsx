@@ -10,7 +10,7 @@ import { Italic, ParSm, Spinner, useToast } from '@daohaus/ui';
 import React, { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTheme } from 'styled-components';
-import { useConnectedMembership, useDao } from '../../contexts/DaoContext';
+import { useConnectedMembership, useDao } from '@daohaus/dao-context';
 import { PROP_CARD_HELP } from '../../data/copy';
 import { ACTION_TX } from '../../legos/tx';
 import { VotingBar } from '../VotingBar';

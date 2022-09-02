@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 import { Card, SingleColumnLayout, widthQuery } from '@daohaus/ui';
-import { useDao } from '../contexts/DaoContext';
+import { useDao } from '@daohaus/dao-context';
 import { VaultOverview } from '../components/VaultOverview';
 
 const VaultContainer = styled(Card)`
   padding: 3rem;
+  width: 100%;
   border: none;
   @media ${widthQuery.lg} {
     max-width: 100%;

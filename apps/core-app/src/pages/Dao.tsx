@@ -1,6 +1,6 @@
 import { useParams, Outlet } from 'react-router-dom';
 import { HausLayout, useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { useDao } from '../contexts/DaoContext';
+import { useDao } from '@daohaus/dao-context';
 import { TXBuilder } from '@daohaus/tx-builder-feature';
 
 export function Dao() {
@@ -24,7 +24,10 @@ export function Dao() {
             href: `/molochv3/${daochain}/${daoid}/proposals`,
           },
           { label: 'Vaults', href: `/molochv3/${daochain}/${daoid}/vaults` },
-          { label: 'Members', href: `/molochv3/${daochain}/${daoid}/members` },
+          {
+            label: 'Members',
+            href: `/molochv3/${daochain}/${daoid}/members`,
+          },
         ]}
         dropdownLinks={[
           {

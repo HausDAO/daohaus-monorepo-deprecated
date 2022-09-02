@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { ActionTemplate, GasDisplay, Verdict } from './ActionPrimitives';
 import { useParams } from 'react-router-dom';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { useDao } from '../../contexts/DaoContext';
+import { useDao } from '@daohaus/dao-context';
 import { useTxBuilder } from '@daohaus/tx-builder-feature';
 import {
   handleErrorMessage,

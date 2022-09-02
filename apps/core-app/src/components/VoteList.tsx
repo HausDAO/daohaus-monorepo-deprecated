@@ -7,7 +7,7 @@ import {
 } from '@daohaus/common-utilities';
 import { AddressDisplay, DataMd, ParMd } from '@daohaus/ui';
 
-import { TProposals } from '../contexts/DaoContext';
+import { TProposals } from '@daohaus/dao-context';
 import { useParams } from 'react-router-dom';
 
 const VotesContainer = styled.div`

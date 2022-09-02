@@ -11,6 +11,9 @@ import {
   AddressDisplay,
   DataIndicator,
   Button,
+  Dialog,
+  DialogTrigger,
+  DialogContent,
 } from '@daohaus/ui';
 import { Keychain } from '@daohaus/common-utilities';
 import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
@@ -20,6 +23,7 @@ import {
   ProposalHistoryElementData,
 } from '../utils/historyHelpers';
 import { TProposals } from '../contexts/DaoContext';
+import { VoteList } from './VoteList';
 
 const ElementContainer = styled.div`
   display: flex;
@@ -122,6 +126,9 @@ export const ProposalHistoryCard = ({
     setOpen((prevState) => !prevState);
   };
 
+  const hasProposalVotes =
+    proposal && proposal.votes && proposal.votes.length > 0;
+
   return (
     <ElementContainer>
       <VisibleContainer>
@@ -141,12 +148,18 @@ export const ProposalHistoryCard = ({
             <StyledDownArrow />
           </div>
         )}
-        {element.showVotesButton && (
-          <Button sm secondary>
-            Show Votes{' '}
-            {proposal &&
-              `(${Number(proposal?.yesVotes) + Number(proposal?.noVotes)})`}
-          </Button>
+        {element.showVotesButton && hasProposalVotes && (
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button sm secondary>
+                Show Votes (
+                {Number(proposal.yesVotes) + Number(proposal.noVotes)})
+              </Button>
+            </DialogTrigger>
+            <DialogContent title={`Proposal Votes (${proposal.votes?.length})`}>
+              <VoteList votes={proposal.votes} proposal={proposal} />
+            </DialogContent>
+          </Dialog>
         )}
       </VisibleContainer>
       {element.canExpand && open && (

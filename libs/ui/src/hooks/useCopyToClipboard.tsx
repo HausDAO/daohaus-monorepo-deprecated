@@ -17,7 +17,7 @@ export const useCopyToClipboard = (): CopyFn => {
   const copy: CopyFn = async (
     text,
     toastTitle = 'Success',
-    toastDescription = 'was coppied to your clipboard.'
+    toastDescription = 'was copied to your clipboard.'
   ) => {
     if (!navigator?.clipboard) {
       console.warn('Clipboard not supported');

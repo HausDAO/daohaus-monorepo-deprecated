@@ -171,6 +171,8 @@ export function FormBuilder<Lookup extends LookupType>({
     console.error('FormBuilder: onSubmit not implemented');
   };
 
+  console.log('fields', fields);
+
   return (
     <RHFProvider {...methods}>
       <FormBuilderContext.Provider

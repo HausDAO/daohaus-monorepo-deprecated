@@ -54,7 +54,7 @@ export const PROPOSAL_TYPE_WARNINGS: { [key: string]: string } = {
   ADD_SHAMAN:
     'This proposal is adding a Shaman with Share Management permissions to the DAO. Be sure to look at the contract details for more information.',
   UPDATE_GOV_SETTINGS:
-    'This proposal will adjust the governanace settings for the DAO. Be sure to look at the contract details for more information.',
+    'This proposal will adjust the governance settings for the DAO. Be sure to look at the contract details for more information.',
   TOKEN_SETTINGS:
     'This proposal will adjust the token transferability settings for the DAO. Be sure to look at the contract details for more information.',
   TOKENS_FOR_SHARES:

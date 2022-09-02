@@ -28,8 +28,8 @@
       },
       "dependsOn": [
         {
-          "target": "x-build",
-          "projects": "dependencies",
+          "target": "vite-build",
+          "projects": "self",
           "params": "forward"
         }
       ]

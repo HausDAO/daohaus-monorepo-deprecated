@@ -31,6 +31,15 @@
         "passWithNoTests": true
       }
     },
+    "vite-build": {
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self",
+          "params": "forward"
+        }
+      ]
+    },
     "version": {
       "executor": "@jscutlery/semver:version",
       "options": {

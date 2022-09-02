@@ -47,6 +47,16 @@
         "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
       }
     },
+    "vite-build": {
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self",
+          "params": "forward"
+        }
+      ]
+    },
+
     "deploy": {
       "executor": "ngx-deploy-npm:deploy",
       "options": {

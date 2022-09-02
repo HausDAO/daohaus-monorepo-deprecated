@@ -26,8 +26,16 @@
   },
   {
     "inputs": [
-      { "internalType": "string", "name": "content", "type": "string" },
-      { "internalType": "string", "name": "tag", "type": "string" }
+      {
+        "internalType": "string",
+        "name": "content",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "tag",
+        "type": "string"
+      }
     ],
     "name": "post",
     "outputs": [],

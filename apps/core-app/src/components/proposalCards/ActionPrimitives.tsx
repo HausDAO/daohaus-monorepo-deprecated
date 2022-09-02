@@ -30,13 +30,6 @@ const TemplateBox = styled.div`
   }
 `;
 
-export const DummyBar = styled.div`
-  width: 100%;
-  height: 1rem;
-  background-color: grey;
-  margin-bottom: 1.2rem;
-`;
-
 const QuorumBox = styled.div`
   display: flex;
   align-items: center;

@@ -2,7 +2,7 @@ import { ParMd, TintSecondary } from '@daohaus/ui';
 import { formatShares } from '@daohaus/common-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
 
-import { ActionTemplate, DummyBar, VotingResults } from './ActionPrimitives';
+import { ActionTemplate, VotingResults } from './ActionPrimitives';
 import { VotingBar } from '../VotingBar';
 
 export const HasVoted = ({

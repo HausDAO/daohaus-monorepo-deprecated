@@ -7,13 +7,18 @@ import {
   ActionTemplate,
   DummyBar,
   GasDisplay,
+  Verdict,
   VotingResults,
 } from './ActionPrimitives';
 import { useParams } from 'react-router-dom';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { useDao } from '../../contexts/DaoContext';
 import { useTxBuilder } from '@daohaus/tx-builder-feature';
-import { handleErrorMessage, TXLego } from '@daohaus/common-utilities';
+import {
+  handleErrorMessage,
+  roundedPercentage,
+  TXLego,
+} from '@daohaus/common-utilities';
 import { ACTION_TX } from '../../legos/tx';
 import { GatedButton } from './GatedButton';
 
@@ -90,13 +95,18 @@ export const ReadyForProcessing = ({
     ? true
     : 'Please wait for transaction to complete';
 
+  const percentYes = roundedPercentage(
+    Number(proposal.yesBalance),
+    Number(proposal.dao.totalShares)
+  );
+
   return (
     <ActionTemplate
       statusDisplay="Ready For Processing"
       main={
         <>
           <DummyBar />
-          <VotingResults proposal={proposal} isVoting={false} />
+          <Verdict passed appendText={` - ${percentYes}% Yes`} />
         </>
       }
       helperDisplay={

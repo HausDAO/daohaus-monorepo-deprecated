@@ -32,9 +32,6 @@ const HomePage = () => {
       {}
     )
   );
-  // const [filterNetworks, setFilterNetworks] = useState<Record<string, string>>({
-  //   '0x64': '0x64',
-  // });
   const [filterDelegate, setFilterDelegate] = useState<string | ''>('');
   const [sortBy, setSortBy] = useState<string>(DEFAULT_SORT_KEY);
   const [searchTerm, setSearchTerm] = useState<string | ''>('');

@@ -14,6 +14,7 @@ import {
 } from '@daohaus/common-utilities';
 
 import { TProposals } from '../contexts/DaoContext';
+import { ProposalWarning } from './ProposalWarning';
 
 const OverviewContainer = styled.div`
   display: flex;
@@ -37,13 +38,15 @@ const SpacedAddressDisplay = styled(AddressDisplay)`
   margin-top: 1rem;
 `;
 
-type ProposalDetailsOverviewProps = {
+const Spacer = styled.div`
+  margin-bottom: 2rem;
+`;
+
+type ProposalDetailsGutsProps = {
   proposal: TProposals[number];
 };
 
-export const ProposalDetailsOverview = ({
-  proposal,
-}: ProposalDetailsOverviewProps) => {
+export const ProposalDetailsGuts = ({ proposal }: ProposalDetailsGutsProps) => {
   const { daochain } = useParams();
 
   return (
@@ -67,13 +70,19 @@ export const ProposalDetailsOverview = ({
         <DataIndicator
           label="Expiration Date"
           data={
-            +proposal.expiration
+            Number(proposal.expiration)
               ? formatShortDateTimeFromSeconds(proposal.expiration)
               : '--'
           }
           size="sm"
         />
       </DataContainer>
+      <Spacer />
+      <ProposalWarning
+        proposalType={proposal.proposalType}
+        decodeError={false}
+        txHash={proposal.txHash}
+      />
     </OverviewContainer>
   );
 };

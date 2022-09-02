@@ -29,9 +29,11 @@ export const CheckRender = ({
       {...props}
       gateLabel={gateLabel}
       onUnchecked={() => {
-        props.components.forEach((field: FieldLego & { defaultValue?: string }) => {
-          if (field.defaultValue) setValue(field.id, field.defaultValue);
-        });
+        props.components.forEach(
+          (field: FieldLego & { defaultValue?: string }) => {
+            if (field.defaultValue) setValue(field.id, field.defaultValue);
+          }
+        );
       }}
     />
   );

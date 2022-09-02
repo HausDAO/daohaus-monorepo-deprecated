@@ -265,6 +265,7 @@ export const loadProposalsList = async ({
       ordering,
       paging,
     });
+
     if (shouldUpdate) {
       setNextPaging(res.nextPaging);
 

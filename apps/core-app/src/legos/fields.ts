@@ -20,6 +20,22 @@ export const FIELD: Record<string, CustomFieldLego> = {
     placeholder: 'http://',
     expectType: 'url',
   },
+  SHAMAN_ADDRESS: {
+    id: 'shamanAddress',
+    type: 'input',
+    label: 'Shaman Address',
+    placeholder: '0x1234...5678',
+  },
+  SHAMAN_PERMISSION: {
+    id: 'shamanPermission',
+    type: 'shamanPermissions',
+    label: 'Shaman Permission',
+  },
+  SHAMAN_DELUXE: {
+    id: 'shamanPermission',
+    type: 'shamanPermissionDeluxe',
+    label: 'Shaman Permission',
+  },
   TRIBUTE: {
     id: 'tribute',
     type: 'tributeInput',
@@ -48,7 +64,7 @@ export const FIELD: Record<string, CustomFieldLego> = {
   TAGS: {
     id: 'tags',
     type: 'tagsInput',
-    label: 'Tags (seperated by commas)',
+    label: 'Tags (separated by commas)',
     placeholder: 'DAO Name',
   },
   PROPOSAL_EXPIRY: {

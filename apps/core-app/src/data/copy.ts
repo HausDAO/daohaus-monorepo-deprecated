@@ -23,3 +23,8 @@ export const SUMMON_COPY = {
   MEMBERS:
     'Input member list with member address, voting stake amount, and non-voting stake amount per row using spaces. Example: \n 0x00000000000000 20 0 \n 0x00000000000000 10 0',
 };
+
+export const PROP_CARD_HELP = {
+  UNSPONSORED:
+    'A member of the DAO can sponsor this proposal, moving it into the Voting Queue.',
+};

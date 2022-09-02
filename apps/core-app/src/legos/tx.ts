@@ -8,9 +8,11 @@ import {
   toSeconds,
   TXLego,
   ValidArgType,
+  TXLegoBase,
 } from '@daohaus/common-utilities';
 import { buildMultiCallTX } from '@daohaus/tx-builder-feature';
 import { MaxUint256 } from '@ethersproject/constants';
+import { ProposalTypeIds } from '../utils/constants';
 import { CONTRACT } from './contracts';
 
 const nestInArray = (arg: ValidArgType | ValidArgType[]): NestedArray => {
@@ -30,7 +32,7 @@ export const TX: Record<string, TXLego> = {
         description: `.formValues.description`,
         contentURI: `.formValues.link`,
         contentURIType: { type: 'static', value: 'url' },
-        proposalType: { type: 'static', value: 'Signal Proposal' },
+        proposalType: { type: 'static', value: ProposalTypeIds.Signal },
       },
     },
     actions: [
@@ -45,7 +47,7 @@ export const TX: Record<string, TXLego> = {
               description: `.formValues.description`,
               contentURI: `.formValues.link`,
               contentURIType: { type: 'static', value: 'url' },
-              proposalType: { type: 'static', value: 'Signal Proposal' },
+              proposalType: { type: 'static', value: ProposalTypeIds.Signal },
             },
           },
           { type: 'static', value: POSTER_TAGS.signalProposal },
@@ -71,7 +73,10 @@ export const TX: Record<string, TXLego> = {
         description: '.formValues.description',
         contentURI: `.formValues.link`,
         contentURIType: { type: 'static', value: 'url' },
-        proposalType: { type: 'static', value: 'Issue Tokens Proposal' },
+        proposalType: {
+          type: 'static',
+          value: ProposalTypeIds.IssueSharesLoot,
+        },
       },
     },
     actions: [
@@ -102,7 +107,7 @@ export const TX: Record<string, TXLego> = {
         description: '.formValues.description',
         contentURI: `.formValues.link`,
         contentURIType: { type: 'static', value: 'url' },
-        proposalType: { type: 'static', value: 'Add Shaman Proposal' },
+        proposalType: { type: 'static', value: ProposalTypeIds.AddShaman },
       },
     },
     actions: [
@@ -111,7 +116,7 @@ export const TX: Record<string, TXLego> = {
         method: 'setShamans',
         args: [
           nestInArray('.formValues.shamanAddress'),
-          nestInArray('.formValues.shamanName'),
+          nestInArray('.formValues.shamanPermission'),
         ],
       },
     ],
@@ -127,7 +132,7 @@ export const TX: Record<string, TXLego> = {
         contentURIType: { type: 'static', value: 'url' },
         proposalType: {
           type: 'static',
-          value: 'Issue ERC20 Token Funding Proposal',
+          value: ProposalTypeIds.TransferErc20,
         },
       },
     },
@@ -150,7 +155,7 @@ export const TX: Record<string, TXLego> = {
         contentURIType: { type: 'static', value: 'url' },
         proposalType: {
           type: 'static',
-          value: 'Issue Network Token Funding Proposal',
+          value: ProposalTypeIds.TransferNetworkToken,
         },
       },
     },
@@ -208,7 +213,10 @@ export const TX: Record<string, TXLego> = {
         description: '.formValues.description',
         contentURI: `.formValues.link`,
         contentURIType: { type: 'static', value: 'url' },
-        proposalType: { type: 'static', value: 'Governance Settings Proposal' },
+        proposalType: {
+          type: 'static',
+          value: ProposalTypeIds.UpdateGovSettings,
+        },
       },
     },
     actions: [
@@ -250,7 +258,10 @@ export const TX: Record<string, TXLego> = {
         contentURIType: { type: 'static', value: 'url' },
         vTokenTransferable: '.formValues.vStake',
         nvTokenTransferable: '.formValues.nvStake',
-        proposalType: { type: 'static', value: 'Token Settings Proposal' },
+        proposalType: {
+          type: 'static',
+          value: ProposalTypeIds.UpdateTokenSettings,
+        },
       },
     },
     actions: [
@@ -283,7 +294,10 @@ export const TX: Record<string, TXLego> = {
           description: '.formValues.description',
           contentURI: `.formValues.link`,
           contentURIType: { type: 'static', value: 'url' },
-          proposalType: { type: 'static', value: 'Shares X Token Proposal' },
+          proposalType: {
+            type: 'static',
+            value: ProposalTypeIds.TokensForShares,
+          },
         },
       },
     ],
@@ -298,7 +312,7 @@ export const TX: Record<string, TXLego> = {
         link: '.formValues.link',
         contentURI: `.formValues.link`,
         contentURIType: { type: 'static', value: 'url' },
-        proposalType: { type: 'static', value: 'GuildKick Proposal' },
+        proposalType: { type: 'static', value: ProposalTypeIds.GuildKick },
       },
     },
     actions: [
@@ -398,4 +412,22 @@ export const TABULA_TX: Record<string, TXLego> = {
       },
     ],
   }),
+};
+
+export const ACTION_TX: Record<string, TXLegoBase> = {
+  SPONSOR: {
+    id: 'SPONSOR',
+    contract: CONTRACT.CURRENT_DAO,
+    method: 'sponsorProposal',
+  },
+  VOTE: {
+    id: 'VOTE',
+    contract: CONTRACT.CURRENT_DAO,
+    method: 'submitVote',
+  },
+  PROCESS: {
+    id: 'PROCESS',
+    contract: CONTRACT.CURRENT_DAO,
+    method: 'processProposal',
+  },
 };

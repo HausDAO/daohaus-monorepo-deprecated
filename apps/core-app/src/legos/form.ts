@@ -36,13 +36,6 @@ COMMON_FORMS KEYS
 */
 
 export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
-  SHARE_SWAP: {
-    id: 'SHARE_SWAP',
-    title: 'Swap Tokens for Shares',
-    subtitle: 'Token Proposal',
-    description: 'Exchange for voting or non-voting tokens',
-    fields: [FIELD.TITLE, FIELD.DESCRIPTION, FIELD.LINK],
-  },
   SIGNAL: {
     id: 'SIGNAL',
     title: 'Signal Form',
@@ -108,7 +101,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       FIELD.DESCRIPTION,
       FIELD.LINK,
       FIELD.SHAMAN_ADDRESS,
-      FIELD.SHAMAN_PERMISSIONS,
+      FIELD.SHAMAN_PERMISSION,
     ],
   },
   UPDATE_SHAMAN: {
@@ -131,8 +124,8 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       FIELD.SHAMAN_DELUXE,
     ],
   },
-  ISSUE_ERC20: {
-    id: 'ISSUE_ERC20',
+  TRANSFER_ERC20: {
+    id: 'TRANSFER_ERC20',
     title: 'Issue Funding (ERC20)',
     subtitle: 'Funding Proposal',
     description: 'Ask the DAO for funds.',
@@ -158,8 +151,8 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       FIELD.REQUEST_TOKEN,
     ],
   },
-  ISSUE_NETWORK_TOKEN: {
-    id: 'ISSUE_NETWORK_TOKEN',
+  TRANSFER_NETWORK_TOKEN: {
+    id: 'TRANSFER_NETWORK_TOKEN',
     title: 'Issue Funding (Network Token)',
     subtitle: 'Funding Proposal',
     description: 'Ask the DAO for funds.',
@@ -189,7 +182,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     id: 'UPDATE_GOV_SETTINGS',
     title: 'Update Governance Settings',
     subtitle: 'Governance Setting Proposal',
-    description: 'Learn more about Governanace Settings in our documentation.',
+    description: 'Learn more about Governance Settings in our documentation.',
     tx: TX.UPDATE_GOV_SETTINGS,
     requiredFields: {
       title: true,
@@ -267,7 +260,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                 rowId: 'row2',
                 left: {
                   id: 'sponsorThreshold',
-                  type: 'input',
+                  type: 'toWeiInput',
                   expectType: 'number',
                   label: 'Sponsor Threshold',
                   placeholder: '1',
@@ -275,7 +268,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                 },
                 right: {
                   id: 'newOffering',
-                  type: 'input',
+                  type: 'toWeiInput',
                   label: 'New Offering',
                   expectType: 'number',
                   placeholder: '0',
@@ -386,7 +379,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     title: 'Guild Kick Proposal',
     subtitle: 'Guild Kick Member',
     description:
-      'Propose to exchange a member’s voting token balance with non-voting tokens. This will mean they can no longer vote on proposals once passed.',
+      'Propose to exchange a member’s voting token balance with non-voting tokens. If passed, this will mean they can no longer vote on proposals.',
     tx: TX.GUILDKICK,
     requiredFields: {
       title: true,

@@ -32,6 +32,9 @@ const HomePage = () => {
       {}
     )
   );
+  // const [filterNetworks, setFilterNetworks] = useState<Record<string, string>>({
+  //   '0x64': '0x64',
+  // });
   const [filterDelegate, setFilterDelegate] = useState<string | ''>('');
   const [sortBy, setSortBy] = useState<string>(DEFAULT_SORT_KEY);
   const [searchTerm, setSearchTerm] = useState<string | ''>('');
@@ -45,7 +48,6 @@ const HomePage = () => {
       setLoading(true);
       try {
         const haus = Haus.create();
-
         const query = await haus.profile.listDaosByMember({
           memberAddress: address,
           networkIds: Object.keys(filterNetworks) as ValidNetwork[],
@@ -54,6 +56,7 @@ const HomePage = () => {
           memberFilter: getDelegateFilter(filterDelegate, address),
           ordering: SORT_FIELDS[sortBy].ordering,
         });
+
         if (query.data?.daos && shouldUpdate) {
           setDaoData(query.data.daos);
         }

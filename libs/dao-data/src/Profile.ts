@@ -175,7 +175,7 @@ export default class Profile {
     filter,
     memberAddress,
     ordering = {
-      orderBy: 'id',
+      orderBy: 'createdAt',
       orderDirection: 'desc',
     },
     paging = {

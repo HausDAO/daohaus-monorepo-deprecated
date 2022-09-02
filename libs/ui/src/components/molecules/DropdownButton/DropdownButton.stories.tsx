@@ -1,6 +1,4 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { RiAlertLine, RiArrowDropDownLine } from 'react-icons/ri';
-import { Avatar } from '../../atoms/Avatar';
 import { DropdownButton } from './DropdownButton';
 
 export default {

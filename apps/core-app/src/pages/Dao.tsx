@@ -2,7 +2,6 @@ import { useParams, Outlet } from 'react-router-dom';
 import { HausLayout, useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { useDao } from '../contexts/DaoContext';
 import { TXBuilder } from '@daohaus/tx-builder-feature';
-import { useEffect } from 'react';
 
 export function Dao() {
   const { daochain, daoid } = useParams();

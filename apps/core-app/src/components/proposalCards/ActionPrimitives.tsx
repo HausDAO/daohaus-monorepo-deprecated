@@ -10,7 +10,7 @@ import {
 import { mintDark, tomatoDark } from '@radix-ui/colors';
 import { GatedButton } from './GatedButton';
 import { ITransformedProposal } from '@daohaus/dao-data';
-import { checkHasQuorum } from '@daohaus/common-utilities';
+import { checkHasQuorum, percentage } from '@daohaus/common-utilities';
 
 const TemplateBox = styled.div`
   display: flex;
@@ -30,13 +30,6 @@ const TemplateBox = styled.div`
   }
 `;
 
-export const DummyBar = styled.div`
-  width: 100%;
-  height: 1rem;
-  background-color: grey;
-  margin-bottom: 1.2rem;
-`;
-
 const QuorumBox = styled.div`
   display: flex;
   align-items: center;
@@ -45,7 +38,13 @@ const QuorumBox = styled.div`
   }
 `;
 
-const QuorumDisplay = ({ quorumAmt }: { quorumAmt: number | number }) => {
+const QuorumDisplay = ({
+  yesPerc,
+  daoQuorum,
+}: {
+  yesPerc: number | string;
+  daoQuorum: number | string;
+}) => {
   const theme = useTheme();
 
   return (
@@ -53,11 +52,12 @@ const QuorumDisplay = ({ quorumAmt }: { quorumAmt: number | number }) => {
       triggerEl={
         <QuorumBox>
           <MdOutlineGavel color={theme.tint.secondary} size="1.4rem" />{' '}
-          <ParMd color={theme.tint.secondary}>{quorumAmt}%</ParMd>{' '}
+          <ParMd color={theme.tint.secondary}>
+            {yesPerc}/{daoQuorum}%
+          </ParMd>{' '}
         </QuorumBox>
       }
-      content={`${quorumAmt}% ‘Yes’ voting stake was 
-needed to meet Quorum.`}
+      content={`DAO must meet a quorum of ${daoQuorum}% to pass a proposal.`}
       side="bottom"
     />
   );
@@ -146,12 +146,12 @@ export const ActionTemplate = ({
   helperDisplay,
   statusDisplay,
   main,
-  quorumAmt,
+  proposal,
 }: {
   helperDisplay?: string | React.ReactNode;
   statusDisplay?: string | React.ReactNode;
   main?: React.ReactNode;
-  quorumAmt?: number;
+  proposal: ITransformedProposal;
 }) => {
   const theme = useTheme();
   const displayUI = useMemo(() => {
@@ -171,11 +171,20 @@ export const ActionTemplate = ({
     }
     return helperDisplay;
   }, [helperDisplay, theme]);
+
+  const yesPerc = percentage(
+    Number(proposal.yesBalance),
+    Number(proposal.dao.totalShares)
+  );
+
   return (
     <TemplateBox>
       <div className="top-section">
         {displayUI}
-        {quorumAmt && <QuorumDisplay quorumAmt={2} />}
+        <QuorumDisplay
+          yesPerc={yesPerc}
+          daoQuorum={proposal.dao.quorumPercent}
+        />
       </div>
       <div className="middle-section">{main}</div>
       <div className="bottom-section">{helperUI}</div>

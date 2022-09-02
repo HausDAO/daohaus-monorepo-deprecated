@@ -97,7 +97,6 @@ export const VaultOverview = ({ dao }: VaultOverviewProps) => {
           })}
         />
         <DataIndicator label="Tokens" data={dao.tokenBalances.length} />
-        <DataIndicator label="NFTs" data={'0'} />
       </DataGrid>
     </VaultOverviewCard>
   );

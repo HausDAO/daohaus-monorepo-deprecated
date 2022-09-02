@@ -1,4 +1,5 @@
 export * from './AddressDisplay';
+export * from './Banner';
 export * from './CSInput';
 export * from './DataIndicator';
 export * from './Dialog';

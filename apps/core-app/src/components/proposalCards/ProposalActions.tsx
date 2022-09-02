@@ -93,8 +93,8 @@ export const ProposalActions = ({
     <ActionBox>
       <ActionTemplate
         proposal={proposal}
-        statusDisplay="Unknown Status"
-        main={<ParMd>Proposal Status {proposal.status} not found</ParMd>}
+        statusDisplay="Status Pending"
+        main={<ParMd>{proposal.status} Proposal Status</ParMd>}
       />
     </ActionBox>
   );

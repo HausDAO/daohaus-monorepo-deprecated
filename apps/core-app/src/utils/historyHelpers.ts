@@ -62,7 +62,13 @@ export const buildProposalHistory = ({
     return buildExpiredElements({ proposal, networkData });
   }
 
-  return null;
+  return [
+    {
+      title: 'Pending',
+      active: false,
+      canExpand: false,
+    },
+  ];
 };
 
 const buildExpiredElements = ({

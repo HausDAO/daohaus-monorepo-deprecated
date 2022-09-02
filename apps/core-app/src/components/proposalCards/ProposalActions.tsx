@@ -17,6 +17,7 @@ const ActionBox = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  max-height: 19.2rem;
   width: 31rem;
 `;
 
@@ -91,8 +92,9 @@ export const ProposalActions = ({
   return (
     <ActionBox>
       <ActionTemplate
-        statusDisplay="Unknown Status"
-        main={<ParMd>Proposal Status {proposal.status} not found</ParMd>}
+        proposal={proposal}
+        statusDisplay="Status Pending"
+        main={<ParMd>{proposal.status} Proposal Status</ParMd>}
       />
     </ActionBox>
   );

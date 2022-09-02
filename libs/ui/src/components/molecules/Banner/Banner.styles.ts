@@ -1,3 +1,4 @@
+import { breakpoints } from '../../../theme/global/breakpoints';
 import styled from 'styled-components';
 
 import { Theme } from '../../../types/theming';
@@ -18,16 +19,29 @@ export const StyledBanner = styled.div`
   .banner--text-container {
     align-items: center;
     display: flex;
+    margin-bottom: 1.6rem;
+    @media (min-width: ${breakpoints.xs}) {
+      margin-bottom: 0;
+    }
 
     svg {
-      font-size: 2.8rem;
+      font-size: 10.8rem;
       margin-right: 1.4rem;
+      @media (min-width: ${breakpoints.xs}) {
+        font-size: 2.8rem;
+      }
     }
   }
 
   .banner--link-container {
     align-items: center;
     display: flex;
+    justify-content: space-between;
+    width: 100%;
+    @media (min-width: ${breakpoints.xs}) {
+      justify-content: flex-start;
+      width: auto;
+    }
 
     svg {
       font-size: 2.4rem;
@@ -36,6 +50,8 @@ export const StyledBanner = styled.div`
   }
 
   .banner--link-item {
-    margin: 0 6rem;
+    @media (min-width: ${breakpoints.xs}) {
+      margin: 0 6rem;
+    }
   }
 `;

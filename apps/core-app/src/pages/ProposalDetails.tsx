@@ -15,6 +15,7 @@ import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 import { loadProposal } from '../utils/dataFetchHelpers';
 import { ProposalDetailsOverview } from '../components/ProposalDetailsOverview';
+import { getProposalTypeLabel } from '../utils/general';
 
 const OverviewCard = styled(Card)`
   width: 64rem;
@@ -76,7 +77,7 @@ export function ProposalDetails() {
   return (
     <BiColumnLayout
       title={proposal?.title}
-      subtitle={proposal?.proposalType}
+      subtitle={getProposalTypeLabel(proposal?.proposalType)}
       left={
         <OverviewCard>
           {proposal && <ProposalDetailsOverview proposal={proposal} />}

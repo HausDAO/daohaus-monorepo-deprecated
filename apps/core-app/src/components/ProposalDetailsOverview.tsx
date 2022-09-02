@@ -14,6 +14,7 @@ import {
 } from '@daohaus/common-utilities';
 
 import { TProposals } from '../contexts/DaoContext';
+import { ProposalWarning } from './ProposalWarning';
 
 const OverviewContainer = styled.div`
   display: flex;
@@ -35,6 +36,10 @@ const DataContainer = styled.div`
 
 const SpacedAddressDisplay = styled(AddressDisplay)`
   margin-top: 1rem;
+`;
+
+const Spacer = styled.div`
+  margin-bottom: 2rem;
 `;
 
 type ProposalDetailsOverviewProps = {
@@ -74,6 +79,12 @@ export const ProposalDetailsOverview = ({
           size="sm"
         />
       </DataContainer>
+      <Spacer />
+      <ProposalWarning
+        proposalType={proposal.proposalType}
+        decodeError={false}
+        txHash={proposal.txHash}
+      />
     </OverviewContainer>
   );
 };

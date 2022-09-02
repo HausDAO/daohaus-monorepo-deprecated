@@ -8,6 +8,7 @@ import {
 } from '@daohaus/common-utilities';
 
 import { TProposals } from '../contexts/DaoContext';
+import { getProposalTypeLabel } from '../utils/general';
 
 const OverviewContainer = styled.div`
   display: flex;
@@ -55,7 +56,7 @@ export const ProposalCardOverview = ({
     <OverviewContainer>
       <OverviewHeader>
         <ParMd color={theme.tint.secondary}>
-          {proposal.proposalType} |{' '}
+          {getProposalTypeLabel(proposal.proposalType)} |{' '}
           {formatShortDateTimeFromSeconds(proposal.createdAt)}
         </ParMd>
         <StyledLink

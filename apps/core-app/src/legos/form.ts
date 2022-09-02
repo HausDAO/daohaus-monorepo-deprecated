@@ -36,13 +36,6 @@ COMMON_FORMS KEYS
 */
 
 export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
-  SHARE_SWAP: {
-    id: 'SHARE_SWAP',
-    title: 'Swap Tokens for Shares',
-    subtitle: 'Token Proposal',
-    description: 'Exchange for voting or non-voting tokens',
-    fields: [FIELD.TITLE, FIELD.DESCRIPTION, FIELD.LINK],
-  },
   SIGNAL: {
     id: 'SIGNAL',
     title: 'Signal Form',
@@ -131,8 +124,8 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       FIELD.SHAMAN_DELUXE,
     ],
   },
-  ISSUE_ERC20: {
-    id: 'ISSUE_ERC20',
+  TRANSFER_ERC20: {
+    id: 'TRANSFER_ERC20',
     title: 'Issue Funding (ERC20)',
     subtitle: 'Funding Proposal',
     description: 'Ask the DAO for funds.',
@@ -158,8 +151,8 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       FIELD.REQUEST_TOKEN,
     ],
   },
-  ISSUE_NETWORK_TOKEN: {
-    id: 'ISSUE_NETWORK_TOKEN',
+  TRANSFER_NETWORK_TOKEN: {
+    id: 'TRANSFER_NETWORK_TOKEN',
     title: 'Issue Funding (Network Token)',
     subtitle: 'Funding Proposal',
     description: 'Ask the DAO for funds.',

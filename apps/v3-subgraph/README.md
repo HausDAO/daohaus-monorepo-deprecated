@@ -23,6 +23,7 @@ To generate subgraph code, run the following command:
 
 ## Deployment
 
+
 `nx run v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-goerli`
 `nx run v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-gnosis`
 

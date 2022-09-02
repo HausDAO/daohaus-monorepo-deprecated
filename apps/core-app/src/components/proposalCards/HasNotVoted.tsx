@@ -15,11 +15,11 @@ import { useConnectedMembership, useDao } from '@daohaus/dao-context';
 import { ACTION_TX } from '../../legos/tx';
 import {
   ActionTemplate,
-  DummyBar,
   VoteBox,
   VoteDownButton,
   VoteUpButton,
 } from './ActionPrimitives';
+import { VotingBar } from '../VotingBar';
 
 enum Vote {
   Yes = 'yes',
@@ -102,6 +102,7 @@ export const HasNotVoted = ({
     : 'Please wait for transaction to complete';
   return (
     <ActionTemplate
+      proposal={proposal}
       statusDisplay={
         <ParMd>
           Voting ends in <TintSecondary>{readableTime}</TintSecondary>
@@ -109,7 +110,7 @@ export const HasNotVoted = ({
       }
       main={
         <div>
-          <DummyBar />
+          <VotingBar proposal={proposal} />
           <VoteBox>
             <VoteDownButton
               sm

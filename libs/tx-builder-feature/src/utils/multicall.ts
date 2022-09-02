@@ -14,7 +14,6 @@ import {
   MulticallAction,
   MulticallArg,
   StringSearch,
-  toSeconds,
   TXLego,
   ValidNetwork,
 } from '@daohaus/common-utilities';

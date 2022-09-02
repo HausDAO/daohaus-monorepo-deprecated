@@ -1,12 +1,18 @@
 import { ITransformedProposal } from '@daohaus/dao-data';
 import { Italic, ParSm } from '@daohaus/ui';
-import { ActionTemplate, DummyBar } from './ActionPrimitives';
+import { VotingBar } from '../VotingBar';
+import { ActionTemplate } from './ActionPrimitives';
 
-export const ActionFailed = (_props: { proposal: ITransformedProposal }) => {
+export const ActionFailed = ({
+  proposal,
+}: {
+  proposal: ITransformedProposal;
+}) => {
   return (
     <ActionTemplate
+      proposal={proposal}
       statusDisplay="External Action Failed"
-      main={<DummyBar />}
+      main={<VotingBar proposal={proposal} />}
       helperDisplay={
         <ParSm>
           <Italic>

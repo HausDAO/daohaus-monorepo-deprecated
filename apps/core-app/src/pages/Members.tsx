@@ -33,6 +33,7 @@ const MemberContainer = styled(Card)`
   border: none;
   margin-bottom: 3rem;
   min-height: 20rem;
+  width: 100%;
   @media ${widthQuery.lg} {
     max-width: 100%;
     min-width: 0;

@@ -6,6 +6,7 @@ import { VaultOverview } from '../components/VaultOverview';
 
 const VaultContainer = styled(Card)`
   padding: 3rem;
+  width: 100%;
   border: none;
   @media ${widthQuery.lg} {
     max-width: 100%;

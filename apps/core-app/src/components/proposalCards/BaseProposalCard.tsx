@@ -7,7 +7,6 @@ import { ITransformedProposal } from '@daohaus/dao-data';
 
 const ProposalCardContainer = styled(Card)`
   display: flex;
-  /* flex-wrap: wrap; */
   gap: 3rem;
   width: 100%;
 

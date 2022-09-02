@@ -1,4 +1,3 @@
-import { Separator } from '@radix-ui/react-dropdown-menu';
 import { utils } from 'ethers';
 
 import numbro from 'numbro';

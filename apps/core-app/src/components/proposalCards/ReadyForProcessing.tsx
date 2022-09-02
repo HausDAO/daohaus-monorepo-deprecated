@@ -8,7 +8,6 @@ import {
   DummyBar,
   GasDisplay,
   Verdict,
-  VotingResults,
 } from './ActionPrimitives';
 import { useParams } from 'react-router-dom';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';

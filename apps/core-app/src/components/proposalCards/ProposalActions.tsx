@@ -1,5 +1,6 @@
 import { PROPOSAL_STATUS } from '@daohaus/common-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
+import { ParMd } from '@daohaus/ui';
 import styled from 'styled-components';
 import { ActionFailed } from './ActionFailed';
 import { ActionTemplate } from './ActionPrimitives';
@@ -89,7 +90,10 @@ export const ProposalActions = ({
   }
   return (
     <ActionBox>
-      <ActionTemplate />
+      <ActionTemplate
+        statusDisplay="Unknown Status"
+        main={<ParMd>Proposal Status {proposal.status} not found</ParMd>}
+      />
     </ActionBox>
   );
 };

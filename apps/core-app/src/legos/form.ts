@@ -321,7 +321,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                 left: {
                   id: 'vStake',
                   type: 'switch',
-                  label: 'Transferable',
+                  label: 'Voting Stake',
                   info: SUMMON_COPY.STAKE_TRANSFER,
                   switches: [
                     {
@@ -336,7 +336,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                 right: {
                   id: 'nvStake',
                   type: 'switch',
-                  label: 'Transferable',
+                  label: 'Non-Voting Stake',
                   info: SUMMON_COPY.NV_STAKE_TRANSFER,
                   switches: [
                     {

@@ -169,7 +169,6 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   );
   proposal.expiration = event.params.expiration;
   proposal.actionGasEstimate = event.params.baalGas;
-  proposal.sponsored = event.params.selfSponsor;
   proposal.cancelled = false;
   proposal.processed = false;
   proposal.actionFailed = false;
@@ -177,7 +176,15 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   proposal.currentlyPassing = false;
   proposal.proposalOffering = event.transaction.value;
   proposal.maxTotalSharesAndLootAtYesVote = constants.BIGINT_ZERO;
+  proposal.sponsored = event.params.selfSponsor;
   proposal.selfSponsor = event.params.selfSponsor;
+  proposal.sponsorTxHash = event.params.selfSponsor
+    ? event.transaction.hash
+    : null;
+  proposal.sponsorTxAt = event.params.selfSponsor
+    ? event.block.timestamp
+    : null;
+  proposal.sponsor = event.params.selfSponsor ? event.transaction.from : null;
   proposal.prevProposalId = event.params.selfSponsor
     ? dao.latestSponsoredProposalId
     : constants.BIGINT_ZERO;

@@ -2,8 +2,12 @@ import { PROPOSAL_STATUS } from '@daohaus/common-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
 import { ParLg } from '@daohaus/ui';
 import styled from 'styled-components';
+import { ActionFailed } from './ActionFailed';
 import { Cancelled } from './Cancelled';
+import { Expired } from './Expired';
+import { Failed } from './Failed';
 import { GracePeriod } from './GracePeriod';
+import { Passed } from './Passed';
 import { ReadyForProcessing } from './ReadyForProcessing';
 import { Unsponsored } from './Unsponsored';
 import { VotingPeriod } from './VotingPeriod';
@@ -27,7 +31,6 @@ export const ProposalActions = ({
       </ActionBox>
     );
   }
-
   if (proposal.status === PROPOSAL_STATUS.unsponsored) {
     return (
       <ActionBox>
@@ -59,39 +62,34 @@ export const ProposalActions = ({
   if (proposal.status === PROPOSAL_STATUS.passed) {
     return (
       <ActionBox>
-        passed
-        {/* <ReadyForProcessing proposal={proposal} /> */}
+        <Passed proposal={proposal} />
       </ActionBox>
     );
   }
   if (proposal.status === PROPOSAL_STATUS.failed) {
     return (
       <ActionBox>
-        failed
-        {/* <ReadyForProcessing proposal={proposal} /> */}
+        <Failed />
       </ActionBox>
     );
   }
   if (proposal.status === PROPOSAL_STATUS.actionFailed) {
     return (
       <ActionBox>
-        actionFailed
-        {/* <ReadyForProcessing proposal={proposal} /> */}
+        <ActionFailed />
       </ActionBox>
     );
   }
   if (proposal.status === PROPOSAL_STATUS.expired) {
     return (
       <ActionBox>
-        <Cancelled proposal={proposal} />
-        {/* <ReadyForProcessing proposal={proposal} /> */}
+        <Expired />
       </ActionBox>
     );
   }
   return (
     <ActionBox>
       <ParLg>{proposal.status}</ParLg>
-      {/*Unknown*/}
     </ActionBox>
   );
 };

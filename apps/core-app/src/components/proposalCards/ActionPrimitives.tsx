@@ -93,11 +93,17 @@ export const ProposalFail = ({ text }: { text: string }) => {
   );
 };
 
-export const Verdict = ({ passed }: { passed: boolean }) => {
+export const Verdict = ({
+  passed,
+  appendText = '',
+}: {
+  passed: boolean;
+  appendText?: string;
+}) => {
   return passed ? (
-    <ProposalPass text="Proposal Passed" />
+    <ProposalPass text={`Proposal Passed${appendText}`} />
   ) : (
-    <ProposalFail text="Proposal Failed" />
+    <ProposalFail text={`Proposal Failed${appendText}`} />
   );
 };
 

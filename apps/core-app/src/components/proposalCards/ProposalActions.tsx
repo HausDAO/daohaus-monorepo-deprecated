@@ -69,7 +69,7 @@ export const ProposalActions = ({
   if (proposal.status === PROPOSAL_STATUS.failed) {
     return (
       <ActionBox>
-        <Failed />
+        <Failed proposal={proposal} />
       </ActionBox>
     );
   }
@@ -83,7 +83,7 @@ export const ProposalActions = ({
   if (proposal.status === PROPOSAL_STATUS.expired) {
     return (
       <ActionBox>
-        <Expired />
+        <Expired proposal={proposal} />
       </ActionBox>
     );
   }

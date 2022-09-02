@@ -2,9 +2,8 @@ import React, { MouseEvent } from 'react';
 import { useParams } from 'react-router-dom';
 
 import {
-  formatValueTo,
+  formatShares,
   handleErrorMessage,
-  toWholeUnits,
   TXLego,
 } from '@daohaus/common-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
@@ -87,12 +86,7 @@ export const HasNotVoted = ({
   };
 
   const readableVotePower = connectedMembership?.shares
-    ? `Cast Your Vote (${formatValueTo({
-        value: toWholeUnits(connectedMembership?.shares) || 0,
-        decimals: 2,
-        format: 'numberShort',
-        separator: '',
-      })})`
+    ? `Cast Your Vote (${formatShares(connectedMembership.shares)})`
     : undefined;
 
   const hasShares = connectedMembership?.shares
@@ -124,14 +118,7 @@ export const HasNotVoted = ({
               value={Vote.No}
               onClick={handleVote}
             >
-              No (
-              {formatValueTo({
-                value: toWholeUnits(proposal.yesBalance),
-                decimals: 2,
-                format: 'numberShort',
-                separator: '',
-              })}
-              )
+              No ({formatShares(proposal.noBalance)})
             </VoteDownButton>
             <VoteUpButton
               sm
@@ -140,14 +127,7 @@ export const HasNotVoted = ({
               value={Vote.Yes}
               onClick={handleVote}
             >
-              Yes (
-              {formatValueTo({
-                value: toWholeUnits(proposal.noBalance),
-                decimals: 2,
-                format: 'numberShort',
-                separator: '',
-              })}
-              )
+              Yes ({formatShares(proposal.yesBalance)})
             </VoteUpButton>
           </VoteBox>
         </div>

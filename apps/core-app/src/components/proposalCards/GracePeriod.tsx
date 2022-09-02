@@ -1,8 +1,4 @@
-import {
-  baalTimeToNow,
-  formatValueTo,
-  toWholeUnits,
-} from '@daohaus/common-utilities';
+import { baalTimeToNow, formatShares } from '@daohaus/common-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { ParMd, TintSecondary } from '@daohaus/ui';
@@ -32,12 +28,9 @@ export const GracePeriod = ({
 
   const userVoteDisplay =
     userVoteData &&
-    `You voted ${userVoteData.approved ? 'Yes' : 'No'} (${formatValueTo({
-      value: toWholeUnits(userVoteData.balance || '0'),
-      decimals: 2,
-      format: 'numberShort',
-      separator: '',
-    })})`;
+    `You voted ${userVoteData.approved ? 'Yes' : 'No'} (${formatShares(
+      userVoteData.balance
+    )}`;
 
   return (
     <ActionTemplate

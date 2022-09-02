@@ -133,9 +133,13 @@ export const VotingResults = ({
     totalShares: Number(proposal.dao.totalShares),
     quorumPercent: Number(proposal.dao.quorumPercent),
   });
-  const pass =
+  const didPass =
     Number(proposal.yesBalance) > Number(proposal.noBalance) && hasQuorum;
-  return isVoting ? <VoteStatus passing={pass} /> : <Verdict passed={pass} />;
+  return isVoting ? (
+    <VoteStatus passing={didPass} />
+  ) : (
+    <Verdict passed={didPass} />
+  );
 };
 
 export const ActionTemplate = ({

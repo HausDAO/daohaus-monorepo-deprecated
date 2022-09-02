@@ -1,5 +1,12 @@
-import React from 'react';
+import { ITransformedProposal } from '@daohaus/dao-data';
+import { ActionTemplate, DummyBar, Verdict } from './ActionPrimitives';
 
-export const ActionFailed = () => {
-  return <div>ActionFailed</div>;
+export const ActionFailed = (_props: { proposal: ITransformedProposal }) => {
+  return (
+    <ActionTemplate
+      statusDisplay="Proposal Failed"
+      main={<DummyBar />}
+      // helperDisplay={}
+    />
+  );
 };

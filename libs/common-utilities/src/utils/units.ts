@@ -1,3 +1,4 @@
+import { Separator } from '@radix-ui/react-dropdown-menu';
 import { utils } from 'ethers';
 
 import numbro from 'numbro';
@@ -98,6 +99,19 @@ export const formatValueTo = ({
   });
 
   return `${formatted}${separator}${unit}`;
+};
+
+export const formatShares = (baseAmt: string | number) => {
+  if (!isNumberish(baseAmt)) {
+    console.warn('formatShares: baseAmt is not a number', baseAmt);
+    return;
+  }
+  return formatValueTo({
+    value: toWholeUnits(baseAmt.toString()),
+    decimals: 2,
+    format: 'numberShort',
+    separator: '',
+  });
 };
 
 export const percentage = (value: number, total: number) => {

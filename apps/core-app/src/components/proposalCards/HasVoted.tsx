@@ -1,5 +1,5 @@
 import { ParMd, TintSecondary } from '@daohaus/ui';
-import { formatValueTo, toWholeUnits } from '@daohaus/common-utilities';
+import { formatShares } from '@daohaus/common-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
 
 import { ActionTemplate, DummyBar, VotingResults } from './ActionPrimitives';
@@ -15,19 +15,10 @@ export const HasVoted = ({
   userVoteBalance?: string;
   readableTime?: string;
 }) => {
-  const voterHelperText = approved
-    ? `You voted Yes (${formatValueTo({
-        value: toWholeUnits(userVoteBalance || '0'),
-        decimals: 2,
-        format: 'numberShort',
-        separator: '',
-      })})`
-    : `You voted No (${formatValueTo({
-        value: toWholeUnits(userVoteBalance || '0'),
-        decimals: 2,
-        format: 'numberShort',
-        separator: '',
-      })})`;
+  const voterHelperText = `You voted ${approved ? 'Yes' : 'No'} (${formatShares(
+    userVoteBalance || '0'
+  )})`;
+
   return (
     <ActionTemplate
       statusDisplay={

@@ -63,7 +63,7 @@ module.exports.config = {
         name: 'poster',
         template: 'poster-ds.yaml',
         address: '0x000000000000cd17345801aa8147b8d3950260ff',
-        startBlock: 6102403,
+        startBlock: 7510135,
       },
       {
         name: 'tribute-minion-mapping.yaml',

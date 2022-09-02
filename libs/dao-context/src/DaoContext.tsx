@@ -235,7 +235,6 @@ export const DaoContextProvider = ({
     Paging | undefined
   >();
 
-  console.log(address, daoid, daochain);
 
   useEffect(() => {
     let shouldUpdate = true;

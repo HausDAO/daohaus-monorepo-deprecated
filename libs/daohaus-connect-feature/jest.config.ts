@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'daohaus-connect-feature',
+  displayName: 'daohaus-connect-feature-test',
   preset: '../../jest.preset.js',
   globals: {
     'ts-jest': {
@@ -8,7 +8,7 @@ export default {
     },
   },
   transform: {
-    '^.+\\.[tj]sx?$': 'ts-jest',
+    '^.+\\.[tj]sx?$': 'babel-jest',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/libs/daohaus-connect',

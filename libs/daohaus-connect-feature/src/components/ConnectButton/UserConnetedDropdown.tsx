@@ -18,8 +18,16 @@ import { useHausConnect } from '../../HausConnectContext';
 import { ExplorerLink } from '../ExplorerLink';
 
 export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
+  console.log('here');
   const { disconnect, address, chainId, profile, validNetwork } =
     useHausConnect();
+  console.log('here connect-loaded', {
+    disconnect,
+    address,
+    chainId,
+    profile,
+    validNetwork,
+  });
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);

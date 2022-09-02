@@ -1,9 +1,10 @@
 {
   "name": "@daohaus/daohaus-connect-feature",
   "version": "0.0.11",
-  "main": "./daohaus-connect-feature.umd.js",
-  "module": "./daohaus-connect-feature.es.js",
-  "typings": "./src/index.d.ts",
+  "main": "./index.js",
+  "module": "./index.js",
+  "types": "./index.d.ts",
+  "type": "module",
   "homepage": "https://github.com/HausDAO/daohaus-monorepo#readme",
   "issues": "https://github.com/HausDAO/daohaus-monorepo/issues?q=is%3Aissue+is%3Aopen",
   "license": "MIT",
@@ -16,11 +17,5 @@
     "type": "git",
     "url": "git@github.com:HausDAO/daohaus-monorepo.git",
     "directory": "libs/daohaus-connect-feature"
-  },
-  "exports": {
-    ".": {
-      "import": "./daohaus-connect-feature.es.js",
-      "require": "./daohaus-connect-feature.umd.js"
-    }
   }
 }

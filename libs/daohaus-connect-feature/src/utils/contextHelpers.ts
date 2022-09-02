@@ -5,6 +5,7 @@ import {
 } from '@daohaus/common-utilities';
 import { Haus } from '@daohaus/dao-data';
 import { SafeAppWeb3Modal } from '@gnosis.pm/safe-apps-web3modal';
+import Web3Modal from 'web3modal';
 import { providers } from 'ethers';
 
 import { switchChainOnMetaMask } from './metamask';
@@ -23,6 +24,7 @@ export const getModal = () => {
   const modal = new SafeAppWeb3Modal();
   return modal;
 };
+
 export const isMetamaskProvider = (
   provider: providers.Web3Provider | undefined | null
 ) => provider?.connection?.url === 'metamask';
@@ -58,28 +60,35 @@ export const handleConnectWallet = async ({
   try {
     setConnecting(true);
 
-    const modal = getModal();
-    const modalProvider = await modal.requestProvider();
-    const _isGnosisSafe = await modal.isSafeApp();
+    // const modal = getModal();
+    // const _isGnosisSafe = await modal.isSafeApp();
+    // let modalProvider: Web3Modal | SafeAppWeb3Modal;
 
-    if (!_isGnosisSafe) {
-      modalProvider.on('accountsChanged', () => {
-        handleSetProvider({ provider: modalProvider, setWalletState });
-        handleModalEvents && handleModalEvents('accountsChanged');
-      });
-      modalProvider.on('chainChanged', (chainId: string) => {
-        handleSetProvider({ provider: modalProvider, setWalletState });
-        handleModalEvents && handleModalEvents('chainChanged');
-        if (!isValidNetwork(chainId)) {
-          handleModalEvents &&
-            handleModalEvents('error', {
-              code: 'UNSUPPORTED_NETWORK',
-              message: `You have switched to an unsupported chain, Disconnecting from Metamask...`,
-            });
-        }
-      });
-    }
-    handleSetProvider({ provider: modalProvider, setWalletState });
+    // if (_isGnosisSafe) {
+    // const modalProvider = await modal.requestProvider();
+    // } else {
+    //   modalProvider = await getWeb3Modal();
+    // }
+
+    // if (!_isGnosisSafe) {
+    //   modalProvider.on('accountsChanged', () => {
+    //     handleSetProvider({ provider: modalProvider, setWalletState });
+    //     handleModalEvents && handleModalEvents('accountsChanged');
+    //   });
+    //   modalProvider.on('chainChanged', (chainId: string) => {
+    //     handleSetProvider({ provider: modalProvider, setWalletState });
+    //     handleModalEvents && handleModalEvents('chainChanged');
+    //     if (!isValidNetwork(chainId)) {
+    //       handleModalEvents &&
+    //         handleModalEvents('error', {
+    //           code: 'UNSUPPORTED_NETWORK',
+    //           message: `You have switched to an unsupported chain, Disconnecting from Metamask...`,
+    //         });
+    //     }
+    //   });
+    // }
+
+    // handleSetProvider({ provider: modalProvider, setWalletState });
   } catch (web3Error) {
     console.error(web3Error);
     disconnect();

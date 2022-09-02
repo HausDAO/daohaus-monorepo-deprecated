@@ -15,10 +15,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@daohaus-monorepo/daohaus-connect-feature-test": [
+        "libs/daohaus-connect-feature-test/src/index.ts"
+      ],
+      "@daohaus/abi-utilities": ["libs/abi-utilities/src/index.ts"],
       "@daohaus/ceramic-model-utilities": [
         "libs/ceramic-model-utilities/src/index.ts"
       ],
-      "@daohaus/abi-utilities": ["libs/abi-utilities/src/index.ts"],
       "@daohaus/common-utilities": ["libs/common-utilities/src/index.ts"],
       "@daohaus/contract-utilities": ["libs/contract-utilities/src/index.ts"],
       "@daohaus/dao-data": ["libs/dao-data/src/index.ts"],

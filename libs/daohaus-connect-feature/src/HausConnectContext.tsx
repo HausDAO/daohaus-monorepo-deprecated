@@ -33,7 +33,8 @@ import {
   UserProfile,
   WalletStateType,
 } from './utils/types';
-import { useLocation, matchPath } from 'react-router-dom';
+import useLocation from './hooks/useLocation';
+import { matchPath } from './utils/matchPath';
 
 export type UserConnectType = {
   provider: ProviderType | null | undefined;
@@ -88,8 +89,11 @@ export const HausConnectProvider = ({
     [chainId, networks]
   );
 
-  const location = useLocation();
-  const pathMatch = matchPath('molochv3/:daochain/:daoid/*', location.pathname);
+  const { pathname } = useLocation();
+  const pathMatch = matchPath(
+    'molochv3/:daochain/:daoid/*',
+    pathname as string
+  );
 
   const connectWallet = useCallback(async () => {
     handleConnectWallet({
@@ -106,9 +110,9 @@ export const HausConnectProvider = ({
     }
   }, [pathMatch?.params?.daochain, setDaoChainId]);
 
-  useEffect(() => {
-    loadWallet({ setConnecting, connectWallet, web3modalOptions });
-  }, [web3modalOptions, connectWallet]);
+  // useEffect(() => {
+  //   loadWallet({ setConnecting, connectWallet, web3modalOptions });
+  // }, [web3modalOptions, connectWallet]);
 
   useEffect(() => {
     let shouldUpdate = true;

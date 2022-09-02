@@ -302,7 +302,6 @@ export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
         console.log('CLEAR');
         setProposals(undefined);
       }
-      console.log('prop useeffect fired');
       loadProposalsList({
         filter: { dao: daoid, ...proposalsFilter },
         ordering: proposalsSort,

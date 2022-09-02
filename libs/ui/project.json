@@ -4,18 +4,21 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "vite-build": {
-      "executor": "@nxext/vite:package",
+    "build": {
+      "executor": "@alexkeating/vite-plugin:package",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/ui",
         "configFile": "libs/ui/vite.config.ts",
         "frameworkConfigFile": "@nxext/react/plugins/vite",
         "entryFile": "src/index.ts",
-        "generatePackageJson": true
+        "updateBuildableProjectDepsInPackageJson": true,
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "packageJson": "libs/ui/package.json",
+        "project": "libs/ui"
       }
     },
-    "build": {
+    "x-build": {
       "outputs": ["{options.outputPath}"],
       "executor": "@nrwl/workspace:run-commands",
       "options": {

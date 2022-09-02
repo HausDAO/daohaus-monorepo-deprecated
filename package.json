@@ -9,6 +9,7 @@
   },
   "private": true,
   "dependencies": {
+    "@alexkeating/vite-plugin": "14.1.5",
     "@ceramicnetwork/http-client": "^2.3.0",
     "@daohaus/baal-contracts": "^0.3.3",
     "@ethersproject/constants": "^5.6.1",
@@ -82,6 +83,7 @@
   },
   "devDependencies": {
     "@alexkeating/nx-skynet": "0.0.7",
+    "@alexkeating/vite-lugin": "14.1.0",
     "@babel/core": "7.12.13",
     "@babel/helper-remap-async-to-generator": "^7.18.9",
     "@babel/preset-typescript": "7.12.13",

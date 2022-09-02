@@ -77,6 +77,28 @@
   dependencies:
     "@skynetlabs/skynet-nodejs" "^2.5.0"
 
+"@alexkeating/vite-lugin@14.1.0":
+  version "14.1.0"
+  resolved "https://registry.yarnpkg.com/@alexkeating/vite-lugin/-/vite-lugin-14.1.0.tgz#447d9fb4e1e5b422b5d9f940547ca4575f619f3a"
+  integrity sha512-j5B8QByIqCHea2qEUryT7U6yGMAx0e45gs6OiKHjj13ZiUNdjDUE4iFkB3zNK5p7Mh5ZSoTnYYhixH9hprBM7w==
+  dependencies:
+    "@nrwl/devkit" "14.5.0"
+    globrex "^0.1.2"
+    rxjs "^7.0.0"
+    rxjs-for-await "1.0.0"
+    tsconfig-paths "^3.14.1"
+
+"@alexkeating/vite-plugin@14.1.5":
+  version "14.1.5"
+  resolved "https://registry.yarnpkg.com/@alexkeating/vite-plugin/-/vite-plugin-14.1.5.tgz#3509971ee6660d55e5f40f8eadea259a86d3a5d6"
+  integrity sha512-zaD+lQN9E1Gs004XSb6USH3j1ggfkIJ9Td2ZhDs+u+rpt6Zu++8moFlv4HZg5Dutcmi8V5YQQC3wgeG8pQfTUw==
+  dependencies:
+    "@nrwl/devkit" "14.5.0"
+    globrex "^0.1.2"
+    rxjs "^7.0.0"
+    rxjs-for-await "1.0.0"
+    tsconfig-paths "^3.14.1"
+
 "@ampproject/remapping@^2.1.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.2.0.tgz#56c133824780de3174aed5ab6834f3026790154d"

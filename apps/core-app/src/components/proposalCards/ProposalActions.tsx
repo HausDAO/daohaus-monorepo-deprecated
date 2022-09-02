@@ -1,8 +1,8 @@
 import { PROPOSAL_STATUS } from '@daohaus/common-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
-import { ParLg } from '@daohaus/ui';
 import styled from 'styled-components';
 import { ActionFailed } from './ActionFailed';
+import { ActionTemplate } from './ActionPrimitives';
 import { Cancelled } from './Cancelled';
 import { Expired } from './Expired';
 import { Failed } from './Failed';
@@ -76,7 +76,7 @@ export const ProposalActions = ({
   if (proposal.status === PROPOSAL_STATUS.actionFailed) {
     return (
       <ActionBox>
-        <ActionFailed />
+        <ActionFailed proposal={proposal} />
       </ActionBox>
     );
   }
@@ -89,7 +89,7 @@ export const ProposalActions = ({
   }
   return (
     <ActionBox>
-      <ParLg>{proposal.status}</ParLg>
+      <ActionTemplate />
     </ActionBox>
   );
 };

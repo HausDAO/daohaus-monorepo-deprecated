@@ -71,6 +71,8 @@ export function FormBuilder<Lookup extends LookupType>({
   onSubmit,
   defaultValues,
   customFields,
+  onSuccess,
+  onError,
 }: BuilderProps<Lookup>) {
   const { chainId } = useHausConnect();
 
@@ -128,6 +130,7 @@ export function FormBuilder<Lookup extends LookupType>({
               fallback: 'Could not decode error message',
             });
             setIsLoading(false);
+            onError?.();
             errorToast({ title: StatusMsg.TxErr, description: errMsg });
           },
           onTxSuccess() {
@@ -147,6 +150,7 @@ export function FormBuilder<Lookup extends LookupType>({
               fallback: 'Could not decode poll error message',
             });
             setIsLoading(false);
+            onError?.();
             errorToast({ title: StatusMsg.PollError, description: errMsg });
           },
           onPollSuccess() {
@@ -156,6 +160,7 @@ export function FormBuilder<Lookup extends LookupType>({
               title: StatusMsg.PollSuccess,
               description: 'Transaction cycle complete.',
             });
+            onSuccess?.();
           },
         },
       });

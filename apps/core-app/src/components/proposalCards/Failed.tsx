@@ -6,7 +6,8 @@ import {
 import { ITransformedProposal } from '@daohaus/dao-data';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { useMemo } from 'react';
-import { ActionTemplate, DummyBar, Verdict } from './ActionPrimitives';
+import { VotingBar } from '../VotingBar';
+import { ActionTemplate, Verdict } from './ActionPrimitives';
 
 const getFailReason = ({
   proposal,
@@ -61,10 +62,11 @@ export const Failed = ({ proposal }: { proposal: ITransformedProposal }) => {
 
   return (
     <ActionTemplate
+      proposal={proposal}
       statusDisplay="Proposal Failed"
       main={
         <>
-          <DummyBar />
+          <VotingBar proposal={proposal} />
           <Verdict passed={false} appendText={` - ${percentNo}% No`} />
         </>
       }

@@ -5,7 +5,6 @@ export const ProgressVisualFull = styled.div`
     backgroundColor};
   display: flex;
   height: 10px;
-  margin: 20px 0;
 `;
 
 export const ProgressVisualPart = styled.div<{

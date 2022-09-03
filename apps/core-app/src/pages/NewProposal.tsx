@@ -27,7 +27,8 @@ export function NewProposal() {
       const params = new URLSearchParams(location.search);
       const defaultValues = params.get('defaultValues');
 
-      return defaultValues ? JSON.parse(defaultValues) : null;
+      if (!defaultValues) return null;
+      return JSON.parse(defaultValues);
     }
     return null;
   }, [location, formLego]);

@@ -40,7 +40,6 @@ type ShamanListProps = {
 
 export const ShamanList = ({ shamen }: ShamanListProps) => {
   const { daochain, daoid } = useParams();
-  console.log('shamen', shamen);
   return (
     <>
       <ShamanContainer>

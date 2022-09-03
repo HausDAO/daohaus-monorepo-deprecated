@@ -6,11 +6,12 @@ import { TABULA_TX, TX } from './tx';
 export const getFormLegoById = (
   id: CustomFormLego['id']
 ): CustomFormLego | undefined => {
-  const formKey = Object.keys(PROPOSAL_FORMS).find((key) => {
-    return PROPOSAL_FORMS[key].id === id;
+  const allForms = { ...PROPOSAL_FORMS, ...COMMON_FORMS };
+  const formKey = Object.keys(allForms).find((key) => {
+    return allForms[key].id === id;
   });
   if (!formKey) return;
-  return PROPOSAL_FORMS[formKey];
+  return allForms[formKey];
 };
 
 // Proposal settings fields (e.g. proposal expiry, proposal offering)
@@ -24,7 +25,6 @@ PROPOSAL_FORMS KEYS
 - SIGNAL
 - ISSUE
 - ADD_SHAMAN
-- UPDATE_SHAMAN
 - ISSUE_ERC20
 - ISSUE_NETWORK_TOKEN
 - UPDATE_GOV_SETTINGS
@@ -36,6 +36,7 @@ PROPOSAL_FORMS KEYS
 
 COMMON_FORMS KEYS
 - METADATA_SETTINGS
+- UPDATE_SHAMAN
 */
 
 export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
@@ -111,27 +112,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       FIELD.LINK,
       FIELD.SHAMAN_ADDRESS,
       FIELD.SHAMAN_PERMISSION,
-      ...PROPOSAL_SETTINGS_FIELDS,
-    ],
-  },
-  UPDATE_SHAMAN: {
-    id: 'UPDATE_SHAMAN',
-    title: 'Manage Shaman',
-    description: 'Learn more about Shamans in our documentation.',
-    subtitle: 'Manange Shaman Proposal',
-    requiredFields: {
-      title: true,
-      description: true,
-      shamanAddress: true,
-      shamanPermission: true,
-    },
-    tx: TX.ADD_SHAMAN,
-    fields: [
-      FIELD.TITLE,
-      FIELD.DESCRIPTION,
-      FIELD.LINK,
-      { ...FIELD.SHAMAN_ADDRESS, disabled: true },
-      FIELD.SHAMAN_DELUXE,
       ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
@@ -507,7 +487,7 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
   },
 };
 
-export const COMMON_FORMS = {
+export const COMMON_FORMS: Record<string, CustomFormLego> = {
   METADATA_SETTINGS: {
     id: 'METADATA_SETTINGS',
     title: 'Update Metadata Settings',
@@ -531,6 +511,27 @@ export const COMMON_FORMS = {
       { ...FIELD.LINK, id: 'twitter', label: 'Twitter' },
       { ...FIELD.LINK, id: 'other', label: 'Other' },
       FIELD.TAGS,
+    ],
+  },
+  UPDATE_SHAMAN: {
+    id: 'UPDATE_SHAMAN',
+    title: 'Manage Shaman',
+    description: 'Learn more about Shamans in our documentation.',
+    subtitle: 'Manange Shaman Proposal',
+    requiredFields: {
+      title: true,
+      description: true,
+      shamanAddress: true,
+      shamanPermission: true,
+    },
+    tx: TX.ADD_SHAMAN,
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      { ...FIELD.SHAMAN_ADDRESS, disabled: true },
+      FIELD.SHAMAN_DELUXE,
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
 };

@@ -17,9 +17,20 @@ export function NewProposal() {
   const formLego = useMemo(() => {
     const params = new URLSearchParams(location.search);
     const legoId = params.get('formLego');
+
     if (!legoId) return null;
     return getFormLegoById(legoId);
   }, [location]);
+
+  const defaults = useMemo(() => {
+    if (formLego) {
+      const params = new URLSearchParams(location.search);
+      const defaultValues = params.get('defaultValues');
+
+      return defaultValues ? JSON.parse(defaultValues) : null;
+    }
+    return null;
+  }, [location, formLego]);
 
   if (!formLego) return null;
 
@@ -28,6 +39,7 @@ export function NewProposal() {
       form={formLego}
       customFields={CustomFields}
       onSuccess={onFormComplete}
+      defaultValues={defaults}
     />
   );
 }

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { AddressDisplay, Button, DataSm, widthQuery } from '@daohaus/ui';
+import { AddressDisplay, Button, DataSm, Link, widthQuery } from '@daohaus/ui';
 
 import { TDao } from '@daohaus/dao-context';
 import { useParams } from 'react-router-dom';
@@ -28,12 +28,18 @@ const ShamanContainer = styled.div`
   }
 `;
 
+const StyledLink = styled(Link)`
+  :hover {
+    text-decoration: none;
+  }
+`;
+
 type ShamanListProps = {
   shamen: TDao['shamen'];
 };
 
 export const ShamanList = ({ shamen }: ShamanListProps) => {
-  const { daochain } = useParams();
+  const { daochain, daoid } = useParams();
   return (
     <>
       <ShamanContainer>
@@ -55,7 +61,18 @@ export const ShamanList = ({ shamen }: ShamanListProps) => {
             </span>
             <div className="manage">
               <DataSm>{shaman.permissions}</DataSm>
-              <Button>Manage</Button>
+              <StyledLink
+                href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=UPDATE_SHAMAN&defaultValues=${JSON.stringify(
+                  {
+                    shamanAddress: shaman.shamanAddress,
+                    shamanPermission: shaman.permissions,
+                  }
+                )}`}
+              >
+                <Button sm secondary>
+                  Manage
+                </Button>
+              </StyledLink>
             </div>
           </ShamanContainer>
         ))}

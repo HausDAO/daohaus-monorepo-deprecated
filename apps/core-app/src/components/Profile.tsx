@@ -140,7 +140,6 @@ export const Profile = ({ profile, membership }: ProfileProps) => {
             )}
           </Container>
         </ProfileMetadataContainer>
-        <StyledMenuIcon />
       </PSubContainer>
       {membership && dao && (
         <DataGrid>

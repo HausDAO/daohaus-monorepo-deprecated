@@ -8,6 +8,7 @@ const MembersOverviewCard = styled(Card)`
   background-color: ${({ theme }: { theme: Theme }) => theme.card.hoverBg};
   border: none;
   padding: 3rem;
+  width: 100%;
 `;
 
 const DataGrid = styled.div`

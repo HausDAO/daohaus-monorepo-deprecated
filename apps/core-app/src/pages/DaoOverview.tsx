@@ -7,7 +7,7 @@ import {
   SingleColumnLayout,
   widthQuery,
 } from '@daohaus/ui';
-import { useDao } from '../contexts/DaoContext';
+import { useDao } from '@daohaus/dao-context';
 import { DaoProfile } from '../components/DaoProfile';
 import { charLimit, formatValueTo, fromWei } from '@daohaus/common-utilities';
 

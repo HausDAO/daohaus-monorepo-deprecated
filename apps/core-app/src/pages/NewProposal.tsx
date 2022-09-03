@@ -4,7 +4,7 @@ import { FormBuilder } from '@daohaus/haus-form-builder';
 
 import { getFormLegoById } from '../legos/form';
 import { CustomFields } from '../legos/config';
-import { useDao } from '../contexts/DaoContext';
+import { useDao } from '@daohaus/dao-context';
 
 export function NewProposal() {
   const location = useLocation();

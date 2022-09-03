@@ -17,12 +17,13 @@ import {
   Keychain,
 } from '@daohaus/common-utilities';
 
-import { TDao } from '../contexts/DaoContext';
+import { TDao } from '@daohaus/dao-context';
 
 const VaultOverviewCard = styled(Card)`
   background-color: ${({ theme }: { theme: Theme }) => theme.card.hoverBg};
   border: none;
   padding: 3rem;
+  width: 100%;
 `;
 
 const VaultCardHeader = styled.div`

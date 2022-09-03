@@ -10,7 +10,7 @@ import {
   Link,
 } from '@daohaus/ui';
 
-import { TDao, useConnectedMembership } from '../contexts/DaoContext';
+import { TDao, useConnectedMembership } from '@daohaus/dao-context';
 import { TagList } from '../components/TagList';
 import { useParams } from 'react-router-dom';
 import { charLimit, Keychain } from '@daohaus/common-utilities';

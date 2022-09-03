@@ -7,7 +7,7 @@ import {
   Keychain,
 } from '@daohaus/common-utilities';
 
-import { TProposals } from '../contexts/DaoContext';
+import { TProposals } from '@daohaus/dao-context';
 import { getProposalTypeLabel } from '../utils/general';
 
 const OverviewContainer = styled.div`

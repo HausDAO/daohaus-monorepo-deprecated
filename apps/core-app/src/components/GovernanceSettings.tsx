@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { H3, H4, DataIndicator, ParSm, widthQuery, Theme } from '@daohaus/ui';
 
-import { TDao } from '../contexts/DaoContext';
+import { TDao } from '@daohaus/dao-context';
 import {
   charLimit,
   formatPeriods,
@@ -102,7 +102,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
         <DataIndicator
           size="sm"
           label="New Offering"
-          data={`${dao.proposalOffering} ${networkData?.symbol}`}
+          data={`${fromWei(dao.proposalOffering)} ${networkData?.symbol}`}
           info={INFO_COPY.NEW_OFFERING}
         />
       </DataGrid>
@@ -125,7 +125,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
         <DataIndicator
           size="sm"
           label="Sponsor Threshold"
-          data={`${dao.sponsorThreshold} Shares`}
+          data={`${fromWei(dao.sponsorThreshold)} Shares`}
           info={INFO_COPY.SPONSOR_THRESHOLD}
         />
       </DataGrid>

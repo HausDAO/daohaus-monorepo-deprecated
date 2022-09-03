@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { getNetwork } from '@daohaus/common-utilities';
 
-import { TProposals } from '../contexts/DaoContext';
+import { TProposals } from '@daohaus/dao-context';
 import { ProposalHistoryCard } from './ProposalHistoryCard';
 import {
   buildProposalHistory,

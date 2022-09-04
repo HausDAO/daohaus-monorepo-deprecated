@@ -4,10 +4,10 @@ import { RiArrowDropDownLine } from 'react-icons/ri';
 import { Dropdown, DropdownMenuItem, DropdownButton } from '../../molecules';
 import { AppSwitcherTrigger } from './AppSwitcher.styles';
 
-import { ReactComponent as Daohaus } from '../../../assets/Daohaus.svg';
-import { ReactComponent as Docs } from '../../../assets/Docs.svg';
-import { ReactComponent as Hub } from '../../../assets/Hub.svg';
-import { ReactComponent as Summoner } from '../../../assets/Summoner.svg';
+import DaohausSVG from '../../../assets/DaohausSVG';
+import DocsSVG from '../../../assets/DocsSVG';
+import HubSVG from '../../../assets/HubSVG';
+import SummonerSVG from '../../../assets/SummonerSVG';
 
 type AppSwitcherProps = {
   currentApp: string;
@@ -21,22 +21,22 @@ const hausApps = {
   summoner: {
     name: 'Summoner',
     url: 'https://summon.daohaus.fun/',
-    icon: Summoner,
+    icon: SummonerSVG,
   },
   hub: {
     name: 'Hub',
     url: 'https://hub.daohaus.fun/',
-    icon: Hub,
+    icon: HubSVG,
   },
   docs: {
     name: 'Docs',
     url: 'https://storybook.daohaus.fun/',
-    icon: Docs,
+    icon: DocsSVG,
   },
   daohaus: {
     name: 'DAOHaus',
     url: 'https://daohaus.club/',
-    icon: Daohaus,
+    icon: DaohausSVG,
   },
 };
 

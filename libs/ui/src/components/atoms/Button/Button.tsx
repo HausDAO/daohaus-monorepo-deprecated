@@ -13,6 +13,7 @@ export type ButtonProps = {
   fullWidth?: boolean;
   IconLeft?:
     | IconType
+    | React.ReactNode
     | React.FunctionComponent<
         React.SVGProps<SVGSVGElement> & {
           title?: string | undefined;

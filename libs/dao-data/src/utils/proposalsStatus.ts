@@ -71,11 +71,11 @@ export const getProposalStatus = (proposal: QueryProposal): ProposalStatus => {
   if (isProposalCancelled(proposal)) {
     return PROPOSAL_STATUS['cancelled'];
   }
-  if (isProposalPassed(proposal)) {
-    return PROPOSAL_STATUS['passed'];
-  }
   if (isProposalActionFailed(proposal)) {
     return PROPOSAL_STATUS['actionFailed'];
+  }
+  if (isProposalPassed(proposal)) {
+    return PROPOSAL_STATUS['passed'];
   }
   if (isProposalInVoting(proposal)) {
     return PROPOSAL_STATUS['voting'];

@@ -18,7 +18,7 @@ const ActionBox = styled.div`
   flex-direction: column;
   height: 100%;
   max-height: 19.2rem;
-  width: 31rem;
+  width: 100%;
 `;
 
 export const ProposalActions = ({

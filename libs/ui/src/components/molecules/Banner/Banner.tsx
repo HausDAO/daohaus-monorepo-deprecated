@@ -11,7 +11,7 @@ export type BannerProps = {
 
 export const Banner = ({
   className,
-  bannerText = 'DAO Haus V3 is currently in Beta, not all feature will be inplace and bugs may appear.',
+  bannerText = 'DAOhaus v3 is currently in beta. Please report bugs, request features or provide feedback.',
 }: BannerProps) => {
   return (
     <StyledBanner className={className}>

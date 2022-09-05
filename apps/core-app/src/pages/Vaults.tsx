@@ -42,11 +42,13 @@ export function Vaults() {
       title="Vaults"
       actions={[
         <StyledButtonLink
+          key={1}
           href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=TRANSFER_ERC20`}
         >
           <Button secondary>Transfer ERC20</Button>
         </StyledButtonLink>,
         <StyledButtonLink
+          key={2}
           href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=TRANSFER_NETWORK_TOKEN`}
         >
           <Button secondary>Transfer {networkData?.symbol}</Button>

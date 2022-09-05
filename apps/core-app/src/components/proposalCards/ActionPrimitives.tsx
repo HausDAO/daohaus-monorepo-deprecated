@@ -10,7 +10,11 @@ import {
 import { mintDark, tomatoDark } from '@radix-ui/colors';
 import { GatedButton } from './GatedButton';
 import { ITransformedProposal } from '@daohaus/dao-data';
-import { checkHasQuorum, percentage } from '@daohaus/common-utilities';
+import {
+  checkHasQuorum,
+  percentage,
+  roundedPercentage,
+} from '@daohaus/common-utilities';
 
 const TemplateBox = styled.div`
   display: flex;
@@ -46,14 +50,13 @@ const QuorumDisplay = ({
   daoQuorum: number | string;
 }) => {
   const theme = useTheme();
-
   return (
     <Tooltip
       triggerEl={
         <QuorumBox>
           <MdOutlineGavel color={theme.tint.secondary} size="1.4rem" />{' '}
           <ParMd color={theme.tint.secondary}>
-            {yesPerc}/{daoQuorum}%
+            {Number(yesPerc).toFixed(2)}/{daoQuorum}%
           </ParMd>{' '}
         </QuorumBox>
       }

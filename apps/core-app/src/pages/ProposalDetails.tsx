@@ -35,6 +35,7 @@ const RightCard = styled(Card)`
   padding: 2rem;
   border: none;
   margin-bottom: 3.4rem;
+  height: 100%;
   @media ${widthQuery.md} {
     max-width: 100%;
     min-width: 0;

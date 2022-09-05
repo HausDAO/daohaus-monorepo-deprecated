@@ -12,6 +12,7 @@ import { pollLastTX, standardGraphPoll, testLastTX } from './polling';
 import { processArgs } from './args';
 import { processContractLego } from './contractHelpers';
 import { ArgCallback, TXLifeCycleFns } from '../TXBuilder';
+import { processOverrides } from './overrides';
 
 export type TxRecord = Record<string, TXLego>;
 export type MassState = {
@@ -140,15 +141,11 @@ export async function prepareTX(args: {
     });
 
     console.log('**PROCESSED ARGS**', processedArgs);
+    console.log('** overrides', tx.overrides);
 
-    // TODO for gasLimit and value
-    // const processOverrides = await
-    // looks in the lego and gets value and/or gasLimit
-    // returns {} or {
-    //   value: '1000000000',
-    //   gasLimit: '1000000',
-    // }
-    // add new overrides to tx lego and it can use the process args stuff and all current arg types
+    // REFACTOR
+    // could also have a value {value: '0' }
+    const overrides = Number(tx.overrides?.gasLimit) ? tx.overrides : {};
 
     const contract = new ethers.Contract(
       address,
@@ -157,12 +154,13 @@ export async function prepareTX(args: {
     );
 
     lifeCycleFns?.onRequestSign?.();
-    // const ethersTx = await contract.functions[method](...processedArgs, {
-    //   value: '1000000000',
-    //   gasLimit: '1000000',
-    // });
 
-    const ethersTx = await contract.functions[method](...processedArgs);
+    console.log('overrides', overrides);
+
+    const ethersTx = await contract.functions[method](
+      ...processedArgs,
+      overrides
+    );
     executeTx({ ...args, ethersTx });
   } catch (error) {
     console.log('**TX Error (Pre-Fire)**');

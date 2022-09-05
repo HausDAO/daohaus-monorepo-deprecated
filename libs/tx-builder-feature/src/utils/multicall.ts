@@ -185,6 +185,8 @@ export const handleGasEstimate = async ({
 }) => {
   if (!safeId) throw new Error('Safe ID is required to estimate gas');
 
+  console.log('safeId', safeId, arg.actions);
+
   const proposalData = await handleMulticallArg({
     localABIs,
     chainId,
@@ -194,11 +196,15 @@ export const handleGasEstimate = async ({
       actions: arg.actions,
     },
   });
+
+  console.log('proposalData', proposalData);
   const estimate = await estimateGas({
     chainId,
     safeId,
     data: proposalData,
   });
+
+  console.log('estimate', estimate);
   if (estimate.safeTxGas) {
     const buffer = arg.bufferPercentage ? `1.${arg.bufferPercentage}` : 1.3;
     return Math.round(Number(estimate.safeTxGas) * Number(buffer));
@@ -241,14 +247,14 @@ export const buildMultiCallTX = ({
         search: `${FORM}${EXPIRY}`,
         fallback: 0,
       },
-      {
-        type: 'static',
-        value: 0,
-      },
       // {
-      //   type: 'estimateGas',
-      //   actions,
+      //   type: 'static',
+      //   value: 0,
       // },
+      {
+        type: 'estimateGas',
+        actions,
+      },
       JSONDetails,
     ],
   };

@@ -40,7 +40,7 @@ export const ReadyForProcessing = ({
   const [isLoading, setIsLoading] = React.useState(false);
 
   const processProposal = async () => {
-    const { proposalId, proposalData } = proposal;
+    const { proposalId, proposalData, actionGasEstimate } = proposal;
 
     if (!proposalId) return;
     setIsLoading(true);
@@ -48,6 +48,7 @@ export const ReadyForProcessing = ({
       tx: {
         ...ACTION_TX.PROCESS,
         staticArgs: [proposalId, proposalData],
+        overrides: { gasLimit: actionGasEstimate },
       } as TXLego,
       lifeCycleFns: {
         onTxError: (error) => {

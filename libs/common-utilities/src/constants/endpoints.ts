@@ -29,7 +29,9 @@ export const ENDPOINTS: KeychainList = {
   },
   GAS_ESTIMATE: {
     '0x5':
-      'https://safe-transaction.goerli.gnosis.io/api/v1/safes/0x1A3Bc7b8Df22eC917aB4260a951987D975906843/multisig-transactions/estimations/',
+      'https://safe-transaction.goerli.gnosis.io/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
+    '0x64':
+      'https://safe-transaction.goerli.gnosis.io/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
   },
   GNOSIS_SAFE_UI: {
     '0x1': 'https://gnosis-safe.io/app/eth',

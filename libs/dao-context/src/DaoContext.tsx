@@ -184,7 +184,7 @@ export const DaoContextProvider = ({
 }: DaoContextProviderProps) => {
   const [dao, setDao] = useState<DaoWithTokenDataQuery['dao'] | undefined>();
   const [isDaoLoading, setDaoLoading] = useState(false);
-
+  console.log('dao', dao);
   const [connectedMembership, setConnectedMembership] = useState<
     FindMemberQuery['member'] | undefined
   >();

@@ -1,3 +1,4 @@
+import { type } from 'os';
 import { CustomFields, CustomFieldLego } from './config';
 
 export const FIELD: Record<string, CustomFieldLego> = {
@@ -92,5 +93,9 @@ export const FIELD: Record<string, CustomFieldLego> = {
     type: 'selectApplicant',
     label: 'Applicant',
     daoMemberOnly: false,
+  },
+  PROP_OFFERING: {
+    id: 'proposalOffering',
+    type: 'proposalOffering',
   },
 };

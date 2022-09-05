@@ -7,18 +7,10 @@ export const processOverrides = ({
   overrideArgs?: TXOverrides;
   appState: ArbitraryState;
 }): TXOverrides => {
-  if (!overrideArgs) return {};
-
-  const overrides = {
-    value: overrideArgs.value || '0',
+  return {
+    value: appState['formValues']?.proposalOffering
+      ? Number(appState['formValues']?.proposalOffering).toFixed()
+      : '0',
+    ...overrideArgs,
   };
-
-  return overrideArgs.gasLimit
-    ? { ...overrides, gasLimit: overrideArgs.gasLimit }
-    : overrides;
 };
-
-// args: [
-//   { type: 'singleton', keychain: CONTRACTS.TRIBUTE_MINION },
-//   { type: 'static', value: MaxUint256 },
-// ],

@@ -115,6 +115,9 @@ export type TxStates =
 export type TXOverrides = {
   gasLimit?: string;
   value?: string;
+  gasPrice?: string;
+  from?: string;
+  blockTag?: string;
 };
 
 export type TXLegoBase = {

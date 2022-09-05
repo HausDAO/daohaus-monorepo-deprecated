@@ -195,7 +195,6 @@ export const handleGasEstimate = async ({
     },
   });
 
-  console.log('proposalData', proposalData);
   const estimate = await estimateGas({
     chainId,
     safeId,

@@ -13,7 +13,6 @@ import { ITransformedProposal } from '@daohaus/dao-data';
 import {
   checkHasQuorum,
   percentage,
-  roundedPercentage,
 } from '@daohaus/common-utilities';
 
 const TemplateBox = styled.div`

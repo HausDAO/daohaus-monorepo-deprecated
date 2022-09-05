@@ -142,8 +142,6 @@ export async function prepareTX(args: {
 
     console.log('**PROCESSED ARGS**', processedArgs);
 
-    console.log(' tx.overrides', tx.overrides);
-
     const overrides = processOverrides({
       overrideArgs: tx.overrides,
       appState,

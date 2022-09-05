@@ -142,10 +142,18 @@ export async function prepareTX(args: {
 
     console.log('**PROCESSED ARGS**', processedArgs);
     console.log('** overrides', tx.overrides);
+    console.log('&&&& tx', tx);
+    console.log('&&&& appState', appState);
 
     // REFACTOR
     // could also have a value {value: '0' }
-    const overrides = Number(tx.overrides?.gasLimit) ? tx.overrides : {};
+    // const overrides = Number(tx.overrides?.gasLimit) ? tx.overrides : {};
+    let overrides = {};
+    if (tx.overrides?.gasLimit) {
+      overrides = {
+        gasLimit: (Number(tx.overrides?.gasLimit) * 5).toFixed(),
+      };
+    }
 
     const contract = new ethers.Contract(
       address,

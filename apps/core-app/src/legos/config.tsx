@@ -8,6 +8,7 @@ import { RequestERC20 } from '../components/customFields/RequestERC20';
 import { ShamanDeluxe } from '../components/customFields/ShamanDeluxe';
 import { TagsInput } from '../components/customFields/tagsInput';
 import { FakeMarkdown } from '../components/FakeMarkdown';
+import { ProposalOffering } from '../components/customFields/ProposalOffering';
 
 export const CustomFields = {
   ...CoreFieldLookup,
@@ -19,6 +20,7 @@ export const CustomFields = {
   shamanPermissionDeluxe: ShamanDeluxe,
   tagsInput: TagsInput,
   fakeMarkdown: FakeMarkdown,
+  proposalOffering: ProposalOffering,
 };
 
 export type CustomFieldLego = FieldLegoBase<typeof CustomFields>;

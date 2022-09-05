@@ -1,7 +1,5 @@
-import React from 'react';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
-import { BiDotsVerticalRounded } from 'react-icons/bi';
 
 import {
   breakpoints,
@@ -68,10 +66,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-`;
-
-const StyledMenuIcon = styled(BiDotsVerticalRounded)`
-  font-size: 1.8rem;
 `;
 
 const DataGrid = styled.div`

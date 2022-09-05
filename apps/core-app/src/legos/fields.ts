@@ -93,4 +93,8 @@ export const FIELD: Record<string, CustomFieldLego> = {
     label: 'Applicant',
     daoMemberOnly: false,
   },
+  PROP_OFFERING: {
+    id: 'proposalOffering',
+    type: 'proposalOffering',
+  },
 };

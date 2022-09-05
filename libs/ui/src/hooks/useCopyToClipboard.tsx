@@ -1,3 +1,4 @@
+import { truncateAddress } from '@daohaus/common-utilities';
 import { useState } from 'react';
 
 import { useToast } from './useToast';
@@ -25,12 +26,18 @@ export const useCopyToClipboard = (): CopyFn => {
     }
 
     // Try to save to clipboard then save it in the state if worked
+    let toastText = text;
+
+    if (text.startsWith('0x')) {
+      toastText = truncateAddress(text);
+    }
+
     try {
       await navigator.clipboard.writeText(text);
       setCopiedText(text);
       successToast({
         title: toastTitle,
-        description: `${text} ${toastDescription}`,
+        description: `${toastText} ${toastDescription}`,
       });
       return true;
     } catch (error) {

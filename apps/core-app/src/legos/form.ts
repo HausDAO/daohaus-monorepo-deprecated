@@ -15,7 +15,7 @@ export const getFormLegoById = (
 };
 
 // Proposal settings fields (e.g. proposal expiry, proposal offering)
-const PROPOSAL_SETTINGS_FIELDS = [FIELD.PROPOSAL_EXPIRY];
+const PROPOSAL_SETTINGS_FIELDS = [FIELD.PROPOSAL_EXPIRY, FIELD.PROP_OFFERING];
 
 /*
 Quick Reference for forms

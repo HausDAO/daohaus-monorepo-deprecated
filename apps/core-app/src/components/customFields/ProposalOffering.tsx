@@ -32,7 +32,7 @@ export const ProposalOffering = (props: Buildable<{ id?: string }>) => {
       return;
     }
 
-    setValue(id, '');
+    setValue(id);
     setRequiresOffering(false);
     return;
   }, [dao, connectedMembership, setValue, id]);

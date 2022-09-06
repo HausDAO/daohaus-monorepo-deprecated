@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
@@ -51,25 +51,25 @@ export function ProposalDetails() {
   >();
   const [proposalLoading, setProposalLoading] = useState<boolean>(false);
 
-  console.log('proposal', proposal);
+  const fetchProposal = useCallback(() => {
+    const shouldUpdate = true;
+    if (!daochain || !daoid || !proposalId) return;
+    loadProposal({
+      daoid,
+      daochain: daochain as keyof Keychain,
+      proposalId,
+      setProposal,
+      setProposalLoading,
+      shouldUpdate,
+      connectedAddress: address,
+    });
+  }, [daochain, daoid, proposalId, address]);
 
   useEffect(() => {
-    let shouldUpdate = true;
-    if (daochain && daoid && proposalId) {
-      loadProposal({
-        daoid,
-        daochain: daochain as keyof Keychain,
-        proposalId,
-        setProposal,
-        setProposalLoading,
-        shouldUpdate,
-        connectedAddress: address,
-      });
+    if (daochain && daoid && proposalId && address) {
+      fetchProposal();
     }
-    return () => {
-      shouldUpdate = false;
-    };
-  }, [daochain, daoid, proposalId, address]);
+  }, [daochain, daoid, proposalId, address, fetchProposal]);
 
   if (proposalLoading) {
     return (
@@ -85,7 +85,12 @@ export function ProposalDetails() {
       subtitle={getProposalTypeLabel(proposal?.proposalType)}
       left={
         <OverviewCard>
-          {proposal && <ProposalDetailsGuts proposal={proposal} />}
+          {proposal && (
+            <ProposalDetailsGuts
+              proposal={proposal}
+              // fetchProposal={fetchProposal}
+            />
+          )}
         </OverviewCard>
       }
       right={

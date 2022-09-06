@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-import { ParMd, Link, Banner, AppSwitcher } from '@daohaus/ui';
+import { ParMd, Link, Banner } from '@daohaus/ui';
 import { DaoHausNav, useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 import { TXBuilder } from '@daohaus/tx-builder-feature';

@@ -18,7 +18,7 @@
     "jsx": "react-jsx",
     "types": ["vite/client", "@nxext/react/client"]
   },
-  "files": [],
+  "files": ["../../node_modules/@nrwl/react/typings/image.d.ts"],
   "include": [],
   "references": [
     {

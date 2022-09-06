@@ -12,6 +12,11 @@ import { CenterLayout } from '../layouts/FormLayouts';
 import { SummonerSuccess } from '../layouts/SummonerSuccess';
 import { SummonError } from '../layouts/SummonError';
 
+import { ReactComponent as Daohaus } from '../assets/Daohaus.svg';
+import { ReactComponent as Docs } from '../assets/Docs.svg';
+import { ReactComponent as Hub } from '../assets/Hub.svg';
+import { ReactComponent as Summoner } from '../assets/Summoner.svg';
+
 const TemporaryLayout = styled.div`
   width: 100%;
   padding-top: 2.7rem;
@@ -45,6 +50,7 @@ export const App = () => {
       <Banner />
       <TemporaryLayout>
         <DaoHausNav />
+        <Daohaus />
         <CenterLayout>
           {summonState === 'idle' && (
             <SummonerForm

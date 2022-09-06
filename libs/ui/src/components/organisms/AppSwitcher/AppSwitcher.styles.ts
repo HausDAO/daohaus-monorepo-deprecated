@@ -4,7 +4,7 @@ import { Theme } from '../../../types/theming';
 import { DropdownButton } from '../../molecules';
 
 export const AppSwitcherTrigger = styled(DropdownButton)`
-  min-width: ${({ minWidth }: { minWidth: string }) => minWidth};
+  width: ${({ width }: { width: string }) => width};
   padding: 0 4px 0 16px;
 
   &[data-state='open'] {

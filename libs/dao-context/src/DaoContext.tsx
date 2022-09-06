@@ -12,7 +12,6 @@ import {
   Proposal_Filter,
   Proposal_OrderBy,
 } from '@daohaus/dao-data';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import {
   createContext,
   ReactNode,
@@ -23,19 +22,18 @@ import {
   Dispatch,
   useRef,
 } from 'react';
-import { useParams } from 'react-router-dom';
 import {
   DEFAULT_MEMBERS_PAGE_SIZE,
   DEFAULT_PROPOSAL_PAGE_SIZE,
   DEFAULT_PROPOSAL_SORT,
-} from '../utils/constants';
+} from './utils/constants';
 import {
   loadConnectedMemberVotesList,
   loadDao,
   loadMember,
   loadMembersList,
   loadProposalsList,
-} from '../utils/dataFetchHelpers';
+} from './utils/fetchHelpers';
 
 export type TDao = DaoWithTokenDataQuery['dao'];
 export type TMembers = ListMembersQuery['members'];
@@ -172,17 +170,20 @@ interface DaoConnectType
 export const DaoContext = createContext<DaoConnectType>(defaultDaoData);
 
 type DaoContextProviderProps = {
+  address: string | null | undefined;
+  daoid: string | null | undefined;
+  daochain: string | null | undefined;
   children: ReactNode;
 };
 
-export const DaoContextProvider = ({ children }: DaoContextProviderProps) => {
-  const { address } = useHausConnect();
-
-  const { daochain, daoid } = useParams();
-
+export const DaoContextProvider = ({
+  address,
+  children,
+  daoid,
+  daochain,
+}: DaoContextProviderProps) => {
   const [dao, setDao] = useState<DaoWithTokenDataQuery['dao'] | undefined>();
   const [isDaoLoading, setDaoLoading] = useState(false);
-
   const [connectedMembership, setConnectedMembership] = useState<
     FindMemberQuery['member'] | undefined
   >();

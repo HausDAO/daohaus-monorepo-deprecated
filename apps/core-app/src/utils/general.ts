@@ -1,4 +1,4 @@
-import { TDao, TMembers } from '../contexts/DaoContext';
+import { TDao, TMembers } from '@daohaus/dao-context';
 import { PROPOSAL_TYPE_LABELS } from './constants';
 
 export const missingDaoProfileData = (dao: TDao): boolean => {

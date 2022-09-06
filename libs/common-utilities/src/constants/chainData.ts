@@ -31,7 +31,7 @@ export const NETWORK_DATA: Keychain<NetworkType> = {
     chainId: '0x64',
     networkId: 100,
     name: 'Gnosis Chain',
-    symbol: 'xDai',
+    symbol: 'XDAI',
     tokenDecimals: 18,
   },
 };

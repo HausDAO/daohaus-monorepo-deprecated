@@ -8,6 +8,8 @@ import {
   AddressDisplay,
   Spinner,
   useBreakpoint,
+  Link,
+  Button,
 } from '@daohaus/ui';
 import {
   charLimit,
@@ -23,16 +25,18 @@ import {
   TMembers,
   useConnectedMembership,
   defaultDaoData,
-} from '../contexts/DaoContext';
+} from '@daohaus/dao-context';
 import { MembersOverview } from '../components/MembersOverview';
 import { ProfileLink } from '../components/ProfileLink';
 import { DaoTable } from '../components/DaohausTable';
+import { useParams } from 'react-router-dom';
 
 const MemberContainer = styled(Card)`
   padding: 3rem;
   border: none;
   margin-bottom: 3rem;
   min-height: 20rem;
+  width: 100%;
   @media ${widthQuery.lg} {
     max-width: 100%;
     min-width: 0;
@@ -41,6 +45,12 @@ const MemberContainer = styled(Card)`
     .hide-sm {
       display: none;
     }
+  }
+`;
+
+const StyledButtonLink = styled(Link)`
+  :hover {
+    text-decoration: none;
   }
 `;
 
@@ -57,6 +67,7 @@ export function Members() {
   } = useMembers();
   const { connectedMembership } = useConnectedMembership();
   const isMobile = useBreakpoint(widthQuery.sm);
+  const { daoid, daochain } = useParams();
 
   const tableData = useMemo(() => {
     return members;
@@ -183,14 +194,19 @@ export function Members() {
   return (
     <SingleColumnLayout
       title="Members"
-      actions={
+      actions={[
+        <StyledButtonLink
+          href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=ISSUE`}
+        >
+          <Button secondary>Add Member</Button>
+        </StyledButtonLink>,
         connectedMembership && (
           <ProfileLink
             memberAddress={connectedMembership.memberAddress}
             buttonText="My Profile"
           />
-        )
-      }
+        ),
+      ]}
     >
       <MemberContainer>
         {dao && <MembersOverview dao={dao} />}

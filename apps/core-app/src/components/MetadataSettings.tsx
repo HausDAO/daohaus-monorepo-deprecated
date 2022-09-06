@@ -10,7 +10,7 @@ import {
   Link,
 } from '@daohaus/ui';
 
-import { TDao, useConnectedMembership } from '../contexts/DaoContext';
+import { TDao, useConnectedMembership } from '@daohaus/dao-context';
 import { TagList } from '../components/TagList';
 import { useParams } from 'react-router-dom';
 import { charLimit, Keychain } from '@daohaus/common-utilities';
@@ -62,7 +62,7 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
         <H3>Metadata</H3>
         {connectedMembership && Number(connectedMembership.shares) && (
           <Link href={`/molochv3/${daochain}/${daoid}/settings/update`}>
-            <Button>Update Settings</Button>
+            <Button secondary>Update Settings</Button>
           </Link>
         )}
       </MetaCardHeader>

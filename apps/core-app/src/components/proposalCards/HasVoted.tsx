@@ -2,7 +2,8 @@ import { ParMd, TintSecondary } from '@daohaus/ui';
 import { formatShares } from '@daohaus/common-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
 
-import { ActionTemplate, DummyBar, VotingResults } from './ActionPrimitives';
+import { ActionTemplate, VotingResults } from './ActionPrimitives';
+import { VotingBar } from '../VotingBar';
 
 export const HasVoted = ({
   proposal,
@@ -21,6 +22,7 @@ export const HasVoted = ({
 
   return (
     <ActionTemplate
+      proposal={proposal}
       statusDisplay={
         <ParMd>
           Voting ends in <TintSecondary>{readableTime}</TintSecondary>
@@ -28,8 +30,8 @@ export const HasVoted = ({
       }
       main={
         <>
-          <DummyBar />
-          <VotingResults proposal={proposal} isVoting={false} />
+          <VotingBar proposal={proposal} />
+          <VotingResults proposal={proposal} isVoting={true} />
         </>
       }
       helperDisplay={voterHelperText}

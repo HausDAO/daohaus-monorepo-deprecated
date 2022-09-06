@@ -6,12 +6,16 @@ import { TABULA_TX, TX } from './tx';
 export const getFormLegoById = (
   id: CustomFormLego['id']
 ): CustomFormLego | undefined => {
-  const formKey = Object.keys(PROPOSAL_FORMS).find((key) => {
-    return PROPOSAL_FORMS[key].id === id;
+  const allForms = { ...PROPOSAL_FORMS, ...COMMON_FORMS };
+  const formKey = Object.keys(allForms).find((key) => {
+    return allForms[key].id === id;
   });
   if (!formKey) return;
-  return PROPOSAL_FORMS[formKey];
+  return allForms[formKey];
 };
+
+// Proposal settings fields (e.g. proposal expiry, proposal offering)
+const PROPOSAL_SETTINGS_FIELDS = [FIELD.PROPOSAL_EXPIRY, FIELD.PROP_OFFERING];
 
 /*
 Quick Reference for forms
@@ -21,9 +25,8 @@ PROPOSAL_FORMS KEYS
 - SIGNAL
 - ISSUE
 - ADD_SHAMAN
-- UPDATE_SHAMAN
-- ISSUE_ERC20
-- ISSUE_NETWORK_TOKEN
+- TRANSFER_ERC20
+- TRANSFER_NETWORK_TOKEN
 - UPDATE_GOV_SETTINGS
 - TOKEN_SETTINGS
 - TOKENS_FOR_SHARES
@@ -33,6 +36,7 @@ PROPOSAL_FORMS KEYS
 
 COMMON_FORMS KEYS
 - METADATA_SETTINGS
+- UPDATE_SHAMAN
 */
 
 export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
@@ -44,7 +48,12 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     requiredFields: { title: true, description: true },
     log: true,
     tx: TX.POST_SIGNAL,
-    fields: [FIELD.TITLE, FIELD.DESCRIPTION, FIELD.LINK],
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      ...PROPOSAL_SETTINGS_FIELDS,
+    ],
   },
   ISSUE: {
     id: 'ISSUE',
@@ -82,6 +91,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
         label: 'Non-Voting Token Requested',
         id: 'lootRequested',
       },
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
   ADD_SHAMAN: {
@@ -102,26 +112,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       FIELD.LINK,
       FIELD.SHAMAN_ADDRESS,
       FIELD.SHAMAN_PERMISSION,
-    ],
-  },
-  UPDATE_SHAMAN: {
-    id: 'UPDATE_SHAMAN',
-    title: 'Manage Shaman',
-    description: 'Learn more about Shamans in our documentation.',
-    subtitle: 'Manange Shaman Proposal',
-    requiredFields: {
-      title: true,
-      description: true,
-      shamanAddress: true,
-      shamanPermission: true,
-    },
-    tx: TX.ADD_SHAMAN,
-    fields: [
-      FIELD.TITLE,
-      FIELD.DESCRIPTION,
-      FIELD.LINK,
-      { ...FIELD.SHAMAN_ADDRESS, disabled: true },
-      FIELD.SHAMAN_DELUXE,
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
   TRANSFER_ERC20: {
@@ -149,6 +140,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
         placeholder: '0x...',
       },
       FIELD.REQUEST_TOKEN,
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
   TRANSFER_NETWORK_TOKEN: {
@@ -176,6 +168,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
         placeholder: '0x...',
       },
       FIELD.REQUEST_NATIVE_TOKEN,
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
   UPDATE_GOV_SETTINGS: {
@@ -279,6 +272,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
           },
         ],
       },
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
   TOKEN_SETTINGS: {
@@ -310,7 +304,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                 left: {
                   id: 'vStake',
                   type: 'switch',
-                  label: 'Transferable',
+                  label: 'Voting Token Transferable',
                   info: SUMMON_COPY.STAKE_TRANSFER,
                   switches: [
                     {
@@ -325,7 +319,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                 right: {
                   id: 'nvStake',
                   type: 'switch',
-                  label: 'Transferable',
+                  label: 'Non-Voting Token Transferable',
                   info: SUMMON_COPY.NV_STAKE_TRANSFER,
                   switches: [
                     {
@@ -342,6 +336,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
           },
         ],
       },
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
   TOKENS_FOR_SHARES: {
@@ -372,6 +367,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
         id: 'lootRequested',
       },
       FIELD.TRIBUTE,
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
   GUILDKICK: {
@@ -396,7 +392,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
         // @ts-expect-error: doing object spread, even if the field definition has the property
         daoMemberOnly: true,
       },
-      FIELD.PROPOSAL_EXPIRY,
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
 };
@@ -449,6 +445,7 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
           },
         ],
       },
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
   CREATE_ARTICLE: {
@@ -485,11 +482,12 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
           FIELD.FAKE_MD,
         ],
       },
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
 };
 
-export const COMMON_FORMS = {
+export const COMMON_FORMS: Record<string, CustomFormLego> = {
   METADATA_SETTINGS: {
     id: 'METADATA_SETTINGS',
     title: 'Update Metadata Settings',
@@ -513,6 +511,27 @@ export const COMMON_FORMS = {
       { ...FIELD.LINK, id: 'twitter', label: 'Twitter' },
       { ...FIELD.LINK, id: 'other', label: 'Other' },
       FIELD.TAGS,
+    ],
+  },
+  UPDATE_SHAMAN: {
+    id: 'UPDATE_SHAMAN',
+    title: 'Manage Shaman',
+    description: 'Learn more about Shamans in our documentation.',
+    subtitle: 'Manange Shaman Proposal',
+    requiredFields: {
+      title: true,
+      description: true,
+      shamanAddress: true,
+      shamanPermission: true,
+    },
+    tx: TX.ADD_SHAMAN,
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      { ...FIELD.SHAMAN_ADDRESS, disabled: true },
+      FIELD.SHAMAN_DELUXE,
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
 };

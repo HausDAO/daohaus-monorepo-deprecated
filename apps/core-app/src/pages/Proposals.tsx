@@ -10,7 +10,7 @@ import {
 import { statusFilter } from '@daohaus/dao-data';
 import { BsPlusLg } from 'react-icons/bs';
 
-import { defaultDaoData, useDao, useProposals } from '../contexts/DaoContext';
+import { defaultDaoData, useDao, useProposals } from '@daohaus/dao-context';
 import { NewProposalList } from '../components/NewProposalList';
 import { PROPOSAL_FORMS } from '../legos/form';
 import SearchInput from '../components/SearchInput';
@@ -30,11 +30,6 @@ const SearchFilterContainer = styled.div`
   gap: 2.1rem;
 `;
 
-export const VALID_NEW_PROPOSALS = [
-  PROPOSAL_FORMS.SIGNAL,
-  PROPOSAL_FORMS.SHARE_SWAP,
-];
-
 export function Proposals() {
   const {
     proposals,
@@ -43,7 +38,7 @@ export function Proposals() {
     setProposalsFilter,
     setProposals,
   } = useProposals();
-  const { dao, refreshAll } = useDao();
+  const { dao } = useDao();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filter, setFilter] = useState<string>('');
 
@@ -105,7 +100,6 @@ export function Proposals() {
 
   return (
     <SingleColumnLayout title="Proposals">
-      <Button onClick={refreshAll}>fresh</Button>
       <ActionsContainer>
         <SearchFilterContainer>
           <SearchInput

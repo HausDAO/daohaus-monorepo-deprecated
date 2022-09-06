@@ -8,7 +8,7 @@ import {
   NetworkType,
   PROPOSAL_STATUS,
 } from '@daohaus/common-utilities';
-import { TProposals } from '../contexts/DaoContext';
+import { TProposals } from '@daohaus/dao-context';
 
 export type ProposalHistoryElementData = {
   dataType: 'member' | 'dataIndicator';
@@ -62,7 +62,13 @@ export const buildProposalHistory = ({
     return buildExpiredElements({ proposal, networkData });
   }
 
-  return null;
+  return [
+    {
+      title: 'Pending',
+      active: false,
+      canExpand: false,
+    },
+  ];
 };
 
 const buildExpiredElements = ({
@@ -113,9 +119,9 @@ const buildCompletedElements = ({
       title: `Proposal Complete`,
       active: false,
       text: `${
-        proposal.status === PROPOSAL_STATUS.passed
-          ? 'Passed and executed'
-          : 'Execution failed'
+        proposal.status === PROPOSAL_STATUS.actionFailed
+          ? 'Execution failed'
+          : 'Passed and executed'
       } at ${formatDateTimeFromSeconds(proposal.processTxAt)}`,
       canExpand: true,
       dataElements: [

@@ -3,15 +3,10 @@ import React from 'react';
 import { ITransformedProposal } from '@daohaus/dao-data';
 import { useToast } from '@daohaus/ui';
 import styled from 'styled-components';
-import {
-  ActionTemplate,
-  DummyBar,
-  GasDisplay,
-  Verdict,
-} from './ActionPrimitives';
+import { ActionTemplate, GasDisplay, Verdict } from './ActionPrimitives';
 import { useParams } from 'react-router-dom';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { useDao } from '../../contexts/DaoContext';
+import { useDao } from '@daohaus/dao-context';
 import { useTxBuilder } from '@daohaus/tx-builder-feature';
 import {
   handleErrorMessage,
@@ -20,6 +15,7 @@ import {
 } from '@daohaus/common-utilities';
 import { ACTION_TX } from '../../legos/tx';
 import { GatedButton } from './GatedButton';
+import { VotingBar } from '../VotingBar';
 
 const ProcessBox = styled.div`
   display: flex;
@@ -101,10 +97,11 @@ export const ReadyForProcessing = ({
 
   return (
     <ActionTemplate
+      proposal={proposal}
       statusDisplay="Ready For Processing"
       main={
         <>
-          <DummyBar />
+          <VotingBar proposal={proposal} />
           <Verdict passed appendText={` - ${percentYes}% Yes`} />
         </>
       }

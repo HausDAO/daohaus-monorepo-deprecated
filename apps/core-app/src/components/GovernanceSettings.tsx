@@ -1,7 +1,16 @@
 import styled from 'styled-components';
-import { H3, H4, DataIndicator, ParSm, widthQuery, Theme } from '@daohaus/ui';
+import {
+  H3,
+  H4,
+  DataIndicator,
+  ParSm,
+  widthQuery,
+  Theme,
+  Button,
+  Link,
+} from '@daohaus/ui';
 
-import { TDao } from '../contexts/DaoContext';
+import { TDao } from '@daohaus/dao-context';
 import {
   charLimit,
   formatPeriods,
@@ -55,6 +64,15 @@ const TokenDataGrid = styled(DataGrid)`
 const StyledLink = styled.a`
   text-decoration: none;
   color: ${({ theme }: { theme: Theme }) => theme.link.color};
+  :hover {
+    text-decoration: none;
+  }
+`;
+
+const StyledButtonLink = styled(Link)`
+  :hover {
+    text-decoration: none;
+  }
 `;
 
 type GovernanceSettingsProps = {
@@ -62,16 +80,36 @@ type GovernanceSettingsProps = {
 };
 
 export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
-  const { daochain } = useParams();
+  const { daochain, daoid } = useParams();
   const networkData = useMemo(() => {
     if (!daochain) return null;
     return getNetwork(daochain);
   }, [daochain]);
 
+  const defaultValues = useMemo(() => {
+    if (!dao) return null;
+    return {
+      votingPeriod: dao.votingPeriod,
+      gracePeriod: dao.gracePeriod,
+      proposalOffering: dao.proposalOffering,
+      quorumPercent: dao.quorumPercent,
+      minRetention: dao.minRetentionPercent,
+      sponsorThreshold: dao.sponsorThreshold,
+      newOffering: dao.proposalOffering,
+    };
+  }, [dao]);
+
   return (
     <GovernanceContainer>
       <GovernanceCardHeader>
         <H3>Governance Settings</H3>
+        <StyledButtonLink
+          href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=UPDATE_GOV_SETTINGS&defaultValues=${JSON.stringify(
+            defaultValues
+          )}`}
+        >
+          <Button secondary>Update Dao Settings</Button>
+        </StyledButtonLink>
       </GovernanceCardHeader>
       <div className="description">
         <ParSm>
@@ -102,7 +140,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
         <DataIndicator
           size="sm"
           label="New Offering"
-          data={`${dao.proposalOffering} ${networkData?.symbol}`}
+          data={`${fromWei(dao.proposalOffering)} ${networkData?.symbol}`}
           info={INFO_COPY.NEW_OFFERING}
         />
       </DataGrid>
@@ -125,7 +163,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
         <DataIndicator
           size="sm"
           label="Sponsor Threshold"
-          data={`${dao.sponsorThreshold} Shares`}
+          data={`${fromWei(dao.sponsorThreshold)} Shares`}
           info={INFO_COPY.SPONSOR_THRESHOLD}
         />
       </DataGrid>

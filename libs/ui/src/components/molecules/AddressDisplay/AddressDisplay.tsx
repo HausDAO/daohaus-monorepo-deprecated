@@ -48,9 +48,8 @@ export const AddressDisplay = ({
   }, [address, txHash, explorerNetworkId]);
 
   const handleCopy = () => {
-    const shortAddress = truncateAddress(address);
     copyToClipboard(
-      shortAddress,
+      address,
       `Success ${txHash ? 'Transaction Hash:' : 'Address:'}`
     );
   };

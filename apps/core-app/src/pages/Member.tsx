@@ -25,7 +25,7 @@ import {
 } from '@daohaus/common-utilities';
 import { AccountProfile, FindMemberQuery, Haus } from '@daohaus/dao-data';
 
-import { useDao } from '../contexts/DaoContext';
+import { useDao } from '@daohaus/dao-context';
 import { Profile } from '../components/Profile';
 import { DaoTable } from '../components/DaohausTable';
 import { loadMember } from '../utils/dataFetchHelpers';

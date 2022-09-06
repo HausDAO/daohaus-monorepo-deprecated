@@ -4,7 +4,6 @@ import { RiArrowUpSLine, RiArrowDownSLine } from 'react-icons/ri';
 import styled from 'styled-components';
 
 import {
-  ParXl,
   Bold,
   Theme,
   ParMd,
@@ -14,6 +13,7 @@ import {
   Dialog,
   DialogTrigger,
   DialogContent,
+  ParLg,
 } from '@daohaus/ui';
 import { Keychain } from '@daohaus/common-utilities';
 import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
@@ -22,7 +22,7 @@ import {
   ProposalHistoryElement,
   ProposalHistoryElementData,
 } from '../utils/historyHelpers';
-import { TProposals } from '../contexts/DaoContext';
+import { TProposals } from '@daohaus/dao-context';
 import { VoteList } from './VoteList';
 
 const ElementContainer = styled.div`
@@ -133,9 +133,9 @@ export const ProposalHistoryCard = ({
     <ElementContainer>
       <VisibleContainer>
         <ContentContainer>
-          <ParXl>
+          <ParLg>
             <StyledTitle active={element.active}>{element.title}</StyledTitle>
-          </ParXl>
+          </ParLg>
           {element.text && <ParMd>{element.text}</ParMd>}
         </ContentContainer>
         {element.canExpand && open && (

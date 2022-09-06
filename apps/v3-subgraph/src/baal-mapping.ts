@@ -188,7 +188,6 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   proposal.prevProposalId = event.params.selfSponsor
     ? dao.latestSponsoredProposalId
     : constants.BIGINT_ZERO;
-  proposal.prevProposalId = constants.BIGINT_ZERO;
   proposal.votingStarts = event.params.selfSponsor
     ? event.block.timestamp
     : constants.BIGINT_ZERO;

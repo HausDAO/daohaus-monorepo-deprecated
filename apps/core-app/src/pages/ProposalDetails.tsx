@@ -51,8 +51,6 @@ export function ProposalDetails() {
   >();
   const [proposalLoading, setProposalLoading] = useState<boolean>(false);
 
-  console.log('proposal', proposal);
-
   useEffect(() => {
     let shouldUpdate = true;
     if (daochain && daoid && proposalId) {

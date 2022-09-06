@@ -16,6 +16,7 @@ import {
 import { ACTION_TX } from '../../legos/tx';
 import { GatedButton } from './GatedButton';
 import { VotingBar } from '../VotingBar';
+import { PROCESS_PROPOSAL_GAS_LIMIT_ADDITION } from 'libs/tx-builder-feature/src/utils/overrides';
 
 const ProcessBox = styled.div`
   display: flex;
@@ -41,6 +42,9 @@ export const ReadyForProcessing = ({
 
   const processProposal = async () => {
     const { proposalId, proposalData, actionGasEstimate } = proposal;
+    const processingGasLimit = (
+      Number(actionGasEstimate) + PROCESS_PROPOSAL_GAS_LIMIT_ADDITION
+    ).toFixed();
 
     if (!proposalId) return;
     setIsLoading(true);
@@ -48,7 +52,7 @@ export const ReadyForProcessing = ({
       tx: {
         ...ACTION_TX.PROCESS,
         staticArgs: [proposalId, proposalData],
-        overrides: { gasLimit: actionGasEstimate },
+        overrides: { gasLimit: processingGasLimit },
       } as TXLego,
       lifeCycleFns: {
         onTxError: (error) => {

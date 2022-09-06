@@ -5,7 +5,7 @@ import { HashRouter } from 'react-router-dom';
 import { HausConnectProvider } from '@daohaus/daohaus-connect-feature';
 import { HausThemeProvider } from '@daohaus/ui';
 
-import Routes from './Routes';
+import App from './Routes';
 
 const container = document.getElementById('root');
 
@@ -19,7 +19,7 @@ root.render(
     <HashRouter>
       <HausThemeProvider>
         <HausConnectProvider>
-          <Routes />
+          <App />
         </HausConnectProvider>
       </HausThemeProvider>
     </HashRouter>

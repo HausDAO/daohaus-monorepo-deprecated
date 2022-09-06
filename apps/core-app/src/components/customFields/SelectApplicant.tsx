@@ -54,10 +54,8 @@ export const SelectApplicant = ({
           address: memberAddress,
           setMemberLoading,
         });
-        if (rs.member) {
-          setValue('memberShares', rs.member.shares);
-          setValue('memberLoot', rs.member.loot);
-        }
+        setValue('memberShares', rs.member?.shares || '0');
+        setValue('memberLoot', rs.member?.loot || '0');
         if (validateMember && rs.error) setValError(rs.error);
       }
     },
@@ -94,7 +92,7 @@ export const SelectApplicant = ({
   useEffect(() => {
     cleanup();
     if (inputValue) {
-      fetchMember(inputValue.toLowerCase(), !!daoMemberOnly && textMode);
+      fetchMember(inputValue.toLowerCase(), !!daoMemberOnly || textMode);
     }
   }, [cleanup, daoMemberOnly, fetchMember, inputValue, textMode]);
 

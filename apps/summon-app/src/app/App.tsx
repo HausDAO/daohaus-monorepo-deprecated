@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-import { ParMd, Link, Banner } from '@daohaus/ui';
+import { ParMd, Link, Banner, AppSwitcher } from '@daohaus/ui';
 import { DaoHausNav, useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 import { TXBuilder } from '@daohaus/tx-builder-feature';
@@ -11,11 +11,6 @@ import hausCastle from '../assets/hausCastle.svg';
 import { CenterLayout } from '../layouts/FormLayouts';
 import { SummonerSuccess } from '../layouts/SummonerSuccess';
 import { SummonError } from '../layouts/SummonError';
-
-import { ReactComponent as Daohaus } from '../assets/Daohaus.svg';
-import { ReactComponent as Docs } from '../assets/Docs.svg';
-import { ReactComponent as Hub } from '../assets/Hub.svg';
-import { ReactComponent as Summoner } from '../assets/Summoner.svg';
 
 const TemporaryLayout = styled.div`
   width: 100%;
@@ -36,6 +31,11 @@ const TemporaryLayout = styled.div`
   }
 `;
 
+const Header = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
 export type SummonStates = 'idle' | 'loading' | 'success' | 'error';
 export const App = () => {
   const { provider, chainId } = useHausConnect();
@@ -45,12 +45,31 @@ export const App = () => {
   const [daoAddress, setDaoAddress] = useState<string>('');
   const [errMsg, setErrMsg] = useState<string>('');
 
+  const apps = {
+    trigger: {
+      name: 'Summoner',
+      url: 'https://summon.daohaus.fun/',
+    },
+    apps: [
+      {
+        name: 'Hub',
+        url: 'https://hub.daohaus.fun/',
+      },
+      {
+        name: 'Docs',
+        url: 'https://storybook.daohaus.fun/',
+      },
+    ],
+  };
+
   return (
     <TXBuilder provider={provider} chainId={chainId} appState={{}}>
       <Banner />
       <TemporaryLayout>
-        <DaoHausNav />
-        <Daohaus />
+        <Header>
+          <AppSwitcher {...apps} />;
+          <DaoHausNav />
+        </Header>
         <CenterLayout>
           {summonState === 'idle' && (
             <SummonerForm

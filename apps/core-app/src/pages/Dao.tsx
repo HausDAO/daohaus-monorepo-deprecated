@@ -2,11 +2,33 @@ import { useParams, Outlet } from 'react-router-dom';
 import { HausLayout, useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { useDao } from '@daohaus/dao-context';
 import { TXBuilder } from '@daohaus/tx-builder-feature';
+import { AppSwitcher } from '@daohaus/ui';
 
 export function Dao() {
   const { daochain, daoid } = useParams();
   const { provider } = useHausConnect();
   const { dao } = useDao();
+
+  const apps = {
+    trigger: {
+      name: 'Core App',
+      url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    },
+    apps: [
+      {
+        name: 'Summoner',
+        url: 'https://summon.daohaus.fun/',
+      },
+      {
+        name: 'Hub',
+        url: 'https://hub.daohaus.fun/',
+      },
+      {
+        name: 'Docs',
+        url: 'https://storybook.daohaus.fun/',
+      },
+    ],
+  };
 
   return (
     <TXBuilder
@@ -35,6 +57,7 @@ export function Dao() {
             href: `/molochv3/${daochain}/${daoid}/settings`,
           },
         ]}
+        LeftNav={<AppSwitcher {...apps} />}
       >
         <Outlet />
       </HausLayout>

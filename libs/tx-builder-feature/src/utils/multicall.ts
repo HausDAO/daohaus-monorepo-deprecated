@@ -194,13 +194,16 @@ export const handleGasEstimate = async ({
       actions: arg.actions,
     },
   });
+
   const estimate = await estimateGas({
     chainId,
     safeId,
     data: proposalData,
   });
+
+  console.log('estimate', estimate);
   if (estimate.safeTxGas) {
-    const buffer = arg.bufferPercentage ? `1.${arg.bufferPercentage}` : 1.3;
+    const buffer = arg.bufferPercentage ? `1.${arg.bufferPercentage}` : 1.6;
     return Math.round(Number(estimate.safeTxGas) * Number(buffer));
   } else {
     throw new Error(`Failed to estimate gas: `);
@@ -242,13 +245,9 @@ export const buildMultiCallTX = ({
         fallback: 0,
       },
       {
-        type: 'static',
-        value: 0,
+        type: 'estimateGas',
+        actions,
       },
-      // {
-      //   type: 'estimateGas',
-      //   actions,
-      // },
       JSONDetails,
     ],
   };

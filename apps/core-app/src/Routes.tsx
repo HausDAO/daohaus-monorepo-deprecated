@@ -1,6 +1,5 @@
 import React from 'react';
 import { Routes as RoutesDom, Route } from 'react-router-dom';
-import { Banner } from '@daohaus/ui';
 
 import Home from './pages/Home';
 import DaoOverview from './pages/DaoOverview';
@@ -14,6 +13,7 @@ import NewProposal from './pages/NewProposal';
 import UpdateSettings from './pages/UpdateSettings';
 import ProposalDetails from './pages/ProposalDetails';
 import { DaoContainer } from './pages/DaoContainer';
+import { Banner } from '@daohaus/ui';
 
 const Routes = () => {
   return (

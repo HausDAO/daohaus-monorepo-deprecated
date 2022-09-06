@@ -16,7 +16,9 @@ import {
 import { ACTION_TX } from '../../legos/tx';
 import { GatedButton } from './GatedButton';
 import { VotingBar } from '../VotingBar';
-import { PROCESS_PROPOSAL_GAS_LIMIT_ADDITION } from 'libs/tx-builder-feature/src/utils/overrides';
+
+// Adding to the gas limit to account for cost of processProposal
+export const PROCESS_PROPOSAL_GAS_LIMIT_ADDITION = 150000;
 
 const ProcessBox = styled.div`
   display: flex;

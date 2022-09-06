@@ -1,5 +1,3 @@
-import { Ordering, Proposal_OrderBy } from '@daohaus/dao-data';
-
 export const PROPOSAL_FILTERS: { [key: string]: string } = {
   unsponsored: 'Unsponsored',
   voting: 'In Voting',

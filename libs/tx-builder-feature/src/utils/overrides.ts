@@ -1,8 +1,5 @@
 import { ArbitraryState, TXOverrides } from '@daohaus/common-utilities';
 
-// Adding to the gas limit to account for cost of processProposal
-export const PROCESS_PROPOSAL_GAS_LIMIT_ADDITION = 150000;
-
 export const processOverrides = ({
   overrideArgs,
   appState,

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Routes as RoutesDom, Route } from 'react-router-dom';
-import { Banner } from '@daohaus/ui';
 
 import Home from './pages/Home';
 import DaoOverview from './pages/DaoOverview';

@@ -365,40 +365,13 @@ export const ACTION_TX: Record<string, TXLegoBase> = {
   },
 };
 
-export const TABULA_TX: Record<string, TXLego> = {
-  // PUBLICATION: buildMultiCallTX({
-  //   id: 'PUBLICATION',
-  //   JSONDetails: {
-  //     type: 'JSONDetails',
-  //     jsonSchema: {
-  //       title: '.formValues.title',
-  //       link: '.formValues.link',
-  //       description: '.formValues.description',
-  //     },
-  //   },
-  //   actions: [
-  //     {
-  //       contract: CONTRACT.POSTER,
-  //       method: 'post',
-  //       args: [
-  //         {
-  //           type: 'JSONDetails',
-  //           jsonSchema: {
-  //             action: { type: 'static', value: TABULA_TAGS.PUB_ACTION },
-  //             title: '.formValues.pubTitle',
-  //             desription: '.formValues.pubDescription',
-  //             tags: '.formValues.tags',
-  //           },
-  //         },
-  //         {
-  //           type: 'static',
-  //           value: TABULA_TAGS.PUBLICATION,
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // }),
-};
+// CREATE_PUB: {
+//   id: 'CREATE_PUB',
+//   contract: CONTRACT.POSTER,
+//   method: 'post',
+//   args: []
+// }
+export const TABULA_TX: Record<string, TXLego> = {};
 
 // export const TABULA_TX: Record<string, TXLego> = {
 //   CREATE_PUBLICATION: buildMultiCallTX({

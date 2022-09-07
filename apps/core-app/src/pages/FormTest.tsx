@@ -1,10 +1,13 @@
 import { FormBuilder } from '@daohaus/haus-form-builder';
 import { CustomFields } from '../legos/config';
-import { COMMON_FORMS, TABULA_FORMS } from '../legos/form';
+import { COMMON_FORMS } from '../legos/form';
 
 export function FormTest() {
   return (
-    <FormBuilder form={TABULA_FORMS.PUBLISH} customFields={CustomFields} />
+    <FormBuilder
+      form={COMMON_FORMS.METADATA_SETTINGS}
+      customFields={CustomFields}
+    />
   );
 }
 

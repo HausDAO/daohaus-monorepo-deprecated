@@ -16,12 +16,12 @@ const root = createRoot(container!);
 
 root.render(
   <StrictMode>
-    <HausThemeProvider>
-      <HashRouter>
+    <HashRouter>
+      <HausThemeProvider>
         <HausConnectProvider>
           <Routes />
         </HausConnectProvider>
-      </HashRouter>
-    </HausThemeProvider>
+      </HausThemeProvider>
+    </HashRouter>
   </StrictMode>
 );

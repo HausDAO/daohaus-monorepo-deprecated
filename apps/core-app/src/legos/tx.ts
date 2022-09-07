@@ -3,7 +3,6 @@ import {
   CONTRACTS,
   NestedArray,
   POSTER_TAGS,
-  TABULA_TAGS,
   ENCODED_0X0_DATA,
   toSeconds,
   TXLego,
@@ -348,72 +347,6 @@ export const TX: Record<string, TXLego> = {
   }),
 };
 
-export const TABULA_TX: Record<string, TXLego> = {
-  CREATE_PUBLICATION: buildMultiCallTX({
-    id: 'CREATE_PUBLICATION',
-    JSONDetails: {
-      type: 'JSONDetails',
-      jsonSchema: {
-        title: '.formValues.title',
-        description: '.formValues.description',
-        contentURI: `.formValues.link`,
-        contentURIType: { type: 'static', value: 'url' },
-        proposalType: { type: 'static', value: 'Create Publication Proposal' },
-      },
-    },
-    actions: [
-      {
-        contract: CONTRACT.POSTER,
-        method: 'post',
-        args: [
-          {
-            type: 'JSONDetails',
-            jsonSchema: {
-              action: { type: 'static', value: TABULA_TAGS.PUB_ACTION },
-              title: '.formValues.pubName',
-              tags: '.formValues.tags',
-              description: '.formValues.pubDescription',
-              image: '.formValues.pubImage',
-            },
-          },
-          { type: 'static', value: TABULA_TAGS.PUBLICATION },
-        ],
-      },
-    ],
-  }),
-  CREATE_ARTICLE: buildMultiCallTX({
-    id: 'CREATE_ARTICLE',
-    JSONDetails: {
-      type: 'JSONDetails',
-      jsonSchema: {
-        title: '.formValues.title',
-        description: '.formValues.description',
-        contentURI: `.formValues.link`,
-        contentURIType: { type: 'static', value: 'url' },
-        proposalType: { type: 'static', value: 'Create Article Proposal' },
-      },
-    },
-    actions: [
-      {
-        contract: CONTRACT.POSTER,
-        method: 'post',
-        args: [
-          {
-            type: 'JSONDetails',
-            jsonSchema: {
-              action: { type: 'static', value: TABULA_TAGS.ARTICLE_ACTION },
-              publicationId: '.formValues.pubId',
-              article: { type: 'ipfsPinata', content: '.formValues.article' },
-              title: '.formValues.articleTitle',
-            },
-          },
-          { type: 'static', value: TABULA_TAGS.PUBLICATION },
-        ],
-      },
-    ],
-  }),
-};
-
 export const ACTION_TX: Record<string, TXLegoBase> = {
   SPONSOR: {
     id: 'SPONSOR',
@@ -431,3 +364,104 @@ export const ACTION_TX: Record<string, TXLegoBase> = {
     method: 'processProposal',
   },
 };
+
+export const TABULA_TX: Record<string, TXLego> = {
+  // PUBLICATION: buildMultiCallTX({
+  //   id: 'PUBLICATION',
+  //   JSONDetails: {
+  //     type: 'JSONDetails',
+  //     jsonSchema: {
+  //       title: '.formValues.title',
+  //       link: '.formValues.link',
+  //       description: '.formValues.description',
+  //     },
+  //   },
+  //   actions: [
+  //     {
+  //       contract: CONTRACT.POSTER,
+  //       method: 'post',
+  //       args: [
+  //         {
+  //           type: 'JSONDetails',
+  //           jsonSchema: {
+  //             action: { type: 'static', value: TABULA_TAGS.PUB_ACTION },
+  //             title: '.formValues.pubTitle',
+  //             desription: '.formValues.pubDescription',
+  //             tags: '.formValues.tags',
+  //           },
+  //         },
+  //         {
+  //           type: 'static',
+  //           value: TABULA_TAGS.PUBLICATION,
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // }),
+};
+
+// export const TABULA_TX: Record<string, TXLego> = {
+//   CREATE_PUBLICATION: buildMultiCallTX({
+//     id: 'CREATE_PUBLICATION',
+//     JSONDetails: {
+//       type: 'JSONDetails',
+//       jsonSchema: {
+//         title: '.formValues.title',
+//         description: '.formValues.description',
+//         contentURI: `.formValues.link`,
+//         contentURIType: { type: 'static', value: 'url' },
+//         proposalType: { type: 'static', value: 'Create Publication Proposal' },
+//       },
+//     },
+//     actions: [
+//       {
+//         contract: CONTRACT.POSTER,
+//         method: 'post',
+//         args: [
+//           {
+//             type: 'JSONDetails',
+//             jsonSchema: {
+//               action: { type: 'static', value: TABULA_TAGS.PUB_ACTION },
+//               title: '.formValues.pubName',
+//               tags: '.formValues.tags',
+//               description: '.formValues.pubDescription',
+//               image: '.formValues.pubImage',
+//             },
+//           },
+//           { type: 'static', value: TABULA_TAGS.PUBLICATION },
+//         ],
+//       },
+//     ],
+//   }),
+//   CREATE_ARTICLE: buildMultiCallTX({
+//     id: 'CREATE_ARTICLE',
+//     JSONDetails: {
+//       type: 'JSONDetails',
+//       jsonSchema: {
+//         title: '.formValues.title',
+//         description: '.formValues.description',
+//         contentURI: `.formValues.link`,
+//         contentURIType: { type: 'static', value: 'url' },
+//         proposalType: { type: 'static', value: 'Create Article Proposal' },
+//       },
+//     },
+//     actions: [
+//       {
+//         contract: CONTRACT.POSTER,
+//         method: 'post',
+//         args: [
+//           {
+//             type: 'JSONDetails',
+//             jsonSchema: {
+//               action: { type: 'static', value: TABULA_TAGS.ARTICLE_ACTION },
+//               publicationId: '.formValues.pubId',
+//               article: { type: 'ipfsPinata', content: '.formValues.article' },
+//               title: '.formValues.articleTitle',
+//             },
+//           },
+//           { type: 'static', value: TABULA_TAGS.PUBLICATION },
+//         ],
+//       },
+//     ],
+//   }),
+// };

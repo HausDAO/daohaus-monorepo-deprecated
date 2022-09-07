@@ -21,6 +21,7 @@ export const ConnectButton = ({ isSm }: { isSm: boolean }) => {
 
 const ConnectWalletButton = ({ isSm }: { isSm: boolean }) => {
   const { connectWallet } = useHausConnect();
+
   const classes = classNames({ 'mobile-connect-btn': isSm });
   return (
     <ButtonContainer>

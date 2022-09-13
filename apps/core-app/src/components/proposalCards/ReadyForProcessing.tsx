@@ -52,7 +52,7 @@ const checkCanProcess = async ({
       abi: LOCAL_ABI.BAAL,
       chainId: daochain,
     })['state'](prevProposalId);
-    console.log('state', state);
+
     setCanProcess(
       eligibableStatuses.some((status) => status === state)
         ? true

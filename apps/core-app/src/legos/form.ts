@@ -1,7 +1,7 @@
 import { SUMMON_COPY } from '../data/copy';
 import { CustomFormLego } from './config';
 import { FIELD } from './fields';
-import { TX } from './tx';
+import { TABULA_TX, TX } from './tx';
 
 export const getFormLegoById = (
   id: CustomFormLego['id']
@@ -39,7 +39,49 @@ COMMON_FORMS KEYS
 - UPDATE_SHAMAN
 */
 
-export const TABULA_FORMS: Record<string, CustomFormLego> = {};
+export const TABULA_FORMS: Record<string, CustomFormLego> = {
+  CREATE_PUB: {
+    id: 'CREATE_PUB',
+    title: 'Create Publication',
+    subtitle: 'Create Pub Proposal',
+    description: 'Create a publication on Tabula.gg',
+    tx: TABULA_TX.CREATE_PUB,
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      {
+        id: 'pubSegment',
+        type: 'formSegment',
+        title: 'Publication Data',
+        fields: [
+          {
+            id: 'pubTitle',
+            type: 'input',
+            placeholder: 'pubtitle',
+            label: 'Publication Title',
+          },
+          {
+            id: 'pubDescription',
+            type: 'textarea',
+            placeholder: 'pub description',
+            label: 'Publication Description',
+          },
+          {
+            id: 'pubTags',
+            type: 'csInput',
+            itemNoun: {
+              singular: 'tag',
+              plural: 'tags',
+            },
+            placeholder: 'pub description',
+            label: 'Publication Description',
+          },
+        ],
+      },
+    ],
+  },
+};
 
 export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   SIGNAL: {

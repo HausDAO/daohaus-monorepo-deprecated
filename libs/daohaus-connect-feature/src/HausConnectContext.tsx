@@ -75,6 +75,7 @@ export const HausConnectProvider = ({
     address: address || '',
     ens: undefined,
   });
+
   const [isProfileLoading, setProfileLoading] = useState(false);
   const [daoChainId, setDaoChainId] = useState<string | null>(null);
 

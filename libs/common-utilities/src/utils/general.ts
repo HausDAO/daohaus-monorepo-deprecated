@@ -37,15 +37,3 @@ export const memberUsdValueShare = (
     Number(ethers.utils.formatEther(daoTotalShares));
   return Number(usdValue) * ratio;
 };
-
-// export const addressCanCancelProposal = ({
-//   address,
-//   addressShares,
-//   sponsorThreshold,
-// }: {
-//   address: string;
-//   addressShares: string | number,
-//   sponsorThreshold: string | number
-// }): boolean => {
-//   return true;
-// };

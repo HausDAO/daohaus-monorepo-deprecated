@@ -2,8 +2,8 @@ import React from 'react';
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import { IconType } from 'react-icons';
 
-import { Dropdown, DropdownMenuItem, DropdownButton } from '../../molecules';
-import { AppSwitcherTrigger } from './AppSwitcher.styles';
+import { Dropdown, DropdownMenuItem } from '../../molecules';
+import { AppSwitcherLink, AppSwitcherTrigger } from './AppSwitcher.styles';
 
 interface IApp {
   name: string;
@@ -29,9 +29,13 @@ export type AppSwitcherProps = {
 function getDropdownApps(apps: IApp[]) {
   return apps.map((app, index) => (
     <DropdownMenuItem key={index} asChild>
-      <DropdownButton fullWidth leftAlign IconLeft={app.icon}>
+      <AppSwitcherLink
+        href={app.url}
+        LeftIcon={app.icon}
+        linkType="no-icon-external"
+      >
         {app.name}
-      </DropdownButton>
+      </AppSwitcherLink>
     </DropdownMenuItem>
   ));
 }

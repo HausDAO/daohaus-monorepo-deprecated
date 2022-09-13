@@ -117,6 +117,10 @@ fragment proposalFields on Proposal {
   tributeTokenSymbol
   tributeTokenDecimals
   tributeEscrowRecipient
+  sponsorMembership {
+    memberAddress
+    shares
+  }
   dao {
     totalShares
     quorumPercent

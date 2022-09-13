@@ -194,21 +194,21 @@ export function Members() {
   return (
     <SingleColumnLayout
       title="Members"
-      actions={[
-        <StyledButtonLink
-          href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=ISSUE`}
-          key="AddMember"
-        >
-          <Button secondary>Add Member</Button>
-        </StyledButtonLink>,
-        connectedMembership && (
-          <ProfileLink
-            memberAddress={connectedMembership.memberAddress}
-            buttonText="My Profile"
-            key="MyProfile"
-          />
-        ),
-      ]}
+      actions={
+        <>
+          <StyledButtonLink
+            href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=ISSUE`}
+          >
+            <Button secondary>Add Member</Button>
+          </StyledButtonLink>
+          {connectedMembership && (
+            <ProfileLink
+              memberAddress={connectedMembership.memberAddress}
+              buttonText="My Profile"
+            />
+          )}
+        </>
+      }
     >
       <MemberContainer>
         {dao && <MembersOverview dao={dao} />}

@@ -85,12 +85,7 @@ export function ProposalDetails() {
       subtitle={getProposalTypeLabel(proposal?.proposalType)}
       left={
         <OverviewCard>
-          {proposal && (
-            <ProposalDetailsGuts
-              proposal={proposal}
-              // fetchProposal={fetchProposal}
-            />
-          )}
+          {proposal && <ProposalDetailsGuts proposal={proposal} />}
         </OverviewCard>
       }
       right={

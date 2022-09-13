@@ -33,7 +33,7 @@ const ProcessBox = styled.div`
   /* justify-content: space-between; */
 `;
 
-const eligibableStatuses = ['0', '6', '7', '3'];
+const eligibableStatuses = [0, 6, 7, 3];
 
 const checkCanProcess = async ({
   daoid,
@@ -56,7 +56,7 @@ const checkCanProcess = async ({
     setCanProcess(
       eligibableStatuses.some((status) => status === state)
         ? true
-        : 'Another proposal in the DAO needs to sponsored first. Start digging, sport!'
+        : 'Another proposal in the DAO needs to executed first.'
     );
   } catch (error) {
     setCanProcess('Network Error. Could not check for Proposal status');

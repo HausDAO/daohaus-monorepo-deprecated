@@ -197,6 +197,7 @@ export function Members() {
       actions={[
         <StyledButtonLink
           href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=ISSUE`}
+          key="1"
         >
           <Button secondary>Add Member</Button>
         </StyledButtonLink>,
@@ -204,6 +205,7 @@ export function Members() {
           <ProfileLink
             memberAddress={connectedMembership.memberAddress}
             buttonText="My Profile"
+            key="2"
           />
         ),
       ]}

@@ -1,36 +1,33 @@
+import React, { useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 import {
   handleErrorMessage,
   isGovernor,
-  isNumberish,
   PROPOSAL_STATUS,
   TXLego,
 } from '@daohaus/common-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { useTxBuilder } from '@daohaus/tx-builder-feature';
-import { Italic, ParSm, Spinner, useToast } from '@daohaus/ui';
-import React, { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
-import { useTheme } from 'styled-components';
-import { useConnectedMembership, useDao } from '@daohaus/dao-context';
-import { PROP_CARD_HELP } from '../data/copy';
+import { Spinner, useToast } from '@daohaus/ui';
+import { useDao } from '@daohaus/dao-context';
+
 import { ACTION_TX } from '../legos/tx';
-import { VotingBar } from './VotingBar';
 import { GatedButton } from './proposalCards/GatedButton';
 
 export const CancelProposal = ({
   proposal,
+  onSuccess,
 }: {
   proposal: ITransformedProposal;
+  onSuccess: () => void;
 }) => {
   const { daochain } = useParams();
   const { fireTransaction } = useTxBuilder();
-  const { connectedMembership } = useConnectedMembership();
   const { chainId, address } = useHausConnect();
   const { errorToast, defaultToast, successToast } = useToast();
   const [isLoading, setIsLoading] = React.useState(false);
   const { dao, refreshAll } = useDao();
-  const theme = useTheme();
 
   const handleCancel = () => {
     const { proposalId } = proposal;
@@ -38,18 +35,18 @@ export const CancelProposal = ({
     if (!proposalId) return;
     setIsLoading(true);
     fireTransaction({
-      tx: { ...ACTION_TX.SPONSOR, staticArgs: [proposalId] } as TXLego,
+      tx: { ...ACTION_TX.CANCEL, staticArgs: [proposalId] } as TXLego,
       lifeCycleFns: {
         onTxError: (error) => {
           const errMsg = handleErrorMessage({
             error,
           });
-          errorToast({ title: 'Sponsor Failed', description: errMsg });
+          errorToast({ title: 'Cancel Failed', description: errMsg });
           setIsLoading(false);
         },
         onTxSuccess: () => {
           defaultToast({
-            title: 'Sponsor Success',
+            title: 'Cancel Success',
             description: 'Please wait for subgraph to sync',
           });
         },
@@ -62,11 +59,12 @@ export const CancelProposal = ({
         },
         onPollSuccess: () => {
           successToast({
-            title: 'Sponsor Success',
-            description: 'Proposal sponsored',
+            title: 'Cancel Success',
+            description: 'Proposal cancelled',
           });
           setIsLoading(false);
           refreshAll();
+          onSuccess();
         },
       },
     });
@@ -81,13 +79,9 @@ export const CancelProposal = ({
     const isProposer =
       proposal.createdBy.toLowerCase() === address?.toLowerCase();
 
-    console.log('isProposer', isProposer);
-
     const sponsorBelowThreshold =
       Number(proposal.sponsorMembership?.shares) <
       Number(dao?.sponsorThreshold);
-
-    console.log('sponsorBelowThreshold', sponsorBelowThreshold);
 
     const isGovernorShaman = dao?.shamen?.some((shaman) => {
       return (
@@ -95,8 +89,6 @@ export const CancelProposal = ({
         isGovernor(shaman.permissions)
       );
     });
-
-    console.log('isGovernorShaman', isGovernorShaman);
 
     return isProposer || sponsorBelowThreshold || isGovernorShaman
       ? true

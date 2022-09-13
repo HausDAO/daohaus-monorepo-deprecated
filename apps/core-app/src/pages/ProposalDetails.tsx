@@ -70,6 +70,20 @@ export function ProposalDetails() {
     };
   }, [daochain, daoid, proposalId, address]);
 
+  const refreshProposal = () => {
+    if (daochain && daoid && proposalId) {
+      loadProposal({
+        daoid,
+        daochain: daochain as keyof Keychain,
+        proposalId,
+        setProposal,
+        setProposalLoading,
+        shouldUpdate: true,
+        connectedAddress: address,
+      });
+    }
+  };
+
   if (proposalLoading) {
     return (
       <SingleColumnLayout>
@@ -82,7 +96,11 @@ export function ProposalDetails() {
     <BiColumnLayout
       title={proposal?.title}
       subtitle={getProposalTypeLabel(proposal?.proposalType)}
-      actions={proposal && <CancelProposal proposal={proposal} />}
+      actions={
+        proposal && (
+          <CancelProposal proposal={proposal} onSuccess={refreshProposal} />
+        )
+      }
       left={
         <OverviewCard>
           {proposal && <ProposalDetailsGuts proposal={proposal} />}

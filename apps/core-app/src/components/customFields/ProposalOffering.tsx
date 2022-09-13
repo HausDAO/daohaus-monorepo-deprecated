@@ -5,7 +5,7 @@ import {
 } from '@daohaus/common-utilities';
 import { useConnectedMembership, useDao } from '@daohaus/dao-context';
 import { Buildable, ParMd, TintSecondary } from '@daohaus/ui';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
@@ -14,25 +14,27 @@ export const ProposalOffering = (props: Buildable<{ id?: string }>) => {
   const { daochain } = useParams();
   const { dao } = useDao();
   const { connectedMembership } = useConnectedMembership();
-  const { setValue } = useFormContext();
+  const { register, setValue } = useFormContext();
   const [requiresOffering, setRequiresOffering] = useState(false);
 
   const networkTokenSymbol =
     isValidNetwork(daochain) && NETWORK_DATA[daochain]?.symbol;
+
+  register(id);
 
   useEffect(() => {
     if (!dao || !id) return;
 
     if (
       !connectedMembership ||
-      dao.proposalOffering > connectedMembership.shares
+      dao.sponsorThreshold > connectedMembership.shares
     ) {
       setRequiresOffering(true);
       setValue(id, dao.proposalOffering);
       return;
     }
 
-    setValue(id);
+    setValue(id, '0');
     setRequiresOffering(false);
     return;
   }, [dao, connectedMembership, setValue, id]);

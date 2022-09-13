@@ -112,6 +112,14 @@ export type TxStates =
   | 'failed'
   | 'success';
 
+export type TXOverrides = {
+  gasLimit?: string;
+  value?: string;
+  gasPrice?: string;
+  from?: string;
+  blockTag?: string;
+};
+
 export type TXLegoBase = {
   id: string;
   contract: ContractLego;
@@ -120,6 +128,7 @@ export type TXLegoBase = {
   args?: ValidArgType[];
   argCallback?: string;
   staticArgs?: ArgType[];
+  overrides?: TXOverrides;
 };
 
 export type TXLego = RequireOnlyOne<

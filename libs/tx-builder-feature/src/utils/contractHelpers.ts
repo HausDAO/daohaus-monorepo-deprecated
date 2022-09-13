@@ -25,7 +25,6 @@ const findTargetAddress = ({
   targetAddress: StringSearch | Keychain;
   chainId: ValidNetwork;
 }) => {
-  console.log('targetAddress', targetAddress, chainId, appState);
   if (typeof targetAddress === 'string' && isSearchArg(targetAddress)) {
     return searchArg({
       searchString: targetAddress,

@@ -215,7 +215,19 @@ export const isActiveMember = async ({
       Number(memberRes?.data?.member?.shares) > 0
     ) {
       return {
-        member: memberRes?.data?.member,
+        member: memberRes.data.member,
+      };
+    }
+    if (
+      memberRes?.data?.member &&
+      Number(memberRes?.data?.member?.loot) > 0
+    ) {
+      return {
+        member: memberRes.data.member,
+        error: {
+          type: 'error',
+          message: `Member doesn't own any shares`,
+        },
       };
     }
     return {

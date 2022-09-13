@@ -19,19 +19,17 @@ const Daos: React.FC<DaosProps> = (props: DaosProps) => {
   const { sdk, safe, connected } = useSafeAppsSDK();
 
   const fetchSafeInfo = useCallback(async () => {
-    if (!loading) {
-      setLoading(true);
-      const daos = await fetchDaos(VALID_NETWORKS[safe.chainId], safe.safeAddress);
-      setListDaos(daos || []);
-      setLoading(false);
-    }
-  }, [loading, safe]);
+    setLoading(true);
+    const daos = await fetchDaos(VALID_NETWORKS[safe.chainId], safe.safeAddress);
+    setListDaos(daos || []);
+    setLoading(false);
+  }, [safe]);
 
   useEffect(() => {
-    if (sdk && connected) {
+    if (sdk && connected && !listDaos.length) {
       fetchSafeInfo();
     }
-  }, [fetchSafeInfo, sdk, safe, connected])
+  }, [fetchSafeInfo, listDaos, sdk, connected])
 
   return (
       <StyledMainContainer>
@@ -59,7 +57,10 @@ const Daos: React.FC<DaosProps> = (props: DaosProps) => {
             <Grid container direction='row' justifyContent='space-between'>
               {listDaos.map((dao, idx) => (
                 <Grid key={idx} item xs={6}>
-                  <Link href='#'>
+                  <Link
+                    href={`https://admin.daohaus.fun/#/molochv3/${VALID_NETWORKS[safe.chainId]}/${dao.id}`}
+                    target='_blank'
+                  >
                     <StyledDaoCard>
                       <Grid container direction='column' spacing={2}>
                         <Grid item>

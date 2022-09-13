@@ -21,6 +21,9 @@ import { GatedButton } from './GatedButton';
 import { VotingBar } from '../VotingBar';
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 
+// Adding to the gas limit to account for cost of processProposal
+export const PROCESS_PROPOSAL_GAS_LIMIT_ADDITION = 150000;
+
 const ProcessBox = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -77,7 +80,10 @@ export const ReadyForProcessing = ({
   const [isLoading, setIsLoading] = React.useState(false);
 
   const processProposal = async () => {
-    const { proposalId, proposalData } = proposal;
+    const { proposalId, proposalData, actionGasEstimate } = proposal;
+    const processingGasLimit = (
+      Number(actionGasEstimate) + PROCESS_PROPOSAL_GAS_LIMIT_ADDITION
+    ).toFixed();
 
     if (!proposalId) return;
     setIsLoading(true);
@@ -85,6 +91,7 @@ export const ReadyForProcessing = ({
       tx: {
         ...ACTION_TX.PROCESS,
         staticArgs: [proposalId, proposalData],
+        overrides: { gasLimit: processingGasLimit },
       } as TXLego,
       lifeCycleFns: {
         onTxError: (error) => {

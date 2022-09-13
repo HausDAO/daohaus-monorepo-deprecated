@@ -18,6 +18,7 @@ import { ProposalDetailsGuts } from '../components/ProposalDetailsGuts';
 import { ProposalHistory } from '../components/ProposalHistory';
 import { getProposalTypeLabel } from '../utils/general';
 import { ProposalActions } from '../components/proposalCards/ProposalActions';
+import { CancelProposal } from '../components/CancelProposal';
 
 const OverviewCard = styled(Card)`
   width: 64rem;
@@ -81,6 +82,7 @@ export function ProposalDetails() {
     <BiColumnLayout
       title={proposal?.title}
       subtitle={getProposalTypeLabel(proposal?.proposalType)}
+      actions={proposal && <CancelProposal proposal={proposal} />}
       left={
         <OverviewCard>
           {proposal && <ProposalDetailsGuts proposal={proposal} />}

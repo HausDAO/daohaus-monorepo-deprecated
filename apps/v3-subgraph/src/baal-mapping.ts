@@ -154,9 +154,14 @@ export function handleSubmitProposal(event: SubmitProposal): void {
     .concat('-proposal-')
     .concat(event.params.proposal.toString());
 
+  let proposerId = dao.id
+    .concat('-member-')
+    .concat(event.transaction.from.toHexString());
+
   let proposal = new Proposal(proposalId);
   proposal.createdAt = event.block.timestamp;
   proposal.createdBy = event.transaction.from;
+  proposal.proposerMembership = proposerId;
   proposal.txHash = event.transaction.hash;
   proposal.dao = event.address.toHexString();
   proposal.proposalId = event.params.proposal;
@@ -185,6 +190,7 @@ export function handleSubmitProposal(event: SubmitProposal): void {
     ? event.block.timestamp
     : null;
   proposal.sponsor = event.params.selfSponsor ? event.transaction.from : null;
+  proposal.sponsorMembership = event.params.selfSponsor ? proposerId : null;
   proposal.prevProposalId = event.params.selfSponsor
     ? dao.latestSponsoredProposalId
     : constants.BIGINT_ZERO;
@@ -263,7 +269,12 @@ export function handleSponsorProposal(event: SponsorProposal): void {
     return;
   }
 
+  let sponsorId = dao.id
+    .concat('-member-')
+    .concat(event.params.member.toHexString());
+
   proposal.sponsor = event.params.member;
+  proposal.sponsorMembership = sponsorId;
   proposal.sponsored = true;
   proposal.votingStarts = event.block.timestamp;
   proposal.votingEnds = event.block.timestamp.plus(dao.votingPeriod);

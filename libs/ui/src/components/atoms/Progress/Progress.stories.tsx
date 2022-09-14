@@ -27,7 +27,7 @@ MultipleSections.args = {
   progressSection: [
     {
       percentage: '13%',
-      color: 'green',
+      color: 'pink',
     },
     {
       percentage: '23%',

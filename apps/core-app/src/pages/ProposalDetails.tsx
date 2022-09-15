@@ -54,6 +54,7 @@ export function ProposalDetails() {
   const fetchProposal = useCallback(() => {
     const shouldUpdate = true;
     if (!daochain || !daoid || !proposalId) return;
+    console.log('loading prop: shouldUpdate', shouldUpdate);
     loadProposal({
       daoid,
       daochain: daochain as keyof Keychain,

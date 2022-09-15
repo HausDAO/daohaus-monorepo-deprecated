@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
@@ -52,37 +52,25 @@ export function ProposalDetails() {
   >();
   const [proposalLoading, setProposalLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    let shouldUpdate = true;
-    if (daochain && daoid && proposalId) {
-      loadProposal({
-        daoid,
-        daochain: daochain as keyof Keychain,
-        proposalId,
-        setProposal,
-        setProposalLoading,
-        shouldUpdate,
-        connectedAddress: address,
-      });
-    }
-    return () => {
-      shouldUpdate = false;
-    };
+  const fetchProposal = useCallback(() => {
+    const shouldUpdate = true;
+    if (!daochain || !daoid || !proposalId) return;
+    loadProposal({
+      daoid,
+      daochain: daochain as keyof Keychain,
+      proposalId,
+      setProposal,
+      setProposalLoading,
+      shouldUpdate,
+      connectedAddress: address,
+    });
   }, [daochain, daoid, proposalId, address]);
 
-  const refreshProposal = () => {
+  useEffect(() => {
     if (daochain && daoid && proposalId) {
-      loadProposal({
-        daoid,
-        daochain: daochain as keyof Keychain,
-        proposalId,
-        setProposal,
-        setProposalLoading,
-        shouldUpdate: true,
-        connectedAddress: address,
-      });
+      fetchProposal();
     }
-  };
+  }, [daochain, daoid, proposalId, address, fetchProposal]);
 
   if (proposalLoading) {
     return (
@@ -98,7 +86,7 @@ export function ProposalDetails() {
       subtitle={getProposalTypeLabel(proposal?.proposalType)}
       actions={
         proposal && (
-          <CancelProposal proposal={proposal} onSuccess={refreshProposal} />
+          <CancelProposal proposal={proposal} onSuccess={fetchProposal} />
         )
       }
       left={

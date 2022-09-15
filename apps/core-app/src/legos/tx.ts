@@ -430,4 +430,9 @@ export const ACTION_TX: Record<string, TXLegoBase> = {
     contract: CONTRACT.CURRENT_DAO,
     method: 'processProposal',
   },
+  CANCEL: {
+    id: 'CANCEL',
+    contract: CONTRACT.CURRENT_DAO,
+    method: 'cancelProposal',
+  },
 };

@@ -18,6 +18,7 @@ import { ProposalDetailsGuts } from '../components/ProposalDetailsGuts';
 import { ProposalHistory } from '../components/ProposalHistory';
 import { getProposalTypeLabel } from '../utils/general';
 import { ProposalActions } from '../components/proposalCards/ProposalActions';
+import { CancelProposal } from '../components/CancelProposal';
 
 const OverviewCard = styled(Card)`
   width: 64rem;
@@ -72,6 +73,20 @@ export function ProposalDetails() {
     }
   }, [daochain, daoid, proposalId, address, fetchProposal]);
 
+  const refreshProposal = () => {
+    if (daochain && daoid && proposalId) {
+      loadProposal({
+        daoid,
+        daochain: daochain as keyof Keychain,
+        proposalId,
+        setProposal,
+        setProposalLoading,
+        shouldUpdate: true,
+        connectedAddress: address,
+      });
+    }
+  };
+
   if (proposalLoading) {
     return (
       <SingleColumnLayout>
@@ -84,6 +99,11 @@ export function ProposalDetails() {
     <BiColumnLayout
       title={proposal?.title}
       subtitle={getProposalTypeLabel(proposal?.proposalType)}
+      actions={
+        proposal && (
+          <CancelProposal proposal={proposal} onSuccess={refreshProposal} />
+        )
+      }
       left={
         <OverviewCard>
           {proposal && <ProposalDetailsGuts proposal={proposal} />}

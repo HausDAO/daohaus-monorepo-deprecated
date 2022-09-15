@@ -55,7 +55,6 @@ export function ProposalDetails() {
   const fetchProposal = useCallback(() => {
     const shouldUpdate = true;
     if (!daochain || !daoid || !proposalId) return;
-    console.log('loading prop: shouldUpdate', shouldUpdate);
     loadProposal({
       daoid,
       daochain: daochain as keyof Keychain,
@@ -68,24 +67,10 @@ export function ProposalDetails() {
   }, [daochain, daoid, proposalId, address]);
 
   useEffect(() => {
-    if (daochain && daoid && proposalId && address) {
+    if (daochain && daoid && proposalId) {
       fetchProposal();
     }
   }, [daochain, daoid, proposalId, address, fetchProposal]);
-
-  const refreshProposal = () => {
-    if (daochain && daoid && proposalId) {
-      loadProposal({
-        daoid,
-        daochain: daochain as keyof Keychain,
-        proposalId,
-        setProposal,
-        setProposalLoading,
-        shouldUpdate: true,
-        connectedAddress: address,
-      });
-    }
-  };
 
   if (proposalLoading) {
     return (
@@ -101,7 +86,7 @@ export function ProposalDetails() {
       subtitle={getProposalTypeLabel(proposal?.proposalType)}
       actions={
         proposal && (
-          <CancelProposal proposal={proposal} onSuccess={refreshProposal} />
+          <CancelProposal proposal={proposal} onSuccess={fetchProposal} />
         )
       }
       left={

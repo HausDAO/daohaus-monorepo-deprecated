@@ -201,18 +201,13 @@ export function Members() {
                 secondary
                 memberAddress={row.original.memberAddress}
               />
-              <MemberProfileMenu
-                isConnectedMember={
-                  connectedMembership?.memberAddress ===
-                  row.original.memberAddress
-                }
-              />
+              <MemberProfileMenu memberAddress={row.original.memberAddress} />
             </ActionContainer>
           );
         },
       },
     ],
-    [dao, connectedMembership]
+    [dao]
   );
 
   // TODO: Move these into the context as new hooks:

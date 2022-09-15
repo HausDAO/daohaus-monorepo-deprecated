@@ -145,7 +145,7 @@ export const Profile = ({ profile, membership }: ProfileProps) => {
             )}
           </Container>
         </ProfileMetadataContainer>
-        <MemberProfileMenu isConnectedMember={isConnectedMember} />
+        <MemberProfileMenu memberAddress={membership?.memberAddress} />
       </PSubContainer>
       {membership && dao && (
         <DataGrid>

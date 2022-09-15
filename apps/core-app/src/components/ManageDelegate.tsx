@@ -5,18 +5,25 @@ import { useConnectedMembership, useDao } from '@daohaus/dao-context';
 import { CustomFields } from '../legos/config';
 import { COMMON_FORMS } from '../legos/form';
 
-export const ManageDelegate = () => {
+type ManageDelegateProps = {
+  defaultMember: string;
+};
+
+export const ManageDelegate = ({ defaultMember }: ManageDelegateProps) => {
   const { connectedMembership } = useConnectedMembership();
   const { refreshAll } = useDao();
 
   const defaultValues = useMemo(() => {
+    if (defaultMember) {
+      return { delegatingTo: defaultMember };
+    }
     if (
       connectedMembership &&
       connectedMembership.delegatingTo !== connectedMembership.memberAddress
     ) {
       return connectedMembership;
     }
-  }, [connectedMembership]);
+  }, [connectedMembership, defaultMember]);
 
   const onFormComplete = () => {
     refreshAll?.();

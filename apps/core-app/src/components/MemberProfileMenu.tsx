@@ -1,3 +1,4 @@
+import { useConnectedMembership } from '@daohaus/dao-context';
 import {
   Dropdown,
   DropdownMenuItem,
@@ -7,8 +8,13 @@ import {
   Dialog,
   DialogTrigger,
   DialogContent,
+  Button,
+  DropdownLink,
+  DropdownText,
 } from '@daohaus/ui';
+import { useMemo } from 'react';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import ManageDelegate from './ManageDelegate';
 
@@ -29,7 +35,11 @@ export const ProfileMenuTrigger = styled(DropdownButton)`
   }
 `;
 
-export const ProfileMenuLink = styled.p`
+export const ProfileMenuLink = styled(DropdownLink)`
+  font-weight: ${font.weight.bold};
+`;
+
+const ProfileMenuText = styled(DropdownText)`
   border-radius: 2px;
   color: ${(props) => props.theme.dropdown.text};
   font-weight: ${font.weight.bold};
@@ -56,24 +66,39 @@ export const ProfileMenuLink = styled.p`
 `;
 
 type MemberProfileMenuProps = {
-  isConnectedMember: boolean;
+  memberAddress: string;
 };
 
 export const MemberProfileMenu = ({
-  isConnectedMember,
+  memberAddress,
 }: MemberProfileMenuProps) => {
+  const { daoid, daochain } = useParams();
+  const { connectedMembership } = useConnectedMembership();
+
+  const enableActions = useMemo(() => {
+    return (
+      connectedMembership &&
+      connectedMembership?.memberAddress !== memberAddress &&
+      Number(connectedMembership.shares) > 0
+    );
+  }, [connectedMembership, memberAddress]);
+
+  const isMenuForConnectedMember = useMemo(() => {
+    return connectedMembership?.memberAddress === memberAddress;
+  }, [connectedMembership, memberAddress]);
+
   return (
     <Dropdown
       menuMinWidth="17.8rem"
       trigger={<ProfileMenuTrigger IconLeft={BiDotsVerticalRounded} sm />}
       side="left"
     >
-      {isConnectedMember && (
+      {isMenuForConnectedMember && (
         <>
           <DropdownMenuItem key="delegate" asChild>
             <Dialog>
               <DialogTrigger asChild>
-                <ProfileMenuLink>Delegate</ProfileMenuLink>
+                <ProfileMenuText>Delegate</ProfileMenuText>
               </DialogTrigger>
               <DialogContent title="Manage Delegate">
                 <ManageDelegate />
@@ -81,18 +106,36 @@ export const MemberProfileMenu = ({
             </Dialog>
           </DropdownMenuItem>
           <DropdownMenuItem key="ragequit" asChild>
-            <ProfileMenuLink>Rage Quit</ProfileMenuLink>
+            <ProfileMenuText className="disabled">Rage Quit</ProfileMenuText>
           </DropdownMenuItem>
         </>
       )}
 
-      {!isConnectedMember && (
+      {!isMenuForConnectedMember && (
         <>
           <DropdownMenuItem key="delegateTo" asChild>
-            <ProfileMenuLink>Delegate To</ProfileMenuLink>
+            <Dialog>
+              <DialogTrigger asChild>
+                <ProfileMenuText className={enableActions ? '' : 'disabled'}>
+                  Delegate To
+                </ProfileMenuText>
+              </DialogTrigger>
+              <DialogContent title="Manage Delegate">
+                <ManageDelegate defaultMember={memberAddress} />
+              </DialogContent>
+            </Dialog>
           </DropdownMenuItem>
-          <DropdownMenuItem key="ragequit" asChild>
-            <ProfileMenuLink>Rage Kick</ProfileMenuLink>
+          <DropdownMenuItem key="guildkick" asChild>
+            <ProfileMenuLink
+              className={enableActions ? '' : 'disabled'}
+              href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=GUILDKICK&defaultValues=${JSON.stringify(
+                {
+                  memberAddress: memberAddress,
+                }
+              )}`}
+            >
+              Guild Kick
+            </ProfileMenuLink>
           </DropdownMenuItem>
         </>
       )}

@@ -6,7 +6,7 @@ import { CustomFields } from '../legos/config';
 import { COMMON_FORMS } from '../legos/form';
 
 type ManageDelegateProps = {
-  defaultMember: string;
+  defaultMember?: string;
 };
 
 export const ManageDelegate = ({ defaultMember }: ManageDelegateProps) => {

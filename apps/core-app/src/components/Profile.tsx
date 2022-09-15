@@ -20,13 +20,8 @@ import {
   votingPowerPercentage,
 } from '@daohaus/common-utilities';
 
-import {
-  TMembership,
-  useConnectedMembership,
-  useDao,
-} from '@daohaus/dao-context';
+import { TMembership, useDao } from '@daohaus/dao-context';
 import { MemberProfileMenu } from './MemberProfileMenu';
-import { useMemo } from 'react';
 
 const AvatarLarge = styled(Avatar)`
   height: 12rem;
@@ -106,11 +101,6 @@ type ProfileProps = {
 
 export const Profile = ({ profile, membership }: ProfileProps) => {
   const { dao } = useDao();
-  const { connectedMembership } = useConnectedMembership();
-
-  const isConnectedMember = useMemo(() => {
-    return connectedMembership?.memberAddress === membership?.memberAddress;
-  }, [connectedMembership, membership]);
 
   return (
     <PContainer>
@@ -145,7 +135,9 @@ export const Profile = ({ profile, membership }: ProfileProps) => {
             )}
           </Container>
         </ProfileMetadataContainer>
-        <MemberProfileMenu memberAddress={membership?.memberAddress} />
+        {membership && (
+          <MemberProfileMenu memberAddress={membership.memberAddress} />
+        )}
       </PSubContainer>
       {membership && dao && (
         <DataGrid>

@@ -6,8 +6,6 @@ import {
   Field,
   ParMd,
   DataMd,
-  Button,
-  font,
   ParSm,
   Theme,
   Tooltip,
@@ -29,8 +27,6 @@ const RemoveDelegate = styled(ParSm)`
   }
 `;
 
-// TODO DIDN'T REFRESH
-
 export const DelegateInput = (props: Buildable<Field>) => {
   const { connectedMembership } = useConnectedMembership();
   const { dao } = useDao();
@@ -43,18 +39,20 @@ export const DelegateInput = (props: Buildable<Field>) => {
     setValue(props.id, connectedMembership?.memberAddress);
   };
 
+  const votingPowerMessage = `${dao?.shareTokenName} (${formatValueTo({
+    value: fromWei(connectedMembership?.shares || '0'),
+    decimals: 2,
+    format: 'number',
+  })} - ${votingPowerPercentage(
+    dao?.totalShares || '0',
+    connectedMembership?.shares || '0'
+  )}% voting power) `;
+
   return (
     <>
       <WrappedInput {...props} />
       <ParMd>Voting token to delegate</ParMd>
-      <DataMd>{`${dao?.shareTokenName} (${formatValueTo({
-        value: fromWei(connectedMembership?.shares || '0'),
-        decimals: 2,
-        format: 'number',
-      })} - ${votingPowerPercentage(
-        dao?.totalShares || '0',
-        connectedMembership?.shares || '0'
-      )}% voting power) `}</DataMd>
+      <DataMd>{votingPowerMessage}</DataMd>
       {hasCurrentDelegate && (
         <RemoveDelegate onClick={handleRemoveDelegate}>
           Remove Existing Delegate

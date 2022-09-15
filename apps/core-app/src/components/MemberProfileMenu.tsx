@@ -1,3 +1,7 @@
+import { useMemo } from 'react';
+import { RiMore2Fill } from 'react-icons/ri';
+import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 import { useConnectedMembership } from '@daohaus/dao-context';
 import {
   Dropdown,
@@ -8,14 +12,10 @@ import {
   Dialog,
   DialogTrigger,
   DialogContent,
-  Button,
   DropdownLink,
   DropdownText,
 } from '@daohaus/ui';
-import { useMemo } from 'react';
-import { BiDotsVerticalRounded } from 'react-icons/bi';
-import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
+
 import ManageDelegate from './ManageDelegate';
 
 export const ProfileMenuTrigger = styled(DropdownButton)`
@@ -90,7 +90,7 @@ export const MemberProfileMenu = ({
   return (
     <Dropdown
       menuMinWidth="17.8rem"
-      trigger={<ProfileMenuTrigger IconLeft={BiDotsVerticalRounded} sm />}
+      trigger={<ProfileMenuTrigger IconLeft={RiMore2Fill} sm />}
       side="left"
     >
       {isMenuForConnectedMember && (

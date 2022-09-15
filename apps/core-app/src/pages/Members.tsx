@@ -10,8 +10,6 @@ import {
   useBreakpoint,
   Link,
   Button,
-  ParMd,
-  Divider,
   Tooltip,
 } from '@daohaus/ui';
 import {

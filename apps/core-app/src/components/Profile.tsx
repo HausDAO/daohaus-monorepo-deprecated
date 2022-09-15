@@ -109,10 +109,7 @@ export const Profile = ({ profile, membership }: ProfileProps) => {
   const { connectedMembership } = useConnectedMembership();
 
   const isConnectedMember = useMemo(() => {
-    return (
-      connectedMembership?.memberAddress.toLowerCase() ===
-      membership?.memberAddress.toLowerCase()
-    );
+    return connectedMembership?.memberAddress === membership?.memberAddress;
   }, [connectedMembership, membership]);
 
   return (

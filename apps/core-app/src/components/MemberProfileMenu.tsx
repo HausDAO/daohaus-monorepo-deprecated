@@ -1,13 +1,16 @@
 import {
   Dropdown,
-  DropdownLink,
   DropdownMenuItem,
   DropdownButton,
   font,
   Theme,
+  Dialog,
+  DialogTrigger,
+  DialogContent,
 } from '@daohaus/ui';
 import { BiDotsVerticalRounded } from 'react-icons/bi';
 import styled from 'styled-components';
+import ManageDelegate from './ManageDelegate';
 
 export const ProfileMenuTrigger = styled(DropdownButton)`
   padding: 0 4px 0 4px;
@@ -26,8 +29,30 @@ export const ProfileMenuTrigger = styled(DropdownButton)`
   }
 `;
 
-export const ProfileMenuLink = styled(DropdownLink)`
+export const ProfileMenuLink = styled.p`
+  border-radius: 2px;
+  color: ${(props) => props.theme.dropdown.text};
   font-weight: ${font.weight.bold};
+  cursor: pointer;
+  display: flex;
+  padding: 1rem;
+  transition: 0.2s all;
+  width: 100%;
+  font-size: ${font.size.md};
+
+  svg {
+    margin-left: 0.3rem;
+  }
+
+  :hover {
+    background-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBg};
+    border-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBorder};
+    text-decoration: none;
+  }
+
+  &.disabled {
+    color: ${(props) => props.theme.dropdown.textDisabled};
+  }
 `;
 
 type MemberProfileMenuProps = {
@@ -46,7 +71,14 @@ export const MemberProfileMenu = ({
       {isConnectedMember && (
         <>
           <DropdownMenuItem key="delegate" asChild>
-            <ProfileMenuLink>Delegate</ProfileMenuLink>
+            <Dialog>
+              <DialogTrigger asChild>
+                <ProfileMenuLink>Delegate</ProfileMenuLink>
+              </DialogTrigger>
+              <DialogContent title="Manage Delegate">
+                <ManageDelegate />
+              </DialogContent>
+            </Dialog>
           </DropdownMenuItem>
           <DropdownMenuItem key="ragequit" asChild>
             <ProfileMenuLink>Rage Quit</ProfileMenuLink>
@@ -56,7 +88,7 @@ export const MemberProfileMenu = ({
 
       {!isConnectedMember && (
         <>
-          <DropdownMenuItem key="delegate" asChild>
+          <DropdownMenuItem key="delegateTo" asChild>
             <ProfileMenuLink>Delegate To</ProfileMenuLink>
           </DropdownMenuItem>
           <DropdownMenuItem key="ragequit" asChild>

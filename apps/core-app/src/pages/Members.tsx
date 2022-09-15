@@ -10,12 +10,16 @@ import {
   useBreakpoint,
   Link,
   Button,
+  ParMd,
+  Divider,
+  Tooltip,
 } from '@daohaus/ui';
 import {
   charLimit,
   formatDateFromSeconds,
   formatValueTo,
   fromWei,
+  sharesDelegatedToMember,
   votingPowerPercentage,
 } from '@daohaus/common-utilities';
 
@@ -102,10 +106,30 @@ export function Members() {
           return <div className="hide-sm">Power</div>;
         },
         accessor: 'delegateShares',
-        Cell: ({ value }: { value: string }) => {
+        Cell: ({
+          value,
+          row,
+        }: {
+          value: string;
+          row: Row<MembersTableType>;
+        }) => {
+          const delegatedShares = sharesDelegatedToMember(
+            row.original.delegateShares,
+            row.original.shares
+          );
           return (
             <div className="hide-sm">
-              {votingPowerPercentage(dao?.totalShares || '0', value)}
+              {votingPowerPercentage(dao?.totalShares || '0', value)}{' '}
+              {delegatedShares > 0 && (
+                <Tooltip
+                  content={`${formatValueTo({
+                    value: fromWei(delegatedShares.toFixed()),
+                    decimals: 2,
+                    format: 'number',
+                  })} shares delegated to member`}
+                  side="bottom"
+                />
+              )}
             </div>
           );
         },
@@ -177,13 +201,18 @@ export function Members() {
                 secondary
                 memberAddress={row.original.memberAddress}
               />
-              <MemberProfileMenu isConnectedMember={false} />
+              <MemberProfileMenu
+                isConnectedMember={
+                  connectedMembership?.memberAddress ===
+                  row.original.memberAddress
+                }
+              />
             </ActionContainer>
           );
         },
       },
     ],
-    [dao]
+    [dao, connectedMembership]
   );
 
   // TODO: Move these into the context as new hooks:

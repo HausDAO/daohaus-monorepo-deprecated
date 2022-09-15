@@ -36,7 +36,7 @@ export function Dao() {
       provider={provider}
       safeId={dao?.safeAddress}
       daoId={daoid}
-      appState={{}}
+      appState={{ dao }}
     >
       <HausLayout
         navLinks={[

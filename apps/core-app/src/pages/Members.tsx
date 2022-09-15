@@ -126,7 +126,7 @@ export function Members() {
                     value: fromWei(delegatedShares.toFixed()),
                     decimals: 2,
                     format: 'number',
-                  })} shares delegated to member`}
+                  })} shares are delegated to this member`}
                   side="bottom"
                 />
               )}

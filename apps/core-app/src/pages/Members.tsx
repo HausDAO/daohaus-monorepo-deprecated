@@ -30,6 +30,7 @@ import { MembersOverview } from '../components/MembersOverview';
 import { ProfileLink } from '../components/ProfileLink';
 import { DaoTable } from '../components/DaohausTable';
 import { useParams } from 'react-router-dom';
+import { MemberProfileMenu } from '../components/MemberProfileMenu';
 
 const MemberContainer = styled(Card)`
   padding: 3rem;
@@ -52,6 +53,11 @@ const StyledButtonLink = styled(Link)`
   :hover {
     text-decoration: none;
   }
+`;
+
+const ActionContainer = styled.div`
+  display: flex;
+  gap: 1rem;
 `;
 
 export type MembersTableType = TMembers[number];
@@ -164,7 +170,16 @@ export function Members() {
       {
         accessor: 'id',
         Cell: ({ row }: { row: Row<MembersTableType> }) => {
-          return <ProfileLink sm memberAddress={row.original.memberAddress} />;
+          return (
+            <ActionContainer>
+              <ProfileLink
+                sm
+                secondary
+                memberAddress={row.original.memberAddress}
+              />
+              <MemberProfileMenu isConnectedMember={false} />
+            </ActionContainer>
+          );
         },
       },
     ],

@@ -14,6 +14,7 @@ import UpdateSettings from './pages/UpdateSettings';
 import ProposalDetails from './pages/ProposalDetails';
 import { DaoContainer } from './pages/DaoContainer';
 import { Banner } from '@daohaus/ui';
+import RageQuit from './pages/RageQuit';
 
 const Routes = () => {
   return (
@@ -32,6 +33,7 @@ const Routes = () => {
           <Route path="members/:memberAddress" element={<Member />} />
           <Route path="settings" element={<Settings />} />
           <Route path="settings/update" element={<UpdateSettings />} />
+          <Route path="rage-quit" element={<RageQuit />} />
         </Route>
       </RoutesDom>
     </>

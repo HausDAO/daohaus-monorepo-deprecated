@@ -40,7 +40,7 @@ jobs:
           touch .env
           echo NX_RIVET_KEY=${{ secrets.RIVET_KEY }}  >> .env
           echo VITE_RIVET_KEY=${{ secrets.RIVET_KEY }}  >> .env
-          echo VITE_PROJECT_ID=${{ secrets.INFURA_PROJECT_ID }} >> .env
+          echo VITE_INFURA_PROJECT_ID=${{ secrets.INFURA_PROJECT_ID }} >> .env
           echo CERAMIC_NETWORK=${{ secrets.CERAMIC_NETWORK }}  >> .env
           echo NODE_ENV=production  >> .env
       - run: yarn install --frozen-lockfile

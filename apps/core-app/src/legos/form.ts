@@ -534,4 +534,13 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
       ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
+  MANAGE_DELEGATE: {
+    id: 'MANAGE_DELEGATE',
+    fields: [FIELD.DELEGATE],
+    requiredFields: {
+      delegatingTo: true,
+    },
+    submitButtonText: 'Update Delegate',
+    tx: TX.MANAGE_DELEGATE,
+  },
 };

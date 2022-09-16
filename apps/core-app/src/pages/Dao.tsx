@@ -11,7 +11,7 @@ export function Dao() {
 
   const apps = {
     trigger: {
-      name: 'Core App',
+      name: 'DAO Admin',
       url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     },
     apps: [
@@ -36,7 +36,7 @@ export function Dao() {
       provider={provider}
       safeId={dao?.safeAddress}
       daoId={daoid}
-      appState={{}}
+      appState={{ dao }}
     >
       <HausLayout
         navLinks={[

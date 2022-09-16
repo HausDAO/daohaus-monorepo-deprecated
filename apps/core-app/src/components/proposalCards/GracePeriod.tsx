@@ -31,7 +31,7 @@ export const GracePeriod = ({
     userVoteData &&
     `You voted ${userVoteData.approved ? 'Yes' : 'No'} (${formatShares(
       userVoteData.balance
-    )}`;
+    )})`;
 
   return (
     <ActionTemplate

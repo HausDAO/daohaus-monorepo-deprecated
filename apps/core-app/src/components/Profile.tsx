@@ -21,6 +21,7 @@ import {
 } from '@daohaus/common-utilities';
 
 import { TMembership, useDao } from '@daohaus/dao-context';
+import { MemberProfileMenu } from './MemberProfileMenu';
 
 const AvatarLarge = styled(Avatar)`
   height: 12rem;
@@ -134,6 +135,9 @@ export const Profile = ({ profile, membership }: ProfileProps) => {
             )}
           </Container>
         </ProfileMetadataContainer>
+        {membership && (
+          <MemberProfileMenu memberAddress={membership.memberAddress} />
+        )}
       </PSubContainer>
       {membership && dao && (
         <DataGrid>

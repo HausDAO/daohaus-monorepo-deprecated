@@ -9,6 +9,7 @@ import { ShamanDeluxe } from '../components/customFields/ShamanDeluxe';
 import { TagsInput } from '../components/customFields/tagsInput';
 import { FakeMarkdown } from '../components/FakeMarkdown';
 import { ProposalOffering } from '../components/customFields/ProposalOffering';
+import { DelegateInput } from '../components/customFields/delegateInput';
 
 export const CustomFields = {
   ...CoreFieldLookup,
@@ -21,6 +22,7 @@ export const CustomFields = {
   tagsInput: TagsInput,
   fakeMarkdown: FakeMarkdown,
   proposalOffering: ProposalOffering,
+  delegateInput: DelegateInput,
 };
 
 export type CustomFieldLego = FieldLegoBase<typeof CustomFields>;

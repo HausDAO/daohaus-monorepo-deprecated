@@ -262,6 +262,8 @@ export const DaoContextProvider = ({
         setMemberLoading: setConnectedMembershipLoading,
         shouldUpdate,
       });
+    } else {
+      setConnectedMembership(undefined);
     }
     return () => {
       shouldUpdate = false;

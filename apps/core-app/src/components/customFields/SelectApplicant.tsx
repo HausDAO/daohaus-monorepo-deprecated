@@ -25,7 +25,7 @@ export const SelectApplicant = ({
   daoMemberOnly,
   ...props
 }: SelectApplicantProps) => {
-  const [textMode, toggleTextMode] = useState(false);
+  const [textMode, toggleTextMode] = useState(true);
   const [memberList, setMemberList] = useState<Array<OptionType>>([]);
   const [memberLoading, setMemberLoading] = useState(false);
   const [valError, setValError] = useState<ErrorMessage | undefined>();
@@ -62,7 +62,7 @@ export const SelectApplicant = ({
     [daochain, daoid, setValue]
   );
 
-  const ToggeButton = () => {
+  const ToggleButton = () => {
     return (
       <Button
         sm
@@ -103,7 +103,7 @@ export const SelectApplicant = ({
       loading={memberLoading}
       options={!textMode ? memberList : []}
       placeholder={!textMode ? `Choose a Member` : `0x`}
-      rightAddon={<ToggeButton />}
+      rightAddon={<ToggleButton />}
     />
   );
 };

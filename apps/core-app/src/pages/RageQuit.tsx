@@ -1,35 +1,33 @@
 import { useMemo } from 'react';
 
 import { FormBuilder } from '@daohaus/haus-form-builder';
-import { useDao } from '@daohaus/dao-context';
+import { useConnectedMembership, useDao } from '@daohaus/dao-context';
 import { CustomFields } from '../legos/config';
 import { COMMON_FORMS } from '../legos/form';
 
 export function RageQuit() {
   const { dao } = useDao();
+  const { connectedMembership } = useConnectedMembership();
 
-  //   const defaultFields = useMemo(() => {
-  //     const links = dao ? dao?.links : {};
-  //     return {
-  //       name: dao?.name,
-  //       icon: dao?.avatarImg,
-  //       tags: dao?.tags?.join(', '),
-  //       description: dao?.description,
-  //       long_description: dao?.longDescription,
-  //       ...links,
-  //     };
-  //   }, [dao]);
+  const defaultFields = useMemo(() => {
+    if (connectedMembership && dao) {
+      return {
+        to: connectedMembership.memberAddress,
+        tokens: dao.tokenBalances
+          .filter((token) => token.tokenAddress)
+          .map((token) => token.tokenAddress),
+      };
+    }
+  }, [connectedMembership, dao]);
 
-  console.log('dao', dao);
-
-  if (!dao) {
+  if (!dao || !connectedMembership) {
     return null;
   }
 
   return (
     <FormBuilder
-      //   defaultValues={defaultFields}
-      form={{ ...COMMON_FORMS.METADATA_SETTINGS, log: true }}
+      defaultValues={defaultFields}
+      form={{ ...COMMON_FORMS.RAGEQUIT, log: true }}
       customFields={CustomFields}
     />
   );

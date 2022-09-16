@@ -106,7 +106,9 @@ export const MemberProfileMenu = ({
             </Dialog>
           </DropdownMenuItem>
           <DropdownMenuItem key="ragequit" asChild>
-            <ProfileMenuLink href={`/molochv3/${daochain}/${daoid}/rage-quit`}>
+            <ProfileMenuLink
+              href={`/molochv3/${daochain}/${daoid}/members/ragequit`}
+            >
               Rage Quit
             </ProfileMenuLink>
           </DropdownMenuItem>

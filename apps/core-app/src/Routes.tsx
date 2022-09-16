@@ -33,7 +33,7 @@ const Routes = () => {
           <Route path="members/:memberAddress" element={<Member />} />
           <Route path="settings" element={<Settings />} />
           <Route path="settings/update" element={<UpdateSettings />} />
-          <Route path="rage-quit" element={<RageQuit />} />
+          <Route path="members/ragequit" element={<RageQuit />} />
         </Route>
       </RoutesDom>
     </>

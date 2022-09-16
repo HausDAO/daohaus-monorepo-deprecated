@@ -5,6 +5,7 @@ import {
   primaryDark,
   secondary,
   secondaryDark,
+  secondaryDarkA,
   neutral,
   neutralDark,
   utility,
@@ -59,12 +60,14 @@ export const defaultDarkTheme: Theme = {
   card: {
     bg: secondaryDark.step2,
     border: secondaryDark.step5,
+    // TODO Delete unused card states
     hoverBg: secondaryDark.step3,
     hoverBorder: secondaryDark.step6,
     focusBg: secondaryDark.step2,
     focusBorder: secondaryDark.step7,
     disabledBg: neutralDark.step2,
     disabledBorder: neutralDark.step5,
+    // end unused card states
     successText: utilityDark.successText,
     successBg: utilityDark.successBg,
     successBorder: utilityDark.successBorder,
@@ -173,8 +176,9 @@ export const defaultDarkTheme: Theme = {
     text: primaryDark.step11,
     hoverText: primaryDark.step10,
     focusText: primaryDark.step12,
-    bgInnerCard: secondaryDark.step5,
-    borderInnerCard: secondaryDark.step6,
+    // bgInnerCard: secondaryDark.step5,
+    bgInnerCard: secondaryDarkA.step3,
+    borderInnerCard: secondaryDark.step5,
   },
   dropdown: DropdownDark,
   dialog: {

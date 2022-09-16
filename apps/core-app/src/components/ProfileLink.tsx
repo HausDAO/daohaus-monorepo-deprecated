@@ -6,6 +6,7 @@ type ProfileLinkProps = {
   sm?: boolean;
   lg?: boolean;
   buttonText?: string;
+  secondary?: boolean;
 };
 
 export const ProfileLink = ({
@@ -13,12 +14,13 @@ export const ProfileLink = ({
   sm = false,
   lg = false,
   buttonText = 'Profile',
+  secondary = false,
 }: ProfileLinkProps) => {
   const { daoid, daochain } = useParams();
 
   return (
     <Link href={`/molochv3/${daochain}/${daoid}/members/${memberAddress}`}>
-      <Button sm={sm} lg={lg}>
+      <Button sm={sm} lg={lg} secondary={secondary}>
         {buttonText}
       </Button>
     </Link>

@@ -37,3 +37,10 @@ export const memberUsdValueShare = (
     Number(ethers.utils.formatEther(daoTotalShares));
   return Number(usdValue) * ratio;
 };
+
+export const sharesDelegatedToMember = (
+  delegateShares: string | number,
+  memberShares: string | number
+): number => {
+  return Number(delegateShares) - Number(memberShares);
+};

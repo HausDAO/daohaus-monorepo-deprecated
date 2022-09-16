@@ -67,6 +67,12 @@ export const FIELD: Record<string, CustomFieldLego> = {
     label: 'Tags (separated by commas)',
     placeholder: 'DAO Name',
   },
+  DELEGATE: {
+    id: 'delegatingTo',
+    type: 'delegateInput',
+    label: 'Delgate to',
+    placeholder: '0x0...',
+  },
   PROPOSAL_EXPIRY: {
     id: 'checkRender',
     type: 'checkRender',

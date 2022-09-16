@@ -22,7 +22,7 @@ export type FieldLegoBase<Lookup extends LookupType> = {
 
 export type FormLegoBase<Lookup extends LookupType = LookupType> = {
   id: string;
-  title: string;
+  title?: string;
   subtitle?: string;
   description?: string;
   tx?: TXLego;

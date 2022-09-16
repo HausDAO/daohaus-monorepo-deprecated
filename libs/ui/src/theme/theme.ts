@@ -36,7 +36,7 @@ export const defaultDarkTheme: Theme = {
   bgColor: neutralDark.step1,
   fontColor: secondaryDark.step12,
   primary: primaryDark.step9,
-  secondary: secondary.step9,
+  secondary: secondaryDark.step9,
   error: utilityDark.danger,
   warning: utilityDark.warning,
   warningBg: utilityDark.warningBg,

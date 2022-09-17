@@ -14,8 +14,8 @@
         "entryFile": "src/index.ts",
         "updateBuildableProjectDepsInPackageJson": true,
         "buildableProjectDepsInPackageJsonType": "dependencies",
-        "packageJson": "libs/ui/package.json",
-        "project": "libs/ui"
+        "packageJson": "libs/daohaus-connect-feature/package.json",
+        "project": "libs/daohaus-connect-feature"
       }
     },
     "build": {

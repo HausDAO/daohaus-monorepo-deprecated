@@ -13,7 +13,7 @@
         "frameworkConfigFile": "@nxext/react/plugins/vite",
         "entryFile": "src/index.ts",
         "updateBuildableProjectDepsInPackageJson": true,
-        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "buildableProjectDepsInPackageJsonType": "peerDependencies",
         "packageJson": "libs/ui/package.json",
         "project": "libs/ui"
       }

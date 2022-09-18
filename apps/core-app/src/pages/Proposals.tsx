@@ -26,14 +26,14 @@ const ActionsContainer = styled.div`
   margin-bottom: 3rem;
   @media ${widthQuery.sm} {
     flex-direction: column;
+    gap: 2rem;
   }
 `;
 
 const SearchFilterContainer = styled.div`
   display: flex;
-  gap: 2.1rem;
+  gap: 2rem;
   @media ${widthQuery.sm} {
-    gap: 0;
     flex-direction: column;
   }
 `;

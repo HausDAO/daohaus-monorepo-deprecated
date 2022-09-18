@@ -24,6 +24,7 @@ const TemplateBox = styled.div`
   }
   .middle-section {
     height: 100%;
+    margin-bottom: auto;
     @media ${widthQuery.sm} {
       margin-bottom: 2rem;
     }

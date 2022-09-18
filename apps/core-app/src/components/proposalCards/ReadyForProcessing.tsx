@@ -175,12 +175,8 @@ export const ReadyForProcessing = ({
             sm
             onClick={processProposal}
             className="execute"
-<<<<<<< HEAD
-            rules={[isConnectedToDao, isNotLoading]}
-            centerAlign
-=======
             rules={[isConnectedToDao, isNotLoading, canProcess]}
->>>>>>> 43943b7cc32d296371071cd1f9ee4f9c533512b3
+            centerAlign
           >
             Execute
           </GatedButton>

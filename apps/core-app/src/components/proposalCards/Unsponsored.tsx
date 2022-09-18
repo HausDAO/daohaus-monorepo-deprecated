@@ -6,7 +6,14 @@ import {
 import { ITransformedProposal } from '@daohaus/dao-data';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { useTxBuilder } from '@daohaus/tx-builder-feature';
-import { Italic, ParSm, Spinner, useToast } from '@daohaus/ui';
+import {
+  Italic,
+  ParSm,
+  Spinner,
+  useBreakpoint,
+  useToast,
+  widthQuery,
+} from '@daohaus/ui';
 import React, { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTheme } from 'styled-components';
@@ -29,6 +36,8 @@ export const Unsponsored = ({
   const { errorToast, defaultToast, successToast } = useToast();
   const [isLoading, setIsLoading] = React.useState(false);
   const { dao, refreshAll } = useDao();
+  const isMobile = useBreakpoint(widthQuery.sm);
+
   const theme = useTheme();
 
   const handleSponsor = () => {
@@ -93,13 +102,14 @@ export const Unsponsored = ({
       statusDisplay="Needs A Sponsor"
       proposal={proposal}
       main={
-        <div>
+        <>
           <VotingBar proposal={proposal} />
           <GatedButton
             sm
             rules={[hasShares, isConnectedToDao]}
             onClick={handleSponsor}
             centerAlign
+            fullWidth={isMobile}
           >
             {isLoading ? (
               <Spinner size="2rem" strokeWidth=".2rem" />
@@ -107,12 +117,10 @@ export const Unsponsored = ({
               'Sponsor Proposal'
             )}
           </GatedButton>
-        </div>
+        </>
       }
       helperDisplay={
-        <ParSm color={theme.tint.secondary}>
-          <Italic>{PROP_CARD_HELP.UNSPONSORED}</Italic>
-        </ParSm>
+        <ParSm color={theme.tint.secondary}>{PROP_CARD_HELP.UNSPONSORED}</ParSm>
       }
     />
   );

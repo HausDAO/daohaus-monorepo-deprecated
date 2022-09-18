@@ -67,7 +67,7 @@ export const ProposalActions = ({
   if (proposal.status === PROPOSAL_STATUS.passed) {
     return (
       <ActionBox>
-        <Passed proposal={proposal} />
+        <Unsponsored proposal={proposal} />
       </ActionBox>
     );
   }

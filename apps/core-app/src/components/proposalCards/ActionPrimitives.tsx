@@ -21,6 +21,9 @@ const TemplateBox = styled.div`
     display: flex;
     margin-bottom: 2.4rem;
     justify-content: space-between;
+    @media ${widthQuery.sm} {
+      margin-bottom: 1.2rem;
+    }
   }
   .middle-section {
     height: 100%;
@@ -110,13 +113,7 @@ export const Verdict = ({
   );
 };
 
-export const VoteStatus = ({
-  passing,
-  appendText = '',
-}: {
-  passing: boolean;
-  appendText?: string;
-}) => {
+export const VoteStatus = ({ passing }: { passing: boolean }) => {
   return passing ? (
     <ProposalPass text="Proposal is Passing" />
   ) : (

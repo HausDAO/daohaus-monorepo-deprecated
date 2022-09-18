@@ -31,7 +31,12 @@ const LeftCard = styled.div`
 `;
 
 const RightCard = styled.div`
+<<<<<<< HEAD
   min-width: 26rem;
+=======
+  min-width: 30rem;
+  /* width: 100%; */
+>>>>>>> 43943b7cc32d296371071cd1f9ee4f9c533512b3
   @media ${widthQuery.sm} {
     max-width: 100%;
     min-width: 0;

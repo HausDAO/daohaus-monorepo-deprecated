@@ -73,6 +73,8 @@ type Proposal @entity {
   createdAt: BigInt!
   "address that submitted the proposal"
   createdBy: Bytes!
+  "member entity of proposer if applicable"
+  proposerMembership: Member
   "related DAO entity"
   dao: Dao!
   "id of the proposal"
@@ -109,6 +111,8 @@ type Proposal @entity {
   sponsored: Boolean!
   "address that sponsored the proposal"
   sponsor: Bytes
+  "member entity of the sponsor"
+  sponsorMembership: Member
   "transaction hash of the proposal sponsor"
   sponsorTxHash: Bytes
   "unix timestamp of when the proposal was sponsored"

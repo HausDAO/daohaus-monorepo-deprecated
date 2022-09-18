@@ -10,12 +10,14 @@ import {
   useBreakpoint,
   Link,
   Button,
+  Tooltip,
 } from '@daohaus/ui';
 import {
   charLimit,
   formatDateFromSeconds,
   formatValueTo,
   fromWei,
+  sharesDelegatedToMember,
   votingPowerPercentage,
 } from '@daohaus/common-utilities';
 
@@ -30,6 +32,7 @@ import { MembersOverview } from '../components/MembersOverview';
 import { ProfileLink } from '../components/ProfileLink';
 import { DaoTable } from '../components/DaohausTable';
 import { useParams } from 'react-router-dom';
+import { MemberProfileMenu } from '../components/MemberProfileMenu';
 
 const MemberContainer = styled(Card)`
   padding: 3rem;
@@ -52,6 +55,11 @@ const StyledButtonLink = styled(Link)`
   :hover {
     text-decoration: none;
   }
+`;
+
+const ActionContainer = styled.div`
+  display: flex;
+  gap: 1rem;
 `;
 
 export type MembersTableType = TMembers[number];
@@ -96,10 +104,30 @@ export function Members() {
           return <div className="hide-sm">Power</div>;
         },
         accessor: 'delegateShares',
-        Cell: ({ value }: { value: string }) => {
+        Cell: ({
+          value,
+          row,
+        }: {
+          value: string;
+          row: Row<MembersTableType>;
+        }) => {
+          const delegatedShares = sharesDelegatedToMember(
+            row.original.delegateShares,
+            row.original.shares
+          );
           return (
             <div className="hide-sm">
-              {votingPowerPercentage(dao?.totalShares || '0', value)}
+              {votingPowerPercentage(dao?.totalShares || '0', value)}{' '}
+              {delegatedShares > 0 && (
+                <Tooltip
+                  content={`${formatValueTo({
+                    value: fromWei(delegatedShares.toFixed()),
+                    decimals: 2,
+                    format: 'number',
+                  })} shares are delegated to this member`}
+                  side="bottom"
+                />
+              )}
             </div>
           );
         },
@@ -164,7 +192,16 @@ export function Members() {
       {
         accessor: 'id',
         Cell: ({ row }: { row: Row<MembersTableType> }) => {
-          return <ProfileLink sm memberAddress={row.original.memberAddress} />;
+          return (
+            <ActionContainer>
+              <ProfileLink
+                sm
+                secondary
+                memberAddress={row.original.memberAddress}
+              />
+              <MemberProfileMenu memberAddress={row.original.memberAddress} />
+            </ActionContainer>
+          );
         },
       },
     ],
@@ -194,19 +231,21 @@ export function Members() {
   return (
     <SingleColumnLayout
       title="Members"
-      actions={[
-        <StyledButtonLink
-          href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=ISSUE`}
-        >
-          <Button secondary>Add Member</Button>
-        </StyledButtonLink>,
-        connectedMembership && (
-          <ProfileLink
-            memberAddress={connectedMembership.memberAddress}
-            buttonText="My Profile"
-          />
-        ),
-      ]}
+      actions={
+        <>
+          <StyledButtonLink
+            href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=ISSUE`}
+          >
+            <Button secondary>Add Member</Button>
+          </StyledButtonLink>
+          {connectedMembership && (
+            <ProfileLink
+              memberAddress={connectedMembership.memberAddress}
+              buttonText="My Profile"
+            />
+          )}
+        </>
+      }
     >
       <MemberContainer>
         {dao && <MembersOverview dao={dao} />}

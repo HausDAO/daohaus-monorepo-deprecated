@@ -346,6 +346,12 @@ export const TX: Record<string, TXLego> = {
       },
     ],
   }),
+  MANAGE_DELEGATE: {
+    id: 'MANAGE_DELEGATE',
+    contract: CONTRACT.SHARES_ERC20,
+    method: 'delegate',
+    args: ['.formValues.delegatingTo'],
+  },
 };
 
 export const TABULA_TX: Record<string, TXLego> = {
@@ -429,5 +435,10 @@ export const ACTION_TX: Record<string, TXLegoBase> = {
     id: 'PROCESS',
     contract: CONTRACT.CURRENT_DAO,
     method: 'processProposal',
+  },
+  CANCEL: {
+    id: 'CANCEL',
+    contract: CONTRACT.CURRENT_DAO,
+    method: 'cancelProposal',
   },
 };

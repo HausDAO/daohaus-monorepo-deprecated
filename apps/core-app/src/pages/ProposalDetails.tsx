@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
@@ -18,6 +18,7 @@ import { ProposalDetailsGuts } from '../components/ProposalDetailsGuts';
 import { ProposalHistory } from '../components/ProposalHistory';
 import { getProposalTypeLabel } from '../utils/general';
 import { ProposalActions } from '../components/proposalCards/ProposalActions';
+import { CancelProposal } from '../components/CancelProposal';
 
 const OverviewCard = styled(Card)`
   width: 64rem;
@@ -51,23 +52,25 @@ export function ProposalDetails() {
   >();
   const [proposalLoading, setProposalLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    let shouldUpdate = true;
-    if (daochain && daoid && proposalId) {
-      loadProposal({
-        daoid,
-        daochain: daochain as keyof Keychain,
-        proposalId,
-        setProposal,
-        setProposalLoading,
-        shouldUpdate,
-        connectedAddress: address,
-      });
-    }
-    return () => {
-      shouldUpdate = false;
-    };
+  const fetchProposal = useCallback(() => {
+    const shouldUpdate = true;
+    if (!daochain || !daoid || !proposalId) return;
+    loadProposal({
+      daoid,
+      daochain: daochain as keyof Keychain,
+      proposalId,
+      setProposal,
+      setProposalLoading,
+      shouldUpdate,
+      connectedAddress: address,
+    });
   }, [daochain, daoid, proposalId, address]);
+
+  useEffect(() => {
+    if (daochain && daoid && proposalId) {
+      fetchProposal();
+    }
+  }, [daochain, daoid, proposalId, address, fetchProposal]);
 
   if (proposalLoading) {
     return (
@@ -81,6 +84,11 @@ export function ProposalDetails() {
     <BiColumnLayout
       title={proposal?.title}
       subtitle={getProposalTypeLabel(proposal?.proposalType)}
+      actions={
+        proposal && (
+          <CancelProposal proposal={proposal} onSuccess={fetchProposal} />
+        )
+      }
       left={
         <OverviewCard>
           {proposal && <ProposalDetailsGuts proposal={proposal} />}

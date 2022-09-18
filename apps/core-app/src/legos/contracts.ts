@@ -35,4 +35,16 @@ export const CONTRACT: Record<string, ContractLego> = {
     abi: LOCAL_ABI.TRIBUTE_MINION,
     targetAddress: CONTRACTS.TRIBUTE_MINION,
   },
+  SHARES_ERC20: {
+    type: 'static',
+    contractName: 'SHARES_ERC20',
+    abi: LOCAL_ABI.SHARES,
+    targetAddress: '.dao.sharesAddress',
+  },
+  LOOT_ERC20: {
+    type: 'static',
+    contractName: 'LOOT_ERC20',
+    abi: LOCAL_ABI.LOOT,
+    targetAddress: '.dao.sharesAddress',
+  },
 };

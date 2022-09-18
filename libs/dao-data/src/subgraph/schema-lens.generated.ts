@@ -1188,6 +1188,19 @@ export interface IllegalReasonInputParams {
   subreason: PublicationReportingIllegalSubreason;
 }
 
+export interface InternalPublicationsFilterRequest {
+  cursor?: InputMaybe<Scalars['Cursor']>;
+  /** must be DD/MM/YYYY */
+  fromDate: Scalars['String'];
+  limit?: InputMaybe<Scalars['LimitScalar']>;
+  /** The shared secret */
+  secret: Scalars['String'];
+  /** The App Id */
+  source: Scalars['Sources'];
+  /** must be DD/MM/YYYY */
+  toDate: Scalars['String'];
+}
+
 export interface LimitedFeeCollectModuleParams {
   /** The collect module amount info */
   amount: ModuleFeeAmountParams;
@@ -1287,11 +1300,17 @@ export interface Media {
 /** The Media Set */
 export interface MediaSet {
   __typename?: 'MediaSet';
-  /** Medium media - will always be null on the public API */
+  /**
+   * Medium media - will always be null on the public API
+   * @deprecated should not be used will always be null
+   */
   medium?: Maybe<Media>;
   /** Original media */
   original: Media;
-  /** Small media - will always be null on the public API */
+  /**
+   * Small media - will always be null on the public API
+   * @deprecated should not be used will always be null
+   */
   small?: Maybe<Media>;
 }
 
@@ -1321,6 +1340,8 @@ export interface MetadataAttributeOutput {
 /** The metadata output */
 export interface MetadataOutput {
   __typename?: 'MetadataOutput';
+  /** The main focus of the publication */
+  animatedUrl?: Maybe<Scalars['Url']>;
   /** The attributes */
   attributes: Array<MetadataAttributeOutput>;
   /** This is the metadata content for the publication, should be markdown */
@@ -1718,6 +1739,16 @@ export interface NewMirrorNotification {
   publication: MirrorablePublication;
 }
 
+export interface NewReactionNotification {
+  __typename?: 'NewReactionNotification';
+  createdAt: Scalars['DateTime'];
+  notificationId: Scalars['NotificationId'];
+  /** The profile */
+  profile: Profile;
+  publication: Publication;
+  reaction: ReactionTypes;
+}
+
 /** The NFT image */
 export interface NftImage {
   __typename?: 'NftImage';
@@ -1758,7 +1789,7 @@ export interface NftOwnershipChallengeResult {
   timeout: Scalars['TimestampScalar'];
 }
 
-export type Notification = NewCollectNotification | NewCommentNotification | NewFollowerNotification | NewMentionNotification | NewMirrorNotification;
+export type Notification = NewCollectNotification | NewCommentNotification | NewFollowerNotification | NewMentionNotification | NewMirrorNotification | NewReactionNotification;
 
 export interface NotificationRequest {
   cursor?: InputMaybe<Scalars['Cursor']>;
@@ -2235,7 +2266,7 @@ export interface PublicationMetadataV1Input {
   /** The content of a publication. If this is blank `media` must be defined or its out of spec */
   content?: InputMaybe<Scalars['Markdown']>;
   /** A human-readable description of the item. */
-  description?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['Markdown']>;
   /**
    * This is the URL that will appear below the asset's image on OpenSea and others etc
    *       and will allow users to leave OpenSea and view the item on the site.
@@ -2283,7 +2314,7 @@ export interface PublicationMetadataV2Input {
   /** Ability to add a content warning */
   contentWarning?: InputMaybe<PublicationContentWarning>;
   /** A human-readable description of the item. */
-  description?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['Markdown']>;
   /**
    * This is the URL that will appear below the asset's image on OpenSea and others etc
    *       and will allow users to leave OpenSea and view the item on the site.
@@ -2388,6 +2419,7 @@ export interface PublicationSignatureContextInput {
 
 /** Publication sort criteria */
 export type PublicationSortCriteria =
+  | 'CURATED_PROFILES'
   | 'LATEST'
   | 'TOP_COLLECTED'
   | 'TOP_COMMENTED'
@@ -2467,6 +2499,7 @@ export interface Query {
   generateModuleCurrencyApprovalData: GenerateModuleCurrencyApproval;
   globalProtocolStats: GlobalProtocolStats;
   hasTxHashBeenIndexed: TransactionResult;
+  internalPublicationFilter: PaginatedPublicationResult;
   mutualFollowersProfiles: PaginatedProfileResult;
   nftOwnershipChallenge: NftOwnershipChallengeResult;
   nfts: NfTsResult;
@@ -2564,6 +2597,11 @@ export interface QueryHasTxHashBeenIndexedArgs {
 }
 
 
+export interface QueryInternalPublicationFilterArgs {
+  request: InternalPublicationsFilterRequest;
+}
+
+
 export interface QueryMutualFollowersProfilesArgs {
   request: MutualFollowersProfilesQueryRequest;
 }
@@ -2649,6 +2687,11 @@ export interface QueryPublicationsArgs {
 }
 
 
+export interface QueryRecommendedProfilesArgs {
+  options?: InputMaybe<RecommendedProfileOptions>;
+}
+
+
 export interface QueryRelArgs {
   request: RelRequest;
 }
@@ -2706,6 +2749,11 @@ export interface ReactionRequest {
 export type ReactionTypes =
   | 'DOWNVOTE'
   | 'UPVOTE';
+
+export interface RecommendedProfileOptions {
+  /** If you wish to turn ML off */
+  disableML?: InputMaybe<Scalars['Boolean']>;
+}
 
 export type ReferenceModule = FollowOnlyReferenceModuleSettings | UnknownReferenceModuleSettings;
 

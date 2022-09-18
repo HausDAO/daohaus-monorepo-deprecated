@@ -15,6 +15,7 @@ const ProposalCardContainer = styled(Card)`
   border: none;
   height: 23.8rem;
   @media ${widthQuery.sm} {
+    gap: 2rem;
     flex-direction: column;
     height: auto;
     margin-bottom: 2rem;

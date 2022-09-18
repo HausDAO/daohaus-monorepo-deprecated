@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { MdOutlineGavel } from 'react-icons/md';
-import { Italic, ParMd, Tooltip } from '@daohaus/ui';
+import { Italic, ParMd, Tooltip, useBreakpoint, widthQuery } from '@daohaus/ui';
 import {
   RiGasStationLine,
   RiThumbDownLine,
@@ -22,8 +22,11 @@ const TemplateBox = styled.div`
     margin-bottom: 2.4rem;
     justify-content: space-between;
   }
-  .main-section {
+  .middle-section {
     height: 100%;
+    @media ${widthQuery.sm} {
+      margin-bottom: 2rem;
+    }
   }
   .bottom-section {
     margin-top: auto;
@@ -153,6 +156,7 @@ export const ActionTemplate = ({
   proposal: ITransformedProposal;
 }) => {
   const theme = useTheme();
+  const isMobile = useBreakpoint(widthQuery.sm);
   const displayUI = useMemo(() => {
     if (typeof statusDisplay === 'string') {
       return <ParMd>{statusDisplay}</ParMd>;
@@ -180,10 +184,12 @@ export const ActionTemplate = ({
     <TemplateBox>
       <div className="top-section">
         {displayUI}
-        <QuorumDisplay
-          yesPerc={yesPerc}
-          daoQuorum={proposal.dao.quorumPercent}
-        />
+        {isMobile || (
+          <QuorumDisplay
+            yesPerc={yesPerc}
+            daoQuorum={proposal.dao.quorumPercent}
+          />
+        )}
       </div>
       <div className="middle-section">{main}</div>
       <div className="bottom-section">{helperUI}</div>

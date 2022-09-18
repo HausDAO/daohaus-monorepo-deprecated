@@ -27,18 +27,14 @@ const OverviewBox = styled.div`
   margin-bottom: 1.1rem;
   height: 100%;
   .title {
-    margin-bottom: 1.2rem;
+    margin-bottom: 2rem;
   }
   .description {
     margin-bottom: auto;
   }
   @media ${widthQuery.sm} {
-    .title {
-      font-size: 2.2rem;
-      margin-bottom: 2rem;
-    }
     .description {
-      margin-bottom: 0;
+      margin-bottom: 2rem;
     }
   }
 `;
@@ -46,13 +42,12 @@ const OverviewBox = styled.div`
 const SubmittedContainer = styled.div`
   display: flex;
 
-  margin-top: 2.1rem;
+  margin-top: 2rem;
   .submitted-by {
     margin-right: 1rem;
   }
   @media ${widthQuery.sm} {
     flex-direction: column;
-    margin-bottom: 2rem;
   }
 `;
 
@@ -72,14 +67,16 @@ export const ProposalCardOverview = ({
   const { daochain, daoid } = useParams();
   const theme = useTheme();
   const isMobile = useBreakpoint(widthQuery.sm);
+  const isMd = useBreakpoint(widthQuery.md);
+
   return (
     <OverviewBox>
-      <OverviewHeader proposal={proposal} isMobile={isMobile} />
+      <OverviewHeader proposal={proposal} />
       <ParLg className="title">{proposal.title}</ParLg>
       <ParMd className="description" color={theme.tint.secondary}>
         {charLimit(proposal.description, 145)}
       </ParMd>
-      {isMobile || (
+      {isMd && (
         <StyledLink
           href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
         >
@@ -99,15 +96,6 @@ export const ProposalCardOverview = ({
           explorerNetworkId={daochain as keyof Keychain}
         />
       </SubmittedContainer>
-      {isMobile && (
-        <StyledLink
-          href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
-        >
-          <Button secondary sm>
-            View Details
-          </Button>
-        </StyledLink>
-      )}
     </OverviewBox>
   );
 };
@@ -124,16 +112,17 @@ const OverviewContainer = styled.div`
 `;
 
 export const OverviewHeader = ({
-  isMobile,
   proposal,
 }: {
-  isMobile: boolean;
   proposal: ITransformedProposal;
 }) => {
+  const { daochain, daoid } = useParams();
+
   const theme = useTheme();
+  const isMd = useBreakpoint(widthQuery.md);
   return (
     <OverviewContainer>
-      {isMobile ? (
+      {isMd ? (
         <>
           <ParMd>{getProposalTypeLabel(proposal.proposalType)}</ParMd>
           <Tooltip
@@ -142,10 +131,20 @@ export const OverviewHeader = ({
           />
         </>
       ) : (
-        <ParMd color={theme.tint.secondary}>
-          {getProposalTypeLabel(proposal.proposalType)}
-          {formatShortDateTimeFromSeconds(proposal.createdAt)}
-        </ParMd>
+        <>
+          <ParMd color={theme.tint.secondary}>
+            {getProposalTypeLabel(proposal.proposalType)}
+            {formatShortDateTimeFromSeconds(proposal.createdAt)}
+          </ParMd>
+
+          <StyledLink
+            href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
+          >
+            <Button secondary sm>
+              View Details
+            </Button>
+          </StyledLink>
+        </>
       )}
     </OverviewContainer>
   );

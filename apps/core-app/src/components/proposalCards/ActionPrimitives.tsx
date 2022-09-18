@@ -207,13 +207,14 @@ const GasBox = styled.div`
 `;
 
 export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
+  const isMobile = useBreakpoint(widthQuery.sm);
   const theme = useTheme();
   return (
     <Tooltip
       triggerEl={
         <GasBox>
           <RiGasStationLine color={theme.primary} size="1.6rem" />
-          <ParMd color={theme.primary}>Estimate Gas</ParMd>
+          {isMobile || <ParMd color={theme.primary}>Estimate Gas</ParMd>}
         </GasBox>
       }
       content={`If gas is less than ${gasAmt}, the proposal will likely fail.`}

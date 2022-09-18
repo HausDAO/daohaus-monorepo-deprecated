@@ -32,7 +32,7 @@ const OverviewBox = styled.div`
   .description {
     margin-bottom: auto;
   }
-  @media ${widthQuery.sm} {
+  @media ${widthQuery.md} {
     .description {
       margin-bottom: 2rem;
     }
@@ -80,7 +80,7 @@ export const ProposalCardOverview = ({
         <StyledLink
           href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
         >
-          <Button secondary sm fullWidth centerAlign>
+          <Button secondary sm fullWidth={isMobile} centerAlign>
             View Details
           </Button>
         </StyledLink>
@@ -105,7 +105,7 @@ const OverviewContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  @media ${widthQuery.sm} {
+  @media ${widthQuery.md} {
     align-items: center;
     margin-bottom: 2rem;
   }
@@ -119,12 +119,14 @@ export const OverviewHeader = ({
   const { daochain, daoid } = useParams();
 
   const theme = useTheme();
-  const isMd = useBreakpoint(widthQuery.md);
+  const isMobile = useBreakpoint(widthQuery.md);
   return (
     <OverviewContainer>
-      {isMd ? (
+      {isMobile ? (
         <>
-          <ParMd>{getProposalTypeLabel(proposal.proposalType)}</ParMd>
+          <ParMd color={theme.tint.secondary}>
+            {getProposalTypeLabel(proposal.proposalType)}
+          </ParMd>
           <Tooltip
             content={formatShortDateTimeFromSeconds(proposal.createdAt)}
             triggerEl={<RiTimeLine color={theme.secondary} size="1.6rem" />}
@@ -133,10 +135,9 @@ export const OverviewHeader = ({
       ) : (
         <>
           <ParMd color={theme.tint.secondary}>
-            {getProposalTypeLabel(proposal.proposalType)}
+            {getProposalTypeLabel(proposal.proposalType)} |{' '}
             {formatShortDateTimeFromSeconds(proposal.createdAt)}
           </ParMd>
-
           <StyledLink
             href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
           >

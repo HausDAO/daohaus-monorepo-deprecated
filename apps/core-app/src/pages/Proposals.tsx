@@ -6,6 +6,7 @@ import {
   DialogTrigger,
   DialogContent,
   SingleColumnLayout,
+  widthQuery,
 } from '@daohaus/ui';
 import { statusFilter } from '@daohaus/dao-data';
 import { BsPlusLg } from 'react-icons/bs';
@@ -23,11 +24,18 @@ const ActionsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 3rem;
+  @media ${widthQuery.sm} {
+    flex-direction: column;
+  }
 `;
 
 const SearchFilterContainer = styled.div`
   display: flex;
   gap: 2.1rem;
+  @media ${widthQuery.sm} {
+    gap: 0;
+    flex-direction: column;
+  }
 `;
 
 export function Proposals() {

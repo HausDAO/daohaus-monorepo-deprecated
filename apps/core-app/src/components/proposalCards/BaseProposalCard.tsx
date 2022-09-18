@@ -16,8 +16,8 @@ const ProposalCardContainer = styled(Card)`
   height: 23.8rem;
   @media ${widthQuery.sm} {
     flex-direction: column;
-    height: 49.6rem;
-    margin-bottom: 0;
+    height: auto;
+    margin-bottom: 2rem;
   }
 `;
 
@@ -31,6 +31,7 @@ const LeftCard = styled.div`
 `;
 
 const RightCard = styled.div`
+  min-width: 26rem;
   @media ${widthQuery.sm} {
     max-width: 100%;
     min-width: 0;

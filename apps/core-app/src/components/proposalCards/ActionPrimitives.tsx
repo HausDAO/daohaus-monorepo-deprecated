@@ -10,10 +10,7 @@ import {
 import { mintDark, tomatoDark } from '@radix-ui/colors';
 import { GatedButton } from './GatedButton';
 import { ITransformedProposal } from '@daohaus/dao-data';
-import {
-  checkHasQuorum,
-  percentage,
-} from '@daohaus/common-utilities';
+import { checkHasQuorum, percentage } from '@daohaus/common-utilities';
 
 const TemplateBox = styled.div`
   display: flex;
@@ -199,6 +196,7 @@ const GasBox = styled.div`
   align-items: center;
   svg {
     margin-right: 1.2rem;
+    padding: 0;
   }
 `;
 

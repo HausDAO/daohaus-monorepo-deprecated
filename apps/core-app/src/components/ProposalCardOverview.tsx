@@ -1,6 +1,14 @@
 import { useParams } from 'react-router-dom';
 import styled, { useTheme } from 'styled-components';
-import { AddressDisplay, Button, ParLg, ParMd, Link } from '@daohaus/ui';
+import {
+  AddressDisplay,
+  Button,
+  ParLg,
+  ParMd,
+  Link,
+  useBreakpoint,
+  widthQuery,
+} from '@daohaus/ui';
 import {
   charLimit,
   formatShortDateTimeFromSeconds,
@@ -21,6 +29,15 @@ const OverviewContainer = styled.div`
   .description {
     margin-bottom: auto;
   }
+  @media ${widthQuery.sm} {
+    .title {
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+    }
+    .description {
+      margin-bottom: 0;
+    }
+  }
 `;
 
 const OverviewHeader = styled.div`
@@ -28,12 +45,25 @@ const OverviewHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  @media ${widthQuery.sm} {
+    .overview {
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+  }
 `;
 
 const SubmittedContainer = styled.div`
   display: flex;
-  gap: 1rem;
+
   margin-top: 2.1rem;
+  .submitted-by {
+    margin-right: 1rem;
+  }
+  @media ${widthQuery.sm} {
+    flex-direction: column;
+    margin-bottom: 2rem;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -51,28 +81,32 @@ export const ProposalCardOverview = ({
 }: ProposalCardOverviewProps) => {
   const { daochain, daoid } = useParams();
   const theme = useTheme();
-
+  const isMobile = useBreakpoint(widthQuery.sm);
   return (
     <OverviewContainer>
       <OverviewHeader>
-        <ParMd color={theme.tint.secondary}>
+        <ParMd color={theme.tint.secondary} className="overview">
           {getProposalTypeLabel(proposal.proposalType)} |{' '}
           {formatShortDateTimeFromSeconds(proposal.createdAt)}
         </ParMd>
-        <StyledLink
-          href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
-        >
-          <Button secondary sm>
-            View Details
-          </Button>
-        </StyledLink>
+        {isMobile || (
+          <StyledLink
+            href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
+          >
+            <Button secondary sm>
+              View Details
+            </Button>
+          </StyledLink>
+        )}
       </OverviewHeader>
       <ParLg className="title">{proposal.title}</ParLg>
       <ParMd className="description" color={theme.tint.secondary}>
         {charLimit(proposal.description, 145)}
       </ParMd>
       <SubmittedContainer>
-        <ParMd color={theme.tint.secondary}>Submitted by</ParMd>
+        <ParMd color={theme.tint.secondary} className="submitted-by">
+          Submitted by:{' '}
+        </ParMd>
         <AddressDisplay
           truncate
           address={proposal.createdBy}
@@ -80,6 +114,15 @@ export const ProposalCardOverview = ({
           explorerNetworkId={daochain as keyof Keychain}
         />
       </SubmittedContainer>
+      {isMobile && (
+        <StyledLink
+          href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
+        >
+          <Button secondary sm>
+            View Details
+          </Button>
+        </StyledLink>
+      )}
     </OverviewContainer>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { ITransformedProposal } from '@daohaus/dao-data';
-import { useToast } from '@daohaus/ui';
+import { useToast, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
 import { ActionTemplate, GasDisplay, Verdict } from './ActionPrimitives';
 import { useParams } from 'react-router-dom';
@@ -26,7 +26,12 @@ const ProcessBox = styled.div`
   .execute {
     margin-left: auto;
   }
-  /* justify-content: space-between; */
+  @media ${widthQuery.sm} {
+    flex-direction: column;
+    .execute {
+      margin-left: 0;
+    }
+  }
 `;
 
 export const ReadyForProcessing = ({
@@ -123,6 +128,7 @@ export const ReadyForProcessing = ({
             onClick={processProposal}
             className="execute"
             rules={[isConnectedToDao, isNotLoading]}
+            centerAlign
           >
             Execute
           </GatedButton>

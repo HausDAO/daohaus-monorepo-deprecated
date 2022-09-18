@@ -8,6 +8,7 @@ import {
   Link,
   useBreakpoint,
   widthQuery,
+  Tooltip,
 } from '@daohaus/ui';
 import {
   charLimit,
@@ -17,8 +18,10 @@ import {
 
 import { TProposals } from '@daohaus/dao-context';
 import { getProposalTypeLabel } from '../utils/general';
+import { ITransformedProposal } from '@daohaus/dao-data';
+import { RiTimeLine } from 'react-icons/ri';
 
-const OverviewContainer = styled.div`
+const OverviewBox = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 1.1rem;
@@ -36,19 +39,6 @@ const OverviewContainer = styled.div`
     }
     .description {
       margin-bottom: 0;
-    }
-  }
-`;
-
-const OverviewHeader = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  @media ${widthQuery.sm} {
-    .overview {
-      font-size: 1.4rem;
-      margin-bottom: 1.2rem;
     }
   }
 `;
@@ -83,26 +73,21 @@ export const ProposalCardOverview = ({
   const theme = useTheme();
   const isMobile = useBreakpoint(widthQuery.sm);
   return (
-    <OverviewContainer>
-      <OverviewHeader>
-        <ParMd color={theme.tint.secondary} className="overview">
-          {getProposalTypeLabel(proposal.proposalType)} |{' '}
-          {formatShortDateTimeFromSeconds(proposal.createdAt)}
-        </ParMd>
-        {isMobile || (
-          <StyledLink
-            href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
-          >
-            <Button secondary sm>
-              View Details
-            </Button>
-          </StyledLink>
-        )}
-      </OverviewHeader>
+    <OverviewBox>
+      <OverviewHeader proposal={proposal} isMobile={isMobile} />
       <ParLg className="title">{proposal.title}</ParLg>
       <ParMd className="description" color={theme.tint.secondary}>
         {charLimit(proposal.description, 145)}
       </ParMd>
+      {isMobile || (
+        <StyledLink
+          href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
+        >
+          <Button secondary sm fullWidth centerAlign>
+            View Details
+          </Button>
+        </StyledLink>
+      )}
       <SubmittedContainer>
         <ParMd color={theme.tint.secondary} className="submitted-by">
           Submitted by:{' '}
@@ -122,6 +107,45 @@ export const ProposalCardOverview = ({
             View Details
           </Button>
         </StyledLink>
+      )}
+    </OverviewBox>
+  );
+};
+
+const OverviewContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  @media ${widthQuery.sm} {
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+`;
+
+export const OverviewHeader = ({
+  isMobile,
+  proposal,
+}: {
+  isMobile: boolean;
+  proposal: ITransformedProposal;
+}) => {
+  const theme = useTheme();
+  return (
+    <OverviewContainer>
+      {isMobile ? (
+        <>
+          <ParMd>{getProposalTypeLabel(proposal.proposalType)}</ParMd>
+          <Tooltip
+            content={formatShortDateTimeFromSeconds(proposal.createdAt)}
+            triggerEl={<RiTimeLine color={theme.secondary} size="1.6rem" />}
+          />
+        </>
+      ) : (
+        <ParMd color={theme.tint.secondary}>
+          {getProposalTypeLabel(proposal.proposalType)}
+          {formatShortDateTimeFromSeconds(proposal.createdAt)}
+        </ParMd>
       )}
     </OverviewContainer>
   );

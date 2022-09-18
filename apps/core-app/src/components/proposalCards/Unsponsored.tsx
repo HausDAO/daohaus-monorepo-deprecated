@@ -120,7 +120,9 @@ export const Unsponsored = ({
         </>
       }
       helperDisplay={
-        <ParSm color={theme.tint.secondary}>{PROP_CARD_HELP.UNSPONSORED}</ParSm>
+        <ParSm color={theme.tint.secondary}>
+          <Italic>{PROP_CARD_HELP.UNSPONSORED}</Italic>
+        </ParSm>
       }
     />
   );

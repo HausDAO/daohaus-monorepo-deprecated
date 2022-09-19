@@ -26,13 +26,9 @@ export const FormBuilderFactory = ({
   //  a new instance of the component each render.
   const GeneratedField = useMemo(
     () => {
-      let Component;
-
-      if (customFields) {
-        Component = customFields[type];
-      } else {
-        Component = CoreFieldLookup[type];
-      }
+      const Component = customFields
+        ? customFields[type]
+        : CoreFieldLookup[type];
 
       const newRules = generateRules({
         field,

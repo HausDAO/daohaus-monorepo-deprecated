@@ -1,5 +1,8 @@
-import { ValidateField, ValueOf } from '@daohaus/common-utilities';
-import { FieldValidationType } from '@daohaus/ethers-utilities';
+import { ValueOf } from '@daohaus/common-utilities';
+import {
+  EthersValidateField,
+  FieldValidationType,
+} from '@daohaus/ethers-utilities';
 import { RegisterOptions } from 'react-hook-form';
 import { FieldLego } from '../types';
 
@@ -41,12 +44,12 @@ export const handleRequiredField = (
 
 const allowEmpty = (
   value: unknown,
-  validateFn: ValueOf<typeof ValidateField>
+  validateFn: ValueOf<typeof EthersValidateField>
 ) => {
   if (!value) {
     return true;
   }
-  return validateFn(value);
+  return validateFn(value as string);
 };
 
 export const hasTypeValidation = (field: FieldLego) =>
@@ -57,7 +60,7 @@ export const handleTypeValidation = (field: FieldLego) =>
         validate: (val: unknown) =>
           allowEmpty(
             val,
-            ValidateField[field.expectType as FieldValidationType]
+            EthersValidateField[field.expectType as FieldValidationType]
           ),
       }
     : {};

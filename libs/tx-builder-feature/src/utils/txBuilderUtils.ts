@@ -38,14 +38,14 @@ export const executeTx = async (args: {
   console.log('txHash', txHash);
   try {
     lifeCycleFns?.onTxHash?.(ethersTx.hash);
-    setTransactions((prevState: TxRecord) => ({
+    setTransactions((prevState) => ({
       ...prevState,
       [txHash]: { ...tx, status: 'idle' },
     }));
     console.log('**Transaction Pending**');
     const reciept = await ethersTx.wait();
 
-    setTransactions((prevState: TxRecord) => ({
+    setTransactions((prevState) => ({
       ...prevState,
       [txHash]: { ...tx, status: 'polling' },
     }));
@@ -66,7 +66,7 @@ export const executeTx = async (args: {
       onPollSuccess(result) {
         lifeCycleFns?.onPollSuccess?.(result);
         console.log('**Poll Successful**');
-        setTransactions((prevState: TxRecord) => ({
+        setTransactions((prevState) => ({
           ...prevState,
           [txHash]: { ...tx, status: 'success' },
         }));
@@ -74,7 +74,7 @@ export const executeTx = async (args: {
       onPollError(error) {
         lifeCycleFns?.onPollError?.(error);
         console.log('**Poll Error**');
-        setTransactions((prevState: TxRecord) => ({
+        setTransactions((prevState) => ({
           ...prevState,
           [txHash]: { ...tx, status: 'pollFailed' },
         }));
@@ -88,7 +88,7 @@ export const executeTx = async (args: {
     console.log('**TX Error**');
     console.error(error);
     lifeCycleFns?.onTxError?.(error);
-    setTransactions((prevState: TxRecord) => ({
+    setTransactions((prevState) => ({
       ...prevState,
       [txHash]: { ...tx, status: 'failed' },
     }));

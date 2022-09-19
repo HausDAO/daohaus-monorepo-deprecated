@@ -78,7 +78,6 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
         id: 'recipient',
         type: 'input',
         label: 'Recipient',
-        // @ts-expect-error: doing object spread, even if the field definition has the property
         expectType: 'ethAddress',
         placeholder: '0x...',
       },

@@ -7,6 +7,7 @@ export * from './typeguards';
 export * from './units';
 export * from './object';
 export * from './shamanPermission';
+export * from './resolve-deps';
 export * from './time';
 export * from './validation';
 export * from './error';

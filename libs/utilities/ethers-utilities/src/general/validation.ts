@@ -4,10 +4,11 @@ import { ValidateField } from '@daohaus/common-utilities';
 export const ValErrMsgs = {
   ethAddress: 'Field must be an Ethereum address',
 };
+
 export const EthersValidateField = {
+  ...ValidateField,
   ethAddress: (val: string) =>
     isEthAddress(val) ? true : ValErrMsgs.ethAddress,
-  ...ValidateField,
 };
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const handleBaseUnits = (val: any, decimals = 18) =>

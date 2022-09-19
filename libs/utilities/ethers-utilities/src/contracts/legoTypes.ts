@@ -4,8 +4,8 @@ import { isArray, isString, isNumber, isBoolean } from 'util';
 import { ABI, ArgType } from './types';
 import { EthAddress, RequireOnlyOne } from '@daohaus/common-utilities';
 
-import { ValidateField } from '@daohaus/common-utilities';
 import { Keychain } from '@daohaus/common-utilities';
+import { EthersValidateField } from '../general';
 
 export const isArgType = (item: unknown): item is ArgType => {
   if (isArray(item)) {
@@ -21,7 +21,7 @@ export type LookupType = Record<
   keyof JSX.IntrinsicElements | JSXElementConstructor<any>
 >;
 
-export type FieldValidationType = keyof typeof ValidateField;
+export type FieldValidationType = keyof typeof EthersValidateField;
 
 export type FieldLegoBase<Lookup extends LookupType> = {
   [FieldType in keyof Lookup]: React.ComponentProps<Lookup[FieldType]> & {

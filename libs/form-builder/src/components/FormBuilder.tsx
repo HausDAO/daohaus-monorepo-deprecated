@@ -184,7 +184,7 @@ export function FormBuilder<Lookup extends LookupType>({
             className="builder-inner-form"
             noValidate
           >
-            {fields?.map((field: any) => (
+            {fields?.map((field) => (
               <FormBuilderFactory key={field?.id} field={field} />
             ))}
             {log && <Logger />}

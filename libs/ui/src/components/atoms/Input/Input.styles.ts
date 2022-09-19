@@ -90,7 +90,7 @@ export const WithIcon = styled.div`
   width: 100%;
 
   svg {
-    color: ${({ theme }: { theme: Theme }) => theme.fontColor};
+    color: ${({ theme }: { theme: Theme }) => theme.field.placeholderText};
     position: absolute;
     right: 2rem;
     top: 1.4rem;

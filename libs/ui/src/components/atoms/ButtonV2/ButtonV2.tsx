@@ -17,20 +17,20 @@ export interface ButtonProps {
   disabled?: boolean;
   // ! Not Included untill talk with design
   // Shows loading spinner */
-  loading: boolean;
+  loading?: boolean;
   // ! Not Included untill talk with design
   /* The label to show in the button when loading is true */
   loadingText?: string;
   /** Set theme color */
-  colorVariant: ButtonColorVariant;
+  colorVariant?: ButtonColorVariant;
   /* Set the original html type of button */
   type?: 'button' | 'reset' | 'submit';
   /* Size of the button */
-  size: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg';
   /** Controls button variant */
-  variant: 'solid' | 'outline' | 'link';
+  variant?: 'solid' | 'outline' | 'link';
   /* Width of the button element */
-  width: ButtonWidth;
+  width?: ButtonWidth;
   /* React node */
   children?: React.ReactNode;
   /* Css class name */

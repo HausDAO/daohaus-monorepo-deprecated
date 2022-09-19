@@ -10,7 +10,7 @@
         "outputPath": "dist/libs/utilities/common-utilities",
         "main": "libs/utilities/common-utilities/src/index.ts",
         "tsConfig": "libs/utilities/common-utilities/tsconfig.lib.json",
-        "assets": ["utilities/libs/common-utilities/*.md"],
+        "assets": ["libs/utilities/common-utilities/*.md"],
         "generatePackageJson": true,
         "updateBuildableProjectDepsInPackageJson": true,
         "buildableProjectDepsInPackageJsonType": "dependencies"
@@ -20,7 +20,7 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["utilities/libs/common-utilities/**/*.ts"]
+        "lintFilePatterns": ["libs/utilities/common-utilities/**/*.ts"]
       }
     },
     "test": {

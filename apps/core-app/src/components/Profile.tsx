@@ -19,7 +19,6 @@ import {
   fromWei,
   votingPowerPercentage,
 } from '@daohaus/common-utilities';
-
 import { TMembership, useDao } from '@daohaus/dao-context';
 import { MemberProfileMenu } from './MemberProfileMenu';
 

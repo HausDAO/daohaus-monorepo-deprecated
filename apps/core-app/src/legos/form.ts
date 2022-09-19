@@ -1,5 +1,5 @@
 import { SUMMON_COPY } from '../data/copy';
-import { CustomFields, CustomFormLego } from './config';
+import { CustomFormLego } from './config';
 import { FIELD } from './fields';
 import { TABULA_TX, TX } from './tx';
 
@@ -572,7 +572,6 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
           { id: 'tokens', type: 'ragequitTokenList' },
         ],
       },
-
       {
         id: 'checkRender',
         type: 'checkRender',

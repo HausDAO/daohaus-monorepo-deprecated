@@ -25,7 +25,7 @@ AtomToastDescription.args = {
 export const AtomToastLinks = Template.bind({});
 AtomToastLinks.args = {
   title: 'Title goes here',
-  description: 'Description Goes here and has more detail/text than the title',
+  description: 'Description Goes here and has more detail/text than the title ',
   toastLinks: {
     leftLink: {
       path: 'https://daohaus.club/',

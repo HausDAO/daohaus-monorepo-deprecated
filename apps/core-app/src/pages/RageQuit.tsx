@@ -4,6 +4,7 @@ import { FormBuilder } from '@daohaus/haus-form-builder';
 import { useConnectedMembership, useDao } from '@daohaus/dao-context';
 import { CustomFields } from '../legos/config';
 import { COMMON_FORMS } from '../legos/form';
+import { NETWORK_TOKEN_ETH_ADDRESS } from '@daohaus/common-utilities';
 
 export function RageQuit() {
   const { dao, refreshAll } = useDao();
@@ -15,7 +16,7 @@ export function RageQuit() {
         to: connectedMembership.memberAddress,
         tokens: dao.tokenBalances
           .filter((token) => Number(token.balance) > 0)
-          .map((token) => token.tokenAddress),
+          .map((token) => token.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS),
       };
     }
   }, [connectedMembership, dao]);
@@ -31,7 +32,7 @@ export function RageQuit() {
   return (
     <FormBuilder
       defaultValues={defaultFields}
-      form={{ ...COMMON_FORMS.RAGEQUIT, log: true }}
+      form={{ ...COMMON_FORMS.RAGEQUIT, log: true, devtool: true }}
       customFields={CustomFields}
       onSuccess={onFormComplete}
     />

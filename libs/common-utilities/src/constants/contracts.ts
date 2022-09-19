@@ -12,6 +12,9 @@ export type ContractKey =
 export type AddressKeyChain = { [key in ValidNetwork]?: string };
 export type ContractAddressList = Record<ContractKey, AddressKeyChain>;
 
+export const NETWORK_TOKEN_ETH_ADDRESS =
+  '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE';
+
 // https://github.com/HausDAO/Baal#addresses-beta-factories-and-templates
 export const CONTRACTS: ContractAddressList = {
   V3_FACTORY: {

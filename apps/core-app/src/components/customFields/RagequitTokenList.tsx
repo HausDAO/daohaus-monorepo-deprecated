@@ -1,12 +1,11 @@
 import { useMemo } from 'react';
-import { RegisterOptions, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import {
-  toWholeUnits,
-  handleBaseUnits,
   getNetwork,
   formatValueTo,
-  fromWei,
   memberTokenBalanceShare,
+  memberUsdValueShare,
+  NETWORK_TOKEN_ETH_ADDRESS,
 } from '@daohaus/common-utilities';
 import {
   Buildable,
@@ -14,7 +13,6 @@ import {
   ParSm,
   WrappedCheckbox,
   Checkbox,
-  Bold,
   DataSm,
 } from '@daohaus/ui';
 
@@ -23,6 +21,7 @@ import { CheckboxProps, CheckedState } from '@radix-ui/react-checkbox';
 import styled from 'styled-components';
 import { TokenBalance } from '@daohaus/dao-data';
 import { useParams } from 'react-router-dom';
+import { sortTokensForRageQuit } from '../../utils/general';
 
 const TokenListContainer = styled.div`
   display: flex;
@@ -51,17 +50,40 @@ export const RagequitTokenList = (props: Buildable<Field>) => {
   const { dao } = useDao();
   const { connectedMembership } = useConnectedMembership();
   const { daochain } = useParams();
+  const { setValue, watch } = useFormContext();
+
+  const [sharesToBurn, lootToBurn, tokens] = watch([
+    'sharesToBurn',
+    'lootToBurn',
+    'tokens',
+  ]);
 
   const networkData = useMemo(() => {
     if (!daochain) return null;
     return getNetwork(daochain);
   }, [daochain]);
 
-  // TODO
-  //// calc connectedMembers cut of each (share+ loot)
-  //// setValue/rule to add/remove from tokens array on changes
-  //// wire up select/deselect all
-  //// layout
+  const handleSelectAll = (checked: CheckedState) => {
+    if (checked) {
+      setValue(
+        id,
+        sortTokensForRageQuit(
+          dao?.tokenBalances
+            .filter((token) => Number(token.balance) > 0)
+            .map((token) => token.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS) ||
+            []
+        )
+      );
+    } else {
+      setValue(id, []);
+    }
+
+    dao?.tokenBalances.forEach((token) => {
+      if (Number(token.balance) > 0) {
+        setValue(token.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS, checked);
+      }
+    });
+  };
 
   const tokenTable = useMemo((): TokenTable | null => {
     if (!dao || !networkData || !connectedMembership) return null;
@@ -72,47 +94,87 @@ export const RagequitTokenList = (props: Buildable<Field>) => {
           acc.tokenCheckboxes = [
             ...acc.tokenCheckboxes,
             {
-              id: token.tokenAddress || networkData.symbol,
+              id: token.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS,
               title: token.token?.name || networkData.symbol,
-              name: token.tokenAddress || '0x0',
+              name: token.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS,
               defaultChecked: true,
               disabled: false,
               required: false,
+              onCheckedChange: (checked: CheckedState) => {
+                if (checked) {
+                  setValue(
+                    id,
+                    sortTokensForRageQuit([
+                      ...tokens,
+                      token.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS,
+                    ])
+                  );
+                }
+
+                if (!checked) {
+                  const targetAddress =
+                    token.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS;
+                  setValue(
+                    id,
+                    sortTokensForRageQuit(
+                      tokens.filter((t: string) => t !== targetAddress)
+                    )
+                  );
+                }
+
+                setValue(
+                  token.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS,
+                  checked
+                );
+              },
             },
           ];
-          const memberBalanceShare = memberTokenBalanceShare(
-            token.balance,
-            dao.totalShares,
-            connectedMembership.shares,
-            token.token?.decimals || '18'
-          );
-
-          console.log('memberBalanceShare', memberBalanceShare);
           acc.amounts = [
             ...acc.amounts,
-            <DataSm>
+            <DataSm key={token.tokenAddress}>
               {formatValueTo({
-                value: fromWei(memberBalanceShare),
-                decimals: 2,
-                format: 'numberShort',
+                value: memberTokenBalanceShare(
+                  token.balance,
+                  dao.totalShares || 0,
+                  sharesToBurn || 0,
+                  lootToBurn || 0,
+                  token.token?.decimals || 18
+                ),
+                format: 'number',
               })}
             </DataSm>,
           ];
 
           acc.usdValue = [
             ...acc.usdValue,
-            <DataSm>{token.fiatBalance}</DataSm>,
+            <DataSm key={token.tokenAddress}>
+              {formatValueTo({
+                value: memberUsdValueShare(
+                  token.fiatBalance,
+                  dao.totalShares || 0,
+                  sharesToBurn || 0,
+                  lootToBurn || 0
+                ),
+                decimals: 2,
+                format: 'currency',
+              })}
+            </DataSm>,
           ];
 
           return acc;
         },
         { tokenCheckboxes: [], amounts: [], usdValue: [] }
       );
-  }, [dao, networkData, connectedMembership]);
-
-  const handleSelectAll = (checked: CheckedState) => {
-    console.log('select all', checked);
-  };
+  }, [
+    dao,
+    networkData,
+    connectedMembership,
+    sharesToBurn,
+    lootToBurn,
+    id,
+    tokens,
+    setValue,
+  ]);
 
   if (!tokenTable) return null;
 
@@ -139,7 +201,6 @@ export const RagequitTokenList = (props: Buildable<Field>) => {
           <WrappedCheckbox
             {...props}
             id={id}
-            //   rules={newRules}
             checkboxes={tokenTable.tokenCheckboxes}
           />
         </Column>

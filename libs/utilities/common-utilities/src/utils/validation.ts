@@ -1,4 +1,4 @@
-import { Validate } from './remove-dependencies';
+import { Validate } from './resolve-deps';
 import { isArray, isBoolean, isNumberish, isString } from './typeguards';
 
 export const ValErrMsgs = {

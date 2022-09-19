@@ -1,3 +1,3 @@
-import { Dispatch, SetStateAction } from '../utils/types';
+import { Dispatch, SetStateAction } from '../utils/resolve-deps';
 
 export type ReactSetter<T> = Dispatch<SetStateAction<T>>;

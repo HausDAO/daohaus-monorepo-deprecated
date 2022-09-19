@@ -11,11 +11,8 @@ import {
   Tooltip,
 } from '@daohaus/ui';
 import { useConnectedMembership, useDao } from '@daohaus/dao-context';
-import {
-  formatValueTo,
-  fromWei,
-  votingPowerPercentage,
-} from '@daohaus/common-utilities';
+import { formatValueTo } from '@daohaus/common-utilities';
+import { fromWei, votingPowerPercentage } from '@daohaus/ethers-utilities';
 import styled from 'styled-components';
 import { useFormContext } from 'react-hook-form';
 

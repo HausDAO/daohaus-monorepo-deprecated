@@ -1,13 +1,22 @@
+import { useMemo } from 'react';
+import { RiMore2Fill } from 'react-icons/ri';
+import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
+import { useConnectedMembership } from '@daohaus/dao-context';
 import {
   Dropdown,
-  DropdownLink,
   DropdownMenuItem,
   DropdownButton,
   font,
   Theme,
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DropdownLink,
+  DropdownText,
 } from '@daohaus/ui';
-import { BiDotsVerticalRounded } from 'react-icons/bi';
-import styled from 'styled-components';
+
+import ManageDelegate from './ManageDelegate';
 
 export const ProfileMenuTrigger = styled(DropdownButton)`
   padding: 0 4px 0 4px;
@@ -30,37 +39,103 @@ export const ProfileMenuLink = styled(DropdownLink)`
   font-weight: ${font.weight.bold};
 `;
 
+const ProfileMenuText = styled(DropdownText)`
+  border-radius: 2px;
+  color: ${(props) => props.theme.dropdown.text};
+  font-weight: ${font.weight.bold};
+  cursor: pointer;
+  display: flex;
+  padding: 1rem;
+  transition: 0.2s all;
+  width: 100%;
+  font-size: ${font.size.md};
+
+  svg {
+    margin-left: 0.3rem;
+  }
+
+  :hover {
+    background-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBg};
+    border-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBorder};
+    text-decoration: none;
+  }
+
+  &.disabled {
+    color: ${(props) => props.theme.dropdown.textDisabled};
+  }
+`;
+
 type MemberProfileMenuProps = {
-  isConnectedMember: boolean;
+  memberAddress: string;
 };
 
 export const MemberProfileMenu = ({
-  isConnectedMember,
+  memberAddress,
 }: MemberProfileMenuProps) => {
+  const { daoid, daochain } = useParams();
+  const { connectedMembership } = useConnectedMembership();
+
+  const enableActions = useMemo(() => {
+    return (
+      connectedMembership &&
+      connectedMembership?.memberAddress !== memberAddress &&
+      Number(connectedMembership.shares) > 0
+    );
+  }, [connectedMembership, memberAddress]);
+
+  const isMenuForConnectedMember = useMemo(() => {
+    return connectedMembership?.memberAddress === memberAddress;
+  }, [connectedMembership, memberAddress]);
+
   return (
     <Dropdown
       menuMinWidth="17.8rem"
-      trigger={<ProfileMenuTrigger IconLeft={BiDotsVerticalRounded} sm />}
+      trigger={<ProfileMenuTrigger IconLeft={RiMore2Fill} sm />}
       side="left"
     >
-      {isConnectedMember && (
+      {isMenuForConnectedMember && (
         <>
           <DropdownMenuItem key="delegate" asChild>
-            <ProfileMenuLink>Delegate</ProfileMenuLink>
+            <Dialog>
+              <DialogTrigger asChild>
+                <ProfileMenuText>Delegate</ProfileMenuText>
+              </DialogTrigger>
+              <DialogContent title="Manage Delegate">
+                <ManageDelegate />
+              </DialogContent>
+            </Dialog>
           </DropdownMenuItem>
           <DropdownMenuItem key="ragequit" asChild>
-            <ProfileMenuLink>Rage Quit</ProfileMenuLink>
+            <ProfileMenuText className="disabled">Rage Quit</ProfileMenuText>
           </DropdownMenuItem>
         </>
       )}
 
-      {!isConnectedMember && (
+      {!isMenuForConnectedMember && (
         <>
-          <DropdownMenuItem key="delegate" asChild>
-            <ProfileMenuLink>Delegate To</ProfileMenuLink>
+          <DropdownMenuItem key="delegateTo" asChild>
+            <Dialog>
+              <DialogTrigger asChild>
+                <ProfileMenuText className={enableActions ? '' : 'disabled'}>
+                  Delegate To
+                </ProfileMenuText>
+              </DialogTrigger>
+              <DialogContent title="Manage Delegate">
+                <ManageDelegate defaultMember={memberAddress} />
+              </DialogContent>
+            </Dialog>
           </DropdownMenuItem>
-          <DropdownMenuItem key="ragequit" asChild>
-            <ProfileMenuLink>Rage Kick</ProfileMenuLink>
+          <DropdownMenuItem key="guildkick" asChild>
+            <ProfileMenuLink
+              className={enableActions ? '' : 'disabled'}
+              href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=GUILDKICK&defaultValues=${JSON.stringify(
+                {
+                  memberAddress: memberAddress,
+                }
+              )}`}
+            >
+              Guild Kick
+            </ProfileMenuLink>
           </DropdownMenuItem>
         </>
       )}

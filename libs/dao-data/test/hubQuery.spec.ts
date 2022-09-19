@@ -1,4 +1,3 @@
-import { Keychain } from '@daohaus/common-utilities';
 import { Haus } from '../src/index';
 
 describe('haus', () => {

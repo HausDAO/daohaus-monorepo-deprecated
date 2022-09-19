@@ -10,12 +10,14 @@ import {
   useBreakpoint,
   Link,
   Button,
+  Tooltip,
 } from '@daohaus/ui';
 import {
   charLimit,
   formatDateFromSeconds,
   formatValueTo,
   fromWei,
+  sharesDelegatedToMember,
   votingPowerPercentage,
 } from '@daohaus/common-utilities';
 
@@ -102,10 +104,30 @@ export function Members() {
           return <div className="hide-sm">Power</div>;
         },
         accessor: 'delegateShares',
-        Cell: ({ value }: { value: string }) => {
+        Cell: ({
+          value,
+          row,
+        }: {
+          value: string;
+          row: Row<MembersTableType>;
+        }) => {
+          const delegatedShares = sharesDelegatedToMember(
+            row.original.delegateShares,
+            row.original.shares
+          );
           return (
             <div className="hide-sm">
-              {votingPowerPercentage(dao?.totalShares || '0', value)}
+              {votingPowerPercentage(dao?.totalShares || '0', value)}{' '}
+              {delegatedShares > 0 && (
+                <Tooltip
+                  content={`${formatValueTo({
+                    value: fromWei(delegatedShares.toFixed()),
+                    decimals: 2,
+                    format: 'number',
+                  })} shares are delegated to this member`}
+                  side="bottom"
+                />
+              )}
             </div>
           );
         },
@@ -177,7 +199,7 @@ export function Members() {
                 secondary
                 memberAddress={row.original.memberAddress}
               />
-              <MemberProfileMenu isConnectedMember={false} />
+              <MemberProfileMenu memberAddress={row.original.memberAddress} />
             </ActionContainer>
           );
         },

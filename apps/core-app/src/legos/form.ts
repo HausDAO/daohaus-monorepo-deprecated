@@ -568,13 +568,8 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
         title:
           'Step 2. Select treasury tokens you want to receive in exchange for your dao tokens',
         fields: [
-          {
-            id: 'tokens',
-            type: 'input',
-          },
           // @ts-expect-error: cannot resolve type within formSegment using custom fields sent from the core-app
-
-          { id: 'someshit', type: 'ragequitTokenList' },
+          { id: 'tokens', type: 'ragequitTokenList' },
         ],
       },
 

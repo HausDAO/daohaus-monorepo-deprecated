@@ -6,7 +6,7 @@ import { CustomFields } from '../legos/config';
 import { COMMON_FORMS } from '../legos/form';
 
 export function RageQuit() {
-  const { dao } = useDao();
+  const { dao, refreshAll } = useDao();
   const { connectedMembership } = useConnectedMembership();
 
   const defaultFields = useMemo(() => {
@@ -14,11 +14,15 @@ export function RageQuit() {
       return {
         to: connectedMembership.memberAddress,
         tokens: dao.tokenBalances
-          .filter((token) => token.tokenAddress)
+          .filter((token) => Number(token.balance) > 0)
           .map((token) => token.tokenAddress),
       };
     }
   }, [connectedMembership, dao]);
+
+  const onFormComplete = () => {
+    refreshAll?.();
+  };
 
   if (!dao || !connectedMembership) {
     return null;
@@ -29,6 +33,7 @@ export function RageQuit() {
       defaultValues={defaultFields}
       form={{ ...COMMON_FORMS.RAGEQUIT, log: true }}
       customFields={CustomFields}
+      onSuccess={onFormComplete}
     />
   );
 }

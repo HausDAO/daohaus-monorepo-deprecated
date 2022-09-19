@@ -1,7 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { H4, ParSm } from '../../atoms';
 import { ButtonV2 } from '../../atoms/ButtonV2';
-import { Button } from '../../atoms/Button';
 import { WrappedCheckbox } from '../WrappedCheckbox';
 import { WrappedInput } from '../WrappedInput';
 import { CollapsibleCard } from './CollapsibleCard';

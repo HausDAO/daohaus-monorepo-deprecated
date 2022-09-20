@@ -352,6 +352,17 @@ export const TX: Record<string, TXLego> = {
     method: 'delegate',
     args: ['.formValues.delegatingTo'],
   },
+  RAGEQUIT: {
+    id: 'RAGEQUIT',
+    contract: CONTRACT.CURRENT_DAO,
+    method: 'ragequit',
+    args: [
+      '.formValues.to',
+      '.formValues.sharesToBurn',
+      '.formValues.lootToBurn',
+      '.formValues.tokens',
+    ],
+  },
 };
 
 export const TABULA_TX: Record<string, TXLego> = {

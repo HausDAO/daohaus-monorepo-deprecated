@@ -25,6 +25,5 @@ export const SUMMON_COPY = {
 };
 
 export const PROP_CARD_HELP = {
-  UNSPONSORED:
-    'A member of the DAO can sponsor this proposal, moving it into the Voting Queue.',
+  UNSPONSORED: 'A member of the DAO can sponsor this proposal.',
 };

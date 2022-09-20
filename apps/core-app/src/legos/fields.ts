@@ -50,6 +50,10 @@ export const FIELD: Record<string, CustomFieldLego> = {
     id: 'paymentAmount',
     type: 'requestNativeToken',
   },
+  RAGEQUIT_TOKEN: {
+    id: 'sharesToBurn',
+    type: 'ragequitToken',
+  },
   TO_WEI: {
     id: 'shouldOverwrite',
     type: 'toWeiInput',

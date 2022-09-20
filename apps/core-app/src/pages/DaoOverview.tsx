@@ -81,7 +81,7 @@ export function DaoOverview() {
                   format: 'numberShort',
                 })}
               />
-              <DataIndicator label="Token Holders" data="5" />
+              <DataIndicator label="Token Holders" data="--" />
               <DataIndicator
                 label="Economic Tokens"
                 data={charLimit(dao.lootTokenName, 8)}
@@ -94,7 +94,7 @@ export function DaoOverview() {
                   format: 'numberShort',
                 })}
               />
-              <DataIndicator label="Token Holders" data="5" />
+              <DataIndicator label="Token Holders" data="--" />
             </DataGrid>
           </TokensCard>
         </>

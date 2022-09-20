@@ -9,7 +9,11 @@ import {
   widthQuery,
 } from '@daohaus/ui';
 import { ITransformedProposalQuery } from '@daohaus/dao-data';
-import { isValidNetwork, Keychain } from '@daohaus/common-utilities';
+import {
+  isValidNetwork,
+  Keychain,
+  ValidNetwork,
+} from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 import { loadProposal } from '../utils/dataFetchHelpers';
@@ -18,7 +22,11 @@ import { ProposalHistory } from '../components/ProposalHistory';
 import { getProposalTypeLabel } from '../utils/general';
 import { ProposalActions } from '../components/proposalCards/ProposalActions';
 import { CancelProposal } from '../components/CancelProposal';
-import { decodeProposalActions } from '@daohaus/tx-builder-feature';
+import {
+  ActionError,
+  DecodedAction,
+  decodeProposalActions,
+} from '@daohaus/tx-builder-feature';
 
 const OverviewCard = styled(Card)`
   width: 64rem;
@@ -51,7 +59,7 @@ export function ProposalDetails() {
     ITransformedProposalQuery['proposal'] | undefined
   >();
   const [proposalLoading, setProposalLoading] = useState<boolean>(false);
-
+  const [, setActionData] = useState<(DecodedAction | ActionError)[] | null>();
   const fetchProposal = useCallback(() => {
     const shouldUpdate = true;
     if (!daochain || !daoid || !proposalId) return;
@@ -73,14 +81,26 @@ export function ProposalDetails() {
   }, [daochain, daoid, proposalId, address, fetchProposal]);
 
   useEffect(() => {
+    let shouldUpdate = true;
+    const fetchPropActions = async (
+      chainId: ValidNetwork,
+      actionData: string
+    ) => {
+      const proposalActions = await decodeProposalActions({
+        chainId,
+        actionData,
+      });
+      if (shouldUpdate) {
+        setActionData(proposalActions);
+      }
+    };
+
     if (!isValidNetwork(daochain) || !proposal) return;
+    fetchPropActions(daochain, proposal.proposalData);
 
-    const proposalActions = decodeProposalActions({
-      chainId: daochain,
-      actionData: proposal.proposalData,
-    });
-
-    console.log('proposalActions', proposalActions);
+    return () => {
+      shouldUpdate = false;
+    };
   }, [daochain, proposal]);
 
   if (proposalLoading) {

@@ -18,6 +18,7 @@ import {
   fromWei,
   getNetwork,
   INFO_COPY,
+  lowerCaseLootToken,
 } from '@daohaus/common-utilities';
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
@@ -206,7 +207,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
         <DataIndicator
           size="sm"
           label="Name"
-          data={charLimit(dao.lootTokenName, 12)}
+          data={charLimit(lowerCaseLootToken(dao.lootTokenName), 12)}
         />
         <DataIndicator
           size="sm"

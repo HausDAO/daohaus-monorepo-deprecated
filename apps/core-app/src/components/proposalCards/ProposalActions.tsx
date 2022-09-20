@@ -26,6 +26,7 @@ export const ProposalActions = ({
 }: {
   proposal: ITransformedProposal;
 }) => {
+  console.log('proposal', proposal);
   if (proposal.status === PROPOSAL_STATUS.cancelled) {
     return (
       <ActionBox>

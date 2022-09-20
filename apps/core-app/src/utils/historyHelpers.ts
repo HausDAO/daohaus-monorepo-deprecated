@@ -38,6 +38,9 @@ export const buildProposalHistory = ({
   if (proposal.status === PROPOSAL_STATUS.unsponsored) {
     return buildUnsponsoredElements({ proposal, networkData });
   }
+  if (proposal.status === PROPOSAL_STATUS.cancelled) {
+    return buildCancelledElements({ proposal, networkData });
+  }
   if (proposal.status === PROPOSAL_STATUS.voting) {
     return buildVotingElements({ proposal, networkData });
   }
@@ -199,6 +202,22 @@ const buildVotingElements = ({
       showVotesButton: true,
     },
     buildCompletedFuture({ proposal }),
+  ];
+};
+
+const buildCancelledElements = ({
+  proposal,
+  networkData,
+}: ElementBuildArgs): ProposalHistoryElement[] => {
+  return [
+    buildSubmitted({ proposal, networkData }),
+    buildSponsored({ proposal }),
+    buildVotingPast({ proposal }),
+    {
+      title: 'Proposal Cancelled',
+      active: false,
+      canExpand: false,
+    },
   ];
 };
 

@@ -10,6 +10,8 @@ import { TagsInput } from '../components/customFields/tagsInput';
 import { FakeMarkdown } from '../components/FakeMarkdown';
 import { ProposalOffering } from '../components/customFields/ProposalOffering';
 import { DelegateInput } from '../components/customFields/delegateInput';
+import { RagequitToken } from '../components/customFields/RagequitToken';
+import { RagequitTokenList } from '../components/customFields/RagequitTokenList';
 
 export const CustomFields = {
   ...CoreFieldLookup,
@@ -23,6 +25,8 @@ export const CustomFields = {
   fakeMarkdown: FakeMarkdown,
   proposalOffering: ProposalOffering,
   delegateInput: DelegateInput,
+  ragequitToken: RagequitToken,
+  ragequitTokenList: RagequitTokenList,
 };
 
 export type CustomFieldLego = FieldLegoBase<typeof CustomFields>;

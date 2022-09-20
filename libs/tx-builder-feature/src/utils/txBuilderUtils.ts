@@ -147,6 +147,8 @@ export async function prepareTX(args: {
       appState,
     });
 
+    console.log('**PROCESSED overrides**', overrides);
+
     const contract = new ethers.Contract(
       address,
       abi,

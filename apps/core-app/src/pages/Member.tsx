@@ -22,6 +22,7 @@ import {
   memberTokenBalanceShare,
   memberUsdValueShare,
   charLimit,
+  NETWORK_TOKEN_ETH_ADDRESS,
 } from '@daohaus/common-utilities';
 import { AccountProfile, FindMemberQuery, Haus } from '@daohaus/dao-data';
 
@@ -144,14 +145,15 @@ export function Member() {
         .map((bal) => {
           return {
             token: {
-              address: bal.tokenAddress || '0x0',
+              address: bal.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS,
               name: charLimit(bal.token?.name, 21),
             },
             fiatBalance: formatValueTo({
               value: memberUsdValueShare(
                 bal.fiatBalance,
                 dao.totalShares || 0,
-                currentMember.shares || 0
+                currentMember.shares || 0,
+                currentMember.loot || 0
               ),
               decimals: 2,
               format: 'currency',
@@ -161,6 +163,7 @@ export function Member() {
                 bal.balance,
                 dao.totalShares || 0,
                 currentMember.shares || 0,
+                currentMember.loot || 0,
                 bal.token?.decimals || 18
               ),
               format: 'number',
@@ -178,7 +181,7 @@ export function Member() {
         Header: 'Token',
         accessor: 'token',
         Cell: ({ value }: { value: TokenTableType['token'] }) => {
-          return value.address === '0x0' ? (
+          return value.address === NETWORK_TOKEN_ETH_ADDRESS ? (
             <DataMd>{NETWORK_DATA[daochain as keyof Keychain]?.symbol}</DataMd>
           ) : (
             <AddressDisplay
@@ -244,7 +247,8 @@ export function Member() {
                       value: memberUsdValueShare(
                         dao?.fiatTotal || 0,
                         dao?.totalShares || 0,
-                        currentMember.shares || 0
+                        currentMember.shares || 0,
+                        currentMember.loot || 0
                       ),
                       decimals: 2,
                       format: 'currency',

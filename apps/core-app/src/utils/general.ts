@@ -15,8 +15,6 @@ export const getMemberFromMemberList = (
       member.memberAddress.toLowerCase() === memberAddress.toLowerCase()
   );
 
-  console.log('res', res);
-
   return res;
 };
 
@@ -25,4 +23,10 @@ export const getProposalTypeLabel = (proposalType: string | undefined) => {
     (proposalType && PROPOSAL_TYPE_LABELS[proposalType]) ||
     'Unknown Proposal Type'
   );
+};
+
+export const sortTokensForRageQuit = (tokens: string[]): string[] => {
+  return tokens.sort((a, b) => {
+    return parseInt(a.slice(2), 16) - parseInt(b.slice(2), 16);
+  });
 };

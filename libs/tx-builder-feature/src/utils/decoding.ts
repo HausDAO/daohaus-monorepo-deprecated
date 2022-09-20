@@ -132,8 +132,6 @@ const decodeAction = async ({
 
   const { to, data, value } = action;
 
-  console.log('data', data);
-
   const abi = await fetchABI({ chainId, contractAddress: to });
   if (!abi || !abi?.length) {
     return {
@@ -157,9 +155,13 @@ const decodeAction = async ({
     to,
     name: decoded.name,
     value: decoded.value?.toString(),
-    params: decoded.args.map((arg) => ({
-      name: arg.inputs.name,
-      type: arg.inputs.type,
+    params: decoded.args.map((arg, i) => ({
+      name:
+        decoded?.functionFragment?.inputs?.[i].name ||
+        'ERROR: Could not find name',
+      type:
+        decoded?.functionFragment?.inputs?.[i].type ||
+        'ERROR: Could not find type',
       value: arg,
     })),
   };
@@ -172,10 +174,9 @@ export const decodeProposalActions = async ({
   chainId: ValidNetwork;
   actionData: string;
 }) => {
-  const res = await Promise.all(
+  return Promise.all(
     decodeMultisend({ chainId, actionData })?.map(async (action) => {
       return await decodeAction({ chainId, action });
     })
   );
-  console.log('res', res);
 };

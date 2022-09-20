@@ -1,8 +1,5 @@
-import { LOCAL_ABI } from '@daohaus/abi-utilities';
-
 import { ethers } from 'ethers';
-import { CONTRACTS } from '../constants';
-import { ABI, ArgType, ValidNetwork } from '../types';
+import { ABI, ArgType } from '../types';
 
 export const encodeValues = (
   typesArray: string[],

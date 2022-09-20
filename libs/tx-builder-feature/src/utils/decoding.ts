@@ -6,8 +6,6 @@ import {
 } from '@daohaus/common-utilities';
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import { createContract, fetchABI } from './abi';
-import { InputSelect } from '@daohaus/ui';
-// import { ABI } from 'abi-decoder-ts/cjs/types';
 
 const OPERATION_TYPE = 2;
 const ADDRESS = 40;
@@ -24,7 +22,7 @@ type EncodedAction = {
   data: string;
   operation: number;
 };
-type DecodedAction = {
+export type DecodedAction = {
   to: string;
   name: string;
   value: string;
@@ -35,7 +33,7 @@ type DecodedAction = {
   }[];
 };
 
-type ActionError = {
+export type ActionError = {
   error?: boolean;
   message?: string;
   data: string;
@@ -108,18 +106,6 @@ const buildEthTransferAction = (action: EncodedAction): DecodedAction => ({
     },
   ],
 });
-
-const simplifyActionData = (action: utils.TransactionDescription) => {
-  return {
-    name: action.name,
-    value: action.value?.toString(),
-    params: action.args.map((arg) => ({
-      name: arg.inputs.name,
-      type: arg.inputs.type,
-      value: arg,
-    })),
-  };
-};
 
 const decodeAction = async ({
   chainId,

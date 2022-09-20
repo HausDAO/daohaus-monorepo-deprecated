@@ -1,6 +1,15 @@
 import { useParams } from 'react-router-dom';
 import styled, { useTheme } from 'styled-components';
-import { AddressDisplay, Button, ParLg, ParMd, Link } from '@daohaus/ui';
+import {
+  AddressDisplay,
+  Button,
+  ParLg,
+  ParMd,
+  Link,
+  useBreakpoint,
+  widthQuery,
+  Tooltip,
+} from '@daohaus/ui';
 import {
   charLimit,
   formatShortDateTimeFromSeconds,
@@ -9,31 +18,37 @@ import {
 
 import { TProposals } from '@daohaus/dao-context';
 import { getProposalTypeLabel } from '../utils/general';
+import { ITransformedProposal } from '@daohaus/dao-data';
+import { RiTimeLine } from 'react-icons/ri';
 
-const OverviewContainer = styled.div`
+const OverviewBox = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 1.1rem;
   height: 100%;
   .title {
-    margin-bottom: 1.2rem;
+    margin-bottom: 2rem;
   }
   .description {
     margin-bottom: auto;
   }
-`;
-
-const OverviewHeader = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  @media ${widthQuery.md} {
+    .description {
+      margin-bottom: 2rem;
+    }
+  }
 `;
 
 const SubmittedContainer = styled.div`
   display: flex;
-  gap: 1rem;
-  margin-top: 2.1rem;
+
+  margin-top: 2rem;
+  .submitted-by {
+    margin-right: 1rem;
+  }
+  @media ${widthQuery.sm} {
+    flex-direction: column;
+  }
 `;
 
 const StyledLink = styled(Link)`
@@ -51,28 +66,29 @@ export const ProposalCardOverview = ({
 }: ProposalCardOverviewProps) => {
   const { daochain, daoid } = useParams();
   const theme = useTheme();
+  const isMobile = useBreakpoint(widthQuery.sm);
+  const isMd = useBreakpoint(widthQuery.md);
 
   return (
-    <OverviewContainer>
-      <OverviewHeader>
-        <ParMd color={theme.tint.secondary}>
-          {getProposalTypeLabel(proposal.proposalType)} |{' '}
-          {formatShortDateTimeFromSeconds(proposal.createdAt)}
-        </ParMd>
-        <StyledLink
-          href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
-        >
-          <Button secondary sm>
-            View Details
-          </Button>
-        </StyledLink>
-      </OverviewHeader>
+    <OverviewBox>
+      <OverviewHeader proposal={proposal} />
       <ParLg className="title">{proposal.title}</ParLg>
       <ParMd className="description" color={theme.tint.secondary}>
         {charLimit(proposal.description, 145)}
       </ParMd>
+      {isMd && (
+        <StyledLink
+          href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
+        >
+          <Button secondary sm fullWidth={isMobile} centerAlign>
+            View Details
+          </Button>
+        </StyledLink>
+      )}
       <SubmittedContainer>
-        <ParMd color={theme.tint.secondary}>Submitted by</ParMd>
+        <ParMd color={theme.tint.secondary} className="submitted-by">
+          Submitted by:{' '}
+        </ParMd>
         <AddressDisplay
           truncate
           address={proposal.createdBy}
@@ -80,6 +96,57 @@ export const ProposalCardOverview = ({
           explorerNetworkId={daochain as keyof Keychain}
         />
       </SubmittedContainer>
+    </OverviewBox>
+  );
+};
+
+const OverviewContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  @media ${widthQuery.md} {
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+`;
+
+export const OverviewHeader = ({
+  proposal,
+}: {
+  proposal: ITransformedProposal;
+}) => {
+  const { daochain, daoid } = useParams();
+
+  const theme = useTheme();
+  const isMobile = useBreakpoint(widthQuery.md);
+  return (
+    <OverviewContainer>
+      {isMobile ? (
+        <>
+          <ParMd color={theme.tint.secondary}>
+            {getProposalTypeLabel(proposal.proposalType)}
+          </ParMd>
+          <Tooltip
+            content={formatShortDateTimeFromSeconds(proposal.createdAt)}
+            triggerEl={<RiTimeLine color={theme.secondary} size="1.6rem" />}
+          />
+        </>
+      ) : (
+        <>
+          <ParMd color={theme.tint.secondary}>
+            {getProposalTypeLabel(proposal.proposalType)} |{' '}
+            {formatShortDateTimeFromSeconds(proposal.createdAt)}
+          </ParMd>
+          <StyledLink
+            href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
+          >
+            <Button secondary sm>
+              View Details
+            </Button>
+          </StyledLink>
+        </>
+      )}
     </OverviewContainer>
   );
 };

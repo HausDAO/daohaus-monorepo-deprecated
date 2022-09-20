@@ -5,6 +5,7 @@ import { useConnectedMembership, useDao } from '@daohaus/dao-context';
 import { CustomFields } from '../legos/config';
 import { COMMON_FORMS } from '../legos/form';
 import { NETWORK_TOKEN_ETH_ADDRESS } from '@daohaus/common-utilities';
+import { sortTokensForRageQuit } from '../utils/general';
 
 export function RageQuit() {
   const { dao, refreshAll } = useDao();
@@ -14,9 +15,11 @@ export function RageQuit() {
     if (connectedMembership && dao) {
       return {
         to: connectedMembership.memberAddress,
-        tokens: dao.tokenBalances
-          .filter((token) => Number(token.balance) > 0)
-          .map((token) => token.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS),
+        tokens: sortTokensForRageQuit(
+          dao.tokenBalances
+            .filter((token) => Number(token.balance) > 0)
+            .map((token) => token.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS)
+        ),
       };
     }
   }, [connectedMembership, dao]);

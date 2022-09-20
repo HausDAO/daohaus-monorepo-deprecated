@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
-
 import {
   BiColumnLayout,
   Card,
@@ -10,7 +9,7 @@ import {
   widthQuery,
 } from '@daohaus/ui';
 import { ITransformedProposalQuery } from '@daohaus/dao-data';
-import { Keychain } from '@daohaus/common-utilities';
+import { isValidNetwork, Keychain } from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 import { loadProposal } from '../utils/dataFetchHelpers';
@@ -19,6 +18,7 @@ import { ProposalHistory } from '../components/ProposalHistory';
 import { getProposalTypeLabel } from '../utils/general';
 import { ProposalActions } from '../components/proposalCards/ProposalActions';
 import { CancelProposal } from '../components/CancelProposal';
+import { decodeProposalActions } from '@daohaus/tx-builder-feature';
 
 const OverviewCard = styled(Card)`
   width: 64rem;
@@ -71,6 +71,17 @@ export function ProposalDetails() {
       fetchProposal();
     }
   }, [daochain, daoid, proposalId, address, fetchProposal]);
+
+  useEffect(() => {
+    if (!isValidNetwork(daochain) || !proposal) return;
+
+    const proposalActions = decodeProposalActions({
+      chainId: daochain,
+      actionData: proposal.proposalData,
+    });
+
+    console.log('proposalActions', proposalActions);
+  }, [daochain, proposal]);
 
   if (proposalLoading) {
     return (

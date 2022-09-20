@@ -1,7 +1,12 @@
-import { BigNumber, BytesLike, utils } from 'ethers';
-import { CONTRACTS, ValidNetwork } from '@daohaus/common-utilities';
+import { BigNumber, utils } from 'ethers';
+import {
+  CONTRACTS,
+  ValidNetwork,
+  ZERO_ADDRESS,
+} from '@daohaus/common-utilities';
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import { createContract, fetchABI } from './abi';
+import { InputSelect } from '@daohaus/ui';
 // import { ABI } from 'abi-decoder-ts/cjs/types';
 
 const OPERATION_TYPE = 2;
@@ -19,17 +24,17 @@ type EncodedAction = {
   data: string;
   operation: number;
 };
-type DecodedArg = {
-  name: string;
-  type: string;
-  value: string;
-};
 type DecodedAction = {
   to: string;
+  name: string;
   value: string;
-  data: DecodedArg[];
-  operation: number;
+  params: {
+    name: string;
+    type: string;
+    value: string;
+  }[];
 };
+
 type ActionError = {
   error?: boolean;
   message?: string;
@@ -91,8 +96,10 @@ const decodeMultisend = ({ chainId, actionData }: MultisendArgs) => {
 
 const isEthTransfer = (action: EncodedAction) =>
   action?.data?.slice(2)?.length === 0;
-const buildEthTransferAction = (action: EncodedAction) => ({
+const buildEthTransferAction = (action: EncodedAction): DecodedAction => ({
+  to: ZERO_ADDRESS,
   name: 'ETH Transfer',
+  value: action.value,
   params: [
     {
       name: 'value',
@@ -102,13 +109,25 @@ const buildEthTransferAction = (action: EncodedAction) => ({
   ],
 });
 
+const simplifyActionData = (action: utils.TransactionDescription) => {
+  return {
+    name: action.name,
+    value: action.value?.toString(),
+    params: action.args.map((arg) => ({
+      name: arg.inputs.name,
+      type: arg.inputs.type,
+      value: arg,
+    })),
+  };
+};
+
 const decodeAction = async ({
   chainId,
   action,
 }: {
   chainId: ValidNetwork;
   action: EncodedAction;
-}) => {
+}): Promise<DecodedAction | ActionError> => {
   if (isEthTransfer(action)) return buildEthTransferAction(action);
 
   const { to, data, value } = action;
@@ -125,15 +144,25 @@ const decodeAction = async ({
   }
 
   const decoded = new utils.Interface(abi).parseTransaction({ data, value });
-  console.log('decoded', decoded);
+
   if (!decoded) {
     return {
       error: true,
-      message: 'Could not decode this action',
+      message: 'Could not decode action',
       data: action.data,
     };
   }
-  return decoded;
+
+  return {
+    to,
+    name: decoded.name,
+    value: decoded.value?.toString(),
+    params: decoded.args.map((arg) => ({
+      name: arg.inputs.name,
+      type: arg.inputs.type,
+      value: arg,
+    })),
+  };
 };
 
 export const decodeProposalActions = async ({
@@ -143,8 +172,10 @@ export const decodeProposalActions = async ({
   chainId: ValidNetwork;
   actionData: string;
 }) => {
-  const res = decodeMultisend({ chainId, actionData })?.map(async (action) => {
-    return await decodeAction({ chainId, action });
-  });
+  const res = await Promise.all(
+    decodeMultisend({ chainId, actionData })?.map(async (action) => {
+      return await decodeAction({ chainId, action });
+    })
+  );
   console.log('res', res);
 };

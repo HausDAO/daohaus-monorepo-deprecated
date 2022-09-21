@@ -48,7 +48,6 @@ export type SummonMolochV3Args = {
   sharesConfig: daoTokenConfigArgs;
   lootConfig: daoTokenConfigArgs;
   daoName: string;
-  _saltNonce: ethers.BigNumber;
   overrides?: ethers.Overrides;
 };
 

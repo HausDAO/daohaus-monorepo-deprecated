@@ -31,3 +31,48 @@ export type ContractConfig = {
   address: string;
   provider: ethers.providers.Provider | ethers.Signer;
 };
+
+export type BaseOverrideArgs = ethers.Overrides;
+
+export type SummonArgs = {
+  initializationParams: ethers.BytesLike;
+  initializationActions: ethers.BytesLike[];
+  _saltNonce: ethers.BigNumberish;
+  overrides?: ethers.Overrides;
+};
+
+export type SubmitProposalArgs = {
+  proposalData: ethers.BytesLike;
+  expiration: ethers.BigNumberish;
+  baalGas: ethers.BigNumberish;
+  details: string;
+  overrides?: ethers.Overrides;
+};
+
+export type ProposalIdArgs = {
+  id: ethers.BigNumberish;
+  overrides?: ethers.Overrides;
+};
+
+export type ProcessProposalArgs = {
+  proposalData: ethers.BytesLike;
+  overrides?: ethers.Overrides;
+} & ProposalIdArgs;
+
+export type SubmitVoteArgs = {
+  approved: boolean;
+  overrides?: ethers.Overrides;
+} & ProposalIdArgs;
+
+export type RagequitArgs = {
+  to: string;
+  sharesToBurn: ethers.BigNumberish;
+  lootToBurn: ethers.BigNumberish;
+  tokens: string[];
+  overrides?: ethers.Overrides;
+};
+
+export type DelegateArgs = {
+  delegatee: string;
+  overrides?: ethers.Overrides;
+};

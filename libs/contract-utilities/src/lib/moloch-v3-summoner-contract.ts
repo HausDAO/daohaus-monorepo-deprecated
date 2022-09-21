@@ -1,14 +1,8 @@
 import { ethers } from 'ethers';
 import { BaalSummoner, BaalSummonerFactory } from '@daohaus/baal-contracts';
-import { ContractConfig } from './types';
+import { ContractConfig, SummonArgs } from './types';
 
-export type SummonArgs = {
-  initializationParams: ethers.BytesLike;
-  initializationActions: ethers.BytesLike[];
-  _saltNonce: ethers.BigNumberish;
-};
-
-export class MolochV3SummonerContract {
+class MolochV3SummonerContract {
   summoner: BaalSummoner;
   private constructor(contractConfig: ContractConfig) {
     this.summoner = BaalSummonerFactory.connect(

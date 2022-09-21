@@ -8,23 +8,26 @@ export type SummonArgs = {
   _saltNonce: ethers.BigNumberish;
 };
 
-class BaalSummonerContract {
-  baalSummoner: BaalSummoner;
+export class MolochV3SummonerContract {
+  summoner: BaalSummoner;
   private constructor(contractConfig: ContractConfig) {
-    this.baalSummoner = BaalSummonerFactory.connect(
+    this.summoner = BaalSummonerFactory.connect(
       contractConfig.address,
       contractConfig.provider
     );
   }
 
-  static create({ address, provider }: ContractConfig): BaalSummonerContract {
-    return new BaalSummonerContract({ address, provider });
+  static create({
+    address,
+    provider,
+  }: ContractConfig): MolochV3SummonerContract {
+    return new MolochV3SummonerContract({ address, provider });
   }
 
   public async summonBaalAndSafe(
     args: SummonArgs
   ): Promise<ethers.ContractTransaction> {
-    return await this.baalSummoner.summonBaalAndSafe(
+    return await this.summoner.summonBaalAndSafe(
       args.initializationParams,
       args.initializationActions,
       args._saltNonce
@@ -32,4 +35,4 @@ class BaalSummonerContract {
   }
 }
 
-export default BaalSummonerContract;
+export default MolochV3SummonerContract;

@@ -1,6 +1,6 @@
 import { PROPOSAL_STATUS } from '@daohaus/common-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
-import { ParMd } from '@daohaus/ui';
+import { ParMd, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
 import { ActionFailed } from './ActionFailed';
 import { ActionTemplate } from './ActionPrimitives';
@@ -17,8 +17,11 @@ const ActionBox = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  max-height: 19.2rem;
+  min-height: 19.2rem;
   width: 100%;
+  @media ${widthQuery.sm} {
+    min-height: 0;
+  }
 `;
 
 export const ProposalActions = ({

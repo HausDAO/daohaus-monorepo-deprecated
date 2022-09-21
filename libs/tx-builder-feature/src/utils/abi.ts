@@ -197,14 +197,14 @@ export const fetchABI = async ({
   }
 
   const url = getABIUrl({ contractAddress, chainId });
-  if (!url) {
-    console.log('contractAddress', contractAddress);
-    console.log('chainId', chainId);
-    console.log('url', url);
-    throw new Error('Could generate explorer url with the given arguments');
-  }
 
   try {
+    if (!url) {
+      console.log('contractAddress', contractAddress);
+      console.log('chainId', chainId);
+      console.log('url', url);
+      throw new Error('Could generate explorer url with the given arguments');
+    }
     const scanResponse = await fetch(url);
     const data = await scanResponse.json();
     if (data.message === 'OK' && isJSON(data.result)) {

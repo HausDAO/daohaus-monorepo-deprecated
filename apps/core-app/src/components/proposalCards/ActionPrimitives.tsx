@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { MdOutlineGavel } from 'react-icons/md';
-import { Italic, ParMd, Tooltip } from '@daohaus/ui';
+import { Italic, ParMd, Tooltip, useBreakpoint, widthQuery } from '@daohaus/ui';
 import {
   RiGasStationLine,
   RiThumbDownLine,
@@ -10,10 +10,7 @@ import {
 import { mintDark, tomatoDark } from '@radix-ui/colors';
 import { GatedButton } from './GatedButton';
 import { ITransformedProposal } from '@daohaus/dao-data';
-import {
-  checkHasQuorum,
-  percentage,
-} from '@daohaus/common-utilities';
+import { checkHasQuorum, percentage } from '@daohaus/common-utilities';
 
 const TemplateBox = styled.div`
   display: flex;
@@ -24,9 +21,16 @@ const TemplateBox = styled.div`
     display: flex;
     margin-bottom: 2.4rem;
     justify-content: space-between;
+    @media ${widthQuery.sm} {
+      margin-bottom: 1.2rem;
+    }
   }
-  .main-section {
+  .middle-section {
     height: 100%;
+    margin-bottom: auto;
+    @media ${widthQuery.sm} {
+      margin-bottom: 2rem;
+    }
   }
   .bottom-section {
     margin-top: auto;
@@ -109,13 +113,7 @@ export const Verdict = ({
   );
 };
 
-export const VoteStatus = ({
-  passing,
-  appendText = '',
-}: {
-  passing: boolean;
-  appendText?: string;
-}) => {
+export const VoteStatus = ({ passing }: { passing: boolean }) => {
   return passing ? (
     <ProposalPass text="Proposal is Passing" />
   ) : (
@@ -156,6 +154,7 @@ export const ActionTemplate = ({
   proposal: ITransformedProposal;
 }) => {
   const theme = useTheme();
+  const isMobile = useBreakpoint(widthQuery.sm);
   const displayUI = useMemo(() => {
     if (typeof statusDisplay === 'string') {
       return <ParMd>{statusDisplay}</ParMd>;
@@ -183,10 +182,12 @@ export const ActionTemplate = ({
     <TemplateBox>
       <div className="top-section">
         {displayUI}
-        <QuorumDisplay
-          yesPerc={yesPerc}
-          daoQuorum={proposal.dao.quorumPercent}
-        />
+        {isMobile || (
+          <QuorumDisplay
+            yesPerc={yesPerc}
+            daoQuorum={proposal.dao.quorumPercent}
+          />
+        )}
       </div>
       <div className="middle-section">{main}</div>
       <div className="bottom-section">{helperUI}</div>
@@ -199,17 +200,19 @@ const GasBox = styled.div`
   align-items: center;
   svg {
     margin-right: 1.2rem;
+    padding: 0;
   }
 `;
 
 export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
+  const isMobile = useBreakpoint(widthQuery.sm);
   const theme = useTheme();
   return (
     <Tooltip
       triggerEl={
         <GasBox>
           <RiGasStationLine color={theme.primary} size="1.6rem" />
-          <ParMd color={theme.primary}>Estimate Gas</ParMd>
+          {isMobile || <ParMd color={theme.primary}>Estimate Gas</ParMd>}
         </GasBox>
       }
       content={`If gas is less than ${gasAmt}, the proposal will likely fail.`}

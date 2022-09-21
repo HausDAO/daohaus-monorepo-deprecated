@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { ITransformedProposal } from '@daohaus/dao-data';
-import { useToast } from '@daohaus/ui';
+import { useBreakpoint, useToast, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
 import { ActionTemplate, GasDisplay, Verdict } from './ActionPrimitives';
 import { useParams } from 'react-router-dom';
@@ -30,7 +30,13 @@ const ProcessBox = styled.div`
   .execute {
     margin-left: auto;
   }
-  /* justify-content: space-between; */
+  @media ${widthQuery.sm} {
+    /* flex-direction: column; */
+    .execute {
+      min-width: 0;
+      width: 100%;
+    }
+  }
 `;
 
 const eligibableStatuses = [0, 6, 7, 3];
@@ -73,6 +79,7 @@ export const ReadyForProcessing = ({
   const { fireTransaction } = useTxBuilder();
   const { errorToast, defaultToast, successToast } = useToast();
   const { refreshAll } = useDao();
+  const isMobile = useBreakpoint(widthQuery.sm);
 
   const [canProcess, setCanProcess] = React.useState<string | true>(
     'Checking Process data.'
@@ -165,12 +172,13 @@ export const ReadyForProcessing = ({
           {Number(proposal.actionGasEstimate) > 0 && (
             <GasDisplay gasAmt={proposal.actionGasEstimate} />
           )}
-
           <GatedButton
             sm
             onClick={processProposal}
             className="execute"
             rules={[isConnectedToDao, isNotLoading, canProcess]}
+            centerAlign
+            fullWidth={isMobile}
           >
             Execute
           </GatedButton>

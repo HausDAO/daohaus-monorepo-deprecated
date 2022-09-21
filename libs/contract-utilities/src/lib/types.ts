@@ -9,11 +9,11 @@ import {
   MultiSendFactory,
 } from '@daohaus/baal-contracts';
 
-import BaalContract from './BaalContract';
-import BaalSummonerContract from './BaalSummoner';
+import MolochV3Contract from './moloch-v3-contract';
+import BaalSummonerContract from './moloch-v3-summoner-contract';
 
 export interface Contracts {
-  baalContract: ReturnType<typeof BaalContract.create>;
+  molochV3Contract: ReturnType<typeof MolochV3Contract.create>;
   baalSummonerContract: ReturnType<typeof BaalSummonerContract.create>;
 }
 

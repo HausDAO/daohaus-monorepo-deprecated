@@ -6,22 +6,22 @@ export type SponsorArgs = {
   id: ethers.BigNumberish;
 };
 
-class BaalContract {
-  baal: Baal;
+class MolochV3Contract {
+  molochV3: Baal;
   private constructor(contractConfig: ContractConfig) {
-    this.baal = BaalFactory.connect(
+    this.molochV3 = BaalFactory.connect(
       contractConfig.address,
       contractConfig.provider
     );
   }
 
-  static create({ address, provider }: ContractConfig): BaalContract {
-    return new BaalContract({ address, provider });
+  static create({ address, provider }: ContractConfig): MolochV3Contract {
+    return new MolochV3Contract({ address, provider });
   }
 
   public async sponsorProposal(args: SponsorArgs) {
-    return await this.baal.sponsorProposal(args.id);
+    return await this.molochV3.sponsorProposal(args.id);
   }
 }
 
-export default BaalContract;
+export default MolochV3Contract;

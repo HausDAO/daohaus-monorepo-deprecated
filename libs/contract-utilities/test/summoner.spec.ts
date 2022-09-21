@@ -8,7 +8,7 @@ describe('baal contract loads', () => {
     const provider = new ethers.providers.JsonRpcProvider(
       `https://12345.goerli.rpc.rivet.cloud`
     );
-    summoner = MolochV3SummonerContract.create({
+    summoner = await MolochV3SummonerContract.create({
       networkId: '0x5',
       provider,
     });

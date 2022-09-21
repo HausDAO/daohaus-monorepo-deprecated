@@ -12,32 +12,36 @@ import {
   SubmitProposalArgs,
 } from './types';
 
-// /update to get shares and loot addresses from the baal
 class MolochV3Contract {
-  molochV3: Baal;
-  shares: Shares;
-  loot: Loot;
-  private constructor(contractConfig: ContractConfig) {
-    this.molochV3 = BaalFactory.connect(
-      contractConfig.address,
-      contractConfig.provider
-    );
-    this.shares = SharesFactory.connect(
-      contractConfig.address,
-      contractConfig.provider
-    );
-    this.loot = LootFactory.connect(
-      contractConfig.address,
-      contractConfig.provider
-    );
+  public molochV3: Baal;
+  public shares: Shares;
+  public loot: Loot;
+
+  private constructor(
+    molochV3Contract: Baal,
+    sharesContract: Shares,
+    lootContract: Loot
+  ) {
+    this.molochV3 = molochV3Contract;
+    this.shares = sharesContract;
+    this.loot = lootContract;
   }
 
-  static create({ address, provider }: ContractConfig): MolochV3Contract {
-    return new MolochV3Contract({ address, provider });
+  static async create({
+    address,
+    provider,
+  }: ContractConfig): Promise<MolochV3Contract> {
+    const molochV3Contract = BaalFactory.connect(address, provider);
+    const sharesAddress = await molochV3Contract.sharesToken();
+    const lootAddress = await molochV3Contract.lootToken();
+    const sharesContract = SharesFactory.connect(sharesAddress, provider);
+    const lootContract = LootFactory.connect(lootAddress, provider);
+
+    return new MolochV3Contract(molochV3Contract, sharesContract, lootContract);
   }
 
   // TODO: encode this data for us
-
+  // will take a series of {abi, function, args} and target?
   /**
    * Submit proposal
    * @param proposalData Multisend encoded transactions or proposal data

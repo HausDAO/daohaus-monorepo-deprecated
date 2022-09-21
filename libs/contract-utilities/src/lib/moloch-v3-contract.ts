@@ -6,6 +6,8 @@ import {
   Shares,
   SharesFactory,
 } from '@daohaus/baal-contracts';
+import { ethers } from 'ethers';
+import { processOverrides } from 'libs/tx-builder-feature/src/utils/overrides';
 import {
   ContractConfig,
   ProcessProposalArgs,
@@ -64,12 +66,16 @@ class MolochV3Contract {
    * @param id uint256 id of the proposal
    * @param proposalData Multisend encoded transactions or proposal data
    */
-  // TODO: can we force the gas estimate - getBaalgas?
   public async processProposal(args: ProcessProposalArgs) {
+    const proposal = await this.molochV3.proposals(args.id);
+    const overrides = args.overrides || {};
+    if (proposal[6] !== ethers.BigNumber.from('0')) {
+      overrides.gasLimit = proposal[6];
+    }
     return await this.molochV3.processProposal(
       args.id,
       args.proposalData,
-      args.overrides
+      overrides
     );
   }
 }

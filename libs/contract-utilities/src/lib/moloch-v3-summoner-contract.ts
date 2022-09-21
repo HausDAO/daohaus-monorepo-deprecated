@@ -1,22 +1,39 @@
 import { ethers } from 'ethers';
 import { BaalSummoner, BaalSummonerFactory } from '@daohaus/baal-contracts';
-import { ContractConfig, SummonArgs } from './types';
+import {
+  ContractConfig,
+  ContractNetworkConfig,
+  SummonArgs,
+  SummonMolochV3Args,
+} from './types';
+import {
+  encodeFunction,
+  encodeValues,
+  POSTER_TAGS,
+} from '@daohaus/common-utilities';
+import { getContractAbi, getContractAddressesForChain } from './contract-meta';
 
 class MolochV3SummonerContract {
   summoner: BaalSummoner;
-  private constructor(contractConfig: ContractConfig) {
+  private constructor(contractConfig: ContractNetworkConfig) {
+    const summonerAddress =
+      getContractAddressesForChain('V3_FACTORY', contractConfig.networkId) ||
+      ZERO_ADDRESS;
+
     this.summoner = BaalSummonerFactory.connect(
-      contractConfig.address,
+      summonerAddress,
       contractConfig.provider
     );
   }
 
   static create({
-    address,
+    networkId,
     provider,
-  }: ContractConfig): MolochV3SummonerContract {
-    return new MolochV3SummonerContract({ address, provider });
+  }: ContractNetworkConfig): MolochV3SummonerContract {
+    return new MolochV3SummonerContract({ networkId, provider });
   }
+
+  // TODO: encode this data for us
 
   /**
    * Deploy dao and safe contracts
@@ -43,11 +60,81 @@ class MolochV3SummonerContract {
   public async summonBaalAndSafe(
     args: SummonArgs
   ): Promise<ethers.ContractTransaction> {
+    //
+
     return await this.summoner.summonBaalAndSafe(
       args.initializationParams,
       args.initializationActions,
       args._saltNonce
     );
+  }
+
+  public async summonMolochV3AndSafe(
+    args: SummonMolochV3Args
+  ): Promise<ethers.ContractTransaction | undefined> {
+    const baalAbi = getContractAbi('BAAL');
+    const posterAbi = getContractAbi('POSTER');
+
+    if (!baalAbi || !posterAbi) return;
+
+    const initializationParams = encodeValues(
+      ['string', 'string'],
+      [args.sharesTokenName, args.sharesTokenSymbol]
+    );
+
+    const encodedTokenConfig = encodeFunction(baalAbi, 'setAdminConfig', [
+      args.tokenConfig.pauseShares,
+      args.tokenConfig.pauseLoot,
+    ]);
+
+    const encodedGovernanceValues = encodeValues(
+      ['uint32', 'uint32', 'uint256', 'uint256', 'uint256', 'uint256'],
+      [
+        args.governanceConfig.voting,
+        args.governanceConfig.grace,
+        args.governanceConfig.newOffering,
+        args.governanceConfig.quorum,
+        args.governanceConfig.sponsor,
+        args.governanceConfig.minRetention,
+      ]
+    );
+    const encodedGovernanceConfig = encodeFunction(
+      baalAbi,
+      'setGovernanceConfig',
+      [encodedGovernanceValues]
+    );
+
+    const encodedShamanConfig = encodeFunction(baalAbi, 'setShamans', [
+      args.shamanConfig.shamans,
+      args.shamanConfig.permissions,
+    ]);
+
+    const encodedSharesConfig = encodeFunction(baalAbi, 'mintShares', [
+      args.sharesConfig.to,
+      args.sharesConfig.amount,
+    ]);
+
+    const encodedLootConfig = encodeFunction(baalAbi, 'lootShares', [
+      args.lootConfig.to,
+      args.lootConfig.amount,
+    ]);
+
+    const METADATA = encodeFunction(posterAbi, 'post', [
+      JSON.stringify({ name: args.daoName }),
+      POSTER_TAGS.summoner,
+    ]);
+
+    const encodedMetadataConfig = encodeFunction(baalAbi, 'executeAsBaal', [
+      posterAddress,
+      0,
+      METADATA,
+    ]);
+    //
+    // return await this.summoner.summonBaalAndSafe(
+    //   args.initializationParams,
+    //   args.initializationActions,
+    //   args._saltNonce
+    // );
   }
 
   /**

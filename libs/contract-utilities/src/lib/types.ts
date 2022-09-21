@@ -1,34 +1,13 @@
+import { Keychain } from '@daohaus/common-utilities';
 import { ethers } from 'ethers';
-import {
-  PosterFactory,
-  BaalFactory,
-  BaalSummonerFactory,
-  LootFactory,
-  SharesFactory,
-  TributeMinionFactory,
-  MultiSendFactory,
-} from '@daohaus/baal-contracts';
-
-import MolochV3Contract from './moloch-v3-contract';
-import BaalSummonerContract from './moloch-v3-summoner-contract';
-
-export interface Contracts {
-  molochV3Contract: ReturnType<typeof MolochV3Contract.create>;
-  baalSummonerContract: ReturnType<typeof BaalSummonerContract.create>;
-}
-
-export interface ContractsAndFactories extends Contracts {
-  baalFactory: ReturnType<typeof BaalFactory.connect>;
-  baalSummonerFactory: ReturnType<typeof BaalSummonerFactory.connect>;
-  lootFactory: ReturnType<typeof LootFactory.connect> | null;
-  sharesFactory: ReturnType<typeof SharesFactory.connect> | null;
-  tributeMinionFactory: ReturnType<typeof TributeMinionFactory.connect> | null;
-  posterFactory: ReturnType<typeof PosterFactory.connect> | null;
-  gnosisMultisendFactory: ReturnType<typeof MultiSendFactory.connect> | null;
-}
 
 export type ContractConfig = {
   address: string;
+  provider: ethers.providers.Provider | ethers.Signer;
+};
+
+export type ContractNetworkConfig = {
+  networkId: keyof Keychain;
   provider: ethers.providers.Provider | ethers.Signer;
 };
 
@@ -37,42 +16,52 @@ export type BaseOverrideArgs = ethers.Overrides;
 export type SummonArgs = {
   initializationParams: ethers.BytesLike;
   initializationActions: ethers.BytesLike[];
-  _saltNonce: ethers.BigNumberish;
+  _saltNonce: ethers.BigNumber;
+  overrides?: ethers.Overrides;
+};
+
+type daoTokenConfigArgs = {
+  to: string[];
+  amount: ethers.BigNumber[];
+};
+
+export type SummonMolochV3Args = {
+  sharesTokenName: string;
+  sharesTokenSymbol: string;
+  safeAddress?: string;
+  tokenConfig: {
+    pauseShares: boolean;
+    pauseLoot: boolean;
+  };
+  governanceConfig: {
+    voting: ethers.BigNumber;
+    grace: ethers.BigNumber;
+    newOffering: ethers.BigNumber;
+    quorum: ethers.BigNumber;
+    sponsor: ethers.BigNumber;
+    minRetention: ethers.BigNumber;
+  };
+  shamanConfig: {
+    shamans: string[];
+    permissions: ethers.BigNumber[];
+  };
+  sharesConfig: daoTokenConfigArgs;
+  lootConfig: daoTokenConfigArgs;
+  daoName: string;
+  _saltNonce: ethers.BigNumber;
   overrides?: ethers.Overrides;
 };
 
 export type SubmitProposalArgs = {
   proposalData: ethers.BytesLike;
-  expiration: ethers.BigNumberish;
-  baalGas: ethers.BigNumberish;
+  expiration: ethers.BigNumber;
+  baalGas: ethers.BigNumber;
   details: string;
   overrides?: ethers.Overrides;
 };
 
-export type ProposalIdArgs = {
-  id: ethers.BigNumberish;
-  overrides?: ethers.Overrides;
-};
-
 export type ProcessProposalArgs = {
+  id: ethers.BigNumber;
   proposalData: ethers.BytesLike;
-  overrides?: ethers.Overrides;
-} & ProposalIdArgs;
-
-export type SubmitVoteArgs = {
-  approved: boolean;
-  overrides?: ethers.Overrides;
-} & ProposalIdArgs;
-
-export type RagequitArgs = {
-  to: string;
-  sharesToBurn: ethers.BigNumberish;
-  lootToBurn: ethers.BigNumberish;
-  tokens: string[];
-  overrides?: ethers.Overrides;
-};
-
-export type DelegateArgs = {
-  delegatee: string;
   overrides?: ethers.Overrides;
 };

@@ -8,14 +8,11 @@ import {
 } from '@daohaus/baal-contracts';
 import {
   ContractConfig,
-  DelegateArgs,
   ProcessProposalArgs,
-  ProposalIdArgs,
-  RagequitArgs,
   SubmitProposalArgs,
-  SubmitVoteArgs,
 } from './types';
 
+// /update to get shares and loot addresses from the baal
 class MolochV3Contract {
   molochV3: Baal;
   shares: Shares;
@@ -39,6 +36,8 @@ class MolochV3Contract {
     return new MolochV3Contract({ address, provider });
   }
 
+  // TODO: encode this data for us
+
   /**
    * Submit proposal
    * @param proposalData Multisend encoded transactions or proposal data
@@ -57,71 +56,17 @@ class MolochV3Contract {
   }
 
   /**
-   * Sponsor proposal
-   * @param id uint256 id of the proposal
-   */
-  public async sponsorProposal(args: ProposalIdArgs) {
-    return await this.molochV3.sponsorProposal(args.id, args.overrides);
-  }
-
-  /**
-   * Cancel proposal
-   * @param id uint256 id of the proposal
-   */
-  public async cancelProposal(args: ProposalIdArgs) {
-    return await this.molochV3.cancelProposal(args.id, args.overrides);
-  }
-
-  /**
    * Process/execute proposal
    * @param id uint256 id of the proposal
    * @param proposalData Multisend encoded transactions or proposal data
    */
+  // TODO: can we force the gas estimate - getBaalgas?
   public async processProposal(args: ProcessProposalArgs) {
     return await this.molochV3.processProposal(
       args.id,
       args.proposalData,
       args.overrides
     );
-  }
-
-  /**
-   * Submit vote
-   * @param id uint256 id of the proposal
-   * @param approved If 'true', member will cast `yesVotes` onto proposal - if 'false', `noVotes` will be counted.
-   */
-  public async submitVote(args: SubmitVoteArgs) {
-    return await this.molochV3.submitVote(
-      args.id,
-      args.approved,
-      args.overrides
-    );
-  }
-
-  /**
-   * Cancel proposal
-   * @param to Account that receives 'fair share'.
-   * @param lootToBurn Baal pure economic weight to burn.
-   * @param sharesToBurn Baal voting weight to burn.
-   * @param tokens Array of tokens to include in rage quit calculation
-   */
-  public async ragequit(args: RagequitArgs) {
-    return await this.molochV3.ragequit(
-      args.to,
-      args.sharesToBurn,
-      args.lootToBurn,
-      args.tokens,
-      args.overrides
-    );
-  }
-
-  /**
-   * transfer shares
-   * @param id uint256 id of the proposal
-   * @param delegatee The address to delegate votes to.
-   */
-  public async delegate(args: DelegateArgs) {
-    return await this.shares.delegate(args.delegatee, args.overrides);
   }
 }
 

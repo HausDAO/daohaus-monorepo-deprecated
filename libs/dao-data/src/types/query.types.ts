@@ -69,6 +69,10 @@ export type QueryProposal = ListProposalsQuery['proposals'][number];
 export interface ITransformedProposal extends QueryProposal {
   status?: string;
 }
+
+// copied files start here  in @daohaus/dao-data
+// moving this to common-utilities allows the UI to remove dao-data
+// from its dependencies
 export interface ITransformedProposalQuery {
   proposal: ITransformedProposal | undefined;
 }

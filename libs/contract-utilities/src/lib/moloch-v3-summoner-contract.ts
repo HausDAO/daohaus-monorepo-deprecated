@@ -59,19 +59,12 @@ class MolochV3SummonerContract {
   public async summonMolochV3AndSafe(
     args: SummonMolochV3Args
   ): Promise<ethers.ContractTransaction> {
-    const initializationParams = encodeValues(
-      ['string', 'string'],
-      [args.sharesTokenName, args.sharesTokenSymbol]
-    );
-
-    const initializationActions = encodeInitializationParams(
-      args,
-      this.networkId
-    );
-
     return await this.summoner.summonBaalAndSafe(
-      initializationParams,
-      initializationActions,
+      encodeValues(
+        ['string', 'string'],
+        [args.sharesTokenName, args.sharesTokenSymbol]
+      ),
+      encodeInitializationParams(args, this.networkId),
       getNonce()
     );
   }
@@ -87,19 +80,12 @@ class MolochV3SummonerContract {
   ): Promise<ethers.ContractTransaction> {
     if (!args.safeAddress) throw 'Missing safe address';
 
-    const initializationParams = encodeValues(
-      ['string', 'string', 'address'],
-      [args.sharesTokenName, args.sharesTokenSymbol, args.safeAddress]
-    );
-
-    const initializationActions = encodeInitializationParams(
-      args,
-      this.networkId
-    );
-
     return await this.summoner.summonBaal(
-      initializationParams,
-      initializationActions,
+      encodeValues(
+        ['string', 'string', 'address'],
+        [args.sharesTokenName, args.sharesTokenSymbol, args.safeAddress]
+      ),
+      encodeInitializationParams(args, this.networkId),
       getNonce()
     );
   }

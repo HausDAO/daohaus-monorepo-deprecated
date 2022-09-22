@@ -7,6 +7,8 @@ import {
   SharesFactory,
 } from '@daohaus/baal-contracts';
 import { ethers } from 'ethers';
+import { getContractAbi } from './contract-meta';
+import { encodeFunctionWrapper } from './encoding-utils';
 import {
   ContractConfig,
   ProcessProposalArgs,
@@ -41,8 +43,6 @@ class MolochV3Contract {
     return new MolochV3Contract(molochV3Contract, sharesContract, lootContract);
   }
 
-  // TODO: encode this data for us
-  // will take a series of {abi, function, args} and target?
   /**
    * Submit proposal
    * @param proposalData Multisend encoded transactions or proposal data
@@ -52,27 +52,31 @@ class MolochV3Contract {
    * @param details Context for proposal.
    */
   public async submitProposal(args: SubmitProposalArgs) {
-    // will take a series of actions, encode each, then multical encode the whole thing
+    const multisendAbi = getContractAbi('GNOSIS_MULTISEND');
 
-    // encode each action with abi, functionname, args
-    //return the obj for multicall - with to address, value (default 0) and operation (default 0)
-    //txActionToMetaTx
+    if (!multisendAbi) throw 'missing multisend abi';
 
-    // return {
-    //   to: address,
-    //   data: encodedData,
-    //   value,
-    //   operation,
-    // };
+    const proposalData = args.proposalActions.map((action) => {
+      return {
+        to: action.to,
+        value: action.value,
+        operation: action.operation,
+        data: encodeFunctionWrapper(
+          action.abi,
+          action.fnName,
+          action.functionArgs
+        ),
+      };
+    });
 
-    // return encodeFunction(LOCAL_ABI.GNOSIS_MULTISEND, 'multiSend', [
-    //   encodeMultiSend(rawMulti),
-    // ]);
+    const encodedActions = encodeFunctionWrapper(
+      multisendAbi,
+      'multiSend',
+      proposalData
+    );
 
-    // should this calc the baalGas or do we ask the client to do that?
-    // function returns ethers.Bytes or ethers.BytesLike
     return await this.molochV3.submitProposal(
-      args.proposalData,
+      encodedActions,
       args.expiration,
       args.baalGas,
       args.details,

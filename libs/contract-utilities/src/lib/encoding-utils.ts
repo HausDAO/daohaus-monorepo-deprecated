@@ -10,7 +10,7 @@ import { ethers } from 'ethers';
 import { getContractAbi, getContractAddressesForChain } from './contract-meta';
 import { SummonMolochV3Args } from './types';
 
-const encodeFunctionWrapper = (
+export const encodeFunctionWrapper = (
   abi: ABI,
   fnName: string,
   functionArgs: ReadonlyArray<unknown>

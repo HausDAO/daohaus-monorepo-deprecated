@@ -1,5 +1,4 @@
 import { CONTRACTS, ENDPOINTS, ValidNetwork } from '@daohaus/common-utilities';
-import { BigNumber } from 'ethers';
 import { getAddress } from 'ethers/lib/utils';
 
 export const estimateGas = async ({
@@ -10,7 +9,7 @@ export const estimateGas = async ({
   chainId: ValidNetwork;
   safeId: string;
   data: string;
-}): Promise<BigNumber> => {
+}): Promise<number> => {
   const rawUri = ENDPOINTS['GAS_ESTIMATE'][chainId];
   if (!rawUri)
     throw new Error(

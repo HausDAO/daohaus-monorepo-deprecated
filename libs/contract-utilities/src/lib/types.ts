@@ -56,7 +56,7 @@ type ProposalActionParams = {
 export type SubmitProposalArgs = {
   proposalActions: ProposalActionParams[];
   expiration: ethers.BigNumber;
-  baalGas?: ethers.BigNumber;
+  baalGas?: number;
   networkId: ValidNetwork;
   details: string;
   overrides?: ethers.Overrides;

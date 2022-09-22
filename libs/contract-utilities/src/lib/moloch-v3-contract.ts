@@ -7,7 +7,6 @@ import {
   SharesFactory,
 } from '@daohaus/baal-contracts';
 import { ethers } from 'ethers';
-import { processOverrides } from 'libs/tx-builder-feature/src/utils/overrides';
 import {
   ContractConfig,
   ProcessProposalArgs,
@@ -47,11 +46,31 @@ class MolochV3Contract {
   /**
    * Submit proposal
    * @param proposalData Multisend encoded transactions or proposal data
+   * @param proposalActions array of action parameters -
    * @param expiration epoch time in seconds for when the proposal will expire, 0 for no expiration
    * @param baalGas esitmated gas limit for executing the above actions
    * @param details Context for proposal.
    */
   public async submitProposal(args: SubmitProposalArgs) {
+    // will take a series of actions, encode each, then multical encode the whole thing
+
+    // encode each action with abi, functionname, args
+    //return the obj for multicall - with to address, value (default 0) and operation (default 0)
+    //txActionToMetaTx
+
+    // return {
+    //   to: address,
+    //   data: encodedData,
+    //   value,
+    //   operation,
+    // };
+
+    // return encodeFunction(LOCAL_ABI.GNOSIS_MULTISEND, 'multiSend', [
+    //   encodeMultiSend(rawMulti),
+    // ]);
+
+    // should this calc the baalGas or do we ask the client to do that?
+    // function returns ethers.Bytes or ethers.BytesLike
     return await this.molochV3.submitProposal(
       args.proposalData,
       args.expiration,

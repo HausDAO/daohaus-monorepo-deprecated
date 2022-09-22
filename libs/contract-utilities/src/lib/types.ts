@@ -1,4 +1,4 @@
-import { Keychain } from '@daohaus/common-utilities';
+import { ABI, Keychain } from '@daohaus/common-utilities';
 import { ethers } from 'ethers';
 
 export type ContractConfig = {
@@ -12,13 +12,6 @@ export type ContractNetworkConfig = {
 };
 
 export type BaseOverrideArgs = ethers.Overrides;
-
-export type SummonArgs = {
-  initializationParams: ethers.BytesLike;
-  initializationActions: ethers.BytesLike[];
-  _saltNonce: ethers.BigNumber;
-  overrides?: ethers.Overrides;
-};
 
 type daoTokenConfigArgs = {
   to: string[];
@@ -51,8 +44,17 @@ export type SummonMolochV3Args = {
   overrides?: ethers.Overrides;
 };
 
+type ProposalActionParams = {
+  abi: ABI;
+  fnName: string;
+  functionArgs: ReadonlyArray<unknown>;
+  to: string;
+  value: ethers.BigNumber;
+  operation: number;
+};
+
 export type SubmitProposalArgs = {
-  proposalData: ethers.BytesLike;
+  proposalActions: ProposalActionParams[];
   expiration: ethers.BigNumber;
   baalGas: ethers.BigNumber;
   details: string;

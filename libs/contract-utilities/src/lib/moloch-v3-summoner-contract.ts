@@ -55,17 +55,6 @@ class MolochV3SummonerContract {
    * * metadata: post(string content, string tag)
    * @param _saltNonce any uint256
    */
-  public async summonBaalAndSafe(
-    args: SummonArgs
-  ): Promise<ethers.ContractTransaction> {
-    //
-
-    return await this.summoner.summonBaalAndSafe(
-      args.initializationParams,
-      args.initializationActions,
-      args._saltNonce
-    );
-  }
 
   public async summonMolochV3AndSafe(
     args: SummonMolochV3Args

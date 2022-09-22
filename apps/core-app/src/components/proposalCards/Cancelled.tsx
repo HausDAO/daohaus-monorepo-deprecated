@@ -8,12 +8,7 @@ export const Cancelled = ({ proposal }: { proposal: ITransformedProposal }) => {
     <ActionTemplate
       proposal={proposal}
       statusDisplay="Proposal Cancelled"
-      main={
-        <>
-          <VotingBar proposal={proposal} />
-          <Verdict passed={false} />{' '}
-        </>
-      }
+      main={<VotingBar proposal={proposal} />}
     />
   );
 };

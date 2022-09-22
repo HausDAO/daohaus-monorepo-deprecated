@@ -175,8 +175,8 @@ export const SummonerForm = ({
         <StakeTokensSegment formDisabled={formDisabled} />
         <TimingSegment formDisabled={formDisabled} />
         <AdvancedSegment formDisabled={formDisabled} />
-        <ShamanSegment formDisabled={formDisabled} />
         <MembersSegment formDisabled={formDisabled} />
+        <ShamanSegment formDisabled={formDisabled} />
         {!isConnected && <ConnectBox />}
         <Button
           fullWidth

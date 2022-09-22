@@ -22,6 +22,7 @@ const OverviewContainer = styled.div`
   gap: 1.2rem;
   width: 100%;
   padding: 2.8rem 3.6rem;
+
   border-radius: ${border.radius};
   border: 1px ${({ theme }: { theme: Theme }) => theme.card.border} solid;
   background-color: ${({ theme }: { theme: Theme }) => theme.card.hoverBg};

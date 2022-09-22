@@ -34,9 +34,16 @@ export type DecodedAction = {
 };
 
 export type ActionError = {
-  error?: boolean;
-  message?: string;
+  error: boolean;
+  message: string;
   data: string;
+};
+
+export type DecodedMultiTX = (DecodedAction | ActionError)[];
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const isActionError = (action: any): action is ActionError => {
+  return action.error;
 };
 
 const getMultisendHex = ({ chainId, actionData }: MultisendArgs) => {

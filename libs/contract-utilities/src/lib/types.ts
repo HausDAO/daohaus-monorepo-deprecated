@@ -1,4 +1,4 @@
-import { ABI, Keychain } from '@daohaus/common-utilities';
+import { ABI, Keychain, ValidNetwork } from '@daohaus/common-utilities';
 import { ethers } from 'ethers';
 
 export type ContractConfig = {
@@ -56,7 +56,8 @@ type ProposalActionParams = {
 export type SubmitProposalArgs = {
   proposalActions: ProposalActionParams[];
   expiration: ethers.BigNumber;
-  baalGas: ethers.BigNumber;
+  baalGas?: ethers.BigNumber;
+  networkId: ValidNetwork;
   details: string;
   overrides?: ethers.Overrides;
 };

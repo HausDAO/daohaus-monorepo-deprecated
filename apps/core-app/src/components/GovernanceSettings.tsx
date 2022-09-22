@@ -32,13 +32,20 @@ const GovernanceContainer = styled.div`
   }
 `;
 
-// putting this in place for when we bring in the action button
 const GovernanceCardHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
   margin-bottom: 3rem;
+`;
+
+const TokensHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  margin-top: 1rem;
 `;
 
 const DataGrid = styled.div`
@@ -97,6 +104,8 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
       minRetention: dao.minRetentionPercent,
       sponsorThreshold: dao.sponsorThreshold,
       newOffering: dao.proposalOffering,
+      vStake: dao.sharesPaused,
+      nvStake: dao.lootPaused,
     };
   }, [dao]);
 
@@ -168,7 +177,18 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
           info={INFO_COPY.SPONSOR_THRESHOLD}
         />
       </DataGrid>
-      <H3 className="tokens">DAO Tokens</H3>
+      <TokensHeader>
+        <H3 className="tokens">DAO Tokens</H3>
+        <StyledButtonLink
+          href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=TOKEN_SETTINGS&defaultValues=${JSON.stringify(
+            defaultValues
+          )}`}
+        >
+          <Button secondary sm>
+            Update Token Settings
+          </Button>
+        </StyledButtonLink>
+      </TokensHeader>
       <H4>Voting</H4>
       <TokenDataGrid>
         <DataIndicator

@@ -53,7 +53,7 @@ export const App = () => {
       <Banner />
       <TemporaryLayout>
         <Header>
-          <AppSwitcher {...apps} />;
+          <AppSwitcher {...apps} />
           <DaoHausNav />
         </Header>
         <CenterLayout>

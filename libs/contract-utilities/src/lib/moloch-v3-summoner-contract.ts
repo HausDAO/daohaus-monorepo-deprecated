@@ -1,6 +1,6 @@
 import { ethers } from 'ethers';
 import { BaalSummoner, BaalSummonerFactory } from '@daohaus/baal-contracts';
-import { ContractNetworkConfig, SummonArgs, SummonMolochV3Args } from './types';
+import { ContractNetworkConfig, SummonMolochV3Args } from './types';
 import {
   encodeValues,
   getNonce,
@@ -75,7 +75,7 @@ class MolochV3SummonerContract {
    * @param initializationParams encoded share token name and symbol and safe address (string, string, address)
    * @param _saltNonce any uint256
    */
-  public async summonBaal(
+  public async summonMolochV3(
     args: SummonMolochV3Args
   ): Promise<ethers.ContractTransaction> {
     if (!args.safeAddress) throw 'Missing safe address';

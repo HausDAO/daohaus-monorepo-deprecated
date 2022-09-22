@@ -45,8 +45,7 @@ class MolochV3Contract {
 
   /**
    * Submit proposal
-   * @param proposalData Multisend encoded transactions or proposal data
-   * @param proposalActions array of action parameters -
+   * @param proposalActions array of action parameters - to address, value, operation, abi, function name, function args
    * @param expiration epoch time in seconds for when the proposal will expire, 0 for no expiration
    * @param baalGas esitmated gas limit for executing the above actions
    * @param details Context for proposal.

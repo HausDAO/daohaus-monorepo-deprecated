@@ -21,9 +21,6 @@ export const isProxyABI = (abi: ABI) => {
 
 export const TEMPORARY_RPC = {
   '0x1': `https://${import.meta.env['VITE_RIVET_KEY']}.eth.rpc.rivet.cloud/`,
-  // '0x5': `https://goerli.infura.io/v3/${
-  //   import.meta.env['VITE_INFURA_PROJECT_ID']
-  // }`,
   '0x5': `https://${import.meta.env['VITE_RIVET_KEY']}.goerli.rpc.rivet.cloud/`,
   '0x64': 'https://rpc.gnosischain.com/',
 };

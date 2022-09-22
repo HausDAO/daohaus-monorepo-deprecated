@@ -99,7 +99,6 @@ export function ProposalDetails() {
   >();
   const [proposalLoading, setProposalLoading] = useState<boolean>(false);
   const [actionData, setActionData] = useState<DecodedMultiTX | null>();
-  const [displayActions, setDisplayActions] = useState<boolean>(false);
 
   const fetchProposal = useCallback(() => {
     const shouldUpdate = true;

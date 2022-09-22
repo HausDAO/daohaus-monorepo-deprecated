@@ -42,8 +42,9 @@ export const ActionDisplay = ({ actions }: { actions: DecodedMultiTX }) => {
             <div className="display-segment data" key={action.message}>
               <H4 className="space">Action {index + 1}: Error</H4>
               <DataSm className="space">{action.message}</DataSm>
+              <Divider className="space" />
               <DataSm className="space">
-                <Bold>HEX DATA</Bold>
+                <Bold>HEX DATA:</Bold>
               </DataSm>
               <DataSm className="space">{action.data}</DataSm>
             </div>

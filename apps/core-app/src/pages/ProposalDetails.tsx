@@ -26,9 +26,11 @@ import {
   DecodedMultiTX,
   decodeProposalActions,
 } from '@daohaus/tx-builder-feature';
+import { ActionDisplay } from '../components/ActionDisplay';
 
 const OverviewCard = styled(Card)`
   display: flex;
+  flex-direction: column;
   width: 64rem;
   padding: 2rem;
   border: none;
@@ -125,6 +127,7 @@ export function ProposalDetails() {
       left={
         <OverviewCard>
           {proposal && <ProposalDetailsGuts proposal={proposal} />}
+          {actionData && <ActionDisplay actions={actionData} />}
         </OverviewCard>
       }
       right={

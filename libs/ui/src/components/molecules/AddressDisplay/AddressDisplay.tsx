@@ -10,7 +10,7 @@ import { Theme } from '../../../types/theming';
 import {
   AddressContainer,
   AddressCopyIcon,
-  AddressDataMd,
+  AddressDataSm,
 } from './AddressDisplay.styles';
 import { Icon, Link } from '../../atoms';
 import { useCopyToClipboard } from '../../../hooks';
@@ -23,6 +23,7 @@ type AddressDisplayProps = {
   truncate?: boolean;
   txHash?: boolean;
   textOverride?: string;
+  className?: string;
 };
 
 export const AddressDisplay = ({
@@ -32,6 +33,7 @@ export const AddressDisplay = ({
   truncate,
   txHash,
   textOverride,
+  className,
   ...props
 }: AddressDisplayProps) => {
   const theme = useTheme() as Theme;
@@ -57,10 +59,10 @@ export const AddressDisplay = ({
   const displayAddress = truncate ? truncateAddress(address) : address;
 
   return (
-    <AddressContainer>
-      <AddressDataMd>
+    <AddressContainer className={className}>
+      <AddressDataSm>
         {textOverride ? textOverride : displayAddress}
-      </AddressDataMd>
+      </AddressDataSm>
       {copy && (
         <AddressCopyIcon>
           <Icon>

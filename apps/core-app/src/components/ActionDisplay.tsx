@@ -1,6 +1,13 @@
+import {
+  ArgType,
+  isEthAddress,
+  isValidNetwork,
+  ValidNetwork,
+} from '@daohaus/common-utilities';
 import { DecodedMultiTX, isActionError } from '@daohaus/tx-builder-feature';
-import { DataSm, Divider, H4 } from '@daohaus/ui';
+import { AddressDisplay, Bold, DataSm, Divider, H4 } from '@daohaus/ui';
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
 const DisplayContainer = styled.div`
@@ -10,46 +17,78 @@ const DisplayContainer = styled.div`
     display: flex;
     flex-direction: column;
   }
-  .space-all {
+
+  .data {
     word-break: break-all;
-  }
-  .space-all :nth-child(n) {
     margin-bottom: 2rem;
+    .space,
+    .address-display {
+      margin-bottom: 2rem;
+    }
+  }
+  .value-box {
+    display: flex;
   }
 `;
 
 export const ActionDisplay = ({ actions }: { actions: DecodedMultiTX }) => {
+  const { daochain } = useParams();
+  const network = isValidNetwork(daochain) ? daochain : undefined;
   return (
     <DisplayContainer>
       {actions.map((action, index) => {
         if (isActionError(action)) {
           return (
-            <div className="display-segment">
-              <H4>Action {index}Error</H4>
-              <div></div>
+            <div className="display-segment data" key={action.message}>
+              <H4 className="space">Action {index + 1}: Error</H4>
+              <DataSm className="space">{action.message}</DataSm>
+              <DataSm className="space">
+                <Bold>HEX DATA</Bold>
+              </DataSm>
+              <DataSm className="space">{action.data}</DataSm>
             </div>
           );
         }
         return (
-          <div className="display-segment">
-            <div className="space-all">
-              <H4>
+          <div className="display-segment" key={action.name}>
+            <div className="data">
+              <H4 className="space">
                 Action {index + 1}: {action.name}
               </H4>
-              <DataSm>TARGET</DataSm>
-              <DataSm>{action.to}</DataSm>
-              <DataSm>VALUE</DataSm>
-              <DataSm>{action.value}</DataSm>
-              <Divider />
+              <DataSm className="space">
+                <Bold>TARGET</Bold>
+              </DataSm>
+              <AddressDisplay
+                className="space"
+                address={action.to}
+                copy
+                explorerNetworkId={network}
+              />
+              <DataSm className="space">
+                <Bold>VALUE</Bold>
+              </DataSm>
+              <DataSm className="space">{action.value}</DataSm>
+              <Divider className="spaced-divider" />
             </div>
             {action.params.map((arg, index) => {
               return (
-                <div className="space-all">
-                  <DataSm>
-                    PARAM{index + 1}: {arg.name}
+                <div className="data" key={arg.name}>
+                  <DataSm className="space">
+                    <Bold>
+                      PARAM
+                      {index + 1}:{' '}
+                    </Bold>
+                    {arg.name}
                   </DataSm>
-                  <DataSm>TYPE: {arg.type}</DataSm>
-                  <DataSm>VALUE: {arg.value}</DataSm>
+                  <DataSm className="space">
+                    <Bold>TYPE: </Bold>
+                    {arg.type}
+                  </DataSm>
+
+                  <DataSm className="space">
+                    <Bold>VALUE: </Bold>
+                  </DataSm>
+                  <ValueDisplay argValue={arg.value} network={network} />
                   <Divider />
                 </div>
               );
@@ -59,4 +98,45 @@ export const ActionDisplay = ({ actions }: { actions: DecodedMultiTX }) => {
       })}
     </DisplayContainer>
   );
+};
+
+const ValueDisplay = ({
+  argValue,
+  network,
+}: {
+  argValue: ArgType;
+  network?: ValidNetwork;
+}) => {
+  if (Array.isArray(argValue)) {
+    return (
+      <>
+        {argValue.map((value, index) => {
+          return (
+            <div className="space">
+              <ValueDisplay argValue={value} network={network} />
+              {index + 1 < argValue?.length && <Divider />}
+            </div>
+          );
+        })}
+      </>
+    );
+  }
+  if (isEthAddress(argValue)) {
+    return (
+      <AddressDisplay
+        address={argValue}
+        copy
+        explorerNetworkId={network}
+        className="space"
+      />
+    );
+  }
+  if (typeof argValue === 'boolean') {
+    return <DataSm className="space">{`${argValue}`}</DataSm>;
+  }
+  if (typeof argValue === 'string' || typeof argValue === 'number') {
+    return <DataSm className="space">{argValue}</DataSm>;
+  }
+
+  return <DataSm className="space">{argValue.toString()}</DataSm>;
 };

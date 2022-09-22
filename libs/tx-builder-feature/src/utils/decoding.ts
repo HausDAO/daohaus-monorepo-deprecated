@@ -1,5 +1,6 @@
 import { BigNumber, utils } from 'ethers';
 import {
+  ArgType,
   CONTRACTS,
   ValidNetwork,
   ZERO_ADDRESS,
@@ -29,7 +30,7 @@ export type DecodedAction = {
   params: {
     name: string;
     type: string;
-    value: string;
+    value: ArgType;
   }[];
 };
 

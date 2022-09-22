@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { Theme } from '../../../types/theming';
-import { DataMd } from '../../atoms';
+import { DataMd, DataSm } from '../../atoms';
 
 export const AddressContainer = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ export const AddressContainer = styled.div`
   gap: 1rem;
 `;
 
-export const AddressDataMd = styled(DataMd)`
+export const AddressDataSm = styled(DataSm)`
   color: ${({ theme }: { theme: Theme }) => theme.tint.secondary};
 `;
 

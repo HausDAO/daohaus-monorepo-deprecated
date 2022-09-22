@@ -56,3 +56,8 @@ export const sharesDelegatedToMember = (
 ): number => {
   return Number(delegateShares) - Number(memberShares);
 };
+
+export const lowerCaseLootToken = (tokenName?: string): string => {
+  if (!tokenName) return '';
+  return tokenName.replace('LOOT', 'Loot');
+};

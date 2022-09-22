@@ -17,6 +17,7 @@ import {
   formatDateFromSeconds,
   formatValueTo,
   fromWei,
+  lowerCaseLootToken,
   sharesDelegatedToMember,
   votingPowerPercentage,
 } from '@daohaus/common-utilities';
@@ -151,7 +152,9 @@ export function Members() {
       },
       {
         Header: () => {
-          return <div>{charLimit(dao?.lootTokenName, 6)}</div>;
+          return (
+            <div>{charLimit(lowerCaseLootToken(dao?.lootTokenName), 6)}</div>
+          );
         },
         accessor: 'loot',
         Cell: ({ value }: { value: string }) => {

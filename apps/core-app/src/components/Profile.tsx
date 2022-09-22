@@ -20,6 +20,7 @@ import {
   votingPowerPercentage,
 } from '@daohaus/common-utilities';
 import { TMembership, useDao } from '@daohaus/dao-context';
+
 import { MemberProfileMenu } from './MemberProfileMenu';
 
 const AvatarLarge = styled(Avatar)`

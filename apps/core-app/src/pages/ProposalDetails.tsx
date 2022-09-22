@@ -23,16 +23,21 @@ import { getProposalTypeLabel } from '../utils/general';
 import { ProposalActions } from '../components/proposalCards/ProposalActions';
 import { CancelProposal } from '../components/CancelProposal';
 import {
-  ActionError,
-  DecodedAction,
+  DecodedMultiTX,
   decodeProposalActions,
 } from '@daohaus/tx-builder-feature';
+import { ActionDisplay } from '../components/ActionDisplay';
+
+// generate a random hex string that is 900 characters long
 
 const OverviewCard = styled(Card)`
+  display: flex;
+  flex-direction: column;
   width: 64rem;
   padding: 2rem;
   border: none;
   margin-bottom: 3.4rem;
+  height: fit-content;
   @media ${widthQuery.md} {
     max-width: 100%;
     min-width: 0;
@@ -59,7 +64,8 @@ export function ProposalDetails() {
     ITransformedProposalQuery['proposal'] | undefined
   >();
   const [proposalLoading, setProposalLoading] = useState<boolean>(false);
-  const [, setActionData] = useState<(DecodedAction | ActionError)[] | null>();
+  const [actionData, setActionData] = useState<DecodedMultiTX | null>();
+
   const fetchProposal = useCallback(() => {
     const shouldUpdate = true;
     if (!daochain || !daoid || !proposalId) return;
@@ -123,6 +129,7 @@ export function ProposalDetails() {
       left={
         <OverviewCard>
           {proposal && <ProposalDetailsGuts proposal={proposal} />}
+          {actionData && <ActionDisplay actions={actionData} />}
         </OverviewCard>
       }
       right={

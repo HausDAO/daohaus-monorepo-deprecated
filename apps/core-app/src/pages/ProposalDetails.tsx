@@ -56,40 +56,6 @@ const RightCard = styled(Card)`
   }
 `;
 
-const testData: DecodedMultiTX = [
-  {
-    name: 'doThing',
-    value: '0',
-    to: '0x000000000000cd17345801aa8147b8d3950260ff',
-    params: [
-      {
-        name: 'thisArg',
-        value: '0x000000000000cd17345801aa8147b8d3950260ff',
-        type: 'address',
-      },
-      {
-        name: 'thatArg',
-        value: [
-          '0x000000000000cd17345801aa8147b8d3950260ff',
-          '0x000000000000cd17345801aa8147b8d3950260ff',
-          '0x000000000000cd17345801aa8147b8d3950260ff',
-        ],
-        type: 'address',
-      },
-      {
-        name: 'thisToo',
-        value: false,
-        type: 'address',
-      },
-    ],
-  },
-  {
-    error: true,
-    message: 'Could not find a matching function for the given data',
-    data: '0x0ae1b13d000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000e0000000000000000000000000000000000000000000000000000000000000006b7b227469746c65223a224e6f742061206d656d626572222c226465736372697074696f6e223a22736466222c22636f6e74656e74555249223a22222c22636f6e74656e7455524954797065223a2275726c222c2270726f706f73616c54797065223a225349474e414c227d000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001f64616f686175732e70726f706f73616c2e7369676e616c50726f706f73616c00',
-  },
-];
-
 export function ProposalDetails() {
   const { daoid, daochain, proposalId } = useParams();
   const { address } = useHausConnect();
@@ -163,7 +129,7 @@ export function ProposalDetails() {
       left={
         <OverviewCard>
           {proposal && <ProposalDetailsGuts proposal={proposal} />}
-          {actionData && <ActionDisplay actions={testData} />}
+          {actionData && <ActionDisplay actions={actionData} />}
         </OverviewCard>
       }
       right={

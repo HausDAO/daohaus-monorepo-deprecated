@@ -1,7 +1,12 @@
 import { ReactNode } from 'react';
 
 import { DaoHausNav } from '../DaoHausNav/DaoHausNav';
-import { MainLayout, NavigationTabs, NavigationTabsProps } from '@daohaus/ui';
+import {
+  Footer,
+  MainLayout,
+  NavigationTabs,
+  NavigationTabsProps,
+} from '@daohaus/ui';
 import { OuterLayout } from '@daohaus/ui';
 import styled from 'styled-components';
 
@@ -29,6 +34,7 @@ export const HausLayout = ({
       </Header>
       <NavigationTabs navLinks={navLinks} dropdownLinks={dropdownLinks} />
       <MainLayout>{children}</MainLayout>
+      <Footer />
     </OuterLayout>
   );
 };

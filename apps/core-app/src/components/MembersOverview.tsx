@@ -2,7 +2,12 @@ import styled from 'styled-components';
 import { Card, Theme, DataIndicator, widthQuery } from '@daohaus/ui';
 
 import { TDao } from '@daohaus/dao-context';
-import { charLimit, formatValueTo, fromWei } from '@daohaus/common-utilities';
+import {
+  charLimit,
+  formatValueTo,
+  fromWei,
+  lowerCaseLootToken,
+} from '@daohaus/common-utilities';
 
 const MembersOverviewCard = styled(Card)`
   background-color: ${({ theme }: { theme: Theme }) => theme.card.hoverBg};
@@ -34,7 +39,7 @@ export const MembersOverview = ({ dao }: MembersOverviewProps) => {
   return (
     <MembersOverviewCard>
       <DataGrid>
-        <DataIndicator label="Members" data={dao.activeMemberCount} />
+        <DataIndicator label="Token Holders" data={dao.activeMemberCount} />
         <DataIndicator label="Shamans" data={dao.shamen?.length || '0'} />
         <DataIndicator
           label={charLimit(dao.shareTokenName, 12)}
@@ -45,7 +50,7 @@ export const MembersOverview = ({ dao }: MembersOverviewProps) => {
           })}
         />
         <DataIndicator
-          label={charLimit(dao.lootTokenName, 12)}
+          label={charLimit(lowerCaseLootToken(dao.lootTokenName), 12)}
           data={formatValueTo({
             value: fromWei(dao.totalLoot),
             decimals: 2,

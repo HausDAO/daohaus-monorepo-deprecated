@@ -1,11 +1,16 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { HashRouter } from 'react-router-dom';
+import { Buffer } from 'buffer';
 
 import { HausConnectProvider } from '@daohaus/daohaus-connect-feature';
 import { HausThemeProvider } from '@daohaus/ui';
 
 import Routes from './Routes';
+
+// This solves an issue when using WalletConnect and intercept Txs to create dao proposals
+// Related open issue: https://github.com/WalletConnect/walletconnect-monorepo/issues/748
+window.Buffer = window.Buffer || Buffer;
 
 const container = document.getElementById('root');
 

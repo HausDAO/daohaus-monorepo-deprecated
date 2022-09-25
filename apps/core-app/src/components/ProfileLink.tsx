@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 
 type ProfileLinkProps = {
   memberAddress: string;
-  buttonText?: string;
 } & Partial<ComponentProps<typeof Button>>;
 
 export const ProfileLink = ({

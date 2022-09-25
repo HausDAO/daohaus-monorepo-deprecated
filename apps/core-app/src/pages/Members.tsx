@@ -8,8 +8,6 @@ import {
   AddressDisplay,
   Spinner,
   useBreakpoint,
-  Link,
-  Button,
   Tooltip,
 } from '@daohaus/ui';
 import {
@@ -34,6 +32,7 @@ import { ProfileLink } from '../components/ProfileLink';
 import { DaoTable } from '../components/DaohausTable';
 import { useParams } from 'react-router-dom';
 import { MemberProfileMenu } from '../components/MemberProfileMenu';
+import { ButtonLink } from '../components/ButtonLink';
 
 const Actions = styled.div`
   display: flex;
@@ -65,12 +64,6 @@ const MemberContainer = styled(Card)`
     .hide-sm {
       display: none;
     }
-  }
-`;
-
-const StyledButtonLink = styled(Link)`
-  :hover {
-    text-decoration: none;
   }
 `;
 
@@ -252,21 +245,22 @@ export function Members() {
       title="Members"
       actions={
         <Actions>
-          <StyledButtonLink
+          <ButtonLink
             href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=ISSUE`}
+            secondary
+            fullWidth={isMobile}
+            centerAlign={isMobile}
           >
-            <Button secondary fullWidth={isMobile} centerAlign={isMobile}>
-              Add Member
-            </Button>
-          </StyledButtonLink>
+            Add Member
+          </ButtonLink>
           {connectedMembership && (
-            <ProfileLink
-              memberAddress={connectedMembership.memberAddress}
+            <ButtonLink
+              href={`/molochv3/${daochain}/${daoid}/members/${connectedMembership.memberAddress}`}
               fullWidth={isMobile}
               centerAlign={isMobile}
             >
               My Profile
-            </ProfileLink>
+            </ButtonLink>
           )}
         </Actions>
       }

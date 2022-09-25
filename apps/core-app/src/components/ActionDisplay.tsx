@@ -5,8 +5,15 @@ import {
   ValidNetwork,
 } from '@daohaus/common-utilities';
 import { DecodedMultiTX, isActionError } from '@daohaus/tx-builder-feature';
-import { AddressDisplay, Bold, DataSm, Divider, H4 } from '@daohaus/ui';
-import React from 'react';
+import {
+  AddressDisplay,
+  Bold,
+  DataSm,
+  Divider,
+  H4,
+  useBreakpoint,
+  widthQuery,
+} from '@daohaus/ui';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -34,6 +41,8 @@ const DisplayContainer = styled.div`
 export const ActionDisplay = ({ actions }: { actions: DecodedMultiTX }) => {
   const { daochain } = useParams();
   const network = isValidNetwork(daochain) ? daochain : undefined;
+  const isMobile = useBreakpoint(widthQuery.sm);
+
   return (
     <DisplayContainer>
       {actions.map((action, index) => {
@@ -64,6 +73,7 @@ export const ActionDisplay = ({ actions }: { actions: DecodedMultiTX }) => {
                 address={action.to}
                 copy
                 explorerNetworkId={network}
+                truncate={isMobile}
               />
               <DataSm className="space">
                 <Bold>VALUE</Bold>
@@ -89,7 +99,11 @@ export const ActionDisplay = ({ actions }: { actions: DecodedMultiTX }) => {
                   <DataSm className="space">
                     <Bold>VALUE: </Bold>
                   </DataSm>
-                  <ValueDisplay argValue={arg.value} network={network} />
+                  <ValueDisplay
+                    argValue={arg.value}
+                    network={network}
+                    isMobile={isMobile}
+                  />
                   <Divider />
                 </div>
               );
@@ -104,9 +118,11 @@ export const ActionDisplay = ({ actions }: { actions: DecodedMultiTX }) => {
 const ValueDisplay = ({
   argValue,
   network,
+  isMobile,
 }: {
   argValue: ArgType;
   network?: ValidNetwork;
+  isMobile?: boolean;
 }) => {
   if (Array.isArray(argValue)) {
     return (
@@ -129,6 +145,7 @@ const ValueDisplay = ({
         copy
         explorerNetworkId={network}
         className="space"
+        truncate={isMobile}
       />
     );
   }

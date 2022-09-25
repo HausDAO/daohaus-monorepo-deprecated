@@ -19,7 +19,7 @@ import { ProposalWarning } from './ProposalWarning';
 const OverviewContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  margin-top: 1.2rem;
   width: 100%;
   padding: 2.8rem 3.6rem;
 
@@ -32,11 +32,13 @@ const DataContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
   margin-top: 3rem;
 `;
 
 const SpacedAddressDisplay = styled(AddressDisplay)`
   margin-top: 1rem;
+  margin-bottom: 2rem;
 `;
 
 const Spacer = styled.div`

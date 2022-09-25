@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import { BsShareFill, BsArrowLeft } from 'react-icons/bs';
 import { Column } from 'react-table';
@@ -42,10 +42,6 @@ const ProfileCard = styled(Card)`
     max-width: 100%;
     min-width: 0;
   }
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
 `;
 
 const StyledArrowLeft = styled(BsArrowLeft)`

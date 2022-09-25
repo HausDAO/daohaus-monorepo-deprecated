@@ -12,6 +12,7 @@ import {
   ParMd,
   ParXs,
   ProfileAvatar,
+  widthQuery,
 } from '@daohaus/ui';
 
 import { useHausConnect } from '../../HausConnectContext';
@@ -26,6 +27,7 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
   const classes = classNames({ 'mobile-connect-btn': isSm });
   const networkName = getNetworkName(chainId as string);
 
+  const chevron = open ? BiChevronUp : BiChevronDown;
   return (
     <Dropdown
       spacing="0.7rem"
@@ -37,7 +39,7 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
         <Button
           avatar
           sm={isSm}
-          IconRight={open ? BiChevronUp : BiChevronDown}
+          IconRight={isSm ? undefined : chevron}
           className={classes}
           width={!isSm ? '25rem' : ''}
         >
@@ -55,9 +57,11 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
                     (address && truncateAddress(address.toLowerCase()))}
                 </ParMd>
               )}
-              <ParXs color={theme.button.primary.text}>
-                {(networkName && `@${networkName}`) || 'Wrong Network'}
-              </ParXs>
+              {!isSm && (
+                <ParXs color={theme.button.primary.text}>
+                  {(networkName && `@${networkName}`) || 'Wrong Network'}
+                </ParXs>
+              )}
             </div>
           </Container>
         </Button>
@@ -106,6 +110,12 @@ const Container = styled.div`
   }
   .user-avatar {
     margin-right: 0.75rem;
+  }
+  @media ${widthQuery.sm} {
+    width: auto;
+    .user-avatar {
+      margin-right: 0rem;
+    }
   }
 `;
 

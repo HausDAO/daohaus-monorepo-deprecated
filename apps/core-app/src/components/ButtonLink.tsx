@@ -2,7 +2,8 @@ import { Button, Link } from '@daohaus/ui';
 import React, { ComponentProps } from 'react';
 
 type ProfileLinkProps = {
-  href: string;
+  href?: string;
+  to?: string;
   selected?: boolean;
   disabled?: boolean;
   linkType?: 'internal' | 'external' | 'no-icon-external';
@@ -11,6 +12,7 @@ type ProfileLinkProps = {
 
 export const ButtonLink = ({
   href,
+  to,
   selected,
   disabled,
   children,

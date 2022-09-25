@@ -1,6 +1,7 @@
 import { ParMd, Link } from '../../atoms';
 import hausCastle from '../../../assets/hausCastle.svg';
 import styled from 'styled-components';
+import { widthQuery } from '../../../theme/global/breakpoints';
 
 const StyledFooter = styled.footer`
   margin-top: 17rem;
@@ -13,6 +14,15 @@ const StyledFooter = styled.footer`
     img {
       margin-right: 1.8rem;
     }
+  }
+  @media ${widthQuery.md} {
+    margin-top: 12rem;
+  }
+  @media ${widthQuery.sm} {
+    margin-top: 6rem;
+  }
+  @media ${widthQuery.xs} {
+    margin-top: 3rem;
   }
 `;
 

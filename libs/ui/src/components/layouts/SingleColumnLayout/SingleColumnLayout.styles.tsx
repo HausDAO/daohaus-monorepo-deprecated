@@ -25,6 +25,9 @@ export const ColumnHeader = styled.div`
   .description {
     margin-bottom: 5rem;
   }
+  @media ${widthQuery.sm} {
+    margin-top: 3rem;
+  }
 `;
 
 export const ContentBox = styled.div`

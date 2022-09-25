@@ -12,6 +12,7 @@ import {
   ParMd,
   SingleColumnLayout,
   Spinner,
+  useBreakpoint,
   useToast,
   widthQuery,
 } from '@daohaus/ui';
@@ -30,6 +31,7 @@ import { useDao } from '@daohaus/dao-context';
 import { Profile } from '../components/Profile';
 import { DaoTable } from '../components/DaohausTable';
 import { loadMember } from '../utils/dataFetchHelpers';
+import { ButtonLink } from '../components/ButtonLink';
 
 const ProfileCard = styled(Card)`
   width: 64rem;
@@ -59,6 +61,12 @@ const ButtonsContainer = styled.div`
   @media ${widthQuery.md} {
     max-width: 100%;
     min-width: 0;
+  }
+  @media ${widthQuery.sm} {
+    flex-direction: column;
+    button:first-child {
+      margin-bottom: 1rem;
+    }
   }
 `;
 
@@ -90,6 +98,8 @@ export function Member() {
     AccountProfile | undefined
   >();
   const { successToast } = useToast();
+
+  const isMobile = useBreakpoint(widthQuery.sm);
 
   useEffect(() => {
     let shouldUpdate = true;
@@ -227,12 +237,21 @@ export function Member() {
       {currentMember && (
         <>
           <ButtonsContainer>
-            <StyledLink to={`/molochv3/${daochain}/${daoid}/members`}>
-              <Button IconLeft={StyledArrowLeft} tertiary>
-                MEMBERS
-              </Button>
-            </StyledLink>
-            <Button IconLeft={BsShareFill} onClick={handleOnClick}>
+            <ButtonLink
+              href={`/molochv3/${daochain}/${daoid}/members`}
+              IconLeft={StyledArrowLeft}
+              tertiary
+              fullWidth={isMobile}
+              centerAlign={isMobile}
+            >
+              MEMBERS
+            </ButtonLink>
+            <Button
+              IconLeft={BsShareFill}
+              onClick={handleOnClick}
+              fullWidth={isMobile}
+              centerAlign={isMobile}
+            >
               SHARE PROFILE
             </Button>
           </ButtonsContainer>

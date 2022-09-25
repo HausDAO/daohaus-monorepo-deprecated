@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
 import {
-  Button,
   Card,
-  Link,
   SingleColumnLayout,
   useBreakpoint,
   widthQuery,
@@ -22,12 +20,6 @@ const VaultContainer = styled(Card)`
   @media ${widthQuery.lg} {
     max-width: 100%;
     min-width: 0;
-  }
-`;
-
-const StyledButtonLink = styled(Link)`
-  :hover {
-    text-decoration: none;
   }
 `;
 

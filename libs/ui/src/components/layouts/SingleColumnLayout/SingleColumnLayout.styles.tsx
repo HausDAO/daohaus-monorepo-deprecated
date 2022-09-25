@@ -50,4 +50,7 @@ export const ActionButtonContainer = styled.div`
   display: flex;
   gap: 1rem;
   margin-bottom: 3rem;
+  @media ${widthQuery.sm} {
+    width: 100%;
+  }
 `;

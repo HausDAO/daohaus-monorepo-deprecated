@@ -37,11 +37,16 @@ import { MemberProfileMenu } from '../components/MemberProfileMenu';
 
 const Actions = styled.div`
   display: flex;
+  width: 100%;
   button:first-child {
     margin-right: 1rem;
   }
   @media ${widthQuery.sm} {
     flex-direction: column;
+    button:first-child {
+      margin-right: 0;
+      margin-bottom: 1rem;
+    }
   }
 `;
 
@@ -245,19 +250,23 @@ export function Members() {
   return (
     <SingleColumnLayout
       title="Members"
-      description="sdfsdf"
       actions={
         <Actions>
           <StyledButtonLink
             href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=ISSUE`}
           >
-            <Button secondary>Add Member</Button>
+            <Button secondary fullWidth={isMobile} centerAlign={isMobile}>
+              Add Member
+            </Button>
           </StyledButtonLink>
           {connectedMembership && (
             <ProfileLink
               memberAddress={connectedMembership.memberAddress}
-              buttonText="My Profile"
-            />
+              fullWidth={isMobile}
+              centerAlign={isMobile}
+            >
+              My Profile
+            </ProfileLink>
           )}
         </Actions>
       }

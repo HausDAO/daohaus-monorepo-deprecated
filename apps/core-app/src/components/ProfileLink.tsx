@@ -9,14 +9,14 @@ type ProfileLinkProps = {
 
 export const ProfileLink = ({
   memberAddress,
-  buttonText = 'Profile',
+  children,
   ...rest
 }: ProfileLinkProps) => {
   const { daoid, daochain } = useParams();
 
   return (
     <Link href={`/molochv3/${daochain}/${daoid}/members/${memberAddress}`}>
-      <Button {...rest}>{buttonText}</Button>
+      <Button {...rest}>{children}</Button>
     </Link>
   );
 };

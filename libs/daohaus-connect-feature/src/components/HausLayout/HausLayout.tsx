@@ -1,7 +1,8 @@
-import { ReactNode } from 'react';
+import { ComponentProps, ReactNode } from 'react';
 
 import { DaoHausNav } from '../DaoHausNav/DaoHausNav';
 import {
+  AppSwitcher,
   Footer,
   MainLayout,
   NavigationTabs,
@@ -23,12 +24,20 @@ export const HausLayout = ({
   navLinks,
   dropdownLinks,
   children,
-  LeftNav,
-}: NavigationTabsProps & { children: ReactNode }) => {
+  appNavLinks,
+  leftNav,
+}: NavigationTabsProps & {
+  children: ReactNode;
+  leftNav?: ReactNode;
+  appNavLinks?: ComponentProps<typeof AppSwitcher>;
+}) => {
   return (
     <OuterLayout>
       <Header>
-        <div className="left-nav">{LeftNav}</div>
+        <div className="left-nav">
+          {appNavLinks && <AppSwitcher {...appNavLinks} />}
+          {leftNav}
+        </div>
         <DaoHausNav />
       </Header>
       <NavigationTabs navLinks={navLinks} dropdownLinks={dropdownLinks} />

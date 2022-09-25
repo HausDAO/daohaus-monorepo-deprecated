@@ -2,7 +2,6 @@ import { useParams, Outlet } from 'react-router-dom';
 import { HausLayout, useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { useDao } from '@daohaus/dao-context';
 import { TXBuilder } from '@daohaus/tx-builder-feature';
-import { AppSwitcher } from '@daohaus/ui';
 
 export function Dao() {
   const { daochain, daoid } = useParams();
@@ -57,7 +56,7 @@ export function Dao() {
             href: `/molochv3/${daochain}/${daoid}/settings`,
           },
         ]}
-        LeftNav={<AppSwitcher {...apps} />}
+        appNavLinks={apps}
       >
         <Outlet />
       </HausLayout>

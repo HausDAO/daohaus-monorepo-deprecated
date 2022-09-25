@@ -7,6 +7,7 @@ import {
   MainLayout,
   NavigationTabs,
   NavigationTabsProps,
+  widthQuery,
 } from '@daohaus/ui';
 import { OuterLayout } from '@daohaus/ui';
 import styled from 'styled-components';
@@ -15,8 +16,15 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 2.6rem 3rem;
+  width: 100%;
+  @media ${widthQuery.sm} {
+    padding: 2rem;
+  }
   .left-nav {
-    padding: 2.6rem 3rem;
+    @media ${widthQuery.sm} {
+      width: 100%;
+    }
   }
 `;
 

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import classNames from 'classnames';
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
 import styled, { useTheme } from 'styled-components';
 
@@ -24,7 +23,7 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);
-  const classes = classNames({ 'mobile-connect-btn': isSm });
+
   const networkName = getNetworkName(chainId as string);
 
   const chevron = open ? BiChevronUp : BiChevronDown;
@@ -40,7 +39,6 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
           avatar
           sm={isSm}
           IconRight={isSm ? undefined : chevron}
-          className={classes}
           width={!isSm ? '25rem' : ''}
         >
           <Container>
@@ -89,7 +87,7 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
         </div>
       </DropdownMenuLabel>
       <DropdownMenuItem>
-        <Button tertiary fullWidth sm onClick={disconnect}>
+        <Button tertiary fullWidth sm onClick={disconnect} centerAlign>
           Disconnect
         </Button>
       </DropdownMenuItem>

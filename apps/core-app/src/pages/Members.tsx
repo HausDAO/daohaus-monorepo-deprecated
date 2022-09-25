@@ -35,12 +35,23 @@ import { DaoTable } from '../components/DaohausTable';
 import { useParams } from 'react-router-dom';
 import { MemberProfileMenu } from '../components/MemberProfileMenu';
 
+const Actions = styled.div`
+  display: flex;
+  button:first-child {
+    margin-right: 1rem;
+  }
+  @media ${widthQuery.sm} {
+    flex-direction: column;
+  }
+`;
+
 const MemberContainer = styled(Card)`
   padding: 3rem;
   border: none;
   margin-bottom: 3rem;
   min-height: 20rem;
   width: 100%;
+  overflow-x: auto;
   @media ${widthQuery.lg} {
     max-width: 100%;
     min-width: 0;
@@ -234,8 +245,9 @@ export function Members() {
   return (
     <SingleColumnLayout
       title="Members"
+      description="sdfsdf"
       actions={
-        <>
+        <Actions>
           <StyledButtonLink
             href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=ISSUE`}
           >
@@ -247,7 +259,7 @@ export function Members() {
               buttonText="My Profile"
             />
           )}
-        </>
+        </Actions>
       }
     >
       <MemberContainer>
@@ -259,7 +271,11 @@ export function Members() {
             hasNextPaging={membersNextPaging !== undefined}
             handleLoadMore={handleLoadMore}
             handleColumnSort={handleColumnSort}
-            sortableColumns={['createdAt', 'shares', 'loot', 'delegateShares']}
+            sortableColumns={
+              isMobile
+                ? ['loot', 'shares']
+                : ['createdAt', 'shares', 'loot', 'delegateShares']
+            }
           />
         ) : (
           <Spinner size={isMobile ? '8rem' : '16rem'} padding="6rem" />

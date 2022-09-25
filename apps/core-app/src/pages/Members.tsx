@@ -210,7 +210,9 @@ export function Members() {
                 sm
                 secondary
                 memberAddress={row.original.memberAddress}
-              />
+              >
+                Profile
+              </ProfileLink>
               <MemberProfileMenu memberAddress={row.original.memberAddress} />
             </ActionContainer>
           );

@@ -52,5 +52,6 @@ export const ActionButtonContainer = styled.div`
   margin-bottom: 3rem;
   @media ${widthQuery.sm} {
     width: 100%;
+    flex-direction: column;
   }
 `;

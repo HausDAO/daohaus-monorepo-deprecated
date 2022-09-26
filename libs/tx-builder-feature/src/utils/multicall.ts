@@ -139,14 +139,12 @@ export const handleMulticallArg = async ({
       if (data) {
         return {
           to: processedContract.address,
-          data: isSearchArg(data)
-            ? (await processArg({
-                arg: data,
-                chainId,
-                localABIs,
-                appState,
-              }) as string)
-            : data.value as string,
+          data: await processArg({
+            arg: data,
+            chainId,
+            localABIs,
+            appState,
+          }) as string,
           value: processValue.toString(),
           operation: Number(processedOperations),
         };

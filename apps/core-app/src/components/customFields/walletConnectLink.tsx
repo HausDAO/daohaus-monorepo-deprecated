@@ -4,14 +4,22 @@ import { FaQrcode } from 'react-icons/fa';
 import { useFormContext } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { ValidNetwork } from '@daohaus/common-utilities';
 import { useDao } from '@daohaus/dao-context';
-import { Buildable, Field, FieldWrapper, HighlightInputText, Icon, ParSm, Spinner, WrappedInput } from "@daohaus/ui";
 import {
   border,
-  Theme,
-  ParMd,
+  Buildable,
   Button,
-} from '@daohaus/ui';
+  Field,
+  FieldWrapper,
+  HighlightInputText,
+  Icon,
+  ParSm,
+  ParMd,
+  Spinner,
+  Theme,
+  WrappedInput,
+} from "@daohaus/ui";
 import { FieldSpacer } from '@daohaus/haus-form-builder';
 
 import { useWalletConnect } from '../../hook/walletConnect';
@@ -74,24 +82,26 @@ export const WalletConnectLink = ({ icon, id, rules, ...props }: Buildable<Field
     wcClientData,
     wcConnect,
     wcDisconnect,
+    txError,
   } = useWalletConnect();
-
-  register('txTo');
-  register('txData');
-  register('txValue');
-  register('txOperation');
 
   const inputId = 'wcLink';
 
   const [connectionStatus, setConnectionStatus] = useState(Status.DISCONNECTED);
   
   const wcLink = watch(inputId);
+
+  useEffect(() => {
+    register('txTo');
+    register('txData');
+    register('txValue');
+    register('txOperation');
+  }, [register]);
   
   useEffect(() => {
-    console.log('link', wcLink);
     if (dao && daochain && wcLink?.startsWith('wc:') && connectionStatus === Status.DISCONNECTED) {
       setConnectionStatus(Status.CONNECTING);
-      wcConnect({ chainId: daochain, safeAddress: dao.safeAddress, uri: wcLink });
+      wcConnect({ chainId: daochain as ValidNetwork, safeAddress: dao.safeAddress, uri: wcLink });
     }
   }, [connectionStatus, dao, daochain, wcConnect, wcLink]);
 
@@ -108,11 +118,10 @@ export const WalletConnectLink = ({ icon, id, rules, ...props }: Buildable<Field
   };
 
   useEffect(() => {
-    console.log('txPayload', txPayload);
     if (txPayload?.params?.length) {
       setValue('txTo', txPayload.params[0].to);
       setValue('txData', txPayload.params[0].data);
-      setValue('txValue', txPayload.params[0].value);
+      setValue('txValue', txPayload.params[0].value || '0');
       setValue('txOperation', txPayload.params[0].operation || '0');
     }
   }, [setValue, txPayload]);
@@ -130,6 +139,7 @@ export const WalletConnectLink = ({ icon, id, rules, ...props }: Buildable<Field
         id={inputId}
         disabled={connectionStatus === Status.CONNECTED}
         rules={rules}
+        error={txError ? { type: 'error', message: txError} : undefined}
       />
       <WalletConectContainer>
         <img

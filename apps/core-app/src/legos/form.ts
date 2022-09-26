@@ -396,6 +396,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     ],
   },
   WALLETCONNECT: {
+    devtool: true,
     id: 'WALLETCONNECT',
     title: 'WalletConnect Proposal',
     subtitle: 'Use WalletConnect to create a Proposal',

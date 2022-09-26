@@ -1,3 +1,4 @@
+import { widthQuery } from '../../../theme/global/breakpoints';
 import styled from 'styled-components';
 
 export const ColumnBox = styled.div`
@@ -10,6 +11,7 @@ export const ColumnBox = styled.div`
 
 export const ColumnHeader = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   margin-top: 5rem;
   width: 100%;
@@ -22,6 +24,9 @@ export const ColumnHeader = styled.div`
   }
   .description {
     margin-bottom: 5rem;
+  }
+  @media ${widthQuery.sm} {
+    margin-top: 3rem;
   }
 `;
 
@@ -38,10 +43,18 @@ export const TitleContainerWithActions = styled.div`
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
+  @media ${widthQuery.sm} {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 export const ActionButtonContainer = styled.div`
   display: flex;
   gap: 1rem;
   margin-bottom: 3rem;
+  @media ${widthQuery.sm} {
+    width: 100%;
+    flex-direction: column;
+  }
 `;

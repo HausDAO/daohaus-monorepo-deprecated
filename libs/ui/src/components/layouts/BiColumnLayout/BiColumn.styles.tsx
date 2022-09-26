@@ -23,6 +23,9 @@ export const BiColumnBox = styled.div`
       flex-direction: column;
     }
   }
+  @media ${widthQuery.sm} {
+    margin-top: 3rem;
+  }
 `;
 
 export const TitleContainerWithActions = styled.div`

@@ -33,16 +33,12 @@ const TokensCard = styled(OverviewCard)`
 
 const DataGrid = styled.div`
   display: flex;
-  flex-wrap: wrap;
   width: 100%;
-  align-content: space-between;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
   div {
     padding: 2rem 0;
-    width: 19.7rem;
-
-    @media ${widthQuery.sm} {
-      min-width: 100%;
-    }
   }
 `;
 
@@ -76,7 +72,7 @@ export function DaoOverview() {
             <DataGrid>
               <DataIndicator
                 label="Voting"
-                data={charLimit(dao.shareTokenName, 8)}
+                data={charLimit(dao.shareTokenName, 20)}
               />
               <DataIndicator
                 label="Supply"
@@ -86,10 +82,11 @@ export function DaoOverview() {
                   format: 'numberShort',
                 })}
               />
-              <DataIndicator label="Holders" data="--" />
+            </DataGrid>
+            <DataGrid>
               <DataIndicator
                 label="Non-Voting"
-                data={charLimit(lowerCaseLootToken(dao.lootTokenName), 8)}
+                data={charLimit(lowerCaseLootToken(dao.lootTokenName), 20)}
               />
               <DataIndicator
                 label="Supply"
@@ -99,7 +96,6 @@ export function DaoOverview() {
                   format: 'numberShort',
                 })}
               />
-              <DataIndicator label="Holders" data="--" />
             </DataGrid>
           </TokensCard>
         </>

@@ -22,7 +22,6 @@ type NavLinkType = {
 export type NavigationTabsProps = {
   className?: string;
   navLinks?: NavLinkType[];
-  LeftNav?: React.ReactNode;
   dropdownTriggerText?: string;
   dropdownMenuSpacing?: string;
   dropdownMenuAlign?: Align;

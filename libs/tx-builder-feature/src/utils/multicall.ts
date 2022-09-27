@@ -65,8 +65,9 @@ export const estimateGas = async ({
         operation: 1,
       }),
     });
-
-    return response.json();
+    if (response.ok) {
+      return response.json();
+    }
   } catch (error) {
     throw new Error(`Failed to estimate gas: ${error}`);
   }
@@ -207,11 +208,14 @@ export const handleGasEstimate = async ({
   });
 
   console.log('estimate', estimate);
-  if (estimate.safeTxGas) {
+  if (estimate?.safeTxGas) {
     const buffer = arg.bufferPercentage ? `1.${arg.bufferPercentage}` : 1.6;
     return Math.round(Number(estimate.safeTxGas) * Number(buffer));
   } else {
-    throw new Error(`Failed to estimate gas: `);
+    // This happens when the safe vault takes longer to be indexed by the Gnosis API
+    // and it returns a 404 HTTP error
+    console.error(`Failed to estimate gas`);
+    return 0;
   }
 };
 export const encodeMultiAction = (rawMulti: MetaTransaction[]) => {

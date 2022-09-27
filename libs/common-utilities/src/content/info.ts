@@ -17,7 +17,7 @@ export const INFO_COPY = {
   SPONSOR_THRESHOLD:
     'What is minimum number of voting stake tokens a member needs to sponsor a proposal?',
   NEW_OFFERING:
-    'Would you like to require a fee to submit proposals? This feature is intended to protect against spam proposals. Fees go into the DAO treasury.',
+    'Would you like to require a fee to submit proposals? This feature is intended to protect against spam proposals. Fees in the form of native asset go into the DAO treasury.',
   SHAMAN:
     'Input shaman list with contract address and permission level per row using spaces. Example: \n 0x00000000000000 2 \n 0x00000000000000 1',
   MEMBERS:

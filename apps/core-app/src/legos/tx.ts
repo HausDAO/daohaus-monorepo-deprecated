@@ -170,7 +170,10 @@ export const TX: Record<string, TXLego> = {
         method: 'noMethod',
         args: [],
         value: '.formValues.paymentAmount',
-        data: ENCODED_0X0_DATA,
+        data: {
+          type: 'static',
+          value: ENCODED_0X0_DATA,
+        },
       },
     ],
   }),
@@ -363,6 +366,35 @@ export const TX: Record<string, TXLego> = {
       '.formValues.tokens',
     ],
   },
+  WALLETCONNECT: buildMultiCallTX({
+    id: 'WALLETCONNECT',
+    JSONDetails: {
+      type: 'JSONDetails',
+      jsonSchema: {
+        title: '.formValues.title',
+        description: '.formValues.description',
+        link: '.formValues.link',
+        contentURI: `.formValues.link`,
+        contentURIType: { type: 'static', value: 'url' },
+        proposalType: { type: 'static', value: ProposalTypeIds.WalletConnect },
+      },
+    },
+    actions: [
+      {
+        contract: {
+          type: 'static',
+          contractName: 'ACE',
+          abi: [],
+          targetAddress: '.formValues.txTo',
+        },
+        args: [],
+        method: 'noMethod',
+        value: '.formValues.txValue',
+        data: '.formValues.txData',
+        operations: '.formValues.txOperation',
+      }
+    ],
+  }),
 };
 
 export const TABULA_TX: Record<string, TXLego> = {

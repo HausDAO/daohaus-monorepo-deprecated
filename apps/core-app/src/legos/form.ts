@@ -395,6 +395,26 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
       ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
+  WALLETCONNECT: {
+    devtool: true,
+    id: 'WALLETCONNECT',
+    title: 'WalletConnect Proposal',
+    subtitle: 'Use WalletConnect to create a Proposal',
+    description:
+      'Extend DAO Proposals to external contracts',
+    tx: TX.WALLETCONNECT,
+    requiredFields: {
+      title: true,
+      walletConnectLink: true,
+    },
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      FIELD.WALLETCONNECT_LINKER,
+      ...PROPOSAL_SETTINGS_FIELDS,
+    ],
+  },
 };
 
 export const TABULA_FORMS: Record<string, CustomFormLego> = {

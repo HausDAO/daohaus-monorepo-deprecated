@@ -19,6 +19,7 @@ export enum ProposalTypeIds {
   UpdateTokenSettings = 'TOKEN_SETTINGS',
   TokensForShares = 'TOKENS_FOR_SHARES',
   GuildKick = 'GUILDKICK',
+  WalletConnect = 'WALLETCONNECT',
 }
 
 export const PROPOSAL_TYPE_LABELS: { [key: string]: string } = {
@@ -31,6 +32,7 @@ export const PROPOSAL_TYPE_LABELS: { [key: string]: string } = {
   TOKEN_SETTINGS: 'Token Settings Proposal',
   TOKENS_FOR_SHARES: 'Shares for Tokens Proposal',
   GUILDKICK: 'Guildkick Proposal',
+  WALLETCONNECT: 'WalletConnect Proposal',
 };
 
 export const PROPOSAL_TYPE_WARNINGS: { [key: string]: string } = {
@@ -52,6 +54,8 @@ export const PROPOSAL_TYPE_WARNINGS: { [key: string]: string } = {
     'This proposal mints or removes tokens for DAO membership. Be sure to look at the contract details for more information.',
   GUILDKICK:
     'This proposal mints or removes tokens for DAO membership. Be sure to look at the contract details for more information.',
+  WALLETCONNECT:
+    'This proposal connect your DAO Safe to a dApp via WalletConnect and trigger transactions. Be sure to look at the contract details for more information.',
   ERROR_CANNOT_DECODE:
     'We cannot decode the contract details for this proposal. Please proceed with extreme caution!',
   ERROR_UNKOWN:

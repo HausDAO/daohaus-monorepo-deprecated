@@ -85,7 +85,7 @@ export const Unsponsored = ({
       isNumberish(connectedMembership?.shares) &&
       isNumberish(dao?.sponsorThreshold)
     ) {
-      return Number(connectedMembership?.shares) > Number(dao?.sponsorThreshold)
+      return Number(connectedMembership?.shares) >= Number(dao?.sponsorThreshold)
         ? true
         : PROP_CARD_HELP.UNSPONSORED;
     }

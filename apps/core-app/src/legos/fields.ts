@@ -107,4 +107,11 @@ export const FIELD: Record<string, CustomFieldLego> = {
     id: 'proposalOffering',
     type: 'proposalOffering',
   },
+  WALLETCONNECT_LINKER: {
+    id: 'walletConnectLink',
+    type: 'walletConnectLink',
+    label: 'WalletConnect Link',
+    info: 'After connecting WalletConnect to another dApp, copy the link and paste it to this input field',
+    placeholder: 'wc:',
+  }
 };

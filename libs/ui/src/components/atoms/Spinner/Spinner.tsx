@@ -5,6 +5,7 @@ type SpinnerType = {
   bottomColor?: string;
   size?: string;
   strokeWidth?: string;
+  margin?: string;
   padding?: string;
   speed?: string;
 };
@@ -63,6 +64,7 @@ const Container = styled.div`
   justify-content: center;
   width: ${(props: SpinnerType) => props.size};
   height: ${(props: SpinnerType) => props.size};
+  margin: ${(props: SpinnerType) => props.margin};
   padding: ${(props: SpinnerType) => props.padding};
 `;
 
@@ -70,13 +72,14 @@ export const Spinner = ({
   topColor,
   bottomColor,
   size = '4rem',
+  margin = '0',
   padding = '0',
   strokeWidth = '.5rem',
   speed = '1.1s',
 }: SpinnerType) => {
   const theme = useTheme();
   return (
-    <Container size={size} padding={padding}>
+    <Container size={size} margin={margin} padding={padding}>
       <StyledSpinner
         topColor={topColor || theme.spinner.topColor}
         bottomColor={bottomColor || theme.spinner.bottomColor}

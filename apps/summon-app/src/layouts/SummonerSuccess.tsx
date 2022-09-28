@@ -73,7 +73,7 @@ export const SummonerSuccess = ({
           linkType="no-icon-external"
           href={`https://admin.daohaus.fun/#/molochv3/${chainId}/${daoAddress}`}
         >
-          <Button primary>View Dao</Button>
+          <Button primary>View DAO</Button>
         </Link>
         <Button secondary onClick={handleResetSummon}>
           <Bold>Summon Another DAO</Bold>

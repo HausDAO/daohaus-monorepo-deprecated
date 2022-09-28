@@ -338,7 +338,7 @@ const buildSubmitted = ({
       {
         dataType: 'dataIndicator',
         label: 'Proposal Offering',
-        data: `${proposal.proposalOffering} ${networkData?.symbol}`,
+        data: `${fromWei(proposal.proposalOffering)} ${networkData?.symbol}`,
       },
     ],
     txHash: proposal.txHash,

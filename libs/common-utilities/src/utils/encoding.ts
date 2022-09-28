@@ -25,8 +25,7 @@ export const encodeFunction = (
     console.error('error', error);
     return {
       error: true,
-      message:
-        'Could not encode transaction data with the values entered into this form',
+      message: 'Could not encode transaction data with the values provided',
     };
   }
 };

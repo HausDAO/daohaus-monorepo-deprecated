@@ -8,6 +8,8 @@ import {
   ParSm,
   Button,
   Link,
+  useBreakpoint,
+  widthQuery,
 } from '@daohaus/ui';
 
 import { TDao, useConnectedMembership } from '@daohaus/dao-context';
@@ -55,6 +57,7 @@ type MetadataSettingsProps = {
 export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
   const { daochain, daoid } = useParams();
   const { connectedMembership } = useConnectedMembership();
+  const isMobile = useBreakpoint(widthQuery.sm);
 
   return (
     <>
@@ -100,6 +103,7 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
               address={dao.id}
               copy
               explorerNetworkId={daochain as keyof Keychain}
+              truncate={isMobile}
             />
           </div>
           <div className="contract">
@@ -107,6 +111,7 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
             <AddressDisplay
               address={dao.safeAddress}
               copy
+              truncate={isMobile}
               explorerNetworkId={daochain as keyof Keychain}
             />
           </div>
@@ -115,6 +120,7 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
             <AddressDisplay
               address={dao.sharesAddress}
               copy
+              truncate={isMobile}
               explorerNetworkId={daochain as keyof Keychain}
             />
           </div>
@@ -123,6 +129,7 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
             <AddressDisplay
               address={dao.lootAddress}
               copy
+              truncate={isMobile}
               explorerNetworkId={daochain as keyof Keychain}
             />
           </div>

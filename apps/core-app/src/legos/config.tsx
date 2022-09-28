@@ -12,6 +12,7 @@ import { ProposalOffering } from '../components/customFields/ProposalOffering';
 import { DelegateInput } from '../components/customFields/delegateInput';
 import { RagequitToken } from '../components/customFields/RagequitToken';
 import { RagequitTokenList } from '../components/customFields/RagequitTokenList';
+import { WalletConnectLink } from '../components/customFields/walletConnectLink';
 
 export const CustomFields = {
   ...CoreFieldLookup,
@@ -27,6 +28,7 @@ export const CustomFields = {
   delegateInput: DelegateInput,
   ragequitToken: RagequitToken,
   ragequitTokenList: RagequitTokenList,
+  walletConnectLink: WalletConnectLink,
 };
 
 export type CustomFieldLego = FieldLegoBase<typeof CustomFields>;

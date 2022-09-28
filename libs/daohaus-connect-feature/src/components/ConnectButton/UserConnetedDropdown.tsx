@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import classNames from 'classnames';
 import { BiChevronDown, BiChevronUp } from 'react-icons/bi';
 import styled, { useTheme } from 'styled-components';
 
@@ -12,6 +11,7 @@ import {
   ParMd,
   ParXs,
   ProfileAvatar,
+  widthQuery,
 } from '@daohaus/ui';
 
 import { useHausConnect } from '../../HausConnectContext';
@@ -23,9 +23,10 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);
-  const classes = classNames({ 'mobile-connect-btn': isSm });
+
   const networkName = getNetworkName(chainId as string);
 
+  const chevron = open ? BiChevronUp : BiChevronDown;
   return (
     <Dropdown
       spacing="0.7rem"
@@ -37,8 +38,7 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
         <Button
           avatar
           sm={isSm}
-          IconRight={open ? BiChevronUp : BiChevronDown}
-          className={classes}
+          IconRight={isSm ? undefined : chevron}
           width={!isSm ? '25rem' : ''}
         >
           <Container>
@@ -55,9 +55,11 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
                     (address && truncateAddress(address.toLowerCase()))}
                 </ParMd>
               )}
-              <ParXs color={theme.button.primary.text}>
-                {(networkName && `@${networkName}`) || 'Wrong Network'}
-              </ParXs>
+              {!isSm && (
+                <ParXs color={theme.button.primary.text}>
+                  {(networkName && `@${networkName}`) || 'Wrong Network'}
+                </ParXs>
+              )}
             </div>
           </Container>
         </Button>
@@ -85,7 +87,7 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
         </div>
       </DropdownMenuLabel>
       <DropdownMenuItem>
-        <Button tertiary fullWidth sm onClick={disconnect}>
+        <Button tertiary fullWidth sm onClick={disconnect} centerAlign>
           Disconnect
         </Button>
       </DropdownMenuItem>
@@ -106,6 +108,12 @@ const Container = styled.div`
   }
   .user-avatar {
     margin-right: 0.75rem;
+  }
+  @media ${widthQuery.sm} {
+    width: auto;
+    .user-avatar {
+      margin-right: 0rem;
+    }
   }
 `;
 

@@ -4,6 +4,8 @@ import { IconType } from 'react-icons';
 
 import { Dropdown, DropdownMenuItem } from '../../molecules';
 import { AppSwitcherLink, AppSwitcherTrigger } from './AppSwitcher.styles';
+import { useBreakpoint } from '../../../hooks/useMediaQuery';
+import { widthQuery } from '../../../theme/global/breakpoints';
 
 interface IApp {
   name: string;
@@ -44,9 +46,12 @@ export const AppSwitcher = ({
   className,
   trigger,
   apps,
-  width = '17.8rem',
+  width,
 }: AppSwitcherProps) => {
   const dropdownApps = getDropdownApps(apps);
+  const isMobile = useBreakpoint(widthQuery.sm);
+
+  const buttonWidth = width || isMobile ? '100%' : '17.4rem';
 
   return (
     <Dropdown
@@ -54,7 +59,8 @@ export const AppSwitcher = ({
       menuMinWidth={width}
       trigger={
         <AppSwitcherTrigger
-          width={width}
+          width={buttonWidth}
+          sm={isMobile}
           IconLeft={trigger.icon}
           IconRight={RiArrowDropDownLine}
         >

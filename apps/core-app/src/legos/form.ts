@@ -310,8 +310,8 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                     {
                       id: 'vStake',
                       fieldLabel: {
-                        off: 'Not Transferable',
-                        on: 'Transferable',
+                        off: 'Transferable',
+                        on: 'Not Transferable',
                       },
                     },
                   ],
@@ -325,8 +325,8 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                     {
                       id: 'nvStake',
                       fieldLabel: {
-                        off: 'Not Transferable',
-                        on: 'Transferable',
+                        off: 'Transferable',
+                        on: 'Not Transferable',
                       },
                     },
                   ],
@@ -392,6 +392,26 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
         // @ts-expect-error: doing object spread, even if the field definition has the property
         daoMemberOnly: true,
       },
+      ...PROPOSAL_SETTINGS_FIELDS,
+    ],
+  },
+  WALLETCONNECT: {
+    devtool: true,
+    id: 'WALLETCONNECT',
+    title: 'WalletConnect Proposal',
+    subtitle: 'Use WalletConnect to create a Proposal',
+    description:
+      'Extend DAO Proposals to external contracts',
+    tx: TX.WALLETCONNECT,
+    requiredFields: {
+      title: true,
+      walletConnectLink: true,
+    },
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      FIELD.WALLETCONNECT_LINKER,
       ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },

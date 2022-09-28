@@ -38,7 +38,6 @@ export const isProposalInGrace = (proposal: QueryProposal): boolean => {
 
 export const isProposalExpired = (proposal: QueryProposal): boolean =>
   Number(proposal.expiration) > 0 &&
-  !proposal.processed &&
   !proposal.cancelled &&
   Number(proposal.expiration) <
     Number(proposal.votingPeriod) +
@@ -83,11 +82,11 @@ export const getProposalStatus = (proposal: QueryProposal): ProposalStatus => {
   if (isProposalInGrace(proposal)) {
     return PROPOSAL_STATUS['grace'];
   }
-  if (isProposalExpired(proposal)) {
-    return PROPOSAL_STATUS['expired'];
-  }
   if (proposalNeedsProcessing(proposal)) {
     return PROPOSAL_STATUS['needsProcessing'];
+  }
+  if (isProposalExpired(proposal)) {
+    return PROPOSAL_STATUS['expired'];
   }
   if (isProposalFailed(proposal)) {
     return PROPOSAL_STATUS['failed'];

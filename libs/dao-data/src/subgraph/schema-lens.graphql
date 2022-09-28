@@ -1213,6 +1213,23 @@ input IllegalReasonInputParams {
 """Internal publication id custom scalar type"""
 scalar InternalPublicationId
 
+input InternalPublicationsFilterRequest {
+  limit: LimitScalar
+  cursor: Cursor
+
+  """must be DD/MM/YYYY"""
+  fromDate: String!
+
+  """must be DD/MM/YYYY"""
+  toDate: String!
+
+  """The App Id"""
+  source: Sources!
+
+  """The shared secret"""
+  secret: String!
+}
+
 """jwt custom scalar type"""
 scalar Jwt
 
@@ -1348,10 +1365,10 @@ type MediaSet {
   original: Media!
 
   """Small media - will always be null on the public API"""
-  small: Media
+  small: Media @deprecated(reason: "should not be used will always be null")
 
   """Medium media - will always be null on the public API"""
-  medium: Media
+  medium: Media @deprecated(reason: "should not be used will always be null")
 }
 
 union MentionPublication = Post | Comment
@@ -1420,6 +1437,9 @@ type MetadataOutput {
 
   """The main focus of the publication"""
   mainContentFocus: PublicationMainFocus!
+
+  """The main focus of the publication"""
+  animatedUrl: Url
 }
 
 """mimetype custom scalar type"""
@@ -1580,6 +1600,16 @@ type NewMirrorNotification {
   publication: MirrorablePublication!
 }
 
+type NewReactionNotification {
+  notificationId: NotificationId!
+  createdAt: DateTime!
+
+  """The profile"""
+  profile: Profile!
+  reaction: ReactionTypes!
+  publication: Publication!
+}
+
 """The nft type"""
 type NFT {
   """aka us CryptoKitties"""
@@ -1712,7 +1742,7 @@ type NFTsResult {
 """Nonce custom scalar type"""
 scalar Nonce
 
-union Notification = NewFollowerNotification | NewCollectNotification | NewCommentNotification | NewMirrorNotification | NewMentionNotification
+union Notification = NewFollowerNotification | NewCollectNotification | NewCommentNotification | NewMirrorNotification | NewMentionNotification | NewReactionNotification
 
 """The notification id"""
 scalar NotificationId
@@ -2202,7 +2232,7 @@ input PublicationMetadataV1Input {
   appId: Sources
 
   """A human-readable description of the item."""
-  description: String
+  description: Markdown
 
   """
   The content of a publication. If this is blank `media` must be defined or its out of spec
@@ -2263,7 +2293,7 @@ input PublicationMetadataV2Input {
   appId: Sources
 
   """A human-readable description of the item."""
-  description: String
+  description: Markdown
 
   """
   The content of a publication. If this is blank `media` must be defined or its out of spec
@@ -2401,6 +2431,7 @@ enum PublicationSortCriteria {
   TOP_COMMENTED
   TOP_COLLECTED
   TOP_MIRRORED
+  CURATED_PROFILES
   LATEST
 }
 
@@ -2495,7 +2526,7 @@ type Query {
   notifications(request: NotificationRequest!): PaginatedNotificationResult!
   profiles(request: ProfileQueryRequest!): PaginatedProfileResult!
   profile(request: SingleProfileQueryRequest!): Profile
-  recommendedProfiles: [Profile!]!
+  recommendedProfiles(options: RecommendedProfileOptions): [Profile!]!
   defaultProfile(request: DefaultProfileRequest!): Profile
   globalProtocolStats(request: GlobalProtocolStatsRequest): GlobalProtocolStats!
   publications(request: PublicationsQueryRequest!): PaginatedPublicationResult!
@@ -2508,6 +2539,7 @@ type Query {
   userSigNonces: UserSigNonces!
   claimableHandles: ClaimableHandles!
   claimableStatus: ClaimStatus!
+  internalPublicationFilter(request: InternalPublicationsFilterRequest!): PaginatedPublicationResult!
   profileOnChainIdentity(request: ProfileOnChainIdentityRequest!): [OnChainIdentity!]!
   proxyActionStatus(proxyActionId: ProxyActionId!): ProxyActionStatusResultUnion!
   validatePublicationMetadata(request: ValidatePublicationMetadataRequest!): PublicationValidateMetadataResult!
@@ -2542,6 +2574,11 @@ input ReactionRequest {
 enum ReactionTypes {
   UPVOTE
   DOWNVOTE
+}
+
+input RecommendedProfileOptions {
+  """If you wish to turn ML off"""
+  disableML: Boolean = false
 }
 
 union ReferenceModule = FollowOnlyReferenceModuleSettings | UnknownReferenceModuleSettings

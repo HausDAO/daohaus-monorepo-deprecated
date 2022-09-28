@@ -1,13 +1,33 @@
 import { useParams, Outlet } from 'react-router-dom';
 import { HausLayout, useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { useDao } from '../contexts/DaoContext';
+import { useDao } from '@daohaus/dao-context';
 import { TXBuilder } from '@daohaus/tx-builder-feature';
-import { useEffect } from 'react';
 
 export function Dao() {
   const { daochain, daoid } = useParams();
   const { provider } = useHausConnect();
   const { dao } = useDao();
+
+  const apps = {
+    trigger: {
+      name: 'DAO Admin',
+      url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    },
+    apps: [
+      {
+        name: 'Summoner',
+        url: 'https://summon.daohaus.fun/',
+      },
+      {
+        name: 'Hub',
+        url: 'https://hub.daohaus.fun/',
+      },
+      {
+        name: 'Docs',
+        url: 'https://storybook.daohaus.fun/',
+      },
+    ],
+  };
 
   return (
     <TXBuilder
@@ -15,7 +35,7 @@ export function Dao() {
       provider={provider}
       safeId={dao?.safeAddress}
       daoId={daoid}
-      appState={{}}
+      appState={{ dao }}
     >
       <HausLayout
         navLinks={[
@@ -25,7 +45,10 @@ export function Dao() {
             href: `/molochv3/${daochain}/${daoid}/proposals`,
           },
           { label: 'Vaults', href: `/molochv3/${daochain}/${daoid}/vaults` },
-          { label: 'Members', href: `/molochv3/${daochain}/${daoid}/members` },
+          {
+            label: 'Members',
+            href: `/molochv3/${daochain}/${daoid}/members`,
+          },
         ]}
         dropdownLinks={[
           {
@@ -33,6 +56,7 @@ export function Dao() {
             href: `/molochv3/${daochain}/${daoid}/settings`,
           },
         ]}
+        appNavLinks={apps}
       >
         <Outlet />
       </HausLayout>

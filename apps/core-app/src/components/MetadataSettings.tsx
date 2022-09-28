@@ -8,9 +8,11 @@ import {
   ParSm,
   Button,
   Link,
+  useBreakpoint,
+  widthQuery,
 } from '@daohaus/ui';
 
-import { TDao, useConnectedMembership } from '../contexts/DaoContext';
+import { TDao, useConnectedMembership } from '@daohaus/dao-context';
 import { TagList } from '../components/TagList';
 import { useParams } from 'react-router-dom';
 import { charLimit, Keychain } from '@daohaus/common-utilities';
@@ -55,6 +57,7 @@ type MetadataSettingsProps = {
 export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
   const { daochain, daoid } = useParams();
   const { connectedMembership } = useConnectedMembership();
+  const isMobile = useBreakpoint(widthQuery.sm);
 
   return (
     <>
@@ -62,7 +65,7 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
         <H3>Metadata</H3>
         {connectedMembership && Number(connectedMembership.shares) && (
           <Link href={`/molochv3/${daochain}/${daoid}/settings/update`}>
-            <Button>Update Settings</Button>
+            <Button secondary>Update Settings</Button>
           </Link>
         )}
       </MetaCardHeader>
@@ -100,6 +103,7 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
               address={dao.id}
               copy
               explorerNetworkId={daochain as keyof Keychain}
+              truncate={isMobile}
             />
           </div>
           <div className="contract">
@@ -107,6 +111,7 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
             <AddressDisplay
               address={dao.safeAddress}
               copy
+              truncate={isMobile}
               explorerNetworkId={daochain as keyof Keychain}
             />
           </div>
@@ -115,6 +120,7 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
             <AddressDisplay
               address={dao.sharesAddress}
               copy
+              truncate={isMobile}
               explorerNetworkId={daochain as keyof Keychain}
             />
           </div>
@@ -123,6 +129,7 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
             <AddressDisplay
               address={dao.lootAddress}
               copy
+              truncate={isMobile}
               explorerNetworkId={daochain as keyof Keychain}
             />
           </div>

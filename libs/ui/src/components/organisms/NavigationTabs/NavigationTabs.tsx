@@ -1,6 +1,6 @@
 import { useTheme } from 'styled-components';
 import { RiArrowDropDownLine, RiMenuLine } from 'react-icons/ri';
-import { Align } from '@radix-ui/popper';
+import { Align } from '@radix-ui/react-popper';
 import { useLocation } from 'react-router-dom';
 
 import {
@@ -95,6 +95,7 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
           })}
           {dropdownLinks.length > 0 && (
             <Dropdown
+              modal={false}
               menuBg={theme.navTabs.bg}
               align={dropdownMenuAlign}
               spacing={dropdownMenuSpacing}

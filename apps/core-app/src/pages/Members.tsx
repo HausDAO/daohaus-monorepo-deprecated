@@ -8,12 +8,15 @@ import {
   AddressDisplay,
   Spinner,
   useBreakpoint,
+  Tooltip,
 } from '@daohaus/ui';
 import {
   charLimit,
   formatDateFromSeconds,
   formatValueTo,
   fromWei,
+  lowerCaseLootToken,
+  sharesDelegatedToMember,
   votingPowerPercentage,
 } from '@daohaus/common-utilities';
 
@@ -23,16 +26,36 @@ import {
   TMembers,
   useConnectedMembership,
   defaultDaoData,
-} from '../contexts/DaoContext';
+} from '@daohaus/dao-context';
 import { MembersOverview } from '../components/MembersOverview';
 import { ProfileLink } from '../components/ProfileLink';
 import { DaoTable } from '../components/DaohausTable';
+import { useParams } from 'react-router-dom';
+import { MemberProfileMenu } from '../components/MemberProfileMenu';
+import { ButtonLink } from '../components/ButtonLink';
+
+const Actions = styled.div`
+  display: flex;
+  width: 100%;
+  button:first-child {
+    margin-right: 1rem;
+  }
+  @media ${widthQuery.sm} {
+    flex-direction: column;
+    button:first-child {
+      margin-right: 0;
+      margin-bottom: 1rem;
+    }
+  }
+`;
 
 const MemberContainer = styled(Card)`
   padding: 3rem;
   border: none;
   margin-bottom: 3rem;
   min-height: 20rem;
+  width: 100%;
+  overflow-x: auto;
   @media ${widthQuery.lg} {
     max-width: 100%;
     min-width: 0;
@@ -42,6 +65,11 @@ const MemberContainer = styled(Card)`
       display: none;
     }
   }
+`;
+
+const ActionContainer = styled.div`
+  display: flex;
+  gap: 1rem;
 `;
 
 export type MembersTableType = TMembers[number];
@@ -57,6 +85,7 @@ export function Members() {
   } = useMembers();
   const { connectedMembership } = useConnectedMembership();
   const isMobile = useBreakpoint(widthQuery.sm);
+  const { daoid, daochain } = useParams();
 
   const tableData = useMemo(() => {
     return members;
@@ -85,10 +114,30 @@ export function Members() {
           return <div className="hide-sm">Power</div>;
         },
         accessor: 'delegateShares',
-        Cell: ({ value }: { value: string }) => {
+        Cell: ({
+          value,
+          row,
+        }: {
+          value: string;
+          row: Row<MembersTableType>;
+        }) => {
+          const delegatedShares = sharesDelegatedToMember(
+            row.original.delegateShares,
+            row.original.shares
+          );
           return (
             <div className="hide-sm">
-              {votingPowerPercentage(dao?.totalShares || '0', value)}
+              {votingPowerPercentage(dao?.totalShares || '0', value)}{' '}
+              {delegatedShares > 0 && (
+                <Tooltip
+                  content={`${formatValueTo({
+                    value: fromWei(delegatedShares.toFixed()),
+                    decimals: 2,
+                    format: 'number',
+                  })} shares are delegated to this member`}
+                  side="bottom"
+                />
+              )}
             </div>
           );
         },
@@ -112,7 +161,9 @@ export function Members() {
       },
       {
         Header: () => {
-          return <div>{charLimit(dao?.lootTokenName, 6)}</div>;
+          return (
+            <div>{charLimit(lowerCaseLootToken(dao?.lootTokenName), 6)}</div>
+          );
         },
         accessor: 'loot',
         Cell: ({ value }: { value: string }) => {
@@ -153,7 +204,18 @@ export function Members() {
       {
         accessor: 'id',
         Cell: ({ row }: { row: Row<MembersTableType> }) => {
-          return <ProfileLink sm memberAddress={row.original.memberAddress} />;
+          return (
+            <ActionContainer>
+              <ProfileLink
+                sm
+                secondary
+                memberAddress={row.original.memberAddress}
+              >
+                Profile
+              </ProfileLink>
+              <MemberProfileMenu memberAddress={row.original.memberAddress} />
+            </ActionContainer>
+          );
         },
       },
     ],
@@ -184,12 +246,25 @@ export function Members() {
     <SingleColumnLayout
       title="Members"
       actions={
-        connectedMembership && (
-          <ProfileLink
-            memberAddress={connectedMembership.memberAddress}
-            buttonText="My Profile"
-          />
-        )
+        <Actions>
+          <ButtonLink
+            href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=ISSUE`}
+            secondary
+            fullWidth={isMobile}
+            centerAlign={isMobile}
+          >
+            Add Member
+          </ButtonLink>
+          {connectedMembership && (
+            <ButtonLink
+              href={`/molochv3/${daochain}/${daoid}/members/${connectedMembership.memberAddress}`}
+              fullWidth={isMobile}
+              centerAlign={isMobile}
+            >
+              My Profile
+            </ButtonLink>
+          )}
+        </Actions>
       }
     >
       <MemberContainer>
@@ -201,7 +276,11 @@ export function Members() {
             hasNextPaging={membersNextPaging !== undefined}
             handleLoadMore={handleLoadMore}
             handleColumnSort={handleColumnSort}
-            sortableColumns={['createdAt', 'shares', 'loot', 'delegateShares']}
+            sortableColumns={
+              isMobile
+                ? ['loot', 'shares']
+                : ['createdAt', 'shares', 'loot', 'delegateShares']
+            }
           />
         ) : (
           <Spinner size={isMobile ? '8rem' : '16rem'} padding="6rem" />

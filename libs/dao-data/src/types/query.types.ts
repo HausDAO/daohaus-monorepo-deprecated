@@ -122,7 +122,7 @@ export type DaoProfile = {
   longDescription?: string;
   avatarImg?: string;
   tags?: string[];
-  links?: { [field: string]: string };
+  links?: string;
 };
 
 export type ITransformedDao = ListDaosQuery['daos'][number] & DaoProfile;

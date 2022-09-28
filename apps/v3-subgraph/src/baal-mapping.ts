@@ -105,7 +105,7 @@ export function handleShamanSet(event: ShamanSet): void {
   let shaman = Shaman.load(shamanId);
   if (shaman === null) {
     shaman = new Shaman(shamanId);
-    shaman.createdAt = event.block.timestamp.toString();
+    shaman.createdAt = event.block.timestamp;
     shaman.dao = event.address.toHexString();
     shaman.shamanAddress = event.params.shaman;
   }
@@ -154,9 +154,14 @@ export function handleSubmitProposal(event: SubmitProposal): void {
     .concat('-proposal-')
     .concat(event.params.proposal.toString());
 
+  let proposerId = dao.id
+    .concat('-member-')
+    .concat(event.transaction.from.toHexString());
+
   let proposal = new Proposal(proposalId);
-  proposal.createdAt = event.block.timestamp.toString();
+  proposal.createdAt = event.block.timestamp;
   proposal.createdBy = event.transaction.from;
+  proposal.proposerMembership = proposerId;
   proposal.txHash = event.transaction.hash;
   proposal.dao = event.address.toHexString();
   proposal.proposalId = event.params.proposal;
@@ -169,7 +174,6 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   );
   proposal.expiration = event.params.expiration;
   proposal.actionGasEstimate = event.params.baalGas;
-  proposal.sponsored = event.params.selfSponsor;
   proposal.cancelled = false;
   proposal.processed = false;
   proposal.actionFailed = false;
@@ -177,11 +181,19 @@ export function handleSubmitProposal(event: SubmitProposal): void {
   proposal.currentlyPassing = false;
   proposal.proposalOffering = event.transaction.value;
   proposal.maxTotalSharesAndLootAtYesVote = constants.BIGINT_ZERO;
+  proposal.sponsored = event.params.selfSponsor;
   proposal.selfSponsor = event.params.selfSponsor;
+  proposal.sponsorTxHash = event.params.selfSponsor
+    ? event.transaction.hash
+    : null;
+  proposal.sponsorTxAt = event.params.selfSponsor
+    ? event.block.timestamp
+    : null;
+  proposal.sponsor = event.params.selfSponsor ? event.transaction.from : null;
+  proposal.sponsorMembership = event.params.selfSponsor ? proposerId : null;
   proposal.prevProposalId = event.params.selfSponsor
     ? dao.latestSponsoredProposalId
     : constants.BIGINT_ZERO;
-  proposal.prevProposalId = constants.BIGINT_ZERO;
   proposal.votingStarts = event.params.selfSponsor
     ? event.block.timestamp
     : constants.BIGINT_ZERO;
@@ -257,7 +269,12 @@ export function handleSponsorProposal(event: SponsorProposal): void {
     return;
   }
 
+  let sponsorId = dao.id
+    .concat('-member-')
+    .concat(event.params.member.toHexString());
+
   proposal.sponsor = event.params.member;
+  proposal.sponsorMembership = sponsorId;
   proposal.sponsored = true;
   proposal.votingStarts = event.block.timestamp;
   proposal.votingEnds = event.block.timestamp.plus(dao.votingPeriod);
@@ -345,7 +362,7 @@ export function handleSubmitVote(event: SubmitVote): void {
 
   let vote = new Vote(voteId);
 
-  vote.createdAt = event.block.timestamp.toString();
+  vote.createdAt = event.block.timestamp;
   vote.daoAddress = event.address;
   vote.approved = event.params.approved;
   vote.balance = event.params.balance;
@@ -398,7 +415,7 @@ export function handleRageQuit(event: Ragequit): void {
 
   let rage = new RageQuit(rageId);
 
-  rage.createdAt = event.block.timestamp.toString();
+  rage.createdAt = event.block.timestamp;
   rage.txHash = event.transaction.hash;
   rage.dao = dao.id;
   rage.member = memberId;

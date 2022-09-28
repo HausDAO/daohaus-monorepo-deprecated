@@ -6,6 +6,7 @@ import { indigoDark } from '@radix-ui/colors';
 import { ProfileAvatar, Tag } from '@daohaus/ui';
 import {
   charLimit,
+  getNetworkName,
   readableNumbers,
   truncateAddress,
 } from '@daohaus/common-utilities';
@@ -177,6 +178,9 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
       {
         Header: 'Network',
         accessor: 'networkId',
+        Cell: ({ value }: { value: string | undefined }) => {
+          return <Highlight>{getNetworkName(value)}</Highlight>;
+        },
       },
       {
         Header: 'Delegate',

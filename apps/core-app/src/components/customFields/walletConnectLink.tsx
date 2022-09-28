@@ -61,8 +61,8 @@ const BaseContainer = styled.div`
 const ButtonsContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
-  width: 50%;
   padding-top: 2.2rem;
+  width: 70%;
 `;
 
 const SuccessIcon = styled(BsCheckCircle)`

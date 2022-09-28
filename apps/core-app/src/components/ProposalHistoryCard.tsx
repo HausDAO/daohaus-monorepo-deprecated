@@ -151,10 +151,7 @@ export const ProposalHistoryCard = ({
         {element.showVotesButton && hasProposalVotes && (
           <Dialog>
             <DialogTrigger asChild>
-              <Button sm secondary>
-                Show Votes (
-                {Number(proposal.yesVotes) + Number(proposal.noVotes)})
-              </Button>
+              <Button sm secondary>Show Votes</Button>
             </DialogTrigger>
             <DialogContent title={`Proposal Votes (${proposal.votes?.length})`}>
               <VoteList votes={proposal.votes} proposal={proposal} />

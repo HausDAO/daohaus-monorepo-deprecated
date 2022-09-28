@@ -37,12 +37,15 @@ export const estimateGas = async ({
       }),
     });
 
-    const estimate = await response.json();
+    const estimate = response.ok ? await response.json() : {};
 
-    if (estimate.safeTxGas) {
+    if (estimate?.safeTxGas) {
       return Math.round(Number(estimate.safeTxGas) * Number(1.6));
     } else {
-      throw new Error(`Failed to estimate gas: `);
+      // This happens when the safe vault takes longer to be indexed by the Gnosis API
+      // and it returns a 404 HTTP error
+      console.error(`Failed to estimate gas:`, response.statusText);
+      return 0;
     }
   } catch (error) {
     throw new Error(`Failed to estimate gas: ${error}`);

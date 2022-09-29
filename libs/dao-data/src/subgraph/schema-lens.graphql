@@ -89,6 +89,14 @@ input BurnProfileRequest {
   profileId: ProfileId!
 }
 
+type CanCommentResponse {
+  result: Boolean!
+}
+
+type CanMirrorResponse {
+  result: Boolean!
+}
+
 """ChainId custom scalar type"""
 scalar ChainId
 
@@ -219,6 +227,8 @@ type Comment {
   collectedBy: Wallet
   reaction(request: ReactionFieldResolverRequest): ReactionTypes
   hasCollectedByMe: Boolean!
+  canComment(profileId: ProfileId): CanCommentResponse!
+  canMirror(profileId: ProfileId): CanMirrorResponse!
   mirrors(by: ProfileId): [InternalPublicationId!]!
 }
 
@@ -795,6 +805,11 @@ type CreateUnfollowBroadcastItemResult {
 """Cursor custom scalar type"""
 scalar Cursor
 
+"""The custom filters types"""
+enum CustomFiltersTypes {
+  GARDENERS
+}
+
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
@@ -802,6 +817,32 @@ scalar DateTime
 
 input DefaultProfileRequest {
   ethereumAddress: EthereumAddress!
+}
+
+input DegreesOfSeparationReferenceModuleParams {
+  """Applied to comments"""
+  commentsRestricted: Boolean!
+
+  """Applied to mirrors"""
+  mirrorsRestricted: Boolean!
+
+  """Degrees of separation"""
+  degreesOfSeparation: Int!
+}
+
+type DegreesOfSeparationReferenceModuleSettings {
+  """The reference modules enum"""
+  type: ReferenceModules!
+  contractAddress: ContractAddress!
+
+  """Applied to comments"""
+  commentsRestricted: Boolean!
+
+  """Applied to mirrors"""
+  mirrorsRestricted: Boolean!
+
+  """Degrees of separation"""
+  degreesOfSeparation: Int!
 }
 
 """The dispatcher"""
@@ -925,6 +966,7 @@ input ExploreProfilesRequest {
   cursor: Cursor
   timestamp: TimestampScalar
   sortCriteria: ProfileSortCriteria!
+  customFilters: [CustomFiltersTypes!] = []
 }
 
 input ExplorePublicationRequest {
@@ -945,6 +987,7 @@ input ExplorePublicationRequest {
   """If you wish to exclude any results for profile ids"""
   excludeProfileIds: [ProfileId!]
   metadata: PublicationMetadataFilters
+  customFilters: [CustomFiltersTypes!] = []
 }
 
 """The paginated publication result"""
@@ -1488,6 +1531,8 @@ type Mirror {
   mirrorOf: MirrorablePublication!
   reaction(request: ReactionFieldResolverRequest): ReactionTypes
   hasCollectedByMe: Boolean!
+  canComment(profileId: ProfileId): CanCommentResponse!
+  canMirror(profileId: ProfileId): CanMirrorResponse!
 }
 
 union MirrorablePublication = Post | Comment
@@ -1757,6 +1802,7 @@ input NotificationRequest {
   """The App Id"""
   sources: [Sources!] = []
   metadata: PublicationMetadataFilters
+  customFilters: [CustomFiltersTypes!] = []
 }
 
 type OnChainIdentity {
@@ -1912,6 +1958,8 @@ type Post {
   collectedBy: Wallet
   reaction(request: ReactionFieldResolverRequest): ReactionTypes
   hasCollectedByMe: Boolean!
+  canComment(profileId: ProfileId): CanCommentResponse!
+  canMirror(profileId: ProfileId): CanMirrorResponse!
   mirrors(by: ProfileId): [InternalPublicationId!]!
 }
 
@@ -2457,6 +2505,7 @@ input PublicationsQueryRequest {
   """The publication id"""
   publicationIds: [InternalPublicationId!]
   metadata: PublicationMetadataFilters
+  customFilters: [CustomFiltersTypes!] = []
 }
 
 """The publication stats"""
@@ -2581,7 +2630,7 @@ input RecommendedProfileOptions {
   disableML: Boolean = false
 }
 
-union ReferenceModule = FollowOnlyReferenceModuleSettings | UnknownReferenceModuleSettings
+union ReferenceModule = FollowOnlyReferenceModuleSettings | UnknownReferenceModuleSettings | DegreesOfSeparationReferenceModuleSettings
 
 """reference module data scalar type"""
 scalar ReferenceModuleData
@@ -2592,11 +2641,15 @@ input ReferenceModuleParams {
 
   """A unknown reference module"""
   unknownReferenceModule: UnknownReferenceModuleParams
+
+  """The degrees of seperation reference module"""
+  degreesOfSeparationReferenceModule: DegreesOfSeparationReferenceModuleParams
 }
 
 """The reference module types"""
 enum ReferenceModules {
   FollowerOnlyReferenceModule
+  DegreesOfSeparationReferenceModule
   UnknownReferenceModule
 }
 
@@ -2683,6 +2736,7 @@ input SearchQueryRequest {
   """The search term"""
   query: Search!
   type: SearchRequestTypes!
+  customFilters: [CustomFiltersTypes!] = []
 
   """The App Id"""
   sources: [Sources!] = []

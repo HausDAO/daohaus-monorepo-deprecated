@@ -173,6 +173,7 @@ export const ActionTemplate = ({
     return helperDisplay;
   }, [helperDisplay, theme]);
 
+  const hideQuorum = proposal.dao.quorumPercent === '0';
   const yesPerc = percentage(
     Number(proposal.yesBalance),
     Number(proposal.dao.totalShares)
@@ -182,7 +183,7 @@ export const ActionTemplate = ({
     <TemplateBox>
       <div className="top-section">
         {displayUI}
-        {isMobile || (
+        {isMobile || hideQuorum || (
           <QuorumDisplay
             yesPerc={yesPerc}
             daoQuorum={proposal.dao.quorumPercent}

@@ -163,6 +163,7 @@ export const DaoContextProvider = ({
   useEffect(() => {
     let shouldUpdate = true;
     if (daochain && daoid) {
+      setDaoLoading(true);
       loadDao({
         daoid,
         daochain: daochain as keyof Keychain,
@@ -336,6 +337,7 @@ export const DaoContextProvider = ({
   const refreshProposals = async () => {
     if (daochain && daoid) {
       setProposals(undefined);
+
       loadProposalsList({
         filter: { dao: daoid, ...proposalsFilter },
         ordering: proposalsSort,

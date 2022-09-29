@@ -96,6 +96,7 @@ fragment proposalFields on Proposal {
   gracePeriod
   graceEnds
   expiration
+  expirationQueryField
   cancelledTxHash
   cancelledBy
   cancelled

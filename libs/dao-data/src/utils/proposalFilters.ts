@@ -9,6 +9,9 @@ export const statusFilter = (
 
   switch (status) {
     case PROPOSAL_STATUS['unsponsored']: {
+      // NOTE: This will return proposals that have expired before being sponsored
+      // We would need to find a way to make an OR query for that:
+      // expiration_gt: votingPlusGraceDuration + now OR expiration: 0
       if (!votingPlusGraceDuration) {
         return;
       }
@@ -18,23 +21,23 @@ export const statusFilter = (
       return {
         sponsored: false,
         cancelled: false,
-        expiration_gt: `${expirationTime}`,
+        expirationQueryField_gt: expirationTime,
       };
     }
     case PROPOSAL_STATUS['cancelled']: {
       return { cancelled: true };
     }
     case PROPOSAL_STATUS['passed']: {
-      return { passed: true };
+      return { passed: true, actionFailed: false };
     }
     case PROPOSAL_STATUS['actionFailed']: {
       return { actionFailed: true };
     }
     case PROPOSAL_STATUS['voting']: {
-      return { votingStarts_lte: now, votingEnds_lte: now };
+      return { votingStarts_lte: now, votingEnds_gt: now };
     }
     case PROPOSAL_STATUS['grace']: {
-      return { votingEnds_gt: now, graceEnds_lte: now };
+      return { votingEnds_lte: now, graceEnds_gt: now };
     }
     case PROPOSAL_STATUS['expired']: {
       if (!votingPlusGraceDuration) {
@@ -44,17 +47,24 @@ export const statusFilter = (
         Number(now) + Number(votingPlusGraceDuration)
       ).toFixed();
       return {
-        processed: false,
         cancelled: false,
         expiration_gt: '0',
         expiration_lt: `${expirationTime}`,
       };
     }
     case PROPOSAL_STATUS['needsProcessing']: {
-      return { processed: false, currentlyPassing: true, graceEnds_gt: now };
+      return { processed: false, currentlyPassing: true, graceEnds_lt: now };
     }
     case PROPOSAL_STATUS['failed']: {
-      return { currentlyPassing: false, graceEnds_lte: now };
+      if (!votingPlusGraceDuration) {
+        return;
+      }
+      return {
+        currentlyPassing: false,
+        graceEnds_lt: now,
+        sponsored: true,
+        passed: false,
+      };
     }
     default: {
       return;

@@ -52,6 +52,7 @@ export type DaoConnectMembersType = {
   membersNextPaging: Paging | undefined;
   setMembersPaging: Dispatch<SetStateAction<Paging | undefined>>;
   getNextPage: (entity: string) => Promise<void>;
+  // loadMoreMembers: () => Promise<void>;
 };
 
 export type DaoConnectProposalsType = {

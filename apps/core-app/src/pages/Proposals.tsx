@@ -45,6 +45,7 @@ export function Proposals() {
     proposalsNextPaging,
     setProposalsFilter,
     setProposals,
+    loadMoreProposals,
   } = useProposals();
   const { dao } = useDao();
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -102,10 +103,6 @@ export function Proposals() {
     });
   };
 
-  const handleLoadMore = (event: MouseEvent<HTMLButtonElement>) => {
-    setProposalsPaging(proposalsNextPaging);
-  };
-
   return (
     <SingleColumnLayout title="Proposals">
       <ActionsContainer>
@@ -133,7 +130,7 @@ export function Proposals() {
         ))}
 
       {proposalsNextPaging !== undefined && (
-        <Button tertiary sm onClick={handleLoadMore}>
+        <Button tertiary sm onClick={loadMoreProposals}>
           Show More Proposals
         </Button>
       )}

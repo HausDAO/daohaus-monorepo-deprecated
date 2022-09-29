@@ -2,7 +2,11 @@ import { useContext } from 'react';
 import { DaoContext } from '../DaoContext';
 import { DaoConnectMembersType } from '../utils/types';
 
-export const useMembers = (): DaoConnectMembersType => {
+type MembersHookTypes = {
+  loadMoreMembers: () => Promise<void>;
+};
+
+export const useMembers = (): DaoConnectMembersType & MembersHookTypes => {
   const {
     members,
     setMembers,
@@ -17,6 +21,11 @@ export const useMembers = (): DaoConnectMembersType => {
     membersNextPaging,
     getNextPage,
   } = useContext(DaoContext);
+
+  const loadMoreMembers = async () => {
+    setMembersPaging(membersNextPaging);
+  };
+
   return {
     members,
     setMembers,
@@ -30,5 +39,6 @@ export const useMembers = (): DaoConnectMembersType => {
     setMembersPaging,
     membersNextPaging,
     getNextPage,
+    loadMoreMembers,
   };
 };

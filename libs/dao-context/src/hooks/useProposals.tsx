@@ -2,7 +2,12 @@ import { useContext } from 'react';
 import { DaoContext } from '../DaoContext';
 import { DaoConnectProposalsType } from '../utils/types';
 
-export const useProposals = (): DaoConnectProposalsType => {
+type ProposalsHookTypes = {
+  loadMoreProposals: () => Promise<void>;
+};
+
+export const useProposals = (): DaoConnectProposalsType &
+  ProposalsHookTypes => {
   const {
     proposals,
     setProposals,
@@ -17,6 +22,11 @@ export const useProposals = (): DaoConnectProposalsType => {
     proposalsNextPaging,
     getNextPage,
   } = useContext(DaoContext);
+
+  const handleLoadMore = () => {
+    setProposalsPaging(proposalsNextPaging);
+  };
+
   return {
     proposals,
     setProposals,
@@ -30,5 +40,6 @@ export const useProposals = (): DaoConnectProposalsType => {
     setProposalsPaging,
     proposalsNextPaging,
     getNextPage,
+    handleLoadMore,
   };
 };

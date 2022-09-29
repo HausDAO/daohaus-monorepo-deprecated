@@ -82,6 +82,7 @@ export function Members() {
     membersNextPaging,
     setMembersSort,
     setMembers,
+    loadMoreMembers,
   } = useMembers();
   const { connectedMembership } = useConnectedMembership();
   const isMobile = useBreakpoint(widthQuery.sm);
@@ -222,14 +223,6 @@ export function Members() {
     [dao]
   );
 
-  // TODO: Move these into the context as new hooks:
-  // - loadMoreMembers (adds on to current members list - this is default)
-  // - loadNextPageMembers (replaces current list)
-  // - sort/filter (replaces current list)
-  const handleLoadMore = (event: MouseEvent<HTMLButtonElement>) => {
-    setMembersPaging(membersNextPaging);
-  };
-
   const handleColumnSort = (
     orderBy: string,
     orderDirection: 'asc' | 'desc'
@@ -274,7 +267,7 @@ export function Members() {
             tableData={tableData}
             columns={columns}
             hasNextPaging={membersNextPaging !== undefined}
-            handleLoadMore={handleLoadMore}
+            handleLoadMore={loadMoreMembers}
             handleColumnSort={handleColumnSort}
             sortableColumns={
               isMobile

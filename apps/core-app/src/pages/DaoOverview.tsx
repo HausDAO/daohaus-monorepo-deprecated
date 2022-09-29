@@ -53,7 +53,7 @@ export function DaoOverview() {
             <DaoProfile dao={dao} />
             <DataGrid>
               <DataIndicator
-                label="Vault Total"
+                label="Total in Safes"
                 data={formatValueTo({
                   value: dao.fiatTotal,
                   decimals: 2,

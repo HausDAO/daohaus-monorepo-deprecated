@@ -9,9 +9,6 @@ export const statusFilter = (
 
   switch (status) {
     case PROPOSAL_STATUS['unsponsored']: {
-      // NOTE: This will return proposals that have expired before being sponsored
-      // We would need to find a way to make an OR query for that:
-      // expiration_gt: votingPlusGraceDuration + now OR expiration: 0
       if (!votingPlusGraceDuration) {
         return;
       }

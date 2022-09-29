@@ -30,7 +30,6 @@ export const useProposals = (): DaoConnectProposalsType &
   };
 
   const filterProposals = async (filterQuery?: Proposal_Filter) => {
-    console.log('filterQuery', filterQuery);
     setProposals(undefined);
     setProposalsFilter(filterQuery);
     setProposalsPaging(defaultDaoData.proposalsPaging);

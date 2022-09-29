@@ -1,4 +1,4 @@
-import { MouseEvent, useMemo } from 'react';
+import { useMemo } from 'react';
 import styled from 'styled-components';
 import { Column, Row } from 'react-table';
 import {
@@ -25,7 +25,6 @@ import {
   useDao,
   TMembers,
   useConnectedMembership,
-  defaultDaoData,
 } from '@daohaus/dao-context';
 import { MembersOverview } from '../components/MembersOverview';
 import { ProfileLink } from '../components/ProfileLink';

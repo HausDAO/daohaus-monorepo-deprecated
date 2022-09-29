@@ -33,6 +33,7 @@ import { DaoTable } from '../components/DaohausTable';
 import { useParams } from 'react-router-dom';
 import { MemberProfileMenu } from '../components/MemberProfileMenu';
 import { ButtonLink } from '../components/ButtonLink';
+import { Member_OrderBy } from '@daohaus/dao-data';
 
 const Actions = styled.div`
   display: flex;
@@ -76,14 +77,8 @@ export type MembersTableType = TMembers[number];
 
 export function Members() {
   const { dao } = useDao();
-  const {
-    members,
-    setMembersPaging,
-    membersNextPaging,
-    setMembersSort,
-    setMembers,
-    loadMoreMembers,
-  } = useMembers();
+  const { members, membersNextPaging, loadMoreMembers, sortMembers } =
+    useMembers();
   const { connectedMembership } = useConnectedMembership();
   const isMobile = useBreakpoint(widthQuery.sm);
   const { daoid, daochain } = useParams();
@@ -227,12 +222,7 @@ export function Members() {
     orderBy: string,
     orderDirection: 'asc' | 'desc'
   ) => {
-    // TODO: how can we dynamically pass the proper order by here
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    setMembersSort({ orderBy, orderDirection });
-    setMembersPaging(defaultDaoData.membersPaging);
-    setMembers(undefined);
+    sortMembers(orderBy as Member_OrderBy, orderDirection);
   };
 
   return (

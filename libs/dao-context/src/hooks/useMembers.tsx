@@ -1,9 +1,14 @@
+import { Member_OrderBy } from '@daohaus/dao-data';
 import { useContext } from 'react';
-import { DaoContext } from '../DaoContext';
+import { DaoContext, defaultDaoData } from '../DaoContext';
 import { DaoConnectMembersType } from '../utils/types';
 
 type MembersHookTypes = {
   loadMoreMembers: () => Promise<void>;
+  sortMembers: (
+    orderBy: Member_OrderBy,
+    orderDirection: 'asc' | 'desc'
+  ) => Promise<void>;
 };
 
 export const useMembers = (): DaoConnectMembersType & MembersHookTypes => {
@@ -26,6 +31,15 @@ export const useMembers = (): DaoConnectMembersType & MembersHookTypes => {
     setMembersPaging(membersNextPaging);
   };
 
+  const sortMembers = async (
+    orderBy: Member_OrderBy,
+    orderDirection: 'asc' | 'desc'
+  ) => {
+    setMembersSort({ orderBy, orderDirection });
+    setMembersPaging(defaultDaoData.membersPaging);
+    setMembers(undefined);
+  };
+
   return {
     members,
     setMembers,
@@ -40,5 +54,6 @@ export const useMembers = (): DaoConnectMembersType & MembersHookTypes => {
     membersNextPaging,
     getNextPage,
     loadMoreMembers,
+    sortMembers,
   };
 };

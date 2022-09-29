@@ -1,9 +1,11 @@
+import { Proposal_Filter } from '@daohaus/dao-data';
 import { useContext } from 'react';
-import { DaoContext } from '../DaoContext';
+import { DaoContext, defaultDaoData } from '../DaoContext';
 import { DaoConnectProposalsType } from '../utils/types';
 
 type ProposalsHookTypes = {
   loadMoreProposals: () => Promise<void>;
+  filterProposals: (filterQuery?: Proposal_Filter) => Promise<void>;
 };
 
 export const useProposals = (): DaoConnectProposalsType &
@@ -23,8 +25,15 @@ export const useProposals = (): DaoConnectProposalsType &
     getNextPage,
   } = useContext(DaoContext);
 
-  const handleLoadMore = () => {
+  const loadMoreProposals = async () => {
     setProposalsPaging(proposalsNextPaging);
+  };
+
+  const filterProposals = async (filterQuery?: Proposal_Filter) => {
+    console.log('filterQuery', filterQuery);
+    setProposals(undefined);
+    setProposalsFilter(filterQuery);
+    setProposalsPaging(defaultDaoData.proposalsPaging);
   };
 
   return {
@@ -40,6 +49,7 @@ export const useProposals = (): DaoConnectProposalsType &
     setProposalsPaging,
     proposalsNextPaging,
     getNextPage,
-    handleLoadMore,
+    loadMoreProposals,
+    filterProposals,
   };
 };

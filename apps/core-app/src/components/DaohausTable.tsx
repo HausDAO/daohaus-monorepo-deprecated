@@ -5,6 +5,7 @@ import { indigoDark } from '@radix-ui/colors';
 
 import { Button } from '@daohaus/ui';
 import { ColumnSortIcons } from './ColumnSortIcons';
+import { Member_OrderBy } from '@daohaus/dao-data';
 
 const Table = styled.table`
   width: 100%;

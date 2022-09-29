@@ -1,3 +1,4 @@
+import { createContext, ReactNode, useEffect, useState, useRef } from 'react';
 import { Keychain } from '@daohaus/common-utilities';
 import {
   DaoWithTokenDataQuery,
@@ -13,16 +14,6 @@ import {
   Proposal_OrderBy,
 } from '@daohaus/dao-data';
 import {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState,
-  SetStateAction,
-  Dispatch,
-  useRef,
-} from 'react';
-import {
   DEFAULT_MEMBERS_PAGE_SIZE,
   DEFAULT_PROPOSAL_PAGE_SIZE,
   DEFAULT_PROPOSAL_SORT,
@@ -34,11 +25,7 @@ import {
   loadMembersList,
   loadProposalsList,
 } from './utils/fetchHelpers';
-
-export type TDao = DaoWithTokenDataQuery['dao'];
-export type TMembers = ListMembersQuery['members'];
-export type TProposals = ITransformedProposalListQuery['proposals'];
-export type TMembership = FindMemberQuery['member'];
+import { DaoConnectType } from './utils/types';
 
 export const defaultDaoData = {
   dao: null,
@@ -105,67 +92,6 @@ export const defaultDaoData = {
     return;
   },
 };
-
-export type DaoConnectDaoType = {
-  dao: DaoWithTokenDataQuery['dao'] | null | undefined;
-  isDaoLoading: boolean;
-  refreshDao: () => Promise<void>;
-  refreshAll: () => Promise<void>;
-};
-
-export type DaoConnectConnectedMembershipType = {
-  connectedMembership: FindMemberQuery['member'] | null | undefined;
-  isConnectedMembershipLoading: boolean;
-  refreshConnectedMembership: () => Promise<void>;
-  connectedMembershipProposalVotes:
-    | ListConnectedMemberProposalsQuery['proposals']
-    | null
-    | undefined;
-  isConnectedMembershipProposalVotesLoading: boolean;
-  refreshConnectedMembershipProposalVotes: () => Promise<void>;
-};
-
-export type DaoConnectMembersType = {
-  members: ListMembersQuery['members'] | null | undefined;
-  setMembers: Dispatch<SetStateAction<ListMembersQuery['members'] | undefined>>;
-  isMembersLoading: boolean;
-  refreshMembers: () => Promise<void>;
-  membersFilter: Member_Filter | undefined;
-  setMembersFilter: Dispatch<SetStateAction<Member_Filter | undefined>>;
-  membersSort: Ordering<Member_OrderBy> | undefined;
-  setMembersSort: Dispatch<
-    SetStateAction<Ordering<Member_OrderBy> | undefined>
-  >;
-  membersPaging: Paging | undefined;
-  membersNextPaging: Paging | undefined;
-  setMembersPaging: Dispatch<SetStateAction<Paging | undefined>>;
-  getNextPage: (entity: string) => Promise<void>;
-};
-
-export type DaoConnectProposalsType = {
-  proposals: ITransformedProposalListQuery['proposals'] | null | undefined;
-  setProposals: Dispatch<
-    SetStateAction<ITransformedProposalListQuery['proposals'] | undefined>
-  >;
-  isProposalsLoading: boolean;
-  refreshProposals: () => Promise<void>;
-  proposalsFilter: Proposal_Filter | undefined;
-  setProposalsFilter: Dispatch<SetStateAction<Proposal_Filter | undefined>>;
-  proposalsSort: Ordering<Proposal_OrderBy> | undefined;
-  setProposalsSort: Dispatch<
-    SetStateAction<Ordering<Proposal_OrderBy> | undefined>
-  >;
-  proposalsPaging: Paging | undefined;
-  proposalsNextPaging: Paging | undefined;
-  setProposalsPaging: Dispatch<SetStateAction<Paging | undefined>>;
-  getNextPage: (entity: string) => Promise<void>;
-};
-
-interface DaoConnectType
-  extends DaoConnectDaoType,
-    DaoConnectConnectedMembershipType,
-    DaoConnectMembersType,
-    DaoConnectProposalsType {}
 
 export const DaoContext = createContext<DaoConnectType>(defaultDaoData);
 
@@ -488,92 +414,4 @@ export const DaoContextProvider = ({
       {children}
     </DaoContext.Provider>
   );
-};
-
-export const useDao = (): DaoConnectDaoType => {
-  const { dao, isDaoLoading, refreshDao, refreshAll } = useContext(DaoContext);
-  return {
-    dao,
-    isDaoLoading,
-    refreshDao,
-    refreshAll,
-  };
-};
-export const useConnectedMembership = (): DaoConnectConnectedMembershipType => {
-  const {
-    connectedMembership,
-    isConnectedMembershipLoading,
-    refreshConnectedMembership,
-    connectedMembershipProposalVotes,
-    isConnectedMembershipProposalVotesLoading,
-    refreshConnectedMembershipProposalVotes,
-  } = useContext(DaoContext);
-  return {
-    connectedMembership,
-    isConnectedMembershipLoading,
-    refreshConnectedMembership,
-    connectedMembershipProposalVotes,
-    isConnectedMembershipProposalVotesLoading,
-    refreshConnectedMembershipProposalVotes,
-  };
-};
-export const useMembers = (): DaoConnectMembersType => {
-  const {
-    members,
-    setMembers,
-    isMembersLoading,
-    refreshMembers,
-    membersFilter,
-    setMembersFilter,
-    membersSort,
-    setMembersSort,
-    membersPaging,
-    setMembersPaging,
-    membersNextPaging,
-    getNextPage,
-  } = useContext(DaoContext);
-  return {
-    members,
-    setMembers,
-    isMembersLoading,
-    refreshMembers,
-    membersFilter,
-    setMembersFilter,
-    membersSort,
-    setMembersSort,
-    membersPaging,
-    setMembersPaging,
-    membersNextPaging,
-    getNextPage,
-  };
-};
-export const useProposals = (): DaoConnectProposalsType => {
-  const {
-    proposals,
-    setProposals,
-    isProposalsLoading,
-    refreshProposals,
-    proposalsFilter,
-    setProposalsFilter,
-    proposalsSort,
-    setProposalsSort,
-    proposalsPaging,
-    setProposalsPaging,
-    proposalsNextPaging,
-    getNextPage,
-  } = useContext(DaoContext);
-  return {
-    proposals,
-    setProposals,
-    isProposalsLoading,
-    refreshProposals,
-    proposalsFilter,
-    setProposalsFilter,
-    proposalsSort,
-    setProposalsSort,
-    proposalsPaging,
-    setProposalsPaging,
-    proposalsNextPaging,
-    getNextPage,
-  };
 };

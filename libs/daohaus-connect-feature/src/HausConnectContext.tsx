@@ -97,8 +97,9 @@ export const HausConnectProvider = ({
       handleModalEvents,
       disconnect,
       setWalletState,
+      web3modalOptions,
     });
-  }, [setConnecting, handleModalEvents]);
+  }, [setConnecting, handleModalEvents, web3modalOptions]);
 
   useEffect(() => {
     if (pathMatch?.params?.daochain) {
@@ -131,7 +132,7 @@ export const HausConnectProvider = ({
   };
 
   const disconnect = async () => {
-    const modal = getModal();
+    const modal = getModal(web3modalDefaults);
     modal.clearCachedProvider();
     setWalletState({});
   };

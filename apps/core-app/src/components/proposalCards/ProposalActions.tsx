@@ -6,6 +6,7 @@ import { ActionFailed } from './ActionFailed';
 import { ActionTemplate } from './ActionPrimitives';
 import { Cancelled } from './Cancelled';
 import { Expired } from './Expired';
+import { Failed } from './Failed';
 import { GracePeriod } from './GracePeriod';
 import { Passed } from './Passed';
 import { ReadyForProcessing } from './ReadyForProcessing';
@@ -73,10 +74,7 @@ export const ProposalActions = ({
   if (proposal.status === PROPOSAL_STATUS.failed) {
     return (
       <ActionBox>
-        {/* <Failed proposal={proposal} /> */}
-        <VotingPeriod proposal={proposal} />
-
-        {/* <ReadyForProcessing proposal={proposal} /> */}
+        <Failed proposal={proposal} />
       </ActionBox>
     );
   }

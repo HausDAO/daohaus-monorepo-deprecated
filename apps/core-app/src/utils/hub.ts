@@ -1,4 +1,5 @@
 import { Member_Filter, Dao_OrderBy, Ordering } from '@daohaus/dao-data';
+import { NETWORK_DATA } from '@daohaus/common-utilities';
 
 export const FILTER_TYPE = {
   DELEGATING: 'delegating',
@@ -43,3 +44,9 @@ export const getDelegateFilter = (
     return { delegatingTo_not: address };
   }
 };
+
+export const defaultNetworks = Object.keys(NETWORK_DATA).reduce(
+  (acc, networkId) => ({ ...acc, [networkId]: networkId }),
+  {}
+);
+export const DEFAULT_SORT_KEY = 'PROPOSALS';

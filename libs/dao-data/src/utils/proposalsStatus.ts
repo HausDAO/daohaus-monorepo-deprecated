@@ -6,13 +6,9 @@ import {
 import { QueryProposal } from '../types';
 
 export const isProposalUnsponsored = (proposal: QueryProposal): boolean => {
-  const notExpired =
-    Number(proposal.expiration) > 0 ||
-    Number(proposal.expiration) <
-      Number(proposal.votingPeriod) +
-        Number(proposal.gracePeriod) +
-        nowInSeconds();
-  return !proposal.sponsored && !proposal.cancelled && notExpired;
+  return (
+    !proposal.sponsored && !proposal.cancelled && !isProposalExpired(proposal)
+  );
 };
 
 export const isProposalCancelled = (proposal: QueryProposal): boolean =>

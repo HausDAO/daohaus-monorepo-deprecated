@@ -101,6 +101,8 @@ type Proposal @entity {
   graceEnds: BigInt!
   "unix timestamp after which proposal should be considered invalid and skipped"
   expiration: BigInt!
+  "proposal expiration time or if there is no expiration this will be a huge number to aid in querying unexpired proposals"
+  expirationQueryField: BigInt!
   "estimated gas needed to execute the proposal actions"
   actionGasEstimate: BigInt!
   "string with human readable description of the proposal"

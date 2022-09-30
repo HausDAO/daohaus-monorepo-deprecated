@@ -173,6 +173,10 @@ export function handleSubmitProposal(event: SubmitProposal): void {
     dao.gracePeriod
   );
   proposal.expiration = event.params.expiration;
+  proposal.expirationQueryField =
+    event.params.expiration === constants.BIGINT_ZERO
+      ? constants.FUTURE_TIMESTAMP
+      : event.params.expiration;
   proposal.actionGasEstimate = event.params.baalGas;
   proposal.cancelled = false;
   proposal.processed = false;

@@ -1,4 +1,4 @@
-import { MouseEvent, useMemo } from 'react';
+import { useMemo } from 'react';
 import styled from 'styled-components';
 import { Column, Row } from 'react-table';
 import {
@@ -25,7 +25,6 @@ import {
   useDao,
   TMembers,
   useConnectedMembership,
-  defaultDaoData,
 } from '@daohaus/dao-context';
 import { MembersOverview } from '../components/MembersOverview';
 import { ProfileLink } from '../components/ProfileLink';
@@ -33,6 +32,7 @@ import { DaoTable } from '../components/DaohausTable';
 import { useParams } from 'react-router-dom';
 import { MemberProfileMenu } from '../components/MemberProfileMenu';
 import { ButtonLink } from '../components/ButtonLink';
+import { Member_OrderBy } from '@daohaus/dao-data';
 
 const Actions = styled.div`
   display: flex;
@@ -76,13 +76,8 @@ export type MembersTableType = TMembers[number];
 
 export function Members() {
   const { dao } = useDao();
-  const {
-    members,
-    setMembersPaging,
-    membersNextPaging,
-    setMembersSort,
-    setMembers,
-  } = useMembers();
+  const { members, membersNextPaging, loadMoreMembers, sortMembers } =
+    useMembers();
   const { connectedMembership } = useConnectedMembership();
   const isMobile = useBreakpoint(widthQuery.sm);
   const { daoid, daochain } = useParams();
@@ -222,24 +217,11 @@ export function Members() {
     [dao]
   );
 
-  // TODO: Move these into the context as new hooks:
-  // - loadMoreMembers (adds on to current members list - this is default)
-  // - loadNextPageMembers (replaces current list)
-  // - sort/filter (replaces current list)
-  const handleLoadMore = (event: MouseEvent<HTMLButtonElement>) => {
-    setMembersPaging(membersNextPaging);
-  };
-
   const handleColumnSort = (
     orderBy: string,
     orderDirection: 'asc' | 'desc'
   ) => {
-    // TODO: how can we dynamically pass the proper order by here
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    setMembersSort({ orderBy, orderDirection });
-    setMembersPaging(defaultDaoData.membersPaging);
-    setMembers(undefined);
+    sortMembers(orderBy as Member_OrderBy, orderDirection);
   };
 
   return (
@@ -274,7 +256,7 @@ export function Members() {
             tableData={tableData}
             columns={columns}
             hasNextPaging={membersNextPaging !== undefined}
-            handleLoadMore={handleLoadMore}
+            handleLoadMore={loadMoreMembers}
             handleColumnSort={handleColumnSort}
             sortableColumns={
               isMobile

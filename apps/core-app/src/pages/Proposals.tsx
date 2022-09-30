@@ -11,7 +11,7 @@ import {
 import { statusFilter } from '@daohaus/dao-data';
 import { BsPlusLg } from 'react-icons/bs';
 
-import { defaultDaoData, useDao, useProposals } from '@daohaus/dao-context';
+import { useDao, useProposals } from '@daohaus/dao-context';
 import { NewProposalList } from '../components/NewProposalList';
 import { PROPOSAL_FORMS } from '../legos/form';
 import SearchInput from '../components/SearchInput';
@@ -39,13 +39,8 @@ const SearchFilterContainer = styled.div`
 `;
 
 export function Proposals() {
-  const {
-    proposals,
-    setProposalsPaging,
-    proposalsNextPaging,
-    setProposalsFilter,
-    setProposals,
-  } = useProposals();
+  const { proposals, proposalsNextPaging, loadMoreProposals, filterProposals } =
+    useProposals();
   const { dao } = useDao();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filter, setFilter] = useState<string>('');
@@ -64,17 +59,13 @@ export function Proposals() {
           )
         : undefined;
 
-    if (searchTerm && searchTerm.length > 0) {
-      setProposals(undefined);
-      setProposalsFilter({
+    if (term && term.length > 0) {
+      filterProposals({
         ...filterQuery,
-        title_contains_nocase: searchTerm,
+        title_contains_nocase: term,
       });
-      setProposalsPaging(defaultDaoData.proposalsPaging);
     } else {
-      setProposals(undefined);
-      setProposalsFilter(filterQuery);
-      setProposalsPaging(defaultDaoData.proposalsPaging);
+      filterProposals(filterQuery);
     }
   };
 
@@ -83,9 +74,7 @@ export function Proposals() {
       searchTerm !== '' ? { title_contains_nocase: searchTerm } : undefined;
     setFilter((prevState) => {
       if (prevState === event.currentTarget.value) {
-        setProposalsFilter(searchQuery);
-        setProposalsPaging(defaultDaoData.proposalsPaging);
-        setProposals(undefined);
+        filterProposals(searchQuery);
         return '';
       } else {
         const votingPlusGraceDuration =
@@ -94,16 +83,10 @@ export function Proposals() {
           PROPOSAL_STATUS[event.currentTarget.value],
           votingPlusGraceDuration
         );
-        setProposalsFilter({ ...filterQuery, ...searchQuery });
-        setProposalsPaging(defaultDaoData.proposalsPaging);
-        setProposals(undefined);
+        filterProposals({ ...filterQuery, ...searchQuery });
         return event.currentTarget.value;
       }
     });
-  };
-
-  const handleLoadMore = (event: MouseEvent<HTMLButtonElement>) => {
-    setProposalsPaging(proposalsNextPaging);
   };
 
   return (
@@ -133,7 +116,7 @@ export function Proposals() {
         ))}
 
       {proposalsNextPaging !== undefined && (
-        <Button tertiary sm onClick={handleLoadMore}>
+        <Button tertiary sm onClick={loadMoreProposals}>
           Show More Proposals
         </Button>
       )}

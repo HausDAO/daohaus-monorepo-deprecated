@@ -6,7 +6,7 @@ export const Expired = ({ proposal }: { proposal: ITransformedProposal }) => {
   return (
     <ActionTemplate
       proposal={proposal}
-      statusDisplay="Proposal expired"
+      statusDisplay="Proposal Expired"
       main={
         <>
           <VotingBar proposal={proposal} />

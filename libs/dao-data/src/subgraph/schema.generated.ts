@@ -732,6 +732,8 @@ export interface Proposal {
   details: Scalars['String'];
   /** unix timestamp after which proposal should be considered invalid and skipped */
   expiration: Scalars['BigInt'];
+  /** proposal expiration time or if there is no expiration this will be a huge number to aid in querying unexpired proposals */
+  expirationQueryField: Scalars['BigInt'];
   /** unix timestamp of when the grace period ends */
   graceEnds: Scalars['BigInt'];
   /** duration in seconds of the grace period for this proposal in seconds */
@@ -981,6 +983,14 @@ export interface Proposal_Filter {
   details_starts_with?: InputMaybe<Scalars['String']>;
   details_starts_with_nocase?: InputMaybe<Scalars['String']>;
   expiration?: InputMaybe<Scalars['BigInt']>;
+  expirationQueryField?: InputMaybe<Scalars['BigInt']>;
+  expirationQueryField_gt?: InputMaybe<Scalars['BigInt']>;
+  expirationQueryField_gte?: InputMaybe<Scalars['BigInt']>;
+  expirationQueryField_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  expirationQueryField_lt?: InputMaybe<Scalars['BigInt']>;
+  expirationQueryField_lte?: InputMaybe<Scalars['BigInt']>;
+  expirationQueryField_not?: InputMaybe<Scalars['BigInt']>;
+  expirationQueryField_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   expiration_gt?: InputMaybe<Scalars['BigInt']>;
   expiration_gte?: InputMaybe<Scalars['BigInt']>;
   expiration_in?: InputMaybe<Array<Scalars['BigInt']>>;
@@ -1331,6 +1341,7 @@ export type Proposal_OrderBy =
   | 'description'
   | 'details'
   | 'expiration'
+  | 'expirationQueryField'
   | 'graceEnds'
   | 'gracePeriod'
   | 'id'
@@ -2249,8 +2260,8 @@ export interface _Block_ {
   hash?: Maybe<Scalars['Bytes']>;
   /** The block number */
   number: Scalars['Int'];
-  /** Timestamp of the block if available, format depends on the chain */
-  timestamp?: Maybe<Scalars['String']>;
+  /** Integer representation of the timestamp stored in blocks for the chain */
+  timestamp?: Maybe<Scalars['Int']>;
 }
 
 /** The type for the top-level _meta field */

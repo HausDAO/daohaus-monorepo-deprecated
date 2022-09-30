@@ -8,16 +8,20 @@ type ProfileLinkProps = {
   disabled?: boolean;
   linkType?: 'internal' | 'external' | 'no-icon-external';
   hideIcon?: boolean;
+  target?: string;
+  rel?: string;
 } & Partial<ComponentProps<typeof Button>>;
 
 export const ButtonLink = ({
   href,
   to,
   selected,
+  target,
   disabled,
   children,
   linkType,
   hideIcon,
+  rel,
   ...buttonProps
 }: ProfileLinkProps) => {
   return (
@@ -27,6 +31,8 @@ export const ButtonLink = ({
       disabled={disabled}
       linkType={linkType}
       hideIcon={hideIcon}
+      target={target}
+      rel={rel}
     >
       <Button disabled={disabled} {...buttonProps}>
         {children}

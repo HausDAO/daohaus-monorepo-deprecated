@@ -1,5 +1,5 @@
-import React from 'react';
-import { Routes as RoutesDom, Route } from 'react-router-dom';
+import React, { ReactNode } from 'react';
+import { Routes as RoutesDom, Route, Outlet } from 'react-router-dom';
 
 import Home from './pages/Home';
 import DaoOverview from './pages/DaoOverview';
@@ -13,15 +13,34 @@ import NewProposal from './pages/NewProposal';
 import UpdateSettings from './pages/UpdateSettings';
 import ProposalDetails from './pages/ProposalDetails';
 import { DaoContainer } from './pages/DaoContainer';
-import { Banner } from '@daohaus/ui';
+import { Banner, H1 } from '@daohaus/ui';
 import RageQuit from './pages/RageQuit';
+import { HausLayout } from '@daohaus/daohaus-connect-feature';
+
+const Profile = () => <H1>Profile</H1>;
+
+const HomeContainer = () => {
+  return (
+    <HausLayout
+      navLinks={[
+        { label: 'Home', href: '/' },
+        { label: 'Profile', href: '/profile' },
+      ]}
+    >
+      <Outlet />
+    </HausLayout>
+  );
+};
 
 const Routes = () => {
   return (
     <>
       <Banner />
       <RoutesDom>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomeContainer />}>
+          <Route index element={<Home />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
         <Route path="molochv3/:daochain/:daoid" element={<DaoContainer />}>
           <Route index element={<DaoOverview />} />
           <Route path="formtest" element={<FormTest />} />

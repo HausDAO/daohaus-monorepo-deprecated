@@ -88,7 +88,8 @@ export const ReadyForProcessing = ({
 
   const processProposal = async () => {
     const { proposalId, proposalData, actionGasEstimate } = proposal;
-    const processingGasLimit = Number(actionGasEstimate) > 0 && 
+    const processingGasLimit =
+      Number(actionGasEstimate) > 0 &&
       Number(actionGasEstimate) + PROCESS_PROPOSAL_GAS_LIMIT_ADDITION;
 
     if (!proposalId) return;
@@ -97,10 +98,12 @@ export const ReadyForProcessing = ({
       tx: {
         ...ACTION_TX.PROCESS,
         staticArgs: [proposalId, proposalData],
-        // Usually a proposal actionGasEstimate === 0 when the safe vault takes longer to 
+        // Usually a proposal actionGasEstimate === 0 when the safe vault takes longer to
         // be indexed by the Gnosis API (a DAO was recently summonned)
         // In this case, do not override gasLimit
-        overrides: processingGasLimit ? { gasLimit: processingGasLimit.toFixed() } : {},
+        overrides: processingGasLimit
+          ? { gasLimit: processingGasLimit.toFixed() }
+          : {},
       } as TXLego,
       lifeCycleFns: {
         onTxError: (error) => {

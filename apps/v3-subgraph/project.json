@@ -63,7 +63,7 @@
       "options": {
         "commands": [
           {
-            "command": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ {args.name}",
+            "command": "node manifests/deploy-prep.js {args.network} && graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ {args.name}",
             "forwardAllArgs": true
           }
         ],

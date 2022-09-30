@@ -3138,10 +3138,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@jscutlery/semver@^2.26.0":
-  version "2.26.0"
-  resolved "https://registry.yarnpkg.com/@jscutlery/semver/-/semver-2.26.0.tgz#15cb627a713ef3a4e2564a04ab5f01e5cc534d7c"
-  integrity sha512-4LjgXPM2V1xTOWCjPQerbjljKdnTi7pCmeC5jfRdDe7ZkKH2Fs+MBqEeblrvzCM2hHG28UOq0bKw0ibUg8nA3A==
+"@jscutlery/semver@^2.27.1":
+  version "2.27.1"
+  resolved "https://registry.yarnpkg.com/@jscutlery/semver/-/semver-2.27.1.tgz#d1979cc21cd92094b6f47fbae1642fcf052a7be7"
+  integrity sha512-uApRqj8Pc2CG9BbN/ZiWFz9xNq14XDueJZQnhsdO0B9CYoAZqCEoKLbToM7yRXkQ/ZRg7uV3xkrFYEWXVl1K8Q==
   dependencies:
     detect-indent "6.1.0"
     inquirer "8.2.4"

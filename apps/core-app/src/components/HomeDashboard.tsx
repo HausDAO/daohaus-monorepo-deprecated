@@ -25,6 +25,7 @@ import {
   ParMd,
   ParSm,
   ProfileAvatar,
+  Select,
   SingleColumnLayout,
   Spinner,
   Tag,
@@ -144,6 +145,7 @@ export const HomeDashboard = () => {
     filterNetworks,
     filterDelegate,
     sortBy,
+    listType,
     searchTerm,
     totalDaos: daoData.length,
     noun: {
@@ -224,6 +226,17 @@ const IconGrid = styled(BsFillGrid3X3GapFill)`
   }
 `;
 
+const ControlBarBox = styled.div`
+  display: flex;
+  width: 100%;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  div,
+  button:nth-child(-n + 2) {
+    margin-right: 1.6rem;
+  }
+`;
+
 const TableControl = ({
   children,
   searchTerm,
@@ -236,12 +249,14 @@ const TableControl = ({
   toggleDelegateFilter,
   toggleListType,
   listType,
+  sortBy,
+  switchSortBy,
 }: TableControlProps) => {
   const isMobile = useBreakpoint(widthQuery.sm);
 
   return (
     <SingleColumnLayout>
-      <div>
+      <ControlBarBox>
         <SearchInput
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
@@ -264,7 +279,8 @@ const TableControl = ({
             {listType === ListType.Table ? 'Card View' : 'List View'}
           </Button>
         )}
-      </div>
+        <SortDropdown sortBy={sortBy} switchSortBy={switchSortBy} />
+      </ControlBarBox>
       {children}
     </SingleColumnLayout>
   );
@@ -544,3 +560,37 @@ const DAOFilterDropdown = ({
     </Dropdown>
   );
 };
+
+const SelectBox = styled.div`
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  width: 24rem;
+  p {
+    display: block;
+    width: 12rem;
+  }
+`;
+type SortDropdownProps = {
+  sortBy: string;
+  switchSortBy: (event: ChangeEvent<HTMLSelectElement>) => void;
+};
+
+const SortDropdown = ({ sortBy, switchSortBy }: SortDropdownProps) => {
+  return (
+    <SelectBox>
+      <ParMd>Sort By</ParMd>
+      <Select
+        id="sort-select"
+        value={sortBy}
+        onChange={switchSortBy}
+        options={Object.entries(SORT_FIELDS).map(([sortKey, sortValue]) => ({
+          name: sortValue.name,
+          value: sortKey,
+        }))}
+      />
+    </SelectBox>
+  );
+};
+
+export default SortDropdown;

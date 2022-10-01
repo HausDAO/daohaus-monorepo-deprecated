@@ -41,7 +41,6 @@ const SearchInput = ({
   return (
     <Input
       icon={BiSearch}
-      full
       id="table-search"
       placeholder={`Search ${totalItems} ${
         totalItems === 1 ? noun.singular : noun.plural

@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { BiSearch } from 'react-icons/bi';
-import { Input } from '@daohaus/ui';
+import { Field, Input } from '@daohaus/ui';
 import useDebounce from '../utils/debounceHook';
 import { Noun } from '@daohaus/common-utilities';
 
@@ -9,7 +9,7 @@ type SearchInputProps = {
   setSearchTerm: (term: string) => void;
   totalItems: number;
   noun?: Noun;
-};
+} & Partial<Field>;
 
 const SearchInput = ({
   searchTerm,
@@ -19,6 +19,7 @@ const SearchInput = ({
     singular: 'proposal',
     plural: 'proposals',
   },
+  ...inputProps
 }: SearchInputProps) => {
   const [localSearchTerm, setLocalSearchTerm] = useState<string>('');
 
@@ -40,6 +41,7 @@ const SearchInput = ({
 
   return (
     <Input
+      {...inputProps}
       icon={BiSearch}
       id="table-search"
       placeholder={`Search ${totalItems} ${

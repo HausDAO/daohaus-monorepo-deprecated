@@ -129,9 +129,16 @@ export const HomeDashboard = () => {
     setSortBy(event.target.value);
   };
 
+  const toggleListType = () => {
+    setListType((prevState) =>
+      prevState === ListType.Cards ? ListType.Table : ListType.Cards
+    );
+  };
+
   const tableControlProps = {
     toggleNetworkFilter,
     toggleDelegateFilter,
+    toggleListType,
     switchSortBy,
     setSearchTerm,
     filterNetworks,

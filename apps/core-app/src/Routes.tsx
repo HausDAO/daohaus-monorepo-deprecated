@@ -6,7 +6,7 @@ import DaoOverview from './pages/DaoOverview';
 import Members from './pages/Members';
 import Member from './pages/Member';
 import Proposals from './pages/Proposals';
-import Vaults from './pages/Vaults';
+import Safes from './pages/Safes';
 import FormTest from './pages/FormTest';
 import Settings from './pages/Settings';
 import NewProposal from './pages/NewProposal';
@@ -28,7 +28,7 @@ const Routes = () => {
           <Route path="proposals" element={<Proposals />} />
           <Route path="new-proposal" element={<NewProposal />} />
           <Route path="proposals/:proposalId" element={<ProposalDetails />} />
-          <Route path="vaults" element={<Vaults />} />
+          <Route path="safes" element={<Safes />} />
           <Route path="members" element={<Members />} />
           <Route path="members/:memberAddress" element={<Member />} />
           <Route path="settings" element={<Settings />} />

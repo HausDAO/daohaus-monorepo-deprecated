@@ -56,6 +56,9 @@ const MemberContainer = styled(Card)`
   min-height: 20rem;
   width: 100%;
   overflow-x: auto;
+  th {
+    min-width: 10rem;
+  }
   @media ${widthQuery.lg} {
     max-width: 100%;
     min-width: 0;
@@ -79,7 +82,7 @@ export function Members() {
   const { members, membersNextPaging, loadMoreMembers, sortMembers } =
     useMembers();
   const { connectedMembership } = useConnectedMembership();
-  const isMobile = useBreakpoint(widthQuery.sm);
+  const isMd = useBreakpoint(widthQuery.md);
   const { daoid, daochain } = useParams();
 
   const tableData = useMemo(() => {
@@ -139,7 +142,7 @@ export function Members() {
       },
       {
         Header: () => {
-          return <div>{charLimit(dao?.shareTokenName, 6)}</div>;
+          return <>{charLimit(dao?.shareTokenName, 6)}</>;
         },
         accessor: 'shares',
         Cell: ({ value }: { value: string }) => {
@@ -232,16 +235,16 @@ export function Members() {
           <ButtonLink
             href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=ISSUE`}
             secondary
-            fullWidth={isMobile}
-            centerAlign={isMobile}
+            fullWidth={isMd}
+            centerAlign={isMd}
           >
             Add Member
           </ButtonLink>
           {connectedMembership && (
             <ButtonLink
               href={`/molochv3/${daochain}/${daoid}/members/${connectedMembership.memberAddress}`}
-              fullWidth={isMobile}
-              centerAlign={isMobile}
+              fullWidth={isMd}
+              centerAlign={isMd}
             >
               My Profile
             </ButtonLink>
@@ -259,13 +262,13 @@ export function Members() {
             handleLoadMore={loadMoreMembers}
             handleColumnSort={handleColumnSort}
             sortableColumns={
-              isMobile
+              isMd
                 ? ['loot', 'shares']
                 : ['createdAt', 'shares', 'loot', 'delegateShares']
             }
           />
         ) : (
-          <Spinner size={isMobile ? '8rem' : '16rem'} padding="6rem" />
+          <Spinner size={isMd ? '8rem' : '16rem'} padding="6rem" />
         )}
       </MemberContainer>
     </SingleColumnLayout>

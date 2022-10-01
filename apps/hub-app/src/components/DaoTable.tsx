@@ -138,7 +138,7 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
         },
       },
       {
-        Header: 'Vaults',
+        Header: 'Safes',
         accessor: 'fiatTotal',
         Cell: ({ value }: { value?: number }) => {
           return (

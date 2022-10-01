@@ -46,8 +46,6 @@ const FilterDropdown = ({
 }: FilterDropdownProps) => {
   const theme = useTheme();
 
-  console.log(NETWORK_DATA);
-
   const networkButtons = Object.values(NETWORK_DATA).map((network) => {
     const isActive = filterNetworks[network.chainId];
     return (

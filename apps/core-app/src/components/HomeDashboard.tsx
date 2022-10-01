@@ -3,6 +3,8 @@ import {
   getNetworkName,
   handleErrorMessage,
   isValidNetwork,
+  NETWORK_DATA,
+  Noun,
   readableNumbers,
   ValidNetwork,
 } from '@daohaus/common-utilities';
@@ -13,9 +15,15 @@ import {
   Bold,
   border,
   breakpoints,
+  Button,
+  Dropdown,
+  DropdownButton,
+  DropdownMenuItem,
+  DropdownMenuLabel,
   H2,
   ParLg,
   ParMd,
+  ParSm,
   ProfileAvatar,
   SingleColumnLayout,
   Spinner,
@@ -24,15 +32,20 @@ import {
   useDebounce,
   widthQuery,
 } from '@daohaus/ui';
+import { indigoDark } from '@radix-ui/colors';
 import { ChangeEvent, MouseEvent, ReactNode, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { BsFillGrid3X3GapFill } from 'react-icons/bs';
+import { RiCheckLine, RiFilterFill } from 'react-icons/ri';
+import styled, { useTheme } from 'styled-components';
 import {
   defaultNetworks,
   DEFAULT_SORT_KEY,
+  FILTER_TYPE,
   getDelegateFilter,
   SORT_FIELDS,
 } from '../utils/hub';
 import { ButtonLink } from './ButtonLink';
+import SearchInput from './SearchInput';
 
 // import { DaoCards } from './DaoCards';
 // import { DaoTable } from './DaoTable';
@@ -116,27 +129,42 @@ export const HomeDashboard = () => {
     setSortBy(event.target.value);
   };
 
-  const handleSearchTermChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm((prevState) =>
-      prevState === event.target.value ? '' : event.target.value
-    );
-  };
-
-  const tableActions = {
+  const tableControlProps = {
     toggleNetworkFilter,
     toggleDelegateFilter,
     switchSortBy,
-    handleSearchTermChange,
+    setSearchTerm,
+    filterNetworks,
+    filterDelegate,
+    sortBy,
+    searchTerm,
+    totalDaos: daoData.length,
+    noun: {
+      singular: 'DAO',
+      plural: 'DAOs',
+    },
   };
 
   if (loading) {
-    <Loading isMobile={isMobile} />;
+    return (
+      <TableControl {...tableControlProps}>
+        <Loading isMobile={isMobile} />
+      </TableControl>
+    );
   }
   if (!daoData.length) {
-    <NoDaosFound />;
+    return (
+      <TableControl {...tableControlProps}>
+        <NoDaosFound />
+      </TableControl>
+    );
   }
 
-  return <DaoList daoData={daoData} isMobile={isMobile} listType={listType} />;
+  return (
+    <TableControl {...tableControlProps}>
+      <DaoList daoData={daoData} isMobile={isMobile} listType={listType} />
+    </TableControl>
+  );
 };
 
 const CenterFrame = styled.div`
@@ -163,8 +191,76 @@ const NoDaosFound = () => (
   </CenterFrame>
 );
 
-const TableControl = ({ children }: { children: ReactNode }) => {
-  return <SingleColumnLayout>{children}</SingleColumnLayout>;
+type TableControlProps = {
+  children: ReactNode;
+  searchTerm: string;
+  filterNetworks: Record<string, string>;
+  listType: ListType;
+  toggleListType: () => void;
+  toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
+  filterDelegate: string;
+  toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
+  sortBy: string;
+  switchSortBy: (event: ChangeEvent<HTMLSelectElement>) => void;
+  setSearchTerm: (term: string) => void;
+  totalDaos: number;
+  noun: Noun;
+};
+
+const IconGrid = styled(BsFillGrid3X3GapFill)`
+  height: 1.8rem;
+  width: 1.8rem;
+  display: flex;
+  fill: ${indigoDark.indigo10};
+  :hover {
+    fill: ${indigoDark.indigo10};
+  }
+`;
+
+const TableControl = ({
+  children,
+  searchTerm,
+  setSearchTerm,
+  totalDaos,
+  noun,
+  filterNetworks,
+  filterDelegate,
+  toggleNetworkFilter,
+  toggleDelegateFilter,
+  toggleListType,
+  listType,
+}: TableControlProps) => {
+  const isMobile = useBreakpoint(widthQuery.sm);
+
+  return (
+    <SingleColumnLayout>
+      <div>
+        <SearchInput
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          totalItems={totalDaos}
+          noun={noun}
+        />
+        <DAOFilterDropdown
+          filterNetworks={filterNetworks}
+          filterDelegate={filterDelegate}
+          toggleDelegateFilter={toggleDelegateFilter}
+          toggleNetworkFilter={toggleNetworkFilter}
+        />
+        {isMobile || (
+          <Button
+            secondary
+            onClick={toggleListType}
+            IconLeft={IconGrid}
+            className="list-toggle"
+          >
+            {listType === ListType.Table ? 'Card View' : 'List View'}
+          </Button>
+        )}
+      </div>
+      {children}
+    </SingleColumnLayout>
+  );
 };
 
 const DaoList = ({
@@ -210,7 +306,7 @@ const StyledDaoCard = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 36rem;
+  max-width: 32.5rem;
   min-width: 26rem;
   border: 1px solid ${(props) => props.theme.card.border};
   padding: 2.4rem;
@@ -336,5 +432,108 @@ const DaoCard = ({
         Go
       </ButtonLink>
     </StyledDaoCard>
+  );
+};
+
+type DAOFilterDropdownProps = {
+  filterNetworks: Record<string, string>;
+  toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
+  filterDelegate: string;
+  toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
+};
+
+const IconFilter = styled(RiFilterFill)`
+  height: 1.8rem;
+  width: 1.8rem;
+  display: flex;
+  // USE THEME
+  fill: ${indigoDark.indigo10};
+  :hover {
+    fill: ${indigoDark.indigo10};
+  }
+`;
+
+const DAOFilterDropdown = ({
+  filterNetworks,
+  toggleNetworkFilter,
+  filterDelegate,
+  toggleDelegateFilter,
+}: DAOFilterDropdownProps) => {
+  const theme = useTheme();
+  const networkButtons = Object.values(NETWORK_DATA).map((network) => {
+    const isActive = filterNetworks[network.chainId];
+
+    return (
+      <DropdownMenuItem key={network.chainId} asChild>
+        <DropdownButton
+          value={network.chainId}
+          onClick={toggleNetworkFilter}
+          className={isActive ? 'selected' : ''}
+          secondary
+          fullWidth
+          leftAlign
+          IconRight={isActive ? RiCheckLine : undefined}
+        >
+          <div style={{ width: '100%' }}>{network.name}</div>
+        </DropdownButton>
+      </DropdownMenuItem>
+    );
+  });
+  return (
+    <Dropdown
+      align="end"
+      menuBg={theme.button.secondary.bg}
+      menuMinWidth="25rem"
+      spacing=".6rem"
+      trigger={
+        <Button secondary IconLeft={IconFilter}>
+          Filters
+        </Button>
+      }
+    >
+      <DropdownMenuLabel>
+        <ParSm>Networks</ParSm>
+      </DropdownMenuLabel>
+      {networkButtons}
+      <DropdownMenuLabel>
+        <ParSm>Delegation</ParSm>
+      </DropdownMenuLabel>
+      <DropdownMenuItem asChild>
+        <DropdownButton
+          secondary
+          fullWidth
+          leftAlign
+          value={FILTER_TYPE.DELEGATING}
+          onClick={toggleDelegateFilter}
+          IconRight={
+            filterDelegate === FILTER_TYPE.DELEGATING ? RiCheckLine : undefined
+          }
+          className={
+            filterDelegate === FILTER_TYPE.DELEGATING ? 'selected' : ''
+          }
+        >
+          <div style={{ width: '100%' }}>I am a Delegate</div>
+        </DropdownButton>
+      </DropdownMenuItem>
+      <DropdownMenuItem asChild>
+        <DropdownButton
+          secondary
+          fullWidth
+          leftAlign
+          value={FILTER_TYPE.DELEGATING_TO}
+          onClick={toggleDelegateFilter}
+          IconRight={
+            filterDelegate === FILTER_TYPE.DELEGATING_TO
+              ? RiCheckLine
+              : undefined
+          }
+          className={
+            filterDelegate === FILTER_TYPE.DELEGATING_TO ? 'selected' : ''
+          }
+        >
+          <div style={{ width: '100%' }}>I have a Delegate</div>
+        </DropdownButton>
+      </DropdownMenuItem>
+    </Dropdown>
   );
 };

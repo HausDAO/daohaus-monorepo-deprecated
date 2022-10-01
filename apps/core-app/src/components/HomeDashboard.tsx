@@ -231,9 +231,27 @@ const ControlBarBox = styled.div`
   width: 100%;
   margin-bottom: 3rem;
   flex-wrap: wrap;
-  div,
-  button:nth-child(-n + 2) {
+  div:first-child {
     margin-right: 1.6rem;
+  }
+  button:nth-child(2) {
+    margin-right: 1.6rem;
+  }
+  button:nth-child(3) {
+    margin-right: auto;
+  }
+  @media ${widthQuery.sm} {
+    flex-direction: column;
+    gap: 2rem;
+    div:first-child {
+      margin-right: 0;
+    }
+    button:nth-child(2) {
+      margin-right: 0;
+    }
+    button:nth-child(3) {
+      margin-right: 0;
+    }
   }
 `;
 
@@ -262,6 +280,7 @@ const TableControl = ({
           setSearchTerm={setSearchTerm}
           totalItems={totalDaos}
           noun={noun}
+          full={isMobile}
         />
         <DAOFilterDropdown
           filterNetworks={filterNetworks}
@@ -562,13 +581,17 @@ const DAOFilterDropdown = ({
 };
 
 const SelectBox = styled.div`
-  margin-left: auto;
   display: flex;
   align-items: center;
   width: 24rem;
   p {
     display: block;
     width: 12rem;
+  }
+  @media ${widthQuery.sm} {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
   }
 `;
 type SortDropdownProps = {
@@ -588,6 +611,7 @@ const SortDropdown = ({ sortBy, switchSortBy }: SortDropdownProps) => {
           name: sortValue.name,
           value: sortKey,
         }))}
+        full
       />
     </SelectBox>
   );

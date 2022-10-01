@@ -123,9 +123,9 @@ const buildCompletedElements = ({
       active: false,
       text: `${
         proposal.status === PROPOSAL_STATUS.actionFailed
-          ? 'Execution failed'
-          : 'Passed and executed'
-      } at ${formatDateTimeFromSeconds(proposal.processTxAt)}`,
+          ? 'Execution failed at'
+          : ''
+      } ${formatDateTimeFromSeconds(proposal.processTxAt)}`,
       canExpand: true,
       dataElements: [
         {

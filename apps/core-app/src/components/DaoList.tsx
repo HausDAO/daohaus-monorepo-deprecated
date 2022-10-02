@@ -5,6 +5,7 @@ import { breakpoints } from '@daohaus/ui';
 
 import { DaoCard } from './DaoCard';
 import { ListType } from './HomeDashboard';
+import { DaoTable } from './DaoTable';
 
 export const DaoList = ({
   daoData,
@@ -20,7 +21,7 @@ export const DaoList = ({
   }
 
   if (listType === ListType.Cards) return <DaoCards daoData={daoData} />;
-  // if (listType === ListType.Table) return <DaoTable daoData={daoData} />;
+  if (listType === ListType.Table) return <DaoTable daoData={daoData} />;
 
   return null;
 };

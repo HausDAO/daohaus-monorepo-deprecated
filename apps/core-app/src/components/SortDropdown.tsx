@@ -15,6 +15,9 @@ const SelectBox = styled.div`
     width: 100%;
     flex-direction: column;
     align-items: flex-start;
+    label {
+      margin-bottom: 1rem;
+    }
   }
 `;
 type SortDropdownProps = SelectProps;

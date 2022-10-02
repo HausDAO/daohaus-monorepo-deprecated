@@ -1,4 +1,9 @@
-import { Routes as RoutesDom, Route, Outlet } from 'react-router-dom';
+import {
+  Routes as RoutesDom,
+  Route,
+  Outlet,
+  useLocation,
+} from 'react-router-dom';
 
 import Home from './pages/Home';
 import DaoOverview from './pages/DaoOverview';
@@ -19,8 +24,10 @@ import { HausLayout } from '@daohaus/daohaus-connect-feature';
 const Profile = () => <H1>Profile</H1>;
 
 const HomeContainer = () => {
+  const location = useLocation();
   return (
     <HausLayout
+      pathname={location.pathname}
       navLinks={[
         { label: 'Home', href: '/' },
         { label: 'Profile', href: '/profile' },

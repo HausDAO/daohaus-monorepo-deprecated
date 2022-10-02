@@ -142,7 +142,7 @@ export const DaoCard = ({
         secondary
         fullWidth
         centerAlign
-        href={`/molochV3/${networkId}/${dao}`}
+        href={`/molochv3/${networkId}/${dao}`}
         target="_blank"
         rel="noreferrer"
       >

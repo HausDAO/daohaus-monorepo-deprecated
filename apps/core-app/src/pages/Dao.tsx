@@ -1,10 +1,11 @@
-import { useParams, Outlet } from 'react-router-dom';
+import { useParams, Outlet, useLocation } from 'react-router-dom';
 import { HausLayout, useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { useDao } from '@daohaus/dao-context';
 import { TXBuilder } from '@daohaus/tx-builder-feature';
 
 export function Dao() {
   const { daochain, daoid } = useParams();
+  const location = useLocation();
   const { provider } = useHausConnect();
   const { dao } = useDao();
 
@@ -38,10 +39,10 @@ export function Dao() {
       appState={{ dao }}
     >
       <HausLayout
+        pathname={location.pathname}
         navLinks={[
           { label: 'Home', href: `/` },
           { label: 'Overview', href: `/molochv3/${daochain}/${daoid}` },
-
           {
             label: 'Proposals',
             href: `/molochv3/${daochain}/${daoid}/proposals`,

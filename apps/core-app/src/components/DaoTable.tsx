@@ -32,6 +32,7 @@ const Th = styled.th`
   color: ${indigoDark.indigo11};
   border-bottom: 1px solid ${indigoDark.indigo5};
   padding: 0.5rem;
+  text-align: left;
 `;
 
 const Tr = styled.tr``;
@@ -44,6 +45,7 @@ const Td = styled.td`
 const TBody = styled.tbody``;
 
 const Highlight = styled.p`
+  text-align: left;
   color: ${indigoDark.indigo9};
 `;
 

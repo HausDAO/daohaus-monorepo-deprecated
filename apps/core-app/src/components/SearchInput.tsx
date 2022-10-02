@@ -41,7 +41,6 @@ const SearchInput = ({
 
   return (
     <Input
-      {...inputProps}
       icon={BiSearch}
       id="table-search"
       placeholder={`Search ${totalItems} ${
@@ -49,6 +48,7 @@ const SearchInput = ({
       }`}
       onChange={handleSearchTermChange}
       defaultValue={localSearchTerm}
+      {...inputProps}
     />
   );
 };

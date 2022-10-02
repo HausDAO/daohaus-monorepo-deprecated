@@ -232,21 +232,11 @@ const ControlBarBox = styled.div`
   margin-bottom: 3rem;
   flex-wrap: wrap;
   gap: 1.6rem;
-
-  button:nth-child(3) {
+  .list-toggle {
     margin-right: auto;
   }
   @media ${widthQuery.sm} {
     flex-direction: column;
-    div:first-child {
-      margin-right: 0;
-    }
-    button:nth-child(2) {
-      margin-right: 0;
-    }
-    button:nth-child(3) {
-      margin-right: 0;
-    }
   }
 `;
 

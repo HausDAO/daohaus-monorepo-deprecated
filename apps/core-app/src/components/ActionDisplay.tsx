@@ -129,7 +129,7 @@ const ValueDisplay = ({
       <>
         {argValue.map((value, index) => {
           return (
-            <div className="space">
+            <div className="space" key={`argValue${index}`}>
               <ValueDisplay argValue={value} network={network} />
               {index + 1 < argValue?.length && <Divider />}
             </div>

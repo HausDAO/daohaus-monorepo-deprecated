@@ -88,9 +88,14 @@ export const ReadyForProcessing = ({
 
   const processProposal = async () => {
     const { proposalId, proposalData, actionGasEstimate } = proposal;
-    const processingGasLimit =
-      Number(actionGasEstimate) > 0 &&
-      Number(actionGasEstimate) + PROCESS_PROPOSAL_GAS_LIMIT_ADDITION;
+    // Usually a proposal actionGasEstimate === 0 when the safe vault takes longer to
+    // be indexed by the Gnosis API (a DAO was recently summonned)
+    // or when a proposal is submitted through a 3rd party contract with baalGas->0 (e.g. TributeMinion)
+    const processingGasLimit = (
+      Number(actionGasEstimate) > 0
+        ? Number(actionGasEstimate) + PROCESS_PROPOSAL_GAS_LIMIT_ADDITION
+        : PROCESS_PROPOSAL_GAS_LIMIT_ADDITION * 2
+    ).toFixed();
 
     if (!proposalId) return;
     setIsLoading(true);
@@ -98,12 +103,7 @@ export const ReadyForProcessing = ({
       tx: {
         ...ACTION_TX.PROCESS,
         staticArgs: [proposalId, proposalData],
-        // Usually a proposal actionGasEstimate === 0 when the safe vault takes longer to
-        // be indexed by the Gnosis API (a DAO was recently summonned)
-        // In this case, do not override gasLimit
-        overrides: processingGasLimit
-          ? { gasLimit: processingGasLimit.toFixed() }
-          : {},
+        overrides: { gasLimit: processingGasLimit },
       } as TXLego,
       lifeCycleFns: {
         onTxError: (error) => {

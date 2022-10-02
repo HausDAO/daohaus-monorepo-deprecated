@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { FormSegment, SplitColumn, WrappedInput } from '@daohaus/ui';
 import {
   getNetwork,
+  handleBaseUnits,
   INFO_COPY,
-  toBaseUnits,
   ValidateField,
 } from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
@@ -22,7 +22,7 @@ export const AdvancedSegment = ({
 
   useEffect(() => {
     if (chainId) {
-      const assetSymbol = getNetwork(chainId)?.symbol
+      const assetSymbol = getNetwork(chainId)?.symbol;
       setNativeSymbol(assetSymbol || DEFAULT_ASSET_SYMBOL);
     } else {
       setNativeSymbol(DEFAULT_ASSET_SYMBOL);
@@ -79,8 +79,8 @@ export const AdvancedSegment = ({
                   disabled={formDisabled}
                   rules={{
                     required: 'This value is required',
+                    setValueAs: (val) => handleBaseUnits(val),
                     validate: (val) => ValidateField.number(val),
-                    setValueAs: (val) => toBaseUnits(val),
                   }}
                 />
               ),
@@ -95,7 +95,7 @@ export const AdvancedSegment = ({
                   rules={{
                     required: 'This value is required',
                     validate: (val) => ValidateField.number(val),
-                    setValueAs: (val) => toBaseUnits(val),
+                    setValueAs: (val) => handleBaseUnits(val),
                   }}
                 />
               ),

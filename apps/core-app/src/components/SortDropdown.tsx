@@ -1,6 +1,7 @@
 import { Label, Select, SelectProps, widthQuery } from '@daohaus/ui';
-import React from 'react';
 import styled from 'styled-components';
+
+// SENDTO UI LIBRARY
 
 const SelectBox = styled.div`
   display: flex;
@@ -19,7 +20,7 @@ const SelectBox = styled.div`
 type SortDropdownProps = SelectProps;
 
 export const SortDropdown = ({
-  id = 'sort-select',
+  id,
   label = 'Sort By',
   options,
   ...props

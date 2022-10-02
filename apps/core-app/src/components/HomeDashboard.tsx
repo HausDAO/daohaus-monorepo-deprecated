@@ -3,7 +3,6 @@ import {
   getNetworkName,
   handleErrorMessage,
   isValidNetwork,
-  NETWORK_DATA,
   Noun,
   readableNumbers,
   ValidNetwork,
@@ -16,14 +15,9 @@ import {
   border,
   breakpoints,
   Button,
-  Dropdown,
-  DropdownButton,
-  DropdownMenuItem,
-  DropdownMenuLabel,
   H2,
   ParLg,
   ParMd,
-  ParSm,
   ProfileAvatar,
   SingleColumnLayout,
   Spinner,
@@ -34,22 +28,17 @@ import {
 } from '@daohaus/ui';
 import { indigoDark } from '@radix-ui/colors';
 import { ChangeEvent, MouseEvent, ReactNode, useEffect, useState } from 'react';
-import {
-  RiCheckLine,
-  RiFilterFill,
-  RiGridFill,
-  RiListCheck,
-} from 'react-icons/ri';
-import styled, { useTheme } from 'styled-components';
+import { RiGridFill, RiListCheck } from 'react-icons/ri';
+import styled from 'styled-components';
 import {
   defaultNetworks,
   DEFAULT_SORT_KEY,
-  FILTER_TYPE,
   getDelegateFilter,
   sortOptions,
   SORT_FIELDS,
 } from '../utils/hub';
 import { ButtonLink } from './ButtonLink';
+import { DAOFilterDropdown } from './DaoFilterDropdown';
 import SearchInput from './SearchInput';
 import { SortDropdown } from './SortDropdown';
 
@@ -481,108 +470,3 @@ const DaoCard = ({
     </StyledDaoCard>
   );
 };
-
-type DAOFilterDropdownProps = {
-  filterNetworks: Record<string, string>;
-  toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
-  filterDelegate: string;
-  toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
-};
-
-const IconFilter = styled(RiFilterFill)`
-  height: 1.8rem;
-  width: 1.8rem;
-  display: flex;
-  // USE THEME
-  fill: ${indigoDark.indigo10};
-  :hover {
-    fill: ${indigoDark.indigo10};
-  }
-`;
-
-const DAOFilterDropdown = ({
-  filterNetworks,
-  toggleNetworkFilter,
-  filterDelegate,
-  toggleDelegateFilter,
-}: DAOFilterDropdownProps) => {
-  const theme = useTheme();
-  const networkButtons = Object.values(NETWORK_DATA).map((network) => {
-    const isActive = filterNetworks[network.chainId];
-
-    return (
-      <DropdownMenuItem key={network.chainId} asChild>
-        <DropdownButton
-          value={network.chainId}
-          onClick={toggleNetworkFilter}
-          className={isActive ? 'selected' : ''}
-          secondary
-          fullWidth
-          leftAlign
-          IconRight={isActive ? RiCheckLine : undefined}
-        >
-          <div style={{ width: '100%' }}>{network.name}</div>
-        </DropdownButton>
-      </DropdownMenuItem>
-    );
-  });
-  return (
-    <Dropdown
-      align="end"
-      menuBg={theme.button.secondary.bg}
-      menuMinWidth="25rem"
-      spacing=".6rem"
-      trigger={
-        <Button secondary IconLeft={IconFilter}>
-          Filters
-        </Button>
-      }
-    >
-      <DropdownMenuLabel>
-        <ParSm>Networks</ParSm>
-      </DropdownMenuLabel>
-      {networkButtons}
-      <DropdownMenuLabel>
-        <ParSm>Delegation</ParSm>
-      </DropdownMenuLabel>
-      <DropdownMenuItem asChild>
-        <DropdownButton
-          secondary
-          fullWidth
-          leftAlign
-          value={FILTER_TYPE.DELEGATING}
-          onClick={toggleDelegateFilter}
-          IconRight={
-            filterDelegate === FILTER_TYPE.DELEGATING ? RiCheckLine : undefined
-          }
-          className={
-            filterDelegate === FILTER_TYPE.DELEGATING ? 'selected' : ''
-          }
-        >
-          <div style={{ width: '100%' }}>I am a Delegate</div>
-        </DropdownButton>
-      </DropdownMenuItem>
-      <DropdownMenuItem asChild>
-        <DropdownButton
-          secondary
-          fullWidth
-          leftAlign
-          value={FILTER_TYPE.DELEGATING_TO}
-          onClick={toggleDelegateFilter}
-          IconRight={
-            filterDelegate === FILTER_TYPE.DELEGATING_TO
-              ? RiCheckLine
-              : undefined
-          }
-          className={
-            filterDelegate === FILTER_TYPE.DELEGATING_TO ? 'selected' : ''
-          }
-        >
-          <div style={{ width: '100%' }}>I have a Delegate</div>
-        </DropdownButton>
-      </DropdownMenuItem>
-    </Dropdown>
-  );
-};
-
-export default SortDropdown;

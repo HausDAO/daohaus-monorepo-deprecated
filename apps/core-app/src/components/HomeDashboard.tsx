@@ -1,53 +1,31 @@
+import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
+import styled from 'styled-components';
+
 import {
-  charLimit,
-  getNetworkName,
   handleErrorMessage,
   isValidNetwork,
-  Noun,
-  readableNumbers,
   ValidNetwork,
 } from '@daohaus/common-utilities';
 import { Haus, ITransformedMembership } from '@daohaus/dao-data';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import {
-  Badge,
-  Bold,
-  border,
-  breakpoints,
-  Button,
   H2,
-  ParLg,
-  ParMd,
-  ProfileAvatar,
-  SingleColumnLayout,
   Spinner,
-  Tag,
   useBreakpoint,
   useDebounce,
   widthQuery,
 } from '@daohaus/ui';
-import { indigoDark } from '@radix-ui/colors';
-import { ChangeEvent, MouseEvent, ReactNode, useEffect, useState } from 'react';
-import { RiGridFill, RiListCheck } from 'react-icons/ri';
-import styled from 'styled-components';
+
 import {
   defaultNetworks,
   DEFAULT_SORT_KEY,
   getDelegateFilter,
-  sortOptions,
   SORT_FIELDS,
 } from '../utils/hub';
-import { ButtonLink } from './ButtonLink';
-import { DAOFilterDropdown } from './DaoFilterDropdown';
-import SearchInput from './SearchInput';
-import { SortDropdown } from './SortDropdown';
+import { DaoList } from './DaoList';
+import { ListActions } from './ListActions';
 
-// import { DaoCards } from './DaoCards';
-// import { DaoTable } from './DaoTable';
-// import TableControl from './TableControl';
-// import { ListType } from '../utils/appSpecificTypes';
-
-enum ListType {
+export enum ListType {
   Cards,
   Table,
 }
@@ -150,23 +128,23 @@ export const HomeDashboard = () => {
 
   if (loading) {
     return (
-      <TableControl {...tableControlProps}>
+      <ListActions {...tableControlProps}>
         <Loading isMobile={isMobile} />
-      </TableControl>
+      </ListActions>
     );
   }
   if (!daoData.length) {
     return (
-      <TableControl {...tableControlProps}>
+      <ListActions {...tableControlProps}>
         <NoDaosFound />
-      </TableControl>
+      </ListActions>
     );
   }
 
   return (
-    <TableControl {...tableControlProps}>
+    <ListActions {...tableControlProps}>
       <DaoList daoData={daoData} isMobile={isMobile} listType={listType} />
-    </TableControl>
+    </ListActions>
   );
 };
 
@@ -193,280 +171,3 @@ const NoDaosFound = () => (
     <H2>No Daos Found</H2>
   </CenterFrame>
 );
-
-type TableControlProps = {
-  children: ReactNode;
-  searchTerm: string;
-  filterNetworks: Record<string, string>;
-  listType: ListType;
-  toggleListType: () => void;
-  toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
-  filterDelegate: string;
-  toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
-  sortBy: string;
-  switchSortBy: (event: ChangeEvent<HTMLSelectElement>) => void;
-  setSearchTerm: (term: string) => void;
-  totalDaos: number;
-  noun: Noun;
-};
-
-const IconGrid = styled(RiGridFill)`
-  height: 1.8rem;
-  width: 1.8rem;
-  display: flex;
-  fill: ${indigoDark.indigo10};
-  :hover {
-    fill: ${indigoDark.indigo10};
-  }
-`;
-
-const IconList = styled(RiListCheck)`
-  height: 1.8rem;
-  width: 1.8rem;
-  display: flex;
-  fill: ${indigoDark.indigo10};
-  :hover {
-    fill: ${indigoDark.indigo10};
-  }
-`;
-
-const ControlBarBox = styled.div`
-  display: flex;
-  width: 100%;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-  gap: 1.6rem;
-  .list-toggle {
-    margin-right: auto;
-  }
-  @media ${widthQuery.sm} {
-    flex-direction: column;
-  }
-`;
-
-const TableControl = ({
-  children,
-  searchTerm,
-  setSearchTerm,
-  totalDaos,
-  noun,
-  filterNetworks,
-  filterDelegate,
-  toggleNetworkFilter,
-  toggleDelegateFilter,
-  toggleListType,
-  listType,
-  sortBy,
-  switchSortBy,
-}: TableControlProps) => {
-  const isMobile = useBreakpoint(widthQuery.sm);
-
-  return (
-    <SingleColumnLayout>
-      <ControlBarBox>
-        <SearchInput
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          totalItems={totalDaos}
-          noun={noun}
-          full={isMobile}
-        />
-        <DAOFilterDropdown
-          filterNetworks={filterNetworks}
-          filterDelegate={filterDelegate}
-          toggleDelegateFilter={toggleDelegateFilter}
-          toggleNetworkFilter={toggleNetworkFilter}
-        />
-        {isMobile || (
-          <Button
-            secondary
-            onClick={toggleListType}
-            IconLeft={listType === ListType.Table ? IconGrid : IconList}
-            className="list-toggle"
-          >
-            {listType === ListType.Table ? 'Card View' : 'List View'}
-          </Button>
-        )}
-        <SortDropdown
-          id="dao-sort"
-          value={sortBy}
-          onChange={switchSortBy}
-          options={sortOptions}
-        />
-      </ControlBarBox>
-      {children}
-    </SingleColumnLayout>
-  );
-};
-
-const DaoList = ({
-  daoData,
-  isMobile,
-  listType,
-}: {
-  daoData: ITransformedMembership[];
-  isMobile: boolean;
-  listType: ListType;
-}) => {
-  if (isMobile) {
-    return <DaoCards daoData={daoData} />;
-  }
-
-  if (listType === ListType.Cards) return <DaoCards daoData={daoData} />;
-  // if (listType === ListType.Table) return <DaoTable daoData={daoData} />;
-
-  return null;
-};
-
-const CardListBox = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  column-gap: 4rem;
-  row-gap: 2rem;
-  justify-content: center;
-  @media (min-width: ${breakpoints.xs}) {
-    justify-content: flex-start;
-  }
-`;
-
-const DaoCards = ({ daoData }: { daoData: ITransformedMembership[] }) => (
-  <CardListBox>
-    {daoData.map((dao) => (
-      <DaoCard key={dao.dao} {...dao} />
-    ))}
-  </CardListBox>
-);
-
-const StyledDaoCard = styled.div`
-  background-color: ${(props) => props.theme.card.bg};
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  max-width: 34rem;
-  min-width: 26rem;
-  border: 1px solid ${(props) => props.theme.card.border};
-  padding: 2.4rem;
-  border-radius: ${border.radius};
-  .top-box {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1.3rem;
-  }
-
-  .badge {
-    transform: translateX(-0.8rem);
-  }
-  .stats-box {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 2.4rem;
-    p {
-      margin-bottom: 0.6rem;
-    }
-  }
-  .tag-box {
-    font-size: 1.4rem;
-    margin-bottom: 2.4rem;
-    div {
-      margin-right: 1.5rem;
-    }
-  }
-`;
-
-const DaoCard = ({
-  isDelegate,
-  dao,
-  activeMemberCount,
-  fiatTotal,
-  activeProposalCount,
-  totalProposalCount,
-  votingPower,
-  name,
-  networkId,
-  contractType,
-}: ITransformedMembership) => {
-  return (
-    <StyledDaoCard className="dao-card">
-      <div className="top-box">
-        <div className="alert-box">
-          <ProfileAvatar size="xl" address={dao} />
-          {activeProposalCount > 0 && (
-            <Badge
-              badgeSize="sm"
-              badgeLabel={activeProposalCount}
-              className="badge"
-            />
-          )}
-        </div>
-        {isDelegate && <Tag tagColor="yellow">Delegate</Tag>}
-      </div>
-      <ParLg className="dao-title">
-        {name ? charLimit(name, 21) : charLimit(dao, 21)}{' '}
-      </ParLg>
-      <div className="stats-box">
-        {activeMemberCount && (
-          <ParMd>
-            <Bold>
-              {readableNumbers.toNumber({ value: activeMemberCount })}
-            </Bold>{' '}
-            {parseInt(
-              readableNumbers.toNumber({ value: activeMemberCount })
-            ) === 1
-              ? 'Member'
-              : 'Members'}
-          </ParMd>
-        )}
-        {fiatTotal != null && (
-          <ParMd>
-            <Bold>
-              {readableNumbers.toDollars({
-                value: fiatTotal,
-                unit: 'USD',
-                separator: ' ',
-              })}
-            </Bold>
-          </ParMd>
-        )}
-        {totalProposalCount && (
-          <ParMd>
-            <Bold>
-              {readableNumbers.toNumber({ value: totalProposalCount })}
-            </Bold>{' '}
-            {parseInt(
-              readableNumbers.toNumber({ value: totalProposalCount })
-            ) === 1
-              ? 'Proposal'
-              : 'Proposals'}
-          </ParMd>
-        )}
-        {votingPower > 0 ? (
-          <ParMd>
-            <Bold>
-              {readableNumbers.toPercentDecimals({
-                value: votingPower,
-                separator: '',
-              })}
-            </Bold>{' '}
-            Voting Power
-          </ParMd>
-        ) : (
-          <ParMd>No Voting Power</ParMd>
-        )}
-      </div>
-      <div className="tag-box">
-        <Tag tagColor="red">{getNetworkName(networkId)}</Tag>
-        <Tag tagColor="blue">{contractType}</Tag>
-      </div>
-      <ButtonLink
-        secondary
-        fullWidth
-        centerAlign
-        href={`/molochV3/${networkId}/${dao}`}
-        target="_blank"
-        rel="noreferrer"
-      >
-        Go
-      </ButtonLink>
-    </StyledDaoCard>
-  );
-};

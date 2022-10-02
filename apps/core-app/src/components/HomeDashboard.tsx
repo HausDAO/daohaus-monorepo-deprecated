@@ -25,7 +25,6 @@ import {
   ParMd,
   ParSm,
   ProfileAvatar,
-  Select,
   SingleColumnLayout,
   Spinner,
   Tag,
@@ -47,10 +46,12 @@ import {
   DEFAULT_SORT_KEY,
   FILTER_TYPE,
   getDelegateFilter,
+  sortOptions,
   SORT_FIELDS,
 } from '../utils/hub';
 import { ButtonLink } from './ButtonLink';
 import SearchInput from './SearchInput';
+import { SortDropdown } from './SortDropdown';
 
 // import { DaoCards } from './DaoCards';
 // import { DaoTable } from './DaoTable';
@@ -297,7 +298,12 @@ const TableControl = ({
             {listType === ListType.Table ? 'Card View' : 'List View'}
           </Button>
         )}
-        <SortDropdown sortBy={sortBy} switchSortBy={switchSortBy} />
+        <SortDropdown
+          id="dao-sort"
+          value={sortBy}
+          onChange={switchSortBy}
+          options={sortOptions}
+        />
       </ControlBarBox>
       {children}
     </SingleColumnLayout>
@@ -576,43 +582,6 @@ const DAOFilterDropdown = ({
         </DropdownButton>
       </DropdownMenuItem>
     </Dropdown>
-  );
-};
-
-const SelectBox = styled.div`
-  display: flex;
-  align-items: center;
-  width: 24rem;
-  p {
-    display: block;
-    width: 12rem;
-  }
-  @media ${widthQuery.sm} {
-    width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-`;
-type SortDropdownProps = {
-  sortBy: string;
-  switchSortBy: (event: ChangeEvent<HTMLSelectElement>) => void;
-};
-
-const SortDropdown = ({ sortBy, switchSortBy }: SortDropdownProps) => {
-  return (
-    <SelectBox>
-      <ParMd>Sort By</ParMd>
-      <Select
-        id="sort-select"
-        value={sortBy}
-        onChange={switchSortBy}
-        options={Object.entries(SORT_FIELDS).map(([sortKey, sortValue]) => ({
-          name: sortValue.name,
-          value: sortKey,
-        }))}
-        full
-      />
-    </SelectBox>
   );
 };
 

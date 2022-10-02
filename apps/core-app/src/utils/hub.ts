@@ -30,6 +30,11 @@ export const SORT_FIELDS: { [index: string]: HubSortOption } = {
   },
 };
 
+export const sortOptions = Object.entries(SORT_FIELDS).map(([key, value]) => ({
+  value: key,
+  name: value.name,
+}));
+
 export const getDelegateFilter = (
   filterDelegate: string,
   address: string

@@ -231,18 +231,13 @@ const ControlBarBox = styled.div`
   width: 100%;
   margin-bottom: 3rem;
   flex-wrap: wrap;
-  div:first-child {
-    margin-right: 1.6rem;
-  }
-  button:nth-child(2) {
-    margin-right: 1.6rem;
-  }
+  gap: 1.6rem;
+
   button:nth-child(3) {
     margin-right: auto;
   }
   @media ${widthQuery.sm} {
     flex-direction: column;
-    gap: 2rem;
     div:first-child {
       margin-right: 0;
     }
@@ -327,8 +322,8 @@ const DaoList = ({
 const CardListBox = styled.div`
   display: flex;
   flex-wrap: wrap;
-  column-gap: 6rem;
-  row-gap: 3rem;
+  column-gap: 4rem;
+  row-gap: 2rem;
   justify-content: center;
   @media (min-width: ${breakpoints.xs}) {
     justify-content: flex-start;
@@ -348,7 +343,7 @@ const StyledDaoCard = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 32.5rem;
+  max-width: 34rem;
   min-width: 26rem;
   border: 1px solid ${(props) => props.theme.card.border};
   padding: 2.4rem;

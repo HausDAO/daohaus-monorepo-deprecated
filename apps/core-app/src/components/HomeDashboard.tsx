@@ -35,8 +35,12 @@ import {
 } from '@daohaus/ui';
 import { indigoDark } from '@radix-ui/colors';
 import { ChangeEvent, MouseEvent, ReactNode, useEffect, useState } from 'react';
-import { BsFillGrid3X3GapFill } from 'react-icons/bs';
-import { RiCheckLine, RiFilterFill } from 'react-icons/ri';
+import {
+  RiCheckLine,
+  RiFilterFill,
+  RiGridFill,
+  RiListCheck,
+} from 'react-icons/ri';
 import styled, { useTheme } from 'styled-components';
 import {
   defaultNetworks,
@@ -216,7 +220,17 @@ type TableControlProps = {
   noun: Noun;
 };
 
-const IconGrid = styled(BsFillGrid3X3GapFill)`
+const IconGrid = styled(RiGridFill)`
+  height: 1.8rem;
+  width: 1.8rem;
+  display: flex;
+  fill: ${indigoDark.indigo10};
+  :hover {
+    fill: ${indigoDark.indigo10};
+  }
+`;
+
+const IconList = styled(RiListCheck)`
   height: 1.8rem;
   width: 1.8rem;
   display: flex;
@@ -277,7 +291,7 @@ const TableControl = ({
           <Button
             secondary
             onClick={toggleListType}
-            IconLeft={IconGrid}
+            IconLeft={listType === ListType.Table ? IconGrid : IconList}
             className="list-toggle"
           >
             {listType === ListType.Table ? 'Card View' : 'List View'}

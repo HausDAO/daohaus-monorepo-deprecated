@@ -17,7 +17,7 @@ import NewProposal from './pages/NewProposal';
 import UpdateSettings from './pages/UpdateSettings';
 import ProposalDetails from './pages/ProposalDetails';
 import { DaoContainer } from './pages/DaoContainer';
-import { Banner, H1 } from '@daohaus/ui';
+import { Banner } from '@daohaus/ui';
 import RageQuit from './pages/RageQuit';
 import { HausLayout } from '@daohaus/daohaus-connect-feature';
 

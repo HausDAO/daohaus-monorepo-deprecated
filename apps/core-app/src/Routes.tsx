@@ -21,17 +21,12 @@ import { Banner, H1 } from '@daohaus/ui';
 import RageQuit from './pages/RageQuit';
 import { HausLayout } from '@daohaus/daohaus-connect-feature';
 
-const Profile = () => <H1>Profile</H1>;
-
 const HomeContainer = () => {
   const location = useLocation();
   return (
     <HausLayout
       pathname={location.pathname}
-      navLinks={[
-        { label: 'Home', href: '/' },
-        { label: 'Profile', href: '/profile' },
-      ]}
+      navLinks={[{ label: 'Home', href: '/' }]}
     >
       <Outlet />
     </HausLayout>
@@ -45,7 +40,6 @@ const Routes = () => {
       <RoutesDom>
         <Route path="/" element={<HomeContainer />}>
           <Route index element={<Home />} />
-          <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="molochv3/:daochain/:daoid" element={<DaoContainer />}>
           <Route index element={<DaoOverview />} />

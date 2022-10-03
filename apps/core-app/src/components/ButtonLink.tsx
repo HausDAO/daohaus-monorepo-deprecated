@@ -32,6 +32,7 @@ export const ButtonLink = ({
       linkType={linkType}
       hideIcon={hideIcon}
       target={target}
+      className="button-link"
       rel={rel}
     >
       <Button disabled={disabled} {...buttonProps}>

@@ -3,6 +3,8 @@ import {
   Route,
   Outlet,
   useLocation,
+  useParams,
+  useNavigate,
 } from 'react-router-dom';
 
 import Home from './pages/Home';
@@ -19,14 +21,32 @@ import ProposalDetails from './pages/ProposalDetails';
 import { DaoContainer } from './pages/DaoContainer';
 import { Banner } from '@daohaus/ui';
 import RageQuit from './pages/RageQuit';
-import { HausLayout } from '@daohaus/daohaus-connect-feature';
+import {
+  HausConnectProvider,
+  HausLayout,
+  useHausConnect,
+} from '@daohaus/daohaus-connect-feature';
+import { useLayoutEffect } from 'react';
 
 const HomeContainer = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { isConnected, address } = useHausConnect();
+  const { profile } = useParams();
+
+  useLayoutEffect(() => {
+    if (isConnected && address && profile) {
+      return;
+    }
+    if (isConnected && !profile) {
+      navigate(`/${address}`);
+      // window.location.href = `/${address}`;
+    }
+  }, [isConnected, address, profile, navigate]);
   return (
     <HausLayout
       pathname={location.pathname}
-      navLinks={[{ label: 'Home', href: '/' }]}
+      navLinks={[{ label: 'Home', href: `/${address}` }]}
     >
       <Outlet />
     </HausLayout>
@@ -35,11 +55,11 @@ const HomeContainer = () => {
 
 const Routes = () => {
   return (
-    <>
+    <HausConnectProvider>
       <Banner />
       <RoutesDom>
         <Route path="/" element={<HomeContainer />}>
-          <Route index element={<Home />} />
+          <Route path="/:profile" element={<Home />} />
         </Route>
         <Route path="molochv3/:daochain/:daoid" element={<DaoContainer />}>
           <Route index element={<DaoOverview />} />
@@ -55,7 +75,7 @@ const Routes = () => {
           <Route path="members/ragequit" element={<RageQuit />} />
         </Route>
       </RoutesDom>
-    </>
+    </HausConnectProvider>
   );
 };
 

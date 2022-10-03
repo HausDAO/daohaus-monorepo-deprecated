@@ -12,6 +12,7 @@ import { useBreakpoint } from '../../../hooks/useMediaQuery';
 import { widthQuery } from '../../../theme/global/breakpoints';
 import { Button } from '../../atoms';
 import { Dropdown } from '../../molecules';
+import { useMemo } from 'react';
 
 type NavLinkType = {
   label: string;
@@ -27,18 +28,6 @@ export type NavigationTabsProps = {
   dropdownMenuAlign?: Align;
   dropdownLinks?: NavLinkType[];
 };
-
-/*REVIEW:
-  The dropdown could be less dependent on props/chaining
-  We can expose components for each item in the dropdown.
-  Ex.
-        <DropdownMenuLabel />
-        <DropdownMenuItem />
-        <DropdownMenuCheckbox />
-
-  Allow to be passed as children and the user can loop over items.
-  Users could then Pass dynamicly, staticly or both.
-*/
 
 const isSelected = (pathname: string, href: string) => pathname === href;
 
@@ -57,6 +46,13 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
   const isSm = useBreakpoint(widthQuery.sm);
   const mobileLinks = [...navLinks, ...dropdownLinks];
 
+  const currentLabel = useMemo(() => {
+    const currentLink = navLinks.find((link) =>
+      isSelected(pathname, link.href)
+    );
+    return currentLink?.label;
+  }, [navLinks, pathname]);
+
   return (
     <NavigationTabsContainer className={className}>
       {isSm ? (
@@ -67,7 +63,7 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
             spacing={dropdownMenuSpacing}
             trigger={
               <Button tertiary IconLeft={RiMenuLine}>
-                Mobile
+                {currentLabel}
               </Button>
             }
           >

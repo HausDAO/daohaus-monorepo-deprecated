@@ -7,7 +7,6 @@ import {
   ValidNetwork,
 } from '@daohaus/common-utilities';
 import { Haus, ITransformedMembership } from '@daohaus/dao-data';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import {
   H2,
   Spinner,
@@ -24,6 +23,7 @@ import {
 } from '../utils/hub';
 import { DaoList } from './DaoList';
 import { ListActions } from './ListActions';
+import { useParams } from 'react-router-dom';
 
 export enum ListType {
   Cards,
@@ -31,7 +31,8 @@ export enum ListType {
 }
 
 export const HomeDashboard = () => {
-  const { address } = useHausConnect();
+  // const { address } = useHausConnect();
+  const { profile } = useParams();
   const isMobile = useBreakpoint(widthQuery.sm);
 
   const [daoData, setDaoData] = useState<ITransformedMembership[]>([]);
@@ -72,12 +73,12 @@ export const HomeDashboard = () => {
         setLoading(false);
       }
     };
-    if (!address) return;
-    getDaos(address);
+    if (!profile) return;
+    getDaos(profile);
     return () => {
       shouldUpdate = false;
     };
-  }, [address, filterNetworks, filterDelegate, sortBy, debouncedSearchTerm]);
+  }, [profile, filterNetworks, filterDelegate, sortBy, debouncedSearchTerm]);
 
   const toggleNetworkFilter = (event: MouseEvent<HTMLButtonElement>) => {
     const network = event.currentTarget.value;

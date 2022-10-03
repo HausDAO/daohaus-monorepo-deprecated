@@ -5,6 +5,7 @@ import {
   useLocation,
   useParams,
   useNavigate,
+  matchPath,
 } from 'react-router-dom';
 
 import Home from './pages/Home';
@@ -26,7 +27,7 @@ import {
   HausLayout,
   useHausConnect,
 } from '@daohaus/daohaus-connect-feature';
-import { useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 
 const HomeContainer = () => {
   const location = useLocation();
@@ -54,8 +55,21 @@ const HomeContainer = () => {
 };
 
 const Routes = () => {
+  const [daoChainId, setDaoChainId] = useState<string | undefined>();
+  const location = useLocation();
+  const pathMatch = matchPath('molochv3/:daochain/:daoid/*', location.pathname);
+
+  useEffect(() => {
+    if (pathMatch?.params?.daochain) {
+      setDaoChainId(pathMatch?.params?.daochain);
+    }
+    if (daoChainId && !pathMatch?.params?.daochain) {
+      setDaoChainId(undefined);
+    }
+  }, [pathMatch?.params?.daochain, setDaoChainId, daoChainId]);
+
   return (
-    <HausConnectProvider>
+    <HausConnectProvider daoChainId={daoChainId}>
       <Banner />
       <RoutesDom>
         <Route path="/" element={<HomeContainer />}>

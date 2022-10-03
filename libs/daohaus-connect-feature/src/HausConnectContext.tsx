@@ -33,7 +33,6 @@ import {
   UserProfile,
   WalletStateType,
 } from './utils/types';
-import { useLocation, matchPath } from 'react-router-dom';
 
 export type UserConnectType = {
   provider: ProviderType | null | undefined;

@@ -2,6 +2,8 @@
 
 This file was generated using [@jscutlery/semver](https://github.com/jscutlery/semver).
 
+### [0.0.12](https://github.com/HausDAO/daohaus-monorepo/compare/tx-builder-feature@0.0.11...tx-builder-feature@0.0.12) (2022-10-03)
+
 ### [0.0.11](https://github.com/HausDAO/daohaus-monorepo/compare/tx-builder-feature@0.0.10...tx-builder-feature@0.0.11) (2022-08-30)
 
 ### [0.0.10](https://github.com/HausDAO/daohaus-monorepo/compare/tx-builder-feature@0.0.9...tx-builder-feature@0.0.10) (2022-08-16)

@@ -101,7 +101,6 @@ export const loadWallet = async ({
 }) => {
   const isMetamaskUnlocked =
     (await window.ethereum?._metamask?.isUnlocked?.()) ?? false;
-  console.log('isMetamaskUnlocked', isMetamaskUnlocked);
   const modal = getModal(web3modalOptions);
   const _isGnosisSafe = await modal.isSafeApp();
 

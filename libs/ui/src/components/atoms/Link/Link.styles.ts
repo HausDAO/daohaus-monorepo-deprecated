@@ -26,6 +26,11 @@ const LinkStyles = css`
   svg {
     margin-left: 0.3rem;
   }
+  &.button-link {
+    :hover {
+      text-decoration: none;
+    }
+  }
 `;
 
 export const ExternalLink = styled.a`

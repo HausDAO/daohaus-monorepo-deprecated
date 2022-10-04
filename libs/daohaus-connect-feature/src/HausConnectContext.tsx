@@ -33,7 +33,6 @@ import {
   UserProfile,
   WalletStateType,
 } from './utils/types';
-import { useLocation, matchPath } from 'react-router-dom';
 
 export type UserConnectType = {
   provider: ProviderType | null | undefined;
@@ -48,7 +47,7 @@ export type UserConnectType = {
   networks: NetworkConfigs;
   switchNetwork: (chainId: string) => void;
   isProfileLoading: boolean;
-  daoChainId: string | null;
+  daoChainId?: string;
   validNetwork: boolean;
 };
 
@@ -60,6 +59,7 @@ type ConnectProviderProps = {
   networks?: NetworkConfigs;
   children: ReactNode;
   handleModalEvents?: ModalEvents;
+  daoChainId?: string;
 };
 
 export const HausConnectProvider = ({
@@ -67,6 +67,7 @@ export const HausConnectProvider = ({
   children,
   networks = supportedNetworks,
   handleModalEvents,
+  daoChainId,
 }: ConnectProviderProps) => {
   const [isConnecting, setConnecting] = useState(true);
   const [{ provider, chainId, address }, setWalletState] =
@@ -76,7 +77,6 @@ export const HausConnectProvider = ({
     ens: undefined,
   });
   const [isProfileLoading, setProfileLoading] = useState(false);
-  const [daoChainId, setDaoChainId] = useState<string | null>(null);
 
   const isConnected = useMemo(
     () => !!provider && !!address && !!chainId,
@@ -88,9 +88,6 @@ export const HausConnectProvider = ({
     [chainId, networks]
   );
 
-  const location = useLocation();
-  const pathMatch = matchPath('molochv3/:daochain/:daoid/*', location.pathname);
-
   const connectWallet = useCallback(async () => {
     handleConnectWallet({
       setConnecting,
@@ -100,12 +97,6 @@ export const HausConnectProvider = ({
       web3modalOptions,
     });
   }, [setConnecting, handleModalEvents, web3modalOptions]);
-
-  useEffect(() => {
-    if (pathMatch?.params?.daochain) {
-      setDaoChainId(pathMatch?.params?.daochain);
-    }
-  }, [pathMatch?.params?.daochain, setDaoChainId]);
 
   useEffect(() => {
     loadWallet({ setConnecting, connectWallet, web3modalOptions });

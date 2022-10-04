@@ -5,24 +5,25 @@ import {
   getNetworkName,
   readableNumbers,
 } from '@daohaus/common-utilities';
+import { ITransformedMembership } from '@daohaus/dao-data';
 import {
-  Tag,
+  Badge,
   Bold,
   border,
-  Button,
   ParLg,
   ParMd,
   ProfileAvatar,
+  Tag,
 } from '@daohaus/ui';
-import { AlertCircle } from './AlertCircle';
-import { ITransformedMembership } from '@daohaus/dao-data';
+
+import { ButtonLink } from './ButtonLink';
 
 const StyledDaoCard = styled.div`
   background-color: ${(props) => props.theme.card.bg};
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 36rem;
+  max-width: 34rem;
   min-width: 26rem;
   border: 1px solid ${(props) => props.theme.card.border};
   padding: 2.4rem;
@@ -32,8 +33,9 @@ const StyledDaoCard = styled.div`
     justify-content: space-between;
     margin-bottom: 1.3rem;
   }
-  .alert-box {
-    position: relative;
+
+  .badge {
+    transform: translateX(-0.8rem);
   }
   .stats-box {
     display: flex;
@@ -50,10 +52,6 @@ const StyledDaoCard = styled.div`
       margin-right: 1.5rem;
     }
   }
-`;
-
-const StyledButton = styled(Button)`
-  justify-content: center;
 `;
 
 export const DaoCard = ({
@@ -74,7 +72,11 @@ export const DaoCard = ({
         <div className="alert-box">
           <ProfileAvatar size="xl" address={dao} />
           {activeProposalCount > 0 && (
-            <AlertCircle number={activeProposalCount} />
+            <Badge
+              badgeSize="sm"
+              badgeLabel={activeProposalCount}
+              className="badge"
+            />
           )}
         </div>
         {isDelegate && <Tag tagColor="yellow">Delegate</Tag>}
@@ -136,13 +138,16 @@ export const DaoCard = ({
         <Tag tagColor="red">{getNetworkName(networkId)}</Tag>
         <Tag tagColor="blue">{contractType}</Tag>
       </div>
-      <a
-        href={`https://admin.daohaus.fun/#/molochv3/${networkId}/${dao}`}
+      <ButtonLink
+        secondary
+        fullWidth
+        centerAlign
+        href={`/molochv3/${networkId}/${dao}`}
         target="_blank"
         rel="noreferrer"
       >
-        <StyledButton secondary>Go</StyledButton>
-      </a>
+        Go
+      </ButtonLink>
     </StyledDaoCard>
   );
 };

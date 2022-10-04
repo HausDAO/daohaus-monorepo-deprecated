@@ -1,53 +1,48 @@
-import { MouseEvent } from 'react';
-import styled, { useTheme } from 'styled-components';
-import { AiOutlineCheck } from 'react-icons/ai';
-import { RiFilterFill } from 'react-icons/ri';
-
+import { NETWORK_DATA } from '@daohaus/common-utilities';
 import {
   Button,
   Dropdown,
+  DropdownButton,
   DropdownMenuItem,
   DropdownMenuLabel,
-  Theme,
+  ParSm,
 } from '@daohaus/ui';
-import { ParSm } from '@daohaus/ui';
-import { NETWORK_DATA } from '@daohaus/common-utilities';
 import { indigoDark } from '@radix-ui/colors';
-import { FILTER_TYPE } from '../utils/constants';
+import { MouseEvent } from 'react';
+import { RiCheckLine, RiFilterFill } from 'react-icons/ri';
+import styled, { useTheme } from 'styled-components';
+import { FILTER_TYPE } from '../utils/hub';
 
-const DropdownButton = styled(Button)`
-  &.selected {
-    background-color: ${(props: { theme: Theme }) => props.theme.secondary};
-  }
-`;
+// HOW CAN THIS BE GENERALIZED?
 
-const IconFilter = styled(RiFilterFill)`
-  height: 1.8rem;
-  width: 1.8rem;
-  display: flex;
-  fill: ${indigoDark.indigo10};
-  :hover {
-    fill: ${indigoDark.indigo10};
-  }
-`;
-
-type FilterDropdownProps = {
+type DAOFilterDropdownProps = {
   filterNetworks: Record<string, string>;
   toggleNetworkFilter: (event: MouseEvent<HTMLButtonElement>) => void;
   filterDelegate: string;
   toggleDelegateFilter: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
-const FilterDropdown = ({
+const IconFilter = styled(RiFilterFill)`
+  height: 1.8rem;
+  width: 1.8rem;
+  display: flex;
+  // USE THEME
+  fill: ${indigoDark.indigo10};
+  :hover {
+    fill: ${indigoDark.indigo10};
+  }
+`;
+
+export const DAOFilterDropdown = ({
   filterNetworks,
   toggleNetworkFilter,
   filterDelegate,
   toggleDelegateFilter,
-}: FilterDropdownProps) => {
+}: DAOFilterDropdownProps) => {
   const theme = useTheme();
-
   const networkButtons = Object.values(NETWORK_DATA).map((network) => {
     const isActive = filterNetworks[network.chainId];
+
     return (
       <DropdownMenuItem key={network.chainId} asChild>
         <DropdownButton
@@ -57,7 +52,7 @@ const FilterDropdown = ({
           secondary
           fullWidth
           leftAlign
-          IconRight={isActive ? AiOutlineCheck : undefined}
+          IconRight={isActive ? RiCheckLine : undefined}
         >
           <div style={{ width: '100%' }}>{network.name}</div>
         </DropdownButton>
@@ -91,9 +86,7 @@ const FilterDropdown = ({
           value={FILTER_TYPE.DELEGATING}
           onClick={toggleDelegateFilter}
           IconRight={
-            filterDelegate === FILTER_TYPE.DELEGATING
-              ? AiOutlineCheck
-              : undefined
+            filterDelegate === FILTER_TYPE.DELEGATING ? RiCheckLine : undefined
           }
           className={
             filterDelegate === FILTER_TYPE.DELEGATING ? 'selected' : ''
@@ -111,7 +104,7 @@ const FilterDropdown = ({
           onClick={toggleDelegateFilter}
           IconRight={
             filterDelegate === FILTER_TYPE.DELEGATING_TO
-              ? AiOutlineCheck
+              ? RiCheckLine
               : undefined
           }
           className={
@@ -124,5 +117,3 @@ const FilterDropdown = ({
     </Dropdown>
   );
 };
-
-export default FilterDropdown;

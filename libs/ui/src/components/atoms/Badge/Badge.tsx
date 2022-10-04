@@ -6,9 +6,10 @@ import { BaseBadge } from './Badge.styles';
 
 export type BadgeProps = {
   badgeLabel: ReactNode;
-  badgeSize: 'sm' | 'lg';
-  badgeColor: 'blue' | 'green' | 'pink' | 'violet';
+  badgeSize?: 'sm' | 'lg';
+  badgeColor?: 'blue' | 'green' | 'pink' | 'violet';
   className?: string;
+  children?: ReactNode;
 };
 
 type Ref =

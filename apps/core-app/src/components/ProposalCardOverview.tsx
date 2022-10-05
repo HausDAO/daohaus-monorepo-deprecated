@@ -13,13 +13,17 @@ import {
 import {
   charLimit,
   formatShortDateTimeFromSeconds,
+  fromWei,
   Keychain,
+  NETWORK_DATA,
+  ValidNetwork,
 } from '@daohaus/common-utilities';
 
 import { TProposals } from '@daohaus/dao-context';
 import { getProposalTypeLabel } from '../utils/general';
 import { ITransformedProposal } from '@daohaus/dao-data';
 import { RiTimeLine } from 'react-icons/ri';
+import { ProposalOffering } from './customFields/ProposalOffering';
 
 const OverviewBox = styled.div`
   display: flex;
@@ -76,6 +80,12 @@ export const ProposalCardOverview = ({
       <ParMd className="description" color={theme.tint.secondary}>
         {charLimit(proposal.description, 145)}
       </ParMd>
+      {proposal.proposalOffering && (
+        <ParMd>
+          Offering: {fromWei(proposal.proposalOffering)}{' '}
+          {NETWORK_DATA[daochain as ValidNetwork]?.symbol}
+        </ParMd>
+      )}
       {isMd && (
         <StyledLink
           href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}

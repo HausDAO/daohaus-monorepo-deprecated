@@ -1,4 +1,5 @@
 import {
+  checkHasQuorum,
   nowInSeconds,
   ProposalStatus,
   PROPOSAL_STATUS,
@@ -53,10 +54,11 @@ export const isProposalFailed = (proposal: QueryProposal): boolean =>
     Number(proposal.yesBalance) < Number(proposal.noBalance));
 
 export const passedQuorum = (proposal: QueryProposal): boolean => {
-  return (
-    Number(proposal.yesBalance) * 100 >
-    Number(proposal.dao.quorumPercent) * Number(proposal.dao.totalShares)
-  );
+  return checkHasQuorum({
+    yesVotes: Number(proposal.yesBalance),
+    totalShares: Number(proposal.dao.totalShares),
+    quorumPercent: Number(proposal.dao.quorumPercent),
+  });
 };
 
 export const getProposalStatus = (proposal: QueryProposal): ProposalStatus => {
@@ -78,14 +80,14 @@ export const getProposalStatus = (proposal: QueryProposal): ProposalStatus => {
   if (isProposalInGrace(proposal)) {
     return PROPOSAL_STATUS['grace'];
   }
+  if (isProposalFailed(proposal)) {
+    return PROPOSAL_STATUS['failed'];
+  }
   if (proposalNeedsProcessing(proposal)) {
     return PROPOSAL_STATUS['needsProcessing'];
   }
   if (isProposalExpired(proposal)) {
     return PROPOSAL_STATUS['expired'];
-  }
-  if (isProposalFailed(proposal)) {
-    return PROPOSAL_STATUS['failed'];
   }
   return PROPOSAL_STATUS['unknown'];
 };

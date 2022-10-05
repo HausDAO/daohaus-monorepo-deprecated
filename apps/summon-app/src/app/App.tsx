@@ -27,7 +27,7 @@ export type SummonStates = 'idle' | 'loading' | 'success' | 'error';
 export const App = () => {
   const { provider, chainId } = useHausConnect();
 
-  const [summonState, setSummonState] = useState<SummonStates>('success');
+  const [summonState, setSummonState] = useState<SummonStates>('idle');
   const [txHash, setTxHash] = useState<string>('');
   const [daoAddress, setDaoAddress] = useState<string>('');
   const [errMsg, setErrMsg] = useState<string>('');

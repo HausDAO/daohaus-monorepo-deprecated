@@ -22,6 +22,11 @@ export function Dao() {
         navLinks={[
           { label: 'Home', href: `/${address}` },
           { label: 'DAO', href: `/molochv3/${daochain}/${daoid}` },
+          {
+            label: 'Proposals',
+            href: `/molochv3/${daochain}/${daoid}/proposals`,
+          },
+
           { label: 'Safes', href: `/molochv3/${daochain}/${daoid}/safes` },
           {
             label: 'Members',

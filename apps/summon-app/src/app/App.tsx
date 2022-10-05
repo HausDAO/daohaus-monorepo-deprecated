@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-import { Banner, AppSwitcher, Footer } from '@daohaus/ui';
+import { Banner, Footer, widthQuery } from '@daohaus/ui';
 import { DaoHausNav, useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 import { TXBuilder } from '@daohaus/tx-builder-feature';
@@ -15,47 +15,28 @@ const TemporaryLayout = styled.div`
   width: 100%;
   padding-top: 2.7rem;
   padding: 4rem;
-`;
-
-const Header = styled.div`
-  display: flex;
-  justify-content: space-around;
+  @media ${widthQuery.sm} {
+    .title {
+      font-size: 3.5rem;
+      margin-bottom: 2rem;
+    }
+  }
 `;
 
 export type SummonStates = 'idle' | 'loading' | 'success' | 'error';
 export const App = () => {
   const { provider, chainId } = useHausConnect();
 
-  const [summonState, setSummonState] = useState<SummonStates>('idle');
+  const [summonState, setSummonState] = useState<SummonStates>('loading');
   const [txHash, setTxHash] = useState<string>('');
   const [daoAddress, setDaoAddress] = useState<string>('');
   const [errMsg, setErrMsg] = useState<string>('');
-
-  const apps = {
-    trigger: {
-      name: 'Summoner',
-      url: 'https://summon.daohaus.fun/',
-    },
-    apps: [
-      {
-        name: 'Hub',
-        url: 'https://hub.daohaus.fun/',
-      },
-      {
-        name: 'Docs',
-        url: 'https://storybook.daohaus.fun/',
-      },
-    ],
-  };
 
   return (
     <TXBuilder provider={provider} chainId={chainId} appState={{}}>
       <Banner />
       <TemporaryLayout>
-        <Header>
-          <AppSwitcher {...apps} />
-          <DaoHausNav />
-        </Header>
+        <DaoHausNav />
         <CenterLayout>
           {summonState === 'idle' && (
             <SummonerForm

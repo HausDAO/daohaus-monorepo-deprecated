@@ -44,6 +44,7 @@ export const ExplorerLink = ({
     <Link
       href={explorerLink}
       className={className}
+      Icon={Icon}
       rel="noopener noreferrer"
       linkType="external"
     >

@@ -89,6 +89,7 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
               size="sm"
             />
           </div>
+          {console.log(dao.tags)}
           {dao.tags && (
             <div className="tags">
               <TagList tags={dao.tags} />

@@ -26,7 +26,6 @@ import { TProposals } from '@daohaus/dao-context';
 import { getProposalTypeLabel } from '../utils/general';
 import { ITransformedProposal } from '@daohaus/dao-data';
 import { RiTimeLine } from 'react-icons/ri';
-import { ProposalOffering } from './customFields/ProposalOffering';
 
 const OverviewBox = styled.div`
   display: flex;
@@ -83,7 +82,6 @@ export const ProposalCardOverview = ({
       <ParMd className="description" color={theme.tint.secondary}>
         {charLimit(proposal.description, 145)}
       </ParMd>
-      {console.log('proposal.proposalOffering', proposal.proposalOffering)}
       {Number(proposal.proposalOffering) > 0 && (
         <ParMd>
           Offering:{' '}

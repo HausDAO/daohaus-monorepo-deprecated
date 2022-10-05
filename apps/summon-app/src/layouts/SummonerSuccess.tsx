@@ -46,7 +46,7 @@ export const SummonerSuccess = ({
   };
 
   return (
-    <div className="main-column">
+    <div>
       <H1 className="title">
         <Bold>DAO Summoned</Bold>
       </H1>

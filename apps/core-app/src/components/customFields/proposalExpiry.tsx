@@ -12,6 +12,7 @@ import {
 } from '@daohaus/ui';
 import { useDao } from '@daohaus/dao-context';
 import { unixTimeInSeconds } from '@daohaus/common-utilities';
+import { useTheme } from 'styled-components';
 
 const INPUT_ID = 'expiryValue';
 const SELECT_ID = 'expiryPeriod';
@@ -32,6 +33,7 @@ export const ProposalExpiry = ({
   const { watch, register, setValue } = useFormContext();
   const [periodValue, periodMultiplier] = watch([INPUT_ID, SELECT_ID]);
   const { dao } = useDao();
+  const theme = useTheme();
 
   const expiryDateString = `${id}String`;
 
@@ -77,7 +79,7 @@ export const ProposalExpiry = ({
         <HighlightInputText
           id="highlightProposalExpiry"
           description="Expiration will be on:"
-          highlightColor="#B4D7CE"
+          highlightColor={theme.tint.secondary}
           highlightInputId={expiryDateString}
         />
       </FieldSpacer>

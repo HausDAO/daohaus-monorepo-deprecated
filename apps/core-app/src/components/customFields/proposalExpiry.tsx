@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { format, addSeconds } from 'date-fns';
+import { format } from 'date-fns';
 import { FieldSpacer } from '@daohaus/haus-form-builder';
 import {
   Buildable,

@@ -22,8 +22,8 @@ export const SummonError = ({
   };
 
   return (
-    <div className="main-column">
-      <H1>
+    <div>
+      <H1 className="title">
         <Bold>Summon Error</Bold>
       </H1>
       <ParMd>

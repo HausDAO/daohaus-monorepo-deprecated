@@ -34,11 +34,11 @@ export const CenterLayout = styled.main`
 
 export const BlockImageContainer = styled.div`
   display: flex;
-  justify-content: center;
+  margin-left: 13rem;
   align-items: center;
   height: 26rem;
   width: 100%;
-  margin-bottom: 2.4rem;
+  margin-bottom: 2rem;
   .img-block {
     display: flex;
     height: 12rem;
@@ -47,6 +47,9 @@ export const BlockImageContainer = styled.div`
   img {
     height: 12rem;
     width: 12rem;
+  }
+  @media ${widthQuery.sm} {
+    margin-left: 7.5rem;
   }
 `;
 

@@ -11,6 +11,7 @@ import {
   InputSelect,
 } from '@daohaus/ui';
 import { useDao } from '@daohaus/dao-context';
+import { unixTimeInSeconds } from '@daohaus/common-utilities';
 
 const INPUT_ID = 'expiryValue';
 const SELECT_ID = 'expiryPeriod';
@@ -46,16 +47,14 @@ export const ProposalExpiry = ({
       const extendedPeriodSeconds =
         Number(periodValue || 0) * Number(periodMultiplier || 0);
       const absoluteExtendedPeriod =
+        unixTimeInSeconds() +
         Number(dao.votingPeriod) +
         Number(dao.gracePeriod) +
         extendedPeriodSeconds;
       setValue(id, absoluteExtendedPeriod);
       setValue(
         expiryDateString,
-        format(
-          addSeconds(new Date(), absoluteExtendedPeriod),
-          "MMM dd, yyyy 'at' hh:mmaaa OOO"
-        )
+        format(absoluteExtendedPeriod * 1000, "MMM dd, yyyy 'at' hh:mmaaa OOO")
       );
     }
   }, [dao, expiryDateString, id, periodValue, periodMultiplier, setValue]);

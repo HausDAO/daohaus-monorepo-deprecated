@@ -7,7 +7,6 @@ import {
   AddressDisplay,
   useBreakpoint,
   widthQuery,
-  breakpoints,
 } from '@daohaus/ui';
 
 import { InfoSection } from './FormLayouts';

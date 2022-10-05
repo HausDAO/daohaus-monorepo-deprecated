@@ -47,9 +47,6 @@ export const BlockImageContainer = styled.div`
     height: 12rem;
     width: 12rem;
   }
-  @media ${widthQuery.sm} {
-    margin-left: 7.5rem;
-  }
 `;
 
 export const InfoSection = styled.div`

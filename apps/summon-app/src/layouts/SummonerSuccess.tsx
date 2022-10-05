@@ -1,4 +1,14 @@
-import { Bold, Button, H1, ParMd, Link, AddressDisplay } from '@daohaus/ui';
+import {
+  Bold,
+  Button,
+  H1,
+  ParMd,
+  Link,
+  AddressDisplay,
+  useBreakpoint,
+  widthQuery,
+  breakpoints,
+} from '@daohaus/ui';
 
 import { InfoSection } from './FormLayouts';
 import { HausBlockLoading } from '../components/HausBlockLoading/HausBlockLoading';
@@ -26,14 +36,19 @@ const AddressInfoSection = styled(InfoSection)`
 
 const ButtonGroup = styled.div`
   display: flex;
-  justify-content: space-between;
-
   a {
     button {
       width: 200px;
       justify-content: center;
     }
   }
+  @media ${widthQuery.sm} {
+    flex-direction: column;
+    button {
+      margin-bottom: 2rem;
+    }
+  }
+  /* justify-content: flex-start; */
 `;
 
 export const SummonerSuccess = ({
@@ -44,6 +59,7 @@ export const SummonerSuccess = ({
   const handleResetSummon = () => {
     setSummonState('idle');
   };
+  const isMobile = useBreakpoint(widthQuery.sm);
 
   return (
     <div>
@@ -66,18 +82,26 @@ export const SummonerSuccess = ({
           address={daoAddress}
           copy
           explorerNetworkId={chainId as keyof Keychain}
+          truncate={isMobile}
         />
       </AddressInfoSection>
       <ButtonGroup>
+        <Button
+          secondary
+          onClick={handleResetSummon}
+          centerAlign={isMobile}
+          fullWidth={isMobile}
+        >
+          <Bold>Summon Another DAO</Bold>
+        </Button>
         <Link
           linkType="no-icon-external"
           href={`https://admin.daohaus.fun/#/molochv3/${chainId}/${daoAddress}`}
         >
-          <Button primary>View DAO</Button>
+          <Button primary centerAlign={isMobile} fullWidth={isMobile}>
+            View DAO
+          </Button>
         </Link>
-        <Button secondary onClick={handleResetSummon}>
-          <Bold>Summon Another DAO</Bold>
-        </Button>
       </ButtonGroup>
     </div>
   );

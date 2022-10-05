@@ -9,10 +9,13 @@ import {
   useBreakpoint,
   widthQuery,
   Tooltip,
+  TintSecondary,
 } from '@daohaus/ui';
 import {
   charLimit,
+  dynamicDecimals,
   formatShortDateTimeFromSeconds,
+  formatValueTo,
   fromWei,
   Keychain,
   NETWORK_DATA,
@@ -80,10 +83,20 @@ export const ProposalCardOverview = ({
       <ParMd className="description" color={theme.tint.secondary}>
         {charLimit(proposal.description, 145)}
       </ParMd>
-      {proposal.proposalOffering && (
+      {console.log('proposal.proposalOffering', proposal.proposalOffering)}
+      {Number(proposal.proposalOffering) > 0 && (
         <ParMd>
-          Offering: {fromWei(proposal.proposalOffering)}{' '}
-          {NETWORK_DATA[daochain as ValidNetwork]?.symbol}
+          Offering:{' '}
+          <TintSecondary>
+            {formatValueTo({
+              value: fromWei(proposal.proposalOffering),
+              format: 'number',
+              unit: NETWORK_DATA[daochain as ValidNetwork]?.symbol,
+              decimals: dynamicDecimals({
+                baseUnits: Number(proposal.proposalOffering),
+              }),
+            })}
+          </TintSecondary>
         </ParMd>
       )}
       {isMd && (

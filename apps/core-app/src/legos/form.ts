@@ -176,6 +176,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     id: 'UPDATE_GOV_SETTINGS',
     title: 'Update Governance Settings',
     subtitle: 'Governance Setting Proposal',
+    log: true,
     description: 'Learn more about Governance Settings in our documentation.',
     tx: TX.UPDATE_GOV_SETTINGS,
     requiredFields: {

@@ -98,6 +98,8 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
     if (!dao) return null;
     return {
       votingPeriod: dao.votingPeriod,
+      votingPeriodUnits: 'seconds',
+      gracePeriodUnits: 'seconds',
       gracePeriod: dao.gracePeriod,
       proposalOffering: dao.proposalOffering,
       quorum: dao.quorumPercent,
@@ -118,7 +120,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
             defaultValues
           )}`}
         >
-          <Button secondary>Update Dao Settings</Button>
+          <Button secondary>Update DAO Settings</Button>
         </StyledButtonLink>
       </GovernanceCardHeader>
       <div className="description">

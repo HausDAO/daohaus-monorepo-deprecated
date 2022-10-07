@@ -295,7 +295,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
         id: 'tokenSettings',
         type: 'formSegment',
         title: 'DAO Tokens',
-        description: 'Update your token transferability',
+        description: 'Update Token Transferability',
         fields: [
           {
             id: 'split',
@@ -306,7 +306,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                 left: {
                   id: 'vStake',
                   type: 'switch',
-                  label: 'Voting Token Transferable',
+                  label: 'Voting Token',
                   info: SUMMON_COPY.STAKE_TRANSFER,
                   switches: [
                     {
@@ -321,7 +321,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                 right: {
                   id: 'nvStake',
                   type: 'switch',
-                  label: 'Non-Voting Token Transferable',
+                  label: 'Non-Voting Token',
                   info: SUMMON_COPY.NV_STAKE_TRANSFER,
                   switches: [
                     {

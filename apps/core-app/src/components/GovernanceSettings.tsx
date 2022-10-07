@@ -186,9 +186,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
             defaultValues
           )}`}
         >
-          <Button secondary sm>
-            Update Token Settings
-          </Button>
+          <Button secondary>Update Token Settings</Button>
         </StyledButtonLink>
       </TokensHeader>
       <H4>Voting</H4>

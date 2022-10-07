@@ -288,7 +288,7 @@ export const TX: Record<string, TXLego> = {
       {
         type: 'proposalExpiry',
         search: '.proposalExpiry',
-        fallback: toSeconds(14, 'days'),
+        fallback: 0,
       },
       {
         type: 'JSONDetails',
@@ -392,7 +392,7 @@ export const TX: Record<string, TXLego> = {
         value: '.formValues.txValue',
         data: '.formValues.txData',
         operations: '.formValues.txOperation',
-      }
+      },
     ],
   }),
 };

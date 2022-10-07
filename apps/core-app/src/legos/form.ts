@@ -280,6 +280,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   TOKEN_SETTINGS: {
     id: 'TOKEN_SETTINGS',
     title: 'Change Token Settings',
+    log: true,
     subtitle: 'Token Settings Proposal',
     description: 'Learn more about Token Settings in our documentation.',
     tx: TX.TOKEN_SETTINGS,
@@ -312,8 +313,8 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                     {
                       id: 'vStake',
                       fieldLabel: {
-                        off: 'Not Transferable',
-                        on: 'Transferable',
+                        off: 'Transferable',
+                        on: 'Not Transferable',
                       },
                     },
                   ],
@@ -327,8 +328,8 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                     {
                       id: 'nvStake',
                       fieldLabel: {
-                        off: 'Not Transferable',
-                        on: 'Transferable',
+                        off: 'Transferable',
+                        on: 'Not Transferable',
                       },
                     },
                   ],

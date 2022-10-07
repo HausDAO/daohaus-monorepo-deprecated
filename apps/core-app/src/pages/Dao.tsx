@@ -26,6 +26,7 @@ export function Dao() {
             label: 'Proposals',
             href: `/molochv3/${daochain}/${daoid}/proposals`,
           },
+
           { label: 'Safes', href: `/molochv3/${daochain}/${daoid}/safes` },
           {
             label: 'Members',

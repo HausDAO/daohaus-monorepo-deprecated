@@ -44,7 +44,7 @@ export const HomeDashboard = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [listType, setListType] = useState<ListType>(ListType.Cards);
 
-  const debouncedSearchTerm = useDebounce<string>(searchTerm, 1000);
+  const debouncedSearchTerm = useDebounce<string>(searchTerm, 500);
 
   useEffect(() => {
     let shouldUpdate = true;

@@ -9,8 +9,13 @@ import {
   DataIndicator,
 } from '@daohaus/ui';
 import {
+  dynamicDecimals,
   formatShortDateTimeFromSeconds,
+  formatValueTo,
+  fromWei,
   Keychain,
+  NETWORK_DATA,
+  ValidNetwork,
 } from '@daohaus/common-utilities';
 
 import { TProposals } from '@daohaus/dao-context';
@@ -80,6 +85,21 @@ export const ProposalDetailsGuts = ({ proposal }: ProposalDetailsGutsProps) => {
           size="sm"
         />
       </DataContainer>
+
+      {Number(proposal.proposalOffering) > 0 && (
+        <DataIndicator
+          label="Proposal Offering"
+          data={formatValueTo({
+            value: fromWei(proposal.proposalOffering),
+            format: 'number',
+            unit: NETWORK_DATA[daochain as ValidNetwork]?.symbol,
+            decimals: dynamicDecimals({
+              baseUnits: Number(proposal.proposalOffering),
+            }),
+          })}
+          size="sm"
+        />
+      )}
       <Spacer />
       <ProposalWarning
         proposalType={proposal.proposalType}

@@ -32,7 +32,7 @@ const LeftCard = styled.div`
 `;
 
 const RightCard = styled.div`
-  min-width: 26rem;
+  min-width: 32rem;
   @media ${widthQuery.sm} {
     max-width: 100%;
     min-width: 0;

@@ -56,6 +56,10 @@ const RightCard = styled(Card)`
   }
 `;
 
+const ActionContainer = styled.div`
+  padding: 0rem 3.6rem;
+`;
+
 export function ProposalDetails() {
   const { daoid, daochain, proposalId } = useParams();
   const { address } = useHausConnect();
@@ -129,7 +133,11 @@ export function ProposalDetails() {
       left={
         <OverviewCard>
           {proposal && <ProposalDetailsGuts proposal={proposal} />}
-          {actionData && <ActionDisplay actions={actionData} />}
+          {actionData && (
+            <ActionContainer>
+              <ActionDisplay actions={actionData} />
+            </ActionContainer>
+          )}
         </OverviewCard>
       }
       right={

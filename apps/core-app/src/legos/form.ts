@@ -312,8 +312,8 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                     {
                       id: 'vStake',
                       fieldLabel: {
-                        off: 'Transferable',
-                        on: 'Not Transferable',
+                        off: 'Not Transferable',
+                        on: 'Transferable',
                       },
                     },
                   ],
@@ -327,8 +327,8 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                     {
                       id: 'nvStake',
                       fieldLabel: {
-                        off: 'Transferable',
-                        on: 'Not Transferable',
+                        off: 'Not Transferable',
+                        on: 'Transferable',
                       },
                     },
                   ],

@@ -100,7 +100,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
       votingPeriod: dao.votingPeriod,
       gracePeriod: dao.gracePeriod,
       proposalOffering: dao.proposalOffering,
-      quorumPercent: dao.quorumPercent,
+      quorum: dao.quorumPercent,
       minRetention: dao.minRetentionPercent,
       sponsorThreshold: dao.sponsorThreshold,
       newOffering: dao.proposalOffering,

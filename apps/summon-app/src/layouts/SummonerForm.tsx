@@ -142,7 +142,7 @@ export const SummonerForm = ({
         noValidate
       >
         <div className="title-section">
-          <H1>
+          <H1 className="title">
             <Bold>Summon a DAO</Bold>
           </H1>
           <ParMd>

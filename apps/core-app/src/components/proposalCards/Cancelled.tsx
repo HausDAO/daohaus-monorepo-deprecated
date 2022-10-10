@@ -1,7 +1,7 @@
 import { ITransformedProposal } from '@daohaus/dao-data';
 import React from 'react';
 import { VotingBar } from '../VotingBar';
-import { ActionTemplate, Verdict } from './ActionPrimitives';
+import { ActionTemplate } from './ActionPrimitives';
 
 export const Cancelled = ({ proposal }: { proposal: ITransformedProposal }) => {
   return (

@@ -18,6 +18,7 @@ export const DropdownMenuContent = styled(Dropdown.DropdownMenuContent)`
     props.bgmenu ? props.bgmenu : props.theme.dropdown.bgMenu};
   padding: 0.4rem;
   min-width: ${(props: MenuContentType) => props.minwidth};
+  z-index: 10;
 `;
 
 export const DropdownMenuItem = styled(Dropdown.Item)`
@@ -56,6 +57,9 @@ export const DropdownButton = styled(Button)`
       ${({ theme }: { theme: Theme }) => theme.dropdown.bgItem};
     color: ${({ theme }: { theme: Theme }) => theme.dropdown.textDisabled};
     cursor: not-allowed;
+  }
+  &.selected {
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary};
   }
 `;
 

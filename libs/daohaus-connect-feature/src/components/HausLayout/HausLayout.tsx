@@ -34,10 +34,12 @@ export const HausLayout = ({
   children,
   appNavLinks,
   leftNav,
+  pathname,
 }: NavigationTabsProps & {
   children: ReactNode;
   leftNav?: ReactNode;
   appNavLinks?: ComponentProps<typeof AppSwitcher>;
+  pathname: string;
 }) => {
   return (
     <OuterLayout>
@@ -48,7 +50,11 @@ export const HausLayout = ({
         </div>
         <DaoHausNav />
       </Header>
-      <NavigationTabs navLinks={navLinks} dropdownLinks={dropdownLinks} />
+      <NavigationTabs
+        navLinks={navLinks}
+        dropdownLinks={dropdownLinks}
+        pathname={pathname}
+      />
       <MainLayout>{children}</MainLayout>
       <Footer />
     </OuterLayout>

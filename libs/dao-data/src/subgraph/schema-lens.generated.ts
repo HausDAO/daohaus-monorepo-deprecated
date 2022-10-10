@@ -162,6 +162,16 @@ export interface BurnProfileRequest {
   profileId: Scalars['ProfileId'];
 }
 
+export interface CanCommentResponse {
+  __typename?: 'CanCommentResponse';
+  result: Scalars['Boolean'];
+}
+
+export interface CanMirrorResponse {
+  __typename?: 'CanMirrorResponse';
+  result: Scalars['Boolean'];
+}
+
 /** The challenge request */
 export interface ChallengeRequest {
   /** The ethereum address you want to login with */
@@ -225,6 +235,8 @@ export interface Comment {
   __typename?: 'Comment';
   /** ID of the source */
   appId?: Maybe<Scalars['Sources']>;
+  canComment: CanCommentResponse;
+  canMirror: CanMirrorResponse;
   /** The collect module */
   collectModule: CollectModule;
   /** The contract address for the collect nft.. if its null it means nobody collected yet as it lazy deployed */
@@ -256,6 +268,18 @@ export interface Comment {
   referenceModule?: Maybe<ReferenceModule>;
   /** The publication stats */
   stats: PublicationStats;
+}
+
+
+/** The social comment */
+export interface CommentCanCommentArgs {
+  profileId?: InputMaybe<Scalars['ProfileId']>;
+}
+
+
+/** The social comment */
+export interface CommentCanMirrorArgs {
+  profileId?: InputMaybe<Scalars['ProfileId']>;
 }
 
 
@@ -816,8 +840,34 @@ export interface CreateUnfollowBroadcastItemResult {
   typedData: CreateBurnEip712TypedData;
 }
 
+/** The custom filters types */
+export type CustomFiltersTypes =
+  | 'GARDENERS';
+
 export interface DefaultProfileRequest {
   ethereumAddress: Scalars['EthereumAddress'];
+}
+
+export interface DegreesOfSeparationReferenceModuleParams {
+  /** Applied to comments */
+  commentsRestricted: Scalars['Boolean'];
+  /** Degrees of separation */
+  degreesOfSeparation: Scalars['Int'];
+  /** Applied to mirrors */
+  mirrorsRestricted: Scalars['Boolean'];
+}
+
+export interface DegreesOfSeparationReferenceModuleSettings {
+  __typename?: 'DegreesOfSeparationReferenceModuleSettings';
+  /** Applied to comments */
+  commentsRestricted: Scalars['Boolean'];
+  contractAddress: Scalars['ContractAddress'];
+  /** Degrees of separation */
+  degreesOfSeparation: Scalars['Int'];
+  /** Applied to mirrors */
+  mirrorsRestricted: Scalars['Boolean'];
+  /** The reference modules enum */
+  type: ReferenceModules;
 }
 
 /** The dispatcher */
@@ -930,6 +980,7 @@ export interface ExploreProfileResult {
 
 export interface ExploreProfilesRequest {
   cursor?: InputMaybe<Scalars['Cursor']>;
+  customFilters?: InputMaybe<Array<CustomFiltersTypes>>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
   sortCriteria: ProfileSortCriteria;
   timestamp?: InputMaybe<Scalars['TimestampScalar']>;
@@ -937,6 +988,7 @@ export interface ExploreProfilesRequest {
 
 export interface ExplorePublicationRequest {
   cursor?: InputMaybe<Scalars['Cursor']>;
+  customFilters?: InputMaybe<Array<CustomFiltersTypes>>;
   /** If you wish to exclude any results for profile ids */
   excludeProfileIds?: InputMaybe<Array<Scalars['ProfileId']>>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
@@ -1371,6 +1423,8 @@ export interface Mirror {
   __typename?: 'Mirror';
   /** ID of the source */
   appId?: Maybe<Scalars['Sources']>;
+  canComment: CanCommentResponse;
+  canMirror: CanMirrorResponse;
   /** The collect module */
   collectModule: CollectModule;
   /** The contract address for the collect nft.. if its null it means nobody collected yet as it lazy deployed */
@@ -1395,6 +1449,18 @@ export interface Mirror {
   referenceModule?: Maybe<ReferenceModule>;
   /** The publication stats */
   stats: PublicationStats;
+}
+
+
+/** The social mirror */
+export interface MirrorCanCommentArgs {
+  profileId?: InputMaybe<Scalars['ProfileId']>;
+}
+
+
+/** The social mirror */
+export interface MirrorCanMirrorArgs {
+  profileId?: InputMaybe<Scalars['ProfileId']>;
 }
 
 
@@ -1793,6 +1859,7 @@ export type Notification = NewCollectNotification | NewCommentNotification | New
 
 export interface NotificationRequest {
   cursor?: InputMaybe<Scalars['Cursor']>;
+  customFilters?: InputMaybe<Array<CustomFiltersTypes>>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
   metadata?: InputMaybe<PublicationMetadataFilters>;
   /** The profile id */
@@ -1922,6 +1989,8 @@ export interface Post {
   __typename?: 'Post';
   /** ID of the source */
   appId?: Maybe<Scalars['Sources']>;
+  canComment: CanCommentResponse;
+  canMirror: CanMirrorResponse;
   /** The collect module */
   collectModule: CollectModule;
   /** The contract address for the collect nft.. if its null it means nobody collected yet as it lazy deployed */
@@ -1947,6 +2016,18 @@ export interface Post {
   referenceModule?: Maybe<ReferenceModule>;
   /** The publication stats */
   stats: PublicationStats;
+}
+
+
+/** The social post */
+export interface PostCanCommentArgs {
+  profileId?: InputMaybe<Scalars['ProfileId']>;
+}
+
+
+/** The social post */
+export interface PostCanMirrorArgs {
+  profileId?: InputMaybe<Scalars['ProfileId']>;
 }
 
 
@@ -2468,6 +2549,7 @@ export interface PublicationsQueryRequest {
   /** The publication id you wish to get comments for */
   commentsOf?: InputMaybe<Scalars['InternalPublicationId']>;
   cursor?: InputMaybe<Scalars['Cursor']>;
+  customFilters?: InputMaybe<Array<CustomFiltersTypes>>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
   metadata?: InputMaybe<PublicationMetadataFilters>;
   /** Profile id */
@@ -2755,9 +2837,11 @@ export interface RecommendedProfileOptions {
   disableML?: InputMaybe<Scalars['Boolean']>;
 }
 
-export type ReferenceModule = FollowOnlyReferenceModuleSettings | UnknownReferenceModuleSettings;
+export type ReferenceModule = DegreesOfSeparationReferenceModuleSettings | FollowOnlyReferenceModuleSettings | UnknownReferenceModuleSettings;
 
 export interface ReferenceModuleParams {
+  /** The degrees of seperation reference module */
+  degreesOfSeparationReferenceModule?: InputMaybe<DegreesOfSeparationReferenceModuleParams>;
   /** The follower only reference module */
   followerOnlyReferenceModule?: InputMaybe<Scalars['Boolean']>;
   /** A unknown reference module */
@@ -2766,6 +2850,7 @@ export interface ReferenceModuleParams {
 
 /** The reference module types */
 export type ReferenceModules =
+  | 'DegreesOfSeparationReferenceModule'
   | 'FollowerOnlyReferenceModule'
   | 'UnknownReferenceModule';
 
@@ -2846,6 +2931,7 @@ export interface RevertFollowModuleSettings {
 
 export interface SearchQueryRequest {
   cursor?: InputMaybe<Scalars['Cursor']>;
+  customFilters?: InputMaybe<Array<CustomFiltersTypes>>;
   limit?: InputMaybe<Scalars['LimitScalar']>;
   /** The search term */
   query: Scalars['Search'];

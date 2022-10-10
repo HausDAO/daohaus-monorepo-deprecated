@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { FormBuilder } from '@daohaus/haus-form-builder';
 
 import { getFormLegoById } from '../legos/form';
@@ -8,10 +8,13 @@ import { useDao } from '@daohaus/dao-context';
 
 export function NewProposal() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { daoid, daochain } = useParams();
   const { refreshAll } = useDao();
 
   const onFormComplete = () => {
     refreshAll?.();
+    navigate(`/molochV3/${daochain}/${daoid}/proposals`);
   };
 
   const formLego = useMemo(() => {

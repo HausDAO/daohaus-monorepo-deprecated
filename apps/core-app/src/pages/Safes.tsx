@@ -23,7 +23,7 @@ const VaultContainer = styled(Card)`
   }
 `;
 
-export function Vaults() {
+export function Safes() {
   const { dao } = useDao();
   const { daoid, daochain } = useParams();
   const networkData = useMemo(() => {
@@ -34,7 +34,7 @@ export function Vaults() {
 
   return (
     <SingleColumnLayout
-      title="Vaults"
+      title="Safes"
       actions={
         <>
           <ButtonLink
@@ -43,7 +43,7 @@ export function Vaults() {
             fullWidth={isMobile}
             centerAlign={isMobile}
           >
-            Transfer ERC20
+            Request ERC-20
           </ButtonLink>
 
           <ButtonLink
@@ -52,7 +52,7 @@ export function Vaults() {
             fullWidth={isMobile}
             centerAlign={isMobile}
           >
-            Transfer {networkData?.symbol}
+            Request {networkData?.symbol}
           </ButtonLink>
         </>
       }
@@ -62,4 +62,4 @@ export function Vaults() {
   );
 }
 
-export default Vaults;
+export default Safes;

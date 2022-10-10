@@ -9,11 +9,17 @@ import {
   useBreakpoint,
   widthQuery,
   Tooltip,
+  TintSecondary,
 } from '@daohaus/ui';
 import {
   charLimit,
+  dynamicDecimals,
   formatShortDateTimeFromSeconds,
+  formatValueTo,
+  fromWei,
   Keychain,
+  NETWORK_DATA,
+  ValidNetwork,
 } from '@daohaus/common-utilities';
 
 import { TProposals } from '@daohaus/dao-context';
@@ -76,6 +82,21 @@ export const ProposalCardOverview = ({
       <ParMd className="description" color={theme.tint.secondary}>
         {charLimit(proposal.description, 145)}
       </ParMd>
+      {Number(proposal.proposalOffering) > 0 && (
+        <ParMd>
+          Offering:{' '}
+          <TintSecondary>
+            {formatValueTo({
+              value: fromWei(proposal.proposalOffering),
+              format: 'number',
+              unit: NETWORK_DATA[daochain as ValidNetwork]?.symbol,
+              decimals: dynamicDecimals({
+                baseUnits: Number(proposal.proposalOffering),
+              }),
+            })}
+          </TintSecondary>
+        </ParMd>
+      )}
       {isMd && (
         <StyledLink
           href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}

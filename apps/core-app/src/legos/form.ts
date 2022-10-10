@@ -57,11 +57,10 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   ISSUE: {
     id: 'ISSUE',
-    title: 'Issue DAO Tokens',
+    title: 'Request DAO Tokens',
     subtitle: 'Token Proposal',
     log: true,
-    description:
-      'Request membership or increased stake in the DAO. Any tribute must be available in your wallet when proposal is executed.',
+    description: 'Request membership or increased stake in the DAO.',
     tx: TX.ISSUE,
     requiredFields: {
       title: true,
@@ -117,9 +116,10 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   TRANSFER_ERC20: {
     id: 'TRANSFER_ERC20',
-    title: 'Issue Funding (ERC20)',
+    title: 'Request ERC-20',
     subtitle: 'Funding Proposal',
-    description: 'Ask the DAO for funds.',
+    description:
+      'Create a proposal to request ERC-20 tokens from the DAO treasury',
     log: true,
     tx: TX.ISSUE_ERC20,
     requiredFields: {
@@ -145,9 +145,10 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   },
   TRANSFER_NETWORK_TOKEN: {
     id: 'TRANSFER_NETWORK_TOKEN',
-    title: 'Issue Funding (Network Token)',
+    title: 'Reqest Network Token',
     subtitle: 'Funding Proposal',
-    description: 'Ask the DAO for funds.',
+    description:
+      "Create a proposal to request funding from the DAO treasury in the network's native token",
     log: true,
     tx: TX.ISSUE_NETWORK_TOKEN,
     requiredFields: {
@@ -400,8 +401,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     id: 'WALLETCONNECT',
     title: 'WalletConnect Proposal',
     subtitle: 'Use WalletConnect to create a Proposal',
-    description:
-      'Extend DAO Proposals to external contracts',
+    description: 'Extend DAO Proposals to external contracts',
     tx: TX.WALLETCONNECT,
     requiredFields: {
       title: true,

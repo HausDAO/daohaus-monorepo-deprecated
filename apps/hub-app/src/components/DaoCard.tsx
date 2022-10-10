@@ -68,10 +68,6 @@ export const DaoCard = ({
   networkId,
   contractType,
 }: ITransformedMembership) => {
-  console.log(
-    parseInt(readableNumbers.toNumber({ value: activeMemberCount })) ===
-      parseInt('1')
-  );
   return (
     <StyledDaoCard className="dao-card">
       <div className="top-box">

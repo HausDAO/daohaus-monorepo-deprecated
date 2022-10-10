@@ -1,4 +1,4 @@
-import { MouseEvent, useMemo } from 'react';
+import { useMemo } from 'react';
 import styled from 'styled-components';
 import { Column, Row } from 'react-table';
 import {
@@ -25,7 +25,6 @@ import {
   useDao,
   TMembers,
   useConnectedMembership,
-  defaultDaoData,
 } from '@daohaus/dao-context';
 import { MembersOverview } from '../components/MembersOverview';
 import { ProfileLink } from '../components/ProfileLink';
@@ -33,6 +32,7 @@ import { DaoTable } from '../components/DaohausTable';
 import { useParams } from 'react-router-dom';
 import { MemberProfileMenu } from '../components/MemberProfileMenu';
 import { ButtonLink } from '../components/ButtonLink';
+import { Member_OrderBy } from '@daohaus/dao-data';
 
 const Actions = styled.div`
   display: flex;
@@ -56,6 +56,9 @@ const MemberContainer = styled(Card)`
   min-height: 20rem;
   width: 100%;
   overflow-x: auto;
+  th {
+    min-width: 10rem;
+  }
   @media ${widthQuery.lg} {
     max-width: 100%;
     min-width: 0;
@@ -76,15 +79,10 @@ export type MembersTableType = TMembers[number];
 
 export function Members() {
   const { dao } = useDao();
-  const {
-    members,
-    setMembersPaging,
-    membersNextPaging,
-    setMembersSort,
-    setMembers,
-  } = useMembers();
+  const { members, membersNextPaging, loadMoreMembers, sortMembers } =
+    useMembers();
   const { connectedMembership } = useConnectedMembership();
-  const isMobile = useBreakpoint(widthQuery.sm);
+  const isMd = useBreakpoint(widthQuery.md);
   const { daoid, daochain } = useParams();
 
   const tableData = useMemo(() => {
@@ -144,7 +142,7 @@ export function Members() {
       },
       {
         Header: () => {
-          return <div>{charLimit(dao?.shareTokenName, 6)}</div>;
+          return <>{charLimit(dao?.shareTokenName, 6)}</>;
         },
         accessor: 'shares',
         Cell: ({ value }: { value: string }) => {
@@ -222,24 +220,11 @@ export function Members() {
     [dao]
   );
 
-  // TODO: Move these into the context as new hooks:
-  // - loadMoreMembers (adds on to current members list - this is default)
-  // - loadNextPageMembers (replaces current list)
-  // - sort/filter (replaces current list)
-  const handleLoadMore = (event: MouseEvent<HTMLButtonElement>) => {
-    setMembersPaging(membersNextPaging);
-  };
-
   const handleColumnSort = (
     orderBy: string,
     orderDirection: 'asc' | 'desc'
   ) => {
-    // TODO: how can we dynamically pass the proper order by here
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    setMembersSort({ orderBy, orderDirection });
-    setMembersPaging(defaultDaoData.membersPaging);
-    setMembers(undefined);
+    sortMembers(orderBy as Member_OrderBy, orderDirection);
   };
 
   return (
@@ -250,16 +235,16 @@ export function Members() {
           <ButtonLink
             href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=ISSUE`}
             secondary
-            fullWidth={isMobile}
-            centerAlign={isMobile}
+            fullWidth={isMd}
+            centerAlign={isMd}
           >
             Add Member
           </ButtonLink>
           {connectedMembership && (
             <ButtonLink
               href={`/molochv3/${daochain}/${daoid}/members/${connectedMembership.memberAddress}`}
-              fullWidth={isMobile}
-              centerAlign={isMobile}
+              fullWidth={isMd}
+              centerAlign={isMd}
             >
               My Profile
             </ButtonLink>
@@ -274,16 +259,16 @@ export function Members() {
             tableData={tableData}
             columns={columns}
             hasNextPaging={membersNextPaging !== undefined}
-            handleLoadMore={handleLoadMore}
+            handleLoadMore={loadMoreMembers}
             handleColumnSort={handleColumnSort}
             sortableColumns={
-              isMobile
+              isMd
                 ? ['loot', 'shares']
                 : ['createdAt', 'shares', 'loot', 'delegateShares']
             }
           />
         ) : (
-          <Spinner size={isMobile ? '8rem' : '16rem'} padding="6rem" />
+          <Spinner size={isMd ? '8rem' : '16rem'} padding="6rem" />
         )}
       </MemberContainer>
     </SingleColumnLayout>

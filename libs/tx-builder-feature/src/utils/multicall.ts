@@ -20,7 +20,7 @@ import {
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import { encodeMultiSend, MetaTransaction } from '@gnosis.pm/safe-contracts';
 import { getAddress } from 'ethers/lib/utils';
-import { isSearchArg, processArg } from './args';
+import { processArg } from './args';
 import {
   BaalContractBase,
   basicDetails,
@@ -140,12 +140,12 @@ export const handleMulticallArg = async ({
       if (data) {
         return {
           to: processedContract.address,
-          data: await processArg({
+          data: (await processArg({
             arg: data,
             chainId,
             localABIs,
             appState,
-          }) as string,
+          })) as string,
           value: processValue.toString(),
           operation: Number(processedOperations),
         };

@@ -6,16 +6,17 @@ import {
   DialogTrigger,
   DialogContent,
   SingleColumnLayout,
+  widthQuery,
 } from '@daohaus/ui';
 import { statusFilter } from '@daohaus/dao-data';
 import { BsPlusLg } from 'react-icons/bs';
 
-import { defaultDaoData, useDao, useProposals } from '../contexts/DaoContext';
+import { useDao, useProposals } from '@daohaus/dao-context';
 import { NewProposalList } from '../components/NewProposalList';
-import { FORM } from '../legos/form';
+import { PROPOSAL_FORMS } from '../legos/form';
 import SearchInput from '../components/SearchInput';
 import FilterDropdown from '../components/FilterDropdown';
-import { BaseProposalCard } from '../components/BaseProposalCard';
+import { BaseProposalCard } from '../components/proposalCards/BaseProposalCard';
 import { PROPOSAL_STATUS } from '@daohaus/common-utilities';
 
 const ActionsContainer = styled.div`
@@ -23,29 +24,29 @@ const ActionsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 3rem;
+  @media ${widthQuery.sm} {
+    flex-direction: column;
+    gap: 2rem;
+  }
 `;
 
 const SearchFilterContainer = styled.div`
   display: flex;
-  gap: 2.1rem;
+  gap: 2rem;
+  @media ${widthQuery.sm} {
+    flex-direction: column;
+  }
 `;
 
-export const VALID_NEW_PROPOSALS = [FORM.SIGNAL, FORM.SHARE_SWAP];
-
 export function Proposals() {
-  const {
-    proposals,
-    setProposalsPaging,
-    proposalsNextPaging,
-    setProposalsFilter,
-    setProposals,
-  } = useProposals();
+  const { proposals, proposalsNextPaging, loadMoreProposals, filterProposals } =
+    useProposals();
   const { dao } = useDao();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filter, setFilter] = useState<string>('');
 
   const newProposals = useMemo(() => {
-    return Object.keys(FORM).map((key) => FORM[key]);
+    return Object.keys(PROPOSAL_FORMS).map((key) => PROPOSAL_FORMS[key]);
   }, []);
 
   const handleSearchFilter = (term: string) => {
@@ -58,17 +59,13 @@ export function Proposals() {
           )
         : undefined;
 
-    if (searchTerm && searchTerm.length > 0) {
-      setProposals(undefined);
-      setProposalsFilter({
+    if (term && term.length > 0) {
+      filterProposals({
         ...filterQuery,
-        title_contains_nocase: searchTerm,
+        title_contains_nocase: term,
       });
-      setProposalsPaging(defaultDaoData.proposalsPaging);
     } else {
-      setProposals(undefined);
-      setProposalsFilter(filterQuery);
-      setProposalsPaging(defaultDaoData.proposalsPaging);
+      filterProposals(filterQuery);
     }
   };
 
@@ -77,9 +74,7 @@ export function Proposals() {
       searchTerm !== '' ? { title_contains_nocase: searchTerm } : undefined;
     setFilter((prevState) => {
       if (prevState === event.currentTarget.value) {
-        setProposalsFilter(searchQuery);
-        setProposalsPaging(defaultDaoData.proposalsPaging);
-        setProposals(undefined);
+        filterProposals(searchQuery);
         return '';
       } else {
         const votingPlusGraceDuration =
@@ -88,16 +83,10 @@ export function Proposals() {
           PROPOSAL_STATUS[event.currentTarget.value],
           votingPlusGraceDuration
         );
-        setProposalsFilter({ ...filterQuery, ...searchQuery });
-        setProposalsPaging(defaultDaoData.proposalsPaging);
-        setProposals(undefined);
+        filterProposals({ ...filterQuery, ...searchQuery });
         return event.currentTarget.value;
       }
     });
-  };
-
-  const handleLoadMore = (event: MouseEvent<HTMLButtonElement>) => {
-    setProposalsPaging(proposalsNextPaging);
   };
 
   return (
@@ -127,7 +116,7 @@ export function Proposals() {
         ))}
 
       {proposalsNextPaging !== undefined && (
-        <Button tertiary sm onClick={handleLoadMore}>
+        <Button tertiary sm onClick={loadMoreProposals}>
           Show More Proposals
         </Button>
       )}

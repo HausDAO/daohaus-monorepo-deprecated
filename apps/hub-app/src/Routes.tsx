@@ -1,4 +1,4 @@
-import React from 'react';
+import { Banner, Footer } from '@daohaus/ui';
 import { Routes as RoutesDom, Route } from 'react-router-dom';
 
 import HomePage from './pages/HomePage';
@@ -6,10 +6,14 @@ import PublicProfilePage from './pages/PublicProfilePage';
 
 const Routes = () => {
   return (
-    <RoutesDom>
-      <Route path="/" element={<HomePage />} />
-      <Route path="profile/:address" element={<PublicProfilePage />} />
-    </RoutesDom>
+    <>
+      <Banner />
+      <RoutesDom>
+        <Route path="/" element={<HomePage />} />
+        <Route path="profile/:address" element={<PublicProfilePage />} />
+      </RoutesDom>
+      <Footer />
+    </>
   );
 };
 

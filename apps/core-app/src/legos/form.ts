@@ -6,21 +6,40 @@ import { TABULA_TX, TX } from './tx';
 export const getFormLegoById = (
   id: CustomFormLego['id']
 ): CustomFormLego | undefined => {
-  const formKey = Object.keys(FORM).find((key) => {
-    return FORM[key].id === id;
+  const allForms = { ...PROPOSAL_FORMS, ...COMMON_FORMS };
+  const formKey = Object.keys(allForms).find((key) => {
+    return allForms[key].id === id;
   });
   if (!formKey) return;
-  return FORM[formKey];
+  return allForms[formKey];
 };
 
-export const FORM: Record<string, CustomFormLego> = {
-  SHARE_SWAP: {
-    id: 'SHARE_SWAP',
-    title: 'Swap Tokens for Shares',
-    subtitle: 'Token Proposal',
-    description: 'Exchange for voting or non-voting tokens',
-    fields: [FIELD.TITLE, FIELD.DESCRIPTION, FIELD.LINK],
-  },
+// Proposal settings fields (e.g. proposal expiry, proposal offering)
+const PROPOSAL_SETTINGS_FIELDS = [FIELD.PROPOSAL_EXPIRY, FIELD.PROP_OFFERING];
+
+/*
+Quick Reference for forms
+
+PROPOSAL_FORMS KEYS
+- SHARE_SWAP
+- SIGNAL
+- ISSUE
+- ADD_SHAMAN
+- TRANSFER_ERC20
+- TRANSFER_NETWORK_TOKEN
+- UPDATE_GOV_SETTINGS
+- TOKEN_SETTINGS
+- TOKENS_FOR_SHARES
+- GUILDKICK
+- CREATE_PUBLICATION
+- CREATE_ARTICLE
+
+COMMON_FORMS KEYS
+- METADATA_SETTINGS
+- UPDATE_SHAMAN
+*/
+
+export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   SIGNAL: {
     id: 'SIGNAL',
     title: 'Signal Form',
@@ -29,15 +48,19 @@ export const FORM: Record<string, CustomFormLego> = {
     requiredFields: { title: true, description: true },
     log: true,
     tx: TX.POST_SIGNAL,
-    fields: [FIELD.TITLE, FIELD.DESCRIPTION, FIELD.LINK],
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      ...PROPOSAL_SETTINGS_FIELDS,
+    ],
   },
   ISSUE: {
     id: 'ISSUE',
-    title: 'Issue DAO Tokens',
+    title: 'Request DAO Tokens',
     subtitle: 'Token Proposal',
     log: true,
-    description:
-      'Request membership or increased stake in the DAO. Any tribute must be available in your wallet when proposal is executed.',
+    description: 'Request membership or increased stake in the DAO.',
     tx: TX.ISSUE,
     requiredFields: {
       title: true,
@@ -67,6 +90,7 @@ export const FORM: Record<string, CustomFormLego> = {
         label: 'Non-Voting Token Requested',
         id: 'lootRequested',
       },
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
   ADD_SHAMAN: {
@@ -86,50 +110,16 @@ export const FORM: Record<string, CustomFormLego> = {
       FIELD.DESCRIPTION,
       FIELD.LINK,
       FIELD.SHAMAN_ADDRESS,
-      FIELD.SHAMAN_PERMISSIONS,
+      FIELD.SHAMAN_PERMISSION,
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
-  UPDATE_SHAMAN: {
-    id: 'UPDATE_SHAMAN',
-    title: 'Manage Shaman',
-    description: 'Learn more about Shamans in our documentation.',
-    subtitle: 'Manange Shaman Proposal',
-    requiredFields: {
-      title: true,
-      description: true,
-      shamanAddress: true,
-      shamanPermission: true,
-    },
-    tx: TX.ADD_SHAMAN,
-    fields: [
-      FIELD.TITLE,
-      FIELD.DESCRIPTION,
-      FIELD.LINK,
-      { ...FIELD.SHAMAN_ADDRESS, disabled: true },
-      FIELD.SHAMAN_DELUXE,
-    ],
-  },
-  TEST: {
-    id: 'TEST',
-    title: 'Test Form',
-    subtitle: 'Test Proposal',
-    description:
-      'Test your proposal like a champ with this shiny new Test Form.',
-    requiredFields: { title: true, description: true },
-    log: true,
-    tx: TX.POST_SIGNAL,
-    fields: [
-      FIELD.TITLE,
-      FIELD.DESCRIPTION,
-      FIELD.LINK,
-      FIELD.REQUEST_NATIVE_TOKEN,
-    ],
-  },
-  ISSUE_ERC20: {
-    id: 'ISSUE_ERC20',
-    title: 'Issue Funding (ERC20)',
+  TRANSFER_ERC20: {
+    id: 'TRANSFER_ERC20',
+    title: 'Request ERC-20',
     subtitle: 'Funding Proposal',
-    description: 'Ask the DAO for funds.',
+    description:
+      'Create a proposal to request ERC-20 tokens from the DAO treasury',
     log: true,
     tx: TX.ISSUE_ERC20,
     requiredFields: {
@@ -150,13 +140,15 @@ export const FORM: Record<string, CustomFormLego> = {
         placeholder: '0x...',
       },
       FIELD.REQUEST_TOKEN,
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
-  ISSUE_NETWORK_TOKEN: {
-    id: 'ISSUE_NETWORK_TOKEN',
-    title: 'Issue Funding (Network Token)',
+  TRANSFER_NETWORK_TOKEN: {
+    id: 'TRANSFER_NETWORK_TOKEN',
+    title: 'Reqest Network Token',
     subtitle: 'Funding Proposal',
-    description: 'Ask the DAO for funds.',
+    description:
+      "Create a proposal to request funding from the DAO treasury in the network's native token",
     log: true,
     tx: TX.ISSUE_NETWORK_TOKEN,
     requiredFields: {
@@ -177,38 +169,14 @@ export const FORM: Record<string, CustomFormLego> = {
         placeholder: '0x...',
       },
       FIELD.REQUEST_NATIVE_TOKEN,
-    ],
-  },
-  METADATA_SETTINGS: {
-    id: 'METADATA_SETTINGS',
-    title: 'Update Metadata Settings',
-    subtitle: 'Settings',
-    requiredFields: { name: true },
-    log: true,
-    tx: TX.UPDATE_METADATA_SETTINGS,
-    fields: [
-      FIELD.NAME,
-      FIELD.DESCRIPTION,
-      {
-        ...FIELD.DESCRIPTION,
-        id: 'long_description',
-        label: 'Long Description',
-      },
-      { ...FIELD.LINK, id: 'icon', label: 'Icon' },
-      { ...FIELD.LINK, id: 'discord', label: 'Discord' },
-      { ...FIELD.LINK, id: 'github', label: 'Github' },
-      { ...FIELD.LINK, id: 'medium', label: 'Medium' },
-      { ...FIELD.LINK, id: 'telegram', label: 'Telegram' },
-      { ...FIELD.LINK, id: 'twitter', label: 'Twitter' },
-      { ...FIELD.LINK, id: 'other', label: 'Other' },
-      FIELD.TAGS,
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
   UPDATE_GOV_SETTINGS: {
     id: 'UPDATE_GOV_SETTINGS',
     title: 'Update Governance Settings',
     subtitle: 'Governance Setting Proposal',
-    description: 'Learn more about Governanace Settings in our documentation.',
+    description: 'Learn more about Governance Settings in our documentation.',
     tx: TX.UPDATE_GOV_SETTINGS,
     requiredFields: {
       title: true,
@@ -286,7 +254,7 @@ export const FORM: Record<string, CustomFormLego> = {
                 rowId: 'row2',
                 left: {
                   id: 'sponsorThreshold',
-                  type: 'input',
+                  type: 'toWeiInput',
                   expectType: 'number',
                   label: 'Sponsor Threshold',
                   placeholder: '1',
@@ -294,7 +262,7 @@ export const FORM: Record<string, CustomFormLego> = {
                 },
                 right: {
                   id: 'newOffering',
-                  type: 'input',
+                  type: 'toWeiInput',
                   label: 'New Offering',
                   expectType: 'number',
                   placeholder: '0',
@@ -305,6 +273,7 @@ export const FORM: Record<string, CustomFormLego> = {
           },
         ],
       },
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
   TOKEN_SETTINGS: {
@@ -336,14 +305,14 @@ export const FORM: Record<string, CustomFormLego> = {
                 left: {
                   id: 'vStake',
                   type: 'switch',
-                  label: 'Transferable',
+                  label: 'Voting Token Transferable',
                   info: SUMMON_COPY.STAKE_TRANSFER,
                   switches: [
                     {
                       id: 'vStake',
                       fieldLabel: {
-                        off: 'Not Transferable',
-                        on: 'Transferable',
+                        off: 'Transferable',
+                        on: 'Not Transferable',
                       },
                     },
                   ],
@@ -351,14 +320,14 @@ export const FORM: Record<string, CustomFormLego> = {
                 right: {
                   id: 'nvStake',
                   type: 'switch',
-                  label: 'Transferable',
+                  label: 'Non-Voting Token Transferable',
                   info: SUMMON_COPY.NV_STAKE_TRANSFER,
                   switches: [
                     {
                       id: 'nvStake',
                       fieldLabel: {
-                        off: 'Not Transferable',
-                        on: 'Transferable',
+                        off: 'Transferable',
+                        on: 'Not Transferable',
                       },
                     },
                   ],
@@ -368,6 +337,7 @@ export const FORM: Record<string, CustomFormLego> = {
           },
         ],
       },
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
   TOKENS_FOR_SHARES: {
@@ -398,6 +368,7 @@ export const FORM: Record<string, CustomFormLego> = {
         id: 'lootRequested',
       },
       FIELD.TRIBUTE,
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
   GUILDKICK: {
@@ -405,7 +376,7 @@ export const FORM: Record<string, CustomFormLego> = {
     title: 'Guild Kick Proposal',
     subtitle: 'Guild Kick Member',
     description:
-      'Propose to exchange a member’s voting token balance with non-voting tokens. This will mean they can no longer vote on proposals once passed.',
+      'Propose to exchange a member’s voting token balance with non-voting tokens. If passed, this will mean they can no longer vote on proposals.',
     tx: TX.GUILDKICK,
     requiredFields: {
       title: true,
@@ -422,7 +393,26 @@ export const FORM: Record<string, CustomFormLego> = {
         // @ts-expect-error: doing object spread, even if the field definition has the property
         daoMemberOnly: true,
       },
-      FIELD.PROPOSAL_EXPIRY,
+      ...PROPOSAL_SETTINGS_FIELDS,
+    ],
+  },
+  WALLETCONNECT: {
+    devtool: true,
+    id: 'WALLETCONNECT',
+    title: 'WalletConnect Proposal',
+    subtitle: 'Use WalletConnect to create a Proposal',
+    description: 'Extend DAO Proposals to external contracts',
+    tx: TX.WALLETCONNECT,
+    requiredFields: {
+      title: true,
+      walletConnectLink: true,
+    },
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      FIELD.WALLETCONNECT_LINKER,
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
 };
@@ -475,6 +465,7 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
           },
         ],
       },
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
   },
   CREATE_ARTICLE: {
@@ -511,6 +502,111 @@ export const TABULA_FORMS: Record<string, CustomFormLego> = {
           FIELD.FAKE_MD,
         ],
       },
+      ...PROPOSAL_SETTINGS_FIELDS,
     ],
+  },
+};
+
+export const COMMON_FORMS: Record<string, CustomFormLego> = {
+  METADATA_SETTINGS: {
+    id: 'METADATA_SETTINGS',
+    title: 'Update Metadata Settings',
+    subtitle: 'Settings',
+    requiredFields: { name: true },
+    log: true,
+    tx: TX.UPDATE_METADATA_SETTINGS,
+    fields: [
+      FIELD.NAME,
+      FIELD.DESCRIPTION,
+      {
+        ...FIELD.DESCRIPTION,
+        id: 'long_description',
+        label: 'Long Description',
+      },
+      { ...FIELD.LINK, id: 'icon', label: 'Icon' },
+      { ...FIELD.LINK, id: 'discord', label: 'Discord' },
+      { ...FIELD.LINK, id: 'github', label: 'Github' },
+      { ...FIELD.LINK, id: 'medium', label: 'Medium' },
+      { ...FIELD.LINK, id: 'telegram', label: 'Telegram' },
+      { ...FIELD.LINK, id: 'twitter', label: 'Twitter' },
+      { ...FIELD.LINK, id: 'other', label: 'Other' },
+      FIELD.TAGS,
+    ],
+  },
+  UPDATE_SHAMAN: {
+    id: 'UPDATE_SHAMAN',
+    title: 'Manage Shaman',
+    description: 'Learn more about Shamans in our documentation.',
+    subtitle: 'Manange Shaman Proposal',
+    requiredFields: {
+      title: true,
+      description: true,
+      shamanAddress: true,
+      shamanPermission: true,
+    },
+    tx: TX.ADD_SHAMAN,
+    fields: [
+      FIELD.TITLE,
+      FIELD.DESCRIPTION,
+      FIELD.LINK,
+      { ...FIELD.SHAMAN_ADDRESS, disabled: true },
+      FIELD.SHAMAN_DELUXE,
+      ...PROPOSAL_SETTINGS_FIELDS,
+    ],
+  },
+  MANAGE_DELEGATE: {
+    id: 'MANAGE_DELEGATE',
+    fields: [FIELD.DELEGATE],
+    requiredFields: {
+      delegatingTo: true,
+    },
+    submitButtonText: 'Update Delegate',
+    tx: TX.MANAGE_DELEGATE,
+  },
+  RAGEQUIT: {
+    id: 'RAGEQUIT',
+    title: 'Ragequit',
+    subtitle: 'Members',
+    fields: [
+      {
+        id: 'tokenAmounts',
+        type: 'formSegment',
+        title: 'Step 1. Select voting and/or non-voting tokens to ragequit',
+        fields: [
+          {
+            id: 'sharesToBurn',
+            // @ts-expect-error: cannot resolve type within formSegment using custom fields sent from the core-app
+            type: 'ragequitToken',
+          },
+          // @ts-expect-error: cannot resolve type within formSegment using custom fields sent from the core-app
+          { id: 'lootToBurn', type: 'ragequitToken' },
+        ],
+      },
+      {
+        id: 'tokenAddresses',
+        type: 'formSegment',
+        title:
+          'Step 2. Select treasury tokens you want to receive in exchange for your dao tokens',
+        fields: [
+          // @ts-expect-error: cannot resolve type within formSegment using custom fields sent from the core-app
+          { id: 'tokens', type: 'ragequitTokenList' },
+        ],
+      },
+      {
+        id: 'checkRender',
+        type: 'checkRender',
+        gateLabel: 'Ragequit to different address (optional)',
+        components: [
+          {
+            id: 'to',
+            type: 'input',
+            label: 'Address to send funds',
+            expectType: 'ethAddress',
+            placeholder: '0x...',
+          },
+        ],
+      },
+    ],
+    tx: TX.RAGEQUIT,
   },
 };

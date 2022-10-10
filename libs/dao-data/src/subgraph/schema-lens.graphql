@@ -89,6 +89,14 @@ input BurnProfileRequest {
   profileId: ProfileId!
 }
 
+type CanCommentResponse {
+  result: Boolean!
+}
+
+type CanMirrorResponse {
+  result: Boolean!
+}
+
 """ChainId custom scalar type"""
 scalar ChainId
 
@@ -219,6 +227,8 @@ type Comment {
   collectedBy: Wallet
   reaction(request: ReactionFieldResolverRequest): ReactionTypes
   hasCollectedByMe: Boolean!
+  canComment(profileId: ProfileId): CanCommentResponse!
+  canMirror(profileId: ProfileId): CanMirrorResponse!
   mirrors(by: ProfileId): [InternalPublicationId!]!
 }
 
@@ -795,6 +805,11 @@ type CreateUnfollowBroadcastItemResult {
 """Cursor custom scalar type"""
 scalar Cursor
 
+"""The custom filters types"""
+enum CustomFiltersTypes {
+  GARDENERS
+}
+
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
@@ -802,6 +817,32 @@ scalar DateTime
 
 input DefaultProfileRequest {
   ethereumAddress: EthereumAddress!
+}
+
+input DegreesOfSeparationReferenceModuleParams {
+  """Applied to comments"""
+  commentsRestricted: Boolean!
+
+  """Applied to mirrors"""
+  mirrorsRestricted: Boolean!
+
+  """Degrees of separation"""
+  degreesOfSeparation: Int!
+}
+
+type DegreesOfSeparationReferenceModuleSettings {
+  """The reference modules enum"""
+  type: ReferenceModules!
+  contractAddress: ContractAddress!
+
+  """Applied to comments"""
+  commentsRestricted: Boolean!
+
+  """Applied to mirrors"""
+  mirrorsRestricted: Boolean!
+
+  """Degrees of separation"""
+  degreesOfSeparation: Int!
 }
 
 """The dispatcher"""
@@ -925,6 +966,7 @@ input ExploreProfilesRequest {
   cursor: Cursor
   timestamp: TimestampScalar
   sortCriteria: ProfileSortCriteria!
+  customFilters: [CustomFiltersTypes!] = []
 }
 
 input ExplorePublicationRequest {
@@ -945,6 +987,7 @@ input ExplorePublicationRequest {
   """If you wish to exclude any results for profile ids"""
   excludeProfileIds: [ProfileId!]
   metadata: PublicationMetadataFilters
+  customFilters: [CustomFiltersTypes!] = []
 }
 
 """The paginated publication result"""
@@ -1213,6 +1256,23 @@ input IllegalReasonInputParams {
 """Internal publication id custom scalar type"""
 scalar InternalPublicationId
 
+input InternalPublicationsFilterRequest {
+  limit: LimitScalar
+  cursor: Cursor
+
+  """must be DD/MM/YYYY"""
+  fromDate: String!
+
+  """must be DD/MM/YYYY"""
+  toDate: String!
+
+  """The App Id"""
+  source: Sources!
+
+  """The shared secret"""
+  secret: String!
+}
+
 """jwt custom scalar type"""
 scalar Jwt
 
@@ -1348,10 +1408,10 @@ type MediaSet {
   original: Media!
 
   """Small media - will always be null on the public API"""
-  small: Media
+  small: Media @deprecated(reason: "should not be used will always be null")
 
   """Medium media - will always be null on the public API"""
-  medium: Media
+  medium: Media @deprecated(reason: "should not be used will always be null")
 }
 
 union MentionPublication = Post | Comment
@@ -1420,6 +1480,9 @@ type MetadataOutput {
 
   """The main focus of the publication"""
   mainContentFocus: PublicationMainFocus!
+
+  """The main focus of the publication"""
+  animatedUrl: Url
 }
 
 """mimetype custom scalar type"""
@@ -1468,6 +1531,8 @@ type Mirror {
   mirrorOf: MirrorablePublication!
   reaction(request: ReactionFieldResolverRequest): ReactionTypes
   hasCollectedByMe: Boolean!
+  canComment(profileId: ProfileId): CanCommentResponse!
+  canMirror(profileId: ProfileId): CanMirrorResponse!
 }
 
 union MirrorablePublication = Post | Comment
@@ -1578,6 +1643,16 @@ type NewMirrorNotification {
   """The profile"""
   profile: Profile!
   publication: MirrorablePublication!
+}
+
+type NewReactionNotification {
+  notificationId: NotificationId!
+  createdAt: DateTime!
+
+  """The profile"""
+  profile: Profile!
+  reaction: ReactionTypes!
+  publication: Publication!
 }
 
 """The nft type"""
@@ -1712,7 +1787,7 @@ type NFTsResult {
 """Nonce custom scalar type"""
 scalar Nonce
 
-union Notification = NewFollowerNotification | NewCollectNotification | NewCommentNotification | NewMirrorNotification | NewMentionNotification
+union Notification = NewFollowerNotification | NewCollectNotification | NewCommentNotification | NewMirrorNotification | NewMentionNotification | NewReactionNotification
 
 """The notification id"""
 scalar NotificationId
@@ -1727,6 +1802,7 @@ input NotificationRequest {
   """The App Id"""
   sources: [Sources!] = []
   metadata: PublicationMetadataFilters
+  customFilters: [CustomFiltersTypes!] = []
 }
 
 type OnChainIdentity {
@@ -1882,6 +1958,8 @@ type Post {
   collectedBy: Wallet
   reaction(request: ReactionFieldResolverRequest): ReactionTypes
   hasCollectedByMe: Boolean!
+  canComment(profileId: ProfileId): CanCommentResponse!
+  canMirror(profileId: ProfileId): CanMirrorResponse!
   mirrors(by: ProfileId): [InternalPublicationId!]!
 }
 
@@ -2202,7 +2280,7 @@ input PublicationMetadataV1Input {
   appId: Sources
 
   """A human-readable description of the item."""
-  description: String
+  description: Markdown
 
   """
   The content of a publication. If this is blank `media` must be defined or its out of spec
@@ -2263,7 +2341,7 @@ input PublicationMetadataV2Input {
   appId: Sources
 
   """A human-readable description of the item."""
-  description: String
+  description: Markdown
 
   """
   The content of a publication. If this is blank `media` must be defined or its out of spec
@@ -2401,6 +2479,7 @@ enum PublicationSortCriteria {
   TOP_COMMENTED
   TOP_COLLECTED
   TOP_MIRRORED
+  CURATED_PROFILES
   LATEST
 }
 
@@ -2426,6 +2505,7 @@ input PublicationsQueryRequest {
   """The publication id"""
   publicationIds: [InternalPublicationId!]
   metadata: PublicationMetadataFilters
+  customFilters: [CustomFiltersTypes!] = []
 }
 
 """The publication stats"""
@@ -2495,7 +2575,7 @@ type Query {
   notifications(request: NotificationRequest!): PaginatedNotificationResult!
   profiles(request: ProfileQueryRequest!): PaginatedProfileResult!
   profile(request: SingleProfileQueryRequest!): Profile
-  recommendedProfiles: [Profile!]!
+  recommendedProfiles(options: RecommendedProfileOptions): [Profile!]!
   defaultProfile(request: DefaultProfileRequest!): Profile
   globalProtocolStats(request: GlobalProtocolStatsRequest): GlobalProtocolStats!
   publications(request: PublicationsQueryRequest!): PaginatedPublicationResult!
@@ -2508,6 +2588,7 @@ type Query {
   userSigNonces: UserSigNonces!
   claimableHandles: ClaimableHandles!
   claimableStatus: ClaimStatus!
+  internalPublicationFilter(request: InternalPublicationsFilterRequest!): PaginatedPublicationResult!
   profileOnChainIdentity(request: ProfileOnChainIdentityRequest!): [OnChainIdentity!]!
   proxyActionStatus(proxyActionId: ProxyActionId!): ProxyActionStatusResultUnion!
   validatePublicationMetadata(request: ValidatePublicationMetadataRequest!): PublicationValidateMetadataResult!
@@ -2544,7 +2625,12 @@ enum ReactionTypes {
   DOWNVOTE
 }
 
-union ReferenceModule = FollowOnlyReferenceModuleSettings | UnknownReferenceModuleSettings
+input RecommendedProfileOptions {
+  """If you wish to turn ML off"""
+  disableML: Boolean = false
+}
+
+union ReferenceModule = FollowOnlyReferenceModuleSettings | UnknownReferenceModuleSettings | DegreesOfSeparationReferenceModuleSettings
 
 """reference module data scalar type"""
 scalar ReferenceModuleData
@@ -2555,11 +2641,15 @@ input ReferenceModuleParams {
 
   """A unknown reference module"""
   unknownReferenceModule: UnknownReferenceModuleParams
+
+  """The degrees of seperation reference module"""
+  degreesOfSeparationReferenceModule: DegreesOfSeparationReferenceModuleParams
 }
 
 """The reference module types"""
 enum ReferenceModules {
   FollowerOnlyReferenceModule
+  DegreesOfSeparationReferenceModule
   UnknownReferenceModule
 }
 
@@ -2646,6 +2736,7 @@ input SearchQueryRequest {
   """The search term"""
   query: Search!
   type: SearchRequestTypes!
+  customFilters: [CustomFiltersTypes!] = []
 
   """The App Id"""
   sources: [Sources!] = []

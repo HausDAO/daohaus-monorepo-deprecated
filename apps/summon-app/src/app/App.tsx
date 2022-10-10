@@ -1,13 +1,12 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 
-import { ParMd, Link } from '@daohaus/ui';
+import { Banner, Footer, widthQuery } from '@daohaus/ui';
 import { DaoHausNav, useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 import { TXBuilder } from '@daohaus/tx-builder-feature';
 import { SummonerForm } from '../layouts/SummonerForm';
 import { SummonerLoading } from '../layouts/SummonerLoading';
-import hausCastle from '../assets/hausCastle.svg';
 import { CenterLayout } from '../layouts/FormLayouts';
 import { SummonerSuccess } from '../layouts/SummonerSuccess';
 import { SummonError } from '../layouts/SummonError';
@@ -16,17 +15,10 @@ const TemporaryLayout = styled.div`
   width: 100%;
   padding-top: 2.7rem;
   padding: 4rem;
-  footer {
-    margin-top: 17rem;
-    padding-bottom: 5rem;
-    display: flex;
-    justify-content: center;
-    .logo-box {
-      display: flex;
-      align-items: center;
-      img {
-        margin-right: 1.8rem;
-      }
+  @media ${widthQuery.sm} {
+    .title {
+      font-size: 3.5rem;
+      margin-bottom: 2rem;
     }
   }
 `;
@@ -42,6 +34,7 @@ export const App = () => {
 
   return (
     <TXBuilder provider={provider} chainId={chainId} appState={{}}>
+      <Banner />
       <TemporaryLayout>
         <DaoHausNav />
         <CenterLayout>
@@ -56,6 +49,7 @@ export const App = () => {
           {summonState === 'loading' && <SummonerLoading txHash={txHash} />}
           {summonState === 'success' && (
             <SummonerSuccess
+              chainId={chainId}
               daoAddress={daoAddress}
               setSummonState={setSummonState}
             />
@@ -68,17 +62,7 @@ export const App = () => {
             />
           )}
         </CenterLayout>
-        <footer>
-          <div className="logo-box">
-            <img src={hausCastle} alt="daohaus castle logo" />
-            <ParMd>
-              Built by{' '}
-              <Link href="https://daohaus.club" linkType="external">
-                DAOhaus
-              </Link>
-            </ParMd>
-          </div>
-        </footer>
+        <Footer />
       </TemporaryLayout>
     </TXBuilder>
   );

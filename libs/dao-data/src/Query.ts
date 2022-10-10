@@ -134,7 +134,7 @@ export default class Query {
     networkId,
     filter,
     ordering = {
-      orderBy: 'id',
+      orderBy: 'createdAt',
       orderDirection: 'desc',
     },
     paging = {
@@ -226,7 +226,7 @@ export default class Query {
     networkId,
     filter,
     ordering = {
-      orderBy: 'id',
+      orderBy: 'createdAt',
       orderDirection: 'desc',
     },
     paging = {
@@ -456,10 +456,12 @@ export default class Query {
     networkId,
     dao,
     proposalId,
+    connectedAddress,
   }: {
     networkId: keyof Keychain;
     dao: string;
     proposalId: string;
+    connectedAddress?: string | null;
   }): Promise<IFindQueryResult<ITransformedProposalQuery>> {
     const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
@@ -474,6 +476,7 @@ export default class Query {
         FindProposalQueryVariables
       >(FindProposalDocument, url, networkId, {
         id: `${dao}-proposal-${proposalId}`,
+        connectedAddress,
       });
 
       return {

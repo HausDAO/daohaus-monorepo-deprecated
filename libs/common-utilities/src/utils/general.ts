@@ -1,5 +1,7 @@
 import { ethers } from 'ethers';
 
+export const ZERO_ADDRESS =
+  '0x0000000000000000000000000000000000000000000000000000000000000000';
 export const votingPowerPercentage = (
   daoTotalShares: string,
   memberShares: string
@@ -18,11 +20,16 @@ export const memberTokenBalanceShare = (
   tokenBalance: string | number,
   daoTotalShares: string | number,
   memberShares: string | number,
+  memberLoot: string | number,
   decimals: string | number = 18
 ): number => {
+  const sharesAndLoot =
+    Number(ethers.utils.formatEther(memberShares)) +
+    Number(ethers.utils.formatEther(memberLoot));
+
   const ratio =
-    Number(ethers.utils.formatEther(memberShares)) /
-    Number(ethers.utils.formatEther(daoTotalShares));
+    sharesAndLoot / Number(ethers.utils.formatEther(daoTotalShares));
+
   const memberSharesWei = Number(tokenBalance) * ratio;
   return memberSharesWei / 10 ** Number(decimals);
 };
@@ -30,10 +37,27 @@ export const memberTokenBalanceShare = (
 export const memberUsdValueShare = (
   usdValue: string | number,
   daoTotalShares: string | number,
+  memberShares: string | number,
+  memberLoot: string | number
+): number => {
+  const sharesAndLoot =
+    Number(ethers.utils.formatEther(memberShares)) +
+    Number(ethers.utils.formatEther(memberLoot));
+
+  const ratio =
+    sharesAndLoot / Number(ethers.utils.formatEther(daoTotalShares));
+
+  return Number(usdValue) * ratio;
+};
+
+export const sharesDelegatedToMember = (
+  delegateShares: string | number,
   memberShares: string | number
 ): number => {
-  const ratio =
-    Number(ethers.utils.formatEther(memberShares)) /
-    Number(ethers.utils.formatEther(daoTotalShares));
-  return Number(usdValue) * ratio;
+  return Number(delegateShares) - Number(memberShares);
+};
+
+export const lowerCaseLootToken = (tokenName?: string): string => {
+  if (!tokenName) return '';
+  return tokenName.replace('LOOT', 'Loot');
 };

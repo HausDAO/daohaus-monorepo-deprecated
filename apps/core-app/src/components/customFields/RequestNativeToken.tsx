@@ -8,7 +8,7 @@ import {
 } from '@daohaus/common-utilities';
 import { Buildable, Button, WrappedInput } from '@daohaus/ui';
 
-import { useDao } from '../../contexts/DaoContext';
+import { useDao } from '@daohaus/dao-context';
 import { getNetworkToken } from '../../utils/tokenData';
 
 // enum InputStates {

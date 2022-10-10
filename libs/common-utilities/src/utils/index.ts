@@ -8,6 +8,7 @@ export * from './typeguards';
 export * from './encoding';
 export * from './units';
 export * from './object';
+export * from './shamanPermission';
 export * from './time';
 export * from './validation';
 export * from './error';

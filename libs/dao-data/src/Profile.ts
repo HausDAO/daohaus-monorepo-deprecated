@@ -16,7 +16,6 @@ import {
   Proposal_OrderBy,
   Proposal_Filter,
   IListQueryResults,
-  ITransformedProposalListQuery,
   ListConnectedMemberProposalsQueryVariables,
   ListConnectedMemberProposalsQuery,
   ListConnectedMemberProposalsDocument,
@@ -176,7 +175,7 @@ export default class Profile {
     filter,
     memberAddress,
     ordering = {
-      orderBy: 'id',
+      orderBy: 'createdAt',
       orderDirection: 'desc',
     },
     paging = {

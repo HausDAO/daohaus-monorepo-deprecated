@@ -1,76 +1,66 @@
 import React from 'react';
 import { RiArrowDropDownLine } from 'react-icons/ri';
+import { IconType } from 'react-icons';
 
-import { Dropdown, DropdownMenuItem, DropdownButton } from '../../molecules';
-import { AppSwitcherTrigger } from './AppSwitcher.styles';
+import { Dropdown, DropdownMenuItem } from '../../molecules';
+import { AppSwitcherLink, AppSwitcherTrigger } from './AppSwitcher.styles';
+import { useBreakpoint } from '../../../hooks/useMediaQuery';
+import { widthQuery } from '../../../theme/global/breakpoints';
 
-import { ReactComponent as Daohaus } from '../../../assets/Daohaus.svg';
-import { ReactComponent as Docs } from '../../../assets/Docs.svg';
-import { ReactComponent as Hub } from '../../../assets/Hub.svg';
-import { ReactComponent as Summoner } from '../../../assets/Summoner.svg';
+interface IApp {
+  name: string;
+  url: string;
+  icon?:
+    | IconType
+    | React.FunctionComponent<
+        React.SVGProps<SVGSVGElement> & {
+          title?: string | undefined;
+        }
+      >;
+}
 
-type AppSwitcherProps = {
-  currentApp: string;
+export type AppSwitcherProps = {
+  trigger: IApp;
+  apps: IApp[];
   spacing?: string;
-  minWidth?: string;
+  width?: string;
   menuBg?: string;
   className?: string;
 };
 
-const hausApps = {
-  summoner: {
-    name: 'Summoner',
-    url: 'https://summon.daohaus.fun/',
-    icon: Summoner,
-  },
-  hub: {
-    name: 'Hub',
-    url: 'https://hub.daohaus.fun/',
-    icon: Hub,
-  },
-  docs: {
-    name: 'Docs',
-    url: 'https://storybook.daohaus.fun/',
-    icon: Docs,
-  },
-  daohaus: {
-    name: 'DAOHaus',
-    url: 'https://daohaus.club/',
-    icon: Daohaus,
-  },
-};
-
-type hausAppTypes = typeof hausApps;
-
-function getCurrentApp<T extends keyof hausAppTypes>(currentApp: T) {
-  return hausApps[currentApp];
-}
-
-function getDropdownApps<T extends keyof hausAppTypes>(currentApp: T) {
-  delete hausApps[currentApp];
-  return Object.values(hausApps).map((app, index) => (
+function getDropdownApps(apps: IApp[]) {
+  return apps.map((app, index) => (
     <DropdownMenuItem key={index} asChild>
-      <DropdownButton fullWidth leftAlign IconLeft={app.icon}>
+      <AppSwitcherLink
+        href={app.url}
+        LeftIcon={app.icon}
+        linkType="no-icon-external"
+      >
         {app.name}
-      </DropdownButton>
+      </AppSwitcherLink>
     </DropdownMenuItem>
   ));
 }
 
 export const AppSwitcher = ({
   className,
-  currentApp,
-  minWidth = '17.8rem',
+  trigger,
+  apps,
+  width,
 }: AppSwitcherProps) => {
-  const trigger = getCurrentApp(currentApp as keyof hausAppTypes);
-  const dropdownApps = getDropdownApps(currentApp as keyof hausAppTypes);
+  const dropdownApps = getDropdownApps(apps);
+  const isMobile = useBreakpoint(widthQuery.sm);
+
+  const buttonWidth = width || isMobile ? '100%' : '17.4rem';
+
   return (
     <Dropdown
       className={className}
-      menuMinWidth={minWidth}
+      menuMinWidth={width}
       trigger={
         <AppSwitcherTrigger
-          minWidth={minWidth}
+          width={buttonWidth}
+          sm={isMobile}
           IconLeft={trigger.icon}
           IconRight={RiArrowDropDownLine}
         >

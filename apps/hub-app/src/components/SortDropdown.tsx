@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { Select } from '@daohaus/ui';
 import { ParMd } from '@daohaus/ui';
+
 import { SORT_FIELDS } from '../utils/constants';
 
 const Container = styled.div`

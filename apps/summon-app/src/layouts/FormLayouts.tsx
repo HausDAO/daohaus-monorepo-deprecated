@@ -34,11 +34,10 @@ export const CenterLayout = styled.main`
 
 export const BlockImageContainer = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   height: 26rem;
-  width: 100%;
-  margin-bottom: 2.4rem;
+  margin-bottom: 2rem;
   .img-block {
     display: flex;
     height: 12rem;

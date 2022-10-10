@@ -87,9 +87,9 @@ export const StyledIndicator = styled(CheckboxPrimitive.Indicator)`
 export const LabelContainer = styled.label`
   align-items: center;
   display: flex;
-  margin-left: 19px;
+  margin-left: 1.2rem;
   label {
-    margin-right: 10px;
+    margin-right: 0.1rem;
   }
   svg {
     transform: translateY(0.1rem);

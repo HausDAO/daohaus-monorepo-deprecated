@@ -1,10 +1,14 @@
 import styled from 'styled-components';
-
+import { font } from '../../../theme/global/font';
 import { Theme } from '../../../types/theming';
-import { DropdownButton } from '../../molecules';
+import { DropdownButton, DropdownLink } from '../../molecules';
+
+export const AppSwitcherLink = styled(DropdownLink)`
+  font-weight: ${font.weight.bold};
+`;
 
 export const AppSwitcherTrigger = styled(DropdownButton)`
-  min-width: ${({ minWidth }: { minWidth: string }) => minWidth};
+  width: ${({ width }: { width: string }) => width};
   padding: 0 4px 0 16px;
 
   &[data-state='open'] {

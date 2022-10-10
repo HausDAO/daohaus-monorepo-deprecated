@@ -17,7 +17,6 @@ export const ButtonBase = styled.button`
   height: 4.8rem;
   justify-content: left;
   letter-spacing: 1.8px;
-  min-width: 8.5rem;
   padding: 1.2rem;
   transition: 0.2s all;
   width: ${(props: { width?: string }) => props.width};
@@ -121,14 +120,12 @@ export const ButtonBase = styled.button`
   &.sm {
     font-size: ${font.size.xs};
     height: 3.6rem;
-    min-width: 6.6rem;
     padding: 0.9rem;
   }
 
   &.lg {
     font-size: ${font.size.lg};
     height: 6rem;
-    min-width: 10.7rem;
     padding: 1.5rem;
   }
 

@@ -1,6 +1,5 @@
 import { ComponentProps } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { LookupType } from '@daohaus/common-utilities';
 import { Buildable, CheckGate } from '@daohaus/ui';
 
 import { FormBuilderFactory } from './FormBuilderFactory';
@@ -30,9 +29,11 @@ export const CheckRender = ({
       {...props}
       gateLabel={gateLabel}
       onUnchecked={() => {
-        props.components.forEach((field: FieldLego & { defaultValue?: string }) => {
-          if (field.defaultValue) setValue(field.id, field.defaultValue);
-        });
+        props.components.forEach(
+          (field: FieldLego & { defaultValue?: string }) => {
+            if (field.defaultValue) setValue(field.id, field.defaultValue);
+          }
+        );
       }}
     />
   );

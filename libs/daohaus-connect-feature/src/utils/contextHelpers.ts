@@ -19,8 +19,8 @@ import {
 export const numberToHex = (number: number) => {
   return `0x${number.toString(16)}`;
 };
-export const getModal = () => {
-  const modal = new SafeAppWeb3Modal();
+export const getModal = (options: ModalOptions) => {
+  const modal = new SafeAppWeb3Modal(options);
   return modal;
 };
 export const isMetamaskProvider = (
@@ -49,16 +49,18 @@ export const handleConnectWallet = async ({
   handleModalEvents,
   disconnect,
   setWalletState,
+  web3modalOptions,
 }: {
   setConnecting: ReactSetter<boolean>;
   handleModalEvents?: ModalEvents;
   disconnect: () => Promise<void>;
   setWalletState: ReactSetter<WalletStateType>;
+  web3modalOptions: ModalOptions;
 }) => {
   try {
     setConnecting(true);
 
-    const modal = getModal();
+    const modal = getModal(web3modalOptions);
     const modalProvider = await modal.requestProvider();
     const _isGnosisSafe = await modal.isSafeApp();
 
@@ -99,7 +101,7 @@ export const loadWallet = async ({
 }) => {
   const isMetamaskUnlocked =
     (await window.ethereum?._metamask?.isUnlocked?.()) ?? false;
-  const modal = getModal();
+  const modal = getModal(web3modalOptions);
   const _isGnosisSafe = await modal.isSafeApp();
 
   if (isMetamaskUnlocked && (_isGnosisSafe || web3modalOptions.cacheProvider)) {

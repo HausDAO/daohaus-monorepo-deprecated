@@ -46,12 +46,16 @@ export const proposalNeedsProcessing = (proposal: QueryProposal): boolean =>
   Number(proposal.yesBalance) > Number(proposal.noBalance) &&
   !proposal.processed;
 
-export const isProposalFailed = (proposal: QueryProposal): boolean =>
-  proposal.sponsored &&
-  nowInSeconds() > Number(proposal.graceEnds) &&
-  !proposal.cancelled &&
-  (!passedQuorum(proposal) ||
-    Number(proposal.yesBalance) < Number(proposal.noBalance));
+export const isProposalFailed = (proposal: QueryProposal): boolean => {
+  console.log('passedQuorum(proposal)', !passedQuorum(proposal));
+  return (
+    proposal.sponsored &&
+    nowInSeconds() > Number(proposal.graceEnds) &&
+    !proposal.cancelled &&
+    (!passedQuorum(proposal) ||
+      Number(proposal.yesBalance) <= Number(proposal.noBalance))
+  );
+};
 
 export const passedQuorum = (proposal: QueryProposal): boolean => {
   return checkHasQuorum({

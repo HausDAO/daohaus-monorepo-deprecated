@@ -566,6 +566,9 @@ type Member {
   """current loot held by the member"""
   loot: BigInt!
 
+  """total shares, loot and delegate shares, if 0 the member is inactive"""
+  sharesLootDelegateShares: BigInt!
+
   """address the member is delegating to"""
   delegatingTo: Bytes!
 
@@ -654,6 +657,14 @@ input Member_filter {
   loot_lte: BigInt
   loot_in: [BigInt!]
   loot_not_in: [BigInt!]
+  sharesLootDelegateShares: BigInt
+  sharesLootDelegateShares_not: BigInt
+  sharesLootDelegateShares_gt: BigInt
+  sharesLootDelegateShares_lt: BigInt
+  sharesLootDelegateShares_gte: BigInt
+  sharesLootDelegateShares_lte: BigInt
+  sharesLootDelegateShares_in: [BigInt!]
+  sharesLootDelegateShares_not_in: [BigInt!]
   delegatingTo: Bytes
   delegatingTo_not: Bytes
   delegatingTo_in: [Bytes!]
@@ -718,6 +729,7 @@ enum Member_orderBy {
   memberAddress
   shares
   loot
+  sharesLootDelegateShares
   delegatingTo
   delegatingToMember
   lastDelegateUpdateTxHash

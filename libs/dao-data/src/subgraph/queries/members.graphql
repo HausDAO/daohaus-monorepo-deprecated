@@ -29,6 +29,7 @@ fragment memberFields on Member {
   memberAddress
   shares
   loot
+  sharesLootDelegateShares
   delegatingTo
   delegateShares
   delegateOfCount

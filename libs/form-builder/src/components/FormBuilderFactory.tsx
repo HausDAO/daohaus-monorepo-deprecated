@@ -35,14 +35,7 @@ export const FormBuilderFactory = ({
         requiredFields: requiredFields || {},
       });
 
-      //TS CHALLENGE
-      // While I am able to get intellisense
-      // on the legos and bind the 'type' with the props that get passed
-      // into the react component, TS does not seem to want to recognize
-      // that both args and type are derived from the same source, the
-      // actual component
       return (
-        // @ts-expect-error: explanation above
         <Component
           {...field}
           full

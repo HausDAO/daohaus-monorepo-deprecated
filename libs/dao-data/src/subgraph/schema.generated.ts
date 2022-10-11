@@ -535,6 +535,8 @@ export interface Member {
   memberAddress: Scalars['Bytes'];
   /** current shares held by the member */
   shares: Scalars['BigInt'];
+  /** total shares, loot and delegate shares, if 0 the member is inactive */
+  sharesLootDelegateShares: Scalars['BigInt'];
   /** transaction where the member was created */
   txHash: Scalars['Bytes'];
   votes?: Maybe<Array<Vote>>;
@@ -663,6 +665,14 @@ export interface Member_Filter {
   memberAddress_not_contains?: InputMaybe<Scalars['Bytes']>;
   memberAddress_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   shares?: InputMaybe<Scalars['BigInt']>;
+  sharesLootDelegateShares?: InputMaybe<Scalars['BigInt']>;
+  sharesLootDelegateShares_gt?: InputMaybe<Scalars['BigInt']>;
+  sharesLootDelegateShares_gte?: InputMaybe<Scalars['BigInt']>;
+  sharesLootDelegateShares_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  sharesLootDelegateShares_lt?: InputMaybe<Scalars['BigInt']>;
+  sharesLootDelegateShares_lte?: InputMaybe<Scalars['BigInt']>;
+  sharesLootDelegateShares_not?: InputMaybe<Scalars['BigInt']>;
+  sharesLootDelegateShares_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   shares_gt?: InputMaybe<Scalars['BigInt']>;
   shares_gte?: InputMaybe<Scalars['BigInt']>;
   shares_in?: InputMaybe<Array<Scalars['BigInt']>>;
@@ -692,6 +702,7 @@ export type Member_OrderBy =
   | 'loot'
   | 'memberAddress'
   | 'shares'
+  | 'sharesLootDelegateShares'
   | 'txHash'
   | 'votes';
 

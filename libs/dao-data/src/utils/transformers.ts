@@ -1,11 +1,13 @@
-import { votingPowerPercentage } from '@daohaus/common-utilities';
+import {
+  AccountProfile,
+  DaoTokenBalances,
+  ITransformedMembership,
+  TokenBalance,
+  votingPowerPercentage,
+} from '@daohaus/common-utilities';
 import {
   ITransformedProposal,
-  ITransformedMembership,
   IFindQueryResult,
-  AccountProfile,
-  TokenBalance,
-  DaoTokenBalances,
   QueryProposal,
   ListMembershipsQuery,
   DaoProfile,

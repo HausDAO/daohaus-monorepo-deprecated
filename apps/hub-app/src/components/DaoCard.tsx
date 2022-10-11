@@ -15,7 +15,7 @@ import {
   ProfileAvatar,
 } from '@daohaus/ui';
 import { AlertCircle } from './AlertCircle';
-import { ITransformedMembership } from '@daohaus/dao-data';
+import { ITransformedMembership } from '@daohaus/common-utilities';
 
 const StyledDaoCard = styled.div`
   background-color: ${(props) => props.theme.card.bg};

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ITransformedMembership } from '@daohaus/dao-data';
+import { ITransformedMembership } from '@daohaus/common-utilities';
 import { useTable, Column, UseTableRowProps } from 'react-table';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';

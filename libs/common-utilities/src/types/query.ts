@@ -19,12 +19,14 @@ export interface ITransformedMembership {
 export interface ITransformedMembershipsQuery {
   daos: ITransformedMembership[];
 }
+
 export type TokenInfo = {
   decimals: number;
   symbol: string;
   name: string;
   logoUri: string | null;
 };
+
 export type TokenBalance = {
   token: TokenInfo | null;
   tokenAddress: string | null;

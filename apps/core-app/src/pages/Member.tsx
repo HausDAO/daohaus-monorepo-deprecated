@@ -24,8 +24,9 @@ import {
   memberUsdValueShare,
   charLimit,
   NETWORK_TOKEN_ETH_ADDRESS,
+  AccountProfile,
 } from '@daohaus/common-utilities';
-import { AccountProfile, FindMemberQuery, Haus } from '@daohaus/dao-data';
+import { FindMemberQuery, Haus } from '@daohaus/dao-data';
 
 import { useDao } from '@daohaus/dao-context';
 import { Profile } from '../components/Profile';

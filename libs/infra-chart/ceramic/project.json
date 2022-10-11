@@ -4,7 +4,7 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "command": "helm dependency build ./ceramic",
         "cwd": "libs/infra-chart"
@@ -17,21 +17,21 @@
       ]
     },
     "dryRun": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "command": "helm install --dry-run --debug -f ./ceramic/values.yaml test ./ceramic",
         "cwd": "libs/infra-chart"
       }
     },
     "add": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "command": "helm repo add bitnami https://charts.bitnami.com/bitnami",
         "cwd": "libs/infra-chart"
       }
     },
     "lint": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "command": "helm lint ./ceramic",
         "cwd": "libs/infra-chart"

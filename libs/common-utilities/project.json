@@ -54,7 +54,6 @@
         "outputPath": "dist/libs/common-utilities",
         "tsConfig": "./libs/common-utilities/tsconfig.lib.json",
         "main": "./libs/common-utilities/src/index.ts",
-
         "watch": true
       }
     }

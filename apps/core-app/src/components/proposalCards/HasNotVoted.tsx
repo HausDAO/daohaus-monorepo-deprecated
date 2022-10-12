@@ -85,13 +85,16 @@ export const HasNotVoted = ({
     });
   };
 
-  const readableVotePower = connectedMembership?.shares
-    ? `Cast Your Vote (${formatShares(connectedMembership.shares)})`
-    : undefined;
+  console.log('connectedMembership', connectedMembership);
 
-  const hasShares = connectedMembership?.shares
+  const readableVotePower =
+    connectedMembership && Number(connectedMembership?.delegateShares)
+      ? `Cast Your Vote (${formatShares(connectedMembership.delegateShares)})`
+      : undefined;
+
+  const hasShares = Number(connectedMembership?.delegateShares)
     ? true
-    : 'You must have shares to vote';
+    : 'You must have voting tokens to vote';
 
   const isConnectedToDao =
     chainId === daochain

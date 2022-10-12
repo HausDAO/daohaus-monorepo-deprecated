@@ -153,7 +153,7 @@ export const Profile = ({ profile, membership }: ProfileProps) => {
             })}
           />
           <DataIndicator
-            label="Shares"
+            label="Voting Tokens"
             data={formatValueTo({
               value: fromWei(membership.shares),
               decimals: 2,
@@ -161,7 +161,7 @@ export const Profile = ({ profile, membership }: ProfileProps) => {
             })}
           />
           <DataIndicator
-            label="Loot"
+            label="Non-Voting Tokens"
             data={formatValueTo({
               value: fromWei(membership.loot),
               decimals: 2,

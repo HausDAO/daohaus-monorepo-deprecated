@@ -15,16 +15,16 @@ export default defineConfig({
       name: 'daohaus-connect-feature',
     },
     rollupOptions: {
-      // make sure to externalize deps that shouldn't be bundled
-      // into your library
-      external: ['react', 'react-dom', 'styled-components', 'react-router'],
-      // Provide global variables to use in the UMD build
-      // for externalized deps
       output: {
-        globals: { 'styled-components': 'styled' },
         format: 'umd',
         inlineDynamicImports: true,
+        // Provide global variables to use in the UMD build
+        // for externalized deps
+        globals: { 'styled-components': 'styled' },
       },
+      // make sure to externalize deps that shouldn't be bundled
+      // into your library
+      external: ['react', 'react-dom', 'styled-components'],
     },
   },
 });

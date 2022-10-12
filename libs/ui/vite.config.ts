@@ -15,9 +15,6 @@ export default defineConfig({
       name: 'ui',
     },
     rollupOptions: {
-      // make sure to externalize deps that shouldn't be bundled
-      // into your library
-      external: ['react', 'react-dom', 'styled-components'],
       output: {
         format: 'umd',
         inlineDynamicImports: true,
@@ -25,6 +22,9 @@ export default defineConfig({
         // for externalized deps
         globals: { 'styled-components': 'styled' },
       },
+      // make sure to externalize deps that shouldn't be bundled
+      // into your library
+      external: ['react', 'react-dom', 'styled-components'],
     },
   },
 });

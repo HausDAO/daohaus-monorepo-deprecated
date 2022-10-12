@@ -159,6 +159,7 @@ export function Member() {
               value: memberUsdValueShare(
                 bal.fiatBalance,
                 dao.totalShares || 0,
+                dao.totalLoot || 0,
                 currentMember.shares || 0,
                 currentMember.loot || 0
               ),
@@ -169,6 +170,7 @@ export function Member() {
               value: memberTokenBalanceShare(
                 bal.balance,
                 dao.totalShares || 0,
+                dao.totalLoot || 0,
                 currentMember.shares || 0,
                 currentMember.loot || 0,
                 bal.token?.decimals || 18

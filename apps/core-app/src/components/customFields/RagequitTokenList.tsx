@@ -136,6 +136,7 @@ export const RagequitTokenList = (props: Buildable<Field>) => {
                 value: memberTokenBalanceShare(
                   token.balance,
                   dao.totalShares || 0,
+                  dao.totalLoot || 0,
                   sharesToBurn || 0,
                   lootToBurn || 0,
                   token.token?.decimals || 18
@@ -152,6 +153,7 @@ export const RagequitTokenList = (props: Buildable<Field>) => {
                 value: memberUsdValueShare(
                   token.fiatBalance,
                   dao.totalShares || 0,
+                  dao.totalLoot || 0,
                   sharesToBurn || 0,
                   lootToBurn || 0
                 ),

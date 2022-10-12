@@ -265,6 +265,7 @@ export function Member() {
                       value: memberUsdValueShare(
                         dao?.fiatTotal || 0,
                         dao?.totalShares || 0,
+                        dao?.totalLoot || 0,
                         currentMember.shares || 0,
                         currentMember.loot || 0
                       ),

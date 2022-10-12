@@ -18,7 +18,8 @@
     "**/*.spec.jsx",
     "**/*.test.jsx",
     "jest.config.*",
-    "jest-environment-jsdom.*"
+    "jest-environment-jsdom.*",
+    "jest.config.ts"
   ],
   "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx"]
 }

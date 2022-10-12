@@ -5,7 +5,7 @@ import {
   fromWei,
   Keychain,
 } from '@daohaus/common-utilities';
-import { AddressDisplay, DataMd, ParMd } from '@daohaus/ui';
+import { AddressDisplay, DataMd, ParMd, widthQuery } from '@daohaus/ui';
 
 import { TProposals } from '@daohaus/dao-context';
 import { useParams } from 'react-router-dom';
@@ -15,6 +15,10 @@ const VotesContainer = styled.div`
   flex-direction: column;
   gap: 4.4rem;
   margin-top: 3rem;
+  min-width: 50rem;
+  @media ${widthQuery.sm} {
+    min-width: 100%;
+  }
 `;
 
 const VoteContainer = styled.div`

@@ -1,14 +1,16 @@
-import { Keychain } from '@daohaus/common-utilities';
 import {
   AccountProfile,
-  ICrossNetworkMemberListArguments,
   DaoTokenBalances,
+  ITransformedMembershipsQuery,
+  Keychain,
+} from '@daohaus/common-utilities';
+import {
+  ICrossNetworkMemberListArguments,
   ListMembershipsDocument,
   ListMembershipsQuery,
   ListMembershipsQueryVariables,
   Member_OrderBy,
   IFindQueryResult,
-  ITransformedMembershipsQuery,
   Dao_OrderBy,
   Member_Filter,
   LensProfile,

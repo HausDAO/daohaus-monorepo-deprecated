@@ -13,7 +13,7 @@ import {
   useToast,
   Tag,
 } from '@daohaus/ui';
-import { ITransformedMembership } from '@daohaus/dao-data';
+import { ITransformedMembership } from '@daohaus/common-utilities';
 import { BsShareFill, BsArrowLeft } from 'react-icons/bs';
 import useDaoData from '../hooks/useDaoData';
 import { Layout } from '../components/Layout';

@@ -1,4 +1,5 @@
 import {
+  fromWei,
   handleErrorMessage,
   isNumberish,
   TXLego,
@@ -82,12 +83,13 @@ export const Unsponsored = ({
 
   const hasShares = useMemo(() => {
     if (
+      dao &&
       isNumberish(connectedMembership?.shares) &&
-      isNumberish(dao?.sponsorThreshold)
+      isNumberish(dao.sponsorThreshold)
     ) {
       return Number(connectedMembership?.shares) >= Number(dao?.sponsorThreshold)
         ? true
-        : PROP_CARD_HELP.UNSPONSORED;
+        : `${fromWei(dao.sponsorThreshold)} voting stake tokens are required to sponsor this proposal.`;
     }
     return 'Subgraph data not loading or is not in sync';
   }, [dao, connectedMembership]);
@@ -99,7 +101,7 @@ export const Unsponsored = ({
 
   return (
     <ActionTemplate
-      statusDisplay="Needs A Sponsor"
+      statusDisplay="Needs a Sponsor"
       proposal={proposal}
       main={
         <>

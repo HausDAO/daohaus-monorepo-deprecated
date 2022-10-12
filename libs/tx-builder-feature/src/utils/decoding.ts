@@ -2,6 +2,7 @@ import { BigNumber, utils } from 'ethers';
 import {
   ArgType,
   CONTRACTS,
+  ENCODED_0X0_DATA,
   ValidNetwork,
   ZERO_ADDRESS,
 } from '@daohaus/common-utilities';
@@ -101,18 +102,13 @@ const decodeMultisend = ({ chainId, actionData }: MultisendArgs) => {
 };
 
 const isEthTransfer = (action: EncodedAction) =>
-  action?.data?.slice(2)?.length === 0;
+  action?.data?.slice(2)?.length === 0 || action?.data === ENCODED_0X0_DATA;
+
 const buildEthTransferAction = (action: EncodedAction): DecodedAction => ({
-  to: ZERO_ADDRESS,
+  to: action.to,
   name: 'ETH Transfer',
-  value: action.value,
-  params: [
-    {
-      name: 'value',
-      type: 'uint256',
-      value: BigNumber.from(action.value).toString(),
-    },
-  ],
+  value: BigNumber.from(action.value).toString(),
+  params: [],
 });
 
 const decodeAction = async ({

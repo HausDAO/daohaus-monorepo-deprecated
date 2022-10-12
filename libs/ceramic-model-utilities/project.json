@@ -11,13 +11,13 @@
       }
     },
     "publishBuild": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "command": "tsc --project ./libs/ceramic-model-utilities/tsconfig.script.json && cp ./libs/ceramic-model-utilities/package.json ./dist/libs/ceramic-model-utilities"
       }
     },
     "publish": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "command": "node --experimental-json-modules ./dist/libs/ceramic-model-utilities/scripts/publishModels.js"
       },
@@ -35,7 +35,6 @@
         "outputPath": "dist/libs/ceramic-model-utilities",
         "tsConfig": "./libs/ceramic-model-utilities/tsconfig.lib.json",
         "main": "./libs/ceramic-model-utilities/src/index.ts",
-
         "watch": true
       },
       "build": {

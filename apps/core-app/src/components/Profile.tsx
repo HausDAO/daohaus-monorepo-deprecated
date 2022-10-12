@@ -12,7 +12,7 @@ import {
   DataIndicator,
   widthQuery,
 } from '@daohaus/ui';
-import { AccountProfile } from '@daohaus/dao-data';
+import { AccountProfile } from '@daohaus/common-utilities';
 import {
   formatLongDateFromSeconds,
   formatValueTo,

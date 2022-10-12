@@ -1,10 +1,14 @@
-import { ENDPOINTS, Keychain, KeychainList } from '@daohaus/common-utilities';
+import {
+  DaoTokenBalances,
+  ENDPOINTS,
+  Keychain,
+  KeychainList,
+  TokenBalance,
+} from '@daohaus/common-utilities';
 
 import {
   IListQueryArguments,
   IFindQueryResult,
-  DaoTokenBalances,
-  TokenBalance,
   ITransformedProposalQuery,
   ITransformedProposalListQuery,
   DaoWithTokenDataQuery,

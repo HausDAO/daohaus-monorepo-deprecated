@@ -51,7 +51,7 @@ export const isProposalFailed = (proposal: QueryProposal): boolean =>
   nowInSeconds() > Number(proposal.graceEnds) &&
   !proposal.cancelled &&
   (!passedQuorum(proposal) ||
-    Number(proposal.yesBalance) < Number(proposal.noBalance));
+    Number(proposal.yesBalance) <= Number(proposal.noBalance));
 
 export const passedQuorum = (proposal: QueryProposal): boolean => {
   return checkHasQuorum({

@@ -19,7 +19,7 @@ import {
 import { useConnectedMembership, useDao } from '@daohaus/dao-context';
 import { CheckboxProps, CheckedState } from '@radix-ui/react-checkbox';
 import styled from 'styled-components';
-import { TokenBalance } from '@daohaus/dao-data';
+import { TokenBalance } from '@daohaus/common-utilities';
 import { useParams } from 'react-router-dom';
 import { sortTokensForRageQuit } from '../../utils/general';
 

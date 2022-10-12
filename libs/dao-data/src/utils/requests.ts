@@ -34,7 +34,7 @@ export const graphFetchList = async <T = unknown, V = QueryVariables>(
 
 const cleanVariables = <V = QueryVariables>(variables: V): V => {
   return Object.fromEntries(
-    Object.entries(variables)
+    Object.entries(variables as Record<string, unknown>)
       .filter(
         ([, value]) => value !== '' && value !== null && value !== undefined
       )

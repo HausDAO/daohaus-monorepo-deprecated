@@ -5,7 +5,7 @@ import {
   getNetworkName,
   readableNumbers,
 } from '@daohaus/common-utilities';
-import { ITransformedMembership } from '@daohaus/dao-data';
+import { ITransformedMembership } from '@daohaus/common-utilities';
 import {
   Badge,
   Bold,

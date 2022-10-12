@@ -94,7 +94,7 @@ export const ReadyForProcessing = ({
     const processingGasLimit = (
       Number(actionGasEstimate) > 0
         ? Number(actionGasEstimate) + PROCESS_PROPOSAL_GAS_LIMIT_ADDITION
-        : PROCESS_PROPOSAL_GAS_LIMIT_ADDITION * 2
+        : PROCESS_PROPOSAL_GAS_LIMIT_ADDITION * 3.6
     ).toFixed();
 
     if (!proposalId) return;

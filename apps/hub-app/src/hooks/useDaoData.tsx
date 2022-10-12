@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { Haus, ITransformedMembership } from '@daohaus/dao-data';
-import { NETWORK_DATA, ValidNetwork } from '@daohaus/common-utilities';
+import { Haus } from '@daohaus/dao-data';
+import {
+  ITransformedMembership,
+  NETWORK_DATA,
+  ValidNetwork,
+} from '@daohaus/common-utilities';
 
 const temporaryInitHaus = () => {
   return Haus.create();

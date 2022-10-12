@@ -222,6 +222,8 @@ type Member @entity {
   shares: BigInt!
   "current loot held by the member"
   loot: BigInt!
+  "total shares, loot and delegate shares, if 0 the member is inactive"
+  sharesLootDelegateShares: BigInt!
   "address the member is delegating to"
   delegatingTo: Bytes!
   "subgraph id of member the address is delegating to"

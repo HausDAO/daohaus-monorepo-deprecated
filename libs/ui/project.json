@@ -17,7 +17,7 @@
     },
     "build": {
       "outputs": ["{options.outputPath}"],
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "outputPath": "dist/libs/ui",
         "command": "tsc --project libs/ui/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
@@ -67,7 +67,11 @@
     "build-storybook": {
       "executor": "@nrwl/storybook:build",
       "outputs": ["{options.outputPath}"],
-      "inputs": [{ "env": "NODE_ENV" }],
+      "inputs": [
+        {
+          "env": "NODE_ENV"
+        }
+      ],
       "options": {
         "uiFramework": "@storybook/react",
         "outputPath": "dist/storybook/ui",
@@ -108,7 +112,12 @@
         "portalUrl": "https://skynetfree.net",
         "skynetApiKeyVarName": "SKYNET_API_KEY"
       },
-      "dependsOn": [{ "target": "build-storybook", "projects": "self" }]
+      "dependsOn": [
+        {
+          "target": "build-storybook",
+          "projects": "self"
+        }
+      ]
     }
   }
 }

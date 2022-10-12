@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import {
   handleErrorMessage,
   isValidNetwork,
+  ITransformedMembership,
   ValidNetwork,
 } from '@daohaus/common-utilities';
-import { Haus, ITransformedMembership } from '@daohaus/dao-data';
+import { Haus } from '@daohaus/dao-data';
 import {
   H2,
   Spinner,

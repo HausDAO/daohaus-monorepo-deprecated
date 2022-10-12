@@ -85,8 +85,6 @@ export const HasNotVoted = ({
     });
   };
 
-  console.log('connectedMembership', connectedMembership);
-
   const readableVotePower =
     connectedMembership && Number(connectedMembership?.delegateShares)
       ? `Cast Your Vote (${formatShares(connectedMembership.delegateShares)})`

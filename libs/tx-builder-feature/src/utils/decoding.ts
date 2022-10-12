@@ -4,7 +4,6 @@ import {
   CONTRACTS,
   ENCODED_0X0_DATA,
   ValidNetwork,
-  ZERO_ADDRESS,
 } from '@daohaus/common-utilities';
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import { createContract, fetchABI } from './abi';

@@ -1,5 +1,5 @@
 import { MouseEvent, useState, ChangeEvent } from 'react';
-import { ITransformedMembership } from '@daohaus/dao-data';
+import { ITransformedMembership } from '@daohaus/common-utilities';
 import { ParMd, Spinner, useBreakpoint, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
 

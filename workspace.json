@@ -22,7 +22,7 @@
     "tx-builder-feature": "libs/tx-builder-feature",
     "ui": "libs/ui",
     "v3-subgraph": "apps/v3-subgraph",
-    "local-executors": "tools/executors"
+    "executors": "tools/executors"
   },
   "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

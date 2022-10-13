@@ -125,14 +125,15 @@ export function Members() {
           );
           return (
             <div className="hide-sm">
-              {votingPowerPercentage(dao?.totalShares || '0', value)}{' '}
+              {votingPowerPercentage(dao?.totalShares || '0', value)}
+              {' %'}
               {delegatedShares > 0 && (
                 <Tooltip
                   content={`${formatValueTo({
                     value: fromWei(delegatedShares.toFixed()),
                     decimals: 2,
                     format: 'number',
-                  })} shares are delegated to this member`}
+                  })} voting tokens are delegated to this member`}
                   side="bottom"
                 />
               )}

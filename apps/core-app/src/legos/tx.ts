@@ -286,7 +286,7 @@ export const TX: Record<string, TXLego> = {
       '.formValues.lootRequested',
       {
         type: 'proposalExpiry',
-        search: '.proposalExpiry',
+        search: '.formValues.proposalExpiry',
         fallback: 0,
       },
       {

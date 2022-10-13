@@ -391,7 +391,7 @@ export const TX: Record<string, TXLego> = {
         value: '.formValues.txValue',
         data: '.formValues.txData',
         operations: '.formValues.txOperation',
-      }
+      },
     ],
   }),
 };

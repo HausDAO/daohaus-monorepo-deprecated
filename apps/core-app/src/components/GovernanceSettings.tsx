@@ -173,7 +173,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
         <DataIndicator
           size="sm"
           label="Sponsor Threshold"
-          data={`${fromWei(dao.sponsorThreshold)} Shares`}
+          data={`${fromWei(dao.sponsorThreshold)} Voting Tokens`}
           info={INFO_COPY.SPONSOR_THRESHOLD}
         />
       </DataGrid>

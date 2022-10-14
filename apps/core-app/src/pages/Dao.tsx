@@ -1,13 +1,37 @@
 import { useParams, Outlet, useLocation } from 'react-router-dom';
 import { HausLayout, useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { useDao } from '@daohaus/dao-context';
+import { useConnectedMembership, useDao } from '@daohaus/dao-context';
 import { TXBuilder } from '@daohaus/tx-builder-feature';
+import { useMemo } from 'react';
 
 export function Dao() {
   const { daochain, daoid } = useParams();
   const location = useLocation();
   const { provider, address } = useHausConnect();
   const { dao } = useDao();
+  const { connectedMembership } = useConnectedMembership();
+
+  const moreLinks = useMemo(() => {
+    if (connectedMembership) {
+      return [
+        {
+          label: 'Settings',
+          href: `/molochv3/${daochain}/${daoid}/settings`,
+        },
+        {
+          label: 'Profile',
+          href: `/molochv3/${daochain}/${daoid}/members/${connectedMembership.memberAddress}`,
+        },
+      ];
+    } else {
+      return [
+        {
+          label: 'Settings',
+          href: `/molochv3/${daochain}/${daoid}/settings`,
+        },
+      ];
+    }
+  }, [connectedMembership, daochain, daoid]);
 
   return (
     <TXBuilder
@@ -33,12 +57,7 @@ export function Dao() {
             href: `/molochv3/${daochain}/${daoid}/members`,
           },
         ]}
-        dropdownLinks={[
-          {
-            label: 'Settings',
-            href: `/molochv3/${daochain}/${daoid}/settings`,
-          },
-        ]}
+        dropdownLinks={moreLinks}
       >
         <Outlet />
       </HausLayout>

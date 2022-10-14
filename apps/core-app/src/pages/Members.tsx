@@ -11,11 +11,9 @@ import {
   Tooltip,
 } from '@daohaus/ui';
 import {
-  charLimit,
   formatDateFromSeconds,
   formatValueTo,
   fromWei,
-  lowerCaseLootToken,
   sharesDelegatedToMember,
   votingPowerPercentage,
 } from '@daohaus/common-utilities';
@@ -58,6 +56,11 @@ const MemberContainer = styled(Card)`
   overflow-x: auto;
   th {
     min-width: 10rem;
+  }
+  .hide-sm {
+    button {
+      padding-left: 0.5rem;
+    }
   }
   @media ${widthQuery.lg} {
     max-width: 100%;
@@ -143,7 +146,7 @@ export function Members() {
       },
       {
         Header: () => {
-          return <>{charLimit(dao?.shareTokenName, 6)}</>;
+          return <>Voting</>;
         },
         accessor: 'shares',
         Cell: ({ value }: { value: string }) => {
@@ -160,9 +163,7 @@ export function Members() {
       },
       {
         Header: () => {
-          return (
-            <div>{charLimit(lowerCaseLootToken(dao?.lootTokenName), 6)}</div>
-          );
+          return <div>Non-Voting</div>;
         },
         accessor: 'loot',
         Cell: ({ value }: { value: string }) => {

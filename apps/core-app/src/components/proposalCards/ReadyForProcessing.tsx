@@ -82,7 +82,7 @@ export const ReadyForProcessing = ({
   const isMobile = useBreakpoint(widthQuery.sm);
 
   const [canProcess, setCanProcess] = React.useState<string | true>(
-    'Checking Process data.'
+    'Checking execution data.'
   );
   const [isLoading, setIsLoading] = React.useState(false);
 
@@ -110,12 +110,12 @@ export const ReadyForProcessing = ({
           const errMsg = handleErrorMessage({
             error,
           });
-          errorToast({ title: 'Process Failed', description: errMsg });
+          errorToast({ title: 'Execution Failed', description: errMsg });
           setIsLoading(false);
         },
         onTxSuccess: () => {
           defaultToast({
-            title: 'Process Success',
+            title: 'Execution Success',
             description: 'Please wait for subgraph to sync',
           });
         },
@@ -128,8 +128,8 @@ export const ReadyForProcessing = ({
         },
         onPollSuccess: () => {
           successToast({
-            title: 'Process Success',
-            description: 'Proposal processed',
+            title: 'Execution Success',
+            description: 'Proposal executed',
           });
           refreshAll();
           setIsLoading(false);
@@ -165,7 +165,7 @@ export const ReadyForProcessing = ({
   return (
     <ActionTemplate
       proposal={proposal}
-      statusDisplay="Ready For Processing"
+      statusDisplay="Ready for Execution"
       main={
         <>
           <VotingBar proposal={proposal} />

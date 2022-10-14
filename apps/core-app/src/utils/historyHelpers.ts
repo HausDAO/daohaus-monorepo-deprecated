@@ -130,7 +130,7 @@ const buildCompletedElements = ({
       dataElements: [
         {
           dataType: 'member',
-          label: 'Processed By',
+          label: 'Executed By',
           data: proposal.processedBy || '--',
         },
       ],
@@ -151,7 +151,7 @@ const buildNeedsProcessingElements = ({
     {
       title: 'Proposal Complete',
       active: proposal.status === PROPOSAL_STATUS.needsProcessing,
-      text: `Waiting to be processed...`,
+      text: `Waiting to be executed...`,
       canExpand: false,
     },
   ];

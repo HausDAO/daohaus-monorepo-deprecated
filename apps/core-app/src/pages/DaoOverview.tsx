@@ -61,10 +61,7 @@ export function DaoOverview() {
                 })}
               />
               <DataIndicator label="Members" data={dao.activeMemberCount} />
-              <DataIndicator
-                label="Active Proposals"
-                data={dao.proposalCount}
-              />
+              <DataIndicator label="Proposals" data={dao.proposalCount} />
             </DataGrid>
           </OverviewCard>
           <TokensCard>

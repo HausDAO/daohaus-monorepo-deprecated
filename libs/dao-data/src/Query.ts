@@ -42,6 +42,7 @@ import {
 import {
   FindDaoDocument,
   FindDaoQuery,
+  FindDaoQueryVariables,
   ListDaosDocument,
   ListDaosQuery,
   ListDaosQueryVariables,

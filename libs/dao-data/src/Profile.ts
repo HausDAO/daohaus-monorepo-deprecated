@@ -3,12 +3,12 @@ import {
   DaoTokenBalances,
   ITransformedMembershipsQuery,
   Keychain,
+  nowInSeconds,
 } from '@daohaus/common-utilities';
 import {
   ICrossNetworkMemberListArguments,
   ListMembershipsDocument,
   ListMembershipsQuery,
-  ListMembershipsQueryVariables,
   Member_OrderBy,
   IFindQueryResult,
   Dao_OrderBy,
@@ -21,6 +21,7 @@ import {
   ListConnectedMemberProposalsQueryVariables,
   ListConnectedMemberProposalsQuery,
   ListConnectedMemberProposalsDocument,
+  ListMembershipsQueryVariables,
 } from './types';
 import {
   transformMembershipList,
@@ -130,6 +131,7 @@ export default class Profile {
                 ...daoFilter,
               },
               memberWhere: { memberAddress },
+              now: nowInSeconds().toFixed(),
               orderBy: ordering.orderBy,
               orderDirection: ordering.orderDirection,
             }

@@ -14,6 +14,7 @@ import {
   ParMd,
   ProfileAvatar,
   Tag,
+  Tooltip,
 } from '@daohaus/ui';
 
 import { ButtonLink } from './ButtonLink';
@@ -72,10 +73,16 @@ export const DaoCard = ({
         <div className="alert-box">
           <ProfileAvatar size="xl" address={dao} />
           {activeProposalCount > 0 && (
-            <Badge
-              badgeSize="sm"
-              badgeLabel={activeProposalCount}
-              className="badge"
+            <Tooltip
+              content={`${activeProposalCount} Active Proposals (in voting or grace period)`}
+              triggerEl={
+                <Badge
+                  badgeSize="sm"
+                  badgeLabel={activeProposalCount}
+                  className="badge"
+                  badgeColor="blue"
+                />
+              }
             />
           )}
         </div>

@@ -1,5 +1,6 @@
 query listDaos(
   $where: Dao_filter! = {}
+  $now: BigInt! = 0
   $skip: Int! = 0
   $first: Int! = 100
   $orderBy: Dao_orderBy! = id
@@ -13,12 +14,28 @@ query listDaos(
     orderDirection: $orderDirection
   ) {
     ...daoFields
+    activeProposals: proposals(
+      first: 101
+      orderBy: createdAt
+      orderDirection: desc
+      where: { cancelled: false, sponsored: true, graceEnds_gt: $now }
+    ) {
+      id
+    }
   }
 }
 
-query findDao($id: ID!) {
+query findDao($id: ID!, $now: BigInt! = 0) {
   dao: dao(id: $id) {
     ...daoFields
+    activeProposals: proposals(
+      first: 101
+      orderBy: createdAt
+      orderDirection: desc
+      where: { cancelled: false, sponsored: true, graceEnds_gt: $now }
+    ) {
+      id
+    }
   }
 }
 

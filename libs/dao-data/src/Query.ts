@@ -3,6 +3,7 @@ import {
   ENDPOINTS,
   Keychain,
   KeychainList,
+  nowInSeconds,
   TokenBalance,
 } from '@daohaus/common-utilities';
 
@@ -41,7 +42,6 @@ import {
 import {
   FindDaoDocument,
   FindDaoQuery,
-  FindDaoQueryVariables,
   ListDaosDocument,
   ListDaosQuery,
   ListDaosQueryVariables,
@@ -113,6 +113,7 @@ export default class Query {
       url,
       {
         where: { ...filter, id_gt: paging.lastId || '' },
+        now: nowInSeconds().toFixed(),
         orderBy: paging.lastId ? 'id' : ordering.orderBy,
         orderDirection: paging.lastId ? 'asc' : ordering.orderDirection,
         first: paging.pageSize + 1,
@@ -349,6 +350,7 @@ export default class Query {
         networkId,
         {
           id: dao.toLowerCase(),
+          now: nowInSeconds().toFixed(),
         }
       );
 

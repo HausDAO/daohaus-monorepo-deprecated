@@ -101,7 +101,7 @@ export const CancelProposal = ({
 
   return (
     <GatedButton
-      sm
+      secondary
       rules={[isConnectedToDao, addressCanCancel]}
       onClick={handleCancel}
       centerAlign

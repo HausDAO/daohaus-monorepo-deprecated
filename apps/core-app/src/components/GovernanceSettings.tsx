@@ -98,9 +98,11 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
     if (!dao) return null;
     return {
       votingPeriod: dao.votingPeriod,
+      votingPeriodUnits: 'seconds',
+      gracePeriodUnits: 'seconds',
       gracePeriod: dao.gracePeriod,
       proposalOffering: dao.proposalOffering,
-      quorumPercent: dao.quorumPercent,
+      quorum: dao.quorumPercent,
       minRetention: dao.minRetentionPercent,
       sponsorThreshold: dao.sponsorThreshold,
       newOffering: dao.proposalOffering,
@@ -118,7 +120,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
             defaultValues
           )}`}
         >
-          <Button secondary>Update Dao Settings</Button>
+          <Button secondary>Update DAO Settings</Button>
         </StyledButtonLink>
       </GovernanceCardHeader>
       <div className="description">
@@ -184,9 +186,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
             defaultValues
           )}`}
         >
-          <Button secondary sm>
-            Update Token Settings
-          </Button>
+          <Button secondary>Update Token Settings</Button>
         </StyledButtonLink>
       </TokensHeader>
       <H4>Voting</H4>

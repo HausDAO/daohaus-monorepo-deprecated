@@ -98,7 +98,7 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
         <div>
           <ParMd>DAO Contracts</ParMd>
           <div className="contract">
-            <ParSm>Moloch V3</ParSm>
+            <ParSm>Moloch v3</ParSm>
             <AddressDisplay
               address={dao.id}
               copy

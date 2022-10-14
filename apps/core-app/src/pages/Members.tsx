@@ -11,11 +11,9 @@ import {
   Tooltip,
 } from '@daohaus/ui';
 import {
-  charLimit,
   formatDateFromSeconds,
   formatValueTo,
   fromWei,
-  lowerCaseLootToken,
   sharesDelegatedToMember,
   votingPowerPercentage,
 } from '@daohaus/common-utilities';
@@ -58,6 +56,11 @@ const MemberContainer = styled(Card)`
   overflow-x: auto;
   th {
     min-width: 10rem;
+  }
+  .hide-sm {
+    button {
+      padding-left: 0.5rem;
+    }
   }
   @media ${widthQuery.lg} {
     max-width: 100%;

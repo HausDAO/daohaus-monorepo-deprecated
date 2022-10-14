@@ -38,6 +38,10 @@ export function Dao() {
             label: 'Settings',
             href: `/molochv3/${daochain}/${daoid}/settings`,
           },
+          {
+            label: 'DAO Profule',
+            href: `/molochv3/${daochain}/${daoid}/members/${address}`,
+          },
         ]}
       >
         <Outlet />

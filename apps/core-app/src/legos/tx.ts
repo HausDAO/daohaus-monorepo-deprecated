@@ -286,7 +286,11 @@ export const TX: Record<string, TXLego> = {
       '.formValues.lootRequested',
       {
         type: 'proposalExpiry',
+<<<<<<< HEAD
         search: '.proposalExpiry',
+=======
+        search: '.formValues.proposalExpiry',
+>>>>>>> 8c7ff93ac0f310eed96d973fc48ab8d0cdf57a43
         fallback: 0,
       },
       {

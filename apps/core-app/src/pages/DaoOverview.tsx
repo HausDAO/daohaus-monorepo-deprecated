@@ -64,7 +64,7 @@ export function DaoOverview() {
               <DataIndicator label="Proposals" data={dao.proposalCount} />
               <DataIndicator
                 label="Active Proposals"
-                data={dao?.activeProposals.length}
+                data={dao.activeProposals?.length || '0'}
               />
             </DataGrid>
           </OverviewCard>

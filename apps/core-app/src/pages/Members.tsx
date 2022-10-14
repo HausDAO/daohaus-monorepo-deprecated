@@ -143,7 +143,7 @@ export function Members() {
       },
       {
         Header: () => {
-          return <>{charLimit(dao?.shareTokenName, 6)}</>;
+          return <>Voting</>;
         },
         accessor: 'shares',
         Cell: ({ value }: { value: string }) => {
@@ -160,9 +160,7 @@ export function Members() {
       },
       {
         Header: () => {
-          return (
-            <div>{charLimit(lowerCaseLootToken(dao?.lootTokenName), 6)}</div>
-          );
+          return <div>Non-Voting</div>;
         },
         accessor: 'loot',
         Cell: ({ value }: { value: string }) => {

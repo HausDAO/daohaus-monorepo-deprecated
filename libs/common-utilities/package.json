@@ -1,6 +1,6 @@
 {
   "name": "@daohaus/common-utilities",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "type": "commonjs",
   "main": "src/index.js",
   "types": "src/index.d.ts",

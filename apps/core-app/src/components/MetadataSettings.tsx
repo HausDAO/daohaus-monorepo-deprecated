@@ -116,7 +116,7 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
             />
           </div>
           <div className="contract">
-            <ParSm>Voting Stake Token</ParSm>
+            <ParSm>Voting Token</ParSm>
             <AddressDisplay
               address={dao.sharesAddress}
               copy
@@ -125,7 +125,7 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
             />
           </div>
           <div className="contract">
-            <ParSm>Non-Voting Stake Token</ParSm>
+            <ParSm>Non-Voting Token</ParSm>
             <AddressDisplay
               address={dao.lootAddress}
               copy

@@ -1,6 +1,6 @@
 {
   "name": "@daohaus/contract-utilities",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Daohaus contract utilties for interacting with the Baal contracts",
   "type": "commonjs",
   "main": "src/index.js",

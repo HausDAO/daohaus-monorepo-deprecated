@@ -2,12 +2,12 @@ import { slateDark } from '@radix-ui/colors';
 import styled from 'styled-components';
 import {
   Bold,
+  ExtraBold,
   DataLg,
   DataMd,
   DataSm,
   DataXl,
   DataXs,
-  ExtraBold,
   H1,
   H2,
   H3,
@@ -16,6 +16,7 @@ import {
   H6,
   Italic,
   Light,
+  ExtraLight,
   ParLg,
   ParMd,
   ParSm,
@@ -75,36 +76,47 @@ export const AllFonts = () => {
 export const BoldText = () => (
   <ParLg>
     {`<Bold /> `}is a <Bold>bold </Bold>
-    text modifier
+    text modifier with a font-weight of 700
   </ParLg>
 );
-export const LightText = () => (
-  <ParLg>
-    <Bold>
-      {`<Light/> `}
-      is a <Light>light </Light>
-      text modifier
-    </Bold>
-  </ParLg>
-);
+
 export const ExtraBoldText = () => (
   <ParLg>
     {`<ExtraBold/> `}
     is an <ExtraBold>extra bold </ExtraBold>
-    text modifier
+    text modifier with a font-weight of 900
   </ParLg>
 );
+
+export const LightText = () => (
+  <ParLg>
+    {`<Light/> `}
+    is a <Light>light </Light>
+    text modifier with a font-weight of 300
+  </ParLg>
+);
+
+export const ExtraLightText = () => (
+  <ParLg>
+    {`<ExtraLight/> `}
+    is a <ExtraLight>light</ExtraLight>
+    text modifier with a font-weight of 200
+  </ParLg>
+);
+
 export const ItalicText = () => (
   <ParLg>
     {`<Italic /> `}is an <Italic>Italic </Italic>
     text modifier
   </ParLg>
 );
+
 export const UnderlinedText = () => (
   <ParLg>
     {`<Underline /> `}is an <Underline>Underline</Underline> text modifier
   </ParLg>
 );
+
 export const StrikeThroughText = () => (
   <ParLg>
     {`<StrikeThrough /> `}is an <StrikeThrough>StrikeThrough </StrikeThrough>

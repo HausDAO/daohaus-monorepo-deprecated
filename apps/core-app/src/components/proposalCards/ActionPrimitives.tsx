@@ -268,7 +268,6 @@ export const VoteDownButton = styled(GatedButton)`
     border: 1px solid ${tomatoDark.tomato12};
   }
 `;
-
 export const VoteBox = styled.div`
   display: flex;
   align-items: center;

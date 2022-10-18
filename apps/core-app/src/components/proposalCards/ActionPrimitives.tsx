@@ -59,7 +59,7 @@ const QuorumDisplay = ({
         <QuorumBox>
           <MdOutlineGavel color={theme.tint.secondary} size="1.4rem" />{' '}
           <ParMd color={theme.tint.secondary}>
-            {Number(yesPerc).toFixed(2)}/{daoQuorum}%
+            {Number(yesPerc).toFixed(0)}/{daoQuorum}%
           </ParMd>{' '}
         </QuorumBox>
       }

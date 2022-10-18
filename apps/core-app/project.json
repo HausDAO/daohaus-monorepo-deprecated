@@ -53,7 +53,7 @@
       }
     },
     "tsc": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "command": "tsc --project apps/core-app/tsconfig.app.json --noEmit --skipLibCheck",
         "color": true

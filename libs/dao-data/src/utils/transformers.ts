@@ -1,11 +1,13 @@
-import { votingPowerPercentage } from '@daohaus/common-utilities';
+import {
+  AccountProfile,
+  DaoTokenBalances,
+  ITransformedMembership,
+  TokenBalance,
+  votingPowerPercentage,
+} from '@daohaus/common-utilities';
 import {
   ITransformedProposal,
-  ITransformedMembership,
   IFindQueryResult,
-  AccountProfile,
-  TokenBalance,
-  DaoTokenBalances,
   QueryProposal,
   ListMembershipsQuery,
   DaoProfile,
@@ -83,7 +85,7 @@ export const transformMembershipList = (
                 : undefined,
             isDelegate: Number(dao.members[0].delegateOfCount) > 0,
             memberAddress: dao.members[0].memberAddress,
-            contractType: 'Moloch V3',
+            contractType: 'Moloch v3',
           };
         }
       );

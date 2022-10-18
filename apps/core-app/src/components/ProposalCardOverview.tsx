@@ -9,6 +9,7 @@ import {
   useBreakpoint,
   widthQuery,
   Tooltip,
+  ParSm,
 } from '@daohaus/ui';
 import {
   charLimit,
@@ -124,9 +125,9 @@ export const OverviewHeader = ({
     <OverviewContainer>
       {isMobile ? (
         <>
-          <ParMd color={theme.tint.secondary}>
+          <ParSm color={theme.tint.secondary}>
             {getProposalTypeLabel(proposal.proposalType)}
-          </ParMd>
+          </ParSm>
           <Tooltip
             content={formatShortDateTimeFromSeconds(proposal.createdAt)}
             triggerEl={<RiTimeLine color={theme.secondary} size="1.6rem" />}
@@ -134,10 +135,10 @@ export const OverviewHeader = ({
         </>
       ) : (
         <>
-          <ParMd color={theme.tint.secondary}>
+          <ParSm color={theme.tint.secondary}>
             {getProposalTypeLabel(proposal.proposalType)} |{' '}
             {formatShortDateTimeFromSeconds(proposal.createdAt)}
-          </ParMd>
+          </ParSm>
           <StyledLink
             href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
           >

@@ -22,6 +22,14 @@
         "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
+    "vite-build": {
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ]
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
@@ -54,7 +62,7 @@
       }
     },
     "generate-gql-schema": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "commands": [
           "get-graphql-schema https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli > libs/dao-data/src/subgraph/schema.graphql",
@@ -63,7 +71,7 @@
       }
     },
     "generate-gql-types": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "options": {
         "commands": [
           "graphql-codegen --config libs/dao-data/codegen.yaml",
@@ -71,7 +79,6 @@
         ]
       }
     },
-
     "serve": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],

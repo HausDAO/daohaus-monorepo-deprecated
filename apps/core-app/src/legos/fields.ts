@@ -4,7 +4,7 @@ export const FIELD: Record<string, CustomFieldLego> = {
   TITLE: {
     id: 'title',
     type: 'input',
-    label: 'Proposal Name',
+    label: 'Proposal Title',
     placeholder: 'Enter title',
   },
   DESCRIPTION: {
@@ -74,7 +74,7 @@ export const FIELD: Record<string, CustomFieldLego> = {
   DELEGATE: {
     id: 'delegatingTo',
     type: 'delegateInput',
-    label: 'Delgate to',
+    label: 'Delegate to',
     placeholder: '0x0...',
   },
   PROPOSAL_EXPIRY: {
@@ -113,5 +113,5 @@ export const FIELD: Record<string, CustomFieldLego> = {
     label: 'WalletConnect Link',
     info: 'After connecting WalletConnect to another dApp, copy the link and paste it to this input field',
     placeholder: 'wc:',
-  }
+  },
 };

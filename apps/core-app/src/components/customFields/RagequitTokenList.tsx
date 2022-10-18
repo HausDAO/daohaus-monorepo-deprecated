@@ -19,7 +19,7 @@ import {
 import { useConnectedMembership, useDao } from '@daohaus/dao-context';
 import { CheckboxProps, CheckedState } from '@radix-ui/react-checkbox';
 import styled from 'styled-components';
-import { TokenBalance } from '@daohaus/dao-data';
+import { TokenBalance } from '@daohaus/common-utilities';
 import { useParams } from 'react-router-dom';
 import { sortTokensForRageQuit } from '../../utils/general';
 
@@ -136,6 +136,7 @@ export const RagequitTokenList = (props: Buildable<Field>) => {
                 value: memberTokenBalanceShare(
                   token.balance,
                   dao.totalShares || 0,
+                  dao.totalLoot || 0,
                   sharesToBurn || 0,
                   lootToBurn || 0,
                   token.token?.decimals || 18
@@ -152,6 +153,7 @@ export const RagequitTokenList = (props: Buildable<Field>) => {
                 value: memberUsdValueShare(
                   token.fiatBalance,
                   dao.totalShares || 0,
+                  dao.totalLoot || 0,
                   sharesToBurn || 0,
                   lootToBurn || 0
                 ),

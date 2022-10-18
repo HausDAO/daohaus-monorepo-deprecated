@@ -4,9 +4,10 @@ import styled from 'styled-components';
 import {
   handleErrorMessage,
   isValidNetwork,
+  ITransformedMembership,
   ValidNetwork,
 } from '@daohaus/common-utilities';
-import { Haus, ITransformedMembership } from '@daohaus/dao-data';
+import { Haus } from '@daohaus/dao-data';
 import {
   H2,
   Spinner,
@@ -44,7 +45,7 @@ export const HomeDashboard = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [listType, setListType] = useState<ListType>(ListType.Cards);
 
-  const debouncedSearchTerm = useDebounce<string>(searchTerm, 1000);
+  const debouncedSearchTerm = useDebounce<string>(searchTerm, 500);
 
   useEffect(() => {
     let shouldUpdate = true;

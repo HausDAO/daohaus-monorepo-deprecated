@@ -11,11 +11,9 @@ import {
   Tooltip,
 } from '@daohaus/ui';
 import {
-  charLimit,
   formatDateFromSeconds,
   formatValueTo,
   fromWei,
-  lowerCaseLootToken,
   sharesDelegatedToMember,
   votingPowerPercentage,
 } from '@daohaus/common-utilities';
@@ -58,6 +56,11 @@ const MemberContainer = styled(Card)`
   overflow-x: auto;
   th {
     min-width: 10rem;
+  }
+  .hide-sm {
+    button {
+      padding-left: 0.5rem;
+    }
   }
   @media ${widthQuery.lg} {
     max-width: 100%;
@@ -125,14 +128,15 @@ export function Members() {
           );
           return (
             <div className="hide-sm">
-              {votingPowerPercentage(dao?.totalShares || '0', value)}{' '}
+              {votingPowerPercentage(dao?.totalShares || '0', value)}
+              {' %'}
               {delegatedShares > 0 && (
                 <Tooltip
                   content={`${formatValueTo({
                     value: fromWei(delegatedShares.toFixed()),
                     decimals: 2,
                     format: 'number',
-                  })} shares are delegated to this member`}
+                  })} voting tokens are delegated to this member`}
                   side="bottom"
                 />
               )}
@@ -142,7 +146,7 @@ export function Members() {
       },
       {
         Header: () => {
-          return <>{charLimit(dao?.shareTokenName, 6)}</>;
+          return <>Voting</>;
         },
         accessor: 'shares',
         Cell: ({ value }: { value: string }) => {
@@ -159,9 +163,7 @@ export function Members() {
       },
       {
         Header: () => {
-          return (
-            <div>{charLimit(lowerCaseLootToken(dao?.lootTokenName), 6)}</div>
-          );
+          return <div>Non-Voting</div>;
         },
         accessor: 'loot',
         Cell: ({ value }: { value: string }) => {

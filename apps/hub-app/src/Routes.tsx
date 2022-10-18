@@ -1,5 +1,4 @@
 import { Banner, Footer } from '@daohaus/ui';
-import React from 'react';
 import { Routes as RoutesDom, Route } from 'react-router-dom';
 
 import HomePage from './pages/HomePage';

@@ -10,6 +10,8 @@ import './global/fonts.css';
 import { Toast } from '../components';
 import { ToastProvider } from '../components/molecules/Toast/Toast.styles';
 import { CustomToastProps } from '../types/toast.types';
+import { generateTheme } from './global/colors';
+import { amber, amberDark } from '@radix-ui/colors';
 
 type HausUI = {
   theme: Theme;

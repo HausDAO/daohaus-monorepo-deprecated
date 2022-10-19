@@ -1,11 +1,14 @@
 import {
   amber,
+  amberA,
   amberDark,
+  amberDarkA,
   blue,
   blueDark,
   green,
   greenDark,
   indigo,
+  indigoA,
   indigoDark,
   indigoDarkA,
   orange,
@@ -42,6 +45,21 @@ export const primary = {
   step12: amber.amber12,
 };
 
+export const primaryA = {
+  step1: amberA.amberA1,
+  step2: amberA.amberA2,
+  step3: amberA.amberA3,
+  step4: amberA.amberA4,
+  step5: amberA.amberA5,
+  step6: amberA.amberA6,
+  step7: amberA.amberA7,
+  step8: amberA.amberA8,
+  step9: amberA.amberA9,
+  step10: amberA.amberA10,
+  step11: amberA.amberA11,
+  step12: amberA.amberA12,
+};
+
 export const primaryDark = {
   step1: amberDark.amber1,
   step2: amberDark.amber2,
@@ -57,6 +75,21 @@ export const primaryDark = {
   step12: amberDark.amber12,
 };
 
+export const primaryDarkA = {
+  step1: amberDarkA.amberA1,
+  step2: amberDarkA.amberA2,
+  step3: amberDarkA.amberA3,
+  step4: amberDarkA.amberA4,
+  step5: amberDarkA.amberA5,
+  step6: amberDarkA.amberA6,
+  step7: amberDarkA.amberA7,
+  step8: amberDarkA.amberA8,
+  step9: amberDarkA.amberA9,
+  step10: amberDarkA.amberA10,
+  step11: amberDarkA.amberA11,
+  step12: amberDarkA.amberA12,
+};
+
 export const secondary = {
   step1: indigo.indigo1,
   step2: indigo.indigo2,
@@ -70,6 +103,21 @@ export const secondary = {
   step10: indigo.indigo10,
   step11: indigo.indigo11,
   step12: indigo.indigo12,
+};
+
+export const secondaryA = {
+  step1: indigoA.indigoA1,
+  step2: indigoA.indigoA2,
+  step3: indigoA.indigoA3,
+  step4: indigoA.indigoA4,
+  step5: indigoA.indigoA5,
+  step6: indigoA.indigoA6,
+  step7: indigoA.indigoA7,
+  step8: indigoA.indigoA8,
+  step9: indigoA.indigoA9,
+  step10: indigoA.indigoA10,
+  step11: indigoA.indigoA11,
+  step12: indigoA.indigoA12,
 };
 
 export const secondaryDark = {

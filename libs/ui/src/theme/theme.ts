@@ -13,6 +13,9 @@ import {
   dangerDark,
   warningDark,
   successDark,
+  success,
+  danger,
+  warning,
 } from './global/colors';
 
 import {
@@ -44,7 +47,6 @@ export const defaultDarkTheme: Theme = {
   warning: { ...warningDark },
   danger: { ...dangerDark },
   grey: { ...neutralDark },
-  error: utilityDark.danger,
   warningBg: utilityDark.warningBg,
   warningBorder: utilityDark.warningBorder,
   disabled: neutralDark.step9,
@@ -229,15 +231,16 @@ export const defaultDarkTheme: Theme = {
 
 export const defaultLightTheme: Theme = {
   themeName: 'light',
+  primary: { ...primary },
+  secondary: { ...secondary },
+  success: { ...success },
+  warning: { ...warning },
+  danger: { ...danger },
+  grey: { ...neutral },
   bgColor: secondary.step1,
   fontColor: secondary.step12,
-  primary: primary.step9,
-  secondary: secondary.step9,
-  error: utility.danger,
-  warning: utility.warning,
   warningBg: utility.warningBg,
   warningBorder: utility.warningBorder,
-  success: utility.success,
   info: utility.info,
   transparent: utility.transparent,
   tint: {

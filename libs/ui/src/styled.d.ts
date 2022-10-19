@@ -44,7 +44,6 @@ declare module 'styled-components' {
     danger: ColorSteps;
     bgColor: string;
     fontColor: string;
-    error: string;
     warningBg: string;
     warningBorder: string;
     disabled: string;

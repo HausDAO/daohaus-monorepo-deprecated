@@ -58,8 +58,9 @@ export const DropdownButton = styled(Button)`
     color: ${({ theme }: { theme: Theme }) => theme.dropdown.textDisabled};
     cursor: not-allowed;
   }
+
   &.selected {
-    background-color: ${({ theme }: { theme: Theme }) => theme.secondary};
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step9};
   }
 `;
 

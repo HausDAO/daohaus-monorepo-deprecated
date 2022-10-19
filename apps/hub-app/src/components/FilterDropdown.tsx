@@ -17,7 +17,8 @@ import { FILTER_TYPE } from '../utils/constants';
 
 const DropdownButton = styled(Button)`
   &.selected {
-    background-color: ${(props: { theme: Theme }) => props.theme.secondary};
+    background-color: ${(props: { theme: Theme }) =>
+      props.theme.secondary.step9};
   }
 `;
 

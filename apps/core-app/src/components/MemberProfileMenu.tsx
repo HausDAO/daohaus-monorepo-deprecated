@@ -27,7 +27,7 @@ export const ProfileMenuTrigger = styled(DropdownButton)`
   }
 
   svg.icon-right {
-    color: ${({ theme }: { theme: Theme }) => theme.primary};
+    color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
   }
 
   svg.icon-left {

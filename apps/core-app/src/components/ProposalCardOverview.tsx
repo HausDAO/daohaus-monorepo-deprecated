@@ -130,7 +130,9 @@ export const OverviewHeader = ({
           </ParSm>
           <Tooltip
             content={formatShortDateTimeFromSeconds(proposal.createdAt)}
-            triggerEl={<RiTimeLine color={theme.secondary} size="1.6rem" />}
+            triggerEl={
+              <RiTimeLine color={theme.secondary.step9} size="1.6rem" />
+            }
           />
         </>
       ) : (

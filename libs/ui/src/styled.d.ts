@@ -18,13 +18,28 @@ export type ButtonColorTargets = {
   outlineFocus?: string;
   outlineDisabled?: string;
 };
+
+type ColorSteps = {
+  step1: string;
+  step2: string;
+  step3: string;
+  step4: string;
+  step5: string;
+  step6: string;
+  step7: string;
+  step8: string;
+  step9: string;
+  step10: string;
+  step11: string;
+  step12: string;
+};
 declare module 'styled-components' {
   export interface DefaultTheme {
     themeName: string;
     bgColor: string;
     fontColor: string;
-    primary: string;
-    secondary: string;
+    primary: ColorSteps;
+    secondary: ColorSteps;
     error: string;
     warning: string;
     warningBg: string;

@@ -14,7 +14,7 @@ export const TooltipTrigger = styled(TooltipPrimitive.Trigger)`
   border: none;
   padding: 0;
   svg {
-    color: ${({ theme }: { theme: Theme }) => theme.primary};
+    color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
   }
 `;
 

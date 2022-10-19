@@ -76,7 +76,7 @@ export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
 `;
 
 export const StyledIndicator = styled(CheckboxPrimitive.Indicator)`
-  color: ${({ theme }: { theme: Theme }) => theme.primary};
+  color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
   font-size: 2rem;
   padding-top: 3px;
   :disabled {

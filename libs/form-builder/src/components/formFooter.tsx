@@ -46,7 +46,7 @@ const getStatusColor = (status: StatusMsg, theme: Theme) => {
   if (status === StatusMsg.PollError || status === StatusMsg.TxErr) {
     return theme.error;
   } else {
-    return theme.secondary;
+    return theme.secondary.step9;
   }
 };
 const getStatusElement = (status: StatusMsg, theme: Theme) => {

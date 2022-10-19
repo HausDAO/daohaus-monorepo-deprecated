@@ -212,8 +212,8 @@ export const GasDisplay = ({ gasAmt }: { gasAmt: string | number }) => {
     <Tooltip
       triggerEl={
         <GasBox>
-          <RiGasStationLine color={theme.primary} size="1.6rem" />
-          {isMobile || <ParMd color={theme.primary}>Estimate Gas</ParMd>}
+          <RiGasStationLine color={theme.primary.step9} size="1.6rem" />
+          {isMobile || <ParMd color={theme.primary.step9}>Estimate Gas</ParMd>}
         </GasBox>
       }
       content={`If gas is less than ${gasAmt}, the proposal will likely fail.`}

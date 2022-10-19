@@ -46,7 +46,7 @@ const ListItem = styled.div`
 `;
 
 const StyledIcon = styled(RiArrowRightSLine)`
-  fill: ${({ theme }: { theme: Theme }) => theme.primary};
+  fill: ${({ theme }: { theme: Theme }) => theme.primary.step9};
   font-size: 3rem;
 `;
 

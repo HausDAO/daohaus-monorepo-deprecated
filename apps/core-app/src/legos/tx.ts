@@ -5,7 +5,6 @@ import {
   POSTER_TAGS,
   TABULA_TAGS,
   ENCODED_0X0_DATA,
-  toSeconds,
   TXLego,
   ValidArgType,
   TXLegoBase,
@@ -287,8 +286,8 @@ export const TX: Record<string, TXLego> = {
       '.formValues.lootRequested',
       {
         type: 'proposalExpiry',
-        search: '.proposalExpiry',
-        fallback: toSeconds(14, 'days'),
+        search: '.formValues.proposalExpiry',
+        fallback: 0,
       },
       {
         type: 'JSONDetails',
@@ -392,7 +391,7 @@ export const TX: Record<string, TXLego> = {
         value: '.formValues.txValue',
         data: '.formValues.txData',
         operations: '.formValues.txOperation',
-      }
+      },
     ],
   }),
 };

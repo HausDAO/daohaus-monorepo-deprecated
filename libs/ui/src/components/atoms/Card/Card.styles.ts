@@ -8,15 +8,13 @@ export const CardStyles = css`
   border: 1px solid ${({ theme }: { theme: Theme }) => theme.card.border};
   border-radius: ${border.cardRadius};
   padding: 2rem;
-  /* min-width: 40rem; */
 
   width: ${({ width }: { width: string }) => width};
   max-width: 90vw;
 `;
 
 export const BaseCard = styled.div`
-  ${CardStyles}/* Disabling the interaction styles here as per our meeting in the component sync */
-  /* Saving the styles here for when we want to make an interactive card */
+  ${CardStyles}/* Saved styles for cards that require hover, focus, or disabled states */
 
   /*
   :hover {
@@ -30,10 +28,9 @@ export const BaseCard = styled.div`
     border: 1px solid ${({ theme }: { theme: Theme }) =>
     theme.card.focusBorder};
     outline: none;
-  } */
+  }
 
-  /* We might not need this */
-  /* :disabled {
+   :disabled {
     background-color: ${({ theme }: { theme: Theme }) => theme.card.disabledBg};
     border: 1px solid
       ${({ theme }: { theme: Theme }) => theme.card.disabledBorder};

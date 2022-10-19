@@ -1,6 +1,7 @@
-import { slateDark } from '@radix-ui/colors';
 import * as RadixAvatar from '@radix-ui/react-avatar';
 import styled from 'styled-components';
+
+import { Theme } from '../../../types/theming';
 
 const sizes: Record<string, string> = {
   sm: '3rem',
@@ -27,7 +28,7 @@ export const AvatarFallback = styled(RadixAvatar.Fallback)`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${slateDark.slate9};
+  background: ${({ theme }: { theme: Theme }) => theme.grey.step9};
 `;
 
 export const AvatarImage = styled(RadixAvatar.Image)`

@@ -1,6 +1,6 @@
 {
   "name": "@daohaus/dao-context",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./dao-context.umd.js",
   "module": "./dao-context.es.js",
   "exports": {

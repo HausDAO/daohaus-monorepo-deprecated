@@ -19,16 +19,19 @@ export const nowInSeconds = (): number => new Date().getTime() / 1000;
 export const memberTokenBalanceShare = (
   tokenBalance: string | number,
   daoTotalShares: string | number,
+  daoTotalLoot: string | number,
   memberShares: string | number,
   memberLoot: string | number,
   decimals: string | number = 18
 ): number => {
+  const daoSharesAndLoot =
+    Number(ethers.utils.formatEther(daoTotalShares)) +
+    Number(ethers.utils.formatEther(daoTotalLoot));
   const sharesAndLoot =
     Number(ethers.utils.formatEther(memberShares)) +
     Number(ethers.utils.formatEther(memberLoot));
 
-  const ratio =
-    sharesAndLoot / Number(ethers.utils.formatEther(daoTotalShares));
+  const ratio = sharesAndLoot / daoSharesAndLoot;
 
   const memberSharesWei = Number(tokenBalance) * ratio;
   return memberSharesWei / 10 ** Number(decimals);
@@ -37,15 +40,18 @@ export const memberTokenBalanceShare = (
 export const memberUsdValueShare = (
   usdValue: string | number,
   daoTotalShares: string | number,
+  daoTotalLoot: string | number,
   memberShares: string | number,
   memberLoot: string | number
 ): number => {
+  const daoSharesAndLoot =
+    Number(ethers.utils.formatEther(daoTotalShares)) +
+    Number(ethers.utils.formatEther(daoTotalLoot));
   const sharesAndLoot =
     Number(ethers.utils.formatEther(memberShares)) +
     Number(ethers.utils.formatEther(memberLoot));
 
-  const ratio =
-    sharesAndLoot / Number(ethers.utils.formatEther(daoTotalShares));
+  const ratio = sharesAndLoot / daoSharesAndLoot;
 
   return Number(usdValue) * ratio;
 };

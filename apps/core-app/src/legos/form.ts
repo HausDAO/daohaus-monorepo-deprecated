@@ -44,7 +44,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     id: 'SIGNAL',
     title: 'Signal Form',
     subtitle: 'Signal Proposal',
-    description: 'Ratify on chain using a DAO proposal',
+    description: 'Ratify on-chain using a DAO proposal.',
     requiredFields: { title: true, description: true },
     log: true,
     tx: TX.POST_SIGNAL,
@@ -176,6 +176,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
     id: 'UPDATE_GOV_SETTINGS',
     title: 'Update Governance Settings',
     subtitle: 'Governance Setting Proposal',
+    log: true,
     description: 'Learn more about Governance Settings in our documentation.',
     tx: TX.UPDATE_GOV_SETTINGS,
     requiredFields: {
@@ -279,6 +280,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
   TOKEN_SETTINGS: {
     id: 'TOKEN_SETTINGS',
     title: 'Change Token Settings',
+    log: true,
     subtitle: 'Token Settings Proposal',
     description: 'Learn more about Token Settings in our documentation.',
     tx: TX.TOKEN_SETTINGS,
@@ -294,7 +296,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
         id: 'tokenSettings',
         type: 'formSegment',
         title: 'DAO Tokens',
-        description: 'Update your token transferability',
+        description: 'Update Token Transferability',
         fields: [
           {
             id: 'split',
@@ -305,7 +307,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                 left: {
                   id: 'vStake',
                   type: 'switch',
-                  label: 'Voting Token Transferable',
+                  label: 'Voting Token',
                   info: SUMMON_COPY.STAKE_TRANSFER,
                   switches: [
                     {
@@ -320,7 +322,7 @@ export const PROPOSAL_FORMS: Record<string, CustomFormLego> = {
                 right: {
                   id: 'nvStake',
                   type: 'switch',
-                  label: 'Non-Voting Token Transferable',
+                  label: 'Non-Voting Token',
                   info: SUMMON_COPY.NV_STAKE_TRANSFER,
                   switches: [
                     {
@@ -586,7 +588,7 @@ export const COMMON_FORMS: Record<string, CustomFormLego> = {
         id: 'tokenAddresses',
         type: 'formSegment',
         title:
-          'Step 2. Select treasury tokens you want to receive in exchange for your dao tokens',
+          'Step 2. Select treasury tokens you want to receive in exchange for your DAO tokens',
         fields: [
           // @ts-expect-error: cannot resolve type within formSegment using custom fields sent from the core-app
           { id: 'tokens', type: 'ragequitTokenList' },

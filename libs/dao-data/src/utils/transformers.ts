@@ -85,7 +85,7 @@ export const transformMembershipList = (
                 : undefined,
             isDelegate: Number(dao.members[0].delegateOfCount) > 0,
             memberAddress: dao.members[0].memberAddress,
-            contractType: 'Moloch V3',
+            contractType: 'Moloch v3',
           };
         }
       );

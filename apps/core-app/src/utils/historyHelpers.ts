@@ -121,16 +121,11 @@ const buildCompletedElements = ({
     {
       title: `Proposal Complete`,
       active: false,
-      text: `${
-        proposal.status === PROPOSAL_STATUS.actionFailed
-          ? 'Execution failed at'
-          : ''
-      } ${formatDateTimeFromSeconds(proposal.processTxAt)}`,
       canExpand: true,
       dataElements: [
         {
           dataType: 'member',
-          label: 'Processed By',
+          label: 'Executed By',
           data: proposal.processedBy || '--',
         },
       ],
@@ -151,7 +146,7 @@ const buildNeedsProcessingElements = ({
     {
       title: 'Proposal Complete',
       active: proposal.status === PROPOSAL_STATUS.needsProcessing,
-      text: `Waiting to be processed...`,
+      text: `Waiting to be executed...`,
       canExpand: false,
     },
   ];

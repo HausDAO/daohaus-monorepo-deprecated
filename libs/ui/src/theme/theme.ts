@@ -16,6 +16,8 @@ import {
   success,
   danger,
   warning,
+  info,
+  infoDark,
 } from './global/colors';
 
 import {
@@ -46,12 +48,9 @@ export const defaultDarkTheme: Theme = {
   success: { ...successDark },
   warning: { ...warningDark },
   danger: { ...dangerDark },
+  info: { ...infoDark },
   grey: { ...neutralDark },
-  warningBg: utilityDark.warningBg,
-  warningBorder: utilityDark.warningBorder,
-  disabled: neutralDark.step9,
   transparent: 'transparent',
-  info: utilityDark.info,
   tint: {
     secondary: secondaryDark.step11,
   },
@@ -236,17 +235,14 @@ export const defaultLightTheme: Theme = {
   success: { ...success },
   warning: { ...warning },
   danger: { ...danger },
+  info: { ...info },
   grey: { ...neutral },
   bgColor: secondary.step1,
   fontColor: secondary.step12,
-  warningBg: utility.warningBg,
-  warningBorder: utility.warningBorder,
-  info: utility.info,
-  transparent: utility.transparent,
+  transparent: 'transparent',
   tint: {
     secondary: secondary.step11,
   },
-  disabled: neutral.step9,
   // *** ATOMS *** //
   button: {
     primary: PrimaryLightButton,

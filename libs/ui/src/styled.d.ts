@@ -42,13 +42,10 @@ declare module 'styled-components' {
     success: ColorSteps;
     warning: ColorSteps;
     danger: ColorSteps;
+    info: ColorSteps;
     bgColor: string;
     fontColor: string;
-    warningBg: string;
-    warningBorder: string;
-    disabled: string;
     transparent: string;
-    info: string;
     tint: {
       secondary: string;
     };

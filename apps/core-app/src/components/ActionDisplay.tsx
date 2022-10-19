@@ -130,7 +130,10 @@ const ValueDisplay = ({
         {argValue.map((value, index) => {
           return (
             <div className="space" key={`argValue${index}`}>
-              <ValueDisplay argValue={value} network={network} />
+              <ValueDisplay
+                argValue={Array.isArray(value) ? `${value[0]}: ${value[1]}` : value}
+                network={network}
+              />
               {index + 1 < argValue?.length && <Divider />}
             </div>
           );

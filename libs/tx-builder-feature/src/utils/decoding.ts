@@ -3,10 +3,14 @@ import {
   ArgType,
   CONTRACTS,
   ENCODED_0X0_DATA,
+  MulticallAction,
+  StringSearch,
+  ValidArgType,
   ValidNetwork,
 } from '@daohaus/common-utilities';
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 import { createContract, fetchABI } from './abi';
+import { isSearchArg } from './args';
 
 const OPERATION_TYPE = 2;
 const ADDRESS = 40;
@@ -110,12 +114,36 @@ const buildEthTransferAction = (action: EncodedAction): DecodedAction => ({
   params: [],
 });
 
+const decodeParam = ({
+  argMeta,
+  value,
+} : {
+  argMeta?: ValidArgType,
+  value: any,
+}) => {
+  if (!argMeta || isSearchArg(argMeta)) {
+    return value;
+  }
+  if (argMeta?.type === 'argEncode') {
+    const decodedValues = utils.defaultAbiCoder.decode(argMeta.solidityTypes, value);
+    return argMeta.args.map((arg, i) => {
+      const label = isSearchArg(arg)
+        ? (arg as StringSearch).trim().split('.').reverse()[0]
+        : `Param${i}`;
+      return [label, decodedValues[i]];
+    });
+  }
+  return value;
+};
+
 const decodeAction = async ({
   chainId,
   action,
+  actionMeta,
 }: {
   chainId: ValidNetwork;
   action: EncodedAction;
+  actionMeta?: MulticallAction;
 }): Promise<DecodedAction | ActionError> => {
   if (isEthTransfer(action)) return buildEthTransferAction(action);
 
@@ -151,7 +179,12 @@ const decodeAction = async ({
       type:
         decoded?.functionFragment?.inputs?.[i].type ||
         'ERROR: Could not find type',
-      value: arg,
+      value: decoded?.functionFragment?.inputs?.[i].type === 'bytes'
+        ? decodeParam({
+            argMeta: actionMeta?.args?.[i],
+            value: arg,
+          })
+        : arg,
     })),
   };
 };
@@ -159,13 +192,15 @@ const decodeAction = async ({
 export const decodeProposalActions = async ({
   chainId,
   actionData,
+  actionsMeta = [],
 }: {
   chainId: ValidNetwork;
   actionData: string;
+  actionsMeta?: MulticallAction[];
 }) => {
   return Promise.all(
-    decodeMultisend({ chainId, actionData })?.map(async (action) => {
-      return await decodeAction({ chainId, action });
+    decodeMultisend({ chainId, actionData })?.map(async (action, i) => {
+      return await decodeAction({ chainId, action, actionMeta: actionsMeta[i] });
     })
   );
 };

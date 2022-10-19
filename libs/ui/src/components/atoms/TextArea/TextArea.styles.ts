@@ -62,14 +62,14 @@ export const BaseTextArea = styled.textarea`
   }
 
   &.success {
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.success};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.success.step9};
   }
 
   &.warning {
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning.step9};
   }
 
   &.error {
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.error};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.danger.step9};
   }
 `;

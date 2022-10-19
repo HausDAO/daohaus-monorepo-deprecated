@@ -10,6 +10,9 @@ import {
   neutralDark,
   utility,
   utilityDark,
+  dangerDark,
+  warningDark,
+  successDark,
 } from './global/colors';
 
 import {
@@ -37,11 +40,13 @@ export const defaultDarkTheme: Theme = {
   fontColor: secondaryDark.step12,
   primary: { ...primaryDark },
   secondary: { ...secondaryDark },
+  success: { ...successDark },
+  warning: { ...warningDark },
+  danger: { ...dangerDark },
+  grey: { ...neutralDark },
   error: utilityDark.danger,
-  warning: utilityDark.warning,
   warningBg: utilityDark.warningBg,
   warningBorder: utilityDark.warningBorder,
-  success: utilityDark.success,
   disabled: neutralDark.step9,
   transparent: 'transparent',
   info: utilityDark.info,

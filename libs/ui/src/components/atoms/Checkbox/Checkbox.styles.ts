@@ -97,7 +97,7 @@ export const LabelContainer = styled.label`
 `;
 
 export const RequiredAsterisk = styled.span`
-  color: ${({ theme }: { theme: Theme }) => theme.warning};
+  color: ${({ theme }: { theme: Theme }) => theme.warning.step9};
   font-weight: ${font.weight.bold};
   margin-right: 8px;
   transform: translateY(-0.25rem);

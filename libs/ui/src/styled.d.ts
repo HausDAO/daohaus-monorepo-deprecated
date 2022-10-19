@@ -36,15 +36,17 @@ type ColorSteps = {
 declare module 'styled-components' {
   export interface DefaultTheme {
     themeName: string;
-    bgColor: string;
-    fontColor: string;
     primary: ColorSteps;
     secondary: ColorSteps;
+    grey: ColorSteps;
+    success: ColorSteps;
+    warning: ColorSteps;
+    danger: ColorSteps;
+    bgColor: string;
+    fontColor: string;
     error: string;
-    warning: string;
     warningBg: string;
     warningBorder: string;
-    success: string;
     disabled: string;
     transparent: string;
     info: string;

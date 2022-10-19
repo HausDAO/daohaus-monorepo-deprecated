@@ -34,7 +34,7 @@ export const SuccessText = ({ children }: SpecialHelperText) => {
   'DefaultTheme' type, despite being initialized with a 'Theme' type.*/
   const theme = useTheme() as Theme;
   return (
-    <HelperText color={theme.success} icon={RiCheckboxCircleLine}>
+    <HelperText color={theme.success.step9} icon={RiCheckboxCircleLine}>
       {children}
     </HelperText>
   );
@@ -43,7 +43,7 @@ export const SuccessText = ({ children }: SpecialHelperText) => {
 export const WarningText = ({ children }: SpecialHelperText) => {
   const theme = useTheme() as Theme;
   return (
-    <HelperText color={theme.warning} icon={RiErrorWarningLine}>
+    <HelperText color={theme.warning.step9} icon={RiErrorWarningLine}>
       {children}
     </HelperText>
   );
@@ -52,7 +52,7 @@ export const WarningText = ({ children }: SpecialHelperText) => {
 export const ErrorText = ({ children }: SpecialHelperText) => {
   const theme = useTheme() as Theme;
   return (
-    <HelperText color={theme.error} icon={RiErrorWarningLine}>
+    <HelperText color={theme.danger.step9} icon={RiErrorWarningLine}>
       {children}
     </HelperText>
   );

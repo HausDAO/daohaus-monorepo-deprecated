@@ -41,20 +41,20 @@ export const FormFooter = ({
 
 const getStatusColor = (status: StatusMsg, theme: Theme) => {
   if (status === StatusMsg.PollSuccess) {
-    return theme.success;
+    return theme.success.step9;
   }
   if (status === StatusMsg.PollError || status === StatusMsg.TxErr) {
-    return theme.error;
+    return theme.danger.step9;
   } else {
     return theme.secondary.step9;
   }
 };
 const getStatusElement = (status: StatusMsg, theme: Theme) => {
   if (status === StatusMsg.PollSuccess) {
-    return <RiCheckLine color={theme.success} size="2.25rem" />;
+    return <RiCheckLine color={theme.success.step9} size="2.25rem" />;
   }
   if (status === StatusMsg.PollError || status === StatusMsg.TxErr) {
-    return <RiErrorWarningLine color={theme.error} size="2.25rem" />;
+    return <RiErrorWarningLine color={theme.danger.step9} size="2.25rem" />;
   } else return <Spinner size="2.25rem" strokeWidth=".25rem" />;
 };
 

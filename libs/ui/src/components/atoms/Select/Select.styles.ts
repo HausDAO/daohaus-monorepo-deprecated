@@ -24,11 +24,11 @@ export const WithIcon = styled.div`
   }
 
   &.warning {
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning.step9};
   }
 
   &.error {
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.error};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.danger.step9};
   }
 `;
 
@@ -58,11 +58,11 @@ export const BaseSelect = styled.select`
     max-width: ${field.size.full};
   }
   &.warning {
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning.step9};
   }
 
   &.error {
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.error};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.danger.step9};
   }
 
   :hover {

@@ -92,7 +92,7 @@ export const CancelProposal = ({
 
     return isProposer || sponsorBelowThreshold || isGovernorShaman
       ? true
-      : `Proposal can only be cancelled by the proposer, by a governance shaman or if the sponsor's shares have fallen below the sponsor threshold`;
+      : `Proposal can only be cancelled by the proposer, by a governance shaman or if the sponsor's voting token balance has fallen below the sponsor threshold`;
   }, [proposal, address, dao]);
 
   if (proposal.status !== PROPOSAL_STATUS.voting) {
@@ -101,7 +101,7 @@ export const CancelProposal = ({
 
   return (
     <GatedButton
-      sm
+      secondary
       rules={[isConnectedToDao, addressCanCancel]}
       onClick={handleCancel}
       centerAlign

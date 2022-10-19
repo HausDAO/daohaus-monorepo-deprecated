@@ -2,6 +2,7 @@ import { MouseEvent, ChangeEvent, useEffect, useState } from 'react';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import {
   isValidNetwork,
+  ITransformedMembership,
   NETWORK_DATA,
   ValidNetwork,
 } from '@daohaus/common-utilities';
@@ -21,7 +22,7 @@ import { HomeNotConnected } from './HomeNotConnected';
 import { getDelegateFilter } from '../utils/queryHelpers';
 import { DEFAULT_SORT_KEY, SORT_FIELDS } from '../utils/constants';
 import useDebounce from '../utils/debounceHook';
-import { Haus, ITransformedMembership } from '@daohaus/dao-data';
+import { Haus } from '@daohaus/dao-data';
 
 const HomePage = () => {
   const { isConnected, address } = useHausConnect();

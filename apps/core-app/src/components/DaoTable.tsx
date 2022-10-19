@@ -3,7 +3,7 @@ import { useTable, Column, UseTableRowProps } from 'react-table';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
 
-import { ITransformedMembership } from '@daohaus/dao-data';
+import { ITransformedMembership } from '@daohaus/common-utilities';
 import { ProfileAvatar, Tag } from '@daohaus/ui';
 import {
   charLimit,

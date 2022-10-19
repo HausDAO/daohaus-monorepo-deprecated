@@ -49,7 +49,7 @@ export const StyledDialogContent = styled(DialogPrimitive.Content)`
   position: fixed;
   top: 50%;
   transform: translate(-50%, -50%);
-  overflow-y: scroll;
+  overflow-y: auto;
   @media (prefers-reduced-motion: no-preference) {
     animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
   }

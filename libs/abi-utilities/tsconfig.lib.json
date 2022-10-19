@@ -9,5 +9,5 @@
     "esModuleInterop": true
   },
   "exclude": ["**/*.spec.ts", "**/*.test.ts", "jest.config.ts"],
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "**.*.d.ts"]
 }

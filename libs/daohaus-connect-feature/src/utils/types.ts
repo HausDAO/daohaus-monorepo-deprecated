@@ -1,8 +1,7 @@
 import { providers } from 'ethers';
 import { ICoreOptions } from 'web3modal';
 
-import { AccountProfile } from '@daohaus/dao-data';
-import { Keychain } from '@daohaus/common-utilities';
+import { AccountProfile, Keychain } from '@daohaus/common-utilities';
 
 export type ModalEvents = (
   eventName: 'error' | 'accountsChanged' | 'chainChanged',

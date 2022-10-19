@@ -6,7 +6,7 @@ import {
   truncateAddress,
   ValidNetwork,
 } from '@daohaus/common-utilities';
-import { AccountProfile } from '@daohaus/dao-data';
+import { AccountProfile } from '@daohaus/common-utilities';
 
 import { ParMd } from '../../atoms';
 

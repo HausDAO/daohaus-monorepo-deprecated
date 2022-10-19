@@ -39,11 +39,11 @@ export const DelegateInput = (props: Buildable<Field>) => {
     setValue(props.id, connectedMembership?.memberAddress);
   };
 
-  const votingPowerMessage = `${dao?.shareTokenName} (${formatValueTo({
+  const votingPowerMessage = `${formatValueTo({
     value: fromWei(connectedMembership?.shares || '0'),
     decimals: 2,
     format: 'number',
-  })} - ${votingPowerPercentage(
+  })} ${dao?.shareTokenName} (${votingPowerPercentage(
     dao?.totalShares || '0',
     connectedMembership?.shares || '0'
   )}% voting power) `;

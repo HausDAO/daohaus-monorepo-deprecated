@@ -9,8 +9,13 @@ import {
   DataIndicator,
 } from '@daohaus/ui';
 import {
+  dynamicDecimals,
   formatShortDateTimeFromSeconds,
+  formatValueTo,
+  fromWei,
   Keychain,
+  NETWORK_DATA,
+  ValidNetwork,
 } from '@daohaus/common-utilities';
 
 import { TProposals } from '@daohaus/dao-context';
@@ -19,13 +24,17 @@ import { ProposalWarning } from './ProposalWarning';
 const OverviewContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 1.2rem;
+  margin-top: 1rem;
   width: 100%;
   padding: 2.8rem 3.6rem;
 
   border-radius: ${border.radius};
   border: 1px ${({ theme }: { theme: Theme }) => theme.card.border} solid;
   background-color: ${({ theme }: { theme: Theme }) => theme.card.hoverBg};
+
+  .proposal-link {
+    margin-top: 1.2rem;
+  }
 `;
 
 const DataContainer = styled.div`
@@ -56,7 +65,11 @@ export const ProposalDetailsGuts = ({ proposal }: ProposalDetailsGutsProps) => {
     <OverviewContainer>
       <ParMd>{proposal.description}</ParMd>
       {proposal.contentURI && (
-        <Link href={proposal.contentURI} linkType="external">
+        <Link
+          href={proposal.contentURI}
+          linkType="external"
+          className="proposal-link"
+        >
           Link
         </Link>
       )}
@@ -80,6 +93,21 @@ export const ProposalDetailsGuts = ({ proposal }: ProposalDetailsGutsProps) => {
           size="sm"
         />
       </DataContainer>
+
+      {Number(proposal.proposalOffering) > 0 && (
+        <DataIndicator
+          label="Proposal Offering"
+          data={formatValueTo({
+            value: fromWei(proposal.proposalOffering),
+            format: 'number',
+            unit: NETWORK_DATA[daochain as ValidNetwork]?.symbol,
+            decimals: dynamicDecimals({
+              baseUnits: Number(proposal.proposalOffering),
+            }),
+          })}
+          size="sm"
+        />
+      )}
       <Spacer />
       <ProposalWarning
         proposalType={proposal.proposalType}

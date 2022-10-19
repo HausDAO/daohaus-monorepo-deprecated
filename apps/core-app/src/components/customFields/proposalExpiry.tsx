@@ -49,14 +49,16 @@ export const ProposalExpiry = ({
       const extendedPeriodSeconds =
         Number(periodValue || 0) * Number(periodMultiplier || 0);
       const absoluteExtendedPeriod =
-        unixTimeInSeconds() +
         Number(dao.votingPeriod) +
         Number(dao.gracePeriod) +
         extendedPeriodSeconds;
       setValue(id, absoluteExtendedPeriod);
       setValue(
         expiryDateString,
-        format(absoluteExtendedPeriod * 1000, "MMM dd, yyyy 'at' hh:mmaaa OOO")
+        format(
+          (unixTimeInSeconds() + absoluteExtendedPeriod) * 1000,
+          "MMM dd, yyyy 'at' hh:mmaaa OOO",
+        ),
       );
     }
   }, [dao, expiryDateString, id, periodValue, periodMultiplier, setValue]);

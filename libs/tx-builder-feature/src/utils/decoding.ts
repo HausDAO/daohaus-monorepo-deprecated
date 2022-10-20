@@ -114,6 +114,7 @@ const buildEthTransferAction = (action: EncodedAction): DecodedAction => ({
   params: [],
 });
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const decodeParam = ({
   argMeta,
   value,

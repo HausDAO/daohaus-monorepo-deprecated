@@ -37,7 +37,7 @@ const VisibleContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const ContentContainer = styled.div`
@@ -80,6 +80,10 @@ const LinkContainer = styled.div`
   justify-content: flex-end;
   width: 100%;
   margin-top: 2.5rem;
+`;
+
+const VotesButton = styled(Button)`
+  min-width: 10.6rem;
 `;
 
 const DataPoint = ({
@@ -151,7 +155,9 @@ export const ProposalHistoryCard = ({
         {element.showVotesButton && hasProposalVotes && (
           <Dialog>
             <DialogTrigger asChild>
-              <Button sm secondary>Show Votes</Button>
+              <VotesButton sm secondary>
+                Show Votes
+              </VotesButton>
             </DialogTrigger>
             <DialogContent title={`Proposal Votes (${proposal.votes?.length})`}>
               <VoteList votes={proposal.votes} proposal={proposal} />

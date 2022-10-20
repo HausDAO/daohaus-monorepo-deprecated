@@ -21,7 +21,6 @@ import { Logger } from './Logger';
 import { FormFooter } from './formFooter';
 import { FormBuilderFactory } from './FormBuilderFactory';
 import { useTxBuilder } from '@daohaus/tx-builder-feature';
-import { useParams } from 'react-router-dom';
 
 type FormContext<Lookup extends LookupType> = {
   form?: FormLego<Lookup>;
@@ -71,8 +70,6 @@ export function FormBuilder<Lookup extends LookupType>({
   onSubmit,
   defaultValues,
   customFields,
-  onSuccess,
-  onError,
 }: BuilderProps<Lookup>) {
   const { chainId } = useHausConnect();
 
@@ -93,16 +90,13 @@ export function FormBuilder<Lookup extends LookupType>({
   } = form;
 
   const { fireTransaction } = useTxBuilder?.() || {};
-  const { daochain } = useParams();
   const { defaultToast, errorToast, successToast } = useToast();
 
   const [isLoading, setIsLoading] = useState(false);
   const [status, setStatus] = useState<null | StatusMsg>(null);
   const [txHash, setTxHash] = useState<null | string>(null);
 
-  const isSameNetwork = daochain === chainId;
-  const submitDisabled =
-    !isValid || isLoading || !isValidNetwork(chainId) || !isSameNetwork;
+  const submitDisabled = !isValid || isLoading || !isValidNetwork(chainId);
   const formDisabled = isLoading;
 
   const handleTopLevelSubmit = async (formValues: FieldValues) => {
@@ -130,7 +124,6 @@ export function FormBuilder<Lookup extends LookupType>({
               fallback: 'Could not decode error message',
             });
             setIsLoading(false);
-            onError?.();
             errorToast({ title: StatusMsg.TxErr, description: errMsg });
           },
           onTxSuccess() {
@@ -150,7 +143,6 @@ export function FormBuilder<Lookup extends LookupType>({
               fallback: 'Could not decode poll error message',
             });
             setIsLoading(false);
-            onError?.();
             errorToast({ title: StatusMsg.PollError, description: errMsg });
           },
           onPollSuccess() {
@@ -160,7 +152,6 @@ export function FormBuilder<Lookup extends LookupType>({
               title: StatusMsg.PollSuccess,
               description: 'Transaction cycle complete.',
             });
-            onSuccess?.();
           },
         },
       });
@@ -189,7 +180,7 @@ export function FormBuilder<Lookup extends LookupType>({
             noValidate
           >
             {fields?.map((field) => (
-              <FormBuilderFactory key={field?.id} field={field} />
+              <FormBuilderFactory key={field.id} field={field} />
             ))}
             {log && <Logger />}
             {devtool && <DevTool control={control} />}

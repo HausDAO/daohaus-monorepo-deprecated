@@ -1,9 +1,4 @@
-import {
-  formatDistanceToNowStrict,
-  hoursToSeconds,
-  minutesToSeconds,
-} from 'date-fns';
-import { isNumberish } from './typeguards';
+import { hoursToSeconds, minutesToSeconds } from 'date-fns';
 
 export const conversionFns = {
   days: (amt: number) => hoursToSeconds(amt * 24),
@@ -41,15 +36,4 @@ export const formatPeriods = (duration: string) => {
     return tmp.join(' ');
   }
   return 0;
-};
-
-export const baalTimeToNow = (time: string | number) => {
-  if (!isNumberish(time)) {
-    console.warn(
-      'baalTimeToNow: time is not a number or numberish string',
-      time
-    );
-    return;
-  }
-  return formatDistanceToNowStrict(new Date(Number(time) * 1000));
 };

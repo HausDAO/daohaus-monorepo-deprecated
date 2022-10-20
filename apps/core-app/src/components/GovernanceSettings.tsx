@@ -1,16 +1,7 @@
 import styled from 'styled-components';
-import {
-  H3,
-  H4,
-  DataIndicator,
-  ParSm,
-  widthQuery,
-  Theme,
-  Button,
-  Link,
-} from '@daohaus/ui';
+import { H3, H4, DataIndicator, ParSm, widthQuery, Theme } from '@daohaus/ui';
 
-import { TDao } from '@daohaus/dao-context';
+import { TDao } from '../contexts/DaoContext';
 import {
   charLimit,
   formatPeriods,
@@ -18,7 +9,6 @@ import {
   fromWei,
   getNetwork,
   INFO_COPY,
-  lowerCaseLootToken,
 } from '@daohaus/common-utilities';
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
@@ -32,20 +22,13 @@ const GovernanceContainer = styled.div`
   }
 `;
 
+// putting this in place for when we bring in the action button
 const GovernanceCardHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   flex-wrap: wrap;
   margin-bottom: 3rem;
-`;
-
-const TokensHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  margin-top: 1rem;
 `;
 
 const DataGrid = styled.div`
@@ -72,15 +55,6 @@ const TokenDataGrid = styled(DataGrid)`
 const StyledLink = styled.a`
   text-decoration: none;
   color: ${({ theme }: { theme: Theme }) => theme.link.color};
-  :hover {
-    text-decoration: none;
-  }
-`;
-
-const StyledButtonLink = styled(Link)`
-  :hover {
-    text-decoration: none;
-  }
 `;
 
 type GovernanceSettingsProps = {
@@ -88,43 +62,21 @@ type GovernanceSettingsProps = {
 };
 
 export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
-  const { daochain, daoid } = useParams();
+  const { daochain } = useParams();
   const networkData = useMemo(() => {
     if (!daochain) return null;
     return getNetwork(daochain);
   }, [daochain]);
 
-  const defaultValues = useMemo(() => {
-    if (!dao) return null;
-    return {
-      votingPeriod: dao.votingPeriod,
-      gracePeriod: dao.gracePeriod,
-      proposalOffering: dao.proposalOffering,
-      quorumPercent: dao.quorumPercent,
-      minRetention: dao.minRetentionPercent,
-      sponsorThreshold: dao.sponsorThreshold,
-      newOffering: dao.proposalOffering,
-      vStake: dao.sharesPaused,
-      nvStake: dao.lootPaused,
-    };
-  }, [dao]);
-
   return (
     <GovernanceContainer>
       <GovernanceCardHeader>
         <H3>Governance Settings</H3>
-        <StyledButtonLink
-          href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=UPDATE_GOV_SETTINGS&defaultValues=${JSON.stringify(
-            defaultValues
-          )}`}
-        >
-          <Button secondary>Update Dao Settings</Button>
-        </StyledButtonLink>
       </GovernanceCardHeader>
       <div className="description">
         <ParSm>
           <StyledLink
-            href="https://moloch.daohaus.fun/configuration/governance-configuration"
+            href="https://baal-docs.vercel.app/configuration/governance-configuration"
             target="_blank"
             rel="noreferrer"
           >
@@ -150,7 +102,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
         <DataIndicator
           size="sm"
           label="New Offering"
-          data={`${fromWei(dao.proposalOffering)} ${networkData?.symbol}`}
+          data={`${dao.proposalOffering} ${networkData?.symbol}`}
           info={INFO_COPY.NEW_OFFERING}
         />
       </DataGrid>
@@ -173,27 +125,16 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
         <DataIndicator
           size="sm"
           label="Sponsor Threshold"
-          data={`${fromWei(dao.sponsorThreshold)} Shares`}
+          data={`${dao.sponsorThreshold} Shares`}
           info={INFO_COPY.SPONSOR_THRESHOLD}
         />
       </DataGrid>
-      <TokensHeader>
-        <H3 className="tokens">DAO Tokens</H3>
-        <StyledButtonLink
-          href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=TOKEN_SETTINGS&defaultValues=${JSON.stringify(
-            defaultValues
-          )}`}
-        >
-          <Button secondary sm>
-            Update Token Settings
-          </Button>
-        </StyledButtonLink>
-      </TokensHeader>
+      <H3 className="tokens">DAO Tokens</H3>
       <H4>Voting</H4>
       <TokenDataGrid>
         <DataIndicator
           size="sm"
-          label="Total"
+          label="total"
           data={formatValueTo({
             value: fromWei(dao.totalShares),
             decimals: 2,
@@ -216,7 +157,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
       <TokenDataGrid>
         <DataIndicator
           size="sm"
-          label="Total"
+          label="total"
           data={formatValueTo({
             value: fromWei(dao.totalLoot),
             decimals: 2,
@@ -227,7 +168,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
         <DataIndicator
           size="sm"
           label="Name"
-          data={charLimit(lowerCaseLootToken(dao.lootTokenName), 12)}
+          data={charLimit(dao.lootTokenName, 12)}
         />
         <DataIndicator
           size="sm"

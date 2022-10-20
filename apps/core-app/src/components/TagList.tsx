@@ -15,7 +15,7 @@ type TagListProps = {
 export const TagList = ({ tags }: TagListProps) => {
   return (
     <TagContainer>
-      {tags.filter(Boolean).map((tag) => (
+      {tags.map((tag) => (
         <Tag tagColor="green" key={tag}>
           {tag}
         </Tag>

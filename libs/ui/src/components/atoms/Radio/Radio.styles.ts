@@ -105,7 +105,7 @@ export const RadioIndicator = styled(RadioGroupPrimitive.Indicator)`
 export const LabelContainer = styled.label`
   align-items: center;
   display: flex;
-  margin-left: 1.2rem;
+  margin-left: 1.9rem;
 
   label {
     margin-right: 0.1rem;

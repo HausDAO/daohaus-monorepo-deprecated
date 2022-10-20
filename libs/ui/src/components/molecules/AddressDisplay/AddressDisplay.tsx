@@ -10,7 +10,7 @@ import { Theme } from '../../../types/theming';
 import {
   AddressContainer,
   AddressCopyIcon,
-  AddressDataSm,
+  AddressDataMd,
 } from './AddressDisplay.styles';
 import { Icon, Link } from '../../atoms';
 import { useCopyToClipboard } from '../../../hooks';
@@ -23,7 +23,6 @@ type AddressDisplayProps = {
   truncate?: boolean;
   txHash?: boolean;
   textOverride?: string;
-  className?: string;
 };
 
 export const AddressDisplay = ({
@@ -33,7 +32,6 @@ export const AddressDisplay = ({
   truncate,
   txHash,
   textOverride,
-  className,
   ...props
 }: AddressDisplayProps) => {
   const theme = useTheme() as Theme;
@@ -50,8 +48,9 @@ export const AddressDisplay = ({
   }, [address, txHash, explorerNetworkId]);
 
   const handleCopy = () => {
+    const shortAddress = truncateAddress(address);
     copyToClipboard(
-      address,
+      shortAddress,
       `Success ${txHash ? 'Transaction Hash:' : 'Address:'}`
     );
   };
@@ -59,10 +58,10 @@ export const AddressDisplay = ({
   const displayAddress = truncate ? truncateAddress(address) : address;
 
   return (
-    <AddressContainer className={className}>
-      <AddressDataSm>
+    <AddressContainer>
+      <AddressDataMd {...props}>
         {textOverride ? textOverride : displayAddress}
-      </AddressDataSm>
+      </AddressDataMd>
       {copy && (
         <AddressCopyIcon>
           <Icon>

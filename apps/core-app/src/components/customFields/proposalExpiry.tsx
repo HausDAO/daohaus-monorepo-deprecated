@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { format } from 'date-fns';
+import { format, addSeconds } from 'date-fns';
 import { FieldSpacer } from '@daohaus/haus-form-builder';
 import {
   Buildable,
@@ -10,30 +10,20 @@ import {
   WrappedInput,
   InputSelect,
 } from '@daohaus/ui';
-import { useDao } from '@daohaus/dao-context';
-import { unixTimeInSeconds } from '@daohaus/common-utilities';
-import { useTheme } from 'styled-components';
+import { useDao } from '../../contexts/DaoContext';
 
 const INPUT_ID = 'expiryValue';
-const SELECT_ID = 'expiryPeriod';
+const SELECT_ID = 'expiryPeriod'
 
-type ProposalExpiryProps = Buildable<
-  Field & {
-    defaultValue?: string;
-    label: string;
-  }
->;
+type ProposalExpiryProps = Buildable<Field & {
+  defaultValue?: string;
+  label: string;
+}>;
 
-export const ProposalExpiry = ({
-  id,
-  defaultValue,
-  rules,
-  ...props
-}: ProposalExpiryProps) => {
+export const ProposalExpiry = ({ id, defaultValue, rules, ...props }: ProposalExpiryProps) => {
   const { watch, register, setValue } = useFormContext();
   const [periodValue, periodMultiplier] = watch([INPUT_ID, SELECT_ID]);
   const { dao } = useDao();
-  const theme = useTheme();
 
   const expiryDateString = `${id}String`;
 
@@ -49,14 +39,16 @@ export const ProposalExpiry = ({
       const extendedPeriodSeconds =
         Number(periodValue || 0) * Number(periodMultiplier || 0);
       const absoluteExtendedPeriod =
-        unixTimeInSeconds() +
         Number(dao.votingPeriod) +
         Number(dao.gracePeriod) +
         extendedPeriodSeconds;
       setValue(id, absoluteExtendedPeriod);
       setValue(
         expiryDateString,
-        format(absoluteExtendedPeriod * 1000, "MMM dd, yyyy 'at' hh:mmaaa OOO")
+        format(
+          addSeconds(new Date(), absoluteExtendedPeriod),
+          "MMM dd, yyyy 'at' hh:mmaaa OOO",
+        ),
       );
     }
   }, [dao, expiryDateString, id, periodValue, periodMultiplier, setValue]);
@@ -77,15 +69,15 @@ export const ProposalExpiry = ({
       </FieldSpacer>
       <FieldSpacer>
         <HighlightInputText
-          id="highlightProposalExpiry"
-          description="Expiration will be on:"
-          highlightColor={theme.tint.secondary}
+          id='highlightProposalExpiry'
+          description='Expiration will be on:'
+          highlightColor='#B4D7CE'
           highlightInputId={expiryDateString}
         />
       </FieldSpacer>
       <HighlightInputText
-        id="expirationDateDescription"
-        description="The expiration date includes Voting and Grace Periods. Adjust the days or hour to update the expiration."
+        id='expirationDateDescription'
+        description='The expiration date includes Voting and Grace Periods. Adjust the days or hour to update the expiration.'
       />
       <WrappedInput id={id} hidden />
       <WrappedInput id={expiryDateString} hidden />

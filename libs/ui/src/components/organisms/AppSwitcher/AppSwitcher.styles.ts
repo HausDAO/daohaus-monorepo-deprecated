@@ -1,14 +1,10 @@
 import styled from 'styled-components';
-import { font } from '../../../theme/global/font';
-import { Theme } from '../../../types/theming';
-import { DropdownButton, DropdownLink } from '../../molecules';
 
-export const AppSwitcherLink = styled(DropdownLink)`
-  font-weight: ${font.weight.bold};
-`;
+import { Theme } from '../../../types/theming';
+import { DropdownButton } from '../../molecules';
 
 export const AppSwitcherTrigger = styled(DropdownButton)`
-  width: ${({ width }: { width: string }) => width};
+  min-width: ${({ minWidth }: { minWidth: string }) => minWidth};
   padding: 0 4px 0 16px;
 
   &[data-state='open'] {

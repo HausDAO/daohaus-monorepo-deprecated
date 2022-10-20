@@ -43,7 +43,8 @@ export const StyledDialogContent = styled(DialogPrimitive.Content)`
   justify-content: space-between;
   left: 50%;
   max-height: 85vh;
-  max-width: 80%;
+  max-width: 90vw;
+  min-width: 50rem;
   min-height: 23rem;
   padding: 3rem;
   position: fixed;

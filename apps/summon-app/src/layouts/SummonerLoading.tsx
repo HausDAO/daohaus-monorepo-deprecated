@@ -10,8 +10,8 @@ type LoadingProps = {
 
 export const SummonerLoading = ({ txHash }: LoadingProps) => {
   return (
-    <div>
-      <H1 className="title">
+    <div className="main-column">
+      <H1>
         <Bold>Summon a DAO</Bold>
       </H1>
       <ParMd>

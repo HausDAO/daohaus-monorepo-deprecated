@@ -1,6 +1,7 @@
 import { useTheme } from 'styled-components';
 import { RiArrowDropDownLine, RiMenuLine } from 'react-icons/ri';
-import { Align } from '@radix-ui/react-popper';
+import { Align } from '@radix-ui/popper';
+import { useLocation } from 'react-router-dom';
 
 import {
   NavigationTabsContainer,
@@ -12,7 +13,6 @@ import { useBreakpoint } from '../../../hooks/useMediaQuery';
 import { widthQuery } from '../../../theme/global/breakpoints';
 import { Button } from '../../atoms';
 import { Dropdown } from '../../molecules';
-import { useMemo } from 'react';
 
 type NavLinkType = {
   label: string;
@@ -22,14 +22,23 @@ type NavLinkType = {
 export type NavigationTabsProps = {
   className?: string;
   navLinks?: NavLinkType[];
-  pathname: string;
   dropdownTriggerText?: string;
   dropdownMenuSpacing?: string;
   dropdownMenuAlign?: Align;
   dropdownLinks?: NavLinkType[];
 };
 
-const isSelected = (pathname: string, href: string) => pathname === href;
+/*REVIEW:
+  The dropdown could be less dependent on props/chaining
+  We can expose components for each item in the dropdown.
+  Ex.
+        <DropdownMenuLabel />
+        <DropdownMenuItem />
+        <DropdownMenuCheckbox />
+
+  Allow to be passed as children and the user can loop over items.
+  Users could then Pass dynamicly, staticly or both.
+*/
 
 export const NavigationTabs = (props: NavigationTabsProps) => {
   const {
@@ -39,19 +48,12 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
     dropdownMenuAlign = 'end',
     dropdownMenuSpacing = '2rem',
     dropdownLinks = [],
-    pathname,
   } = props;
 
   const theme = useTheme();
+  const location = useLocation();
   const isSm = useBreakpoint(widthQuery.sm);
   const mobileLinks = [...navLinks, ...dropdownLinks];
-
-  const currentLabel = useMemo(() => {
-    const currentLink = navLinks.find((link) =>
-      isSelected(pathname, link.href)
-    );
-    return currentLink?.label;
-  }, [navLinks, pathname]);
 
   return (
     <NavigationTabsContainer className={className}>
@@ -63,12 +65,12 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
             spacing={dropdownMenuSpacing}
             trigger={
               <Button tertiary IconLeft={RiMenuLine}>
-                {currentLabel}
+                Mobile
               </Button>
             }
           >
             {mobileLinks.map((mobileLink) => {
-              const selected = isSelected(pathname, mobileLink.href);
+              const selected = location.pathname.includes(mobileLink.href);
               return (
                 <DropdownLink
                   key={mobileLink.label}
@@ -84,7 +86,7 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
       ) : (
         <div className="nav-link-list">
           {navLinks.map((link) => {
-            const selected = isSelected(pathname, link.href);
+            const selected = location.pathname.includes(link.href);
             return (
               <NavLink key={link.label} href={link.href} selected={selected}>
                 {link.label}
@@ -93,7 +95,6 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
           })}
           {dropdownLinks.length > 0 && (
             <Dropdown
-              modal={false}
               menuBg={theme.navTabs.bg}
               align={dropdownMenuAlign}
               spacing={dropdownMenuSpacing}
@@ -105,7 +106,7 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
               }
             >
               {dropdownLinks.map((dropdownLink, index) => {
-                const selected = isSelected(pathname, dropdownLink.href);
+                const selected = location.pathname.includes(dropdownLink.href);
                 return (
                   <DropdownLink
                     key={`${dropdownLink.label}-${index}`}

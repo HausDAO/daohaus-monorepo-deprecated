@@ -39,7 +39,7 @@ const FilterDropdown = ({ filter, toggleFilter }: FilterDropdownProps) => {
       spacing=".6rem"
       trigger={
         <Button secondary IconLeft={IconFilter}>
-          {filter ? `${PROPOSAL_FILTERS[filter]}` : 'Filter'}
+          Filter{filter && `: ${PROPOSAL_FILTERS[filter]}`}
         </Button>
       }
     >

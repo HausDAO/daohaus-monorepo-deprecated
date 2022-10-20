@@ -10,7 +10,7 @@ export const NavigationTabsContainer = styled.div`
   .nav-link-list {
     padding: 3.2rem 3.5rem 2.2rem 3.5rem;
     a {
-      margin-right: 4rem;
+      margin-right: 5rem;
     }
   }
   .mobile-box {
@@ -27,11 +27,10 @@ export const DropdownLinkTrigger = styled.button`
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   letter-spacing: 1.5px;
   padding-bottom: 1rem;
   transition: 0.2s all;
-  padding-left: 0;
 
   svg {
     margin-left: 0.3rem;
@@ -54,7 +53,7 @@ export const NavLink = styled(Link)`
   border-bottom: 2px transparent solid;
   color: ${(props) => props.theme.navTabs.navLinkColor};
   cursor: pointer;
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   letter-spacing: 1.5px;
   padding-bottom: 1rem;
   transition: 0.2s all;
@@ -83,7 +82,7 @@ export const DropdownLink = styled(Link)`
   color: ${(props) => props.theme.navTabs.navLinkColor};
   cursor: pointer;
   display: flex;
-  font-size: 2.2rem;
+  font-size: 2.4rem;
   letter-spacing: 1.5px;
   padding: 1rem;
   transition: 0.2s all;

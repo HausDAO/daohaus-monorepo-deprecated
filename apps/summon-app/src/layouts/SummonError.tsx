@@ -1,13 +1,4 @@
-import {
-  Bold,
-  Button,
-  H1,
-  ParLg,
-  ParMd,
-  Link,
-  useBreakpoint,
-  widthQuery,
-} from '@daohaus/ui';
+import { Bold, Button, H1, ParLg, ParMd, Link } from '@daohaus/ui';
 import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
 
 import { InfoSection } from './FormLayouts';
@@ -29,10 +20,10 @@ export const SummonError = ({
   const handleResetSummon = () => {
     setSummonState('idle');
   };
-  const isMobile = useBreakpoint(widthQuery.sm);
+
   return (
-    <div>
-      <H1 className="title">
+    <div className="main-column">
+      <H1>
         <Bold>Summon Error</Bold>
       </H1>
       <ParMd>
@@ -52,12 +43,7 @@ export const SummonError = ({
         {errMsg && <ParMd>{errMsg}</ParMd>}
         <ExplorerLink address={daoAddress}>View Transaction</ExplorerLink>
       </InfoSection>
-      <Button
-        secondary
-        onClick={handleResetSummon}
-        fullWidth={isMobile}
-        centerAlign={isMobile}
-      >
+      <Button secondary onClick={handleResetSummon}>
         Summon Another DAO
       </Button>
     </div>

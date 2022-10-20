@@ -5,7 +5,6 @@ import {
   primaryDark,
   secondary,
   secondaryDark,
-  secondaryDarkA,
   neutral,
   neutralDark,
   utility,
@@ -36,7 +35,7 @@ export const defaultDarkTheme: Theme = {
   bgColor: neutralDark.step1,
   fontColor: secondaryDark.step12,
   primary: primaryDark.step9,
-  secondary: secondaryDark.step9,
+  secondary: secondary.step9,
   error: utilityDark.danger,
   warning: utilityDark.warning,
   warningBg: utilityDark.warningBg,
@@ -45,9 +44,6 @@ export const defaultDarkTheme: Theme = {
   disabled: neutralDark.step9,
   transparent: 'transparent',
   info: utilityDark.info,
-  tint: {
-    secondary: secondaryDark.step11,
-  },
   // *** ATOMS *** //
   button: {
     primary: PrimaryDarkButton,
@@ -60,14 +56,12 @@ export const defaultDarkTheme: Theme = {
   card: {
     bg: secondaryDark.step2,
     border: secondaryDark.step5,
-    // TODO Delete unused card states
     hoverBg: secondaryDark.step3,
     hoverBorder: secondaryDark.step6,
     focusBg: secondaryDark.step2,
     focusBorder: secondaryDark.step7,
     disabledBg: neutralDark.step2,
     disabledBorder: neutralDark.step5,
-    // end unused card states
     successText: utilityDark.successText,
     successBg: utilityDark.successBg,
     successBorder: utilityDark.successBorder,
@@ -108,9 +102,6 @@ export const defaultDarkTheme: Theme = {
   },
   link: {
     color: primaryDark.step10,
-  },
-  progress: {
-    bg: neutralDark.step8,
   },
   radio: {
     item: {
@@ -176,9 +167,8 @@ export const defaultDarkTheme: Theme = {
     text: primaryDark.step11,
     hoverText: primaryDark.step10,
     focusText: primaryDark.step12,
-    // bgInnerCard: secondaryDark.step5,
-    bgInnerCard: secondaryDarkA.step3,
-    borderInnerCard: secondaryDark.step5,
+    bgInnerCard: secondaryDark.step5,
+    borderInnerCard: secondaryDark.step6,
   },
   dropdown: DropdownDark,
   dialog: {
@@ -235,9 +225,6 @@ export const defaultLightTheme: Theme = {
   success: utility.success,
   info: utility.info,
   transparent: utility.transparent,
-  tint: {
-    secondary: secondary.step11,
-  },
   disabled: neutral.step9,
   // *** ATOMS *** //
   button: {
@@ -297,9 +284,6 @@ export const defaultLightTheme: Theme = {
   },
   link: {
     color: primaryDark.step10,
-  },
-  progress: {
-    bg: neutral.step10,
   },
   radio: {
     item: {

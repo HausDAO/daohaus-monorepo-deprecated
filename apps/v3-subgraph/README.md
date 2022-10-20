@@ -9,7 +9,6 @@ TBD
 ### Subgraph yaml Generation
 
 `nx run v3-subgraph:generate-config --network=goerli`
-`nx run v3-subgraph:generate-config --network=xdai`
 
 Supported Networks:
 
@@ -23,8 +22,7 @@ To generate subgraph code, run the following command:
 
 ## Deployment
 
-`nx run v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-goerli --network=goerli`
-`nx run v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-gnosis --network=xdai`
+`nx run v3-subgraph:graph-deploy --name=hausdao/daohaus-v3-goerli`
 
 _These require installing the graph cli locally_
 `npm install -g @graphprotocol/graph-cli`
@@ -32,4 +30,3 @@ _These require installing the graph cli locally_
 Supported names:
 
 - `hausdao/daohaus-v3-goerli`
-- `hausdao/daohaus-v3-gnosis`

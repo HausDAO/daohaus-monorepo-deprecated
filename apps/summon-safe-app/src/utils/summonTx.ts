@@ -1,4 +1,5 @@
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
+import { utils } from 'ethers';
 import {
   ArgType,
   CONTRACTS,
@@ -57,9 +58,9 @@ const governanceConfigTX = (formValues: FormValues) => {
     [
       votingPeriodInSeconds,
       gracePeriodInSeconds,
-      toBaseUnits(newOffering),
+      utils.parseUnits(newOffering, 'ether').toString(),
       quorum,
-      toBaseUnits(sponsorThreshold),
+      sponsorThreshold,
       minRetention,
     ]
   );

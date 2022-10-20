@@ -1,6 +1,6 @@
 {
   "name": "@daohaus/haus-form-builder",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "./form-builder.umd.js",
   "module": "./form-builder.es.js",
   "typings": "./src/index.d.ts",

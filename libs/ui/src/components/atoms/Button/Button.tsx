@@ -28,7 +28,6 @@ export type ButtonProps = {
   leftAlign?: boolean;
   lg?: boolean;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  primary?: boolean;
   secondary?: boolean;
   sm?: boolean;
   tertiary?: boolean;
@@ -45,7 +44,6 @@ type Ref =
 
 export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
   const {
-    primary,
     secondary,
     sm,
     lg,
@@ -72,7 +70,7 @@ export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
     'center-align': centerAlign,
   });
 
-  const iconClasses = classNames({ secondary, primary, tertiary, sm, lg });
+  const iconClasses = classNames({ secondary, tertiary, sm, lg });
   return (
     <ButtonBase
       {...props}

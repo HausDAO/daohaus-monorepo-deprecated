@@ -7,7 +7,7 @@ import {
   SuccessMessage,
   WrappedTextArea,
 } from '@daohaus/ui';
-import { useDao } from '@daohaus/dao-context';
+import { useDao } from '../contexts/DaoContext';
 import { useParams } from 'react-router-dom';
 import {
   ENDPOINTS,
@@ -60,7 +60,6 @@ const handleFetchPubId = async (
     const result = await request(subgraphUrl, query, {
       safeId,
     });
-
     const pubId = result?.permissions?.[0]?.publication?.id;
     if (!shouldUpdate) return;
     if (pubId) {

@@ -57,8 +57,5 @@
     "build": {
       "dependsOn": ["^build", "tsc"]
     }
-  },
-  "cli": {
-    "defaultCollection": "@nxext/vite"
   }
 }

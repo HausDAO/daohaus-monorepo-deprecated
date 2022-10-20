@@ -1,10 +1,61 @@
 import { Keychain, ReactSetter } from '@daohaus/common-utilities';
 import {
+  DaoWithTokenDataQuery,
   FindMemberQuery,
   Haus,
-  ITransformedProposalQuery,
+  ITransformedProposalListQuery,
+  ListConnectedMemberProposalsQuery,
+  ListMembersQuery,
+  Member_Filter,
+  Member_OrderBy,
+  Ordering,
+  Paging,
+  Proposal_Filter,
+  Proposal_OrderBy,
 } from '@daohaus/dao-data';
 import { ErrorMessage } from '@daohaus/ui';
+import deepEqual from 'deep-eql';
+
+export const loadDao = async ({
+  daoid,
+  daochain,
+  setDao,
+  setDaoLoading,
+  shouldUpdate,
+}: {
+  daoid: string;
+  daochain: keyof Keychain;
+  setDao: ReactSetter<DaoWithTokenDataQuery['dao'] | undefined>;
+  setDaoLoading: ReactSetter<boolean>;
+  shouldUpdate: boolean;
+}) => {
+  try {
+    setDaoLoading(true);
+    const haus = Haus.create();
+    const daoRes = await haus.query.findDao({
+      networkId: daochain,
+      dao: daoid,
+      includeTokens: true,
+    });
+
+    if (daoRes?.data?.dao && shouldUpdate) {
+      const daoData: DaoWithTokenDataQuery['dao'] = {
+        tokenBalances: [],
+        fiatTotal: 0,
+        ...daoRes.data.dao,
+      };
+
+      setDao(daoData);
+    }
+  } catch (error) {
+    console.error(error);
+    setDao(undefined);
+  } finally {
+    if (shouldUpdate) {
+      setDaoLoading(false);
+    }
+  }
+};
 
 export const loadMember = async ({
   daoid,
@@ -45,44 +96,53 @@ export const loadMember = async ({
   }
 };
 
-export const loadProposal = async ({
-  daoid,
+export const loadMembersList = async ({
+  filter,
+  ordering,
+  paging,
   daochain,
-  proposalId,
-  setProposal,
-  setProposalLoading,
+  setData,
+  setLoading,
+  setNextPaging,
   shouldUpdate,
-  connectedAddress,
 }: {
-  daoid: string;
+  filter: Member_Filter;
+  ordering?: Ordering<Member_OrderBy>;
+  paging?: Paging;
   daochain: keyof Keychain;
-  proposalId: string;
-  setProposal: ReactSetter<ITransformedProposalQuery['proposal'] | undefined>;
-  setProposalLoading: ReactSetter<boolean>;
+  setData: ReactSetter<ListMembersQuery['members'] | undefined>;
+  setLoading: ReactSetter<boolean>;
+  setNextPaging: ReactSetter<Paging | undefined>;
   shouldUpdate: boolean;
-  connectedAddress?: string | null;
 }) => {
   try {
-    setProposalLoading(true);
+    setLoading(true);
     const haus = Haus.create();
-    const res = await haus.query.findProposal({
+    const res = await haus.query.listMembers({
       networkId: daochain,
-      dao: daoid,
-      proposalId: proposalId.toLowerCase(),
-      connectedAddress,
+      filter,
+      ordering,
+      paging,
     });
 
-    if (res?.data?.proposal && shouldUpdate) {
-      setProposal(res.data.proposal);
-    } else if (shouldUpdate) {
-      setProposal(undefined);
+    if (shouldUpdate) {
+      setNextPaging(res.nextPaging);
+
+      setData((prevState) => {
+        if (deepEqual(prevState, res.items)) return res.items;
+        if (prevState) {
+          return [...prevState, ...res.items];
+        } else {
+          return res.items;
+        }
+      });
     }
   } catch (error) {
     console.error(error);
-    setProposal(undefined);
+    setData(undefined);
   } finally {
     if (shouldUpdate) {
-      setProposalLoading(false);
+      setLoading(false);
     }
   }
 };
@@ -97,7 +157,7 @@ export const isActiveMember = async ({
   daochain: keyof Keychain;
   address: string;
   setMemberLoading: ReactSetter<boolean>;
-}): Promise<{ member?: FindMemberQuery['member']; error?: ErrorMessage }> => {
+}): Promise<{ member?: FindMemberQuery['member']; error?: ErrorMessage; }> => {
   try {
     setMemberLoading(true);
     const haus = Haus.create();
@@ -107,21 +167,9 @@ export const isActiveMember = async ({
       memberAddress: address.toLowerCase(),
     });
 
-    if (
-      memberRes?.data?.member &&
-      Number(memberRes?.data?.member?.shares) > 0
-    ) {
+    if (memberRes?.data?.member && Number(memberRes?.data?.member?.shares) > 0) {
       return {
-        member: memberRes.data.member,
-      };
-    }
-    if (memberRes?.data?.member && Number(memberRes?.data?.member?.loot) > 0) {
-      return {
-        member: memberRes.data.member,
-        error: {
-          type: 'error',
-          message: `Member doesn't own any shares`,
-        },
+        member: memberRes?.data?.member,
       };
     }
     return {
@@ -140,5 +188,106 @@ export const isActiveMember = async ({
     };
   } finally {
     setMemberLoading(false);
+  }
+};
+
+export const loadProposalsList = async ({
+  filter,
+  ordering,
+  paging,
+  daochain,
+  setData,
+  setLoading,
+  setNextPaging,
+  shouldUpdate,
+}: {
+  filter: Proposal_Filter;
+  ordering?: Ordering<Proposal_OrderBy>;
+  paging?: Paging;
+  daochain: keyof Keychain;
+  setData: ReactSetter<ITransformedProposalListQuery['proposals'] | undefined>;
+  setLoading: ReactSetter<boolean>;
+  setNextPaging: ReactSetter<Paging | undefined>;
+  shouldUpdate: boolean;
+}) => {
+  try {
+    setLoading(true);
+    const haus = Haus.create();
+    const res = await haus.query.listProposals({
+      networkId: daochain,
+      filter,
+      ordering,
+      paging,
+    });
+    if (shouldUpdate) {
+      setNextPaging(res.nextPaging);
+
+      setData((prevState) => {
+        if (deepEqual(prevState, res.items)) return res.items;
+        if (prevState) {
+          return [...prevState, ...res.items];
+        } else {
+          return res.items;
+        }
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    setData(undefined);
+  } finally {
+    if (shouldUpdate) {
+      setLoading(false);
+    }
+  }
+};
+
+export const loadConnectedMemberVotesList = async ({
+  filter,
+  ordering,
+  paging,
+  daochain,
+  setData,
+  setLoading,
+  shouldUpdate,
+  memberAddress,
+}: {
+  filter: Proposal_Filter;
+  ordering?: Ordering<Proposal_OrderBy>;
+  paging?: Paging;
+  daochain: keyof Keychain;
+  setData: ReactSetter<
+    ListConnectedMemberProposalsQuery['proposals'] | undefined
+  >;
+  setLoading: ReactSetter<boolean>;
+  shouldUpdate: boolean;
+  memberAddress: string;
+}) => {
+  try {
+    setLoading(true);
+    const haus = Haus.create();
+    const res = await haus.profile.listProposalVotesByMember({
+      networkId: daochain,
+      filter,
+      ordering,
+      paging,
+      memberAddress,
+    });
+    if (shouldUpdate) {
+      setData((prevState) => {
+        if (deepEqual(prevState, res.items)) return res.items;
+        if (prevState) {
+          return [...prevState, ...res.items];
+        } else {
+          return res.items;
+        }
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    setData(undefined);
+  } finally {
+    if (shouldUpdate) {
+      setLoading(false);
+    }
   }
 };

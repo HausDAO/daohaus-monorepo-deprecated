@@ -9,7 +9,7 @@ import { Buildable, Button, WrappedInputSelect } from '@daohaus/ui';
 import { useMemo } from 'react';
 import { RegisterOptions, useFormContext } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
-import { useDao } from '@daohaus/dao-context';
+import { useDao } from '../../contexts/DaoContext';
 import { getErc20s } from '../../utils/tokenData';
 
 export enum InputStates {

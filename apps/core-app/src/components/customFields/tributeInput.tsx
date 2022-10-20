@@ -156,17 +156,17 @@ export const TributeInput = (
       : undefined;
 
   const tokenAmtRules: RegisterOptions = {
+    ...props.rules,
     required: true,
     setValueAs: (val) => {
       if (val === '') return '';
       return toBaseUnits(val);
     },
-    ...props.rules,
   };
 
   const tokenAddressRules: RegisterOptions = {
-    required: true,
     ...props.rules,
+    required: true,
   };
 
   const handleMax = () => {

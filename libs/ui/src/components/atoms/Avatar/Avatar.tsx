@@ -1,6 +1,6 @@
 import { AvatarBase, AvatarImage, AvatarFallback } from './Avatar.styles';
 
-export type AvatarProps = {
+type AvatarProps = {
   src?: string;
   alt?: string;
   fallback?: string | React.ReactNode;
@@ -12,7 +12,7 @@ export type AvatarProps = {
 export const Avatar = ({
   src,
   size = 'sm',
-  alt = 'Picture of an Avatar',
+  alt,
   delayMs = 500,
   fallback = 'X',
   className,

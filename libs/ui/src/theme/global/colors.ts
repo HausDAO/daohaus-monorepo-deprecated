@@ -7,7 +7,6 @@ import {
   greenDark,
   indigo,
   indigoDark,
-  indigoDarkA,
   orange,
   orangeDark,
   red,
@@ -85,21 +84,6 @@ export const secondaryDark = {
   step10: indigoDark.indigo10,
   step11: indigoDark.indigo11,
   step12: indigoDark.indigo12,
-};
-
-export const secondaryDarkA = {
-  step1: indigoDarkA.indigoA1,
-  step2: indigoDarkA.indigoA2,
-  step3: indigoDarkA.indigoA3,
-  step4: indigoDarkA.indigoA4,
-  step5: indigoDarkA.indigoA5,
-  step6: indigoDarkA.indigoA6,
-  step7: indigoDarkA.indigoA7,
-  step8: indigoDarkA.indigoA8,
-  step9: indigoDarkA.indigoA9,
-  step10: indigoDarkA.indigoA10,
-  step11: indigoDarkA.indigoA11,
-  step12: indigoDarkA.indigoA12,
 };
 
 // * Neutral Colors

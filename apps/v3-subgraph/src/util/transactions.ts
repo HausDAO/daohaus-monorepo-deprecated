@@ -7,7 +7,7 @@ export function addTransaction(
   dao: Bytes
 ): void {
   let transaction = new EventTransaction(tx.hash.toHex());
-  transaction.createdAt = block.timestamp;
+  transaction.createdAt = block.timestamp.toString();
   transaction.dao = dao.toHexString();
   transaction.daoAddress = dao;
   transaction.save();

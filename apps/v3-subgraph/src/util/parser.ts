@@ -86,7 +86,7 @@ export namespace parser {
       return false;
     }
 
-    entity.createdAt = event.block.timestamp;
+    entity.createdAt = event.block.timestamp.toString();
     entity.createdBy = daoAddress;
     entity.dao = daoAddress.toHexString();
     entity.tag = event.params.tag;
@@ -128,7 +128,7 @@ export namespace parser {
 
     let entity = new Record(entityId);
 
-    entity.createdAt = event.block.timestamp;
+    entity.createdAt = event.block.timestamp.toString();
     entity.createdBy = event.params.user;
     entity.dao = daoAddress;
     entity.tag = event.params.tag;
@@ -158,7 +158,7 @@ export namespace parser {
 
     let entity = new Record(entityId);
 
-    entity.createdAt = event.block.timestamp;
+    entity.createdAt = event.block.timestamp.toString();
     entity.createdBy = event.params.user;
     entity.dao = daoAddress;
     entity.tag = event.params.tag;

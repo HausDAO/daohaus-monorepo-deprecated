@@ -45,6 +45,7 @@ const HomePage = () => {
       setLoading(true);
       try {
         const haus = Haus.create();
+
         const query = await haus.profile.listDaosByMember({
           memberAddress: address,
           networkIds: Object.keys(filterNetworks) as ValidNetwork[],
@@ -53,7 +54,6 @@ const HomePage = () => {
           memberFilter: getDelegateFilter(filterDelegate, address),
           ordering: SORT_FIELDS[sortBy].ordering,
         });
-
         if (query.data?.daos && shouldUpdate) {
           setDaoData(query.data.daos);
         }

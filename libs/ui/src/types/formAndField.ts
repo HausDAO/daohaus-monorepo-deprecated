@@ -1,7 +1,6 @@
 import React, { ChangeEventHandler } from 'react';
 import { SwitchProps } from '@radix-ui/react-switch';
 import { RegisterOptions } from 'react-hook-form';
-import { IconType } from 'react-icons';
 
 export type ErrorMessage = {
   type: 'error';
@@ -58,7 +57,6 @@ export type Field = {
   placeholder?: string;
   disabledPlaceholder?: boolean;
   defaultValue?: string;
-  icon?: IconType;
   number?: boolean;
   address?: boolean;
   long?: boolean;

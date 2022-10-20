@@ -14,6 +14,7 @@ import {
   MulticallAction,
   MulticallArg,
   StringSearch,
+  toSeconds,
   TXLego,
   ValidNetwork,
 } from '@daohaus/common-utilities';
@@ -65,9 +66,8 @@ export const estimateGas = async ({
         operation: 1,
       }),
     });
-    if (response.ok) {
-      return response.json();
-    }
+
+    return response.json();
   } catch (error) {
     throw new Error(`Failed to estimate gas: ${error}`);
   }
@@ -97,7 +97,7 @@ export const txActionToMetaTx = ({
   return {
     to: address,
     data: encodedData,
-    value: value.toString(),
+    value,
     operation,
   };
 };
@@ -140,13 +140,8 @@ export const handleMulticallArg = async ({
       if (data) {
         return {
           to: processedContract.address,
-          data: (await processArg({
-            arg: data,
-            chainId,
-            localABIs,
-            appState,
-          })) as string,
-          value: processValue.toString(),
+          data,
+          value: Number(processValue),
           operation: Number(processedOperations),
         };
       }
@@ -200,22 +195,16 @@ export const handleGasEstimate = async ({
       actions: arg.actions,
     },
   });
-
   const estimate = await estimateGas({
     chainId,
     safeId,
     data: proposalData,
   });
-
-  console.log('estimate', estimate);
-  if (estimate?.safeTxGas) {
-    const buffer = arg.bufferPercentage ? `1.${arg.bufferPercentage}` : 1.6;
+  if (estimate.safeTxGas) {
+    const buffer = arg.bufferPercentage ? `1.${arg.bufferPercentage}` : 1.3;
     return Math.round(Number(estimate.safeTxGas) * Number(buffer));
   } else {
-    // This happens when the safe vault takes longer to be indexed by the Gnosis API
-    // and it returns a 404 HTTP error
-    console.error(`Failed to estimate gas`);
-    return 0;
+    throw new Error(`Failed to estimate gas: `);
   }
 };
 export const encodeMultiAction = (rawMulti: MetaTransaction[]) => {
@@ -254,9 +243,13 @@ export const buildMultiCallTX = ({
         fallback: 0,
       },
       {
-        type: 'estimateGas',
-        actions,
+        type: 'static',
+        value: 0,
       },
+      // {
+      //   type: 'estimateGas',
+      //   actions,
+      // },
       JSONDetails,
     ],
   };

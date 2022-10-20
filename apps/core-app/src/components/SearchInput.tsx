@@ -1,25 +1,40 @@
 import { ChangeEvent, useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { indigoDark } from '@radix-ui/colors';
 import { BiSearch } from 'react-icons/bi';
-import { Field, Input } from '@daohaus/ui';
+import { Input } from '@daohaus/ui';
 import useDebounce from '../utils/debounceHook';
-import { Noun } from '@daohaus/common-utilities';
+
+const StyledInput = styled(Input)`
+  background: ${indigoDark.indigo3};
+  color: ${indigoDark.indigo11};
+  margin-right: 2rem;
+  ::placeholder {
+    color: ${indigoDark.indigo11};
+  }
+  :focus {
+    background: ${indigoDark.indigo3};
+    color: ${indigoDark.indigo11};
+  }
+`;
+
+const IconSearch = styled(BiSearch)`
+  fill: ${indigoDark.indigo11};
+  :hover {
+    fill: ${indigoDark.indigo11};
+  }
+`;
 
 type SearchInputProps = {
   searchTerm: string;
   setSearchTerm: (term: string) => void;
   totalItems: number;
-  noun?: Noun;
-} & Partial<Field>;
+};
 
 const SearchInput = ({
   searchTerm,
   setSearchTerm,
   totalItems,
-  noun = {
-    singular: 'proposal',
-    plural: 'proposals',
-  },
-  ...inputProps
 }: SearchInputProps) => {
   const [localSearchTerm, setLocalSearchTerm] = useState<string>('');
 
@@ -40,15 +55,14 @@ const SearchInput = ({
   };
 
   return (
-    <Input
-      icon={BiSearch}
+    <StyledInput
+      icon={IconSearch}
       id="table-search"
       placeholder={`Search ${totalItems} ${
-        totalItems === 1 ? noun.singular : noun.plural
+        totalItems === 1 ? 'Proposal' : 'Proposals'
       }`}
       onChange={handleSearchTermChange}
       defaultValue={localSearchTerm}
-      {...inputProps}
     />
   );
 };

@@ -2,7 +2,7 @@ type Dao @entity {
   "unique identifier and primary key of the entity"
   id: ID!
   "timestamp of the block when the dao was summoned"
-  createdAt: BigInt!
+  createdAt: String!
   "address that created the dao"
   createdBy: Bytes!
   "transaction hash of the dao contract deployment"
@@ -70,11 +70,9 @@ type Proposal @entity {
   "unique identifier and primary key of the entity"
   id: ID!
   "block timestamp when the proposal was submitted"
-  createdAt: BigInt!
+  createdAt: String!
   "address that submitted the proposal"
   createdBy: Bytes!
-  "member entity of proposer if applicable"
-  proposerMembership: Member
   "related DAO entity"
   dao: Dao!
   "id of the proposal"
@@ -101,8 +99,6 @@ type Proposal @entity {
   graceEnds: BigInt!
   "unix timestamp after which proposal should be considered invalid and skipped"
   expiration: BigInt!
-  "proposal expiration time or if there is no expiration this will be a huge number to aid in querying unexpired proposals"
-  expirationQueryField: BigInt!
   "estimated gas needed to execute the proposal actions"
   actionGasEstimate: BigInt!
   "string with human readable description of the proposal"
@@ -113,8 +109,6 @@ type Proposal @entity {
   sponsored: Boolean!
   "address that sponsored the proposal"
   sponsor: Bytes
-  "member entity of the sponsor"
-  sponsorMembership: Member
   "transaction hash of the proposal sponsor"
   sponsorTxHash: Bytes
   "unix timestamp of when the proposal was sponsored"
@@ -183,7 +177,7 @@ type Vote @entity {
   "transaction hash of the vote"
   txHash: Bytes!
   "block timestamp when the vote was submitted"
-  createdAt: BigInt!
+  createdAt: String!
   "contract address of the DAO related to this vote"
   daoAddress: Bytes!
   "indicates yes vote/no vote"
@@ -198,7 +192,7 @@ type Vote @entity {
 
 type Record @entity {
   id: ID!
-  createdAt: BigInt!
+  createdAt: String!
   createdBy: Bytes!
   dao: Dao!
   tag: Bytes!
@@ -211,7 +205,7 @@ type Member @entity {
   "unique identifier and primary key of the entity"
   id: ID!
   "block timestamp when the member entity was created (when the address first recieved shares or loot)"
-  createdAt: BigInt!
+  createdAt: String!
   "transaction where the member was created"
   txHash: Bytes!
   "related dao"
@@ -241,7 +235,7 @@ type RageQuit @entity {
   "unique identifier and primary key of the entity"
   id: ID!
   "block timestamp when the member rage quit"
-  createdAt: BigInt!
+  createdAt: String!
   "the transaction where the RageQuit occurred"
   txHash: Bytes!
   "related DAO"
@@ -262,7 +256,7 @@ type Shaman @entity {
   "unique identifier and primary key of the entity"
   id: ID!
   "block timestamp when the shaman was added"
-  createdAt: BigInt!
+  createdAt: String!
   "related DAO"
   dao: Dao!
   "address of the shaman"
@@ -275,7 +269,7 @@ type EventTransaction @entity {
   "unique identifier and primary key of the entity"
   id: ID!
   "block timestamp of the transaction"
-  createdAt: BigInt!
+  createdAt: String!
   "related DAO"
   dao: Dao
   daoAddress: Bytes

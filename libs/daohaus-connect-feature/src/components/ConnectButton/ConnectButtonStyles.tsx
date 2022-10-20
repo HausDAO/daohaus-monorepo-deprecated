@@ -27,14 +27,5 @@ export const ButtonContainer = styled.div`
   width: 20rem;
   @media ${widthQuery.sm} {
     width: fit-content;
-    .should-connect {
-      button {
-        padding: 0.9rem 0.2rem;
-        justify-content: center;
-      }
-      svg {
-        margin: 0;
-      }
-    }
   }
 `;

@@ -14,7 +14,6 @@ import {
 import { CheckRender } from './CheckRender';
 import { SegmentRender } from './SegmentRender';
 import { SplitColumnLayout } from './SplitRender';
-import { ToWeiInput } from './ToWeiInput';
 
 export const CoreFieldLookup = {
   input: WrappedInput,
@@ -32,5 +31,4 @@ export const CoreFieldLookup = {
   splitColumn: SplitColumnLayout,
   shamanPermissions: ShamanPermission,
   timePicker: TimePicker,
-  toWeiInput: ToWeiInput,
 };

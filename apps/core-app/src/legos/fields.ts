@@ -20,22 +20,6 @@ export const FIELD: Record<string, CustomFieldLego> = {
     placeholder: 'http://',
     expectType: 'url',
   },
-  SHAMAN_ADDRESS: {
-    id: 'shamanAddress',
-    type: 'input',
-    label: 'Shaman Address',
-    placeholder: '0x1234...5678',
-  },
-  SHAMAN_PERMISSION: {
-    id: 'shamanPermission',
-    type: 'shamanPermissions',
-    label: 'Shaman Permission',
-  },
-  SHAMAN_DELUXE: {
-    id: 'shamanPermission',
-    type: 'shamanPermissionDeluxe',
-    label: 'Shaman Permission',
-  },
   TRIBUTE: {
     id: 'tribute',
     type: 'tributeInput',
@@ -49,10 +33,6 @@ export const FIELD: Record<string, CustomFieldLego> = {
   REQUEST_NATIVE_TOKEN: {
     id: 'paymentAmount',
     type: 'requestNativeToken',
-  },
-  RAGEQUIT_TOKEN: {
-    id: 'sharesToBurn',
-    type: 'ragequitToken',
   },
   TO_WEI: {
     id: 'shouldOverwrite',
@@ -68,14 +48,8 @@ export const FIELD: Record<string, CustomFieldLego> = {
   TAGS: {
     id: 'tags',
     type: 'tagsInput',
-    label: 'Tags (separated by commas)',
+    label: 'Tags (seperated by commas)',
     placeholder: 'DAO Name',
-  },
-  DELEGATE: {
-    id: 'delegatingTo',
-    type: 'delegateInput',
-    label: 'Delgate to',
-    placeholder: '0x0...',
   },
   PROPOSAL_EXPIRY: {
     id: 'checkRender',
@@ -103,15 +77,4 @@ export const FIELD: Record<string, CustomFieldLego> = {
     label: 'Applicant',
     daoMemberOnly: false,
   },
-  PROP_OFFERING: {
-    id: 'proposalOffering',
-    type: 'proposalOffering',
-  },
-  WALLETCONNECT_LINKER: {
-    id: 'walletConnectLink',
-    type: 'walletConnectLink',
-    label: 'WalletConnect Link',
-    info: 'After connecting WalletConnect to another dApp, copy the link and paste it to this input field',
-    placeholder: 'wc:',
-  }
 };

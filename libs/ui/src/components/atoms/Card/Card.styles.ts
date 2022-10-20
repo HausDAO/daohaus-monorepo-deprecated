@@ -8,8 +8,7 @@ export const CardStyles = css`
   border: 1px solid ${({ theme }: { theme: Theme }) => theme.card.border};
   border-radius: ${border.cardRadius};
   padding: 2rem;
-  /* min-width: 40rem; */
-
+  min-width: 40rem;
   width: ${({ width }: { width: string }) => width};
   max-width: 90vw;
 `;

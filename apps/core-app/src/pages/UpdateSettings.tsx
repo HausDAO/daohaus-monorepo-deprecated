@@ -1,8 +1,8 @@
 import { FormBuilder } from '@daohaus/haus-form-builder';
 import { useMemo } from 'react';
-import { useDao } from '@daohaus/dao-context';
+import { useDao } from '../contexts/DaoContext';
 import { CustomFields } from '../legos/config';
-import { COMMON_FORMS } from '../legos/form';
+import { FORM } from '../legos/form';
 
 export function UpdateSettings() {
   const { dao } = useDao();
@@ -27,7 +27,7 @@ export function UpdateSettings() {
   return (
     <FormBuilder
       defaultValues={defaultFields}
-      form={{ ...COMMON_FORMS.METADATA_SETTINGS, log: true }}
+      form={{ ...FORM.METADATA_SETTINGS, log: true }}
       customFields={CustomFields}
     />
   );

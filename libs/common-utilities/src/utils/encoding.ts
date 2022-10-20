@@ -25,7 +25,8 @@ export const encodeFunction = (
     console.error('error', error);
     return {
       error: true,
-      message: 'Could not encode transaction data with the values provided',
+      message:
+        'Could not encode transaction data with the values entered into this form',
     };
   }
 };
@@ -38,5 +39,3 @@ export const getNonce = (length = 24) => {
   }
   return text;
 };
-
-// export const decodeAction = () => {};

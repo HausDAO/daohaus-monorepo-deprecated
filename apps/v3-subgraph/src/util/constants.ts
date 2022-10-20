@@ -4,7 +4,6 @@ export namespace constants {
   export const BIGINT_ONE_HUNDRED = BigInt.fromI32(100);
   export const BIGINT_ZERO = BigInt.fromI32(0);
   export const BIGINT_ONE = BigInt.fromI32(1);
-  export const FUTURE_TIMESTAMP = BigInt.fromI64(9999999999);
   export const BIGDECIMAL_ZERO = new BigDecimal(constants.BIGINT_ZERO);
   export const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000';
   export const BYTES32_ZERO =

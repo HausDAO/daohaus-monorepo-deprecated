@@ -3,7 +3,6 @@ import { KeychainList } from '..';
 export const ENDPOINTS: KeychainList = {
   V3_SUBGRAPH: {
     '0x5': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli',
-    '0x64': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-gnosis',
   },
   // RPC: {
   //   '0x1': `https://${process.env['NX_RIVET_KEY']}.eth.rpc.rivet.cloud/`,
@@ -29,9 +28,7 @@ export const ENDPOINTS: KeychainList = {
   },
   GAS_ESTIMATE: {
     '0x5':
-      'https://safe-transaction.goerli.gnosis.io/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
-    '0x64':
-      'https://safe-transaction.xdai.gnosis.io/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
+      'https://safe-transaction.goerli.gnosis.io/api/v1/safes/0x1A3Bc7b8Df22eC917aB4260a951987D975906843/multisig-transactions/estimations/',
   },
   GNOSIS_SAFE_UI: {
     '0x1': 'https://gnosis-safe.io/app/eth',

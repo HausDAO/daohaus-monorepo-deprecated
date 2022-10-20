@@ -1,6 +1,7 @@
 import { amberDark } from '@radix-ui/colors';
 import { Button, Spinner } from '@daohaus/ui';
 import { RiUserAddLine } from 'react-icons/ri';
+import classNames from 'classnames';
 
 import { useHausConnect } from '../../HausConnectContext';
 import { ButtonContainer } from './ConnectButtonStyles';
@@ -20,7 +21,7 @@ export const ConnectButton = ({ isSm }: { isSm: boolean }) => {
 
 const ConnectWalletButton = ({ isSm }: { isSm: boolean }) => {
   const { connectWallet } = useHausConnect();
-
+  const classes = classNames({ 'mobile-connect-btn': isSm });
   return (
     <ButtonContainer>
       <Button
@@ -28,9 +29,9 @@ const ConnectWalletButton = ({ isSm }: { isSm: boolean }) => {
         IconLeft={RiUserAddLine}
         onClick={connectWallet}
         sm={isSm}
-        className="should-connect"
+        className={classes}
       >
-        {!isSm && 'Connect Wallet'}
+        Connect Wallet
       </Button>
     </ButtonContainer>
   );
@@ -39,7 +40,7 @@ const ConnectWalletButton = ({ isSm }: { isSm: boolean }) => {
 const LoadingButton = ({ isSm }: { isSm: boolean }) => {
   return (
     <ButtonContainer>
-      <Button fullWidth={!isSm} sm={isSm} centerAlign>
+      <Button fullWidth={!isSm} sm={isSm}>
         <Spinner
           topColor={amberDark.amber8}
           bottomColor={amberDark.amber11}

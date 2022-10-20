@@ -1,13 +1,11 @@
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { useParams } from 'react-router-dom';
-import { HomeDashboard } from '../components/HomeDashboard';
-import { HomeNotConnected } from '../components/HomeNotConnected';
+import { useLayoutEffect } from 'react';
 
 export function Home() {
-  const { isConnected } = useHausConnect();
-  const { profile } = useParams();
+  useLayoutEffect(() => {
+    window.location.href = 'https://hub.daohaus.fun';
+  }, []);
 
-  return profile && isConnected ? <HomeDashboard /> : <HomeNotConnected />;
+  return null;
 }
 
 export default Home;

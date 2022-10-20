@@ -1,6 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { H4, ParSm } from '../../atoms';
-import { ButtonV2 } from '../../atoms/ButtonV2';
 import { WrappedCheckbox } from '../WrappedCheckbox';
 import { WrappedInput } from '../WrappedInput';
 import { CollapsibleCard } from './CollapsibleCard';
@@ -63,9 +62,6 @@ ProposalCardExample.args = {
           },
         ]}
       />
-      <ButtonV2 variant="outline" colorVariant="secondary">
-        Click Me
-      </ButtonV2>
     </div>
   ),
   collapsibleContent: (

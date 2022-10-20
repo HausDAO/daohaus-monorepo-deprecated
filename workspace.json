@@ -7,7 +7,6 @@
     "contract-utilities": "libs/contract-utilities",
     "core-app": "apps/core-app",
     "dao-consumer-job": "apps/dao-consumer-job",
-    "dao-context": "libs/dao-context",
     "dao-data": "libs/dao-data",
     "dao-producer-job": "apps/dao-producer-job",
     "daohaus-connect-feature": "libs/daohaus-connect-feature",

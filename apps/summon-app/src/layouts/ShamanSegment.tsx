@@ -38,7 +38,7 @@ export const ShamanSegment = ({ formDisabled }: { formDisabled: boolean }) => {
         <TextAreaSection>
           <Link
             className="link"
-            href="https://moloch.daohaus.fun/tools/shaman"
+            href="https://baal-docs.vercel.app/tools/shaman"
             linkType="external"
           >
             How to add a Shaman

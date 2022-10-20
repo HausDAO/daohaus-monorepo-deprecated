@@ -120,7 +120,6 @@ export const processArg = async ({
     return result;
   }
   if (arg?.type === 'estimateGas') {
-    console.log('********ESTIMATE');
     const result = await handleGasEstimate({
       arg,
       chainId,

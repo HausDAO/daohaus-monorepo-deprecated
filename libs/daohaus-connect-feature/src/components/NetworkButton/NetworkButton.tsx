@@ -35,12 +35,12 @@ export const getNetworkPanels = (
   availableNetworks: Keychain<NetworkType>,
   switchNetwork: (id: string) => void
 ) =>
-  Object.values(availableNetworks).map((network, i) => {
+  Object.values(availableNetworks).map((network) => {
     const handleNetworkSwitch = () => {
       switchNetwork(network.chainId);
     };
     return (
-      <DropdownMenuItem key={i} asChild>
+      <DropdownMenuItem asChild>
         <WarningButton
           secondary
           fullWidth
@@ -105,7 +105,6 @@ const WarningButton = styled(Button)`
     &.sm {
       min-width: 0;
       display: flex;
-      margin-left: 1rem;
     }
     svg.icon-left {
       margin-right: 0;

@@ -1,34 +1,17 @@
-import { useEffect, useState } from 'react';
 import { FormSegment, SplitColumn, WrappedInput } from '@daohaus/ui';
 import {
-  getNetwork,
-  handleBaseUnits,
   INFO_COPY,
+  toBaseUnits,
   ValidateField,
 } from '@daohaus/common-utilities';
-import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 import { FORM_KEYS } from '../utils/formKeys';
-
-const DEFAULT_ASSET_SYMBOL = 'ETH';
 
 export const AdvancedSegment = ({
   formDisabled,
 }: {
   formDisabled: boolean;
 }) => {
-  const { chainId } = useHausConnect();
-  const [nativeSymbol, setNativeSymbol] = useState(DEFAULT_ASSET_SYMBOL);
-
-  useEffect(() => {
-    if (chainId) {
-      const assetSymbol = getNetwork(chainId)?.symbol;
-      setNativeSymbol(assetSymbol || DEFAULT_ASSET_SYMBOL);
-    } else {
-      setNativeSymbol(DEFAULT_ASSET_SYMBOL);
-    }
-  }, [chainId]);
-
   return (
     <FormSegment
       title="Advanced Governance"
@@ -79,7 +62,6 @@ export const AdvancedSegment = ({
                   disabled={formDisabled}
                   rules={{
                     required: 'This value is required',
-                    setValueAs: (val) => handleBaseUnits(val),
                     validate: (val) => ValidateField.number(val),
                   }}
                 />
@@ -87,7 +69,7 @@ export const AdvancedSegment = ({
               right: (
                 <WrappedInput
                   id={FORM_KEYS.OFFERING}
-                  label={`New Offering (${nativeSymbol})`}
+                  label="New Offering (ETH)"
                   defaultValue="0"
                   full
                   info={INFO_COPY.NEW_OFFERING}
@@ -95,7 +77,7 @@ export const AdvancedSegment = ({
                   rules={{
                     required: 'This value is required',
                     validate: (val) => ValidateField.number(val),
-                    setValueAs: (val) => handleBaseUnits(val),
+                    setValueAs: (val) => toBaseUnits(val),
                   }}
                 />
               ),

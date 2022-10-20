@@ -8,16 +8,9 @@ import { InternalLink, ExternalLink } from './Link.styles';
 export interface LinkProps extends React.ComponentPropsWithRef<'a'> {
   href?: string;
   Icon?: IconType;
-  LeftIcon?:
-    | IconType
-    | React.FunctionComponent<
-        React.SVGProps<SVGSVGElement> & {
-          title?: string | undefined;
-        }
-      >;
   selected?: boolean;
   disabled?: boolean;
-  linkType?: 'internal' | 'external' | 'no-icon-external';
+  linkType?: 'internal' | 'external';
   hideIcon?: boolean;
 }
 
@@ -31,14 +24,13 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       selected,
       disabled,
       Icon,
-      LeftIcon,
       className,
       children,
     },
     ref
   ) => {
     const classes = classNames({ selected, disabled });
-    if (linkType === 'external' || linkType === 'no-icon-external') {
+    if (linkType === 'external') {
       return (
         <ExternalLink
           href={href}
@@ -46,15 +38,8 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
           target={target}
           ref={ref}
         >
-          {LeftIcon && <LeftIcon className="icon-left" />}
           {children}
-          {linkType === 'external' ? (
-            Icon ? (
-              <Icon />
-            ) : (
-              <RiExternalLinkLine />
-            )
-          ) : null}
+          {Icon ? <Icon /> : <RiExternalLinkLine />}
         </ExternalLink>
       );
     }

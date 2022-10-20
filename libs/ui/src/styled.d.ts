@@ -33,9 +33,6 @@ declare module 'styled-components' {
     disabled: string;
     transparent: string;
     info: string;
-    tint: {
-      secondary: string;
-    };
     navTabs: {
       bg: string;
       navLinkColor: string;
@@ -116,9 +113,6 @@ declare module 'styled-components' {
     };
     link: {
       color: string;
-    };
-    progress: {
-      bg: string;
     };
     tooltip: {
       bg: string;

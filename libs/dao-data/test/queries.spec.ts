@@ -7,24 +7,7 @@ describe('haus', () => {
     haus = await Haus.create();
   });
 
-  it('can fetch a list of members - cursor', async () => {
-    const networkId = '0x5';
-
-    const res = await haus.query.listMembers({
-      networkId,
-      paging: {
-        pageSize: 1,
-        lastId: '0',
-      },
-    });
-
-    const nextPageRes = await haus.query.listMembers({
-      networkId,
-      paging: res.nextPaging,
-    });
-
-    expect(res.error).toBeUndefined();
-    expect(res.items.length).toBe(1);
-    expect(nextPageRes.items.length).toBe(1);
+  it('should have a profile class', () => {
+    expect(haus.query).toBeTruthy();
   });
 });

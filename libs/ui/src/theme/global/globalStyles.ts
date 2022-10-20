@@ -32,10 +32,10 @@ export const GlobalStyles = createGlobalStyle`
 
   html {
     font-size: 10px;
-    background-color: ${({ theme }: { theme: Theme }) => theme.bgColor};
+    background-color: ${({ theme }: { theme: Theme }) => theme.rootBgColor};
   }
   body {
     font-family: ${font.family.body};
-    color: ${({ theme }: { theme: Theme }) => theme.fontColor}
+    color: ${({ theme }: { theme: Theme }) => theme.rootFontColor}
   }
   `;

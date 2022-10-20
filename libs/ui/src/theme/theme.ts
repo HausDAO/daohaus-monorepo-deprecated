@@ -41,15 +41,15 @@ import { orangeDark } from '@radix-ui/colors';
 
 export const defaultDarkTheme: Theme = {
   themeName: 'dark',
-  bgColor: neutralDark.step1,
-  fontColor: secondaryDark.step12,
+  rootBgColor: neutralDark.step1,
+  rootFontColor: secondaryDark.step12,
   primary: { ...primaryDark },
   secondary: { ...secondaryDark },
   success: { ...successDark },
   warning: { ...warningDark },
   danger: { ...dangerDark },
   info: { ...infoDark },
-  grey: { ...neutralDark },
+  neutral: { ...neutralDark },
   transparent: 'transparent',
   tint: {
     secondary: secondaryDark.step11,
@@ -236,9 +236,9 @@ export const defaultLightTheme: Theme = {
   warning: { ...warning },
   danger: { ...danger },
   info: { ...info },
-  grey: { ...neutral },
-  bgColor: secondary.step1,
-  fontColor: secondary.step12,
+  neutral: { ...neutral },
+  rootBgColor: secondary.step1,
+  rootFontColor: secondary.step12,
   transparent: 'transparent',
   tint: {
     secondary: secondary.step11,

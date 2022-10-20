@@ -8,7 +8,7 @@ export const StyledBanner = styled.div`
   display: flex;
   background-color: ${({ theme }: { theme: Theme }) => theme.info.step9};
   border: 1px solid ${({ theme }: { theme: Theme }) => theme.info.step9};
-  color: ${({ theme }) => theme.fontColor};
+  color: ${({ theme }) => theme.rootFontColor};
   flex-wrap: wrap;
   height: auto;
   justify-content: space-between;

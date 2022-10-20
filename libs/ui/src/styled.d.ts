@@ -38,13 +38,13 @@ declare module 'styled-components' {
     themeName: string;
     primary: ColorSteps;
     secondary: ColorSteps;
-    grey: ColorSteps;
+    neutral: ColorSteps;
     success: ColorSteps;
     warning: ColorSteps;
     danger: ColorSteps;
     info: ColorSteps;
-    bgColor: string;
-    fontColor: string;
+    rootBgColor: string;
+    rootFontColor: string;
     transparent: string;
     tint: {
       secondary: string;

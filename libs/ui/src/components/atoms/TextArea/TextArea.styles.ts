@@ -7,7 +7,7 @@ export const BaseTextArea = styled.textarea`
   background-color: ${({ theme }: { theme: Theme }) => theme.field.bg};
   border: 1px solid ${({ theme }: { theme: Theme }) => theme.field.border};
   border-radius: ${field.borderRadius};
-  color: ${({ theme }: { theme: Theme }) => theme.fontColor};
+  color: ${({ theme }: { theme: Theme }) => theme.rootFontColor};
   font-size: ${field.fontSize};
   font-weight: ${field.fontWeight};
   font-family: ${field.fontFamily};
@@ -16,7 +16,7 @@ export const BaseTextArea = styled.textarea`
   height: ${({ height }: { height?: string }) => height || '12rem'};
 
   width: 100%;
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.bgColor};
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.rootBgColor};
   border-radius: ${field.borderRadius};
   line-height: 150%;
   letter-spacing: 1.5px;

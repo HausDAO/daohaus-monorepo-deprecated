@@ -8,7 +8,7 @@ export const BaseInput = styled.input`
   background-color: ${({ theme }: { theme: Theme }) => theme.field.bg};
   border: 1px solid ${({ theme }: { theme: Theme }) => theme.field.border};
   border-radius: ${field.borderRadius};
-  color: ${({ theme }: { theme: Theme }) => theme.fontColor};
+  color: ${({ theme }: { theme: Theme }) => theme.rootFontColor};
   font-size: ${field.fontSize};
   font-weight: ${field.fontWeight};
   font-family: ${field.fontFamily};

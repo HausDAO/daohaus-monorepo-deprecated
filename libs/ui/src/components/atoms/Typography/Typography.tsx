@@ -7,7 +7,7 @@ const Par = styled.p`
   font-family: ${font.family.body};
   font-weight: ${font.weight.reg};
   color: ${({ theme, color }: { color?: string; theme: Theme }) =>
-    color || theme.fontColor};
+    color || theme.rootFontColor};
 `;
 const Data = styled.p`
   font-family: ${font.family.data};
@@ -95,7 +95,7 @@ export const Light = styled.span`
 export const Bold = styled.span`
   font-weight: ${font.weight.bold};
   color: ${({ theme, color }: { color?: string; theme: Theme }) =>
-    color || theme.fontColor};
+    color || theme.rootFontColor};
 `;
 
 export const ExtraBold = styled.span`

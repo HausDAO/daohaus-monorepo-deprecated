@@ -87,9 +87,12 @@ export const Unsponsored = ({
       isNumberish(connectedMembership?.shares) &&
       isNumberish(dao.sponsorThreshold)
     ) {
-      return Number(connectedMembership?.shares) >= Number(dao?.sponsorThreshold)
+      return Number(connectedMembership?.shares) >=
+        Number(dao?.sponsorThreshold)
         ? true
-        : `${fromWei(dao.sponsorThreshold)} voting stake tokens are required to sponsor this proposal.`;
+        : `${fromWei(
+            dao.sponsorThreshold
+          )} voting stake tokens are required to sponsor this proposal.`;
     }
     return 'Subgraph data not loading or is not in sync';
   }, [dao, connectedMembership]);

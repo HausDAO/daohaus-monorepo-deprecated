@@ -9,7 +9,7 @@ import {
 } from '@daohaus/common-utilities';
 import { Buildable, DataSm, ShamanPermission } from '@daohaus/ui';
 
-import { useDao } from '../../contexts/DaoContext';
+import { useDao } from '@daohaus/dao-context';
 
 const Secondary = styled.span`
   color: ${(props) => props.theme.secondary};

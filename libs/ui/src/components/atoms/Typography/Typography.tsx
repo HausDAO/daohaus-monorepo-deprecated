@@ -97,6 +97,7 @@ export const Bold = styled.span`
   color: ${({ theme, color }: { color?: string; theme: Theme }) =>
     color || theme.fontColor};
 `;
+
 export const ExtraBold = styled.span`
   font-weight: ${font.weight.black};
 `;
@@ -108,4 +109,7 @@ export const Underline = styled.span`
 `;
 export const StrikeThrough = styled.span`
   text-decoration: line-through;
+`;
+export const TintSecondary = styled.span`
+  color: ${({ theme }: { theme: Theme }) => theme.tint.secondary};
 `;

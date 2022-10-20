@@ -1,7 +1,5 @@
-import React from 'react';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
-import { BiDotsVerticalRounded } from 'react-icons/bi';
 
 import {
   breakpoints,
@@ -14,15 +12,16 @@ import {
   DataIndicator,
   widthQuery,
 } from '@daohaus/ui';
-import { AccountProfile } from '@daohaus/dao-data';
+import { AccountProfile } from '@daohaus/common-utilities';
 import {
   formatLongDateFromSeconds,
   formatValueTo,
   fromWei,
   votingPowerPercentage,
 } from '@daohaus/common-utilities';
+import { TMembership, useDao } from '@daohaus/dao-context';
 
-import { TMembership, useDao } from '../contexts/DaoContext';
+import { MemberProfileMenu } from './MemberProfileMenu';
 
 const AvatarLarge = styled(Avatar)`
   height: 12rem;
@@ -68,10 +67,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1rem;
-`;
-
-const StyledMenuIcon = styled(BiDotsVerticalRounded)`
-  font-size: 1.8rem;
 `;
 
 const DataGrid = styled.div`
@@ -140,7 +135,9 @@ export const Profile = ({ profile, membership }: ProfileProps) => {
             )}
           </Container>
         </ProfileMetadataContainer>
-        <StyledMenuIcon />
+        {membership && (
+          <MemberProfileMenu memberAddress={membership.memberAddress} />
+        )}
       </PSubContainer>
       {membership && dao && (
         <DataGrid>
@@ -156,7 +153,7 @@ export const Profile = ({ profile, membership }: ProfileProps) => {
             })}
           />
           <DataIndicator
-            label="Shares"
+            label="Voting Tokens"
             data={formatValueTo({
               value: fromWei(membership.shares),
               decimals: 2,
@@ -164,7 +161,7 @@ export const Profile = ({ profile, membership }: ProfileProps) => {
             })}
           />
           <DataIndicator
-            label="Loot"
+            label="Non-Voting Tokens"
             data={formatValueTo({
               value: fromWei(membership.loot),
               decimals: 2,

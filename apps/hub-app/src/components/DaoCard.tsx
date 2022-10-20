@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import {
   charLimit,
-  getNetwork,
+  getNetworkName,
   readableNumbers,
 } from '@daohaus/common-utilities';
 import {
@@ -15,7 +15,7 @@ import {
   ProfileAvatar,
 } from '@daohaus/ui';
 import { AlertCircle } from './AlertCircle';
-import { ITransformedMembership } from '@daohaus/dao-data';
+import { ITransformedMembership } from '@daohaus/common-utilities';
 
 const StyledDaoCard = styled.div`
   background-color: ${(props) => props.theme.card.bg};
@@ -68,10 +68,6 @@ export const DaoCard = ({
   networkId,
   contractType,
 }: ITransformedMembership) => {
-  console.log(
-    parseInt(readableNumbers.toNumber({ value: activeMemberCount })) ===
-      parseInt('1')
-  );
   return (
     <StyledDaoCard className="dao-card">
       <div className="top-box">
@@ -137,7 +133,7 @@ export const DaoCard = ({
         )}
       </div>
       <div className="tag-box">
-        <Tag tagColor="red">{getNetwork(networkId as string)?.name}</Tag>
+        <Tag tagColor="red">{getNetworkName(networkId)}</Tag>
         <Tag tagColor="blue">{contractType}</Tag>
       </div>
       <a

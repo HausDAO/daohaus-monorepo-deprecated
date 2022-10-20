@@ -18,12 +18,13 @@ import { FORM_KEYS } from './formKeys';
 
 const tokenConfigTX = (formValues: FormValues) => {
   const pauseVoteToken = !formValues.votingTransferable;
-  const pauseNvToken = !formValues.votingTransferable;
+  const pauseNvToken = !formValues.nvTransferable;
 
   const encoded = encodeFunction(LOCAL_ABI.BAAL, 'setAdminConfig', [
     pauseVoteToken,
     pauseNvToken,
   ]);
+
   if (isString(encoded)) {
     return encoded;
   }

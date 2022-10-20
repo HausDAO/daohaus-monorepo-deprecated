@@ -22,7 +22,7 @@ export type FieldLegoBase<Lookup extends LookupType> = {
 
 export type FormLegoBase<Lookup extends LookupType = LookupType> = {
   id: string;
-  title: string;
+  title?: string;
   subtitle?: string;
   description?: string;
   tx?: TXLego;
@@ -48,7 +48,7 @@ export type MulticallAction = {
   value?: ValidArgType;
   operations?: ValidArgType;
   args: ValidArgType[];
-  data?: string;
+  data?: StaticArg | StringSearch;
 };
 export type MulticallArg = {
   type: 'multicall';
@@ -112,6 +112,14 @@ export type TxStates =
   | 'failed'
   | 'success';
 
+export type TXOverrides = {
+  gasLimit?: string;
+  value?: string;
+  gasPrice?: string;
+  from?: string;
+  blockTag?: string;
+};
+
 export type TXLegoBase = {
   id: string;
   contract: ContractLego;
@@ -120,6 +128,7 @@ export type TXLegoBase = {
   args?: ValidArgType[];
   argCallback?: string;
   staticArgs?: ArgType[];
+  overrides?: TXOverrides;
 };
 
 export type TXLego = RequireOnlyOne<

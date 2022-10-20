@@ -2,6 +2,7 @@ import { MouseEvent, ChangeEvent, useEffect, useState } from 'react';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import {
   isValidNetwork,
+  ITransformedMembership,
   NETWORK_DATA,
   ValidNetwork,
 } from '@daohaus/common-utilities';
@@ -21,7 +22,7 @@ import { HomeNotConnected } from './HomeNotConnected';
 import { getDelegateFilter } from '../utils/queryHelpers';
 import { DEFAULT_SORT_KEY, SORT_FIELDS } from '../utils/constants';
 import useDebounce from '../utils/debounceHook';
-import { Haus, ITransformedMembership } from '@daohaus/dao-data';
+import { Haus } from '@daohaus/dao-data';
 
 const HomePage = () => {
   const { isConnected, address } = useHausConnect();
@@ -45,7 +46,6 @@ const HomePage = () => {
       setLoading(true);
       try {
         const haus = Haus.create();
-
         const query = await haus.profile.listDaosByMember({
           memberAddress: address,
           networkIds: Object.keys(filterNetworks) as ValidNetwork[],
@@ -54,6 +54,7 @@ const HomePage = () => {
           memberFilter: getDelegateFilter(filterDelegate, address),
           ordering: SORT_FIELDS[sortBy].ordering,
         });
+
         if (query.data?.daos && shouldUpdate) {
           setDaoData(query.data.daos);
         }

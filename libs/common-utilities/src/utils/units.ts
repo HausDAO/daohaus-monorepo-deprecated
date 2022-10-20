@@ -100,6 +100,51 @@ export const formatValueTo = ({
   return `${formatted}${separator}${unit}`;
 };
 
+export const formatShares = (baseAmt: string | number) => {
+  if (!isNumberish(baseAmt)) {
+    console.warn('formatShares: baseAmt is not a number', baseAmt);
+    return;
+  }
+  return formatValueTo({
+    value: toWholeUnits(baseAmt.toString()),
+    decimals: 2,
+    format: 'numberShort',
+    separator: '',
+  });
+};
+
+export const percentage = (value: number, total: number) => {
+  return (value / total) * 100;
+};
+
+export const roundedPercentage = (value: number, total: number) => {
+  return Math.round(percentage(value, total));
+};
+
+export const checkHasQuorum = ({
+  yesVotes,
+  totalShares,
+  quorumPercent,
+}: {
+  yesVotes: number;
+  totalShares: number;
+  quorumPercent: number;
+}) => {
+  return percentage(yesVotes, totalShares) >= quorumPercent;
+};
+
+export const dynamicDecimals = ({
+  baseUnits,
+  tokenDecimals = 18,
+  extraZeros = 0,
+}: {
+  baseUnits: number;
+  tokenDecimals?: number;
+  extraZeros?: number;
+}) => {
+  return tokenDecimals - baseUnits.toString().length + 1 + extraZeros;
+};
+
 /*
   https://numbrojs.com/old-format.html
   const string = numbro(1000.23).format('$ 0,0[.]0000 %'); => $ 1000.2300 %

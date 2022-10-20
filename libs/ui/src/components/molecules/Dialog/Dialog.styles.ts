@@ -43,14 +43,13 @@ export const StyledDialogContent = styled(DialogPrimitive.Content)`
   justify-content: space-between;
   left: 50%;
   max-height: 85vh;
-  max-width: 90vw;
-  min-width: 50rem;
+  max-width: 80%;
   min-height: 23rem;
   padding: 3rem;
   position: fixed;
   top: 50%;
   transform: translate(-50%, -50%);
-  overflow-y: scroll;
+  overflow-y: auto;
   @media (prefers-reduced-motion: no-preference) {
     animation: ${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1);
   }

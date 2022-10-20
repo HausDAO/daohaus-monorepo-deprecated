@@ -142,7 +142,7 @@ export const SummonerForm = ({
         noValidate
       >
         <div className="title-section">
-          <H1>
+          <H1 className="title">
             <Bold>Summon a DAO</Bold>
           </H1>
           <ParMd>
@@ -175,8 +175,8 @@ export const SummonerForm = ({
         <StakeTokensSegment formDisabled={formDisabled} />
         <TimingSegment formDisabled={formDisabled} />
         <AdvancedSegment formDisabled={formDisabled} />
-        <ShamanSegment formDisabled={formDisabled} />
         <MembersSegment formDisabled={formDisabled} />
+        <ShamanSegment formDisabled={formDisabled} />
         {!isConnected && <ConnectBox />}
         <Button
           fullWidth

@@ -18,8 +18,18 @@ const LinkStyles = css`
     text-decoration: underline;
   }
 
+  .icon-left {
+    width: 25px;
+    margin-right: 0.5rem;
+  }
+
   svg {
     margin-left: 0.3rem;
+  }
+  &.button-link {
+    :hover {
+      text-decoration: none;
+    }
   }
 `;
 

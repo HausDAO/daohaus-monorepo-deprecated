@@ -21,9 +21,7 @@ export const isProxyABI = (abi: ABI) => {
 
 export const TEMPORARY_RPC = {
   '0x1': `https://${import.meta.env['VITE_RIVET_KEY']}.eth.rpc.rivet.cloud/`,
-  '0x5': `https://goerli.infura.io/v3/${
-    import.meta.env['VITE_INFURA_PROJECT_ID']
-  }`,
+  '0x5': `https://${import.meta.env['VITE_RIVET_KEY']}.goerli.rpc.rivet.cloud/`,
   '0x64': 'https://rpc.gnosischain.com/',
 };
 
@@ -196,14 +194,14 @@ export const fetchABI = async ({
   }
 
   const url = getABIUrl({ contractAddress, chainId });
-  if (!url) {
-    console.log('contractAddress', contractAddress);
-    console.log('chainId', chainId);
-    console.log('url', url);
-    throw new Error('Could generate explorer url with the given arguments');
-  }
 
   try {
+    if (!url) {
+      console.log('contractAddress', contractAddress);
+      console.log('chainId', chainId);
+      console.log('url', url);
+      throw new Error('Could generate explorer url with the given arguments');
+    }
     const scanResponse = await fetch(url);
     const data = await scanResponse.json();
     if (data.message === 'OK' && isJSON(data.result)) {

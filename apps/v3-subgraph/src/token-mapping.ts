@@ -15,13 +15,14 @@ function mintShares(event: Transfer, dao: Dao, memberId: string): void {
 
   if (member === null) {
     member = new Member(memberId);
-    member.createdAt = event.block.timestamp.toString();
+    member.createdAt = event.block.timestamp;
     member.txHash = event.transaction.hash;
     member.dao = dao.id;
     member.memberAddress = event.params.to;
     member.delegatingTo = event.params.to;
     member.shares = constants.BIGINT_ZERO;
     member.loot = constants.BIGINT_ZERO;
+    member.sharesLootDelegateShares = constants.BIGINT_ZERO;
     member.delegateOfCount = constants.BIGINT_ZERO;
 
     let daoMembers = dao.members;
@@ -31,6 +32,9 @@ function mintShares(event: Transfer, dao: Dao, memberId: string): void {
   let memberInitialSharesAndLoot = member.shares.plus(member.loot);
 
   member.shares = member.shares.plus(event.params.value);
+  member.sharesLootDelegateShares = member.sharesLootDelegateShares.plus(
+    event.params.value
+  );
   dao.totalShares = dao.totalShares.plus(event.params.value);
 
   if (memberInitialSharesAndLoot == constants.BIGINT_ZERO) {
@@ -48,6 +52,8 @@ export function burnShares(dao: Dao, memberId: string, amount: BigInt): void {
     log.info('burn member not found', []);
   } else {
     member.shares = member.shares.minus(amount);
+    member.sharesLootDelegateShares =
+      member.sharesLootDelegateShares.minus(amount);
     dao.totalShares = dao.totalShares.minus(amount);
 
     member.save();
@@ -65,13 +71,14 @@ function mintLoot(event: LootTransfer, dao: Dao, memberId: string): void {
 
   if (member === null) {
     member = new Member(memberId);
-    member.createdAt = event.block.timestamp.toString();
+    member.createdAt = event.block.timestamp;
     member.txHash = event.transaction.hash;
     member.dao = dao.id;
     member.memberAddress = event.params.to;
     member.delegatingTo = event.params.to;
     member.shares = constants.BIGINT_ZERO;
     member.loot = constants.BIGINT_ZERO;
+    member.sharesLootDelegateShares = constants.BIGINT_ZERO;
     member.delegateOfCount = constants.BIGINT_ZERO;
 
     let daoMembers = dao.members;
@@ -81,6 +88,9 @@ function mintLoot(event: LootTransfer, dao: Dao, memberId: string): void {
   let memberInitialSharesAndLoot = member.shares.plus(member.loot);
 
   member.loot = member.loot.plus(event.params.value);
+  member.sharesLootDelegateShares = member.sharesLootDelegateShares.plus(
+    event.params.value
+  );
   dao.totalLoot = dao.totalLoot.plus(event.params.value);
 
   if (memberInitialSharesAndLoot == constants.BIGINT_ZERO) {
@@ -98,6 +108,8 @@ export function burnLoot(dao: Dao, memberId: string, amount: BigInt): void {
     log.info('burn member not found, {}', [memberId]);
   } else {
     member.loot = member.loot.minus(amount);
+    member.sharesLootDelegateShares =
+      member.sharesLootDelegateShares.minus(amount);
     dao.totalLoot = dao.totalLoot.minus(amount);
 
     member.save();
@@ -269,13 +281,14 @@ export function handleDelegateVotesChanged(event: DelegateVotesChanged): void {
   let member = Member.load(memberId);
   if (member === null) {
     member = new Member(memberId);
-    member.createdAt = event.block.timestamp.toString();
+    member.createdAt = event.block.timestamp;
     member.dao = dao.id;
     member.txHash = event.transaction.hash;
     member.memberAddress = event.params.delegate;
     member.delegatingTo = event.params.delegate;
     member.shares = constants.BIGINT_ZERO;
     member.loot = constants.BIGINT_ZERO;
+    member.sharesLootDelegateShares = constants.BIGINT_ZERO;
     member.delegateOfCount = constants.BIGINT_ZERO;
 
     let daoMembers = dao.members;
@@ -283,6 +296,9 @@ export function handleDelegateVotesChanged(event: DelegateVotesChanged): void {
     dao.members = daoMembers;
     dao.save();
   }
+  member.sharesLootDelegateShares = member.sharesLootDelegateShares
+    .minus(member.delegateShares)
+    .plus(event.params.newBalance);
   member.delegateShares = event.params.newBalance;
   member.save();
   addTransaction(event.block, event.transaction, event.address);

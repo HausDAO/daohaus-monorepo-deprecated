@@ -1,13 +1,37 @@
-import { useParams, Outlet } from 'react-router-dom';
+import { useParams, Outlet, useLocation } from 'react-router-dom';
 import { HausLayout, useHausConnect } from '@daohaus/daohaus-connect-feature';
-import { useDao } from '../contexts/DaoContext';
+import { useConnectedMembership, useDao } from '@daohaus/dao-context';
 import { TXBuilder } from '@daohaus/tx-builder-feature';
-import { useEffect } from 'react';
+import { useMemo } from 'react';
 
 export function Dao() {
   const { daochain, daoid } = useParams();
-  const { provider } = useHausConnect();
+  const location = useLocation();
+  const { provider, address } = useHausConnect();
   const { dao } = useDao();
+  const { connectedMembership } = useConnectedMembership();
+
+  const moreLinks = useMemo(() => {
+    if (connectedMembership) {
+      return [
+        {
+          label: 'Settings',
+          href: `/molochv3/${daochain}/${daoid}/settings`,
+        },
+        {
+          label: 'Profile',
+          href: `/molochv3/${daochain}/${daoid}/members/${connectedMembership.memberAddress}`,
+        },
+      ];
+    } else {
+      return [
+        {
+          label: 'Settings',
+          href: `/molochv3/${daochain}/${daoid}/settings`,
+        },
+      ];
+    }
+  }, [connectedMembership, daochain, daoid]);
 
   return (
     <TXBuilder
@@ -15,24 +39,25 @@ export function Dao() {
       provider={provider}
       safeId={dao?.safeAddress}
       daoId={daoid}
-      appState={{}}
+      appState={{ dao }}
     >
       <HausLayout
+        pathname={location.pathname}
         navLinks={[
-          { label: 'Home', href: `/molochv3/${daochain}/${daoid}` },
+          { label: 'Home', href: `/${address}` },
+          { label: 'DAO', href: `/molochv3/${daochain}/${daoid}` },
           {
             label: 'Proposals',
             href: `/molochv3/${daochain}/${daoid}/proposals`,
           },
-          { label: 'Vaults', href: `/molochv3/${daochain}/${daoid}/vaults` },
-          { label: 'Members', href: `/molochv3/${daochain}/${daoid}/members` },
-        ]}
-        dropdownLinks={[
+
+          { label: 'Safes', href: `/molochv3/${daochain}/${daoid}/safes` },
           {
-            label: 'Settings',
-            href: `/molochv3/${daochain}/${daoid}/settings`,
+            label: 'Members',
+            href: `/molochv3/${daochain}/${daoid}/members`,
           },
         ]}
+        dropdownLinks={moreLinks}
       >
         <Outlet />
       </HausLayout>

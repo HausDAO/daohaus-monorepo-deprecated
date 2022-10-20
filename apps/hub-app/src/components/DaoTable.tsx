@@ -1,11 +1,12 @@
 import React from 'react';
-import { ITransformedMembership } from '@daohaus/dao-data';
+import { ITransformedMembership } from '@daohaus/common-utilities';
 import { useTable, Column, UseTableRowProps } from 'react-table';
 import styled from 'styled-components';
 import { indigoDark } from '@radix-ui/colors';
 import { ProfileAvatar, Tag } from '@daohaus/ui';
 import {
   charLimit,
+  getNetworkName,
   readableNumbers,
   truncateAddress,
 } from '@daohaus/common-utilities';
@@ -137,7 +138,7 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
         },
       },
       {
-        Header: 'Vaults',
+        Header: 'Safes',
         accessor: 'fiatTotal',
         Cell: ({ value }: { value?: number }) => {
           return (
@@ -177,6 +178,9 @@ export const DaoTable = ({ daoData }: IDaoTableData) => {
       {
         Header: 'Network',
         accessor: 'networkId',
+        Cell: ({ value }: { value: string | undefined }) => {
+          return <Highlight>{getNetworkName(value)}</Highlight>;
+        },
       },
       {
         Header: 'Delegate',

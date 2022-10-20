@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/schema",
+  "executors": {
+    "vite-helper": {
+      "implementation": "./vite-helper/executor.impl",
+      "schema": "./vite-helper/schema.json",
+      "description": "build vite with package depedencies"
+    }
+  },
+  "builders": {
+    "vite-helper": {
+      "implementation": "./vite-helper/compat",
+      "schema": "./vite-helper/schema.json",
+      "description": "build vite with package depedencies"
+    }
+  }
+}

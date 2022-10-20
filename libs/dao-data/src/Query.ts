@@ -1,10 +1,15 @@
-import { ENDPOINTS, Keychain, KeychainList } from '@daohaus/common-utilities';
+import {
+  DaoTokenBalances,
+  ENDPOINTS,
+  Keychain,
+  KeychainList,
+  nowInSeconds,
+  TokenBalance,
+} from '@daohaus/common-utilities';
 
 import {
   IListQueryArguments,
   IFindQueryResult,
-  DaoTokenBalances,
-  TokenBalance,
   ITransformedProposalQuery,
   ITransformedProposalListQuery,
   DaoWithTokenDataQuery,
@@ -109,6 +114,7 @@ export default class Query {
       url,
       {
         where: { ...filter, id_gt: paging.lastId || '' },
+        now: nowInSeconds().toFixed(),
         orderBy: paging.lastId ? 'id' : ordering.orderBy,
         orderDirection: paging.lastId ? 'asc' : ordering.orderDirection,
         first: paging.pageSize + 1,
@@ -134,7 +140,7 @@ export default class Query {
     networkId,
     filter,
     ordering = {
-      orderBy: 'id',
+      orderBy: 'createdAt',
       orderDirection: 'desc',
     },
     paging = {
@@ -226,7 +232,7 @@ export default class Query {
     networkId,
     filter,
     ordering = {
-      orderBy: 'id',
+      orderBy: 'createdAt',
       orderDirection: 'desc',
     },
     paging = {
@@ -345,6 +351,7 @@ export default class Query {
         networkId,
         {
           id: dao.toLowerCase(),
+          now: nowInSeconds().toFixed(),
         }
       );
 
@@ -456,10 +463,12 @@ export default class Query {
     networkId,
     dao,
     proposalId,
+    connectedAddress,
   }: {
     networkId: keyof Keychain;
     dao: string;
     proposalId: string;
+    connectedAddress?: string | null;
   }): Promise<IFindQueryResult<ITransformedProposalQuery>> {
     const url = this.endpoints['V3_SUBGRAPH'][networkId];
     if (!url) {
@@ -474,6 +483,7 @@ export default class Query {
         FindProposalQueryVariables
       >(FindProposalDocument, url, networkId, {
         id: `${dao}-proposal-${proposalId}`,
+        connectedAddress,
       });
 
       return {

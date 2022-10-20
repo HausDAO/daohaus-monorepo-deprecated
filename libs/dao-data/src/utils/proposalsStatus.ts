@@ -1,17 +1,16 @@
 import {
+  checkHasQuorum,
   nowInSeconds,
   ProposalStatus,
   PROPOSAL_STATUS,
 } from '@daohaus/common-utilities';
 import { QueryProposal } from '../types';
 
-export const isProposalUnsponsored = (proposal: QueryProposal): boolean =>
-  !proposal.sponsored &&
-  !proposal.cancelled &&
-  Number(proposal.expiration) >
-    Number(proposal.votingPeriod) +
-      Number(proposal.gracePeriod) +
-      nowInSeconds();
+export const isProposalUnsponsored = (proposal: QueryProposal): boolean => {
+  return (
+    !proposal.sponsored && !proposal.cancelled && !isProposalExpired(proposal)
+  );
+};
 
 export const isProposalCancelled = (proposal: QueryProposal): boolean =>
   proposal.cancelled;
@@ -36,7 +35,6 @@ export const isProposalInGrace = (proposal: QueryProposal): boolean => {
 
 export const isProposalExpired = (proposal: QueryProposal): boolean =>
   Number(proposal.expiration) > 0 &&
-  !proposal.processed &&
   !proposal.cancelled &&
   Number(proposal.expiration) <
     Number(proposal.votingPeriod) +
@@ -49,16 +47,18 @@ export const proposalNeedsProcessing = (proposal: QueryProposal): boolean =>
   !proposal.processed;
 
 export const isProposalFailed = (proposal: QueryProposal): boolean =>
+  proposal.sponsored &&
   nowInSeconds() > Number(proposal.graceEnds) &&
   !proposal.cancelled &&
   (!passedQuorum(proposal) ||
-    Number(proposal.yesBalance) < Number(proposal.noBalance));
+    Number(proposal.yesBalance) <= Number(proposal.noBalance));
 
 export const passedQuorum = (proposal: QueryProposal): boolean => {
-  return (
-    Number(proposal.yesBalance) * 100 >
-    Number(proposal.dao.quorumPercent) * Number(proposal.dao.totalShares)
-  );
+  return checkHasQuorum({
+    yesVotes: Number(proposal.yesBalance),
+    totalShares: Number(proposal.dao.totalShares),
+    quorumPercent: Number(proposal.dao.quorumPercent),
+  });
 };
 
 export const getProposalStatus = (proposal: QueryProposal): ProposalStatus => {
@@ -68,11 +68,11 @@ export const getProposalStatus = (proposal: QueryProposal): ProposalStatus => {
   if (isProposalCancelled(proposal)) {
     return PROPOSAL_STATUS['cancelled'];
   }
-  if (isProposalPassed(proposal)) {
-    return PROPOSAL_STATUS['passed'];
-  }
   if (isProposalActionFailed(proposal)) {
     return PROPOSAL_STATUS['actionFailed'];
+  }
+  if (isProposalPassed(proposal)) {
+    return PROPOSAL_STATUS['passed'];
   }
   if (isProposalInVoting(proposal)) {
     return PROPOSAL_STATUS['voting'];
@@ -80,14 +80,14 @@ export const getProposalStatus = (proposal: QueryProposal): ProposalStatus => {
   if (isProposalInGrace(proposal)) {
     return PROPOSAL_STATUS['grace'];
   }
-  if (isProposalExpired(proposal)) {
-    return PROPOSAL_STATUS['expired'];
+  if (isProposalFailed(proposal)) {
+    return PROPOSAL_STATUS['failed'];
   }
   if (proposalNeedsProcessing(proposal)) {
     return PROPOSAL_STATUS['needsProcessing'];
   }
-  if (isProposalFailed(proposal)) {
-    return PROPOSAL_STATUS['failed'];
+  if (isProposalExpired(proposal)) {
+    return PROPOSAL_STATUS['expired'];
   }
   return PROPOSAL_STATUS['unknown'];
 };

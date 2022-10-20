@@ -19,8 +19,8 @@ type _Block_ {
   """The block number"""
   number: Int!
 
-  """Timestamp of the block if available, format depends on the chain"""
-  timestamp: String
+  """Integer representation of the timestamp stored in blocks for the chain"""
+  timestamp: Int
 }
 
 """The type for the top-level _meta field"""
@@ -72,7 +72,7 @@ type Dao {
   id: ID!
 
   """timestamp of the block when the dao was summoned"""
-  createdAt: String!
+  createdAt: BigInt!
 
   """address that created the dao"""
   createdBy: Bytes!
@@ -175,26 +175,14 @@ input Dao_filter {
   id_lte: ID
   id_in: [ID!]
   id_not_in: [ID!]
-  createdAt: String
-  createdAt_not: String
-  createdAt_gt: String
-  createdAt_lt: String
-  createdAt_gte: String
-  createdAt_lte: String
-  createdAt_in: [String!]
-  createdAt_not_in: [String!]
-  createdAt_contains: String
-  createdAt_contains_nocase: String
-  createdAt_not_contains: String
-  createdAt_not_contains_nocase: String
-  createdAt_starts_with: String
-  createdAt_starts_with_nocase: String
-  createdAt_not_starts_with: String
-  createdAt_not_starts_with_nocase: String
-  createdAt_ends_with: String
-  createdAt_ends_with_nocase: String
-  createdAt_not_ends_with: String
-  createdAt_not_ends_with_nocase: String
+  createdAt: BigInt
+  createdAt_not: BigInt
+  createdAt_gt: BigInt
+  createdAt_lt: BigInt
+  createdAt_gte: BigInt
+  createdAt_lte: BigInt
+  createdAt_in: [BigInt!]
+  createdAt_not_in: [BigInt!]
   createdBy: Bytes
   createdBy_not: Bytes
   createdBy_in: [Bytes!]
@@ -491,7 +479,7 @@ type EventTransaction {
   id: ID!
 
   """block timestamp of the transaction"""
-  createdAt: String!
+  createdAt: BigInt!
 
   """related DAO"""
   dao: Dao
@@ -507,26 +495,14 @@ input EventTransaction_filter {
   id_lte: ID
   id_in: [ID!]
   id_not_in: [ID!]
-  createdAt: String
-  createdAt_not: String
-  createdAt_gt: String
-  createdAt_lt: String
-  createdAt_gte: String
-  createdAt_lte: String
-  createdAt_in: [String!]
-  createdAt_not_in: [String!]
-  createdAt_contains: String
-  createdAt_contains_nocase: String
-  createdAt_not_contains: String
-  createdAt_not_contains_nocase: String
-  createdAt_starts_with: String
-  createdAt_starts_with_nocase: String
-  createdAt_not_starts_with: String
-  createdAt_not_starts_with_nocase: String
-  createdAt_ends_with: String
-  createdAt_ends_with_nocase: String
-  createdAt_not_ends_with: String
-  createdAt_not_ends_with_nocase: String
+  createdAt: BigInt
+  createdAt_not: BigInt
+  createdAt_gt: BigInt
+  createdAt_lt: BigInt
+  createdAt_gte: BigInt
+  createdAt_lte: BigInt
+  createdAt_in: [BigInt!]
+  createdAt_not_in: [BigInt!]
   dao: String
   dao_not: String
   dao_gt: String
@@ -573,7 +549,7 @@ type Member {
   """
   block timestamp when the member entity was created (when the address first recieved shares or loot)
   """
-  createdAt: String!
+  createdAt: BigInt!
 
   """transaction where the member was created"""
   txHash: Bytes!
@@ -589,6 +565,9 @@ type Member {
 
   """current loot held by the member"""
   loot: BigInt!
+
+  """total shares, loot and delegate shares, if 0 the member is inactive"""
+  sharesLootDelegateShares: BigInt!
 
   """address the member is delegating to"""
   delegatingTo: Bytes!
@@ -621,26 +600,14 @@ input Member_filter {
   id_lte: ID
   id_in: [ID!]
   id_not_in: [ID!]
-  createdAt: String
-  createdAt_not: String
-  createdAt_gt: String
-  createdAt_lt: String
-  createdAt_gte: String
-  createdAt_lte: String
-  createdAt_in: [String!]
-  createdAt_not_in: [String!]
-  createdAt_contains: String
-  createdAt_contains_nocase: String
-  createdAt_not_contains: String
-  createdAt_not_contains_nocase: String
-  createdAt_starts_with: String
-  createdAt_starts_with_nocase: String
-  createdAt_not_starts_with: String
-  createdAt_not_starts_with_nocase: String
-  createdAt_ends_with: String
-  createdAt_ends_with_nocase: String
-  createdAt_not_ends_with: String
-  createdAt_not_ends_with_nocase: String
+  createdAt: BigInt
+  createdAt_not: BigInt
+  createdAt_gt: BigInt
+  createdAt_lt: BigInt
+  createdAt_gte: BigInt
+  createdAt_lte: BigInt
+  createdAt_in: [BigInt!]
+  createdAt_not_in: [BigInt!]
   txHash: Bytes
   txHash_not: Bytes
   txHash_in: [Bytes!]
@@ -690,6 +657,14 @@ input Member_filter {
   loot_lte: BigInt
   loot_in: [BigInt!]
   loot_not_in: [BigInt!]
+  sharesLootDelegateShares: BigInt
+  sharesLootDelegateShares_not: BigInt
+  sharesLootDelegateShares_gt: BigInt
+  sharesLootDelegateShares_lt: BigInt
+  sharesLootDelegateShares_gte: BigInt
+  sharesLootDelegateShares_lte: BigInt
+  sharesLootDelegateShares_in: [BigInt!]
+  sharesLootDelegateShares_not_in: [BigInt!]
   delegatingTo: Bytes
   delegatingTo_not: Bytes
   delegatingTo_in: [Bytes!]
@@ -754,6 +729,7 @@ enum Member_orderBy {
   memberAddress
   shares
   loot
+  sharesLootDelegateShares
   delegatingTo
   delegatingToMember
   lastDelegateUpdateTxHash
@@ -774,10 +750,13 @@ type Proposal {
   id: ID!
 
   """block timestamp when the proposal was submitted"""
-  createdAt: String!
+  createdAt: BigInt!
 
   """address that submitted the proposal"""
   createdBy: Bytes!
+
+  """member entity of proposer if applicable"""
+  proposerMembership: Member
 
   """related DAO entity"""
   dao: Dao!
@@ -824,6 +803,11 @@ type Proposal {
   """
   expiration: BigInt!
 
+  """
+  proposal expiration time or if there is no expiration this will be a huge number to aid in querying unexpired proposals
+  """
+  expirationQueryField: BigInt!
+
   """estimated gas needed to execute the proposal actions"""
   actionGasEstimate: BigInt!
 
@@ -838,6 +822,9 @@ type Proposal {
 
   """address that sponsored the proposal"""
   sponsor: Bytes
+
+  """member entity of the sponsor"""
+  sponsorMembership: Member
 
   """transaction hash of the proposal sponsor"""
   sponsorTxHash: Bytes
@@ -947,32 +934,41 @@ input Proposal_filter {
   id_lte: ID
   id_in: [ID!]
   id_not_in: [ID!]
-  createdAt: String
-  createdAt_not: String
-  createdAt_gt: String
-  createdAt_lt: String
-  createdAt_gte: String
-  createdAt_lte: String
-  createdAt_in: [String!]
-  createdAt_not_in: [String!]
-  createdAt_contains: String
-  createdAt_contains_nocase: String
-  createdAt_not_contains: String
-  createdAt_not_contains_nocase: String
-  createdAt_starts_with: String
-  createdAt_starts_with_nocase: String
-  createdAt_not_starts_with: String
-  createdAt_not_starts_with_nocase: String
-  createdAt_ends_with: String
-  createdAt_ends_with_nocase: String
-  createdAt_not_ends_with: String
-  createdAt_not_ends_with_nocase: String
+  createdAt: BigInt
+  createdAt_not: BigInt
+  createdAt_gt: BigInt
+  createdAt_lt: BigInt
+  createdAt_gte: BigInt
+  createdAt_lte: BigInt
+  createdAt_in: [BigInt!]
+  createdAt_not_in: [BigInt!]
   createdBy: Bytes
   createdBy_not: Bytes
   createdBy_in: [Bytes!]
   createdBy_not_in: [Bytes!]
   createdBy_contains: Bytes
   createdBy_not_contains: Bytes
+  proposerMembership: String
+  proposerMembership_not: String
+  proposerMembership_gt: String
+  proposerMembership_lt: String
+  proposerMembership_gte: String
+  proposerMembership_lte: String
+  proposerMembership_in: [String!]
+  proposerMembership_not_in: [String!]
+  proposerMembership_contains: String
+  proposerMembership_contains_nocase: String
+  proposerMembership_not_contains: String
+  proposerMembership_not_contains_nocase: String
+  proposerMembership_starts_with: String
+  proposerMembership_starts_with_nocase: String
+  proposerMembership_not_starts_with: String
+  proposerMembership_not_starts_with_nocase: String
+  proposerMembership_ends_with: String
+  proposerMembership_ends_with_nocase: String
+  proposerMembership_not_ends_with: String
+  proposerMembership_not_ends_with_nocase: String
+  proposerMembership_: Member_filter
   dao: String
   dao_not: String
   dao_gt: String
@@ -1084,6 +1080,14 @@ input Proposal_filter {
   expiration_lte: BigInt
   expiration_in: [BigInt!]
   expiration_not_in: [BigInt!]
+  expirationQueryField: BigInt
+  expirationQueryField_not: BigInt
+  expirationQueryField_gt: BigInt
+  expirationQueryField_lt: BigInt
+  expirationQueryField_gte: BigInt
+  expirationQueryField_lte: BigInt
+  expirationQueryField_in: [BigInt!]
+  expirationQueryField_not_in: [BigInt!]
   actionGasEstimate: BigInt
   actionGasEstimate_not: BigInt
   actionGasEstimate_gt: BigInt
@@ -1126,6 +1130,27 @@ input Proposal_filter {
   sponsor_not_in: [Bytes!]
   sponsor_contains: Bytes
   sponsor_not_contains: Bytes
+  sponsorMembership: String
+  sponsorMembership_not: String
+  sponsorMembership_gt: String
+  sponsorMembership_lt: String
+  sponsorMembership_gte: String
+  sponsorMembership_lte: String
+  sponsorMembership_in: [String!]
+  sponsorMembership_not_in: [String!]
+  sponsorMembership_contains: String
+  sponsorMembership_contains_nocase: String
+  sponsorMembership_not_contains: String
+  sponsorMembership_not_contains_nocase: String
+  sponsorMembership_starts_with: String
+  sponsorMembership_starts_with_nocase: String
+  sponsorMembership_not_starts_with: String
+  sponsorMembership_not_starts_with_nocase: String
+  sponsorMembership_ends_with: String
+  sponsorMembership_ends_with_nocase: String
+  sponsorMembership_not_ends_with: String
+  sponsorMembership_not_ends_with_nocase: String
+  sponsorMembership_: Member_filter
   sponsorTxHash: Bytes
   sponsorTxHash_not: Bytes
   sponsorTxHash_in: [Bytes!]
@@ -1406,6 +1431,7 @@ enum Proposal_orderBy {
   id
   createdAt
   createdBy
+  proposerMembership
   dao
   proposalId
   prevProposalId
@@ -1419,11 +1445,13 @@ enum Proposal_orderBy {
   votingPlusGraceDuration
   graceEnds
   expiration
+  expirationQueryField
   actionGasEstimate
   details
   selfSponsor
   sponsored
   sponsor
+  sponsorMembership
   sponsorTxHash
   sponsorTxAt
   cancelled
@@ -1827,7 +1855,7 @@ type RageQuit {
   id: ID!
 
   """block timestamp when the member rage quit"""
-  createdAt: String!
+  createdAt: BigInt!
 
   """the transaction where the RageQuit occurred"""
   txHash: Bytes!
@@ -1860,26 +1888,14 @@ input RageQuit_filter {
   id_lte: ID
   id_in: [ID!]
   id_not_in: [ID!]
-  createdAt: String
-  createdAt_not: String
-  createdAt_gt: String
-  createdAt_lt: String
-  createdAt_gte: String
-  createdAt_lte: String
-  createdAt_in: [String!]
-  createdAt_not_in: [String!]
-  createdAt_contains: String
-  createdAt_contains_nocase: String
-  createdAt_not_contains: String
-  createdAt_not_contains_nocase: String
-  createdAt_starts_with: String
-  createdAt_starts_with_nocase: String
-  createdAt_not_starts_with: String
-  createdAt_not_starts_with_nocase: String
-  createdAt_ends_with: String
-  createdAt_ends_with_nocase: String
-  createdAt_not_ends_with: String
-  createdAt_not_ends_with_nocase: String
+  createdAt: BigInt
+  createdAt_not: BigInt
+  createdAt_gt: BigInt
+  createdAt_lt: BigInt
+  createdAt_gte: BigInt
+  createdAt_lte: BigInt
+  createdAt_in: [BigInt!]
+  createdAt_not_in: [BigInt!]
   txHash: Bytes
   txHash_not: Bytes
   txHash_in: [Bytes!]
@@ -1975,7 +1991,7 @@ enum RageQuit_orderBy {
 
 type Record {
   id: ID!
-  createdAt: String!
+  createdAt: BigInt!
   createdBy: Bytes!
   dao: Dao!
   tag: Bytes!
@@ -1993,26 +2009,14 @@ input Record_filter {
   id_lte: ID
   id_in: [ID!]
   id_not_in: [ID!]
-  createdAt: String
-  createdAt_not: String
-  createdAt_gt: String
-  createdAt_lt: String
-  createdAt_gte: String
-  createdAt_lte: String
-  createdAt_in: [String!]
-  createdAt_not_in: [String!]
-  createdAt_contains: String
-  createdAt_contains_nocase: String
-  createdAt_not_contains: String
-  createdAt_not_contains_nocase: String
-  createdAt_starts_with: String
-  createdAt_starts_with_nocase: String
-  createdAt_not_starts_with: String
-  createdAt_not_starts_with_nocase: String
-  createdAt_ends_with: String
-  createdAt_ends_with_nocase: String
-  createdAt_not_ends_with: String
-  createdAt_not_ends_with_nocase: String
+  createdAt: BigInt
+  createdAt_not: BigInt
+  createdAt_gt: BigInt
+  createdAt_lt: BigInt
+  createdAt_gte: BigInt
+  createdAt_lte: BigInt
+  createdAt_in: [BigInt!]
+  createdAt_not_in: [BigInt!]
   createdBy: Bytes
   createdBy_not: Bytes
   createdBy_in: [Bytes!]
@@ -2127,7 +2131,7 @@ type Shaman {
   id: ID!
 
   """block timestamp when the shaman was added"""
-  createdAt: String!
+  createdAt: BigInt!
 
   """related DAO"""
   dao: Dao!
@@ -2148,26 +2152,14 @@ input Shaman_filter {
   id_lte: ID
   id_in: [ID!]
   id_not_in: [ID!]
-  createdAt: String
-  createdAt_not: String
-  createdAt_gt: String
-  createdAt_lt: String
-  createdAt_gte: String
-  createdAt_lte: String
-  createdAt_in: [String!]
-  createdAt_not_in: [String!]
-  createdAt_contains: String
-  createdAt_contains_nocase: String
-  createdAt_not_contains: String
-  createdAt_not_contains_nocase: String
-  createdAt_starts_with: String
-  createdAt_starts_with_nocase: String
-  createdAt_not_starts_with: String
-  createdAt_not_starts_with_nocase: String
-  createdAt_ends_with: String
-  createdAt_ends_with_nocase: String
-  createdAt_not_ends_with: String
-  createdAt_not_ends_with_nocase: String
+  createdAt: BigInt
+  createdAt_not: BigInt
+  createdAt_gt: BigInt
+  createdAt_lt: BigInt
+  createdAt_gte: BigInt
+  createdAt_lte: BigInt
+  createdAt_in: [BigInt!]
+  createdAt_not_in: [BigInt!]
   dao: String
   dao_not: String
   dao_gt: String
@@ -2625,7 +2617,7 @@ type Vote {
   txHash: Bytes!
 
   """block timestamp when the vote was submitted"""
-  createdAt: String!
+  createdAt: BigInt!
 
   """contract address of the DAO related to this vote"""
   daoAddress: Bytes!
@@ -2658,26 +2650,14 @@ input Vote_filter {
   txHash_not_in: [Bytes!]
   txHash_contains: Bytes
   txHash_not_contains: Bytes
-  createdAt: String
-  createdAt_not: String
-  createdAt_gt: String
-  createdAt_lt: String
-  createdAt_gte: String
-  createdAt_lte: String
-  createdAt_in: [String!]
-  createdAt_not_in: [String!]
-  createdAt_contains: String
-  createdAt_contains_nocase: String
-  createdAt_not_contains: String
-  createdAt_not_contains_nocase: String
-  createdAt_starts_with: String
-  createdAt_starts_with_nocase: String
-  createdAt_not_starts_with: String
-  createdAt_not_starts_with_nocase: String
-  createdAt_ends_with: String
-  createdAt_ends_with_nocase: String
-  createdAt_not_ends_with: String
-  createdAt_not_ends_with_nocase: String
+  createdAt: BigInt
+  createdAt_not: BigInt
+  createdAt_gt: BigInt
+  createdAt_lt: BigInt
+  createdAt_gte: BigInt
+  createdAt_lte: BigInt
+  createdAt_in: [BigInt!]
+  createdAt_not_in: [BigInt!]
   daoAddress: Bytes
   daoAddress_not: Bytes
   daoAddress_in: [Bytes!]

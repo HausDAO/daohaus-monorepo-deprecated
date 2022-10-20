@@ -1,27 +1,69 @@
-import { Bold, Button, H1, ParMd, Link } from '@daohaus/ui';
-import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
+import {
+  Bold,
+  Button,
+  H1,
+  ParMd,
+  Link,
+  AddressDisplay,
+  useBreakpoint,
+  widthQuery,
+} from '@daohaus/ui';
 
 import { InfoSection } from './FormLayouts';
 import { HausBlockLoading } from '../components/HausBlockLoading/HausBlockLoading';
-import { ReactSetter } from '@daohaus/common-utilities';
+import { Keychain, ReactSetter } from '@daohaus/common-utilities';
 import { SummonStates } from '../app/App';
+import styled from 'styled-components';
 
 type SuccessProps = {
   daoAddress: string;
+  chainId: string | null | undefined;
   setSummonState: ReactSetter<SummonStates>;
 };
 
+const AddressInfoSection = styled(InfoSection)`
+  p,
+  div {
+    margin-bottom: 1rem;
+  }
+
+  a {
+    margin-bottom: 1rem;
+    align-items: flex-start;
+  }
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  gap: 3rem;
+  a {
+    button {
+      width: 200px;
+      justify-content: center;
+    }
+  }
+  @media ${widthQuery.sm} {
+    flex-direction: column;
+    button {
+      margin-bottom: 2rem;
+    }
+  }
+  /* justify-content: flex-start; */
+`;
+
 export const SummonerSuccess = ({
   daoAddress,
+  chainId,
   setSummonState,
 }: SuccessProps) => {
   const handleResetSummon = () => {
     setSummonState('idle');
   };
+  const isMobile = useBreakpoint(widthQuery.sm);
 
   return (
-    <div className="main-column">
-      <H1>
+    <div>
+      <H1 className="title">
         <Bold>DAO Summoned</Bold>
       </H1>
       <ParMd>
@@ -34,13 +76,33 @@ export const SummonerSuccess = ({
         </Link>
       </ParMd>
       <HausBlockLoading loading={false} />
-      <InfoSection>
+      <AddressInfoSection>
         <ParMd className="info">DAO contract:</ParMd>
-        <ExplorerLink address={daoAddress}>{daoAddress}</ExplorerLink>
-      </InfoSection>
-      <Button secondary onClick={handleResetSummon}>
-        Summon Another DAO
-      </Button>
+        <AddressDisplay
+          address={daoAddress}
+          copy
+          explorerNetworkId={chainId as keyof Keychain}
+          truncate={isMobile}
+        />
+      </AddressInfoSection>
+      <ButtonGroup>
+        <Button
+          secondary
+          onClick={handleResetSummon}
+          centerAlign={isMobile}
+          fullWidth={isMobile}
+        >
+          <Bold>Summon Another DAO</Bold>
+        </Button>
+        <Link
+          linkType="no-icon-external"
+          href={`https://admin.daohaus.fun/#/molochv3/${chainId}/${daoAddress}`}
+        >
+          <Button primary centerAlign={isMobile} fullWidth={isMobile}>
+            View DAO
+          </Button>
+        </Link>
+      </ButtonGroup>
     </div>
   );
 };

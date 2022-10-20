@@ -27,16 +27,23 @@ export const NETWORK_DATA: Keychain<NetworkType> = {
     symbol: 'ETH',
     tokenDecimals: 18,
   },
+  '0x64': {
+    chainId: '0x64',
+    networkId: 100,
+    name: 'Gnosis Chain',
+    symbol: 'XDAI',
+    tokenDecimals: 18,
+  },
 };
 
-export const getNetwork = (chainId: string) => {
+export const getNetwork = (chainId: string | undefined) => {
   if (!isValidNetwork(chainId)) {
     return null;
   }
   return NETWORK_DATA[chainId];
 };
 
-export const getNetworkName = (chainId: string) => {
+export const getNetworkName = (chainId: string | undefined) => {
   return getNetwork(chainId)?.name || null;
 };
 

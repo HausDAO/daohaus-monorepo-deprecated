@@ -1,14 +1,16 @@
-import { Keychain } from '@daohaus/common-utilities';
 import {
   AccountProfile,
-  ICrossNetworkMemberListArguments,
   DaoTokenBalances,
+  ITransformedMembershipsQuery,
+  Keychain,
+  nowInSeconds,
+} from '@daohaus/common-utilities';
+import {
+  ICrossNetworkMemberListArguments,
   ListMembershipsDocument,
   ListMembershipsQuery,
-  ListMembershipsQueryVariables,
   Member_OrderBy,
   IFindQueryResult,
-  ITransformedMembershipsQuery,
   Dao_OrderBy,
   Member_Filter,
   LensProfile,
@@ -16,10 +18,10 @@ import {
   Proposal_OrderBy,
   Proposal_Filter,
   IListQueryResults,
-  ITransformedProposalListQuery,
   ListConnectedMemberProposalsQueryVariables,
   ListConnectedMemberProposalsQuery,
   ListConnectedMemberProposalsDocument,
+  ListMembershipsQueryVariables,
 } from './types';
 import {
   transformMembershipList,
@@ -129,6 +131,7 @@ export default class Profile {
                 ...daoFilter,
               },
               memberWhere: { memberAddress },
+              now: nowInSeconds().toFixed(),
               orderBy: ordering.orderBy,
               orderDirection: ordering.orderDirection,
             }
@@ -176,7 +179,7 @@ export default class Profile {
     filter,
     memberAddress,
     ordering = {
-      orderBy: 'id',
+      orderBy: 'createdAt',
       orderDirection: 'desc',
     },
     paging = {

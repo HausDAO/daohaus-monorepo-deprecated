@@ -30,7 +30,7 @@ export interface Dao {
   /** count of share or loot holding members */
   activeMemberCount: Scalars['BigInt'];
   /** timestamp of the block when the dao was summoned */
-  createdAt: Scalars['String'];
+  createdAt: Scalars['BigInt'];
   /** address that created the dao */
   createdBy: Scalars['Bytes'];
   eventTransactions?: Maybe<EventTransaction>;
@@ -149,26 +149,14 @@ export interface Dao_Filter {
   activeMemberCount_lte?: InputMaybe<Scalars['BigInt']>;
   activeMemberCount_not?: InputMaybe<Scalars['BigInt']>;
   activeMemberCount_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  createdAt?: InputMaybe<Scalars['String']>;
-  createdAt_contains?: InputMaybe<Scalars['String']>;
-  createdAt_contains_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_ends_with?: InputMaybe<Scalars['String']>;
-  createdAt_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_gt?: InputMaybe<Scalars['String']>;
-  createdAt_gte?: InputMaybe<Scalars['String']>;
-  createdAt_in?: InputMaybe<Array<Scalars['String']>>;
-  createdAt_lt?: InputMaybe<Scalars['String']>;
-  createdAt_lte?: InputMaybe<Scalars['String']>;
-  createdAt_not?: InputMaybe<Scalars['String']>;
-  createdAt_not_contains?: InputMaybe<Scalars['String']>;
-  createdAt_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_not_ends_with?: InputMaybe<Scalars['String']>;
-  createdAt_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_not_in?: InputMaybe<Array<Scalars['String']>>;
-  createdAt_not_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  createdAt_lt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_lte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   createdBy?: InputMaybe<Scalars['Bytes']>;
   createdBy_contains?: InputMaybe<Scalars['Bytes']>;
   createdBy_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -459,7 +447,7 @@ export type Dao_OrderBy =
 export interface EventTransaction {
   __typename?: 'EventTransaction';
   /** block timestamp of the transaction */
-  createdAt: Scalars['String'];
+  createdAt: Scalars['BigInt'];
   /** related DAO */
   dao?: Maybe<Dao>;
   daoAddress?: Maybe<Scalars['Bytes']>;
@@ -470,26 +458,14 @@ export interface EventTransaction {
 export interface EventTransaction_Filter {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
-  createdAt?: InputMaybe<Scalars['String']>;
-  createdAt_contains?: InputMaybe<Scalars['String']>;
-  createdAt_contains_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_ends_with?: InputMaybe<Scalars['String']>;
-  createdAt_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_gt?: InputMaybe<Scalars['String']>;
-  createdAt_gte?: InputMaybe<Scalars['String']>;
-  createdAt_in?: InputMaybe<Array<Scalars['String']>>;
-  createdAt_lt?: InputMaybe<Scalars['String']>;
-  createdAt_lte?: InputMaybe<Scalars['String']>;
-  createdAt_not?: InputMaybe<Scalars['String']>;
-  createdAt_not_contains?: InputMaybe<Scalars['String']>;
-  createdAt_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_not_ends_with?: InputMaybe<Scalars['String']>;
-  createdAt_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_not_in?: InputMaybe<Array<Scalars['String']>>;
-  createdAt_not_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  createdAt_lt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_lte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   dao?: InputMaybe<Scalars['String']>;
   daoAddress?: InputMaybe<Scalars['Bytes']>;
   daoAddress_contains?: InputMaybe<Scalars['Bytes']>;
@@ -536,7 +512,7 @@ export type EventTransaction_OrderBy =
 export interface Member {
   __typename?: 'Member';
   /** block timestamp when the member entity was created (when the address first recieved shares or loot) */
-  createdAt: Scalars['String'];
+  createdAt: Scalars['BigInt'];
   /** related dao */
   dao: Dao;
   /** members this member is delegating too */
@@ -559,6 +535,8 @@ export interface Member {
   memberAddress: Scalars['Bytes'];
   /** current shares held by the member */
   shares: Scalars['BigInt'];
+  /** total shares, loot and delegate shares, if 0 the member is inactive */
+  sharesLootDelegateShares: Scalars['BigInt'];
   /** transaction where the member was created */
   txHash: Scalars['Bytes'];
   votes?: Maybe<Array<Vote>>;
@@ -585,26 +563,14 @@ export interface MemberVotesArgs {
 export interface Member_Filter {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
-  createdAt?: InputMaybe<Scalars['String']>;
-  createdAt_contains?: InputMaybe<Scalars['String']>;
-  createdAt_contains_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_ends_with?: InputMaybe<Scalars['String']>;
-  createdAt_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_gt?: InputMaybe<Scalars['String']>;
-  createdAt_gte?: InputMaybe<Scalars['String']>;
-  createdAt_in?: InputMaybe<Array<Scalars['String']>>;
-  createdAt_lt?: InputMaybe<Scalars['String']>;
-  createdAt_lte?: InputMaybe<Scalars['String']>;
-  createdAt_not?: InputMaybe<Scalars['String']>;
-  createdAt_not_contains?: InputMaybe<Scalars['String']>;
-  createdAt_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_not_ends_with?: InputMaybe<Scalars['String']>;
-  createdAt_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_not_in?: InputMaybe<Array<Scalars['String']>>;
-  createdAt_not_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  createdAt_lt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_lte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   dao?: InputMaybe<Scalars['String']>;
   dao_?: InputMaybe<Dao_Filter>;
   dao_contains?: InputMaybe<Scalars['String']>;
@@ -699,6 +665,14 @@ export interface Member_Filter {
   memberAddress_not_contains?: InputMaybe<Scalars['Bytes']>;
   memberAddress_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
   shares?: InputMaybe<Scalars['BigInt']>;
+  sharesLootDelegateShares?: InputMaybe<Scalars['BigInt']>;
+  sharesLootDelegateShares_gt?: InputMaybe<Scalars['BigInt']>;
+  sharesLootDelegateShares_gte?: InputMaybe<Scalars['BigInt']>;
+  sharesLootDelegateShares_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  sharesLootDelegateShares_lt?: InputMaybe<Scalars['BigInt']>;
+  sharesLootDelegateShares_lte?: InputMaybe<Scalars['BigInt']>;
+  sharesLootDelegateShares_not?: InputMaybe<Scalars['BigInt']>;
+  sharesLootDelegateShares_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   shares_gt?: InputMaybe<Scalars['BigInt']>;
   shares_gte?: InputMaybe<Scalars['BigInt']>;
   shares_in?: InputMaybe<Array<Scalars['BigInt']>>;
@@ -728,6 +702,7 @@ export type Member_OrderBy =
   | 'loot'
   | 'memberAddress'
   | 'shares'
+  | 'sharesLootDelegateShares'
   | 'txHash'
   | 'votes';
 
@@ -755,7 +730,7 @@ export interface Proposal {
   /** proposal Content URI type (ipfs hash, url) derived from the details field */
   contentURIType?: Maybe<Scalars['String']>;
   /** block timestamp when the proposal was submitted */
-  createdAt: Scalars['String'];
+  createdAt: Scalars['BigInt'];
   /** address that submitted the proposal */
   createdBy: Scalars['Bytes'];
   /** is currently paasing quorum and has more yes votes than no votes */
@@ -768,6 +743,8 @@ export interface Proposal {
   details: Scalars['String'];
   /** unix timestamp after which proposal should be considered invalid and skipped */
   expiration: Scalars['BigInt'];
+  /** proposal expiration time or if there is no expiration this will be a huge number to aid in querying unexpired proposals */
+  expirationQueryField: Scalars['BigInt'];
   /** unix timestamp of when the grace period ends */
   graceEnds: Scalars['BigInt'];
   /** duration in seconds of the grace period for this proposal in seconds */
@@ -802,10 +779,14 @@ export interface Proposal {
   proposalOffering: Scalars['BigInt'];
   /** proposal type derived from the details field */
   proposalType: Scalars['String'];
+  /** member entity of proposer if applicable */
+  proposerMembership?: Maybe<Member>;
   /** indicates if the proposal was automatically sponsored */
   selfSponsor: Scalars['Boolean'];
   /** address that sponsored the proposal */
   sponsor?: Maybe<Scalars['Bytes']>;
+  /** member entity of the sponsor */
+  sponsorMembership?: Maybe<Member>;
   /** unix timestamp of when the proposal was sponsored */
   sponsorTxAt?: Maybe<Scalars['BigInt']>;
   /** transaction hash of the proposal sponsor */
@@ -933,26 +914,14 @@ export interface Proposal_Filter {
   contentURI_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
   contentURI_starts_with?: InputMaybe<Scalars['String']>;
   contentURI_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt?: InputMaybe<Scalars['String']>;
-  createdAt_contains?: InputMaybe<Scalars['String']>;
-  createdAt_contains_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_ends_with?: InputMaybe<Scalars['String']>;
-  createdAt_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_gt?: InputMaybe<Scalars['String']>;
-  createdAt_gte?: InputMaybe<Scalars['String']>;
-  createdAt_in?: InputMaybe<Array<Scalars['String']>>;
-  createdAt_lt?: InputMaybe<Scalars['String']>;
-  createdAt_lte?: InputMaybe<Scalars['String']>;
-  createdAt_not?: InputMaybe<Scalars['String']>;
-  createdAt_not_contains?: InputMaybe<Scalars['String']>;
-  createdAt_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_not_ends_with?: InputMaybe<Scalars['String']>;
-  createdAt_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_not_in?: InputMaybe<Array<Scalars['String']>>;
-  createdAt_not_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  createdAt_lt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_lte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   createdBy?: InputMaybe<Scalars['Bytes']>;
   createdBy_contains?: InputMaybe<Scalars['Bytes']>;
   createdBy_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -1025,6 +994,14 @@ export interface Proposal_Filter {
   details_starts_with?: InputMaybe<Scalars['String']>;
   details_starts_with_nocase?: InputMaybe<Scalars['String']>;
   expiration?: InputMaybe<Scalars['BigInt']>;
+  expirationQueryField?: InputMaybe<Scalars['BigInt']>;
+  expirationQueryField_gt?: InputMaybe<Scalars['BigInt']>;
+  expirationQueryField_gte?: InputMaybe<Scalars['BigInt']>;
+  expirationQueryField_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  expirationQueryField_lt?: InputMaybe<Scalars['BigInt']>;
+  expirationQueryField_lte?: InputMaybe<Scalars['BigInt']>;
+  expirationQueryField_not?: InputMaybe<Scalars['BigInt']>;
+  expirationQueryField_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   expiration_gt?: InputMaybe<Scalars['BigInt']>;
   expiration_gte?: InputMaybe<Scalars['BigInt']>;
   expiration_in?: InputMaybe<Array<Scalars['BigInt']>>;
@@ -1164,11 +1141,53 @@ export interface Proposal_Filter {
   proposalType_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
   proposalType_starts_with?: InputMaybe<Scalars['String']>;
   proposalType_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  proposerMembership?: InputMaybe<Scalars['String']>;
+  proposerMembership_?: InputMaybe<Member_Filter>;
+  proposerMembership_contains?: InputMaybe<Scalars['String']>;
+  proposerMembership_contains_nocase?: InputMaybe<Scalars['String']>;
+  proposerMembership_ends_with?: InputMaybe<Scalars['String']>;
+  proposerMembership_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  proposerMembership_gt?: InputMaybe<Scalars['String']>;
+  proposerMembership_gte?: InputMaybe<Scalars['String']>;
+  proposerMembership_in?: InputMaybe<Array<Scalars['String']>>;
+  proposerMembership_lt?: InputMaybe<Scalars['String']>;
+  proposerMembership_lte?: InputMaybe<Scalars['String']>;
+  proposerMembership_not?: InputMaybe<Scalars['String']>;
+  proposerMembership_not_contains?: InputMaybe<Scalars['String']>;
+  proposerMembership_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  proposerMembership_not_ends_with?: InputMaybe<Scalars['String']>;
+  proposerMembership_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  proposerMembership_not_in?: InputMaybe<Array<Scalars['String']>>;
+  proposerMembership_not_starts_with?: InputMaybe<Scalars['String']>;
+  proposerMembership_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  proposerMembership_starts_with?: InputMaybe<Scalars['String']>;
+  proposerMembership_starts_with_nocase?: InputMaybe<Scalars['String']>;
   selfSponsor?: InputMaybe<Scalars['Boolean']>;
   selfSponsor_in?: InputMaybe<Array<Scalars['Boolean']>>;
   selfSponsor_not?: InputMaybe<Scalars['Boolean']>;
   selfSponsor_not_in?: InputMaybe<Array<Scalars['Boolean']>>;
   sponsor?: InputMaybe<Scalars['Bytes']>;
+  sponsorMembership?: InputMaybe<Scalars['String']>;
+  sponsorMembership_?: InputMaybe<Member_Filter>;
+  sponsorMembership_contains?: InputMaybe<Scalars['String']>;
+  sponsorMembership_contains_nocase?: InputMaybe<Scalars['String']>;
+  sponsorMembership_ends_with?: InputMaybe<Scalars['String']>;
+  sponsorMembership_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  sponsorMembership_gt?: InputMaybe<Scalars['String']>;
+  sponsorMembership_gte?: InputMaybe<Scalars['String']>;
+  sponsorMembership_in?: InputMaybe<Array<Scalars['String']>>;
+  sponsorMembership_lt?: InputMaybe<Scalars['String']>;
+  sponsorMembership_lte?: InputMaybe<Scalars['String']>;
+  sponsorMembership_not?: InputMaybe<Scalars['String']>;
+  sponsorMembership_not_contains?: InputMaybe<Scalars['String']>;
+  sponsorMembership_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  sponsorMembership_not_ends_with?: InputMaybe<Scalars['String']>;
+  sponsorMembership_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  sponsorMembership_not_in?: InputMaybe<Array<Scalars['String']>>;
+  sponsorMembership_not_starts_with?: InputMaybe<Scalars['String']>;
+  sponsorMembership_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  sponsorMembership_starts_with?: InputMaybe<Scalars['String']>;
+  sponsorMembership_starts_with_nocase?: InputMaybe<Scalars['String']>;
   sponsorTxAt?: InputMaybe<Scalars['BigInt']>;
   sponsorTxAt_gt?: InputMaybe<Scalars['BigInt']>;
   sponsorTxAt_gte?: InputMaybe<Scalars['BigInt']>;
@@ -1333,6 +1352,7 @@ export type Proposal_OrderBy =
   | 'description'
   | 'details'
   | 'expiration'
+  | 'expirationQueryField'
   | 'graceEnds'
   | 'gracePeriod'
   | 'id'
@@ -1350,8 +1370,10 @@ export type Proposal_OrderBy =
   | 'proposalId'
   | 'proposalOffering'
   | 'proposalType'
+  | 'proposerMembership'
   | 'selfSponsor'
   | 'sponsor'
+  | 'sponsorMembership'
   | 'sponsorTxAt'
   | 'sponsorTxHash'
   | 'sponsored'
@@ -1564,7 +1586,7 @@ export interface QueryVotesArgs {
 export interface RageQuit {
   __typename?: 'RageQuit';
   /** block timestamp when the member rage quit */
-  createdAt: Scalars['String'];
+  createdAt: Scalars['BigInt'];
   /** related DAO */
   dao: Dao;
   /** unique identifier and primary key of the entity */
@@ -1586,26 +1608,14 @@ export interface RageQuit {
 export interface RageQuit_Filter {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
-  createdAt?: InputMaybe<Scalars['String']>;
-  createdAt_contains?: InputMaybe<Scalars['String']>;
-  createdAt_contains_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_ends_with?: InputMaybe<Scalars['String']>;
-  createdAt_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_gt?: InputMaybe<Scalars['String']>;
-  createdAt_gte?: InputMaybe<Scalars['String']>;
-  createdAt_in?: InputMaybe<Array<Scalars['String']>>;
-  createdAt_lt?: InputMaybe<Scalars['String']>;
-  createdAt_lte?: InputMaybe<Scalars['String']>;
-  createdAt_not?: InputMaybe<Scalars['String']>;
-  createdAt_not_contains?: InputMaybe<Scalars['String']>;
-  createdAt_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_not_ends_with?: InputMaybe<Scalars['String']>;
-  createdAt_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_not_in?: InputMaybe<Array<Scalars['String']>>;
-  createdAt_not_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  createdAt_lt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_lte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   dao?: InputMaybe<Scalars['String']>;
   dao_?: InputMaybe<Dao_Filter>;
   dao_contains?: InputMaybe<Scalars['String']>;
@@ -1707,7 +1717,7 @@ export interface Record {
   __typename?: 'Record';
   content: Scalars['String'];
   contentType: Scalars['String'];
-  createdAt: Scalars['String'];
+  createdAt: Scalars['BigInt'];
   createdBy: Scalars['Bytes'];
   dao: Dao;
   id: Scalars['ID'];
@@ -1758,26 +1768,14 @@ export interface Record_Filter {
   content_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
   content_starts_with?: InputMaybe<Scalars['String']>;
   content_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt?: InputMaybe<Scalars['String']>;
-  createdAt_contains?: InputMaybe<Scalars['String']>;
-  createdAt_contains_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_ends_with?: InputMaybe<Scalars['String']>;
-  createdAt_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_gt?: InputMaybe<Scalars['String']>;
-  createdAt_gte?: InputMaybe<Scalars['String']>;
-  createdAt_in?: InputMaybe<Array<Scalars['String']>>;
-  createdAt_lt?: InputMaybe<Scalars['String']>;
-  createdAt_lte?: InputMaybe<Scalars['String']>;
-  createdAt_not?: InputMaybe<Scalars['String']>;
-  createdAt_not_contains?: InputMaybe<Scalars['String']>;
-  createdAt_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_not_ends_with?: InputMaybe<Scalars['String']>;
-  createdAt_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_not_in?: InputMaybe<Array<Scalars['String']>>;
-  createdAt_not_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  createdAt_lt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_lte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   createdBy?: InputMaybe<Scalars['Bytes']>;
   createdBy_contains?: InputMaybe<Scalars['Bytes']>;
   createdBy_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -1854,7 +1852,7 @@ export type Record_OrderBy =
 export interface Shaman {
   __typename?: 'Shaman';
   /** block timestamp when the shaman was added */
-  createdAt: Scalars['String'];
+  createdAt: Scalars['BigInt'];
   /** related DAO */
   dao: Dao;
   /** unique identifier and primary key of the entity */
@@ -1868,26 +1866,14 @@ export interface Shaman {
 export interface Shaman_Filter {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
-  createdAt?: InputMaybe<Scalars['String']>;
-  createdAt_contains?: InputMaybe<Scalars['String']>;
-  createdAt_contains_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_ends_with?: InputMaybe<Scalars['String']>;
-  createdAt_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_gt?: InputMaybe<Scalars['String']>;
-  createdAt_gte?: InputMaybe<Scalars['String']>;
-  createdAt_in?: InputMaybe<Array<Scalars['String']>>;
-  createdAt_lt?: InputMaybe<Scalars['String']>;
-  createdAt_lte?: InputMaybe<Scalars['String']>;
-  createdAt_not?: InputMaybe<Scalars['String']>;
-  createdAt_not_contains?: InputMaybe<Scalars['String']>;
-  createdAt_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_not_ends_with?: InputMaybe<Scalars['String']>;
-  createdAt_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_not_in?: InputMaybe<Array<Scalars['String']>>;
-  createdAt_not_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  createdAt_lt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_lte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   dao?: InputMaybe<Scalars['String']>;
   dao_?: InputMaybe<Dao_Filter>;
   dao_contains?: InputMaybe<Scalars['String']>;
@@ -2169,7 +2155,7 @@ export interface Vote {
   /** shares balance of the voting member at the time of the vote */
   balance: Scalars['BigInt'];
   /** block timestamp when the vote was submitted */
-  createdAt: Scalars['String'];
+  createdAt: Scalars['BigInt'];
   /** contract address of the DAO related to this vote */
   daoAddress: Scalars['Bytes'];
   /** unique identifier and primary key of the entity */
@@ -2197,26 +2183,14 @@ export interface Vote_Filter {
   balance_lte?: InputMaybe<Scalars['BigInt']>;
   balance_not?: InputMaybe<Scalars['BigInt']>;
   balance_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  createdAt?: InputMaybe<Scalars['String']>;
-  createdAt_contains?: InputMaybe<Scalars['String']>;
-  createdAt_contains_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_ends_with?: InputMaybe<Scalars['String']>;
-  createdAt_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_gt?: InputMaybe<Scalars['String']>;
-  createdAt_gte?: InputMaybe<Scalars['String']>;
-  createdAt_in?: InputMaybe<Array<Scalars['String']>>;
-  createdAt_lt?: InputMaybe<Scalars['String']>;
-  createdAt_lte?: InputMaybe<Scalars['String']>;
-  createdAt_not?: InputMaybe<Scalars['String']>;
-  createdAt_not_contains?: InputMaybe<Scalars['String']>;
-  createdAt_not_contains_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_not_ends_with?: InputMaybe<Scalars['String']>;
-  createdAt_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_not_in?: InputMaybe<Array<Scalars['String']>>;
-  createdAt_not_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
-  createdAt_starts_with?: InputMaybe<Scalars['String']>;
-  createdAt_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  createdAt_lt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_lte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   daoAddress?: InputMaybe<Scalars['Bytes']>;
   daoAddress_contains?: InputMaybe<Scalars['Bytes']>;
   daoAddress_in?: InputMaybe<Array<Scalars['Bytes']>>;
@@ -2297,8 +2271,8 @@ export interface _Block_ {
   hash?: Maybe<Scalars['Bytes']>;
   /** The block number */
   number: Scalars['Int'];
-  /** Timestamp of the block if available, format depends on the chain */
-  timestamp?: Maybe<Scalars['String']>;
+  /** Integer representation of the timestamp stored in blocks for the chain */
+  timestamp?: Maybe<Scalars['Int']>;
 }
 
 /** The type for the top-level _meta field */

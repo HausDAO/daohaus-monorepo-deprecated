@@ -7,6 +7,7 @@
     "contract-utilities": "libs/contract-utilities",
     "core-app": "apps/core-app",
     "dao-consumer-job": "apps/dao-consumer-job",
+    "dao-context": "libs/dao-context",
     "dao-data": "libs/dao-data",
     "dao-producer-job": "apps/dao-producer-job",
     "daohaus-connect-feature": "libs/daohaus-connect-feature",
@@ -20,7 +21,8 @@
     "summon-safe-app": "apps/summon-safe-app",
     "tx-builder-feature": "libs/tx-builder-feature",
     "ui": "libs/ui",
-    "v3-subgraph": "apps/v3-subgraph"
+    "v3-subgraph": "apps/v3-subgraph",
+    "executors": "tools/executors"
   },
   "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

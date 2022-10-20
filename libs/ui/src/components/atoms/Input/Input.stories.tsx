@@ -22,6 +22,7 @@ export const InputWithIcon = Template.bind({});
 InputWithIcon.args = {
   placeholder: 'Placeholder',
   icon: RiSearchLine,
+  full: false,
 };
 
 export const InputDisabled = Template.bind({});

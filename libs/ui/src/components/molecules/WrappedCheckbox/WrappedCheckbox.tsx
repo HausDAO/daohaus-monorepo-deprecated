@@ -34,7 +34,7 @@ export const WrappedCheckbox = (
                 {...checkbox}
                 value={field.value}
                 checked={field.value}
-                onCheckedChange={field.onChange}
+                onCheckedChange={checkbox.onCheckedChange || field.onChange}
                 ref={field.ref}
               />
             );

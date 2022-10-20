@@ -12,6 +12,7 @@ import { pollLastTX, standardGraphPoll, testLastTX } from './polling';
 import { processArgs } from './args';
 import { processContractLego } from './contractHelpers';
 import { ArgCallback, TXLifeCycleFns } from '../TXBuilder';
+import { processOverrides } from './overrides';
 
 export type TxRecord = Record<string, TXLego>;
 export type MassState = {
@@ -27,7 +28,11 @@ export type MassState = {
 
 export const executeTx = async (args: {
   tx: TXLego;
-  ethersTx: { hash: string; wait: () => Promise<string> };
+  ethersTx: {
+    hash: string;
+    wait: () => Promise<ethers.providers.TransactionReceipt>;
+  };
+
   setTransactions: ReactSetter<TxRecord>;
   chainId: ValidNetwork;
   lifeCycleFns?: TXLifeCycleFns;
@@ -44,13 +49,18 @@ export const executeTx = async (args: {
     }));
     console.log('**Transaction Pending**');
     const reciept = await ethersTx.wait();
+    console.log('txReciept', reciept);
+
+    if (reciept.status === 0) {
+      throw new Error('CALL_EXCEPTION: txReceipt status 0');
+    }
 
     setTransactions((prevState) => ({
       ...prevState,
       [txHash]: { ...tx, status: 'polling' },
     }));
     console.log('**Transaction Successful**');
-    lifeCycleFns?.onTxSuccess?.(reciept);
+    lifeCycleFns?.onTxSuccess?.(txHash);
 
     standardGraphPoll({
       poll: pollLastTX,
@@ -141,14 +151,12 @@ export async function prepareTX(args: {
 
     console.log('**PROCESSED ARGS**', processedArgs);
 
-    // TODO for gasLimit and value
-    // const processOverrides = await
-    // looks in the lego and gets value and/or gasLimit
-    // returns {} or {
-    //   value: '1000000000',
-    //   gasLimit: '1000000',
-    // }
-    // add new overrides to tx lego and it can use the process args stuff and all current arg types
+    const overrides = processOverrides({
+      overrideArgs: tx.overrides,
+      appState,
+    });
+
+    console.log('**PROCESSED overrides**', overrides);
 
     const contract = new ethers.Contract(
       address,
@@ -157,12 +165,11 @@ export async function prepareTX(args: {
     );
 
     lifeCycleFns?.onRequestSign?.();
-    // const ethersTx = await contract.functions[method](...processedArgs, {
-    //   value: '1000000000',
-    //   gasLimit: '1000000',
-    // });
 
-    const ethersTx = await contract.functions[method](...processedArgs);
+    const ethersTx = await contract.functions[method](
+      ...processedArgs,
+      overrides
+    );
     executeTx({ ...args, ethersTx });
   } catch (error) {
     console.log('**TX Error (Pre-Fire)**');

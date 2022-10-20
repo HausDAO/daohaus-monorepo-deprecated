@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
 import { BsShareFill, BsArrowLeft } from 'react-icons/bs';
 import { Column } from 'react-table';
@@ -12,6 +12,7 @@ import {
   ParMd,
   SingleColumnLayout,
   Spinner,
+  useBreakpoint,
   useToast,
   widthQuery,
 } from '@daohaus/ui';
@@ -22,13 +23,16 @@ import {
   memberTokenBalanceShare,
   memberUsdValueShare,
   charLimit,
+  NETWORK_TOKEN_ETH_ADDRESS,
+  AccountProfile,
 } from '@daohaus/common-utilities';
-import { AccountProfile, FindMemberQuery, Haus } from '@daohaus/dao-data';
+import { FindMemberQuery, Haus } from '@daohaus/dao-data';
 
-import { useDao } from '../contexts/DaoContext';
+import { useDao } from '@daohaus/dao-context';
 import { Profile } from '../components/Profile';
 import { DaoTable } from '../components/DaohausTable';
 import { loadMember } from '../utils/dataFetchHelpers';
+import { ButtonLink } from '../components/ButtonLink';
 
 const ProfileCard = styled(Card)`
   width: 64rem;
@@ -39,10 +43,6 @@ const ProfileCard = styled(Card)`
     max-width: 100%;
     min-width: 0;
   }
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
 `;
 
 const StyledArrowLeft = styled(BsArrowLeft)`
@@ -58,6 +58,12 @@ const ButtonsContainer = styled.div`
   @media ${widthQuery.md} {
     max-width: 100%;
     min-width: 0;
+  }
+  @media ${widthQuery.sm} {
+    flex-direction: column;
+    button:first-child {
+      margin-bottom: 1rem;
+    }
   }
 `;
 
@@ -89,6 +95,8 @@ export function Member() {
     AccountProfile | undefined
   >();
   const { successToast } = useToast();
+
+  const isMobile = useBreakpoint(widthQuery.sm);
 
   useEffect(() => {
     let shouldUpdate = true;
@@ -144,14 +152,16 @@ export function Member() {
         .map((bal) => {
           return {
             token: {
-              address: bal.tokenAddress || '0x0',
+              address: bal.tokenAddress || NETWORK_TOKEN_ETH_ADDRESS,
               name: charLimit(bal.token?.name, 21),
             },
             fiatBalance: formatValueTo({
               value: memberUsdValueShare(
                 bal.fiatBalance,
                 dao.totalShares || 0,
-                currentMember.shares || 0
+                dao.totalLoot || 0,
+                currentMember.shares || 0,
+                currentMember.loot || 0
               ),
               decimals: 2,
               format: 'currency',
@@ -160,7 +170,9 @@ export function Member() {
               value: memberTokenBalanceShare(
                 bal.balance,
                 dao.totalShares || 0,
+                dao.totalLoot || 0,
                 currentMember.shares || 0,
+                currentMember.loot || 0,
                 bal.token?.decimals || 18
               ),
               format: 'number',
@@ -178,7 +190,7 @@ export function Member() {
         Header: 'Token',
         accessor: 'token',
         Cell: ({ value }: { value: TokenTableType['token'] }) => {
-          return value.address === '0x0' ? (
+          return value.address === NETWORK_TOKEN_ETH_ADDRESS ? (
             <DataMd>{NETWORK_DATA[daochain as keyof Keychain]?.symbol}</DataMd>
           ) : (
             <AddressDisplay
@@ -224,12 +236,21 @@ export function Member() {
       {currentMember && (
         <>
           <ButtonsContainer>
-            <StyledLink to={`/molochv3/${daochain}/${daoid}/members`}>
-              <Button IconLeft={StyledArrowLeft} tertiary>
-                MEMBERS
-              </Button>
-            </StyledLink>
-            <Button IconLeft={BsShareFill} onClick={handleOnClick}>
+            <ButtonLink
+              href={`/molochv3/${daochain}/${daoid}/members`}
+              IconLeft={StyledArrowLeft}
+              tertiary
+              fullWidth={isMobile}
+              centerAlign={isMobile}
+            >
+              MEMBERS
+            </ButtonLink>
+            <Button
+              IconLeft={BsShareFill}
+              onClick={handleOnClick}
+              fullWidth={isMobile}
+              centerAlign={isMobile}
+            >
               SHARE PROFILE
             </Button>
           </ButtonsContainer>
@@ -244,7 +265,9 @@ export function Member() {
                       value: memberUsdValueShare(
                         dao?.fiatTotal || 0,
                         dao?.totalShares || 0,
-                        currentMember.shares || 0
+                        dao?.totalLoot || 0,
+                        currentMember.shares || 0,
+                        currentMember.loot || 0
                       ),
                       decimals: 2,
                       format: 'currency',

@@ -5,18 +5,21 @@
   "tags": [],
   "targets": {
     "vite-build": {
-      "executor": "@nxext/vite:package",
+      "executor": "@daohaus/executors:vite-helper",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/daohaus-connect-feature",
         "frameworkConfigFile": "@nxext/react/plugins/vite",
         "configFile": "libs/daohaus-connect-feature/vite.config.ts",
         "entryFile": "src/index.ts",
-        "generatePackageJson": true
+        "updateBuildableProjectDepsInPackageJson": true,
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "packageJson": "libs/daohaus-connect-feature/package.json",
+        "project": "libs/daohaus-connect-feature"
       }
     },
     "build": {
-      "executor": "@nrwl/workspace:run-commands",
+      "executor": "nx:run-commands",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/daohaus-connect-feature",

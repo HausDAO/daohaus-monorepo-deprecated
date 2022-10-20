@@ -35,7 +35,7 @@ export const ToastViewport = styled(ToastPrimitive.Viewport)`
   padding: 20px;
   gap: 10px;
   width: 395px;
-  max-width: 100vw;
+  max-width: 90vw;
   margin: 0;
   list-style: none;
   z-index: 2147483647;

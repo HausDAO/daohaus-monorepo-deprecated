@@ -7,9 +7,14 @@ import {
   SingleColumnLayout,
   widthQuery,
 } from '@daohaus/ui';
-import { useDao } from '../contexts/DaoContext';
+import { useDao } from '@daohaus/dao-context';
 import { DaoProfile } from '../components/DaoProfile';
-import { charLimit, formatValueTo, fromWei } from '@daohaus/common-utilities';
+import {
+  charLimit,
+  formatValueTo,
+  fromWei,
+  lowerCaseLootToken,
+} from '@daohaus/common-utilities';
 
 const OverviewCard = styled(Card)`
   width: 64rem;
@@ -28,16 +33,12 @@ const TokensCard = styled(OverviewCard)`
 
 const DataGrid = styled.div`
   display: flex;
-  flex-wrap: wrap;
   width: 100%;
-  align-content: space-between;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
   div {
     padding: 2rem 0;
-    width: 19.7rem;
-
-    @media ${widthQuery.sm} {
-      min-width: 100%;
-    }
   }
 `;
 
@@ -52,7 +53,7 @@ export function DaoOverview() {
             <DaoProfile dao={dao} />
             <DataGrid>
               <DataIndicator
-                label="Vault Total"
+                label="Total in Safes"
                 data={formatValueTo({
                   value: dao.fiatTotal,
                   decimals: 2,
@@ -60,18 +61,19 @@ export function DaoOverview() {
                 })}
               />
               <DataIndicator label="Members" data={dao.activeMemberCount} />
+              <DataIndicator label="Proposals" data={dao.proposalCount} />
               <DataIndicator
                 label="Active Proposals"
-                data={dao.proposalCount}
+                data={dao.activeProposals?.length || '0'}
               />
             </DataGrid>
           </OverviewCard>
           <TokensCard>
-            <H4>{charLimit(dao.shareTokenName, 23)}</H4>
+            <H4>Tokens</H4>
             <DataGrid>
               <DataIndicator
-                label="Voting Tokens"
-                data={charLimit(dao.shareTokenName, 8)}
+                label="Voting"
+                data={charLimit(dao.shareTokenName, 20)}
               />
               <DataIndicator
                 label="Supply"
@@ -81,10 +83,11 @@ export function DaoOverview() {
                   format: 'numberShort',
                 })}
               />
-              <DataIndicator label="Token Holders" data="5" />
+            </DataGrid>
+            <DataGrid>
               <DataIndicator
-                label="Economic Tokens"
-                data={charLimit(dao.lootTokenName, 8)}
+                label="Non-Voting"
+                data={charLimit(lowerCaseLootToken(dao.lootTokenName), 20)}
               />
               <DataIndicator
                 label="Supply"
@@ -94,7 +97,6 @@ export function DaoOverview() {
                   format: 'numberShort',
                 })}
               />
-              <DataIndicator label="Token Holders" data="5" />
             </DataGrid>
           </TokensCard>
         </>

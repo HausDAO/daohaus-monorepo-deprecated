@@ -12,9 +12,9 @@ export const TooltipPortal = TooltipPrimitive.Portal;
 export const TooltipTrigger = styled(TooltipPrimitive.Trigger)`
   background-color: transparent;
   border: none;
-
+  padding: 0;
   svg {
-    color: ${({ theme }: { theme: Theme }) => theme.secondary};
+    color: ${({ theme }: { theme: Theme }) => theme.primary};
   }
 `;
 

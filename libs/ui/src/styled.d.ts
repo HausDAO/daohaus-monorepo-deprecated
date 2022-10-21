@@ -95,32 +95,6 @@ declare module 'styled-components' {
       focusItem: string;
       acttiveItem: string;
     };
-    switch: {
-      bar: {
-        bg: string;
-        activeBg: string;
-        disabledBg: string;
-        activeDisabledBg: string;
-      };
-      thumb: {
-        bg: string;
-        border: string;
-        hoverBg: string;
-        hoverBorder: string;
-        focusBg: string;
-        focusBorder: string;
-        disabledBg: string;
-        disabledBorder: string;
-        activeBg: string;
-        activeBorder: string;
-        activeHoverBg: string;
-        activeHoverBorder: string;
-        activeFocusBg: string;
-        activeFocusBorder: string;
-        activeDisabledBg: string;
-        activeDisabledBorder: string;
-      };
-    };
     toast: {
       bg: string;
       border: string;

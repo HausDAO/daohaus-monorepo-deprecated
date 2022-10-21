@@ -71,10 +71,6 @@ export const defaultDarkTheme: Theme = {
     warning: WarningDarkButton,
     danger: DangerDarkButton,
   },
-  spinner: {
-    topColor: primaryDark.step9,
-    bottomColor: primaryDark.step4,
-  },
   switch: {
     bar: {
       bg: secondaryDark.step6,
@@ -171,10 +167,6 @@ export const defaultLightTheme: Theme = {
     success: SuccessLightButton,
     warning: WarningLightButton,
     danger: DangerLightButton,
-  },
-  spinner: {
-    topColor: primaryDark.step9,
-    bottomColor: primaryDark.step4,
   },
   switch: {
     bar: {

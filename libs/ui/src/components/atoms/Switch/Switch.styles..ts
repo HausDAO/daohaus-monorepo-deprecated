@@ -12,7 +12,7 @@ export const Container = styled.div`
 
 export const SwitchBase = styled(SwitchPrimitive.Root)`
   all: unset;
-  background-color: ${({ theme }: { theme: Theme }) => theme.switch.bar.bg};
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step6};
   border-radius: 9999px;
   cursor: pointer;
   height: 16px;
@@ -21,27 +21,23 @@ export const SwitchBase = styled(SwitchPrimitive.Root)`
   width: 54px;
 
   &[data-disabled] {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.switch.bar.disabledBg};
+    background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step6};
     cursor: not-allowed;
   }
 
   &[data-state='checked'] {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.switch.bar.activeBg};
+    background-color: ${({ theme }: { theme: Theme }) => theme.primary.step6};
 
     &[data-disabled] {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.switch.bar.disabledBg};
+      background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step6};
       cursor: not-allowed;
     }
   }
 `;
 
 export const SwitchSlider = styled(SwitchPrimitive.Thumb)`
-  background-color: ${({ theme }: { theme: Theme }) => theme.switch.thumb.bg};
-  border: 2px solid
-    ${({ theme }: { theme: Theme }) => theme.switch.thumb.border};
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step9};
+  border: 2px solid ${({ theme }: { theme: Theme }) => theme.secondary.step9};
   border-radius: 9999px;
   height: 34px;
   position: absolute;
@@ -53,55 +49,42 @@ export const SwitchSlider = styled(SwitchPrimitive.Thumb)`
 
   :hover {
     background-color: ${({ theme }: { theme: Theme }) =>
-      theme.switch.thumb.hoverBg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.switch.thumb.hoverBorder};
+      theme.secondary.step10};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step10};
   }
 
   :focus {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.switch.thumb.focusBg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.switch.thumb.focusBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step9};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step11};
     outline: none;
   }
 
   &[data-disabled] {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.switch.thumb.disabledBg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.switch.thumb.disabledBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step9};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.neutral.step9};
     cursor: not-allowed;
   }
 
   &[data-state='checked'] {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.switch.thumb.activeBg};
-    border: 2px solid
-      ${({ theme }: { theme: Theme }) => theme.switch.thumb.activeBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
+    border: 2px solid ${({ theme }: { theme: Theme }) => theme.primary.step9};
     transform: translateX(27px);
 
     :hover {
       background-color: ${({ theme }: { theme: Theme }) =>
-        theme.switch.thumb.activeHoverBg};
-      border: 1px solid
-        ${({ theme }: { theme: Theme }) => theme.switch.thumb.activeHoverBorder};
+        theme.primary.step10};
+      border: 1px solid ${({ theme }: { theme: Theme }) => theme.primary.step10};
     }
 
     :focus {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.switch.thumb.activeFocusBg};
-      border: 1px solid
-        ${({ theme }: { theme: Theme }) => theme.switch.thumb.activeFocusBorder};
+      background-color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
+      border: 1px solid ${({ theme }: { theme: Theme }) => theme.primary.step11};
       outline: none;
     }
 
     &[data-disabled] {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.switch.thumb.activeDisabledBg};
-      border: 1px solid
-        ${({ theme }: { theme: Theme }) =>
-          theme.switch.thumb.activeDisabledBorder};
+      background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step9};
+      border: 1px solid ${({ theme }: { theme: Theme }) => theme.neutral.step9};
       cursor: not-allowed;
     }
   }
@@ -128,6 +111,6 @@ export const StyledLabel = styled.label`
   font-size: ${font.size.md};
 
   &.disabled {
-    color: ${({ theme }: { theme: Theme }) => theme.switch.thumb.disabledBg};
+    color: ${({ theme }: { theme: Theme }) => theme.neutral.step9};
   }
 `;

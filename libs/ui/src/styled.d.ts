@@ -95,10 +95,6 @@ declare module 'styled-components' {
       focusItem: string;
       acttiveItem: string;
     };
-    spinner: {
-      topColor: string;
-      bottomColor: string;
-    };
     switch: {
       bar: {
         bg: string;

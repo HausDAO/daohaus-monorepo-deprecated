@@ -4,8 +4,8 @@ import { Theme } from '../../../types/theming';
 import { field } from '../../../theme/component/fieldFamily';
 
 export const BaseTextArea = styled.textarea`
-  background-color: ${({ theme }: { theme: Theme }) => theme.field.bg};
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.field.border};
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step3};
   border-radius: ${field.borderRadius};
   color: ${({ theme }: { theme: Theme }) => theme.rootFontColor};
   font-size: ${field.fontSize};
@@ -27,33 +27,28 @@ export const BaseTextArea = styled.textarea`
   width: 100%;
 
   ::placeholder {
-    color: ${({ theme }: { theme: Theme }) => theme.field.placeholderText};
+    color: ${({ theme }: { theme: Theme }) => theme.secondary.step11};
   }
 
   :hover {
-    background-color: ${({ theme }: { theme: Theme }) => theme.field.hoverBg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.field.hoverBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step4};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step4};
   }
 
   :focus {
-    background-color: ${({ theme }: { theme: Theme }) => theme.field.focusBg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.field.focusBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step6};
     outline: none;
   }
 
   :disabled {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.field.disabledBg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.field.disabledBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step5};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.neutral.step5};
     cursor: not-allowed;
     font-style: italic;
 
     ::placeholder {
-      color: ${({ theme }: { theme: Theme }) =>
-        theme.field.disabledPlaceholder};
+      color: ${({ theme }: { theme: Theme }) => theme.neutral.step10};
     }
   }
 

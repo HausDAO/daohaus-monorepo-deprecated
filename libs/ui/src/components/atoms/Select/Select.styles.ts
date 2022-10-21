@@ -66,28 +66,24 @@ export const BaseSelect = styled.select`
   }
 
   :hover {
-    background-color: ${({ theme }: { theme: Theme }) => theme.field.hoverBg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.field.hoverBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step4};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step4};
   }
 
   :focus {
-    background-color: ${({ theme }: { theme: Theme }) => theme.field.focusBg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.field.focusBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step6};
     outline: none;
   }
 
   :disabled {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.field.disabledBg};
-    color: ${({ theme }: { theme: Theme }) => theme.field.disabledColor};
+    background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step5};
+    color: ${({ theme }: { theme: Theme }) => theme.neutral.step5};
     cursor: not-allowed;
     font-style: italic;
 
     ::placeholder {
-      color: ${({ theme }: { theme: Theme }) =>
-        theme.field.disabledPlaceholder};
+      color: ${({ theme }: { theme: Theme }) => theme.neutral.step10};
     }
   }
 `;

@@ -57,26 +57,6 @@ declare module 'styled-components' {
     tint: {
       secondary: string;
     };
-    element: {
-      bg: string;
-      bgHover: string;
-      bgFocus: string;
-      bgDisabled: string;
-      bgActive: string;
-      bgActiveHover: string;
-      bgActiveFocus: string;
-      bgActiveDisabled: string;
-      border: string;
-      borderHover: string;
-      borderFocus: string;
-      borderDisabled: string;
-      borderActive: string;
-      borderActiveHover: string;
-      borderActiveFocus: string;
-      borderActiveDisabled: string;
-      indicator: string;
-      indicatorDisabled: string;
-    };
     navTabs: {
       bg: string;
       navLinkColor: string;
@@ -124,28 +104,6 @@ declare module 'styled-components' {
       focusText: string;
       bgInnerCard: string;
       borderInnerCard: string;
-    };
-    field: {
-      bg: string;
-      border: string;
-      placeholderText: string;
-      hoverBg: string;
-      hoverBorder: string;
-      focusBg: string;
-      focusBorder: string;
-      disabledBg: string;
-      disabledColor: string;
-      disabledBorder: string;
-      disabledPlaceholder: string;
-    };
-    fieldAlert: {
-      bg: string;
-      border: string;
-      warningText: string;
-      warningBg: string;
-      warningBorder: string;
-      warningButtonBg: string;
-      warningButtonBorder: string;
     };
     button: {
       primary: ButtonColorTargets;

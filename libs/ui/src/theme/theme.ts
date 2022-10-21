@@ -63,6 +63,9 @@ export const defaultDarkTheme: Theme = {
     bg: secondaryDark.step2,
     border: secondaryDark.step5,
   },
+  tint: {
+    secondary: secondaryDark.step11,
+  },
   element: {
     bg: secondaryDark.step3,
     bgHover: secondaryDark.step4,
@@ -82,9 +85,6 @@ export const defaultDarkTheme: Theme = {
     borderActiveDisabled: neutralDark.step9,
     indicator: primaryDark.step9,
     indicatorDisabled: neutralDark.step2,
-  },
-  tint: {
-    secondary: secondaryDark.step11,
   },
   // *** ATOMS *** //
   button: {
@@ -128,30 +128,6 @@ export const defaultDarkTheme: Theme = {
   },
   progress: {
     bg: neutralDark.step8,
-  },
-  radio: {
-    item: {
-      bg: secondaryDark.step3,
-      border: secondaryDark.step6,
-      hoverBg: secondaryDark.step4,
-      hoverBorder: secondaryDark.step6,
-      focusBg: secondaryDark.step3,
-      focusBorder: secondaryDark.step7,
-      disabledBg: neutralDark.step2,
-      disabledBorder: neutralDark.step6,
-      activeBg: primaryDark.step9,
-      activeBorder: primaryDark.step9,
-      activeHoverBg: primaryDark.step10,
-      activeHoverBorder: primaryDark.step10,
-      activeFocusBg: primaryDark.step9,
-      activeFocusBorder: primaryDark.step11,
-      activeDisabledBg: neutralDark.step9,
-      activeDisabledBorder: neutralDark.step9,
-    },
-    indicator: {
-      bg: primaryDark.step3,
-      disabledBg: neutralDark.step1,
-    },
   },
   select: {
     bg: secondaryDark.step3,
@@ -326,30 +302,6 @@ export const defaultLightTheme: Theme = {
   },
   progress: {
     bg: neutral.step10,
-  },
-  radio: {
-    item: {
-      bg: secondary.step3,
-      border: secondary.step6,
-      hoverBg: secondary.step4,
-      hoverBorder: secondary.step6,
-      focusBg: secondary.step3,
-      focusBorder: secondary.step7,
-      disabledBg: neutral.step2,
-      disabledBorder: neutral.step6,
-      activeBg: primaryDark.step9,
-      activeBorder: primaryDark.step9,
-      activeHoverBg: primaryDark.step10,
-      activeHoverBorder: primaryDark.step10,
-      activeFocusBg: primaryDark.step9,
-      activeFocusBorder: primaryDark.step11,
-      activeDisabledBg: neutral.step9,
-      activeDisabledBorder: neutral.step9,
-    },
-    indicator: {
-      bg: primaryDark.step3,
-      disabledBg: neutral.step1,
-    },
   },
   select: {
     bg: secondary.step3,

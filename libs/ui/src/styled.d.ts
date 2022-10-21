@@ -58,6 +58,9 @@ declare module 'styled-components' {
       bg: string;
       border: string;
     };
+    tint: {
+      secondary: string;
+    };
     element: {
       bg: string;
       bgHover: string;
@@ -77,9 +80,6 @@ declare module 'styled-components' {
       borderActiveDisabled: string;
       indicator: string;
       indicatorDisabled: string;
-    };
-    tint: {
-      secondary: string;
     };
     navTabs: {
       bg: string;
@@ -207,30 +207,6 @@ declare module 'styled-components' {
         activeFocusBorder: string;
         activeDisabledBg: string;
         activeDisabledBorder: string;
-      };
-    };
-    radio: {
-      item: {
-        bg: string;
-        border: string;
-        hoverBg: string;
-        hoverBorder: string;
-        focusBg: string;
-        focusBorder: string;
-        disabledBg: string;
-        disabledBorder: string;
-        activeBg: string;
-        activeBorder: string;
-        activeHoverBg: string;
-        activeHoverBorder: string;
-        activeFocusBg: string;
-        activeFocusBorder: string;
-        activeDisabledBg: string;
-        activeDisabledBorder: string;
-      };
-      indicator: {
-        bg: string;
-        disabledBg: string;
       };
     };
     toast: {

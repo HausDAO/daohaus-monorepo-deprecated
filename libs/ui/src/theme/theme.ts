@@ -59,10 +59,6 @@ export const defaultDarkTheme: Theme = {
   link: {
     primary: primaryDark.step10,
   },
-  container: {
-    bg: secondaryDark.step2,
-    border: secondaryDark.step5,
-  },
   tint: {
     secondary: secondaryDark.step11,
   },

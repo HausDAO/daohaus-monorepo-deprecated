@@ -54,10 +54,6 @@ declare module 'styled-components' {
     link: {
       primary: string;
     };
-    container: {
-      bg: string;
-      border: string;
-    };
     tint: {
       secondary: string;
     };

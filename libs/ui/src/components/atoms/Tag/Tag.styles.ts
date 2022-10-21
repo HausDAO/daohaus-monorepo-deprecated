@@ -48,9 +48,8 @@ export const BaseTag = styled.div<{
 
   /* We might not need this */
   :disabled {
-    background-color: ${({ theme }: { theme: Theme }) => theme.card.disabledBg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.card.disabledBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step2};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.neutral.step5};
     cursor: not-allowed;
   }
 

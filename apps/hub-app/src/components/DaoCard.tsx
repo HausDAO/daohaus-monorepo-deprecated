@@ -18,13 +18,13 @@ import { AlertCircle } from './AlertCircle';
 import { ITransformedMembership } from '@daohaus/common-utilities';
 
 const StyledDaoCard = styled.div`
-  background-color: ${(props) => props.theme.card.bg};
+  background-color: ${(props) => props.theme.secondary.step2};
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 36rem;
   min-width: 26rem;
-  border: 1px solid ${(props) => props.theme.card.border};
+  border: 1px solid ${(props) => props.theme.secondary.step5};
   padding: 2.4rem;
   border-radius: ${border.radius};
   .top-box {

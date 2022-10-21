@@ -18,7 +18,7 @@ export const ImageDisplayWrapper = styled.div`
   align-items: flex-start;
   margin-left: 3.4rem;
   padding: 1rem;
-  background: ${({ theme }: { theme: Theme }) => theme.card.bg};
+  background: ${({ theme }: { theme: Theme }) => theme.secondary.step2};
 `;
 
 export const CancelIcon = styled(RiCloseFill)`

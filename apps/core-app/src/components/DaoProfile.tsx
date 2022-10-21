@@ -23,8 +23,8 @@ import { missingDaoProfileData } from '../utils/general';
 const DaoProfileContainer = styled.div`
   width: 100%;
   border-radius: ${border.radius};
-  border: 1px ${({ theme }: { theme: Theme }) => theme.card.border} solid;
-  background-color: ${({ theme }: { theme: Theme }) => theme.card.hoverBg};
+  border: 1px ${({ theme }: { theme: Theme }) => theme.secondary.step5} solid;
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
   padding: 2.2rem;
   .avatar {
     display: flex;

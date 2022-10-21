@@ -48,17 +48,6 @@ declare module 'styled-components' {
     rootBgColor: string;
     rootFontColor: string;
     transparent: string;
-    appSwitcher: {
-      bg: string;
-      navLinkColor: string;
-      navLinkHoverColor: string;
-      navLinkSelected: string;
-      navLinkDropdownText: string;
-      hoverNavLinkDropdownBg: string;
-      hoverNavLinkDropdownBorder: string;
-      activeNavLinkDropdownBg: string;
-      activeNavLinkDropdownBorder: string;
-    };
     button: {
       primary: ButtonColorTargets;
       secondary: ButtonColorTargets;

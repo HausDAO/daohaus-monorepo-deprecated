@@ -8,8 +8,6 @@ import {
   secondaryDarkA,
   neutral,
   neutralDark,
-  utility,
-  utilityDark,
   dangerDark,
   warningDark,
   successDark,
@@ -37,7 +35,6 @@ import {
   WarningLightButton,
   DangerLightButton,
 } from './atoms/button';
-import { AppSwitcherDark, AppSwitcherLight } from './organisms/app-switcher';
 
 export const defaultDarkTheme: Theme = {
   themeName: 'dark',
@@ -71,8 +68,6 @@ export const defaultDarkTheme: Theme = {
       error: dangerDark.step9,
     },
   },
-  // *** ORGANISMS *** //
-  appSwitcher: AppSwitcherDark,
 };
 
 export const defaultLightTheme: Theme = {

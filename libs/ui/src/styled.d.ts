@@ -53,9 +53,6 @@ declare module 'styled-components' {
       placeholder: string;
       disabled: string;
     };
-    link: {
-      primary: string;
-    };
     tint: {
       secondary: string;
     };

@@ -58,7 +58,7 @@ export const Select = forwardRef(
         </BaseSelect>
         <RiArrowDropDownLine
           size="2rem"
-          color={disabled ? theme.neutral.step11 : theme.select.text}
+          color={disabled ? theme.neutral.step11 : theme.secondary.step11}
         />
       </WithIcon>
     );

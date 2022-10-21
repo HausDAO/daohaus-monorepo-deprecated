@@ -9,7 +9,7 @@ export const WithIcon = styled.div`
 
   svg {
     position: absolute;
-    color: ${({ theme }: { theme: Theme }) => theme.select.text};
+    color: ${({ theme }: { theme: Theme }) => theme.secondary.step11};
     top: 1.4rem;
     right: 2rem;
     pointer-events: none;
@@ -35,10 +35,10 @@ export const WithIcon = styled.div`
 export const BaseSelect = styled.select`
   align-items: center;
   appearance: none;
-  background-color: ${({ theme }: { theme: Theme }) => theme.select.bg};
-  border: 1px ${({ theme }: { theme: Theme }) => theme.select.borderColor} solid;
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step2};
+  border: 1px ${({ theme }: { theme: Theme }) => theme.transparent} solid;
   border-radius: ${field.borderRadius};
-  color: ${({ theme }: { theme: Theme }) => theme.select.text};
+  color: ${({ theme }: { theme: Theme }) => theme.secondary.step11};
   display: inline-flex;
   font-size: ${field.fontSize};
   font-weight: ${field.fontWeight};
@@ -89,8 +89,8 @@ export const BaseSelect = styled.select`
 `;
 
 export const StyledOption = styled.option`
-  background-color: ${({ theme }: { theme: Theme }) => theme.select.bg};
-  color: ${({ theme }: { theme: Theme }) => theme.select.text};
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+  color: ${({ theme }: { theme: Theme }) => theme.secondary.step11};
   font-family: ${field.fontFamily};
   font-size: ${field.fontSize};
   font-weight: ${field.fontWeight};

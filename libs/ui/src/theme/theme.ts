@@ -59,9 +59,6 @@ export const defaultDarkTheme: Theme = {
     placeholder: secondaryDark.step11,
     disabled: neutral.step10,
   },
-  link: {
-    primary: primaryDark.step10,
-  },
   tint: {
     secondary: secondaryDark.step11,
   },
@@ -173,9 +170,6 @@ export const defaultLightTheme: Theme = {
     primary: secondary.step12,
     placeholder: secondary.step11,
     disabled: neutral.step10,
-  },
-  link: {
-    primary: primary.step10,
   },
   tint: {
     secondary: secondary.step11,

@@ -1,5 +1,4 @@
 import * as ToastPrimitive from '@radix-ui/react-toast';
-import { success } from 'libs/ui/src/theme/global/colors';
 import styled, { keyframes } from 'styled-components';
 
 import { Theme } from '../../../types/theming';

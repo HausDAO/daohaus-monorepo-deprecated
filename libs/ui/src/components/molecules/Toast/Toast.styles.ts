@@ -1,4 +1,5 @@
 import * as ToastPrimitive from '@radix-ui/react-toast';
+import { success } from 'libs/ui/src/theme/global/colors';
 import styled, { keyframes } from 'styled-components';
 
 import { Theme } from '../../../types/theming';
@@ -45,29 +46,26 @@ export const ToastViewport = styled(ToastPrimitive.Viewport)`
 export const ToastRoot = styled(ToastPrimitive.Root)`
   display: flex;
   flex-direction: column;
-  background-color: ${({ theme }: { theme: Theme }) => theme.toast.bg};
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.toast.border};
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step5};
   border-radius: 0.8rem;
   height: auto;
   padding: 2rem;
   width: auto;
 
   &.success {
-    background-color: ${({ theme }: { theme: Theme }) => theme.toast.successBg};
-    border: 0.1rem solid
-      ${({ theme }: { theme: Theme }) => theme.toast.successBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.success.step3};
+    border: 0.1rem solid ${({ theme }: { theme: Theme }) => theme.success.step7};
   }
 
   &.warning {
-    background-color: ${({ theme }: { theme: Theme }) => theme.toast.warningBg};
-    border: 0.1rem solid
-      ${({ theme }: { theme: Theme }) => theme.toast.warningBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.warning.step3};
+    border: 0.1rem solid ${({ theme }: { theme: Theme }) => theme.warning.step7};
   }
 
   &.error {
-    background-color: ${({ theme }: { theme: Theme }) => theme.toast.errorBg};
-    border: 0.1rem solid
-      ${({ theme }: { theme: Theme }) => theme.toast.errorBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.danger.step3};
+    border: 0.1rem solid ${({ theme }: { theme: Theme }) => theme.danger.step7};
   }
 
   @media (prefers-reduced-motion: no-preference) {

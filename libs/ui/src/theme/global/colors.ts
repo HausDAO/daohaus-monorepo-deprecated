@@ -325,16 +325,16 @@ export const danger = {
 };
 
 export const dangerDark = {
-  step1: red.red1,
-  step2: red.red2,
-  step3: red.red3,
-  step4: red.red4,
-  step5: red.red5,
-  step6: red.red6,
-  step7: red.red7,
-  step8: red.red8,
-  step9: red.red9,
-  step10: red.red10,
-  step11: red.red11,
-  step12: red.red12,
+  step1: redDark.red1,
+  step2: redDark.red2,
+  step3: redDark.red3,
+  step4: redDark.red4,
+  step5: redDark.red5,
+  step6: redDark.red6,
+  step7: redDark.red7,
+  step8: redDark.red8,
+  step9: redDark.red9,
+  step10: redDark.red10,
+  step11: redDark.red11,
+  step12: redDark.red12,
 };

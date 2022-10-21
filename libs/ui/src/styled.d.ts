@@ -48,25 +48,6 @@ declare module 'styled-components' {
     rootBgColor: string;
     rootFontColor: string;
     transparent: string;
-    text: {
-      primary: string;
-      placeholder: string;
-      disabled: string;
-    };
-    tint: {
-      secondary: string;
-    };
-    navTabs: {
-      bg: string;
-      navLinkColor: string;
-      navLinkHoverColor: string;
-      navLinkSelected: string;
-      navLinkDropdownText: string;
-      hoverNavLinkDropdownBg: string;
-      hoverNavLinkDropdownBorder: string;
-      activeNavLinkDropdownBg: string;
-      activeNavLinkDropdownBorder: string;
-    };
     appSwitcher: {
       bg: string;
       navLinkColor: string;
@@ -86,37 +67,13 @@ declare module 'styled-components' {
       warning: ButtonColorTargets;
       danger: ButtonColorTargets;
     };
-    dropdown: {
-      text: string;
-      textDisabled: string;
-      bgMenu: string;
-      bgItem: string;
-      hoverItem: string;
-      focusItem: string;
-      acttiveItem: string;
-    };
     toast: {
-      bg: string;
-      border: string;
-      successText: string;
-      successBg: string;
-      successBorder: string;
-      warningText: string;
-      warningBg: string;
-      warningBorder: string;
-      errorText: string;
-      errorBg: string;
-      errorBorder: string;
       icon: {
         default: string;
         success: string;
         warning: string;
         error: string;
       };
-    };
-    dialog: {
-      bg: string;
-      color: string;
     };
   }
 }

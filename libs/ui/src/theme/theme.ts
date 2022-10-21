@@ -38,7 +38,6 @@ import {
   DangerLightButton,
 } from './atoms/button';
 import { AppSwitcherDark, AppSwitcherLight } from './organisms/app-switcher';
-import { DropdownDark, DropdownLight } from './molecules/dropdown';
 
 export const defaultDarkTheme: Theme = {
   themeName: 'dark',
@@ -54,14 +53,6 @@ export const defaultDarkTheme: Theme = {
   danger: { ...dangerDark },
   info: { ...infoDark },
   neutral: { ...neutralDark },
-  text: {
-    primary: secondaryDark.step12,
-    placeholder: secondaryDark.step11,
-    disabled: neutral.step10,
-  },
-  tint: {
-    secondary: secondaryDark.step11,
-  },
   // *** ATOMS *** //
   button: {
     primary: PrimaryDarkButton,
@@ -72,42 +63,15 @@ export const defaultDarkTheme: Theme = {
     danger: DangerDarkButton,
   },
   // *** MOLECULES *** //
-  dropdown: DropdownDark,
-  dialog: {
-    bg: secondaryDark.step2,
-    color: secondaryDark.step12,
-  },
   toast: {
-    bg: secondaryDark.step3,
-    border: secondaryDark.step5,
-    successText: utilityDark.successText,
-    successBg: utilityDark.successBg,
-    successBorder: utilityDark.successBorder,
-    warningText: utilityDark.warningText,
-    warningBg: utilityDark.warningBg,
-    warningBorder: utilityDark.warningBorder,
-    errorText: utilityDark.dangerText,
-    errorBg: utilityDark.dangerBg,
-    errorBorder: utilityDark.dangerBorder,
     icon: {
-      default: utilityDark.success,
-      success: utilityDark.success,
-      warning: utilityDark.warning,
-      error: utilityDark.danger,
+      default: successDark.step9,
+      success: successDark.step9,
+      warning: warningDark.step9,
+      error: dangerDark.step9,
     },
   },
   // *** ORGANISMS *** //
-  navTabs: {
-    bg: secondaryDark.step2,
-    navLinkColor: secondaryDark.step9,
-    navLinkHoverColor: secondaryDark.step10,
-    navLinkSelected: secondaryDark.step12,
-    navLinkDropdownText: secondaryDark.step12,
-    hoverNavLinkDropdownBg: secondaryDark.step4,
-    hoverNavLinkDropdownBorder: secondaryDark.step8,
-    activeNavLinkDropdownBg: secondaryDark.step9,
-    activeNavLinkDropdownBorder: secondaryDark.step6,
-  },
   appSwitcher: AppSwitcherDark,
 };
 
@@ -125,14 +89,6 @@ export const defaultLightTheme: Theme = {
   danger: { ...danger },
   info: { ...info },
   neutral: { ...neutral },
-  text: {
-    primary: secondary.step12,
-    placeholder: secondary.step11,
-    disabled: neutral.step10,
-  },
-  tint: {
-    secondary: secondary.step11,
-  },
   // *** ATOMS *** //
   button: {
     primary: PrimaryLightButton,
@@ -143,41 +99,14 @@ export const defaultLightTheme: Theme = {
     danger: DangerLightButton,
   },
   // *** MOLECULES *** //
-  dropdown: DropdownLight,
-  dialog: {
-    bg: secondary.step2,
-    color: secondary.step12,
-  },
   toast: {
-    bg: secondary.step3,
-    border: secondary.step5,
-    successText: utility.successText,
-    successBg: utility.successBg,
-    successBorder: utility.successBorder,
-    warningText: utility.warningText,
-    warningBg: utility.warningBg,
-    warningBorder: utility.warningBorder,
-    errorText: utility.dangerText,
-    errorBg: utility.dangerBg,
-    errorBorder: utility.dangerBorder,
     icon: {
-      default: utility.success,
-      success: utility.success,
-      warning: utility.warning,
-      error: utility.danger,
+      default: success.step9,
+      success: success.step9,
+      warning: warning.step9,
+      error: danger.step9,
     },
   },
   // *** ORGANISMS *** //
-  navTabs: {
-    bg: secondary.step2,
-    navLinkColor: secondary.step9,
-    navLinkHoverColor: secondary.step10,
-    navLinkSelected: secondary.step12,
-    navLinkDropdownText: secondary.step12,
-    hoverNavLinkDropdownBg: secondary.step4,
-    hoverNavLinkDropdownBorder: secondary.step8,
-    activeNavLinkDropdownBg: secondary.step9,
-    activeNavLinkDropdownBorder: secondary.step6,
-  },
   appSwitcher: AppSwitcherLight,
 };

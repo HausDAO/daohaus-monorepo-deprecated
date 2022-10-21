@@ -41,7 +41,7 @@ export const ProfileMenuLink = styled(DropdownLink)`
 
 const ProfileMenuText = styled(DropdownText)`
   border-radius: 2px;
-  color: ${(props) => props.theme.dropdown.text};
+  color: ${(props) => props.theme.secondary.step12};
   font-weight: ${font.weight.bold};
   cursor: pointer;
   display: flex;
@@ -55,13 +55,13 @@ const ProfileMenuText = styled(DropdownText)`
   }
 
   :hover {
-    background-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBg};
-    border-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBorder};
+    background-color: ${(props) => props.theme.secondary.step4};
+    border-color: ${(props) => props.theme.secondary.step8};
     text-decoration: none;
   }
 
   &.disabled {
-    color: ${(props) => props.theme.dropdown.textDisabled};
+    color: ${(props) => props.theme.secondary.step11};
   }
 `;
 

@@ -4,10 +4,10 @@ export type ProposalStatus =
   | 'Grace'
   | 'Expired'
   | 'Cancelled'
-  | 'Ready for Processing'
+  | 'Ready for Execution'
   | 'Failed'
   | 'Passed'
-  | 'Processing Failed'
+  | 'Execution Failed'
   | 'Unknown';
 
 export const PROPOSAL_STATUS: { [index: string]: ProposalStatus } = {
@@ -16,10 +16,10 @@ export const PROPOSAL_STATUS: { [index: string]: ProposalStatus } = {
   grace: 'Grace',
   expired: 'Expired',
   cancelled: 'Cancelled',
-  needsProcessing: 'Ready for Processing',
+  needsProcessing: 'Ready for Execution',
   failed: 'Failed',
   passed: 'Passed',
-  actionFailed: 'Processing Failed',
+  actionFailed: 'Execution Failed',
   unknown: 'Unknown',
 };
 

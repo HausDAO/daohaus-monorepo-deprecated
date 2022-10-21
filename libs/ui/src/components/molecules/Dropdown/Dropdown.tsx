@@ -43,7 +43,7 @@ export const Dropdown = ({
 }: DropdownProps) => {
   return (
     <DropdownMenu
-      open={open}
+      // open={open}
       onOpenChange={onOpenChange}
       defaultOpen={defaultOpen}
       modal={modal}

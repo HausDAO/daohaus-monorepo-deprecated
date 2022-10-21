@@ -24,13 +24,17 @@ import { ProposalWarning } from './ProposalWarning';
 const OverviewContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 1.2rem;
+  margin-top: 1rem;
   width: 100%;
   padding: 2.8rem 3.6rem;
 
   border-radius: ${border.radius};
   border: 1px ${({ theme }: { theme: Theme }) => theme.card.border} solid;
   background-color: ${({ theme }: { theme: Theme }) => theme.card.hoverBg};
+
+  .proposal-link {
+    margin-top: 1.2rem;
+  }
 `;
 
 const DataContainer = styled.div`
@@ -61,7 +65,11 @@ export const ProposalDetailsGuts = ({ proposal }: ProposalDetailsGutsProps) => {
     <OverviewContainer>
       <ParMd>{proposal.description}</ParMd>
       {proposal.contentURI && (
-        <Link href={proposal.contentURI} linkType="external">
+        <Link
+          href={proposal.contentURI}
+          linkType="external"
+          className="proposal-link"
+        >
           Link
         </Link>
       )}

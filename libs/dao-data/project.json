@@ -22,6 +22,14 @@
         "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
+    "vite-build": {
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ]
+    },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],

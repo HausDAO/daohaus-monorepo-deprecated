@@ -8,5 +8,5 @@
     "resolveJsonModule": true
   },
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts", "**/*.spec.ts", "**/*.json"]
+  "include": ["**/*.ts", "**.*.d.ts", "**/*.spec.ts", "**/*.json"]
 }

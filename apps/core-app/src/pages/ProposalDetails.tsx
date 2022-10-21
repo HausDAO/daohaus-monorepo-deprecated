@@ -12,6 +12,7 @@ import { ITransformedProposalQuery } from '@daohaus/dao-data';
 import {
   isValidNetwork,
   Keychain,
+  MulticallArg,
   ValidNetwork,
 } from '@daohaus/common-utilities';
 import { useHausConnect } from '@daohaus/daohaus-connect-feature';
@@ -27,6 +28,7 @@ import {
   decodeProposalActions,
 } from '@daohaus/tx-builder-feature';
 import { ActionDisplay } from '../components/ActionDisplay';
+import { TX } from '../legos/tx';
 
 // generate a random hex string that is 900 characters long
 
@@ -94,11 +96,14 @@ export function ProposalDetails() {
     let shouldUpdate = true;
     const fetchPropActions = async (
       chainId: ValidNetwork,
-      actionData: string
+      actionData: string,
+      proposalType: string,
     ) => {
+      const multicallMeta = TX[proposalType]?.args?.find(tx => (tx as MulticallArg).type === 'multicall');
       const proposalActions = await decodeProposalActions({
         chainId,
         actionData,
+        actionsMeta: multicallMeta && (multicallMeta as MulticallArg).actions,
       });
       if (shouldUpdate) {
         setActionData(proposalActions);
@@ -106,7 +111,7 @@ export function ProposalDetails() {
     };
 
     if (!isValidNetwork(daochain) || !proposal) return;
-    fetchPropActions(daochain, proposal.proposalData);
+    fetchPropActions(daochain, proposal.proposalData, proposal.proposalType);
 
     return () => {
       shouldUpdate = false;

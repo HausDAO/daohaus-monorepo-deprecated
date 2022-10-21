@@ -35,6 +35,7 @@ const AddressInfoSection = styled(InfoSection)`
 
 const ButtonGroup = styled.div`
   display: flex;
+  gap: 3rem;
   a {
     button {
       width: 200px;

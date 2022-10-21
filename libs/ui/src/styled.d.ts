@@ -75,6 +75,8 @@ declare module 'styled-components' {
       borderActiveHover: string;
       borderActiveFocus: string;
       borderActiveDisabled: string;
+      indicator: string;
+      indicatorDisabled: string;
     };
     tint: {
       secondary: string;

@@ -80,6 +80,8 @@ export const defaultDarkTheme: Theme = {
     borderActiveHover: primaryDark.step9,
     borderActiveFocus: primaryDark.step10,
     borderActiveDisabled: neutralDark.step9,
+    indicator: primaryDark.step9,
+    indicatorDisabled: neutralDark.step2,
   },
   tint: {
     secondary: secondaryDark.step11,
@@ -296,6 +298,8 @@ export const defaultLightTheme: Theme = {
     borderActiveHover: primary.step9,
     borderActiveFocus: primary.step10,
     borderActiveDisabled: neutral.step9,
+    indicator: primary.step9,
+    indicatorDisabled: neutral.step2,
   },
   tint: {
     secondary: secondary.step11,

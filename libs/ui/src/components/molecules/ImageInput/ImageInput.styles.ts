@@ -24,7 +24,7 @@ export const ImageDisplayWrapper = styled.div`
 export const CancelIcon = styled(RiCloseFill)`
   margin-left: 1rem;
   font-size: 2rem;
-  color: ${({ theme }: { theme: Theme }) => theme.checkbox.border};
+  color: ${({ theme }: { theme: Theme }) => theme.element.border};
   :hover {
     cursor: pointer;
   }

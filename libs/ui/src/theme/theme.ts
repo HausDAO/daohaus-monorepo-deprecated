@@ -18,6 +18,9 @@ import {
   warning,
   info,
   infoDark,
+  primaryDarkA,
+  primaryA,
+  secondaryA,
 } from './global/colors';
 
 import {
@@ -34,10 +37,8 @@ import {
   WarningLightButton,
   DangerLightButton,
 } from './atoms/button';
-import { FieldTheme, FieldThemeDark } from './atoms/field';
 import { AppSwitcherDark, AppSwitcherLight } from './organisms/app-switcher';
 import { DropdownDark, DropdownLight } from './molecules/dropdown';
-import { orangeDark } from '@radix-ui/colors';
 
 export const defaultDarkTheme: Theme = {
   themeName: 'dark',
@@ -45,7 +46,9 @@ export const defaultDarkTheme: Theme = {
   rootBgColor: neutralDark.step1,
   rootFontColor: secondaryDark.step12,
   primary: { ...primaryDark },
+  primaryA: { ...primaryDarkA },
   secondary: { ...secondaryDark },
+  secondaryA: { ...secondaryDarkA },
   success: { ...successDark },
   warning: { ...warningDark },
   danger: { ...dangerDark },
@@ -110,14 +113,6 @@ export const defaultDarkTheme: Theme = {
     },
   },
   // *** MOLECULES *** //
-  collapsibleCard: {
-    text: primaryDark.step11,
-    hoverText: primaryDark.step10,
-    focusText: primaryDark.step12,
-    // bgInnerCard: secondaryDark.step5,
-    bgInnerCard: secondaryDarkA.step3,
-    borderInnerCard: secondaryDark.step5,
-  },
   dropdown: DropdownDark,
   dialog: {
     bg: secondaryDark.step2,
@@ -166,7 +161,9 @@ export const defaultLightTheme: Theme = {
   rootBgColor: secondary.step1,
   rootFontColor: secondary.step12,
   primary: { ...primary },
+  primaryA: { ...primaryA },
   secondary: { ...secondary },
+  secondaryA: { ...secondaryA },
   success: { ...success },
   warning: { ...warning },
   danger: { ...danger },
@@ -231,13 +228,6 @@ export const defaultLightTheme: Theme = {
     },
   },
   // *** MOLECULES *** //
-  collapsibleCard: {
-    text: primary.step11,
-    hoverText: primary.step10,
-    focusText: primary.step12,
-    bgInnerCard: secondary.step5,
-    borderInnerCard: secondary.step6,
-  },
   dropdown: DropdownLight,
   dialog: {
     bg: secondary.step2,

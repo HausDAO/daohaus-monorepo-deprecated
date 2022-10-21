@@ -37,7 +37,9 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     themeName: string;
     primary: ColorSteps;
+    primaryA: ColorSteps;
     secondary: ColorSteps;
+    secondaryA: ColorSteps;
     neutral: ColorSteps;
     success: ColorSteps;
     warning: ColorSteps;
@@ -78,32 +80,6 @@ declare module 'styled-components' {
       hoverNavLinkDropdownBorder: string;
       activeNavLinkDropdownBg: string;
       activeNavLinkDropdownBorder: string;
-    };
-    card: {
-      bg: string;
-      border: string;
-      hoverBg: string;
-      hoverBorder: string;
-      focusBg: string;
-      focusBorder: string;
-      disabledBg: string;
-      disabledBorder: string;
-      successText: string;
-      successBg: string;
-      successBorder: string;
-      warningText: string;
-      warningBg: string;
-      warningBorder: string;
-      errorText: string;
-      errorBg: string;
-      errorBorder: string;
-    };
-    collapsibleCard: {
-      text: string;
-      hoverText: string;
-      focusText: string;
-      bgInnerCard: string;
-      borderInnerCard: string;
     };
     button: {
       primary: ButtonColorTargets;

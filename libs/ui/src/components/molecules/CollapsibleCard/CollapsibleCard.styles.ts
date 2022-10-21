@@ -12,10 +12,8 @@ export const StyledCollapsibleCard = styled(Collapsible.Root)`
 `;
 
 export const InnerCard = styled(Card)`
-  background-color: ${({ theme }: { theme: Theme }) =>
-    theme.collapsibleCard.bgInnerCard};
-  border: 1px solid
-    ${({ theme }: { theme: Theme }) => theme.collapsibleCard.borderInnerCard};
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondaryA.step3};
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step5};
   margin-bottom: 2rem;
   display: flex;
   flex-direction: column;
@@ -24,17 +22,17 @@ export const InnerCard = styled(Card)`
 export const StyledCollapsibleCardTrigger = Collapsible.Trigger;
 
 export const StyledCollapsibleCardButton = styled(DropdownTriggerLink)`
-  color: ${({ theme }: { theme: Theme }) => theme.collapsibleCard.text};
+  color: ${({ theme }: { theme: Theme }) => theme.primary.step11};
   margin-left: auto;
   padding: 0;
   font-size: 14px;
 
   :hover {
-    color: ${({ theme }: { theme: Theme }) => theme.collapsibleCard.hoverText};
+    color: ${({ theme }: { theme: Theme }) => theme.primary.step10};
   }
 
   :focus {
-    color: ${({ theme }: { theme: Theme }) => theme.collapsibleCard.focusText};
+    color: ${({ theme }: { theme: Theme }) => theme.primary.step12};
   }
 
   svg {

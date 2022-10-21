@@ -41,6 +41,7 @@ import { orangeDark } from '@radix-ui/colors';
 
 export const defaultDarkTheme: Theme = {
   themeName: 'dark',
+  transparent: 'transparent',
   rootBgColor: neutralDark.step1,
   rootFontColor: secondaryDark.step12,
   primary: { ...primaryDark },
@@ -50,7 +51,36 @@ export const defaultDarkTheme: Theme = {
   danger: { ...dangerDark },
   info: { ...infoDark },
   neutral: { ...neutralDark },
-  transparent: 'transparent',
+  text: {
+    primary: secondaryDark.step12,
+    placeholder: secondaryDark.step11,
+    disabled: neutral.step10,
+  },
+  link: {
+    primary: primaryDark.step10,
+  },
+  container: {
+    bg: secondaryDark.step2,
+    border: secondaryDark.step5,
+  },
+  element: {
+    bg: secondaryDark.step3,
+    bgHover: secondaryDark.step4,
+    bgFocus: secondaryDark.step3,
+    bgActive: primaryDark.step3,
+    bgDisabled: neutralDark.step2,
+    bgActiveHover: primaryDark.step4,
+    bgActiveFocus: primaryDark.step3,
+    bgActiveDisabled: neutralDark.step2,
+    border: secondaryDark.step6,
+    borderHover: secondaryDark.step6,
+    borderFocus: secondaryDark.step7,
+    borderDisabled: neutralDark.step6,
+    borderActive: primaryDark.step9,
+    borderActiveHover: primaryDark.step9,
+    borderActiveFocus: primaryDark.step10,
+    borderActiveDisabled: neutralDark.step9,
+  },
   tint: {
     secondary: secondaryDark.step11,
   },
@@ -111,9 +141,6 @@ export const defaultDarkTheme: Theme = {
     warningBorder: orangeDark.orange5,
     warningButtonBg: utilityDark.warning,
     warningButtonBorder: utilityDark.warning,
-  },
-  link: {
-    color: primaryDark.step10,
   },
   progress: {
     bg: neutralDark.step8,
@@ -230,6 +257,9 @@ export const defaultDarkTheme: Theme = {
 
 export const defaultLightTheme: Theme = {
   themeName: 'light',
+  transparent: 'transparent',
+  rootBgColor: secondary.step1,
+  rootFontColor: secondary.step12,
   primary: { ...primary },
   secondary: { ...secondary },
   success: { ...success },
@@ -237,9 +267,36 @@ export const defaultLightTheme: Theme = {
   danger: { ...danger },
   info: { ...info },
   neutral: { ...neutral },
-  rootBgColor: secondary.step1,
-  rootFontColor: secondary.step12,
-  transparent: 'transparent',
+  text: {
+    primary: secondary.step12,
+    placeholder: secondary.step11,
+    disabled: neutral.step10,
+  },
+  link: {
+    primary: primary.step10,
+  },
+  container: {
+    bg: secondary.step2,
+    border: secondary.step5,
+  },
+  element: {
+    bg: secondary.step3,
+    bgHover: secondary.step4,
+    bgFocus: secondary.step3,
+    bgActive: primary.step3,
+    bgDisabled: neutral.step2,
+    bgActiveHover: primary.step4,
+    bgActiveFocus: primary.step3,
+    bgActiveDisabled: neutral.step2,
+    border: secondary.step6,
+    borderHover: secondary.step6,
+    borderFocus: secondary.step7,
+    borderDisabled: neutral.step6,
+    borderActive: primary.step9,
+    borderActiveHover: primary.step9,
+    borderActiveFocus: primary.step10,
+    borderActiveDisabled: neutral.step9,
+  },
   tint: {
     secondary: secondary.step11,
   },
@@ -298,9 +355,6 @@ export const defaultLightTheme: Theme = {
     warningBorder: orangeDark.orange5,
     warningButtonBg: utilityDark.warning,
     warningButtonBorder: utilityDark.warning,
-  },
-  link: {
-    color: primaryDark.step10,
   },
   progress: {
     bg: neutral.step10,

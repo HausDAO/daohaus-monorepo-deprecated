@@ -68,7 +68,7 @@ export const AddressDisplay = ({
           <Icon>
             <RiFileCopyLine
               size="1.5rem"
-              color={theme.link.color}
+              color={theme.link.primary}
               onClick={handleCopy}
             />
           </Icon>

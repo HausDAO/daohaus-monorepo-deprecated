@@ -71,7 +71,7 @@ const TokenDataGrid = styled(DataGrid)`
 
 const StyledLink = styled.a`
   text-decoration: none;
-  color: ${({ theme }: { theme: Theme }) => theme.link.color};
+  color: ${({ theme }: { theme: Theme }) => theme.link.primary};
   :hover {
     text-decoration: none;
   }

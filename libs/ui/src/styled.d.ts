@@ -46,6 +46,36 @@ declare module 'styled-components' {
     rootBgColor: string;
     rootFontColor: string;
     transparent: string;
+    text: {
+      primary: string;
+      placeholder: string;
+      disabled: string;
+    };
+    link: {
+      primary: string;
+    };
+    container: {
+      bg: string;
+      border: string;
+    };
+    element: {
+      bg: string;
+      bgHover: string;
+      bgFocus: string;
+      bgDisabled: string;
+      bgActive: string;
+      bgActiveHover: string;
+      bgActiveFocus: string;
+      bgActiveDisabled: string;
+      border: string;
+      borderHover: string;
+      borderFocus: string;
+      borderDisabled: string;
+      borderActive: string;
+      borderActiveHover: string;
+      borderActiveFocus: string;
+      borderActiveDisabled: string;
+    };
     tint: {
       secondary: string;
     };
@@ -126,9 +156,6 @@ declare module 'styled-components' {
       success: ButtonColorTargets;
       warning: ButtonColorTargets;
       danger: ButtonColorTargets;
-    };
-    link: {
-      color: string;
     };
     progress: {
       bg: string;

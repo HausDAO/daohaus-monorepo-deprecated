@@ -49,19 +49,19 @@ const ContentContainer = styled.div`
 
 const StyledTitle = styled(Bold)`
   color: ${({ theme, active }: { theme: Theme; active: boolean }) =>
-    active && theme.link.color};
+    active && theme.link.primary};
 `;
 
 const StyledUpArrow = styled(RiArrowUpSLine)`
   font-size: 4.8rem;
   font-weight: 900;
-  color: ${({ theme }: { theme: Theme }) => theme.link.color};
+  color: ${({ theme }: { theme: Theme }) => theme.link.primary};
 `;
 
 const StyledDownArrow = styled(RiArrowDownSLine)`
   font-size: 4.8rem;
   font-weight: 900;
-  color: ${({ theme }: { theme: Theme }) => theme.link.color};
+  color: ${({ theme }: { theme: Theme }) => theme.link.primary};
 `;
 
 const DataGrid = styled.div`

@@ -174,24 +174,6 @@ declare module 'styled-components' {
       focusItem: string;
       acttiveItem: string;
     };
-    checkbox: {
-      bg: string;
-      border: string;
-      hoverBg: string;
-      hoverBorder: string;
-      focusBg: string;
-      focusBorder: string;
-      disabledBg: string;
-      disabledBorder: string;
-      activeBg: string;
-      activeBorder: string;
-      activeHoverBg: string;
-      activeHoverBorder: string;
-      activeFocusBg: string;
-      activeFocusBorder: string;
-      activeDisabledBg: string;
-      activeDisabledBorder: string;
-    };
     select: {
       text: string;
       bg: string;

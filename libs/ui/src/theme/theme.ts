@@ -71,14 +71,6 @@ export const defaultDarkTheme: Theme = {
     warning: WarningDarkButton,
     danger: DangerDarkButton,
   },
-  progress: {
-    bg: neutralDark.step8,
-  },
-  select: {
-    bg: secondaryDark.step3,
-    text: secondaryDark.step11,
-    borderColor: utilityDark.transparent,
-  },
   spinner: {
     topColor: primaryDark.step9,
     bottomColor: primaryDark.step4,
@@ -114,9 +106,6 @@ export const defaultDarkTheme: Theme = {
   dialog: {
     bg: secondaryDark.step2,
     color: secondaryDark.step12,
-  },
-  tooltip: {
-    bg: secondaryDark.step6,
   },
   toast: {
     bg: secondaryDark.step3,
@@ -183,14 +172,6 @@ export const defaultLightTheme: Theme = {
     warning: WarningLightButton,
     danger: DangerLightButton,
   },
-  progress: {
-    bg: neutral.step10,
-  },
-  select: {
-    bg: secondary.step3,
-    text: secondary.step11,
-    borderColor: utility.transparent,
-  },
   spinner: {
     topColor: primaryDark.step9,
     bottomColor: primaryDark.step4,
@@ -226,9 +207,6 @@ export const defaultLightTheme: Theme = {
   dialog: {
     bg: secondary.step2,
     color: secondary.step12,
-  },
-  tooltip: {
-    bg: secondary.step6,
   },
   toast: {
     bg: secondary.step3,

@@ -86,12 +86,6 @@ declare module 'styled-components' {
       warning: ButtonColorTargets;
       danger: ButtonColorTargets;
     };
-    progress: {
-      bg: string;
-    };
-    tooltip: {
-      bg: string;
-    };
     dropdown: {
       text: string;
       textDisabled: string;
@@ -100,11 +94,6 @@ declare module 'styled-components' {
       hoverItem: string;
       focusItem: string;
       acttiveItem: string;
-    };
-    select: {
-      text: string;
-      bg: string;
-      borderColor: string;
     };
     spinner: {
       topColor: string;

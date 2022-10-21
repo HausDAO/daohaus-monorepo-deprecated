@@ -19,11 +19,11 @@ export const TooltipTrigger = styled(TooltipPrimitive.Trigger)`
 `;
 
 export const TooltipArrow = styled(TooltipPrimitive.Arrow)`
-  fill: ${({ theme }: { theme: Theme }) => theme.tooltip.bg};
+  fill: ${({ theme }: { theme: Theme }) => theme.secondary.step6};
 `;
 
 export const TooltipContent = styled(TooltipPrimitive.Content)`
-  background-color: ${({ theme }: { theme: Theme }) => theme.tooltip.bg};
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step6};
   border-radius: ${border.radius};
   color: ${({ theme }: { theme: Theme }) => theme.rootFontColor};
   font-size: ${font.size.md};

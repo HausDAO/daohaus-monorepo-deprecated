@@ -1,5 +1,9 @@
 import 'styled-components';
 
+/*
+ * Hope to be able to delete this soon
+ */
+
 export type ButtonColorTargets = {
   text: string;
   bg: string;
@@ -36,6 +40,9 @@ type ColorSteps = {
 declare module 'styled-components' {
   export interface DefaultTheme {
     themeName: string;
+    rootBgColor: string;
+    rootFontColor: string;
+    transparent: string;
     primary: ColorSteps;
     primaryA: ColorSteps;
     secondary: ColorSteps;
@@ -45,9 +52,78 @@ declare module 'styled-components' {
     warning: ColorSteps;
     danger: ColorSteps;
     info: ColorSteps;
-    rootBgColor: string;
-    rootFontColor: string;
-    transparent: string;
+    blue1: string;
+    blue2: string;
+    blue3: string;
+    blue4: string;
+    blue5: string;
+    blue6: string;
+    blue7: string;
+    blue8: string;
+    blue9: string;
+    blue10: string;
+    blue11: string;
+    blue12: string;
+    violet1: string;
+    violet2: string;
+    violet3: string;
+    violet4: string;
+    violet5: string;
+    violet6: string;
+    violet7: string;
+    violet8: string;
+    violet9: string;
+    violet10: string;
+    violet11: string;
+    violet12: string;
+    pink1: string;
+    pink2: string;
+    pink3: string;
+    pink4: string;
+    pink5: string;
+    pink6: string;
+    pink7: string;
+    pink8: string;
+    pink9: string;
+    pink10: string;
+    pink11: string;
+    pink12: string;
+    green1: string;
+    green2: string;
+    green3: string;
+    green4: string;
+    green5: string;
+    green6: string;
+    green7: string;
+    green8: string;
+    green9: string;
+    green10: string;
+    green11: string;
+    green12: string;
+    yellow1: string;
+    yellow2: string;
+    yellow3: string;
+    yellow4: string;
+    yellow5: string;
+    yellow6: string;
+    yellow7: string;
+    yellow8: string;
+    yellow9: string;
+    yellow10: string;
+    yellow11: string;
+    yellow12: string;
+    red1: string;
+    red2: string;
+    red3: string;
+    red4: string;
+    red5: string;
+    red6: string;
+    red7: string;
+    red8: string;
+    red9: string;
+    red10: string;
+    red11: string;
+    red12: string;
     button: {
       primary: ButtonColorTargets;
       secondary: ButtonColorTargets;

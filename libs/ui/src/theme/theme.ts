@@ -1,3 +1,17 @@
+import {
+  blue,
+  blueDark,
+  violet,
+  violetDark,
+  pink,
+  pinkDark,
+  green,
+  greenDark,
+  yellow,
+  yellowDark,
+  red,
+  redDark,
+} from '@radix-ui/colors';
 import { Theme } from '../types/theming';
 
 import {
@@ -50,6 +64,12 @@ export const defaultDarkTheme: Theme = {
   danger: { ...dangerDark },
   info: { ...infoDark },
   neutral: { ...neutralDark },
+  ...blueDark,
+  ...violetDark,
+  ...pinkDark,
+  ...greenDark,
+  ...yellowDark,
+  ...redDark,
   // *** ATOMS *** //
   button: {
     primary: PrimaryDarkButton,
@@ -84,7 +104,13 @@ export const defaultLightTheme: Theme = {
   danger: { ...danger },
   info: { ...info },
   neutral: { ...neutral },
-  // *** ATOMS *** //
+  ...blue,
+  ...violet,
+  ...pink,
+  ...green,
+  ...yellow,
+  ...red,
+  // *** Will remove Button in ticket to Migrate to Button V2 *** //
   button: {
     primary: PrimaryLightButton,
     secondary: SecondaryLightButton,
@@ -93,7 +119,7 @@ export const defaultLightTheme: Theme = {
     warning: WarningLightButton,
     danger: DangerLightButton,
   },
-  // *** MOLECULES *** //
+  // *** Toast needs a slight refacto for Icons *** //
   toast: {
     icon: {
       default: success.step9,
@@ -102,6 +128,4 @@ export const defaultLightTheme: Theme = {
       error: danger.step9,
     },
   },
-  // *** ORGANISMS *** //
-  appSwitcher: AppSwitcherLight,
 };

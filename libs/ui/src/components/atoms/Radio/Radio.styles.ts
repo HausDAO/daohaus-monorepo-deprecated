@@ -13,8 +13,8 @@ export const RadioGroup = RadioGroupPrimitive.Root;
 
 export const RadioItem = styled(RadioGroupPrimitive.Item)`
   all: unset;
-  background-color: ${({ theme }: { theme: Theme }) => theme.radio.item.bg};
-  border: 2px solid ${({ theme }: { theme: Theme }) => theme.radio.item.border};
+  background-color: ${({ theme }: { theme: Theme }) => theme.element.bg};
+  border: 2px solid ${({ theme }: { theme: Theme }) => theme.element.border};
   border-radius: 100%;
   cursor: pointer;
   height: 2rem;
@@ -22,55 +22,52 @@ export const RadioItem = styled(RadioGroupPrimitive.Item)`
   width: 2rem;
 
   :hover {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.radio.item.hoverBg};
+    background-color: ${({ theme }: { theme: Theme }) => theme.element.bgHover};
     border: 2px solid
-      ${({ theme }: { theme: Theme }) => theme.radio.item.hoverBorder};
+      ${({ theme }: { theme: Theme }) => theme.element.borderHover};
   }
 
   :focus {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.radio.item.focusBg};
+    background-color: ${({ theme }: { theme: Theme }) => theme.element.bgFocus};
     border: 2px solid
-      ${({ theme }: { theme: Theme }) => theme.radio.item.focusBorder};
+      ${({ theme }: { theme: Theme }) => theme.element.borderFocus};
     outline: none;
   }
 
   :disabled {
     background-color: ${({ theme }: { theme: Theme }) =>
-      theme.radio.item.disabledBg};
+      theme.element.bgDisabled};
     border: 2px solid
-      ${({ theme }: { theme: Theme }) => theme.radio.item.disabledBorder};
+      ${({ theme }: { theme: Theme }) => theme.element.borderDisabled};
     cursor: not-allowed;
   }
 
   &[data-state='checked'] {
     background-color: ${({ theme }: { theme: Theme }) =>
-      theme.radio.item.activeBg};
+      theme.element.bgActive};
     border: 2px solid
-      ${({ theme }: { theme: Theme }) => theme.radio.item.activeBg};
+      ${({ theme }: { theme: Theme }) => theme.element.borderActive};
 
     :hover {
       background-color: ${({ theme }: { theme: Theme }) =>
-        theme.radio.item.activeHoverBg};
+        theme.element.bgHover};
       border: 2px solid
-        ${({ theme }: { theme: Theme }) => theme.radio.item.activeHoverBorder};
+        ${({ theme }: { theme: Theme }) => theme.element.borderHover};
     }
 
     :focus {
       background-color: ${({ theme }: { theme: Theme }) =>
-        theme.radio.item.activeFocusBg};
+        theme.element.bgFocus};
       border: 2px solid
-        ${({ theme }: { theme: Theme }) => theme.radio.item.activeFocusBorder};
+        ${({ theme }: { theme: Theme }) => theme.element.borderFocus};
       outline: none;
     }
 
     :disabled {
       background-color: ${({ theme }: { theme: Theme }) =>
-        theme.radio.item.activeDisabledBg};
+        theme.element.bgActiveDisabled};
       border: 2px solid
-        ${({ theme }: { theme: Theme }) =>
-          theme.radio.item.activeDisabledBorder};
+        ${({ theme }: { theme: Theme }) => theme.element.borderActiveDisabled};
       cursor: not-allowed;
     }
   }
@@ -86,7 +83,7 @@ export const RadioIndicator = styled(RadioGroupPrimitive.Indicator)`
 
   &::after {
     background-color: ${({ theme }: { theme: Theme }) =>
-      theme.radio.indicator.bg};
+      theme.element.indicator};
     border-radius: 50%;
     content: '';
     display: block;
@@ -97,7 +94,7 @@ export const RadioIndicator = styled(RadioGroupPrimitive.Indicator)`
   &[data-disabled] {
     &::after {
       background-color: ${({ theme }: { theme: Theme }) =>
-        theme.radio.indicator.disabledBg};
+        theme.element.indicatorDisabled};
     }
   }
 `;

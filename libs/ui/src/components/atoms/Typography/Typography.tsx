@@ -111,5 +111,5 @@ export const StrikeThrough = styled.span`
   text-decoration: line-through;
 `;
 export const TintSecondary = styled.span`
-  color: ${({ theme }: { theme: Theme }) => theme.tint.secondary};
+  color: ${({ theme }: { theme: Theme }) => theme.secondary.step11};
 `;

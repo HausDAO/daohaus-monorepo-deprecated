@@ -57,8 +57,8 @@ const QuorumDisplay = ({
     <Tooltip
       triggerEl={
         <QuorumBox>
-          <MdOutlineGavel color={theme.tint.secondary} size="1.4rem" />{' '}
-          <ParMd color={theme.tint.secondary}>
+          <MdOutlineGavel color={theme.secondary.step11} size="1.4rem" />{' '}
+          <ParMd color={theme.secondary.step11}>
             {Number(yesPerc).toFixed(0)}/{daoQuorum}%
           </ParMd>{' '}
         </QuorumBox>
@@ -82,8 +82,8 @@ export const ProposalPass = ({ text }: { text: string }) => {
 
   return (
     <VerdictBox>
-      <RiThumbUpLine size="1.6rem" color={theme.tint.secondary} />
-      <ParMd color={theme.tint.secondary}>{text}</ParMd>
+      <RiThumbUpLine size="1.6rem" color={theme.secondary.step11} />
+      <ParMd color={theme.secondary.step11}>{text}</ParMd>
     </VerdictBox>
   );
 };
@@ -93,8 +93,8 @@ export const ProposalFail = ({ text }: { text: string }) => {
 
   return (
     <VerdictBox>
-      <RiThumbDownLine size="1.6rem" color={theme.tint.secondary} />
-      <ParMd color={theme.tint.secondary}>{text}</ParMd>
+      <RiThumbDownLine size="1.6rem" color={theme.secondary.step11} />
+      <ParMd color={theme.secondary.step11}>{text}</ParMd>
     </VerdictBox>
   );
 };
@@ -164,7 +164,7 @@ export const ActionTemplate = ({
   const helperUI = useMemo(() => {
     if (typeof helperDisplay === 'string') {
       return (
-        <ParMd color={theme.tint.secondary}>
+        <ParMd color={theme.secondary.step11}>
           {' '}
           <Italic>{helperDisplay}</Italic>
         </ParMd>

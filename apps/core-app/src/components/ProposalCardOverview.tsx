@@ -74,7 +74,7 @@ export const ProposalCardOverview = ({
     <OverviewBox>
       <OverviewHeader proposal={proposal} />
       <ParLg className="title">{proposal.title}</ParLg>
-      <ParMd className="description" color={theme.tint.secondary}>
+      <ParMd className="description" color={theme.secondary.step11}>
         {charLimit(proposal.description, 145)}
       </ParMd>
       {isMd && (
@@ -87,7 +87,7 @@ export const ProposalCardOverview = ({
         </StyledLink>
       )}
       <SubmittedContainer>
-        <ParMd color={theme.tint.secondary} className="submitted-by">
+        <ParMd color={theme.secondary.step11} className="submitted-by">
           Submitted by:{' '}
         </ParMd>
         <AddressDisplay
@@ -125,7 +125,7 @@ export const OverviewHeader = ({
     <OverviewContainer>
       {isMobile ? (
         <>
-          <ParSm color={theme.tint.secondary}>
+          <ParSm color={theme.secondary.step11}>
             {getProposalTypeLabel(proposal.proposalType)}
           </ParSm>
           <Tooltip
@@ -137,7 +137,7 @@ export const OverviewHeader = ({
         </>
       ) : (
         <>
-          <ParSm color={theme.tint.secondary}>
+          <ParSm color={theme.secondary.step11}>
             {getProposalTypeLabel(proposal.proposalType)} |{' '}
             {formatShortDateTimeFromSeconds(proposal.createdAt)}
           </ParSm>

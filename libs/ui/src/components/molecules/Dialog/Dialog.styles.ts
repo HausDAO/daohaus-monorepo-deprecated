@@ -33,11 +33,11 @@ const contentShow = keyframes`
 `;
 
 export const StyledDialogContent = styled(DialogPrimitive.Content)`
-  background-color: ${({ theme }: { theme: Theme }) => theme.dialog.bg};
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step2};
   border-radius: 8px;
   box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px,
     hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
-  color: ${({ theme }: { theme: Theme }) => theme.dialog.color};
+  color: ${({ theme }: { theme: Theme }) => theme.secondary.step12};
   display: flex;
   flex-direction: column;
   justify-content: space-between;

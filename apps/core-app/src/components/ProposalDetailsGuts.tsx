@@ -29,8 +29,8 @@ const OverviewContainer = styled.div`
   padding: 2.8rem 3.6rem;
 
   border-radius: ${border.radius};
-  border: 1px ${({ theme }: { theme: Theme }) => theme.card.border} solid;
-  background-color: ${({ theme }: { theme: Theme }) => theme.card.hoverBg};
+  border: 1px ${({ theme }: { theme: Theme }) => theme.secondary.step5} solid;
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
 
   .proposal-link {
     margin-top: 1.2rem;
@@ -56,9 +56,10 @@ const Spacer = styled.div`
 
 type ProposalDetailsGutsProps = {
   proposal: TProposals[number];
+  decodeError: boolean;
 };
 
-export const ProposalDetailsGuts = ({ proposal }: ProposalDetailsGutsProps) => {
+export const ProposalDetailsGuts = ({ decodeError, proposal }: ProposalDetailsGutsProps) => {
   const { daochain } = useParams();
 
   return (
@@ -111,7 +112,7 @@ export const ProposalDetailsGuts = ({ proposal }: ProposalDetailsGutsProps) => {
       <Spacer />
       <ProposalWarning
         proposalType={proposal.proposalType}
-        decodeError={false}
+        decodeError={decodeError}
         txHash={proposal.txHash}
       />
     </OverviewContainer>

@@ -16,7 +16,7 @@ const Template: ComponentStory<typeof FieldWrapper> = (args) => (
 );
 
 const DummyField = styled.div`
-  background-color: ${({ theme }: { theme: Theme }) => theme.field.bg};
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
   width: 100%;
   max-width: ${field.size.md};
   border-radius: ${border.radius};
@@ -39,7 +39,11 @@ FieldWrapperWithButtonComponent.args = {
   children: <DummyField>Sample dummy component</DummyField>,
   label: 'Label',
   info: 'Cooltip text',
-  rightAddon: <Button tertiary sm>Button Label</Button>,
+  rightAddon: (
+    <Button tertiary sm>
+      Button Label
+    </Button>
+  ),
 };
 
 export const HelperTextPriority = Template.bind({});

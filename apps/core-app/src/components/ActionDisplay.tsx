@@ -60,7 +60,7 @@ export const ActionDisplay = ({ actions }: { actions: DecodedMultiTX }) => {
           );
         }
         return (
-          <div className="display-segment" key={action.name}>
+          <div className="display-segment" key={action.name || `action_${index}`}>
             <div className="data">
               <H4 className="space">
                 Action {index + 1}: {action.name}
@@ -81,7 +81,7 @@ export const ActionDisplay = ({ actions }: { actions: DecodedMultiTX }) => {
               <DataSm className="space">{action.value}</DataSm>
               <Divider className="spaced-divider" />
             </div>
-            {action.params.map((arg, index) => {
+            {action.params?.map((arg, index) => {
               return (
                 <div className="data" key={arg.name}>
                   <DataSm className="space">

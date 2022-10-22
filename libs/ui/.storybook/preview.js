@@ -18,11 +18,11 @@ export const parameters = {
     values: [
       {
         name: 'Dark',
-        value: defaultDarkTheme.bgColor,
+        value: defaultDarkTheme.rootBgColor,
       },
       {
         name: 'Light',
-        value: defaultLightTheme.bgColor,
+        value: defaultLightTheme.rootBgColor,
       },
     ],
   },
@@ -49,8 +49,8 @@ const handleBGReplace = (context) => ({
     backgrounds: {
       value:
         context?.globals?.theme === 'Dark'
-          ? defaultDarkTheme.bgColor
-          : defaultLightTheme.bgColor,
+          ? defaultDarkTheme.rootBgColor
+          : defaultLightTheme.rootBgColor,
     },
   },
 });

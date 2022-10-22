@@ -4,39 +4,34 @@ import { Theme } from '../../../types/theming';
 import { border } from '../../../theme/global/border';
 
 export const CardStyles = css`
-  background-color: ${({ theme }: { theme: Theme }) => theme.card.bg};
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.card.border};
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step2};
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step5};
   border-radius: ${border.cardRadius};
   padding: 2rem;
-  /* min-width: 40rem; */
 
   width: ${({ width }: { width: string }) => width};
   max-width: 90vw;
 `;
 
 export const BaseCard = styled.div`
-  ${CardStyles}/* Disabling the interaction styles here as per our meeting in the component sync */
-  /* Saving the styles here for when we want to make an interactive card */
+  ${CardStyles}/* Saved styles for cards that require hover, focus, or disabled states */
 
   /*
   :hover {
-    background-color: ${({ theme }: { theme: Theme }) => theme.card.hoverBg};
-    border: 1px solid ${({ theme }: { theme: Theme }) =>
-    theme.card.hoverBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step6};
   }
 
   :focus {
-    background-color: ${({ theme }: { theme: Theme }) => theme.card.focusBg};
-    border: 1px solid ${({ theme }: { theme: Theme }) =>
-    theme.card.focusBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step2};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step7};
     outline: none;
-  } */
+  }
 
-  /* We might not need this */
-  /* :disabled {
-    background-color: ${({ theme }: { theme: Theme }) => theme.card.disabledBg};
+   :disabled {
+    background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step2};
     border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.card.disabledBorder};
+      ${({ theme }: { theme: Theme }) => theme.neutral.step5};
     cursor: not-allowed;
   } */
 `;

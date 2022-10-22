@@ -1,22 +1,13 @@
 import styled from 'styled-components';
 
-import { blueDark, violetDark, pinkDark, greenDark } from '@radix-ui/colors';
-
-const darkColors = {
-  ...blueDark,
-  ...violetDark,
-  ...pinkDark,
-  ...greenDark,
-};
-
 export const BaseBadge = styled.div<{
   badgeColor: 'blue' | 'green' | 'pink' | 'violet';
   badgeSize: 'sm' | 'lg';
 }>`
   display: inline-flex;
   align-items: center;
-  background-color: ${({ badgeColor }) => `${darkColors[`${badgeColor}6`]}`};
-  border: 1px solid ${({ badgeColor }) => `${darkColors[`${badgeColor}3`]}`};
+  background-color: ${({ theme, badgeColor }) => theme[`${badgeColor}7`]};
+  border: 1px solid ${({ theme, badgeColor }) => theme[`${badgeColor}3`]};
   border-radius: 2.1rem;
   justify-content: center;
   min-height: ${({ badgeSize }) => {
@@ -30,19 +21,20 @@ export const BaseBadge = styled.div<{
   }};
 
   font-size: ${({ badgeSize }) => (badgeSize === 'sm' ? '1.2rem;' : '1.6rem;')};
-  color: ${({ badgeColor }) => `${darkColors[`${badgeColor}12`]}`};
+  color: ${({ theme, badgeColor }) => theme[`${badgeColor}12`]};
 
-  :hover {
-    background-color: ${({ badgeColor }) => `${darkColors[`${badgeColor}7`]}`};
-  }
+  /* Disabled hover per comment by Jord */
+  /* :hover {
+    background-color: ${({ theme, badgeColor }) => theme[`${badgeColor}7`]};
+  } */
 
   :focus {
-    background-color: ${({ badgeColor }) => `${darkColors[`${badgeColor}6`]}`};
-    border: 1px solid ${({ badgeColor }) => `${darkColors[`${badgeColor}8`]}`};
+    background-color: ${({ theme, badgeColor }) => theme[`${badgeColor}6`]};
+    border: 1px solid ${({ theme, badgeColor }) => theme[`${badgeColor}8`]};
   }
 
   :disabled {
-    background-color: ${({ badgeColor }) => `${darkColors[`${badgeColor}7`]}`};
-    color: ${({ badgeColor }) => `${darkColors[`${badgeColor}9`]}`};
+    background-color: ${({ theme, badgeColor }) => theme[`${badgeColor}7`]};
+    color: ${({ theme, badgeColor }) => theme[`${badgeColor}9`]};
   }
 `;

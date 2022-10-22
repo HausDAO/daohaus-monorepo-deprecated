@@ -41,6 +41,11 @@ export function handleSummonBaal(event: SummonBaal): void {
   dao.members = [];
   dao.existingSafe = event.params.existingSafe;
 
+  dao.baalVersion = '0.4.1';
+  if (event.address.toHexString() === constants.BAAL_SUMMONER_V1_ADDRESS) {
+    dao.baalVersion = '1.0.0';
+  }
+
   dao.save();
 
   let shareTokenLookup = new TokenLookup(event.params.shares.toHexString());

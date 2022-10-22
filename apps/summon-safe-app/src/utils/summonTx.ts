@@ -11,6 +11,7 @@ import {
   POSTER_TAGS,
   toBaseUnits,
   ValidNetwork,
+  ZERO_ADDRESS,
 } from '@daohaus/common-utilities';
 
 import { FormValues } from '../types/form';
@@ -216,8 +217,8 @@ export const assembleTxArgs = (
 
   const { POSTER } = handleKeychains(chainId);
   const initParams = encodeValues(
-    ['string', 'string', 'address'],
-    [tokenName, tokenSymbol, safeAddress]
+    ['string', 'string', 'address', 'address'],
+    [tokenName, tokenSymbol, safeAddress, ZERO_ADDRESS]
   );
   const initActions = [
     tokenConfigTX(formValues),

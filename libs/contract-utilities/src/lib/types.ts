@@ -22,6 +22,7 @@ export type SummonMolochV3Args = {
   sharesTokenName: string;
   sharesTokenSymbol: string;
   safeAddress?: string;
+  forwarder: string;
   tokenConfig: {
     pauseShares: boolean;
     pauseLoot: boolean;

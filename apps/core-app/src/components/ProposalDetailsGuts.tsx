@@ -56,9 +56,10 @@ const Spacer = styled.div`
 
 type ProposalDetailsGutsProps = {
   proposal: TProposals[number];
+  decodeError: boolean;
 };
 
-export const ProposalDetailsGuts = ({ proposal }: ProposalDetailsGutsProps) => {
+export const ProposalDetailsGuts = ({ decodeError, proposal }: ProposalDetailsGutsProps) => {
   const { daochain } = useParams();
 
   return (
@@ -111,7 +112,7 @@ export const ProposalDetailsGuts = ({ proposal }: ProposalDetailsGutsProps) => {
       <Spacer />
       <ProposalWarning
         proposalType={proposal.proposalType}
-        decodeError={false}
+        decodeError={decodeError}
         txHash={proposal.txHash}
       />
     </OverviewContainer>

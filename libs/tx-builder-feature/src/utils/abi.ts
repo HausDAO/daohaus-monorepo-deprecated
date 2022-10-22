@@ -222,3 +222,17 @@ export const fetchABI = async ({
     return undefined;
   }
 };
+
+export const getCode = async ({
+  contractAddress,
+  chainId,
+  rpcs = TEMPORARY_RPC,
+}: {
+  contractAddress: string;
+  chainId: ValidNetwork;
+  rpcs?: Keychain;
+}) => {
+  const rpcUrl = rpcs[chainId];
+  const ethersProvider = new ethers.providers.JsonRpcProvider(rpcUrl);
+  return ethersProvider.getCode(contractAddress);
+};

@@ -4,12 +4,13 @@ import {
   CONTRACTS,
   ENCODED_0X0_DATA,
   MulticallAction,
+  NETWORK_DATA,
   StringSearch,
   ValidArgType,
   ValidNetwork,
 } from '@daohaus/common-utilities';
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
-import { createContract, fetchABI } from './abi';
+import { createContract, fetchABI, getCode } from './abi';
 import { isSearchArg } from './args';
 
 const OPERATION_TYPE = 2;
@@ -104,12 +105,17 @@ const decodeMultisend = ({ chainId, actionData }: MultisendArgs) => {
   return transactions;
 };
 
-const isEthTransfer = (action: EncodedAction) =>
-  action?.data?.slice(2)?.length === 0 || action?.data === ENCODED_0X0_DATA;
+const isEthTransfer = async (chainId: ValidNetwork, action: EncodedAction) =>
+  action?.data?.slice(2)?.length === 0 ||
+  action?.data === ENCODED_0X0_DATA ||
+  (await getCode({ chainId, contractAddress: action.to })) === '0x';
 
-const buildEthTransferAction = (action: EncodedAction): DecodedAction => ({
+const buildEthTransferAction = (
+  chainId: ValidNetwork,
+  action: EncodedAction
+): DecodedAction => ({
   to: action.to,
-  name: 'ETH Transfer',
+  name: `${NETWORK_DATA[chainId]?.symbol} Transfer`,
   value: BigNumber.from(action.value).toString(),
   params: [],
 });
@@ -146,7 +152,7 @@ const decodeAction = async ({
   action: EncodedAction;
   actionMeta?: MulticallAction;
 }): Promise<DecodedAction | ActionError> => {
-  if (isEthTransfer(action)) return buildEthTransferAction(action);
+  if (await isEthTransfer(chainId, action)) return buildEthTransferAction(chainId, action);
 
   const { to, data, value } = action;
 
@@ -155,7 +161,7 @@ const decodeAction = async ({
     return {
       error: true,
       message: 'No ABI found for this contract',
-      data: action.data,
+      data,
     };
   }
 

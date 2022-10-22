@@ -15,7 +15,7 @@ type MenuContentType = {
 
 export const DropdownMenuContent = styled(Dropdown.DropdownMenuContent)`
   background-color: ${(props: MenuContentType) =>
-    props.bgmenu ? props.bgmenu : props.theme.dropdown.bgMenu};
+    props.bgmenu ? props.bgmenu : props.theme.secondary.step3};
   padding: 0.4rem;
   min-width: ${(props: MenuContentType) => props.minwidth};
   z-index: 10;
@@ -33,33 +33,32 @@ export const DropdownMenuLabel = styled(Dropdown.Label)`
 `;
 
 export const DropdownButton = styled(Button)`
-  background-color: ${({ theme }: { theme: Theme }) => theme.dropdown.bgItem};
-  border: 0.1rem solid ${({ theme }: { theme: Theme }) => theme.dropdown.bgItem};
-  color: ${({ theme }: { theme: Theme }) => theme.dropdown.text};
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+  border: 0.1rem solid ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+  color: ${({ theme }: { theme: Theme }) => theme.secondary.step12};
 
   :hover {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.dropdown.hoverItem};
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step4};
     border: 0.1rem solid
-      ${({ theme }: { theme: Theme }) => theme.dropdown.hoverItem};
+      ${({ theme }: { theme: Theme }) => theme.secondary.step4};
   }
 
   :focus {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.dropdown.focusItem};
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step5};
     border: 0.1rem solid
-      ${({ theme }: { theme: Theme }) => theme.dropdown.focusItem};
+      ${({ theme }: { theme: Theme }) => theme.secondary.step5};
   }
 
   :disabled {
-    background-color: ${({ theme }: { theme: Theme }) => theme.dropdown.bgItem};
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
     border: 0.1rem solid
-      ${({ theme }: { theme: Theme }) => theme.dropdown.bgItem};
-    color: ${({ theme }: { theme: Theme }) => theme.dropdown.textDisabled};
+      ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+    color: ${({ theme }: { theme: Theme }) => theme.secondary.step11};
     cursor: not-allowed;
   }
+
   &.selected {
-    background-color: ${({ theme }: { theme: Theme }) => theme.secondary};
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step9};
   }
 `;
 
@@ -79,7 +78,7 @@ export const DropdownTriggerLink = styled.button`
   background-color: transparent;
   border: none;
   border-bottom: 2px transparent solid;
-  color: ${(props) => props.theme.dropdown.text};
+  color: ${(props) => props.theme.secondary.step12};
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -92,13 +91,13 @@ export const DropdownTriggerLink = styled.button`
   }
 
   :hover {
-    color: ${(props) => props.theme.navTabs.navLinkHoverColor};
+    color: ${(props) => props.theme.secondary.step10};
     text-decoration: none;
   }
 
   &.selected {
     color: white;
-    border-bottom: 2px ${(props) => props.theme.navTabs.navLinkColor} solid;
+    border-bottom: 2px ${(props) => props.theme.secondary.step9} solid;
   }
 
   &.navTabs {
@@ -109,7 +108,7 @@ export const DropdownTriggerLink = styled.button`
 // TODO Update theme colors to be dropdown specific
 export const DropdownLink = styled(Link)`
   border-radius: 2px;
-  color: ${(props) => props.theme.dropdown.text};
+  color: ${(props) => props.theme.secondary.step12};
   cursor: pointer;
   display: flex;
   padding: 1rem;
@@ -121,19 +120,19 @@ export const DropdownLink = styled(Link)`
   }
 
   :hover {
-    background-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBg};
-    border-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBorder};
+    background-color: ${(props) => props.theme.secondary.step4};
+    border-color: ${(props) => props.theme.secondary.step8};
     text-decoration: none;
   }
 
   &.disabled {
-    color: ${(props) => props.theme.dropdown.textDisabled};
+    color: ${(props) => props.theme.secondary.step11};
   }
 `;
 
 export const DropdownText = styled.div`
   border-radius: 2px;
-  color: ${(props) => props.theme.dropdown.text};
+  color: ${(props) => props.theme.secondary.step12};
   cursor: pointer;
   display: flex;
   padding: 1rem;
@@ -145,13 +144,13 @@ export const DropdownText = styled.div`
   }
 
   :hover {
-    background-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBg};
-    border-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBorder};
+    background-color: ${(props) => props.theme.secondary.step4};
+    border-color: ${(props) => props.theme.secondary.step8};
     text-decoration: none;
   }
 
   &.disabled {
-    color: ${(props) => props.theme.dropdown.textDisabled};
+    color: ${(props) => props.theme.secondary.step11};
   }
 `;
 

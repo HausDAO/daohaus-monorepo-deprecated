@@ -15,29 +15,33 @@ export const FieldAlertWrapper = styled.div<{
   align-items: center;
   border-radius: ${border.radius};
   max-width: 600px;
-  background: ${({ theme }: { theme: Theme }) => theme.fieldAlert.bg};
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.fieldAlert.border};
+  background: ${({ theme }: { theme: Theme }) => theme.primary.step3};
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.primary.step6};
 
   &.full {
     max-width: ${field.size.full};
   }
 
   &.warning {
-    background: ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningBg};
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningBorder};
+    background: ${({ theme }: { theme: Theme }) => theme.warning.step2};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning.step5};
     p {
-      color: ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningText};
+      color: ${({ theme }: { theme: Theme }) => theme.warning.step10};
     }
     button {
-      background-color: ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningButtonBg};
-      border: 1px solid ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningButtonBorder};
+      background-color: ${({ theme }: { theme: Theme }) => theme.warning.step9};
+      border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning.step9};
       :hover {
-        background-color: ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningButtonBg};
-        border: 1px solid ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningButtonBorder};
+        background-color: ${({ theme }: { theme: Theme }) =>
+          theme.warning.step9};
+        border: 1px solid
+          ${({ theme }: { theme: Theme }) => theme.warning.step9};
       }
       :active {
-        background-color: ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningButtonBg};
-        border: 1px solid ${({ theme }: { theme: Theme }) => theme.fieldAlert.warningButtonBorder};
+        background-color: ${({ theme }: { theme: Theme }) =>
+          theme.warning.step9};
+        border: 1px solid
+          ${({ theme }: { theme: Theme }) => theme.warning.step9};
       }
     }
   }

@@ -1,11 +1,14 @@
 import {
   amber,
+  amberA,
   amberDark,
+  amberDarkA,
   blue,
   blueDark,
   green,
   greenDark,
   indigo,
+  indigoA,
   indigoDark,
   indigoDarkA,
   orange,
@@ -42,6 +45,21 @@ export const primary = {
   step12: amber.amber12,
 };
 
+export const primaryA = {
+  step1: amberA.amberA1,
+  step2: amberA.amberA2,
+  step3: amberA.amberA3,
+  step4: amberA.amberA4,
+  step5: amberA.amberA5,
+  step6: amberA.amberA6,
+  step7: amberA.amberA7,
+  step8: amberA.amberA8,
+  step9: amberA.amberA9,
+  step10: amberA.amberA10,
+  step11: amberA.amberA11,
+  step12: amberA.amberA12,
+};
+
 export const primaryDark = {
   step1: amberDark.amber1,
   step2: amberDark.amber2,
@@ -57,6 +75,21 @@ export const primaryDark = {
   step12: amberDark.amber12,
 };
 
+export const primaryDarkA = {
+  step1: amberDarkA.amberA1,
+  step2: amberDarkA.amberA2,
+  step3: amberDarkA.amberA3,
+  step4: amberDarkA.amberA4,
+  step5: amberDarkA.amberA5,
+  step6: amberDarkA.amberA6,
+  step7: amberDarkA.amberA7,
+  step8: amberDarkA.amberA8,
+  step9: amberDarkA.amberA9,
+  step10: amberDarkA.amberA10,
+  step11: amberDarkA.amberA11,
+  step12: amberDarkA.amberA12,
+};
+
 export const secondary = {
   step1: indigo.indigo1,
   step2: indigo.indigo2,
@@ -70,6 +103,21 @@ export const secondary = {
   step10: indigo.indigo10,
   step11: indigo.indigo11,
   step12: indigo.indigo12,
+};
+
+export const secondaryA = {
+  step1: indigoA.indigoA1,
+  step2: indigoA.indigoA2,
+  step3: indigoA.indigoA3,
+  step4: indigoA.indigoA4,
+  step5: indigoA.indigoA5,
+  step6: indigoA.indigoA6,
+  step7: indigoA.indigoA7,
+  step8: indigoA.indigoA8,
+  step9: indigoA.indigoA9,
+  step10: indigoA.indigoA10,
+  step11: indigoA.indigoA11,
+  step12: indigoA.indigoA12,
 };
 
 export const secondaryDark = {
@@ -135,42 +183,6 @@ export const neutralDark = {
 };
 
 // * Utility Colors
-
-export const utility = {
-  success: green.green9,
-  successText: green.green12,
-  successBg: green.green3,
-  successBorder: green.green7,
-  warning: orange.orange9,
-  warningText: orange.orange12,
-  warningBg: orange.orange3,
-  warningBorder: orange.orange7,
-  danger: red.red9,
-  dangerText: red.red12,
-  dangerBg: red.red3,
-  dangerBorder: red.red7,
-  info: blue.blue9,
-  transparent: 'transparent',
-};
-
-export const utilityDark = {
-  success: greenDark.green9,
-  successText: greenDark.green12,
-  successBg: greenDark.green3,
-  successBorder: greenDark.green7,
-  warning: orangeDark.orange9,
-  warningText: orangeDark.orange12,
-  warningBg: orangeDark.orange3,
-  warningBorder: orangeDark.orange7,
-  danger: redDark.red9,
-  dangerText: redDark.red12,
-  dangerBg: redDark.red3,
-  dangerBorder: redDark.red7,
-  info: blueDark.blue9,
-  transparent: 'transparent',
-};
-
-// * Utility Colors (New Naming convention)
 export const info = {
   step1: blue.blue1,
   step2: blue.blue2,
@@ -277,16 +289,16 @@ export const danger = {
 };
 
 export const dangerDark = {
-  step1: red.red1,
-  step2: red.red2,
-  step3: red.red3,
-  step4: red.red4,
-  step5: red.red5,
-  step6: red.red6,
-  step7: red.red7,
-  step8: red.red8,
-  step9: red.red9,
-  step10: red.red10,
-  step11: red.red11,
-  step12: red.red12,
+  step1: redDark.red1,
+  step2: redDark.red2,
+  step3: redDark.red3,
+  step4: redDark.red4,
+  step5: redDark.red5,
+  step6: redDark.red6,
+  step7: redDark.red7,
+  step8: redDark.red8,
+  step9: redDark.red9,
+  step10: redDark.red10,
+  step11: redDark.red11,
+  step12: redDark.red12,
 };

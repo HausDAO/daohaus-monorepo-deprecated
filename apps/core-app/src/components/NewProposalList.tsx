@@ -12,7 +12,7 @@ const ListContainer = styled.div`
 const ListItemContainer = styled.div`
   width: 100%;
   padding: 1rem 0;
-  border-top: 1px ${({ theme }: { theme: Theme }) => theme.card.hoverBorder}
+  border-top: 1px ${({ theme }: { theme: Theme }) => theme.secondary.step6}
     solid;
 `;
 
@@ -33,7 +33,7 @@ const ListItemHoverContainer = styled.div`
   border-radius: ${border.radius};
 
   :hover {
-    background: 1px ${({ theme }: { theme: Theme }) => theme.card.hoverBg};
+    background: 1px ${({ theme }: { theme: Theme }) => theme.secondary.step3};
   }
 `;
 
@@ -46,7 +46,7 @@ const ListItem = styled.div`
 `;
 
 const StyledIcon = styled(RiArrowRightSLine)`
-  fill: ${({ theme }: { theme: Theme }) => theme.primary};
+  fill: ${({ theme }: { theme: Theme }) => theme.primary.step9};
   font-size: 3rem;
 `;
 

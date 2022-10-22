@@ -6,9 +6,9 @@ import { Theme } from '../../../types/theming';
 export const StyledBanner = styled.div`
   align-items: center;
   display: flex;
-  background-color: ${({ theme }: { theme: Theme }) => theme.info};
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.info};
-  color: ${({ theme }) => theme.fontColor};
+  background-color: ${({ theme }: { theme: Theme }) => theme.info.step9};
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.info.step9};
+  color: ${({ theme }) => theme.rootFontColor};
   flex-wrap: wrap;
   height: auto;
   justify-content: space-between;

@@ -7,14 +7,14 @@ import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
 const WarningContainer = styled(Card)`
   width: 100%;
   background-color: ${({ theme, error }: { theme: Theme; error: boolean }) =>
-    error && theme.card.warningBg};
+    error && theme.warning.step3};
   border-color: ${({ theme, error }: { theme: Theme; error: boolean }) =>
-    error && theme.card.warningBorder};
+    error && theme.warning.step7};
 `;
 
 const StyledParXs = styled(ParXs)`
   color: ${({ theme, error }: { theme: Theme; error: boolean }) =>
-    error && theme.card.warningText};
+    error && theme.warning.step12};
 `;
 
 const Spacer = styled.div`

@@ -19,7 +19,7 @@ import {
   Spinner,
   Theme,
   WrappedInput,
-} from "@daohaus/ui";
+} from '@daohaus/ui';
 import { FieldSpacer } from '@daohaus/haus-form-builder';
 
 import { useWalletConnect } from '../../hook/walletConnect';
@@ -30,7 +30,7 @@ enum Status {
   DISCONNECTED,
   CONNECTING,
   CONNECTED,
-};
+}
 
 const WalletConectContainer = styled.div`
   display: flex;
@@ -38,8 +38,8 @@ const WalletConectContainer = styled.div`
   align-items: center;
   width: 100%;
   border-radius: ${border.radius};
-  border: 1px ${({ theme }: { theme: Theme }) => theme.card.border} solid;
-  background-color: ${({ theme }: { theme: Theme }) => theme.card.hoverBg};
+  border: 1px ${({ theme }: { theme: Theme }) => theme.secondary.step5} solid;
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
   padding: 2.2rem;
   img {
     margin-bottom: 2.7rem;
@@ -54,7 +54,7 @@ const BaseContainer = styled.div`
   align-items: center;
   p {
     text-align: center;
-    margin-bottom:  2.7rem;
+    margin-bottom: 2.7rem;
   }
 `;
 
@@ -72,7 +72,12 @@ const SuccessIcon = styled(BsCheckCircle)`
   margin-bottom: 1rem;
 `;
 
-export const WalletConnectLink = ({ icon, id, rules, ...props }: Buildable<Field>) => {
+export const WalletConnectLink = ({
+  icon,
+  id,
+  rules,
+  ...props
+}: Buildable<Field>) => {
   const { dao } = useDao();
   const { register, setValue, watch } = useFormContext();
   const { daochain } = useParams();
@@ -88,7 +93,7 @@ export const WalletConnectLink = ({ icon, id, rules, ...props }: Buildable<Field
   const inputId = 'wcLink';
 
   const [connectionStatus, setConnectionStatus] = useState(Status.DISCONNECTED);
-  
+
   const wcLink = watch(inputId);
 
   useEffect(() => {
@@ -97,16 +102,27 @@ export const WalletConnectLink = ({ icon, id, rules, ...props }: Buildable<Field
     register('txValue');
     register('txOperation');
   }, [register]);
-  
+
   useEffect(() => {
-    if (dao && daochain && wcLink?.startsWith('wc:') && connectionStatus === Status.DISCONNECTED) {
+    if (
+      dao &&
+      daochain &&
+      wcLink?.startsWith('wc:') &&
+      connectionStatus === Status.DISCONNECTED
+    ) {
       setConnectionStatus(Status.CONNECTING);
-      wcConnect({ chainId: daochain as ValidNetwork, safeAddress: dao.safeAddress, uri: wcLink });
+      wcConnect({
+        chainId: daochain as ValidNetwork,
+        safeAddress: dao.safeAddress,
+        uri: wcLink,
+      });
     }
   }, [connectionStatus, dao, daochain, wcConnect, wcLink]);
 
   const clean = () => {
-    [inputId, 'txTo', 'txData', 'txValue', 'txOperation'].forEach(formInput => setValue(formInput, ''));
+    [inputId, 'txTo', 'txData', 'txValue', 'txOperation'].forEach((formInput) =>
+      setValue(formInput, '')
+    );
     setConnectionStatus(Status.DISCONNECTED);
   };
 
@@ -127,7 +143,7 @@ export const WalletConnectLink = ({ icon, id, rules, ...props }: Buildable<Field
   }, [setValue, txPayload]);
 
   return (
-    <FieldWrapper id={'walletConnectWrapper'} full label='WalletConnect Link'>
+    <FieldWrapper id={'walletConnectWrapper'} full label="WalletConnect Link">
       <HighlightInputText
         id="walletConnectDesc"
         description="Connect your DAO Safe to a dApp via WalletConnect and trigger transactions."
@@ -139,12 +155,16 @@ export const WalletConnectLink = ({ icon, id, rules, ...props }: Buildable<Field
         id={inputId}
         disabled={connectionStatus === Status.CONNECTED}
         rules={rules}
-        error={txError ? { type: 'error', message: txError} : undefined}
+        error={txError ? { type: 'error', message: txError } : undefined}
       />
       <WalletConectContainer>
         <img
-          alt='WalletConnect App Logo'
-          src={wcClientData?.icons?.length ? wcClientData.icons[0] : WalletConnectLogo}
+          alt="WalletConnect App Logo"
+          src={
+            wcClientData?.icons?.length
+              ? wcClientData.icons[0]
+              : WalletConnectLogo
+          }
         />
         {connectionStatus === Status.DISCONNECTED && (
           <ParMd>Add WalletConnect link to preview the transaction</ParMd>
@@ -153,63 +173,45 @@ export const WalletConnectLink = ({ icon, id, rules, ...props }: Buildable<Field
           <div>
             {!wcClientData ? (
               <BaseContainer>
-                <Spinner margin='2.2rem' />
-                <Button onClick={disconnect}>
-                  Cancel
-                </Button>
+                <Spinner margin="2.2rem" />
+                <Button onClick={disconnect}>Cancel</Button>
               </BaseContainer>
             ) : (
               <BaseContainer>
-                <ParSm>
-                  {`Trying to connect to ${wcClientData?.name}`}
-                </ParSm>
+                <ParSm>{`Trying to connect to ${wcClientData?.name}`}</ParSm>
                 <ButtonsContainer>
-                  <Button
-                    onClick={() => setConnectionStatus(Status.CONNECTED)}
-                  >
+                  <Button onClick={() => setConnectionStatus(Status.CONNECTED)}>
                     Continue
                   </Button>
-                  <Button onClick={disconnect}>
-                    Cancel
-                  </Button>
+                  <Button onClick={disconnect}>Cancel</Button>
                 </ButtonsContainer>
               </BaseContainer>
             )}
           </div>
         )}
         {connectionStatus === Status.CONNECTED && (
-            <BaseContainer>
-              <ParSm>{wcClientData?.name}</ParSm>
-              <ParSm>CONNECTED</ParSm>
-              <ParSm>
-                You need to keep this open for transactions
-                to pop up and be sent as a proposal.
-              </ParSm>
-              {!txPayload ? (
-                <BaseContainer>
-                  <Spinner margin='1rem' />
-                  <ParSm>
-                    Waiting for a Tx to be triggered...
-                  </ParSm>
-                </BaseContainer>
-              ) : (
-                <BaseContainer>
-                  <Icon
-                    children={<SuccessIcon />}
-                  />
-                  <ParSm>
-                    Tx Ready to Submit!
-                  </ParSm>
-                </BaseContainer>
-              )}
-              <Button onClick={disconnect}>
-                Disconnect
-              </Button>
-            </BaseContainer>
-          )}
+          <BaseContainer>
+            <ParSm>{wcClientData?.name}</ParSm>
+            <ParSm>CONNECTED</ParSm>
+            <ParSm>
+              You need to keep this open for transactions to pop up and be sent
+              as a proposal.
+            </ParSm>
+            {!txPayload ? (
+              <BaseContainer>
+                <Spinner margin="1rem" />
+                <ParSm>Waiting for a Tx to be triggered...</ParSm>
+              </BaseContainer>
+            ) : (
+              <BaseContainer>
+                <Icon children={<SuccessIcon />} />
+                <ParSm>Tx Ready to Submit!</ParSm>
+              </BaseContainer>
+            )}
+            <Button onClick={disconnect}>Disconnect</Button>
+          </BaseContainer>
+        )}
       </WalletConectContainer>
-
     </FieldWrapper>
-
   );
-}
+};

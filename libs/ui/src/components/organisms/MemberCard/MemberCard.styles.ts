@@ -15,12 +15,12 @@ export const MemberCardTrigger = styled(DropdownButton)`
   }
 
   svg.icon-right {
-    color: ${({ theme }: { theme: Theme }) => theme.primary};
+    color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
     margin-left: auto;
   }
 
   svg.icon-left {
     // TODO Need to know if colors are already applied to App SVGs
-    color: ${({ theme }: { theme: Theme }) => theme.primary};
+    color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
   }
 `;

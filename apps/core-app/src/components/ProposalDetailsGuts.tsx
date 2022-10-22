@@ -29,8 +29,8 @@ const OverviewContainer = styled.div`
   padding: 2.8rem 3.6rem;
 
   border-radius: ${border.radius};
-  border: 1px ${({ theme }: { theme: Theme }) => theme.card.border} solid;
-  background-color: ${({ theme }: { theme: Theme }) => theme.card.hoverBg};
+  border: 1px ${({ theme }: { theme: Theme }) => theme.secondary.step5} solid;
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
 
   .proposal-link {
     margin-top: 1.2rem;

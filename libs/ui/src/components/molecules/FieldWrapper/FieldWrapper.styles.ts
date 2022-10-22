@@ -61,6 +61,6 @@ export const RightAddonContainer = styled.div`
 export const RequiredAsterisk = styled.span`
   margin-right: 8px;
   font-weight: ${font.weight.bold};
-  color: ${({ theme }: { theme: Theme }) => theme.warning};
+  color: ${({ theme }: { theme: Theme }) => theme.warning.step9};
   transform: translateY(-0.25rem);
 `;

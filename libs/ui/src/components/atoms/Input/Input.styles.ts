@@ -5,10 +5,10 @@ import { field } from '../../../theme/component/fieldFamily';
 import { font } from '../../../theme/global/font';
 
 export const BaseInput = styled.input`
-  background-color: ${({ theme }: { theme: Theme }) => theme.field.bg};
-  border: 1px solid ${({ theme }: { theme: Theme }) => theme.field.border};
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+  border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step3};
   border-radius: ${field.borderRadius};
-  color: ${({ theme }: { theme: Theme }) => theme.fontColor};
+  color: ${({ theme }: { theme: Theme }) => theme.rootFontColor};
   font-size: ${field.fontSize};
   font-weight: ${field.fontWeight};
   font-family: ${field.fontFamily};
@@ -21,34 +21,29 @@ export const BaseInput = styled.input`
   width: 100%;
 
   ::placeholder {
-    color: ${({ theme }: { theme: Theme }) => theme.field.placeholderText};
+    color: ${({ theme }: { theme: Theme }) => theme.secondary.step11};
   }
 
   :hover {
-    background-color: ${({ theme }: { theme: Theme }) => theme.field.hoverBg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.field.hoverBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step4};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step4};
   }
 
   :focus {
-    background-color: ${({ theme }: { theme: Theme }) => theme.field.focusBg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.field.focusBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.secondary.step6};
     outline: none;
   }
 
   :disabled {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.field.disabledBg};
-    border: 1px solid
-      ${({ theme }: { theme: Theme }) => theme.field.disabledBorder};
-    color: ${({ theme }: { theme: Theme }) => theme.field.disabledPlaceholder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step5};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.neutral.step5};
+    color: ${({ theme }: { theme: Theme }) => theme.neutral.step10};
     cursor: not-allowed;
     font-style: italic;
 
     ::placeholder {
-      color: ${({ theme }: { theme: Theme }) =>
-        theme.field.disabledPlaceholder};
+      color: ${({ theme }: { theme: Theme }) => theme.neutral.step10};
     }
   }
 
@@ -71,15 +66,15 @@ export const BaseInput = styled.input`
   }
 
   &.success {
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.success};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.success.step9};
   }
 
   &.warning {
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.warning.step9};
   }
 
   &.error {
-    border: 1px solid ${({ theme }: { theme: Theme }) => theme.error};
+    border: 1px solid ${({ theme }: { theme: Theme }) => theme.danger.step9};
   }
 `;
 
@@ -90,7 +85,7 @@ export const WithIcon = styled.div`
   width: 100%;
 
   svg {
-    color: ${({ theme }: { theme: Theme }) => theme.field.placeholderText};
+    color: ${({ theme }: { theme: Theme }) => theme.secondary.step11};
     position: absolute;
     right: 2rem;
     top: 1.4rem;

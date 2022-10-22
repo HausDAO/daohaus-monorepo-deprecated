@@ -57,8 +57,8 @@ export const ProposalExpiry = ({
         expiryDateString,
         format(
           (unixTimeInSeconds() + absoluteExtendedPeriod) * 1000,
-          "MMM dd, yyyy 'at' hh:mmaaa OOO",
-        ),
+          "MMM dd, yyyy 'at' hh:mmaaa OOO"
+        )
       );
     }
   }, [dao, expiryDateString, id, periodValue, periodMultiplier, setValue]);
@@ -81,7 +81,7 @@ export const ProposalExpiry = ({
         <HighlightInputText
           id="highlightProposalExpiry"
           description="Expiration will be on:"
-          highlightColor={theme.tint.secondary}
+          highlightColor={theme.secondary.step11}
           highlightInputId={expiryDateString}
         />
       </FieldSpacer>

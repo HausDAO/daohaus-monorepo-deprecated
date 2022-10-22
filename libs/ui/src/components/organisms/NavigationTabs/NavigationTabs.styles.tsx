@@ -5,7 +5,7 @@ import { Link } from '../../atoms';
 export const NavigationTabsContainer = styled.div`
   width: '100%';
   height: 10rem;
-  background-color: ${(props) => props.theme.navTabs.bg};
+  background-color: ${(props) => props.theme.secondary.step2};
 
   .nav-link-list {
     padding: 3.2rem 3.5rem 2.2rem 3.5rem;
@@ -23,7 +23,7 @@ export const DropdownLinkTrigger = styled.button`
   background-color: transparent;
   border: none;
   border-bottom: 2px transparent solid;
-  color: ${(props) => props.theme.navTabs.navLinkColor};
+  color: ${(props) => props.theme.secondary.step9};
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -38,12 +38,12 @@ export const DropdownLinkTrigger = styled.button`
   }
 
   :hover {
-    color: ${(props) => props.theme.navTabs.navLinkHoverColor};
+    color: ${(props) => props.theme.secondary.step10};
     text-decoration: none;
   }
   &.selected {
     color: white;
-    border-bottom: 2px ${(props) => props.theme.navTabs.navLinkColor} solid;
+    border-bottom: 2px ${(props) => props.theme.secondary.step9} solid;
   }
   &.navTabs {
     padding-bottom: 1rem;
@@ -52,7 +52,7 @@ export const DropdownLinkTrigger = styled.button`
 
 export const NavLink = styled(Link)`
   border-bottom: 2px transparent solid;
-  color: ${(props) => props.theme.navTabs.navLinkColor};
+  color: ${(props) => props.theme.secondary.step9};
   cursor: pointer;
   font-size: 2.2rem;
   letter-spacing: 1.5px;
@@ -64,13 +64,13 @@ export const NavLink = styled(Link)`
   }
 
   :hover {
-    color: ${(props) => props.theme.navTabs.navLinkHoverColor};
+    color: ${(props) => props.theme.secondary.step10};
     text-decoration: none;
   }
 
   &.selected {
     color: white;
-    border-bottom: 2px ${(props) => props.theme.navTabs.navLinkColor} solid;
+    border-bottom: 2px ${(props) => props.theme.secondary.step9} solid;
   }
 
   &.nav-tabs {
@@ -80,7 +80,7 @@ export const NavLink = styled(Link)`
 
 export const DropdownLink = styled(Link)`
   border-radius: 2px;
-  color: ${(props) => props.theme.navTabs.navLinkColor};
+  color: ${(props) => props.theme.secondary.step9};
   cursor: pointer;
   display: flex;
   font-size: 2.2rem;
@@ -94,14 +94,14 @@ export const DropdownLink = styled(Link)`
   }
 
   :hover {
-    background-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBg};
-    border-color: ${(props) => props.theme.navTabs.hoverNavLinkDropdownBorder};
+    background-color: ${(props) => props.theme.secondary.step4};
+    border-color: ${(props) => props.theme.secondary.step8};
     text-decoration: none;
   }
 
   &.selected {
-    background-color: ${(props) => props.theme.navTabs.activeNavLinkDropdownBg};
-    border-color: ${(props) => props.theme.navTabs.activeNavLinkDropdownBorder};
-    color: ${(props) => props.theme.navTabs.navLinkSelected};
+    background-color: ${(props) => props.theme.secondary.step9};
+    border-color: ${(props) => props.theme.secondary.step6};
+    color: ${(props) => props.theme.secondary.step12};
   }
 `;

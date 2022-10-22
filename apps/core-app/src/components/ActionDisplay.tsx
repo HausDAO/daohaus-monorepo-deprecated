@@ -4,7 +4,7 @@ import {
   isValidNetwork,
   ValidNetwork,
 } from '@daohaus/common-utilities';
-import { DecodedMultiTX, isActionError } from '@daohaus/tx-builder-feature';
+import { DecodedAction, DecodedMultiTX, isActionError } from '@daohaus/tx-builder-feature';
 import {
   AddressDisplay,
   Bold,
@@ -16,6 +16,12 @@ import {
 } from '@daohaus/ui';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+
+import { ProposalWarning } from './ProposalWarning';
+import {
+  DAO_METHOD_TO_PROPOSAL_TYPE,
+  SENSITIVE_PROPOSAL_TYPES,
+} from '../utils/constants';
 
 const DisplayContainer = styled.div`
   margin-top: 2rem;
@@ -38,10 +44,43 @@ const DisplayContainer = styled.div`
   }
 `;
 
-export const ActionDisplay = ({ actions }: { actions: DecodedMultiTX }) => {
-  const { daochain } = useParams();
+const WarningContainer = styled.div`
+  margin-bottom: 2rem;
+`;
+
+export const ActionDisplay = ({
+  actions,
+  proposalType,
+}: {
+  actions: DecodedMultiTX;
+  proposalType?: string;
+}) => {
+  const { daochain, daoid } = useParams();
   const network = isValidNetwork(daochain) ? daochain : undefined;
   const isMobile = useBreakpoint(widthQuery.sm);
+
+  const ActionAlert = ({ action }: {action: DecodedAction }) => {
+    const actionType = DAO_METHOD_TO_PROPOSAL_TYPE[action.name];
+    // Show Action Warning IFF actionType != proposal.proposalType
+    // e.g. calling sensitive dao methods through tx builder proposal
+    if (
+      proposalType &&
+      action.to === daoid &&
+      proposalType !== actionType &&
+      SENSITIVE_PROPOSAL_TYPES[actionType]
+    ) {
+      return (
+        <WarningContainer>
+          <ProposalWarning
+            proposalType={proposalType}
+            decodeError={false}
+            txHash={''}
+          />
+        </WarningContainer>
+      );
+    }
+    return null;
+  };
 
   return (
     <DisplayContainer>
@@ -65,6 +104,7 @@ export const ActionDisplay = ({ actions }: { actions: DecodedMultiTX }) => {
               <H4 className="space">
                 Action {index + 1}: {action.name}
               </H4>
+              <ActionAlert action={action} />
               <DataSm className="space">
                 <Bold>TARGET</Bold>
               </DataSm>

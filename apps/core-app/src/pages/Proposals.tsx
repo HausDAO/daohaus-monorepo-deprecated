@@ -1,4 +1,4 @@
-import { MouseEvent, useMemo, useState } from 'react';
+import { MouseEvent, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import {
   Button,
@@ -6,6 +6,8 @@ import {
   DialogTrigger,
   DialogContent,
   SingleColumnLayout,
+  Spinner,
+  useBreakpoint,
   widthQuery,
 } from '@daohaus/ui';
 import { statusFilter } from '@daohaus/dao-data';
@@ -39,11 +41,17 @@ const SearchFilterContainer = styled.div`
 `;
 
 export function Proposals() {
-  const { proposals, proposalsNextPaging, loadMoreProposals, filterProposals } =
+  const isMobile = useBreakpoint(widthQuery.sm);
+  const { isProposalsLoading, proposals, proposalsNextPaging, loadMoreProposals, filterProposals } =
     useProposals();
   const { dao } = useDao();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filter, setFilter] = useState<string>('');
+
+  useEffect(() => {
+    filterProposals();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const newProposals = useMemo(() => {
     return Object.keys(PROPOSAL_FORMS).map((key) => PROPOSAL_FORMS[key]);
@@ -96,7 +104,7 @@ export function Proposals() {
           <SearchInput
             searchTerm={searchTerm}
             setSearchTerm={handleSearchFilter}
-            totalItems={proposals?.length || 0}
+            totalItems={Number(dao?.proposalCount) || 0}
           />
 
           <FilterDropdown filter={filter} toggleFilter={toggleFilter} />
@@ -110,12 +118,15 @@ export function Proposals() {
           </DialogContent>
         </Dialog>
       </ActionsContainer>
+      {(!proposals || isProposalsLoading) && (
+        <Spinner size={isMobile ? '8rem' : '16rem'} />
+      )}
       {proposals &&
         proposals.map((proposal) => (
           <BaseProposalCard proposal={proposal} key={proposal.id} />
         ))}
 
-      {proposalsNextPaging !== undefined && (
+      {proposals && proposalsNextPaging && (
         <Button tertiary sm onClick={loadMoreProposals}>
           Show More Proposals
         </Button>

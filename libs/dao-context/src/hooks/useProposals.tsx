@@ -33,6 +33,7 @@ export const useProposals = (): DaoConnectProposalsType &
     setProposals(undefined);
     setProposalsFilter(filterQuery);
     setProposalsPaging(defaultDaoData.proposalsPaging);
+    if (proposalsFilter === filterQuery) refreshProposals();
   };
 
   return {

@@ -4,7 +4,10 @@ import styled from 'styled-components';
 import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
 import { Card, Icon, ParXs, Theme } from '@daohaus/ui';
 
-import { PROPOSAL_TYPE_WARNINGS } from '../utils/constants';
+import {
+  PROPOSAL_TYPE_WARNINGS,
+  SENSITIVE_PROPOSAL_TYPES,
+} from '../utils/constants';
 
 const WarningContainer = styled(Card)`
   display: flex;
@@ -61,6 +64,7 @@ export const ProposalWarning = ({
 
   const hasWarning =
     decodeError ||
+    (proposalType && SENSITIVE_PROPOSAL_TYPES[proposalType]) ||
     warningMessage === PROPOSAL_TYPE_WARNINGS.ERROR_UNKOWN;
 
   // TODO: activate this feature when errors use cases arise

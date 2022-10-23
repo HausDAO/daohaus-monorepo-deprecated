@@ -20,6 +20,9 @@ import {
   SponsorProposal,
   SubmitProposal,
   SubmitVote,
+  LockAdmin,
+  LockGovernor,
+  LockManager,
 } from '../generated/templates/BaalTemplate/Baal';
 import { constants } from './util/constants';
 import { parser } from './util/parser';
@@ -433,4 +436,37 @@ export function handleRageQuit(event: Ragequit): void {
   dao.save();
 
   addTransaction(event.block, event.transaction, event.address);
+}
+
+export function handleLockAdmin(event: LockAdmin): void {
+  let dao = Dao.load(event.address.toHexString());
+  if (dao === null) {
+    return;
+  }
+
+  dao.adminLocked = event.params.adminLock;
+
+  dao.save();
+}
+
+export function handleLockGovernor(event: LockGovernor): void {
+  let dao = Dao.load(event.address.toHexString());
+  if (dao === null) {
+    return;
+  }
+
+  dao.govenorLocked = event.params.governorLock;
+
+  dao.save();
+}
+
+export function handleLockManager(event: LockManager): void {
+  let dao = Dao.load(event.address.toHexString());
+  if (dao === null) {
+    return;
+  }
+
+  dao.managerLocked = event.params.managerLock;
+
+  dao.save();
 }

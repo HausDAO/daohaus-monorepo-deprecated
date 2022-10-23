@@ -40,6 +40,9 @@ export function handleSummonBaal(event: SummonBaal): void {
   dao.proposalCount = constants.BIGINT_ZERO;
   dao.members = [];
   dao.existingSafe = event.params.existingSafe;
+  dao.adminLocked = false;
+  dao.governorLocked = false;
+  dao.managerLocked = false;
 
   dao.baalVersion = '0.4.1';
   if (event.address.toHexString() === constants.BAAL_SUMMONER_V1_ADDRESS) {

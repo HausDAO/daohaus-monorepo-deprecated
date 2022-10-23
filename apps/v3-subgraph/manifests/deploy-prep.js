@@ -25,6 +25,10 @@ try {
     dsData.source.address = source.address;
     dsData.source.startBlock = source.startBlock;
 
+    if (source.version) {
+      dsData.name = `${dsData.name}-${source.version}`;
+    }
+
     data.dataSources.push(dsData);
   });
 

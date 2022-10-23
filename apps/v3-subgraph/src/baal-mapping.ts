@@ -455,7 +455,7 @@ export function handleLockGovernor(event: LockGovernor): void {
     return;
   }
 
-  dao.govenorLocked = event.params.governorLock;
+  dao.governorLocked = event.params.governorLock;
 
   dao.save();
 }

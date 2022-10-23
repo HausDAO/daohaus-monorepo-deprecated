@@ -53,6 +53,7 @@ module.exports.config = {
       },
       {
         name: 'baalSummoner-v1.0.0',
+        version: '1.0.0',
         template: 'baal-summoner-ds.yaml',
         address: '0xf020a55794DB5e065692F86a0Eb82197850a09b9',
         startBlock: 24659969,
@@ -71,6 +72,7 @@ module.exports.config = {
       },
       {
         name: 'tributeMinion-v1.0.0',
+        version: '1.0.0',
         template: 'tribute-minion-ds.yaml',
         address: '0x5c17BFBaB751C5ddF1Ff267acF8fF919537F39Cf',
         startBlock: 24660234,
@@ -99,6 +101,7 @@ module.exports.config = {
     dataSources: [
       {
         name: 'baalSummoner',
+        version: '1.0.0',
         template: 'baal-summoner-ds.yaml',
         address: '0xEd6AA9879Ed6ba07411C3224F748Dc65D3f8e685',
         startBlock: 7510135,
@@ -123,6 +126,7 @@ module.exports.config = {
       },
       {
         name: 'tributeMinion-v1.0.0',
+        version: '1.0.0',
         template: 'tribute-minion-ds.yaml',
         address: '0x5c17BFBaB751C5ddF1Ff267acF8fF919537F39Cf',
         startBlock: 7798495,

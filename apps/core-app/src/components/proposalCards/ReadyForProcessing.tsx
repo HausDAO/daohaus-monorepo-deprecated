@@ -21,6 +21,8 @@ import { GatedButton } from './GatedButton';
 import { VotingBar } from '../VotingBar';
 import { LOCAL_ABI } from '@daohaus/abi-utilities';
 
+import { ActionLifeCycleFns } from '../../utils/general';
+
 // Adding to the gas limit to account for cost of processProposal
 export const PROCESS_PROPOSAL_GAS_LIMIT_ADDITION = 150000;
 
@@ -70,8 +72,10 @@ const checkCanProcess = async ({
 };
 
 export const ReadyForProcessing = ({
+  lifeCycleFnsOverride,
   proposal,
 }: {
+  lifeCycleFnsOverride?: ActionLifeCycleFns;
   proposal: ITransformedProposal;
 }) => {
   const { daochain, daoid } = useParams();
@@ -99,6 +103,7 @@ export const ReadyForProcessing = ({
 
     if (!proposalId) return;
     setIsLoading(true);
+    lifeCycleFnsOverride?.onActionTriggered?.();
     await fireTransaction({
       tx: {
         ...ACTION_TX.PROCESS,
@@ -111,19 +116,22 @@ export const ReadyForProcessing = ({
             error,
           });
           errorToast({ title: 'Execution Failed', description: errMsg });
+          lifeCycleFnsOverride?.onTxError?.(error);
           setIsLoading(false);
         },
-        onTxSuccess: () => {
+        onTxSuccess: (txHash: string) => {
           defaultToast({
             title: 'Execution Success',
             description: 'Please wait for subgraph to sync',
           });
+          lifeCycleFnsOverride?.onTxSuccess?.(txHash);
         },
         onPollError: (error) => {
           const errMsg = handleErrorMessage({
             error,
           });
           errorToast({ title: 'Poll Error', description: errMsg });
+          lifeCycleFnsOverride?.onPollError?.(error);
           setIsLoading(false);
         },
         onPollSuccess: () => {
@@ -132,6 +140,7 @@ export const ReadyForProcessing = ({
             description: 'Proposal executed',
           });
           refreshAll();
+          lifeCycleFnsOverride?.onPollSuccess?.(undefined);
           setIsLoading(false);
         },
       },

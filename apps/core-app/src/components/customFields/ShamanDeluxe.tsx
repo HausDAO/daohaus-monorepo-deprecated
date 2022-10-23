@@ -12,7 +12,7 @@ import { Buildable, DataSm, ShamanPermission } from '@daohaus/ui';
 import { useDao } from '@daohaus/dao-context';
 
 const Secondary = styled.span`
-  color: ${(props) => props.theme.secondary};
+  color: ${(props) => props.theme.secondary.step9};
 `;
 
 const DeluxeBox = styled.div`

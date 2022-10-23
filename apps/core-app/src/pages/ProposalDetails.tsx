@@ -26,6 +26,7 @@ import { CancelProposal } from '../components/CancelProposal';
 import {
   DecodedMultiTX,
   decodeProposalActions,
+  isActionError,
 } from '@daohaus/tx-builder-feature';
 import { ActionDisplay } from '../components/ActionDisplay';
 import { TX } from '../legos/tx';
@@ -70,6 +71,7 @@ export function ProposalDetails() {
     ITransformedProposalQuery['proposal'] | undefined
   >();
   const [proposalLoading, setProposalLoading] = useState<boolean>(false);
+  const [decodeError, setDecodeError] = useState<boolean>(false);
   const [actionData, setActionData] = useState<DecodedMultiTX | null>();
 
   const fetchProposal = useCallback(() => {
@@ -107,6 +109,7 @@ export function ProposalDetails() {
       });
       if (shouldUpdate) {
         setActionData(proposalActions);
+        setDecodeError(proposalActions.some(action => isActionError(action)));
       }
     };
 
@@ -137,7 +140,12 @@ export function ProposalDetails() {
       }
       left={
         <OverviewCard>
-          {proposal && <ProposalDetailsGuts proposal={proposal} />}
+          {proposal && 
+            <ProposalDetailsGuts
+              decodeError={decodeError}
+              proposal={proposal}
+            />
+          }
           {actionData && (
             <ActionContainer>
               <ActionDisplay actions={actionData} />

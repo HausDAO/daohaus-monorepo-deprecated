@@ -20,7 +20,7 @@ import {
 import { TDao } from '@daohaus/dao-context';
 
 const VaultOverviewCard = styled(Card)`
-  background-color: ${({ theme }: { theme: Theme }) => theme.card.hoverBg};
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
   border: none;
   padding: 3rem;
   width: 100%;
@@ -35,7 +35,7 @@ const VaultCardHeader = styled.div`
 
   .safe-link {
     padding: 0.9rem;
-    background-color: ${({ theme }: { theme: Theme }) => theme.card.border};
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step5};
     border-radius: 4px;
   }
 `;

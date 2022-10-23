@@ -4,8 +4,6 @@ import {
   secondary,
   primaryDark,
   secondaryDark,
-  utility,
-  utilityDark,
   success,
   successDark,
   warning,
@@ -49,7 +47,7 @@ export const SecondaryDarkButton: ButtonColorTargets = {
 // TODO Delete this
 export const TertiaryDarkButton: ButtonColorTargets = {
   text: primaryDark.step11,
-  bg: utilityDark.transparent,
+  bg: 'transparent',
   border: primaryDark.step11,
   hoverText: primaryDark.step10,
   hoverBorder: primaryDark.step10,
@@ -145,7 +143,7 @@ export const SecondaryLightButton: ButtonColorTargets = {
 
 // TODO Delete after Button2 is used
 export const TertiaryLightButton: ButtonColorTargets = {
-  bg: utility.transparent,
+  bg: 'transparent',
   text: primary.step11,
   border: primary.step11,
   hoverText: primary.step10,

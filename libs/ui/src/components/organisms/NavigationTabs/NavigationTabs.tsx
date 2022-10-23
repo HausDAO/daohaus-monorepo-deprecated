@@ -58,7 +58,7 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
       {isSm ? (
         <div className="mobile-box">
           <Dropdown
-            menuBg={theme.navTabs.bg}
+            menuBg={theme.secondary.step2}
             align={dropdownMenuAlign}
             spacing={dropdownMenuSpacing}
             trigger={
@@ -94,7 +94,7 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
           {dropdownLinks.length > 0 && (
             <Dropdown
               modal={false}
-              menuBg={theme.navTabs.bg}
+              menuBg={theme.secondary.step2}
               align={dropdownMenuAlign}
               spacing={dropdownMenuSpacing}
               trigger={

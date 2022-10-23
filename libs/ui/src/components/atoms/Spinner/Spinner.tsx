@@ -81,8 +81,8 @@ export const Spinner = ({
   return (
     <Container size={size} margin={margin} padding={padding}>
       <StyledSpinner
-        topColor={topColor || theme.spinner.topColor}
-        bottomColor={bottomColor || theme.spinner.bottomColor}
+        topColor={topColor || theme.primary.step9}
+        bottomColor={bottomColor || theme.primary.step4}
         size={size}
         className="loader"
         strokeWidth={strokeWidth}

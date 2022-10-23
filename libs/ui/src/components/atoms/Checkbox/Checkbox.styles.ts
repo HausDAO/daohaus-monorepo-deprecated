@@ -12,8 +12,8 @@ export const Container = styled.div`
 
 export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
   align-items: center;
-  background-color: ${({ theme }: { theme: Theme }) => theme.checkbox.bg};
-  border: 2px solid ${({ theme }: { theme: Theme }) => theme.checkbox.border};
+  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+  border: 2px solid ${({ theme }: { theme: Theme }) => theme.secondary.step6};
   border-radius: 1px;
   cursor: pointer;
   display: flex;
@@ -22,65 +22,51 @@ export const StyledCheckbox = styled(CheckboxPrimitive.Root)`
   width: 18px;
 
   :hover {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.checkbox.hoverBg};
-    border: 2px solid
-      ${({ theme }: { theme: Theme }) => theme.checkbox.hoverBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step4};
+    border: 2px solid ${({ theme }: { theme: Theme }) => theme.secondary.step6};
   }
 
   :focus {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.checkbox.focusBg};
-    border: 2px solid
-      ${({ theme }: { theme: Theme }) => theme.checkbox.focusBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
+    border: 2px solid ${({ theme }: { theme: Theme }) => theme.secondary.step7};
     outline: none;
   }
 
   :disabled {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.checkbox.disabledBg};
-    border: 2px solid
-      ${({ theme }: { theme: Theme }) => theme.checkbox.disabledBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step2};
+    border: 2px solid ${({ theme }: { theme: Theme }) => theme.neutral.step6};
     cursor: not-allowed;
   }
 
   &[data-state='checked'] {
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.checkbox.activeBg};
-    border: 2px solid
-      ${({ theme }: { theme: Theme }) => theme.checkbox.activeBorder};
+    background-color: ${({ theme }: { theme: Theme }) => theme.primary.step3};
+    border: 2px solid ${({ theme }: { theme: Theme }) => theme.primary.step9};
 
     :hover {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.checkbox.activeHoverBg};
-      border: 2px solid
-        ${({ theme }: { theme: Theme }) => theme.checkbox.activeHoverBorder};
+      background-color: ${({ theme }: { theme: Theme }) => theme.primary.step4};
+      border: 2px solid ${({ theme }: { theme: Theme }) => theme.primary.step9};
     }
 
     :focus {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.checkbox.activeFocusBg};
-      border: 2px solid
-        ${({ theme }: { theme: Theme }) => theme.checkbox.activeFocusBorder};
+      background-color: ${({ theme }: { theme: Theme }) => theme.primary.step3};
+      border: 2px solid ${({ theme }: { theme: Theme }) => theme.primary.step10};
       outline: none;
     }
 
     :disabled {
-      background-color: ${({ theme }: { theme: Theme }) =>
-        theme.checkbox.activeDisabledBg};
-      border: 2px solid
-        ${({ theme }: { theme: Theme }) => theme.checkbox.activeDisabledBorder};
+      background-color: ${({ theme }: { theme: Theme }) => theme.neutral.step2};
+      border: 2px solid ${({ theme }: { theme: Theme }) => theme.neutral.step9};
       cursor: not-allowed;
     }
   }
 `;
 
 export const StyledIndicator = styled(CheckboxPrimitive.Indicator)`
-  color: ${({ theme }: { theme: Theme }) => theme.primary};
+  color: ${({ theme }: { theme: Theme }) => theme.primary.step9};
   font-size: 2rem;
   padding-top: 3px;
   :disabled {
-    color: ${({ theme }: { theme: Theme }) => theme.checkbox.disabledBg};
+    color: ${({ theme }: { theme: Theme }) => theme.neutral.step2};
   }
 `;
 
@@ -97,7 +83,7 @@ export const LabelContainer = styled.label`
 `;
 
 export const RequiredAsterisk = styled.span`
-  color: ${({ theme }: { theme: Theme }) => theme.warning};
+  color: ${({ theme }: { theme: Theme }) => theme.warning.step9};
   font-weight: ${font.weight.bold};
   margin-right: 8px;
   transform: translateY(-0.25rem);

@@ -24,25 +24,13 @@ export interface ButtonProps
   /* Size of the button */
   size?: 'sm' | 'md' | 'lg';
   /** Controls button variant */
-  variant?: 'solid' | 'outline' | 'link';
+  variant?: 'solid' | 'outline' | 'ghost' | 'link';
   /* Width of the button element */
   fullWidth?: boolean;
   /* Adds icon before button label */
-  IconLeft?:
-    | IconType
-    | React.FunctionComponent<
-        React.SVGProps<SVGSVGElement> & {
-          title?: string | undefined;
-        }
-      >;
+  IconLeft?: IconType | React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
   /* Adds icon after button label */
-  IconRight?:
-    | IconType
-    | React.FunctionComponent<
-        React.SVGProps<SVGSVGElement> & {
-          title?: string | undefined;
-        }
-      >;
+  IconRight?: IconType | React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

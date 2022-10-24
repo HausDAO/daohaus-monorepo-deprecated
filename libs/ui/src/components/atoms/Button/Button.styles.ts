@@ -83,6 +83,29 @@ export const ButtonBase = styled.button<{
     }
   }
 
+  &.ghost {
+    background-color: ${({ theme }) => theme.transparent};
+    border: 1px solid ${({ theme }) => theme.transparent};
+    color: ${({ theme, colorVariant }) => theme[`${colorVariant}`].step10};
+
+    :hover {
+      background-color: ${({ theme, colorVariant }) =>
+        theme[`${colorVariant}`].step3};
+      color: ${({ theme, colorVariant }) =>
+        theme.button[`${colorVariant}`].outlineHover};
+    }
+
+    :focus {
+      border: 1px solid
+        ${({ theme, colorVariant }) => theme[`${colorVariant}`].step4};
+    }
+
+    :disabled {
+      color: ${({ theme, colorVariant }) => theme[`${colorVariant}`].step8};
+      cursor: not-allowed;
+    }
+  }
+
   &.link {
     height: auto;
     font-family: ${font.family.body};

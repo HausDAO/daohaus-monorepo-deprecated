@@ -15,7 +15,7 @@ export default {
     variant: {
       description: 'Set the variant of the button',
       defaultValue: 'solid',
-      options: ['solid', 'outline', 'link'],
+      options: ['solid', 'outline', 'ghost', 'link'],
       control: { type: 'radio' },
     },
     size: {

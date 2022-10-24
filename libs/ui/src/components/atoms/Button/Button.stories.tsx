@@ -1,10 +1,10 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { RiAlertLine, RiArrowDropDownLine } from 'react-icons/ri';
-import { ButtonV2 } from './ButtonV2';
+import { Button } from './Button';
 
 export default {
-  title: 'Atoms/ButtonV2',
-  component: ButtonV2,
+  title: 'Atoms/Button',
+  component: Button,
   argTypes: {
     colorVariant: {
       description: 'Set the base theme color for the button',
@@ -25,14 +25,12 @@ export default {
       control: { type: 'radio' },
     },
   },
-} as ComponentMeta<typeof ButtonV2>;
+} as ComponentMeta<typeof Button>;
 
 // Setting displayName manually since Storybook displays it as [Object, object]
-ButtonV2.displayName = 'ButtonV2';
+Button.displayName = 'Button';
 
-const Template: ComponentStory<typeof ButtonV2> = (args) => (
-  <ButtonV2 {...args} />
-);
+const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
 
 export const BaseButton = Template.bind({});
 

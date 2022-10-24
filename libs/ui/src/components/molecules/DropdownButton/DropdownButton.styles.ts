@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
-import { ButtonV2 } from '../../atoms/ButtonV2';
+import { Button } from '../../atoms/Button';
 
-export const DropdownButtonBase = styled(ButtonV2)`
+export const DropdownButtonBase = styled(Button)`
   &.profile {
     span {
       margin-right: 1rem;

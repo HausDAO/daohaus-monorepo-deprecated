@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { IconType } from 'react-icons';
 
 import { RiArrowDropDownLine } from 'react-icons/ri';
-import { ButtonColorVariant } from '../../atoms/ButtonV2';
+import { ButtonColorVariant } from '../../atoms/Button';
 import { Avatar, AvatarProps } from '../../atoms';
 import { DropdownButtonBase } from './DropdownButton.styles';
 

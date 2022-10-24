@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { IconType } from 'react-icons';
 
-import { ButtonBase } from './ButtonV2.styles';
+import { ButtonBase } from './Button.styles';
 
 export type ButtonColorVariant =
   | 'primary'
@@ -55,7 +55,7 @@ export interface ButtonProps {
       >;
 }
 
-export const ButtonV2 = React.forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (props, ref) => {
     const {
       type = 'button',

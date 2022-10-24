@@ -41,7 +41,7 @@ BaseButton.args = {
   variant: 'solid',
   size: 'md',
   disabled: false,
-  fullWidth: true,
+  fullWidth: false,
 };
 
 export const PrimaryButton = Template.bind({});

@@ -142,6 +142,11 @@ export const ButtonBase = styled.button<{
     height: 3.6rem;
     min-width: 6.6rem;
     padding: 0.9rem;
+
+    svg {
+      height: 1.8rem;
+      width: 1.8rem;
+    }
   }
 
   &.lg {
@@ -149,6 +154,11 @@ export const ButtonBase = styled.button<{
     height: 6rem;
     min-width: 10.7rem;
     padding: 1.5rem;
+
+    svg {
+      height: 3.2rem;
+      width: 3.2rem;
+    }
   }
 
   &.full-width {

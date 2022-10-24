@@ -43,7 +43,7 @@ BaseDropdownButton.args = {
   variant: 'solid',
   size: 'md',
   disabled: false,
-  width: 'fit-content',
+  fullWidth: false,
 };
 
 export const ProfileDropdownButton = Template.bind({});
@@ -54,7 +54,7 @@ ProfileDropdownButton.args = {
   variant: 'solid',
   size: 'md',
   disabled: false,
-  width: 'fit-content',
+  fullWidth: false,
   profile: {
     image:
       'https://bafybeiabmsm2gy3eb7d3b3zx7mqmg7tg54swosqjb2swcwpatgrctu5ry4.ipfs.dweb.link/',

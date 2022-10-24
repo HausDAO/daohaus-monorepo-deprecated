@@ -62,6 +62,8 @@ export const SummonerForm = ({
     try {
       const args = assembleTxArgs(formValues, chainId);
 
+      console.log('args', args);
+
       fireTransaction({
         tx: {
           ...SummonTX,

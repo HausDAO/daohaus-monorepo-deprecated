@@ -4,7 +4,6 @@ import { font } from '../../../theme/global/font';
 
 export const ButtonBase = styled.button<{
   colorVariant: 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
-  buttonWidth: 'fit-content' | '100%' | string;
 }>`
   align-items: center;
   border-radius: 0.4rem;
@@ -15,10 +14,8 @@ export const ButtonBase = styled.button<{
   height: 4.8rem;
   justify-content: center;
   letter-spacing: 1.8px;
-  min-width: 8.5rem;
   padding: 1.2rem;
   transition: 0.2s all;
-  width: ${(props: { buttonWidth?: string }) => props.buttonWidth};
 
   &.solid {
     background-color: ${({ theme, colorVariant }) =>
@@ -129,6 +126,10 @@ export const ButtonBase = styled.button<{
     height: 6rem;
     min-width: 10.7rem;
     padding: 1.5rem;
+  }
+
+  &.full-width {
+    min-width: 100%;
   }
 
   svg {

@@ -24,6 +24,7 @@ export default {
       options: ['sm', 'md', 'lg'],
       control: { type: 'radio' },
     },
+    onClick: { action: 'clicked' },
   },
 } as ComponentMeta<typeof Button>;
 
@@ -36,12 +37,11 @@ export const BaseButton = Template.bind({});
 
 BaseButton.args = {
   children: 'Button',
-  onClick: () => alert('clicked me'),
   colorVariant: 'primary',
   variant: 'solid',
   size: 'md',
   disabled: false,
-  width: 'fit-content',
+  fullWidth: true,
 };
 
 export const PrimaryButton = Template.bind({});
@@ -98,5 +98,4 @@ ButtonWithLeftAndRightIcons.args = {
   children: 'Button',
   IconLeft: RiAlertLine,
   IconRight: RiArrowDropDownLine,
-  width: '100%',
 };

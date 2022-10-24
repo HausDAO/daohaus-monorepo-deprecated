@@ -4,8 +4,8 @@ import { IconType } from 'react-icons';
 
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import { ButtonColorVariant } from '../../atoms/Button';
-import { Avatar, AvatarProps } from '../../atoms';
-import { DropdownButtonBase } from './DropdownButton.styles';
+import { DropdownAvatar, DropdownButtonBase } from './DropdownButton.styles';
+import { ProfileAvatarProps } from '../ProfileAvatar/ProfileAvatar';
 
 export interface DropdownButtonProps {
   /* Makes button disabled */
@@ -21,11 +21,11 @@ export interface DropdownButtonProps {
   /* Size of the button */
   size: 'sm' | 'md' | 'lg';
   /** Controls button variant */
-  variant: 'solid' | 'outline' | 'link';
+  variant: 'solid' | 'outline';
   /* Width of the button element */
   width: 'fit-content' | '100%' | string;
   /* Profile Avatar stils on the left of button */
-  profile: Omit<AvatarProps, 'size'>;
+  profile: Omit<ProfileAvatarProps, 'size'>;
   /* React node */
   children?: React.ReactNode;
   /* Css class name */
@@ -69,7 +69,7 @@ export const DropdownButton = React.forwardRef<
       ref={ref}
       IconRight={IconRight}
     >
-      {profile && <Avatar {...profile} size={size} />}
+      {profile && <DropdownAvatar {...profile} size={size} />}
       {children}
     </DropdownButtonBase>
   );

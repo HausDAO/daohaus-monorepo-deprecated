@@ -6,6 +6,7 @@ import { Button, Link } from '../../atoms';
 
 export const DropdownMenu = Dropdown.Root;
 export const DropdownMenuTrigger = styled(Dropdown.Trigger)``;
+export const DropdownMenuItem = styled(Dropdown.Item)``;
 
 type MenuContentType = {
   bgmenu?: string;
@@ -19,10 +20,6 @@ export const DropdownMenuContent = styled(Dropdown.DropdownMenuContent)`
   padding: 0.4rem;
   min-width: ${(props: MenuContentType) => props.minwidth};
   z-index: 10;
-`;
-
-export const DropdownMenuItem = styled(Dropdown.Item)`
-  margin-bottom: ${(props: { spacing?: string }) => props.spacing};
 `;
 
 export const DropdownMenuLabel = styled(Dropdown.Label)`

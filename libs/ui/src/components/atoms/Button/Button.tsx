@@ -10,11 +10,9 @@ export type ButtonColorVariant =
   | 'success'
   | 'warning'
   | 'danger';
-type ButtonWidth = 'fit-content' | '100%' | string;
 
-export interface ButtonProps {
-  /* Makes button disabled */
-  disabled?: boolean;
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   // ! Not Included untill talk with design
   // Shows loading spinner */
   loading?: boolean;
@@ -23,20 +21,12 @@ export interface ButtonProps {
   loadingText?: string;
   /** Set theme color */
   colorVariant?: ButtonColorVariant;
-  /* Set the original html type of button */
-  type?: 'button' | 'reset' | 'submit';
   /* Size of the button */
   size?: 'sm' | 'md' | 'lg';
   /** Controls button variant */
   variant?: 'solid' | 'outline' | 'link';
   /* Width of the button element */
-  width?: ButtonWidth;
-  /* React node */
-  children?: React.ReactNode;
-  /* Css class name */
-  className?: string;
-  /* On Click handler */
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  fullWidth?: boolean;
   /* Adds icon before button label */
   IconLeft?:
     | IconType
@@ -61,25 +51,25 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       type = 'button',
       IconLeft,
       IconRight,
-      children,
-      className,
       colorVariant = 'primary',
       variant = 'solid',
       size = 'md',
-      width = 'fit-content',
+      fullWidth,
+      className,
+      children,
       ...rest
     } = props;
 
     const classes = classNames({
       [variant]: variant,
       [size]: size,
+      'full-width': fullWidth,
     });
 
     return (
       <ButtonBase
         {...rest}
         colorVariant={colorVariant}
-        buttonWidth={width}
         className={`${classes} ${className}`}
         ref={ref}
         type={type}

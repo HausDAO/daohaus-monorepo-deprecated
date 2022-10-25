@@ -17,6 +17,19 @@ export const ButtonBase = styled.button<{
   padding: 1.2rem;
   transition: 0.2s all;
 
+  svg {
+    width: 2.2rem;
+    height: 2.2rem;
+
+    &.icon-left {
+      margin-right: 1rem;
+    }
+
+    &.icon-right {
+      margin-left: 0.5rem;
+    }
+  }
+
   &.solid {
     background-color: ${({ theme, colorVariant }) =>
       theme.button[`${colorVariant}`].solid.bg};
@@ -167,18 +180,5 @@ export const ButtonBase = styled.button<{
 
   &.full-width {
     min-width: 100%;
-  }
-
-  svg {
-    width: 2.2rem;
-    height: 2.2rem;
-
-    &.icon-left {
-      margin-right: 1rem;
-    }
-
-    &.icon-right {
-      margin-left: 0.5rem;
-    }
   }
 `;

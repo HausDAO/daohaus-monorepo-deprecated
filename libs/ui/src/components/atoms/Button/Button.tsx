@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import classNames from 'classnames';
 import { IconType } from 'react-icons';
 
@@ -11,8 +11,7 @@ export type ButtonColorVariant =
   | 'warning'
   | 'danger';
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   // ! Not Included untill talk with design
   // Shows loading spinner */
   loading?: boolean;

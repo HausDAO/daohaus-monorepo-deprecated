@@ -40,18 +40,18 @@ export const DAOFilterDropdown = ({
   toggleDelegateFilter,
 }: DAOFilterDropdownProps) => {
   const theme = useTheme();
+
   const networkButtons = Object.values(NETWORK_DATA).map((network) => {
     const isActive = filterNetworks[network.chainId];
-
+    // We should be using DropdownMenu.CheckboxItem in this instance and not modifying the button
     return (
       <DropdownMenuItem key={network.chainId} asChild>
         <DropdownButton
           value={network.chainId}
           onClick={toggleNetworkFilter}
           className={isActive ? 'selected' : ''}
-          secondary
+          colorVariant="secondary"
           fullWidth
-          leftAlign
           IconRight={isActive ? RiCheckLine : undefined}
         >
           <div style={{ width: '100%' }}>{network.name}</div>
@@ -59,14 +59,15 @@ export const DAOFilterDropdown = ({
       </DropdownMenuItem>
     );
   });
+
   return (
     <Dropdown
       align="end"
-      menuBg={theme.button.secondary.bg}
+      menuBg={theme.secondary.step6}
       menuMinWidth="25rem"
       spacing=".6rem"
       trigger={
-        <Button secondary IconLeft={IconFilter}>
+        <Button colorVariant="secondary" IconLeft={IconFilter}>
           Filters
         </Button>
       }
@@ -80,9 +81,8 @@ export const DAOFilterDropdown = ({
       </DropdownMenuLabel>
       <DropdownMenuItem asChild>
         <DropdownButton
-          secondary
+          colorVariant="secondary"
           fullWidth
-          leftAlign
           value={FILTER_TYPE.DELEGATING}
           onClick={toggleDelegateFilter}
           IconRight={
@@ -97,9 +97,8 @@ export const DAOFilterDropdown = ({
       </DropdownMenuItem>
       <DropdownMenuItem asChild>
         <DropdownButton
-          secondary
+          colorVariant="secondary"
           fullWidth
-          leftAlign
           value={FILTER_TYPE.DELEGATING_TO}
           onClick={toggleDelegateFilter}
           IconRight={

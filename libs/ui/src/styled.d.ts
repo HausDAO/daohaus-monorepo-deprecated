@@ -1,27 +1,53 @@
 import 'styled-components';
 
-/*
- * Hope to be able to delete this soon
- */
-
 export type ButtonColorTargets = {
   text: string;
   bg: string;
   border: string;
-  hoverText?: string;
-  hoverBg?: string;
+  hoverBg: string;
   hoverBorder: string;
-  focusText?: string;
-  focusBg?: string;
+  focusBg: string;
   focusBorder: string;
-  disabledText?: string;
-  disabledBg?: string;
-  disabledBorder?: string;
-  outline?: string;
-  outlineHover?: string;
-  outlineFocus?: string;
-  outlineDisabled?: string;
+  disabledBg: string;
+  disabledBorder: string;
+  outline: string;
+  outlineHover: string;
+  outlineFocus: string;
+  outlineDisabled: string;
 };
+
+export interface BtnTargets {
+  solid: {
+    text: string;
+    bg: string;
+    border: string;
+    bgHover: string;
+    borderHover: string;
+    bgFocus: string;
+    borderFocus: string;
+    bgDisabled: string;
+    borderDisabled: string;
+  };
+  outline: {
+    text: string;
+    border: string;
+    hover: string;
+    focus: string;
+    disabled: string;
+  };
+  ghost: {
+    text: string;
+    bgHover: string;
+    borderFocus: string;
+    disabled: string;
+  };
+  link: {
+    text: string;
+    hover: string;
+    focus: string;
+    disabled: string;
+  };
+}
 
 type ColorSteps = {
   step1: string;
@@ -125,12 +151,11 @@ declare module 'styled-components' {
     red11: string;
     red12: string;
     button: {
-      primary: ButtonColorTargets;
-      secondary: ButtonColorTargets;
-      tertiary: ButtonColorTargets;
-      success: ButtonColorTargets;
-      warning: ButtonColorTargets;
-      danger: ButtonColorTargets;
+      primary: BtnTargets;
+      secondary: BtnTargets;
+      success: BtnTargets;
+      warning: BtnTargets;
+      danger: BtnTargets;
     };
     toast: {
       icon: {

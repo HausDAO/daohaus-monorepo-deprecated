@@ -36,18 +36,16 @@ import {
 } from './global/colors';
 
 import {
-  PrimaryDarkButton,
-  SecondaryDarkButton,
-  TertiaryDarkButton,
-  SuccessDarkButton,
-  WarningDarkButton,
-  DangerDarkButton,
-  PrimaryLightButton,
-  SecondaryLightButton,
-  TertiaryLightButton,
-  SuccessLightButton,
-  WarningLightButton,
-  DangerLightButton,
+  primaryDarkBtn,
+  dangerDarkBtn,
+  secondaryDarkBtn,
+  successDarkBtn,
+  warningDarkBtn,
+  primaryBtn,
+  secondaryBtn,
+  successBtn,
+  dangerBtn,
+  warningBtn,
 } from './atoms/button';
 
 export const defaultDarkTheme: Theme = {
@@ -72,12 +70,11 @@ export const defaultDarkTheme: Theme = {
   ...redDark,
   // *** ATOMS *** //
   button: {
-    primary: PrimaryDarkButton,
-    secondary: SecondaryDarkButton,
-    tertiary: TertiaryDarkButton,
-    success: SuccessDarkButton,
-    warning: WarningDarkButton,
-    danger: DangerDarkButton,
+    primary: primaryDarkBtn,
+    secondary: secondaryDarkBtn,
+    success: successDarkBtn,
+    warning: warningDarkBtn,
+    danger: dangerDarkBtn,
   },
   // *** MOLECULES *** //
   toast: {
@@ -112,12 +109,11 @@ export const defaultLightTheme: Theme = {
   ...red,
   // *** Will remove Button in ticket to Migrate to Button V2 *** //
   button: {
-    primary: PrimaryLightButton,
-    secondary: SecondaryLightButton,
-    tertiary: TertiaryLightButton,
-    success: SuccessLightButton,
-    warning: WarningLightButton,
-    danger: DangerLightButton,
+    primary: primaryBtn,
+    secondary: secondaryBtn,
+    success: successBtn,
+    warning: warningBtn,
+    danger: dangerBtn,
   },
   // *** Toast needs a slight refacto for Icons *** //
   toast: {

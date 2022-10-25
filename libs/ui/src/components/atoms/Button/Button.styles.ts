@@ -19,33 +19,35 @@ export const ButtonBase = styled.button<{
 
   &.solid {
     background-color: ${({ theme, colorVariant }) =>
-      theme.button[`${colorVariant}`].bg};
+      theme.button[`${colorVariant}`].solid.bg};
     border: 0.1rem solid
-      ${({ theme, colorVariant }) => theme.button[`${colorVariant}`].border};
-    color: ${({ theme, colorVariant }) => theme.button[`${colorVariant}`].text};
+      ${({ theme, colorVariant }) =>
+        theme.button[`${colorVariant}`].solid.border};
+    color: ${({ theme, colorVariant }) =>
+      theme.button[`${colorVariant}`].solid.text};
 
     :hover {
       background-color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].hoverBg};
+        theme.button[`${colorVariant}`].solid.bgHover};
       border: 0.1rem solid
         ${({ theme, colorVariant }) =>
-          theme.button[`${colorVariant}`].hoverBorder};
+          theme.button[`${colorVariant}`].solid.borderHover};
     }
 
     :focus {
       background-color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].focusBg};
+        theme.button[`${colorVariant}`].solid.bgFocus};
       border: 0.1rem solid
         ${({ theme, colorVariant }) =>
-          theme.button[`${colorVariant}`].focusBorder};
+          theme.button[`${colorVariant}`].solid.borderFocus};
     }
 
     :disabled {
       background-color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].disabledBg};
+        theme.button[`${colorVariant}`].solid.bgDisabled};
       border: 0.1rem solid
         ${({ theme, colorVariant }) =>
-          theme.button[`${colorVariant}`].disabledBorder};
+          theme.button[`${colorVariant}`].solid.borderDisabled};
       cursor: not-allowed;
     }
   }
@@ -53,32 +55,33 @@ export const ButtonBase = styled.button<{
   &.outline {
     background-color: transparent;
     border: 0.1rem solid
-      ${({ theme, colorVariant }) => theme.button[`${colorVariant}`].outline};
+      ${({ theme, colorVariant }) =>
+        theme.button[`${colorVariant}`].outline.border};
     color: ${({ theme, colorVariant }) =>
-      theme.button[`${colorVariant}`].outline};
+      theme.button[`${colorVariant}`].outline.text};
 
     :hover {
       border: 0.1rem solid
         ${({ theme, colorVariant }) =>
-          theme.button[`${colorVariant}`].outlineHover};
+          theme.button[`${colorVariant}`].outline.hover};
       color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].outlineHover};
+        theme.button[`${colorVariant}`].outline.hover};
     }
 
     :focus {
       border: 0.1rem solid
         ${({ theme, colorVariant }) =>
-          theme.button[`${colorVariant}`].outlineFocus};
+          theme.button[`${colorVariant}`].outline.focus};
       color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].outlineFocus};
+        theme.button[`${colorVariant}`].outline.focus};
     }
 
     :disabled {
       border: 0.1rem solid
         ${({ theme, colorVariant }) =>
-          theme.button[`${colorVariant}`].outlineDisabled};
+          theme.button[`${colorVariant}`].outline.disabled};
       color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].outlineDisabled};
+        theme.button[`${colorVariant}`].outline.disabled};
       cursor: not-allowed;
     }
   }
@@ -86,22 +89,23 @@ export const ButtonBase = styled.button<{
   &.ghost {
     background-color: ${({ theme }) => theme.transparent};
     border: 1px solid ${({ theme }) => theme.transparent};
-    color: ${({ theme, colorVariant }) => theme[`${colorVariant}`].step10};
+    color: ${({ theme, colorVariant }) =>
+      theme.button[`${colorVariant}`].ghost.text};
 
     :hover {
       background-color: ${({ theme, colorVariant }) =>
-        theme[`${colorVariant}`].step3};
-      color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].outlineHover};
+        theme.button[`${colorVariant}`].ghost.bgHover};
     }
 
     :focus {
       border: 1px solid
-        ${({ theme, colorVariant }) => theme[`${colorVariant}`].step4};
+        ${({ theme, colorVariant }) =>
+          theme.button[`${colorVariant}`].ghost.borderFocus};
     }
 
     :disabled {
-      color: ${({ theme, colorVariant }) => theme[`${colorVariant}`].step8};
+      color: ${({ theme, colorVariant }) =>
+        theme.button[`${colorVariant}`].ghost.disabled};
       cursor: not-allowed;
     }
   }
@@ -117,22 +121,22 @@ export const ButtonBase = styled.button<{
     background-color: transparent;
     border: none;
     color: ${({ theme, colorVariant }) =>
-      theme.button[`${colorVariant}`].outline};
+      theme.button[`${colorVariant}`].link.text};
 
     :hover {
       color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].outlineHover};
+        theme.button[`${colorVariant}`].link.hover};
       text-decoration: underline;
     }
 
     :focus {
       color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].outlineFocus};
+        theme.button[`${colorVariant}`].link.focus};
     }
 
     :disabled {
       color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].outlineDisabled};
+        theme.button[`${colorVariant}`].link.disabled};
       cursor: not-allowed;
     }
   }

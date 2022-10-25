@@ -39,18 +39,18 @@ export function Safes() {
         <>
           <ButtonLink
             href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=TRANSFER_ERC20`}
-            secondary
+            colorVariant="secondary"
             fullWidth={isMobile}
-            centerAlign={isMobile}
+            // centerAlign={isMobile}
           >
             Request ERC-20
           </ButtonLink>
 
           <ButtonLink
             href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=TRANSFER_NETWORK_TOKEN`}
-            secondary
+            colorVariant="secondary"
             fullWidth={isMobile}
-            centerAlign={isMobile}
+            // centerAlign={isMobile}
           >
             Request {networkData?.symbol}
           </ButtonLink>

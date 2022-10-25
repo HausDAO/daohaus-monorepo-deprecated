@@ -176,7 +176,12 @@ export const TributeInput = (
   };
 
   const maxButton = tokenData?.balance && tokenData?.decimals && (
-    <Button sm secondary onClick={handleMax} type="button">
+    <Button
+      colorVariant="secondary"
+      size="sm"
+      onClick={handleMax}
+      type="button"
+    >
       Max: {toWholeUnits(tokenData?.balance, tokenData?.decimals)}
     </Button>
   );
@@ -268,7 +273,7 @@ const TemporaryWarning = ({
       className="warning"
       message={`You must approve ${tokenName || 'Token'} to submit`}
     >
-      <Button sm type="button" onClick={handleApprove}>
+      <Button size="sm" onClick={handleApprove}>
         {txState === TxStates.Loading ? 'Loading...' : 'Approve'}
       </Button>
     </FieldAlert>

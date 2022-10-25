@@ -88,7 +88,7 @@ const TableControl = ({
         />
         {isMobile || (
           <Button
-            secondary
+            colorVariant="secondary"
             onClick={toggleListType}
             IconLeft={IconGrid}
             className="list-toggle"

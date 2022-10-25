@@ -239,9 +239,10 @@ export function Member() {
             <ButtonLink
               href={`/molochv3/${daochain}/${daoid}/members`}
               IconLeft={StyledArrowLeft}
-              tertiary
+              colorVariant="secondary"
+              variant="outline"
               fullWidth={isMobile}
-              centerAlign={isMobile}
+              // centerAlign={isMobile}
             >
               MEMBERS
             </ButtonLink>
@@ -249,7 +250,7 @@ export function Member() {
               IconLeft={BsShareFill}
               onClick={handleOnClick}
               fullWidth={isMobile}
-              centerAlign={isMobile}
+              // centerAlign={isMobile}
             >
               SHARE PROFILE
             </Button>

@@ -103,7 +103,12 @@ export function DaoTable<T extends object>({
         </TBody>
       </Table>
       {hasNextPaging && handleLoadMore && (
-        <Button tertiary sm onClick={handleLoadMore}>
+        <Button
+          colorVariant="secondary"
+          variant="outline"
+          size="sm"
+          onClick={handleLoadMore}
+        >
           Load More
         </Button>
       )}

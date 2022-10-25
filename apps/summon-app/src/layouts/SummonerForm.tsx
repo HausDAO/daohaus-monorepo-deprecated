@@ -180,8 +180,8 @@ export const SummonerForm = ({
         {!isConnected && <ConnectBox />}
         <Button
           fullWidth
-          centerAlign
-          lg
+          // centerAlign
+          size="lg"
           type="submit"
           disabled={submitDisabled}
         >

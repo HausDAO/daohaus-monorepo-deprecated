@@ -236,9 +236,9 @@ export function Members() {
         <Actions>
           <ButtonLink
             href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=ISSUE`}
-            secondary
+            colorVariant="secondary"
             fullWidth={isMd}
-            centerAlign={isMd}
+            // centerAlign={isMd}
           >
             Add Member
           </ButtonLink>
@@ -246,7 +246,7 @@ export function Members() {
             <ButtonLink
               href={`/molochv3/${daochain}/${daoid}/members/${connectedMembership.memberAddress}`}
               fullWidth={isMd}
-              centerAlign={isMd}
+              // centerAlign={isMd}
             >
               My Profile
             </ButtonLink>

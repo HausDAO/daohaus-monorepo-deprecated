@@ -53,10 +53,10 @@ export const SummonError = ({
         <ExplorerLink address={daoAddress}>View Transaction</ExplorerLink>
       </InfoSection>
       <Button
-        secondary
+        colorVariant="secondary"
         onClick={handleResetSummon}
         fullWidth={isMobile}
-        centerAlign={isMobile}
+        // centerAlign={isMobile}
       >
         Summon Another DAO
       </Button>

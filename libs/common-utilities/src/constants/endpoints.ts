@@ -2,6 +2,8 @@ import { KeychainList } from '..';
 
 export const ENDPOINTS: KeychainList = {
   V3_SUBGRAPH: {
+    '0x1':
+      'https://gateway.thegraph.com/api/[api-key]/subgraphs/id/GfHFdFmiSwW1PKtnDhhcxhArwtTjVuMnXxQ5XcETF1bP',
     '0x5': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli',
     '0x64': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-gnosis',
   },

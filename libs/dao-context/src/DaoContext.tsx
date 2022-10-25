@@ -99,6 +99,7 @@ type DaoContextProviderProps = {
   address: string | null | undefined;
   daoid: string | null | undefined;
   daochain: string | null | undefined;
+  graphApiKeys: Keychain | undefined;
   children: ReactNode;
 };
 
@@ -107,6 +108,7 @@ export const DaoContextProvider = ({
   children,
   daoid,
   daochain,
+  graphApiKeys,
 }: DaoContextProviderProps) => {
   const [dao, setDao] = useState<DaoWithTokenDataQuery['dao'] | undefined>();
   const [isDaoLoading, setDaoLoading] = useState(false);
@@ -170,13 +172,14 @@ export const DaoContextProvider = ({
         setDao,
         setDaoLoading,
         shouldUpdate,
+        graphApiKeys,
       });
     }
 
     return () => {
       shouldUpdate = false;
     };
-  }, [daochain, daoid]);
+  }, [daochain, daoid, graphApiKeys]);
 
   useEffect(() => {
     let shouldUpdate = true;
@@ -188,6 +191,7 @@ export const DaoContextProvider = ({
         setMember: setConnectedMembership,
         setMemberLoading: setConnectedMembershipLoading,
         shouldUpdate,
+        graphApiKeys,
       });
     } else {
       setConnectedMembership(undefined);
@@ -195,7 +199,7 @@ export const DaoContextProvider = ({
     return () => {
       shouldUpdate = false;
     };
-  }, [daochain, daoid, address]);
+  }, [daochain, daoid, address, graphApiKeys]);
 
   const currentDaoMembers = useRef<null | string>(null);
   useEffect(() => {
@@ -217,13 +221,21 @@ export const DaoContextProvider = ({
         setLoading: setMembersLoading,
         setNextPaging: setMembersNextPaging,
         shouldUpdate,
+        graphApiKeys,
       });
       currentDaoMembers.current = daoid;
     }
     return () => {
       shouldUpdate = false;
     };
-  }, [daochain, daoid, membersFilter, membersSort, membersPaging]);
+  }, [
+    daochain,
+    daoid,
+    membersFilter,
+    membersSort,
+    membersPaging,
+    graphApiKeys,
+  ]);
 
   const currentDaoProposals = useRef<null | string>(null);
   useEffect(() => {
@@ -245,6 +257,7 @@ export const DaoContextProvider = ({
         setLoading: setProposalsLoading,
         setNextPaging: setProposalsNextPaging,
         shouldUpdate,
+        graphApiKeys,
       });
       currentDaoProposals.current = daoid;
     }
@@ -252,7 +265,14 @@ export const DaoContextProvider = ({
     return () => {
       shouldUpdate = false;
     };
-  }, [daochain, daoid, proposalsFilter, proposalsSort, proposalsPaging]);
+  }, [
+    daochain,
+    daoid,
+    proposalsFilter,
+    proposalsSort,
+    proposalsPaging,
+    graphApiKeys,
+  ]);
 
   const currentDaoConnectedMembershipProposalVotes = useRef<null | string>(
     null
@@ -275,6 +295,7 @@ export const DaoContextProvider = ({
         setLoading: setConnectedMembershipProposalVotesLoading,
         shouldUpdate,
         memberAddress: address,
+        graphApiKeys,
       });
       currentDaoConnectedMembershipProposalVotes.current = daoid;
     }
@@ -289,6 +310,7 @@ export const DaoContextProvider = ({
     proposalsSort,
     proposalsPaging,
     address,
+    graphApiKeys,
   ]);
 
   const refreshAll = async () => {
@@ -307,6 +329,7 @@ export const DaoContextProvider = ({
         setDao,
         setDaoLoading,
         shouldUpdate: true,
+        graphApiKeys,
       });
     }
   };
@@ -320,6 +343,7 @@ export const DaoContextProvider = ({
         setMember: setConnectedMembership,
         setMemberLoading: setConnectedMembershipLoading,
         shouldUpdate: true,
+        graphApiKeys,
       });
     }
   };
@@ -339,6 +363,7 @@ export const DaoContextProvider = ({
         setLoading: setMembersLoading,
         setNextPaging: setMembersNextPaging,
         shouldUpdate: true,
+        graphApiKeys,
       });
     }
   };
@@ -355,6 +380,7 @@ export const DaoContextProvider = ({
         setLoading: setProposalsLoading,
         setNextPaging: setProposalsNextPaging,
         shouldUpdate: true,
+        graphApiKeys,
       });
     }
   };
@@ -370,6 +396,7 @@ export const DaoContextProvider = ({
         setLoading: setConnectedMembershipProposalVotesLoading,
         shouldUpdate: true,
         memberAddress: address,
+        graphApiKeys,
       });
     }
   };

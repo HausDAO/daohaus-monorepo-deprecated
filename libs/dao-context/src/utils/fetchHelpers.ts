@@ -14,7 +14,6 @@ import {
   Proposal_Filter,
   Proposal_OrderBy,
 } from '@daohaus/dao-data';
-import { ErrorMessage } from '@daohaus/ui';
 import deepEqual from 'deep-eql';
 
 export const loadDao = async ({
@@ -23,16 +22,18 @@ export const loadDao = async ({
   setDao,
   setDaoLoading,
   shouldUpdate,
+  graphApiKeys,
 }: {
   daoid: string;
   daochain: keyof Keychain;
   setDao: ReactSetter<DaoWithTokenDataQuery['dao'] | undefined>;
   setDaoLoading: ReactSetter<boolean>;
   shouldUpdate: boolean;
+  graphApiKeys?: Keychain;
 }) => {
   try {
     setDaoLoading(true);
-    const haus = Haus.create();
+    const haus = Haus.create({ graphApiKeys });
     const daoRes = await haus.query.findDao({
       networkId: daochain,
       dao: daoid,
@@ -65,6 +66,7 @@ export const loadMember = async ({
   setMember,
   setMemberLoading,
   shouldUpdate,
+  graphApiKeys,
 }: {
   daoid: string;
   daochain: keyof Keychain;
@@ -72,10 +74,11 @@ export const loadMember = async ({
   setMember: ReactSetter<FindMemberQuery['member'] | undefined>;
   setMemberLoading: ReactSetter<boolean>;
   shouldUpdate: boolean;
+  graphApiKeys?: Keychain;
 }) => {
   try {
     setMemberLoading(true);
-    const haus = Haus.create();
+    const haus = Haus.create({ graphApiKeys });
     const memberRes = await haus.query.findMember({
       networkId: daochain,
       dao: daoid,
@@ -105,6 +108,7 @@ export const loadProposal = async ({
   setProposalLoading,
   shouldUpdate,
   connectedAddress,
+  graphApiKeys,
 }: {
   daoid: string;
   daochain: keyof Keychain;
@@ -113,10 +117,11 @@ export const loadProposal = async ({
   setProposalLoading: ReactSetter<boolean>;
   shouldUpdate: boolean;
   connectedAddress?: string | null;
+  graphApiKeys?: Keychain;
 }) => {
   try {
     setProposalLoading(true);
-    const haus = Haus.create();
+    const haus = Haus.create({ graphApiKeys });
     const res = await haus.query.findProposal({
       networkId: daochain,
       dao: daoid,
@@ -148,6 +153,7 @@ export const loadMembersList = async ({
   setLoading,
   setNextPaging,
   shouldUpdate,
+  graphApiKeys,
 }: {
   filter: Member_Filter;
   ordering?: Ordering<Member_OrderBy>;
@@ -157,10 +163,11 @@ export const loadMembersList = async ({
   setLoading: ReactSetter<boolean>;
   setNextPaging: ReactSetter<Paging | undefined>;
   shouldUpdate: boolean;
+  graphApiKeys?: Keychain;
 }) => {
   try {
     setLoading(true);
-    const haus = Haus.create();
+    const haus = Haus.create({ graphApiKeys });
     const res = await haus.query.listMembers({
       networkId: daochain,
       filter,
@@ -190,53 +197,6 @@ export const loadMembersList = async ({
   }
 };
 
-export const isActiveMember = async ({
-  daoid,
-  daochain,
-  address,
-  setMemberLoading,
-}: {
-  daoid: string;
-  daochain: keyof Keychain;
-  address: string;
-  setMemberLoading: ReactSetter<boolean>;
-}): Promise<{ member?: FindMemberQuery['member']; error?: ErrorMessage }> => {
-  try {
-    setMemberLoading(true);
-    const haus = Haus.create();
-    const memberRes = await haus.query.findMember({
-      networkId: daochain,
-      dao: daoid,
-      memberAddress: address.toLowerCase(),
-    });
-
-    if (
-      memberRes?.data?.member &&
-      Number(memberRes?.data?.member?.shares) > 0
-    ) {
-      return {
-        member: memberRes?.data?.member,
-      };
-    }
-    return {
-      error: {
-        type: 'error',
-        message: `Member not found`,
-      },
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      error: {
-        type: 'error',
-        message: `${error}`,
-      },
-    };
-  } finally {
-    setMemberLoading(false);
-  }
-};
-
 export const loadProposalsList = async ({
   filter,
   ordering,
@@ -246,6 +206,7 @@ export const loadProposalsList = async ({
   setLoading,
   setNextPaging,
   shouldUpdate,
+  graphApiKeys,
 }: {
   filter: Proposal_Filter;
   ordering?: Ordering<Proposal_OrderBy>;
@@ -255,10 +216,11 @@ export const loadProposalsList = async ({
   setLoading: ReactSetter<boolean>;
   setNextPaging: ReactSetter<Paging | undefined>;
   shouldUpdate: boolean;
+  graphApiKeys?: Keychain;
 }) => {
   try {
     setLoading(true);
-    const haus = Haus.create();
+    const haus = Haus.create({ graphApiKeys });
     const res = await haus.query.listProposals({
       networkId: daochain,
       filter,
@@ -297,6 +259,7 @@ export const loadConnectedMemberVotesList = async ({
   setLoading,
   shouldUpdate,
   memberAddress,
+  graphApiKeys,
 }: {
   filter: Proposal_Filter;
   ordering?: Ordering<Proposal_OrderBy>;
@@ -308,10 +271,11 @@ export const loadConnectedMemberVotesList = async ({
   setLoading: ReactSetter<boolean>;
   shouldUpdate: boolean;
   memberAddress: string;
+  graphApiKeys?: Keychain;
 }) => {
   try {
     setLoading(true);
-    const haus = Haus.create();
+    const haus = Haus.create({ graphApiKeys });
     const res = await haus.profile.listProposalVotesByMember({
       networkId: daochain,
       filter,

@@ -170,7 +170,7 @@ const networkPanels = [
   'Rinkeby',
 ].map((item, index) => (
   <DropdownMenuItem key={index} spacing="0.7rem">
-    <Button secondary fullWidth leftAlign>
+    <Button colorVariant="secondary" fullWidth leftAlign>
       {item}
     </Button>
   </DropdownMenuItem>

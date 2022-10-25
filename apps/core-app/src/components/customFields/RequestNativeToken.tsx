@@ -58,7 +58,7 @@ export const RequestNativeToken = (
       label={label}
       defaultValue="0"
       rightAddon={
-        <Button secondary sm onClick={setMax} type="button">
+        <Button colorVariant="secondary" size="sm" onClick={setMax}>
           Max:{' '}
           {toWholeUnits(
             networkTokenData?.daoBalance || '0',

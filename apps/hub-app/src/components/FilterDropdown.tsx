@@ -72,7 +72,7 @@ const FilterDropdown = ({
       menuMinWidth="25rem"
       spacing=".6rem"
       trigger={
-        <Button secondary IconLeft={IconFilter}>
+        <Button colorVariant="secondary" IconLeft={IconFilter}>
           Filters
         </Button>
       }

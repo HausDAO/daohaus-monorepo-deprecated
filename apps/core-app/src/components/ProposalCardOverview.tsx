@@ -84,7 +84,7 @@ export const ProposalCardOverview = ({
         <StyledLink
           href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
         >
-          <Button secondary sm fullWidth={isMobile} centerAlign>
+          <Button colorVariant="secondary" size="sm" fullWidth={isMobile}>
             View Details
           </Button>
         </StyledLink>
@@ -120,16 +120,16 @@ const HeaderContainer = styled.div`
 `;
 
 const StyledPropType = styled.span`
-  color: ${({ theme, warning }: { theme: Theme; warning: boolean; }) =>
+  color: ${({ theme, warning }: { theme: Theme; warning: boolean }) =>
     warning && theme.warning.step9};
 `;
 
 const WarningIcon = styled(RiErrorWarningLine)`
-  color: ${({ theme }: { theme: Theme; }) => theme.warning.step9};
+  color: ${({ theme }: { theme: Theme }) => theme.warning.step9};
   height: 2rem;
   width: 2rem;
   margin-right: 0.5rem;
-`
+`;
 
 export const OverviewHeader = ({
   proposal,
@@ -146,12 +146,15 @@ export const OverviewHeader = ({
         <>
           <HeaderContainer>
             {SENSITIVE_PROPOSAL_TYPES[proposal.proposalType] && (
-              <Icon label='Warning'><WarningIcon /></Icon>
+              <Icon label="Warning">
+                <WarningIcon />
+              </Icon>
             )}
-            <ParSm color={
-              SENSITIVE_PROPOSAL_TYPES[proposal.proposalType]
-                ? theme.warning.step9
-                : theme.secondary.step11
+            <ParSm
+              color={
+                SENSITIVE_PROPOSAL_TYPES[proposal.proposalType]
+                  ? theme.warning.step9
+                  : theme.secondary.step11
               }
             >
               {getProposalTypeLabel(proposal.proposalType)}
@@ -168,19 +171,23 @@ export const OverviewHeader = ({
         <>
           <HeaderContainer>
             {SENSITIVE_PROPOSAL_TYPES[proposal.proposalType] && (
-              <Icon label='Warning'><WarningIcon /></Icon>
+              <Icon label="Warning">
+                <WarningIcon />
+              </Icon>
             )}
             <ParSm color={theme.secondary.step11}>
-              <StyledPropType warning={SENSITIVE_PROPOSAL_TYPES[proposal.proposalType]}>
+              <StyledPropType
+                warning={SENSITIVE_PROPOSAL_TYPES[proposal.proposalType]}
+              >
                 {getProposalTypeLabel(proposal.proposalType)}
-              </StyledPropType> |{' '}
-              {formatShortDateTimeFromSeconds(proposal.createdAt)}
+              </StyledPropType>{' '}
+              | {formatShortDateTimeFromSeconds(proposal.createdAt)}
             </ParSm>
           </HeaderContainer>
           <StyledLink
             href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
           >
-            <Button secondary sm>
+            <Button colorVariant="secondary" size="sm">
               View Details
             </Button>
           </StyledLink>

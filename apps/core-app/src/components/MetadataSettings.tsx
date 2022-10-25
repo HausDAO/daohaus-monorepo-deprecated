@@ -65,7 +65,7 @@ export const MetadataSettings = ({ dao }: MetadataSettingsProps) => {
         <H3>Metadata</H3>
         {connectedMembership && Number(connectedMembership.shares) && (
           <Link href={`/molochv3/${daochain}/${daoid}/settings/update`}>
-            <Button secondary>Update Settings</Button>
+            <Button colorVariant="secondary">Update Settings</Button>
           </Link>
         )}
       </MetaCardHeader>

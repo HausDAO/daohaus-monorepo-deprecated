@@ -90,7 +90,7 @@ export const RequestERC20 = (
       selectPlaceholder="--"
       options={selectOptions || []}
       rightAddon={
-        <Button secondary sm type="button" onClick={setMax}>
+        <Button colorVariant="secondary" size="sm" onClick={setMax}>
           Max: {tokenBalance}
         </Button>
       }

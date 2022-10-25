@@ -63,12 +63,12 @@ export const DialogContent = React.forwardRef(
           {(leftButton || rightButton) && (
             <ButtonContainer align={alignButtons}>
               {leftButton && (
-                <Button secondary sm {...leftButton}>
+                <Button colorVariant="secondary" size="sm" {...leftButton}>
                   {leftButton?.children}
                 </Button>
               )}
               {rightButton && (
-                <Button secondary sm {...rightButton}>
+                <Button colorVariant="secondary" size="sm" {...rightButton}>
                   {rightButton?.children}
                 </Button>
               )}

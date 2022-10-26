@@ -1,4 +1,5 @@
 import { KeychainList } from '..';
+import { Keychain, ValidNetwork } from '../types';
 
 export const ENDPOINTS: KeychainList = {
   V3_SUBGRAPH: {
@@ -47,4 +48,23 @@ export const ENDPOINTS: KeychainList = {
     '0x5':
       'https://api.thegraph.com/subgraphs/name/auryn-macmillan/tabula-goerli',
   },
+};
+
+export const addApiKeyToGraphEnpoints = (
+  graphApiKeys: Keychain,
+  endpoints: KeychainList
+): KeychainList => {
+  return Object.keys(graphApiKeys).reduce((acc, key) => {
+    if (endpoints['V3_SUBGRAPH'][key as keyof Keychain] && acc) {
+      const unreplacedValue = acc['V3_SUBGRAPH'][key as keyof Keychain];
+      const apiKey = graphApiKeys[key as keyof Keychain];
+      if (unreplacedValue && apiKey) {
+        acc['V3_SUBGRAPH'][key as keyof Keychain] = unreplacedValue.replace(
+          '[api-key]',
+          apiKey
+        );
+      }
+    }
+    return acc;
+  }, endpoints);
 };

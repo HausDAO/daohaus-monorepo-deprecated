@@ -1,4 +1,5 @@
 import {
+  addApiKeyToGraphEnpoints,
   DaoTokenBalances,
   ENDPOINTS,
   Keychain,
@@ -87,12 +88,7 @@ export default class Query {
     this.endpoints = ENDPOINTS;
 
     if (graphApiKeys) {
-      // todo
-      // loop thorugh each endpoint and replace '[api-key]' with matching in graphApiKeys
-      // then update all new Haus to include from an env varible in our apps/github
-      // this.endpoints = ENDPOINTS
-
-      console.log('UPDATE EDNPOINTS WITH MAINNET API KEY');
+      this.endpoints = addApiKeyToGraphEnpoints(graphApiKeys, ENDPOINTS);
     }
   }
 

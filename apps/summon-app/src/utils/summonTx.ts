@@ -219,13 +219,11 @@ export const assembleTxArgs = (
 
   const { POSTER } = handleKeychains(chainId);
 
-  console.log('POSTER', POSTER);
   const initParams = encodeValues(
     ['string', 'string', 'address'],
     [tokenName, tokenSymbol, ZERO_ADDRESS]
   );
 
-  console.log('initParams', initParams);
   const initActions = [
     tokenConfigTX(formValues),
     governanceConfigTX(formValues),

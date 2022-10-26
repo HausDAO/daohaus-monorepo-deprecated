@@ -157,7 +157,11 @@ export const ButtonBase = styled.button<{
       width: 3.2rem;
     }
   }
-
+  /*
+    Could add a prop that allows for configueration of all possible
+    jusify-content props at the base button level.
+    Doing this to fix breaking changes for now
+  */
   &.left-align {
     justify-content: flex-start;
   }

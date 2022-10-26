@@ -2,6 +2,7 @@ import { PROPOSAL_STATUS } from '@daohaus/common-utilities';
 import { ITransformedProposal } from '@daohaus/dao-data';
 import { ParMd, widthQuery } from '@daohaus/ui';
 import styled from 'styled-components';
+import { ActionLifeCycleFns } from '../../utils/general';
 import { ActionFailed } from './ActionFailed';
 import { ActionTemplate } from './ActionPrimitives';
 import { Cancelled } from './Cancelled';
@@ -25,8 +26,10 @@ const ActionBox = styled.div`
 `;
 
 export const ProposalActions = ({
+  lifeCycleFnsOverride,
   proposal,
 }: {
+  lifeCycleFnsOverride?: ActionLifeCycleFns;
   proposal: ITransformedProposal;
 }) => {
   if (proposal.status === PROPOSAL_STATUS.cancelled) {
@@ -39,14 +42,20 @@ export const ProposalActions = ({
   if (proposal.status === PROPOSAL_STATUS.unsponsored) {
     return (
       <ActionBox>
-        <Unsponsored proposal={proposal} />
+        <Unsponsored
+          lifeCycleFnsOverride={lifeCycleFnsOverride}
+          proposal={proposal}
+        />
       </ActionBox>
     );
   }
   if (proposal.status === PROPOSAL_STATUS.voting) {
     return (
       <ActionBox>
-        <VotingPeriod proposal={proposal} />
+        <VotingPeriod
+          lifeCycleFnsOverride={lifeCycleFnsOverride}
+          proposal={proposal}
+        />
       </ActionBox>
     );
   }
@@ -60,7 +69,10 @@ export const ProposalActions = ({
   if (proposal.status === PROPOSAL_STATUS.needsProcessing) {
     return (
       <ActionBox>
-        <ReadyForProcessing proposal={proposal} />
+        <ReadyForProcessing
+          lifeCycleFnsOverride={lifeCycleFnsOverride}
+          proposal={proposal}
+        />
       </ActionBox>
     );
   }

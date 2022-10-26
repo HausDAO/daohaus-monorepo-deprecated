@@ -1,5 +1,13 @@
+import { RiErrorWarningLine, RiTimeLine } from 'react-icons/ri';
 import { useParams } from 'react-router-dom';
 import styled, { useTheme } from 'styled-components';
+import {
+  charLimit,
+  formatShortDateTimeFromSeconds,
+  Keychain,
+} from '@daohaus/common-utilities';
+import { TProposals } from '@daohaus/dao-context';
+import { ITransformedProposal } from '@daohaus/dao-data';
 import {
   AddressDisplay,
   Button,
@@ -10,17 +18,12 @@ import {
   widthQuery,
   Tooltip,
   ParSm,
+  Theme,
+  Icon,
 } from '@daohaus/ui';
-import {
-  charLimit,
-  formatShortDateTimeFromSeconds,
-  Keychain,
-} from '@daohaus/common-utilities';
 
-import { TProposals } from '@daohaus/dao-context';
 import { getProposalTypeLabel } from '../utils/general';
-import { ITransformedProposal } from '@daohaus/dao-data';
-import { RiTimeLine } from 'react-icons/ri';
+import { SENSITIVE_PROPOSAL_TYPES } from '../utils/constants';
 
 const OverviewBox = styled.div`
   display: flex;
@@ -59,10 +62,12 @@ const StyledLink = styled(Link)`
 `;
 
 type ProposalCardOverviewProps = {
+  loading: boolean;
   proposal: TProposals[number];
 };
 
 export const ProposalCardOverview = ({
+  loading,
   proposal,
 }: ProposalCardOverviewProps) => {
   const { daochain, daoid } = useParams();
@@ -72,16 +77,16 @@ export const ProposalCardOverview = ({
 
   return (
     <OverviewBox>
-      <OverviewHeader proposal={proposal} />
+      <OverviewHeader loading={loading} proposal={proposal} />
       <ParLg className="title">{proposal.title}</ParLg>
       <ParMd className="description" color={theme.secondary.step11}>
         {charLimit(proposal.description, 145)}
       </ParMd>
       {isMd && (
         <StyledLink
-          href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
+          href={!loading ? `/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}` : '#'}
         >
-          <Button secondary sm fullWidth={isMobile} centerAlign>
+          <Button disabled={loading} secondary sm fullWidth={isMobile} centerAlign>
             View Details
           </Button>
         </StyledLink>
@@ -112,9 +117,27 @@ const OverviewContainer = styled.div`
   }
 `;
 
+const HeaderContainer = styled.div`
+  display: flex;
+`;
+
+const StyledPropType = styled.span`
+  color: ${({ theme, warning }: { theme: Theme; warning: boolean; }) =>
+    warning && theme.warning.step9};
+`;
+
+const WarningIcon = styled(RiErrorWarningLine)`
+  color: ${({ theme }: { theme: Theme; }) => theme.warning.step9};
+  height: 2rem;
+  width: 2rem;
+  margin-right: 0.5rem;
+`
+
 export const OverviewHeader = ({
+  loading,
   proposal,
 }: {
+  loading: boolean;
   proposal: ITransformedProposal;
 }) => {
   const { daochain, daoid } = useParams();
@@ -125,9 +148,19 @@ export const OverviewHeader = ({
     <OverviewContainer>
       {isMobile ? (
         <>
-          <ParSm color={theme.secondary.step11}>
-            {getProposalTypeLabel(proposal.proposalType)}
-          </ParSm>
+          <HeaderContainer>
+            {SENSITIVE_PROPOSAL_TYPES[proposal.proposalType] && (
+              <Icon label='Warning'><WarningIcon /></Icon>
+            )}
+            <ParSm color={
+              SENSITIVE_PROPOSAL_TYPES[proposal.proposalType]
+                ? theme.warning.step9
+                : theme.secondary.step11
+              }
+            >
+              {getProposalTypeLabel(proposal.proposalType)}
+            </ParSm>
+          </HeaderContainer>
           <Tooltip
             content={formatShortDateTimeFromSeconds(proposal.createdAt)}
             triggerEl={
@@ -137,14 +170,21 @@ export const OverviewHeader = ({
         </>
       ) : (
         <>
-          <ParSm color={theme.secondary.step11}>
-            {getProposalTypeLabel(proposal.proposalType)} |{' '}
-            {formatShortDateTimeFromSeconds(proposal.createdAt)}
-          </ParSm>
+          <HeaderContainer>
+            {SENSITIVE_PROPOSAL_TYPES[proposal.proposalType] && (
+              <Icon label='Warning'><WarningIcon /></Icon>
+            )}
+            <ParSm color={theme.secondary.step11}>
+              <StyledPropType warning={SENSITIVE_PROPOSAL_TYPES[proposal.proposalType]}>
+                {getProposalTypeLabel(proposal.proposalType)}
+              </StyledPropType> |{' '}
+              {formatShortDateTimeFromSeconds(proposal.createdAt)}
+            </ParSm>
+          </HeaderContainer>
           <StyledLink
-            href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
+            href={!loading ? `/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}` : '#'}
           >
-            <Button secondary sm>
+            <Button disabled={loading} secondary sm>
               View Details
             </Button>
           </StyledLink>

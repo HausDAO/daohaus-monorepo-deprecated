@@ -1,5 +1,10 @@
 import { TDao, TMembers } from '@daohaus/dao-context';
+import { TXLifeCycleFns } from '@daohaus/tx-builder-feature';
 import { PROPOSAL_TYPE_LABELS } from './constants';
+
+export type ActionLifeCycleFns = TXLifeCycleFns & {
+  onActionTriggered?: () => void;
+}
 
 export const missingDaoProfileData = (dao: TDao): boolean => {
   if (!dao?.profile || !dao.profile.length) return true;

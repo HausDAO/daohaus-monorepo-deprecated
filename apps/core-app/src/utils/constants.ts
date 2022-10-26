@@ -61,3 +61,11 @@ export const PROPOSAL_TYPE_WARNINGS: { [key: string]: string } = {
   ERROR_UNKOWN:
     'We can’t verify the contract details for this proposal. Please proceed with extreme caution!',
 };
+
+export const SENSITIVE_PROPOSAL_TYPES: { [key: string]: boolean } = {
+  ADD_SHAMAN: true,
+};
+
+export const DAO_METHOD_TO_PROPOSAL_TYPE: { [key: string]: string } = {
+  'setShamans': ProposalTypeIds.AddShaman,
+};

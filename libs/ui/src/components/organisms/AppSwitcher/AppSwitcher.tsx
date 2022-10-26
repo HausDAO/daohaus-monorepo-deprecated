@@ -60,7 +60,7 @@ export const AppSwitcher = ({
       trigger={
         <AppSwitcherTrigger
           width={buttonWidth}
-          sm={isMobile}
+          size={isMobile ? 'sm' : 'md'}
           IconLeft={trigger.icon}
           IconRight={RiArrowDropDownLine}
         >

@@ -68,7 +68,7 @@ const FilterDropdown = ({
   return (
     <Dropdown
       align="end"
-      menuBg={theme.button.secondary.bg}
+      menuBg={theme.button.secondary.solid.bg}
       menuMinWidth="25rem"
       spacing=".6rem"
       trigger={
@@ -86,9 +86,9 @@ const FilterDropdown = ({
       </DropdownMenuLabel>
       <DropdownMenuItem asChild>
         <DropdownButton
-          secondary
+          colorVariant="secondary"
           fullWidth
-          leftAlign
+          // leftAlign
           value={FILTER_TYPE.DELEGATING}
           onClick={toggleDelegateFilter}
           IconRight={
@@ -105,9 +105,9 @@ const FilterDropdown = ({
       </DropdownMenuItem>
       <DropdownMenuItem asChild>
         <DropdownButton
-          secondary
+          colorVariant="secondary"
           fullWidth
-          leftAlign
+          // leftAlign
           value={FILTER_TYPE.DELEGATING_TO}
           onClick={toggleDelegateFilter}
           IconRight={

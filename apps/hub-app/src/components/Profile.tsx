@@ -94,7 +94,7 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   :hover {
     text-decoration: underline;
-    color: ${(props) => props.theme.button.primary.hoverBg};
+    color: ${(props) => props.theme.button.primary.solid.bgHover};
   }
 `;
 

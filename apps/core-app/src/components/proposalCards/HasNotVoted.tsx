@@ -122,8 +122,8 @@ export const HasNotVoted = ({
           <VotingBar proposal={proposal} />
           <VoteBox>
             <VoteDownButton
-              sm
-              centerAlign
+              size="sm"
+              // centerAlign
               rules={[hasShares, isConnectedToDao, isNotLoading]}
               value={Vote.No}
               onClick={handleVote}
@@ -131,8 +131,8 @@ export const HasNotVoted = ({
               No ({formatShares(proposal.noBalance)})
             </VoteDownButton>
             <VoteUpButton
-              sm
-              centerAlign
+              size="sm"
+              // centerAlign
               rules={[hasShares, isConnectedToDao, isNotLoading]}
               value={Vote.Yes}
               onClick={handleVote}

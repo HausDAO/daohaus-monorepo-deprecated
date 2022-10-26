@@ -101,10 +101,10 @@ export const CancelProposal = ({
 
   return (
     <GatedButton
-      secondary
+      colorVariant="secondary"
       rules={[isConnectedToDao, addressCanCancel]}
       onClick={handleCancel}
-      centerAlign
+      // centerAlign
     >
       {isLoading ? <Spinner size="2rem" strokeWidth=".2rem" /> : 'Cancel'}
     </GatedButton>

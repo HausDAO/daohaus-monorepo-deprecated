@@ -118,10 +118,10 @@ export const Unsponsored = ({
         <>
           <VotingBar proposal={proposal} />
           <GatedButton
-            sm
+            size="sm"
             rules={[hasShares, isConnectedToDao]}
             onClick={handleSponsor}
-            centerAlign
+            // centerAlign
             fullWidth={isMobile}
           >
             {isLoading ? (

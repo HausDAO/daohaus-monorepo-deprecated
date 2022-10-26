@@ -90,7 +90,7 @@ export const MemberProfileMenu = ({
   return (
     <Dropdown
       menuMinWidth="17.8rem"
-      trigger={<ProfileMenuTrigger IconLeft={RiMore2Fill} sm />}
+      trigger={<ProfileMenuTrigger IconLeft={RiMore2Fill} size="sm" />}
       side="left"
     >
       {isMenuForConnectedMember && (

@@ -207,8 +207,8 @@ export function Members() {
           return (
             <ActionContainer>
               <ProfileLink
-                sm
-                secondary
+                colorVariant="secondary"
+                size="sm"
                 memberAddress={row.original.memberAddress}
               >
                 Profile

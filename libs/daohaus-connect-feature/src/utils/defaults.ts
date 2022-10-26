@@ -9,8 +9,6 @@ export const supportedNetworks = addKeychain(
   addKeychain(TEMPORARY_RPC, 'rpc')
 );
 
-console.log('supportedNetworks', supportedNetworks);
-
 const providerOptions: IProviderOptions = {
   walletconnect: {
     package: WalletConnectProvider,

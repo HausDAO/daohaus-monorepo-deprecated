@@ -20,7 +20,7 @@ import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 import { loadProposal } from '../utils/dataFetchHelpers';
 import { ProposalDetailsGuts } from '../components/ProposalDetailsGuts';
 import { ProposalHistory } from '../components/ProposalHistory';
-import { getProposalTypeLabel } from '../utils/general';
+import { ActionLifeCycleFns, getProposalTypeLabel } from '../utils/general';
 import { ProposalActions } from '../components/proposalCards/ProposalActions';
 import { CancelProposal } from '../components/CancelProposal';
 import {
@@ -121,6 +121,10 @@ export function ProposalDetails() {
     };
   }, [daochain, proposal]);
 
+  const lifeCycleFnsOverride: ActionLifeCycleFns = {
+    onPollSuccess: () => fetchProposal(),
+  };
+
   if (proposalLoading) {
     return (
       <SingleColumnLayout>
@@ -148,14 +152,22 @@ export function ProposalDetails() {
           }
           {actionData && (
             <ActionContainer>
-              <ActionDisplay actions={actionData} />
+              <ActionDisplay
+                actions={actionData}
+                proposalType={proposal?.proposalType}
+              />
             </ActionContainer>
           )}
         </OverviewCard>
       }
       right={
         <RightCard>
-          {proposal && <ProposalActions proposal={proposal} />}
+          {proposal && (
+            <ProposalActions
+              lifeCycleFnsOverride={lifeCycleFnsOverride}
+              proposal={proposal}
+            />
+          )}
           <ProposalHistory proposal={proposal} />
         </RightCard>
       }

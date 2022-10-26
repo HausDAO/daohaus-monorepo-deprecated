@@ -6,10 +6,13 @@ import { useHausConnect } from '@daohaus/daohaus-connect-feature';
 
 import { HasVoted } from './HasVoted';
 import { HasNotVoted } from './HasNotVoted';
+import { ActionLifeCycleFns } from '../../utils/general';
 
 export const VotingPeriod = ({
+  lifeCycleFnsOverride,
   proposal,
 }: {
+  lifeCycleFnsOverride?: ActionLifeCycleFns;
   proposal: ITransformedProposal;
 }) => {
   const { address } = useHausConnect();
@@ -35,6 +38,10 @@ export const VotingPeriod = ({
       userVoteBalance={userVoteData?.balance}
     />
   ) : (
-    <HasNotVoted proposal={proposal} readableTime={readableTime} />
+    <HasNotVoted
+      lifeCycleFnsOverride={lifeCycleFnsOverride}
+      proposal={proposal}
+      readableTime={readableTime}
+    />
   );
 };

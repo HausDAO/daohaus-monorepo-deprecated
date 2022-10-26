@@ -24,10 +24,13 @@ import { ACTION_TX } from '../../legos/tx';
 import { VotingBar } from '../VotingBar';
 import { ActionTemplate } from './ActionPrimitives';
 import { GatedButton } from './GatedButton';
+import { ActionLifeCycleFns } from '../../utils/general';
 
 export const Unsponsored = ({
+  lifeCycleFnsOverride,
   proposal,
 }: {
+  lifeCycleFnsOverride?: ActionLifeCycleFns;
   proposal: ITransformedProposal;
 }) => {
   const { daochain } = useParams();
@@ -46,6 +49,7 @@ export const Unsponsored = ({
 
     if (!proposalId) return;
     setIsLoading(true);
+    lifeCycleFnsOverride?.onActionTriggered?.();
     fireTransaction({
       tx: { ...ACTION_TX.SPONSOR, staticArgs: [proposalId] } as TXLego,
       lifeCycleFns: {
@@ -54,19 +58,22 @@ export const Unsponsored = ({
             error,
           });
           errorToast({ title: 'Sponsor Failed', description: errMsg });
+          lifeCycleFnsOverride?.onTxError?.(error);
           setIsLoading(false);
         },
-        onTxSuccess: () => {
+        onTxSuccess: (txHash: string) => {
           defaultToast({
             title: 'Sponsor Success',
             description: 'Please wait for subgraph to sync',
           });
+          lifeCycleFnsOverride?.onTxSuccess?.(txHash);
         },
         onPollError: (error) => {
           const errMsg = handleErrorMessage({
             error,
           });
           errorToast({ title: 'Poll Error', description: errMsg });
+          lifeCycleFnsOverride?.onPollError?.(error);
           setIsLoading(false);
         },
         onPollSuccess: () => {
@@ -74,8 +81,9 @@ export const Unsponsored = ({
             title: 'Sponsor Success',
             description: 'Proposal sponsored',
           });
-          setIsLoading(false);
           refreshAll();
+          lifeCycleFnsOverride?.onPollSuccess?.(undefined);
+          setIsLoading(false);
         },
       },
     });

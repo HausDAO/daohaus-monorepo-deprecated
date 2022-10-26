@@ -62,10 +62,12 @@ const StyledLink = styled(Link)`
 `;
 
 type ProposalCardOverviewProps = {
+  loading: boolean;
   proposal: TProposals[number];
 };
 
 export const ProposalCardOverview = ({
+  loading,
   proposal,
 }: ProposalCardOverviewProps) => {
   const { daochain, daoid } = useParams();
@@ -75,16 +77,26 @@ export const ProposalCardOverview = ({
 
   return (
     <OverviewBox>
-      <OverviewHeader proposal={proposal} />
+      <OverviewHeader loading={loading} proposal={proposal} />
       <ParLg className="title">{proposal.title}</ParLg>
       <ParMd className="description" color={theme.secondary.step11}>
         {charLimit(proposal.description, 145)}
       </ParMd>
       {isMd && (
         <StyledLink
-          href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
+          href={
+            !loading
+              ? `/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`
+              : '#'
+          }
         >
-          <Button colorVariant="secondary" size="sm" fullWidth={isMobile}>
+          <Button
+            colorVariant="secondary"
+            size="sm"
+            fullWidth={isMobile}
+            disabled={loading}
+            // centerAlign
+          >
             View Details
           </Button>
         </StyledLink>
@@ -132,8 +144,10 @@ const WarningIcon = styled(RiErrorWarningLine)`
 `;
 
 export const OverviewHeader = ({
+  loading,
   proposal,
 }: {
+  loading: boolean;
   proposal: ITransformedProposal;
 }) => {
   const { daochain, daoid } = useParams();
@@ -185,9 +199,13 @@ export const OverviewHeader = ({
             </ParSm>
           </HeaderContainer>
           <StyledLink
-            href={`/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`}
+            href={
+              !loading
+                ? `/molochV3/${daochain}/${daoid}/proposals/${proposal.proposalId}`
+                : '#'
+            }
           >
-            <Button colorVariant="secondary" size="sm">
+            <Button colorVariant="secondary" size="sm" disabled={loading}>
               View Details
             </Button>
           </StyledLink>

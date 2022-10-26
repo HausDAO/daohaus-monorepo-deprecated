@@ -20,6 +20,7 @@ import {
   VoteUpButton,
 } from './ActionPrimitives';
 import { VotingBar } from '../VotingBar';
+import { ActionLifeCycleFns } from '../../utils/general';
 
 enum Vote {
   Yes = 'yes',
@@ -27,9 +28,11 @@ enum Vote {
 }
 
 export const HasNotVoted = ({
+  lifeCycleFnsOverride,
   proposal,
   readableTime,
 }: {
+  lifeCycleFnsOverride?: ActionLifeCycleFns;
   proposal: ITransformedProposal;
   readableTime?: string;
 }) => {
@@ -50,6 +53,7 @@ export const HasNotVoted = ({
     const voteValue = vote === Vote.Yes ? true : false;
 
     setIsLoading(true);
+    lifeCycleFnsOverride?.onActionTriggered?.();
     await fireTransaction({
       tx: { ...ACTION_TX.VOTE, staticArgs: [proposalId, voteValue] } as TXLego,
       lifeCycleFns: {
@@ -58,19 +62,22 @@ export const HasNotVoted = ({
             error,
           });
           errorToast({ title: 'Vote Failed', description: errMsg });
+          lifeCycleFnsOverride?.onTxError?.(error);
           setIsLoading(false);
         },
-        onTxSuccess: () => {
+        onTxSuccess: (txHash: string) => {
           defaultToast({
             title: 'Vote Success',
             description: 'Please wait for subgraph to sync',
           });
+          lifeCycleFnsOverride?.onTxSuccess?.(txHash);
         },
         onPollError: (error) => {
           const errMsg = handleErrorMessage({
             error,
           });
           errorToast({ title: 'Poll Error', description: errMsg });
+          lifeCycleFnsOverride?.onPollError?.(error);
           setIsLoading(false);
         },
         onPollSuccess: () => {
@@ -79,6 +86,7 @@ export const HasNotVoted = ({
             description: 'Proposal sponsored',
           });
           refreshAll();
+          lifeCycleFnsOverride?.onPollSuccess?.(undefined);
           setIsLoading(false);
         },
       },

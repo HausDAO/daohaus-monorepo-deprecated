@@ -158,6 +158,10 @@ export const ButtonBase = styled.button<{
     }
   }
 
+  &.left-align {
+    justify-content: flex-start;
+  }
+
   &.full-width {
     min-width: 100%;
   }

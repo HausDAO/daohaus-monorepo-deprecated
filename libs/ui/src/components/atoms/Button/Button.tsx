@@ -24,8 +24,10 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: 'sm' | 'md' | 'lg';
   /** Controls button variant */
   variant?: 'solid' | 'outline' | 'ghost' | 'link';
-  /* Width of the button element */
+  /* Toggle from fit-content to width 100% of the button element */
   fullWidth?: boolean;
+  /* Add justify-content: flex start to button content */
+  leftAlign?: boolean;
   /* Adds icon before button label */
   IconLeft?: IconType | React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
   /* Adds icon after button label */
@@ -42,6 +44,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       variant = 'solid',
       size = 'md',
       fullWidth,
+      leftAlign,
       className,
       children,
       ...rest
@@ -52,6 +55,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       [variant]: variant,
       [size]: size,
       'full-width': fullWidth,
+      'left-align': leftAlign,
     });
 
     return (

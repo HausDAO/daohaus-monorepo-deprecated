@@ -44,7 +44,7 @@ export const getNetworkPanels = (
         <WarningButton
           color="secondary"
           fullWidth
-          // leftAlign
+          leftAlign
           onClick={handleNetworkSwitch}
         >
           {network.name}

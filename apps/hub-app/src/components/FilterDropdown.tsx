@@ -55,9 +55,9 @@ const FilterDropdown = ({
           value={network.chainId}
           onClick={toggleNetworkFilter}
           className={isActive ? 'selected' : ''}
-          secondary
+          colorVariant="secondary"
           fullWidth
-          leftAlign
+          // leftAlign
           IconRight={isActive ? AiOutlineCheck : undefined}
         >
           <div style={{ width: '100%' }}>{network.name}</div>

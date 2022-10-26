@@ -1,7 +1,10 @@
 import { KeychainList } from '..';
+import { Keychain, ValidNetwork } from '../types';
 
 export const ENDPOINTS: KeychainList = {
   V3_SUBGRAPH: {
+    '0x1':
+      'https://gateway.thegraph.com/api/[api-key]/subgraphs/id/GfHFdFmiSwW1PKtnDhhcxhArwtTjVuMnXxQ5XcETF1bP',
     '0x5': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-goerli',
     '0x64': 'https://api.thegraph.com/subgraphs/name/hausdao/daohaus-v3-gnosis',
   },
@@ -45,4 +48,23 @@ export const ENDPOINTS: KeychainList = {
     '0x5':
       'https://api.thegraph.com/subgraphs/name/auryn-macmillan/tabula-goerli',
   },
+};
+
+export const addApiKeyToGraphEnpoints = (
+  graphApiKeys: Keychain,
+  endpoints: KeychainList
+): KeychainList => {
+  return Object.keys(graphApiKeys).reduce((acc, key) => {
+    if (endpoints['V3_SUBGRAPH'][key as keyof Keychain] && acc) {
+      const unreplacedValue = acc['V3_SUBGRAPH'][key as keyof Keychain];
+      const apiKey = graphApiKeys[key as keyof Keychain];
+      if (unreplacedValue && apiKey) {
+        acc['V3_SUBGRAPH'][key as keyof Keychain] = unreplacedValue.replace(
+          '[api-key]',
+          apiKey
+        );
+      }
+    }
+    return acc;
+  }, endpoints);
 };

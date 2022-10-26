@@ -35,7 +35,7 @@ class MolochV3SummonerContract {
 
   /**
    * Deploy dao and safe contracts
-   * @param initializationParams encoded share token name and symbol (string, string)
+   * @param initializationParams encoded share token name and symbol and forwarder (string, string, address)
    * @param initializationActions encoded functions with args called in summoning
    * * setAdminConfig(bool pauseShares, bool pauseLoot)
    * * setGovernanceConfig (
@@ -61,8 +61,8 @@ class MolochV3SummonerContract {
   ): Promise<ethers.ContractTransaction> {
     return await this.summoner.summonBaalAndSafe(
       encodeValues(
-        ['string', 'string'],
-        [args.sharesTokenName, args.sharesTokenSymbol]
+        ['string', 'string', 'address'],
+        [args.sharesTokenName, args.sharesTokenSymbol, args.forwarder]
       ),
       encodeInitializationParams(args, this.networkId),
       getNonce()
@@ -72,7 +72,7 @@ class MolochV3SummonerContract {
   /**
    * Deploy dao with existing safe contracts
    * params the same as above with one extra in initializationParams
-   * @param initializationParams encoded share token name and symbol and safe address (string, string, address)
+   * @param initializationParams encoded share token name and symbol and safe address and forwarder (string, string, address, address)
    * @param _saltNonce any uint256
    */
   public async summonMolochV3(
@@ -82,8 +82,13 @@ class MolochV3SummonerContract {
 
     return await this.summoner.summonBaal(
       encodeValues(
-        ['string', 'string', 'address'],
-        [args.sharesTokenName, args.sharesTokenSymbol, args.safeAddress]
+        ['string', 'string', 'address', 'address'],
+        [
+          args.sharesTokenName,
+          args.sharesTokenSymbol,
+          args.safeAddress,
+          args.forwarder,
+        ]
       ),
       encodeInitializationParams(args, this.networkId),
       getNonce()

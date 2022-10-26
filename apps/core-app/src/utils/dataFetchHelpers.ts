@@ -23,7 +23,11 @@ export const loadMember = async ({
 }) => {
   try {
     setMemberLoading(true);
-    const haus = Haus.create();
+    const haus = Haus.create({
+      graphApiKeys: {
+        '0x1': import.meta.env['VITE_GRAPH_API_KEY_MAINNET'],
+      },
+    });
     const memberRes = await haus.query.findMember({
       networkId: daochain,
       dao: daoid,
@@ -64,7 +68,11 @@ export const loadProposal = async ({
 }) => {
   try {
     setProposalLoading(true);
-    const haus = Haus.create();
+    const haus = Haus.create({
+      graphApiKeys: {
+        '0x1': import.meta.env['VITE_GRAPH_API_KEY_MAINNET'],
+      },
+    });
     const res = await haus.query.findProposal({
       networkId: daochain,
       dao: daoid,
@@ -100,7 +108,11 @@ export const isActiveMember = async ({
 }): Promise<{ member?: FindMemberQuery['member']; error?: ErrorMessage }> => {
   try {
     setMemberLoading(true);
-    const haus = Haus.create();
+    const haus = Haus.create({
+      graphApiKeys: {
+        '0x1': import.meta.env['VITE_GRAPH_API_KEY_MAINNET'],
+      },
+    });
     const memberRes = await haus.query.findMember({
       networkId: daochain,
       dao: daoid,

@@ -10,6 +10,43 @@
       },
       {
         "indexed": false,
+        "internalType": "uint32",
+        "name": "proposalId",
+        "type": "uint32"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "applicant",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "safe",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "EscrowReleased",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "baal",
+        "type": "address"
+      },
+      {
+        "indexed": false,
         "internalType": "address",
         "name": "token",
         "type": "address"
@@ -175,6 +212,11 @@
         "type": "uint32"
       },
       {
+        "internalType": "uint256",
+        "name": "baalgas",
+        "type": "uint256"
+      },
+      {
         "internalType": "string",
         "name": "details",
         "type": "string"
@@ -182,7 +224,7 @@
     ],
     "name": "submitTributeProposal",
     "outputs": [],
-    "stateMutability": "nonpayable",
+    "stateMutability": "payable",
     "type": "function"
   }
 ]

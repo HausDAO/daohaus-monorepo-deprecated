@@ -52,7 +52,11 @@ export const HomeDashboard = () => {
     const getDaos = async (address: string) => {
       setLoading(true);
       try {
-        const haus = Haus.create();
+        const haus = Haus.create({
+          graphApiKeys: {
+            '0x1': import.meta.env['VITE_GRAPH_API_KEY_MAINNET'],
+          },
+        });
         const query = await haus.profile.listDaosByMember({
           memberAddress: address,
           networkIds: Object.keys(filterNetworks) as ValidNetwork[],

@@ -101,7 +101,7 @@ export const CancelProposal = ({
 
   return (
     <GatedButton
-      colorVariant="secondary"
+      color="secondary"
       rules={[isConnectedToDao, addressCanCancel]}
       onClick={handleCancel}
       // centerAlign

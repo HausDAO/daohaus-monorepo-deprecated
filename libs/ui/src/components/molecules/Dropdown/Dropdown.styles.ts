@@ -6,7 +6,6 @@ import { Button, Link } from '../../atoms';
 
 export const DropdownMenu = Dropdown.Root;
 export const DropdownMenuTrigger = styled(Dropdown.Trigger)``;
-export const DropdownMenuItem = styled(Dropdown.Item)``;
 
 type MenuContentType = {
   bgmenu?: string;
@@ -34,6 +33,10 @@ export const DropdownButton = styled(Button)`
   &.selected {
     background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step9};
   }
+`;
+
+export const DropdownMenuItem = styled(Dropdown.Item)`
+  margin-bottom: ${(props: { spacing?: string }) => props.spacing};
 `;
 
 /*

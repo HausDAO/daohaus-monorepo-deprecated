@@ -42,7 +42,7 @@ export const getNetworkPanels = (
     return (
       <DropdownMenuItem key={i} asChild>
         <WarningButton
-          colorVariant="secondary"
+          color="secondary"
           fullWidth
           // leftAlign
           onClick={handleNetworkSwitch}
@@ -62,7 +62,7 @@ export const NotDaoNetwork = ({ isSm }: { isSm: boolean }) => {
 
   return (
     <WarningButton
-      colorVariant="secondary"
+      color="secondary"
       variant="outline"
       IconLeft={BiError}
       onClick={handleSwitchNetwork}
@@ -80,17 +80,13 @@ export const NotSupportedNetwork = ({ isSm }: { isSm: boolean }) => {
 
   const innerButton = isSm ? (
     <WarningButton
-      colorVariant="secondary"
+      color="primary"
       variant="outline"
       size="sm"
       IconLeft={BiError}
     />
   ) : (
-    <WarningButton
-      colorVariant="secondary"
-      variant="outline"
-      IconLeft={BiError}
-    >
+    <WarningButton color="primary" variant="outline" IconLeft={BiError}>
       Network Unavailable
     </WarningButton>
   );

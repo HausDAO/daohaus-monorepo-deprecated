@@ -45,7 +45,7 @@ export const RagequitToken = (props: Buildable<Field>) => {
       label={daoTokenData.label}
       defaultValue="0"
       rightAddon={
-        <Button colorVariant="secondary" size="sm" onClick={setMax}>
+        <Button color="secondary" size="sm" onClick={setMax}>
           Max: {toWholeUnits(daoTokenData.maxAmount || '0')}
         </Button>
       }

@@ -62,11 +62,7 @@ export const NavigationTabs = (props: NavigationTabsProps) => {
             align={dropdownMenuAlign}
             spacing={dropdownMenuSpacing}
             trigger={
-              <Button
-                colorVariant="secondary"
-                variant="outline"
-                IconLeft={RiMenuLine}
-              >
+              <Button color="secondary" variant="outline" IconLeft={RiMenuLine}>
                 {currentLabel}
               </Button>
             }

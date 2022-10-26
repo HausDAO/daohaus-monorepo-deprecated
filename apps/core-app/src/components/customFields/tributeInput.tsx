@@ -176,12 +176,7 @@ export const TributeInput = (
   };
 
   const maxButton = tokenData?.balance && tokenData?.decimals && (
-    <Button
-      colorVariant="secondary"
-      size="sm"
-      onClick={handleMax}
-      type="button"
-    >
+    <Button color="secondary" size="sm" onClick={handleMax} type="button">
       Max: {toWholeUnits(tokenData?.balance, tokenData?.decimals)}
     </Button>
   );

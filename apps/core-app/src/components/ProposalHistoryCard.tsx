@@ -155,7 +155,7 @@ export const ProposalHistoryCard = ({
         {element.showVotesButton && hasProposalVotes && (
           <Dialog>
             <DialogTrigger asChild>
-              <VotesButton colorVariant="secondary" size="sm">
+              <VotesButton color="secondary" size="sm">
                 Show Votes
               </VotesButton>
             </DialogTrigger>

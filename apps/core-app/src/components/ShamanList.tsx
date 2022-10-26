@@ -69,7 +69,7 @@ export const ShamanList = ({ shamen }: ShamanListProps) => {
                   }
                 )}`}
               >
-                <Button colorVariant="secondary" size="sm">
+                <Button color="secondary" size="sm">
                   Manage
                 </Button>
               </StyledLink>

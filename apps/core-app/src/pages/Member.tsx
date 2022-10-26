@@ -239,7 +239,7 @@ export function Member() {
             <ButtonLink
               href={`/molochv3/${daochain}/${daoid}/members`}
               IconLeft={StyledArrowLeft}
-              colorVariant="secondary"
+              color="secondary"
               variant="outline"
               fullWidth={isMobile}
               // centerAlign={isMobile}

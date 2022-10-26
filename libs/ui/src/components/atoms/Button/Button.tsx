@@ -4,7 +4,7 @@ import { IconType } from 'react-icons';
 
 import { ButtonBase } from './Button.styles';
 
-export type ButtonColorVariant =
+export type Buttoncolor =
   | 'primary'
   | 'secondary'
   | 'success'
@@ -19,7 +19,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /* The label to show in the button when loading is true */
   loadingText?: string;
   /** Set theme color */
-  colorVariant?: ButtonColorVariant;
+  color?: Buttoncolor;
   /* Size of the button */
   size?: 'sm' | 'md' | 'lg';
   /** Controls button variant */
@@ -33,20 +33,21 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (props, ref) => {
-    const {
+  (
+    {
       type = 'button',
       IconLeft,
       IconRight,
-      colorVariant = 'primary',
+      color = 'primary',
       variant = 'solid',
       size = 'md',
       fullWidth,
       className,
       children,
       ...rest
-    } = props;
-
+    },
+    ref
+  ) => {
     const classes = classNames({
       [variant]: variant,
       [size]: size,
@@ -56,7 +57,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <ButtonBase
         {...rest}
-        colorVariant={colorVariant}
+        color={color}
         className={`${classes} ${className}`}
         ref={ref}
         type={type}

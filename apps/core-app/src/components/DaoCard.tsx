@@ -146,7 +146,7 @@ export const DaoCard = ({
         <Tag tagColor="blue">{contractType}</Tag>
       </div>
       <ButtonLink
-        colorVariant="secondary"
+        color="secondary"
         fullWidth
         // centerAlign
         href={`/molochv3/${networkId}/${dao}`}

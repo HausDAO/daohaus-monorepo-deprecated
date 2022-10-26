@@ -120,7 +120,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
             defaultValues
           )}`}
         >
-          <Button colorVariant="secondary">Update DAO Settings</Button>
+          <Button color="secondary">Update DAO Settings</Button>
         </StyledButtonLink>
       </GovernanceCardHeader>
       <div className="description">
@@ -186,7 +186,7 @@ export const GovernanceSettings = ({ dao }: GovernanceSettingsProps) => {
             defaultValues
           )}`}
         >
-          <Button colorVariant="secondary">Update Token Settings</Button>
+          <Button color="secondary">Update Token Settings</Button>
         </StyledButtonLink>
       </TokensHeader>
       <H4>Voting</H4>

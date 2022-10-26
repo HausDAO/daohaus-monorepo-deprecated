@@ -53,7 +53,7 @@ export const SummonError = ({
         <ExplorerLink address={daoAddress}>View Transaction</ExplorerLink>
       </InfoSection>
       <Button
-        colorVariant="secondary"
+        color="secondary"
         onClick={handleResetSummon}
         fullWidth={isMobile}
         // centerAlign={isMobile}

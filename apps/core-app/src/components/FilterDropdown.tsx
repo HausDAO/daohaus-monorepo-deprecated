@@ -39,7 +39,7 @@ const FilterDropdown = ({ filter, toggleFilter }: FilterDropdownProps) => {
       menuMinWidth="25rem"
       spacing=".6rem"
       trigger={
-        <Button colorVariant="secondary" IconLeft={IconFilter}>
+        <Button color="secondary" IconLeft={IconFilter}>
           {filter ? `${PROPOSAL_FILTERS[filter]}` : 'Filter'}
         </Button>
       }
@@ -48,7 +48,7 @@ const FilterDropdown = ({ filter, toggleFilter }: FilterDropdownProps) => {
         return (
           <DropdownMenuItem asChild key={filterKey}>
             <DropdownButton
-              colorVariant="secondary"
+              color="secondary"
               fullWidth
               value={filterKey}
               onClick={toggleFilter}

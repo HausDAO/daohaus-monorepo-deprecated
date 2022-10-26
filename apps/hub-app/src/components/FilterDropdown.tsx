@@ -55,7 +55,7 @@ const FilterDropdown = ({
           value={network.chainId}
           onClick={toggleNetworkFilter}
           className={isActive ? 'selected' : ''}
-          colorVariant="secondary"
+          color="secondary"
           fullWidth
           // leftAlign
           IconRight={isActive ? AiOutlineCheck : undefined}
@@ -72,7 +72,7 @@ const FilterDropdown = ({
       menuMinWidth="25rem"
       spacing=".6rem"
       trigger={
-        <Button colorVariant="secondary" IconLeft={IconFilter}>
+        <Button color="secondary" IconLeft={IconFilter}>
           Filters
         </Button>
       }
@@ -86,7 +86,7 @@ const FilterDropdown = ({
       </DropdownMenuLabel>
       <DropdownMenuItem asChild>
         <DropdownButton
-          colorVariant="secondary"
+          color="secondary"
           fullWidth
           // leftAlign
           value={FILTER_TYPE.DELEGATING}
@@ -105,7 +105,7 @@ const FilterDropdown = ({
       </DropdownMenuItem>
       <DropdownMenuItem asChild>
         <DropdownButton
-          colorVariant="secondary"
+          color="secondary"
           fullWidth
           // leftAlign
           value={FILTER_TYPE.DELEGATING_TO}

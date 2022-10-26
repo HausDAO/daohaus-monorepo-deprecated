@@ -21,7 +21,7 @@ export const DropdownButton = React.forwardRef<
     IconRight = RiArrowDropDownLine,
     children,
     className,
-    colorVariant = 'secondary',
+    color = 'secondary',
     variant = 'solid',
     size = 'md',
     profile,
@@ -37,7 +37,7 @@ export const DropdownButton = React.forwardRef<
   return (
     <DropdownButtonBase
       {...rest}
-      colorVariant={colorVariant}
+      color={color}
       size={size}
       variant={variant}
       className={`${classes} ${className}`}

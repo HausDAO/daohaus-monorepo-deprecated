@@ -7,7 +7,7 @@ export default {
   component: DropdownButton,
   subcomponents: { ProfileAvatar },
   argTypes: {
-    colorVariant: {
+    color: {
       description: 'Set the base theme color for the button',
       defaultValue: 'primary',
       options: ['primary', 'secondary'],
@@ -39,7 +39,7 @@ export const BaseDropdownButton = Template.bind({});
 
 BaseDropdownButton.args = {
   children: 'Button',
-  colorVariant: 'primary',
+  color: 'primary',
   variant: 'solid',
   size: 'md',
   disabled: false,
@@ -50,7 +50,7 @@ export const ProfileDropdownButton = Template.bind({});
 
 ProfileDropdownButton.args = {
   children: 'Button',
-  colorVariant: 'primary',
+  color: 'primary',
   variant: 'solid',
   size: 'md',
   disabled: false,

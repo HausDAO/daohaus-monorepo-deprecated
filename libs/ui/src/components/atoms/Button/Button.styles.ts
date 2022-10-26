@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { font } from '../../../theme/global/font';
 
 export const ButtonBase = styled.button<{
-  colorVariant: 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
+  color: 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
 }>`
   align-items: center;
   border-radius: 0.4rem;
@@ -31,36 +31,31 @@ export const ButtonBase = styled.button<{
   }
 
   &.solid {
-    background-color: ${({ theme, colorVariant }) =>
-      theme.button[`${colorVariant}`].solid.bg};
+    background-color: ${({ theme, color }) =>
+      theme.button[`${color}`].solid.bg};
     border: 0.1rem solid
-      ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].solid.border};
-    color: ${({ theme, colorVariant }) =>
-      theme.button[`${colorVariant}`].solid.text};
+      ${({ theme, color }) => theme.button[`${color}`].solid.border};
+    color: ${({ theme, color }) => theme.button[`${color}`].solid.text};
 
     :hover {
-      background-color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].solid.bgHover};
+      background-color: ${({ theme, color }) =>
+        theme.button[`${color}`].solid.bgHover};
       border: 0.1rem solid
-        ${({ theme, colorVariant }) =>
-          theme.button[`${colorVariant}`].solid.borderHover};
+        ${({ theme, color }) => theme.button[`${color}`].solid.borderHover};
     }
 
     :focus {
-      background-color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].solid.bgFocus};
+      background-color: ${({ theme, color }) =>
+        theme.button[`${color}`].solid.bgFocus};
       border: 0.1rem solid
-        ${({ theme, colorVariant }) =>
-          theme.button[`${colorVariant}`].solid.borderFocus};
+        ${({ theme, color }) => theme.button[`${color}`].solid.borderFocus};
     }
 
     :disabled {
-      background-color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].solid.bgDisabled};
+      background-color: ${({ theme, color }) =>
+        theme.button[`${color}`].solid.bgDisabled};
       border: 0.1rem solid
-        ${({ theme, colorVariant }) =>
-          theme.button[`${colorVariant}`].solid.borderDisabled};
+        ${({ theme, color }) => theme.button[`${color}`].solid.borderDisabled};
       cursor: not-allowed;
     }
   }
@@ -68,33 +63,25 @@ export const ButtonBase = styled.button<{
   &.outline {
     background-color: transparent;
     border: 0.1rem solid
-      ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].outline.border};
-    color: ${({ theme, colorVariant }) =>
-      theme.button[`${colorVariant}`].outline.text};
+      ${({ theme, color }) => theme.button[`${color}`].outline.border};
+    color: ${({ theme, color }) => theme.button[`${color}`].outline.text};
 
     :hover {
       border: 0.1rem solid
-        ${({ theme, colorVariant }) =>
-          theme.button[`${colorVariant}`].outline.hover};
-      color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].outline.hover};
+        ${({ theme, color }) => theme.button[`${color}`].outline.hover};
+      color: ${({ theme, color }) => theme.button[`${color}`].outline.hover};
     }
 
     :focus {
       border: 0.1rem solid
-        ${({ theme, colorVariant }) =>
-          theme.button[`${colorVariant}`].outline.focus};
-      color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].outline.focus};
+        ${({ theme, color }) => theme.button[`${color}`].outline.focus};
+      color: ${({ theme, color }) => theme.button[`${color}`].outline.focus};
     }
 
     :disabled {
       border: 0.1rem solid
-        ${({ theme, colorVariant }) =>
-          theme.button[`${colorVariant}`].outline.disabled};
-      color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].outline.disabled};
+        ${({ theme, color }) => theme.button[`${color}`].outline.disabled};
+      color: ${({ theme, color }) => theme.button[`${color}`].outline.disabled};
       cursor: not-allowed;
     }
   }
@@ -102,23 +89,20 @@ export const ButtonBase = styled.button<{
   &.ghost {
     background-color: ${({ theme }) => theme.transparent};
     border: 1px solid ${({ theme }) => theme.transparent};
-    color: ${({ theme, colorVariant }) =>
-      theme.button[`${colorVariant}`].ghost.text};
+    color: ${({ theme, color }) => theme.button[`${color}`].ghost.text};
 
     :hover {
-      background-color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].ghost.bgHover};
+      background-color: ${({ theme, color }) =>
+        theme.button[`${color}`].ghost.bgHover};
     }
 
     :focus {
       border: 1px solid
-        ${({ theme, colorVariant }) =>
-          theme.button[`${colorVariant}`].ghost.borderFocus};
+        ${({ theme, color }) => theme.button[`${color}`].ghost.borderFocus};
     }
 
     :disabled {
-      color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].ghost.disabled};
+      color: ${({ theme, color }) => theme.button[`${color}`].ghost.disabled};
       cursor: not-allowed;
     }
   }
@@ -133,23 +117,19 @@ export const ButtonBase = styled.button<{
     padding: 0;
     background-color: transparent;
     border: none;
-    color: ${({ theme, colorVariant }) =>
-      theme.button[`${colorVariant}`].link.text};
+    color: ${({ theme, color }) => theme.button[`${color}`].link.text};
 
     :hover {
-      color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].link.hover};
+      color: ${({ theme, color }) => theme.button[`${color}`].link.hover};
       text-decoration: underline;
     }
 
     :focus {
-      color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].link.focus};
+      color: ${({ theme, color }) => theme.button[`${color}`].link.focus};
     }
 
     :disabled {
-      color: ${({ theme, colorVariant }) =>
-        theme.button[`${colorVariant}`].link.disabled};
+      color: ${({ theme, color }) => theme.button[`${color}`].link.disabled};
       cursor: not-allowed;
     }
   }

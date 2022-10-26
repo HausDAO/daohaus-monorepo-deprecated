@@ -50,7 +50,7 @@ export const DAOFilterDropdown = ({
           value={network.chainId}
           onClick={toggleNetworkFilter}
           className={isActive ? 'selected' : ''}
-          colorVariant="secondary"
+          color="secondary"
           fullWidth
           IconRight={isActive ? RiCheckLine : undefined}
         >
@@ -67,7 +67,7 @@ export const DAOFilterDropdown = ({
       menuMinWidth="25rem"
       spacing=".6rem"
       trigger={
-        <Button colorVariant="secondary" IconLeft={IconFilter}>
+        <Button color="secondary" IconLeft={IconFilter}>
           Filters
         </Button>
       }
@@ -81,7 +81,7 @@ export const DAOFilterDropdown = ({
       </DropdownMenuLabel>
       <DropdownMenuItem asChild>
         <DropdownButton
-          colorVariant="secondary"
+          color="secondary"
           fullWidth
           value={FILTER_TYPE.DELEGATING}
           onClick={toggleDelegateFilter}
@@ -97,7 +97,7 @@ export const DAOFilterDropdown = ({
       </DropdownMenuItem>
       <DropdownMenuItem asChild>
         <DropdownButton
-          colorVariant="secondary"
+          color="secondary"
           fullWidth
           value={FILTER_TYPE.DELEGATING_TO}
           onClick={toggleDelegateFilter}

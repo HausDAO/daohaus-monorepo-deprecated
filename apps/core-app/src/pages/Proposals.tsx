@@ -133,7 +133,7 @@ export function Proposals() {
 
       {proposals && proposalsNextPaging && (
         <Button
-          colorVariant="secondary"
+          color="secondary"
           variant="outline"
           size="sm"
           onClick={loadMoreProposals}

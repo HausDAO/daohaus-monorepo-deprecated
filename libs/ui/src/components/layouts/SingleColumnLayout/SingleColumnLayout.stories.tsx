@@ -17,7 +17,7 @@ const Template: ComponentStory<typeof SingleColumnLayout> = (args) => (
 
 // const actionButtons = [
 //   <Button key="1">Action 1</Button>,
-//   <Button colorVariant="secondary" key="2">
+//   <Button color="secondary" key="2">
 //     Action 2
 //   </Button>,
 // ]);
@@ -43,7 +43,7 @@ WithActions.args = {
   title: 'Single Column Layout',
   actions: [
     <Button key="1">Action 1</Button>,
-    <Button colorVariant="secondary" key="2">
+    <Button color="secondary" key="2">
       Action 2
     </Button>,
   ],

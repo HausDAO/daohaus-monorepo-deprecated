@@ -207,7 +207,7 @@ export function Members() {
           return (
             <ActionContainer>
               <ProfileLink
-                colorVariant="secondary"
+                color="secondary"
                 size="sm"
                 memberAddress={row.original.memberAddress}
               >
@@ -236,7 +236,7 @@ export function Members() {
         <Actions>
           <ButtonLink
             href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=ISSUE`}
-            colorVariant="secondary"
+            color="secondary"
             fullWidth={isMd}
             // centerAlign={isMd}
           >

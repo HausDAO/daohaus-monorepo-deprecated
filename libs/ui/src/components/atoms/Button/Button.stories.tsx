@@ -6,7 +6,7 @@ export default {
   title: 'Atoms/Button',
   component: Button,
   argTypes: {
-    colorVariant: {
+    color: {
       description: 'Set the base theme color for the button',
       defaultValue: 'primary',
       options: ['primary', 'secondary', 'success', 'warning', 'danger'],
@@ -37,7 +37,7 @@ export const BaseButton = Template.bind({});
 
 BaseButton.args = {
   children: 'Button',
-  colorVariant: 'primary',
+  color: 'primary',
   variant: 'solid',
   size: 'md',
   disabled: false,
@@ -64,20 +64,20 @@ PrimaryButtonAsLink.args = {
 export const SecondaryButton = Template.bind({});
 SecondaryButton.args = {
   children: 'Button',
-  colorVariant: 'secondary',
+  color: 'secondary',
 };
 
 export const SecondaryButtonOutline = Template.bind({});
 SecondaryButtonOutline.args = {
   children: 'Button',
-  colorVariant: 'secondary',
+  color: 'secondary',
   variant: 'outline',
 };
 
 export const SecondaryButtonAsLink = Template.bind({});
 SecondaryButtonAsLink.args = {
   children: 'Button',
-  colorVariant: 'secondary',
+  color: 'secondary',
   variant: 'link',
 };
 

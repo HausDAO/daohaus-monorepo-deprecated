@@ -39,7 +39,7 @@ export function Safes() {
         <>
           <ButtonLink
             href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=TRANSFER_ERC20`}
-            colorVariant="secondary"
+            color="secondary"
             fullWidth={isMobile}
             // centerAlign={isMobile}
           >
@@ -48,7 +48,7 @@ export function Safes() {
 
           <ButtonLink
             href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=TRANSFER_NETWORK_TOKEN`}
-            colorVariant="secondary"
+            color="secondary"
             fullWidth={isMobile}
             // centerAlign={isMobile}
           >

@@ -63,7 +63,7 @@ ProposalCardExample.args = {
           },
         ]}
       />
-      <Button variant="outline" colorVariant="secondary">
+      <Button variant="outline" color="secondary">
         Click Me
       </Button>
     </div>

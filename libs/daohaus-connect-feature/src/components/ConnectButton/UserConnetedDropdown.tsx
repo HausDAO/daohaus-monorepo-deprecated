@@ -87,7 +87,7 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
       </DropdownMenuLabel>
       <DropdownMenuItem>
         <Button
-          colorVariant="secondary"
+          color="secondary"
           variant="outline"
           size="sm"
           fullWidth

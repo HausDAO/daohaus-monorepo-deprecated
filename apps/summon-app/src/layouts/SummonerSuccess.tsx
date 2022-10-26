@@ -87,7 +87,7 @@ export const SummonerSuccess = ({
       </AddressInfoSection>
       <ButtonGroup>
         <Button
-          colorVariant="secondary"
+          color="secondary"
           onClick={handleResetSummon}
           // centerAlign={isMobile}
           fullWidth={isMobile}

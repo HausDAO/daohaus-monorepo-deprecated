@@ -30,8 +30,8 @@ const networkPanels = [
   'Kovan',
   'Rinkeby',
 ].map((item, index) => (
-  <DropdownMenuItem key={index}>
-    <Button colorVariant="secondary" fullWidth>
+  <DropdownMenuItem key={index} spacing="0.7rem">
+    <Button color="secondary" fullWidth>
       {item}
     </Button>
   </DropdownMenuItem>

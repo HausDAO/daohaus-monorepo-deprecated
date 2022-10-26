@@ -104,7 +104,7 @@ export function DaoTable<T extends object>({
       </Table>
       {hasNextPaging && handleLoadMore && (
         <Button
-          colorVariant="secondary"
+          color="secondary"
           variant="outline"
           size="sm"
           onClick={handleLoadMore}

@@ -65,7 +65,7 @@ export const SelectApplicant = ({
   const ToggleButton = () => {
     return (
       <Button
-        colorVariant="secondary"
+        color="secondary"
         variant="outline"
         size="sm"
         onClick={() => {

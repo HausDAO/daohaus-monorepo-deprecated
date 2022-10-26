@@ -91,7 +91,7 @@ export const ProposalCardOverview = ({
           }
         >
           <Button
-            colorVariant="secondary"
+            color="secondary"
             size="sm"
             fullWidth={isMobile}
             disabled={loading}
@@ -205,7 +205,7 @@ export const OverviewHeader = ({
                 : '#'
             }
           >
-            <Button colorVariant="secondary" size="sm" disabled={loading}>
+            <Button color="secondary" size="sm" disabled={loading}>
               View Details
             </Button>
           </StyledLink>

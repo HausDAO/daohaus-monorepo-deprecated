@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import { IconType } from 'react-icons';
 
 import { RiArrowDropDownLine } from 'react-icons/ri';
 import { ButtonProps } from '../../atoms/Button';

@@ -49,6 +49,7 @@ const FilterDropdown = ({ filter, toggleFilter }: FilterDropdownProps) => {
           <DropdownMenuItem asChild key={filterKey}>
             <DropdownButton
               color="secondary"
+              justify="flex-start"
               fullWidth
               value={filterKey}
               onClick={toggleFilter}

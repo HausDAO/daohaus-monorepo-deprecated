@@ -123,7 +123,6 @@ export const HasNotVoted = ({
           <VoteBox>
             <VoteDownButton
               size="sm"
-              // centerAlign
               rules={[hasShares, isConnectedToDao, isNotLoading]}
               value={Vote.No}
               onClick={handleVote}
@@ -132,7 +131,6 @@ export const HasNotVoted = ({
             </VoteDownButton>
             <VoteUpButton
               size="sm"
-              // centerAlign
               rules={[hasShares, isConnectedToDao, isNotLoading]}
               value={Vote.Yes}
               onClick={handleVote}

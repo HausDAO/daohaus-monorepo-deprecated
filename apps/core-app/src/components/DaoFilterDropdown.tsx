@@ -51,6 +51,7 @@ export const DAOFilterDropdown = ({
           onClick={toggleNetworkFilter}
           className={isActive ? 'selected' : ''}
           color="secondary"
+          justify="flex-start"
           fullWidth
           IconRight={isActive ? RiCheckLine : undefined}
         >
@@ -82,6 +83,7 @@ export const DAOFilterDropdown = ({
       <DropdownMenuItem asChild>
         <DropdownButton
           color="secondary"
+          justify="flex-start"
           fullWidth
           value={FILTER_TYPE.DELEGATING}
           onClick={toggleDelegateFilter}
@@ -98,6 +100,7 @@ export const DAOFilterDropdown = ({
       <DropdownMenuItem asChild>
         <DropdownButton
           color="secondary"
+          justify="flex-start"
           fullWidth
           value={FILTER_TYPE.DELEGATING_TO}
           onClick={toggleDelegateFilter}

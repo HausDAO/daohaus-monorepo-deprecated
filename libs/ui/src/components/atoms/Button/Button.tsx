@@ -2,15 +2,22 @@ import React, { ButtonHTMLAttributes } from 'react';
 import classNames from 'classnames';
 import { IconType } from 'react-icons';
 
-import { ButtonBase } from './Button.styles';
+import { StyledButton } from './Button.styles';
 
-export type Buttoncolor =
+export type ButtonColor =
   | 'primary'
   | 'secondary'
   | 'success'
   | 'warning'
   | 'danger';
 
+export type ButtonJustifyContent =
+  | 'flex-start'
+  | 'flex-end'
+  | 'center'
+  | 'space-between'
+  | 'space-around'
+  | 'space-evenly';
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   // ! Not Included untill talk with design
   // Shows loading spinner */
@@ -19,15 +26,15 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /* The label to show in the button when loading is true */
   loadingText?: string;
   /** Set theme color */
-  color?: Buttoncolor;
+  color?: ButtonColor;
   /* Size of the button */
   size?: 'sm' | 'md' | 'lg';
   /** Controls button variant */
   variant?: 'solid' | 'outline' | 'ghost' | 'link';
   /* Toggle from fit-content to width 100% of the button element */
   fullWidth?: boolean;
-  /* Add justify-content: flex start to button content */
-  leftAlign?: boolean;
+  /* Add justify-content as prop for button content */
+  justify?: ButtonJustifyContent;
   /* Adds icon before button label */
   IconLeft?: IconType | React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
   /* Adds icon after button label */
@@ -44,7 +51,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       variant = 'solid',
       size = 'md',
       fullWidth,
-      leftAlign,
+      justify = 'center',
       className,
       children,
       ...rest
@@ -55,13 +62,13 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       [variant]: variant,
       [size]: size,
       'full-width': fullWidth,
-      'left-align': leftAlign,
     });
 
     return (
-      <ButtonBase
+      <StyledButton
         {...rest}
         color={color}
+        justify={justify}
         className={`${classes} ${className}`}
         ref={ref}
         type={type}
@@ -69,7 +76,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {IconLeft && <IconLeft className="icon-left" />}
         {children}
         {IconRight && <IconRight className="icon-right" />}
-      </ButtonBase>
+      </StyledButton>
     );
   }
 );

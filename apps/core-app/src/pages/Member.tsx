@@ -242,7 +242,10 @@ export function Member() {
               color="secondary"
               variant="outline"
               fullWidth={isMobile}
-              // centerAlign={isMobile}
+              // was centerAlign={isMobile}
+              // Default has always been center.
+              // Not sure what is supposed to happen here?
+              // justify={isMobile ? 'center' : 'flex-start'}
             >
               MEMBERS
             </ButtonLink>
@@ -250,6 +253,7 @@ export function Member() {
               IconLeft={BsShareFill}
               onClick={handleOnClick}
               fullWidth={isMobile}
+              // Same as above
               // centerAlign={isMobile}
             >
               SHARE PROFILE

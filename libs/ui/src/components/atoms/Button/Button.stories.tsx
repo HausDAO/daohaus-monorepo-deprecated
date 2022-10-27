@@ -24,6 +24,20 @@ export default {
       options: ['sm', 'md', 'lg'],
       control: { type: 'radio' },
     },
+    justify: {
+      description:
+        'Allow for positioning content inside the button based on justify content and flexbox container',
+      defaultValue: 'center',
+      options: [
+        'flex-start',
+        'flex-end',
+        'center',
+        'space-between',
+        'space-around',
+        'space-evenly',
+      ],
+      control: { type: 'radio' },
+    },
     onClick: { action: 'clicked' },
   },
 } as ComponentMeta<typeof Button>;
@@ -42,6 +56,7 @@ BaseButton.args = {
   size: 'md',
   disabled: false,
   fullWidth: false,
+  justify: 'flex-start',
 };
 
 export const PrimaryButton = Template.bind({});

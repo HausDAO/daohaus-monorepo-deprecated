@@ -88,7 +88,7 @@ const FilterDropdown = ({
         <DropdownButton
           color="secondary"
           fullWidth
-          // leftAlign
+          justify="flex-start"
           value={FILTER_TYPE.DELEGATING}
           onClick={toggleDelegateFilter}
           IconRight={
@@ -107,7 +107,7 @@ const FilterDropdown = ({
         <DropdownButton
           color="secondary"
           fullWidth
-          // leftAlign
+          justify="flex-start"
           value={FILTER_TYPE.DELEGATING_TO}
           onClick={toggleDelegateFilter}
           IconRight={

@@ -95,7 +95,6 @@ export const ProposalCardOverview = ({
             size="sm"
             fullWidth={isMobile}
             disabled={loading}
-            // centerAlign
           >
             View Details
           </Button>

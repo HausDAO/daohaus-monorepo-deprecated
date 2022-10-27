@@ -10,7 +10,8 @@
         "outputPath": "dist/libs/abi-utilities",
         "main": "libs/abi-utilities/src/index.ts",
         "tsConfig": "libs/abi-utilities/tsconfig.lib.json",
-        "assets": ["libs/abi-utilities/*.md"]
+        "assets": ["libs/abi-utilities/*.md"],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "lint": {

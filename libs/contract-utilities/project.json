@@ -7,14 +7,12 @@
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
-      "dependsOn": ["^build"],
       "options": {
         "outputPath": "dist/libs/contract-utilities",
         "main": "libs/contract-utilities/src/index.ts",
         "tsConfig": "libs/contract-utilities/tsconfig.lib.json",
-        "updateBuildableProjectDepsInPackageJson": true,
-        "buildableProjectDepsInPackageJsonType": "dependencies",
-        "assets": ["libs/contract-utilities/*.md"]
+        "assets": ["libs/contract-utilities/*.md"],
+        "buildableProjectDepsInPackageJsonType": "dependencies"
       }
     },
     "lint": {

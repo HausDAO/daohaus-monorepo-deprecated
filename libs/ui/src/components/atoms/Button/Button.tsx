@@ -4,7 +4,7 @@ import { IconType } from 'react-icons';
 
 import { ButtonBase } from './Button.styles';
 
-export type Buttoncolor =
+export type ButtonColors =
   | 'primary'
   | 'secondary'
   | 'success'
@@ -12,14 +12,8 @@ export type Buttoncolor =
   | 'danger';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  // ! Not Included untill talk with design
-  // Shows loading spinner */
-  loading?: boolean;
-  // ! Not Included untill talk with design
-  /* The label to show in the button when loading is true */
-  loadingText?: string;
   /** Set theme color */
-  color?: Buttoncolor;
+  color?: ButtonColors;
   /* Size of the button */
   size?: 'sm' | 'md' | 'lg';
   /** Controls button variant */

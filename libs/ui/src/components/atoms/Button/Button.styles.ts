@@ -1,9 +1,10 @@
 import styled from 'styled-components';
-
 import { font } from '../../../theme/global/font';
 
+import { ButtonColor } from './Button';
+
 export const ButtonBase = styled.button<{
-  color: 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
+  color: ButtonColor;
 }>`
   align-items: center;
   border-radius: 0.4rem;

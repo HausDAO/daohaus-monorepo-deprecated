@@ -21,11 +21,7 @@ const StyledSpinner = styled.div`
     font-size: 1rem;
     position: relative;
     text-indent: -9999em;
-    border-top: ${(props: SpinnerType) =>
-      `${props.strokeWidth} solid ${props.bottomColor}`};
-    border-right: ${(props: SpinnerType) =>
-      `${props.strokeWidth} solid ${props.bottomColor}`};
-    border-bottom: ${(props: SpinnerType) =>
+    border: ${(props: SpinnerType) =>
       `${props.strokeWidth} solid ${props.bottomColor}`};
     border-left: ${(props: SpinnerType) =>
       `${props.strokeWidth} solid ${props.topColor}`};

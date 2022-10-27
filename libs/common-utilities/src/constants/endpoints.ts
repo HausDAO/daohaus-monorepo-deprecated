@@ -1,5 +1,5 @@
 import { KeychainList } from '..';
-import { Keychain, ValidNetwork } from '../types';
+import { Keychain } from '../types';
 
 export const ENDPOINTS: KeychainList = {
   V3_SUBGRAPH: {
@@ -16,21 +16,16 @@ export const ENDPOINTS: KeychainList = {
   EXPLORER: {
     '0x1': 'https://etherscan.io',
     '0x5': 'https://goerli.etherscan.io',
-    '0x64': 'https://blockscout.com/xdai/mainnet',
-    '0xa': 'https://optimistic.etherscan.io',
-    '0x89': 'https://polygonscan.com',
-    '0xa4b1': 'https://arbiscan.io/',
-    '0xa4ec': 'https://explorer.celo.org',
+    '0x64': 'https://gnosisscan.io/',
   },
   GNOSIS_API: {
-    '0x1': 'https://safe-transaction.gnosis.io/api/v1',
+    '0x1': 'https://safe-transaction.mainnet.io/api/v1',
     '0x5': 'https://safe-transaction.goerli.gnosis.io/api/v1',
     '0x64': 'https://safe-transaction.xdai.gnosis.io/api/v1',
-    '0xa': 'https://safe-transaction.optimism.gnosis.io/api/v1',
-    '0x89': 'https://safe-transaction.polygon.gnosis.io/api/v1',
-    '0xa4b1': 'https://safe-transaction.arbitrum.gnosis.io/api/v1',
   },
   GAS_ESTIMATE: {
+    '0x1':
+      'https://safe-transaction.mainnet.gnosis.io/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
     '0x5':
       'https://safe-transaction.goerli.gnosis.io/api/v1/safes/<<safeId>>/multisig-transactions/estimations/',
     '0x64':
@@ -40,9 +35,6 @@ export const ENDPOINTS: KeychainList = {
     '0x1': 'https://gnosis-safe.io/app/eth',
     '0x5': 'https://gnosis-safe.io/app/gor',
     '0x64': 'https://gnosis-safe.io/app/gno',
-    '0xa': 'https://gnosis-safe.io/app/opt',
-    '0x89': 'https://gnosis-safe.io/app/pol',
-    '0xa4b1': 'https://gnosis-safe.io/app/arb',
   },
   TABULA_GRAPH: {
     '0x5':

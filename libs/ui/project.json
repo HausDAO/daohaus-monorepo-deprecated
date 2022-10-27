@@ -1,52 +1,42 @@
 {
+  "name": "ui",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/ui/src",
   "projectType": "library",
   "tags": [],
   "targets": {
-    "vite-build": {
-      "executor": "@daohaus/executors:vite-helper",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/ui",
-        "configFile": "libs/ui/vite.config.ts",
-        "frameworkConfigFile": "@nxext/react/plugins/vite",
-        "entryFile": "src/index.ts",
-        "updateBuildableProjectDepsInPackageJson": true,
-        "buildableProjectDepsInPackageJsonType": "peerDependencies",
-        "packageJson": "libs/ui/package.json",
-        "project": "libs/ui"
-      }
-    },
     "build": {
+      "executor": "@nrwl/web:rollup",
       "outputs": ["{options.outputPath}"],
-      "executor": "nx:run-commands",
       "options": {
+        "extractCss": false,
         "outputPath": "dist/libs/ui",
-        "command": "tsc --project libs/ui/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
-        "color": true
-      },
-      "dependsOn": [
-        {
-          "target": "vite-build",
-          "projects": "self"
-        },
-        {
-          "target": "build-storybook",
-          "projects": "self"
-        }
-      ]
+        "tsConfig": "libs/ui/tsconfig.lib.json",
+        "project": "libs/ui/package.json",
+        "entryFile": "libs/ui/src/index.ts",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "compiler": "babel",
+        "assets": [
+          {
+            "glob": "libs/ui/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["libs/ui/**/*.{ts,tsx,js,jsx,css}"]
+        "lintFilePatterns": ["libs/ui/**/*.{ts,tsx,js,jsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/ui"],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "libs/ui/jest.config.ts",
         "passWithNoTests": true
@@ -60,67 +50,13 @@
         "config": {
           "configFolder": "libs/ui/.storybook"
         }
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
       }
     },
-    "build-storybook": {
-      "executor": "@nrwl/storybook:build",
-      "outputs": ["{options.outputPath}"],
-      "inputs": [
-        {
-          "env": "NODE_ENV"
-        }
-      ],
+    "publish": {
+      "executor": "nx:run-commands",
       "options": {
-        "uiFramework": "@storybook/react",
-        "outputPath": "dist/storybook/ui",
-        "config": {
-          "configFolder": "libs/ui/.storybook"
-        },
-        "quiet": false
-      },
-      "configurations": {
-        "ci": {
-          "quiet": true
-        }
+        "command": "node tools/scripts/publish.mjs ui 0.0.8 @dh-test/ui"
       }
-    },
-    "version": {
-      "executor": "@jscutlery/semver:version",
-      "options": {
-        "preset": "conventional",
-        "tagPrefix": "${projectName}@",
-        "noVerify": true,
-        "baseBranch": "master",
-        "commitMessageFormat": "ci(${projectName}): 🔥 cut release to ${version}"
-      }
-    },
-    "deploy": {
-      "executor": "ngx-deploy-npm:deploy",
-      "options": {
-        "access": "public",
-        "noBuild": true
-      }
-    },
-    "deployStaging": {
-      "executor": "@alexkeating/nx-skynet:deploy",
-      "options": {
-        "uploadDir": "dist/storybook/ui",
-        "registrySeedVarName": "DAOHAUS_UI_DEVELOP_SKYNET_SEED",
-        "registryDataKey": "skylink.txt",
-        "portalUrl": "https://skynetfree.net",
-        "skynetApiKeyVarName": "SKYNET_API_KEY"
-      },
-      "dependsOn": [
-        {
-          "target": "build-storybook",
-          "projects": "self"
-        }
-      ]
     }
   }
 }

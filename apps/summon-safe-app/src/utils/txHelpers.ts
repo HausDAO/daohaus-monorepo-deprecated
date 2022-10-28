@@ -8,7 +8,7 @@ import { MultisigExecutionDetails } from '@gnosis.pm/safe-react-gateway-sdk';
 import {
   calculateProxyAddress,
   CONTRACT_ABIS,
-  CONTRACT_ADDRESSES,
+  // CONTRACT_ADDRESSES,
 } from '@gnosis.pm/zodiac';
 
 import { handleKeychains } from './summonTx';
@@ -30,10 +30,10 @@ export const calculateBaalAddress = async (
   const templateAddress = `0x${rs.substring(rs.length - 40, rs.length)}`;
   const baalSingleton = new Contract(templateAddress, LOCAL_ABI.BAAL);
   const moduleProxyFactory = new Contract(
-    // TODO: default value when Goerli. It is not currently supported by Zodiac
-    // TODO: In fact, current moduleProxyFactory used by baalFactory was deployed by us.
-    CONTRACT_ADDRESSES[Number(chainId)]?.factory ||
-      '0x270c012b6c2a61153e8a6d82f2cb4f88ddb7fd5e',
+    // TODO: switch to use the latest moduleProxyFactory from Zodiac
+    // once the BaalSummoner gets updated
+    // CONTRACT_ADDRESSES[Number(chainId)].factory,
+    '0x00000000062c52e29e8029dc2413172f6d619d85',
     CONTRACT_ABIS.factory
   );
   const initData = baalSingleton.interface.encodeFunctionData('avatar');

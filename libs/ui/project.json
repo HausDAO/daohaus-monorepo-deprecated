@@ -52,6 +52,28 @@
         }
       }
     },
+    "build-storybook": {
+      "executor": "@nrwl/storybook:build",
+      "outputs": ["{options.outputPath}"],
+      "inputs": [
+        {
+          "env": "NODE_ENV"
+        }
+      ],
+      "options": {
+        "uiFramework": "@storybook/react",
+        "outputPath": "dist/storybook/ui",
+        "config": {
+          "configFolder": "libs/ui/.storybook"
+        },
+        "quiet": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
     "publish": {
       "executor": "nx:run-commands",
       "options": {

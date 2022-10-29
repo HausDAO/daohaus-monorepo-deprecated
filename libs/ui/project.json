@@ -14,7 +14,6 @@
         "tsConfig": "libs/ui/tsconfig.lib.json",
         "project": "libs/ui/package.json",
         "entryFile": "libs/ui/src/index.ts",
-        "external": ["react/jsx-runtime"],
         "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
         "buildableProjectDepsInPackageJsonType": "dependencies",
         "compiler": "babel",
@@ -25,7 +24,8 @@
             "output": "."
           }
         ]
-      }
+      },
+      "external": ["react", "react-dom", "styled-components"]
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",

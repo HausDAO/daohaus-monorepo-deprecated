@@ -1,14 +1,15 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/",
-    "types": ["vite/client", "node", "@nrwl/react"]
+    "outDir": "../../dist/out-tsc",
+    "types": ["node"]
   },
   "files": [
     "../../node_modules/@nrwl/react/typings/cssmodule.d.ts",
     "../../node_modules/@nrwl/react/typings/image.d.ts"
   ],
   "exclude": [
+    "jest.config.ts",
     "**/*.spec.ts",
     "**/*.test.ts",
     "**/*.spec.tsx",
@@ -20,8 +21,7 @@
     "**/*.stories.ts",
     "**/*.stories.js",
     "**/*.stories.jsx",
-    "**/*.stories.tsx",
-    "jest.config.ts"
+    "**/*.stories.tsx"
   ],
-  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "**/*.mjs"]
+  "include": ["**/*.js", "**/*.jsx", "**/*.ts", "**/*.tsx", "rollup.config.js"]
 }

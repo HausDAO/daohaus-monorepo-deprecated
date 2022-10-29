@@ -10,11 +10,11 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": false,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "types": ["styled-components"]
   },
   "files": [],
   "include": [],
-  "exclude": [".storybook/"],
   "references": [
     {
       "path": "./tsconfig.lib.json"

@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyles } from './global/globalStyles';
 

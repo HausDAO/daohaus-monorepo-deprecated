@@ -13,6 +13,7 @@ import {
   DaoProfile,
   ListDaosQuery,
   LensProfile,
+  ENSDomain,
 } from '../types';
 import { getProposalStatus } from './proposalsStatus';
 
@@ -25,23 +26,30 @@ export const transformProposal = (
   };
 };
 
-export const transformProfile = (
-  address: string,
-  profile: LensProfile
-): AccountProfile => {
+export const transformProfile = ({
+  address,
+  lensProfile,
+  ensDomain,
+}: {
+  address: string;
+  lensProfile?: LensProfile;
+  ensDomain?: ENSDomain;
+}): AccountProfile => {
   return {
     address,
-    name: profile?.name,
-    ens: profile?.onChainIdentity?.ens?.name,
+    name: lensProfile?.name,
+    ens:
+      ensDomain?.domain?.name ||
+      lensProfile?.onChainIdentity?.ens?.name,
     image:
-      profile?.picture?.__typename === 'MediaSet'
-        ? `https://daohaus.mypinata.cloud/ipfs/${profile.picture.original.url.match(
+      lensProfile?.picture?.__typename === 'MediaSet'
+        ? `https://daohaus.mypinata.cloud/ipfs/${lensProfile.picture.original.url.match(
             /Qm[a-zA-Z0-9/.]+/
           )}`
         : '',
-    description: profile?.bio,
-    lensHandle: profile?.handle,
-    lensId: profile?.id,
+    description: lensProfile?.bio,
+    lensHandle: lensProfile?.handle,
+    lensId: lensProfile?.id,
   };
 };
 

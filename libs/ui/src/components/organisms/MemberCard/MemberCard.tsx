@@ -47,8 +47,7 @@ export const MemberCard = ({
   }, [profile, explorerNetworkId]);
 
   const handleCopy = () => {
-    const shortAddress = truncateAddress(profile.address);
-    copy(shortAddress, 'Success!');
+    copy(profile.address, 'Success!');
   };
 
   return (

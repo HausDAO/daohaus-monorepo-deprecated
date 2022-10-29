@@ -1,5 +1,12 @@
-import { ABI, ArbitraryState, ValidNetwork } from '@daohaus/common-utilities';
 import localforage from 'localforage';
+import {
+  ABI,
+  ArbitraryState,
+  CACHE_CONFIG,
+  CacheStoreName,
+  getlocalForage,
+  ValidNetwork,
+} from '@daohaus/common-utilities';
 
 const defaultABIStore = {
   '0x1': {},
@@ -13,19 +20,8 @@ const defaultABIStore = {
   '0xa4ec': {},
 };
 
-enum StoreName {
-  ABI = 'ABI',
-}
-const getlocalForage = async (storeName: StoreName) => {
-  try {
-    const store = await localforage.getItem(storeName);
-    return store;
-  } catch (error) {
-    console.error(error);
-  }
-};
 export const getABIstore = async () =>
-  (await getlocalForage(StoreName.ABI)) as ArbitraryState;
+  (await getlocalForage(CacheStoreName.ABI)) as ArbitraryState;
 
 export const getCachedABI = async ({
   address,
@@ -81,25 +77,19 @@ export const cacheABI = async ({
     abi,
   });
   try {
-    await localforage.setItem(StoreName.ABI, newStore);
+    await localforage.setItem(CacheStoreName.ABI, newStore);
     return true;
   } catch (error) {
     console.error(error);
     return false;
   }
 };
+
 const initABIs = async () => {
-  localforage.config({
-    // driver: localforage.WEBSQL, // Force WebSQL; same as using setDriver()
-    name: 'DAOhaus',
-    version: 3.0, // size: 4980736, // Size of database, in bytes. WebSQL-only for now.
-    storeName: 'Universal DH Cache', // Should be alphanumeric, with underscores.
-    description:
-      'Store for DH apps. Used for caching ABIs, member Profiles, and other data.',
-  });
+  localforage.config(CACHE_CONFIG);
   const store = await getABIstore();
   if (!store) {
-    localforage.setItem(StoreName.ABI, defaultABIStore);
+    localforage.setItem(CacheStoreName.ABI, defaultABIStore);
   }
 };
 

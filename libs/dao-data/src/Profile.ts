@@ -6,6 +6,7 @@ import {
   nowInSeconds,
 } from '@daohaus/common-utilities';
 import {
+  ENSDomain,
   ICrossNetworkMemberListArguments,
   ListMembershipsDocument,
   ListMembershipsQuery,
@@ -28,13 +29,20 @@ import {
   transformProfile,
 } from './utils/transformers';
 import {
+  cacheProfile,
   createPaging,
   DEFAULT_RECORDS_PER_PAGE,
+  getCachedProfile,
   graphFetch,
   graphFetchList,
 } from './utils';
 import Query from './Query';
 import { Dao_Filter } from './types';
+import {
+  ListActiveDomainsDocument,
+  ListActiveDomainsQuery,
+  ListActiveDomainsQueryVariables,
+} from './subgraph/queries-ens/account.generated';
 import {
   ListProfileDocument,
   ListProfileQuery,
@@ -63,11 +71,17 @@ export default class Profile {
       'memberAddress'
     >;
   }): Promise<AccountProfile> {
+    const cachedProfile = await getCachedProfile({ address });
+    if (cachedProfile) return cachedProfile;
+
+    const ensDomain = await this.getENSDomain({
+      address,
+    });
     const lensProfile = await this.getLensProfile({
       memberAddress: address,
     } as ListProfileQueryVariables);
 
-    let profile = transformProfile(address, lensProfile);
+    let profile = transformProfile({address, lensProfile, ensDomain});
 
     if (includeDaosOptions) {
       const daoRes = await this.listDaosByMember({
@@ -78,9 +92,31 @@ export default class Profile {
 
       profile = { ...profile, daos: daoRes.data?.daos };
     }
+    cacheProfile({
+      address,
+      profile,
+    });
 
     return profile;
   }
+
+  private async getENSDomain({
+    address,
+    now = (new Date().getTime() / 1000).toFixed(0),
+  }: ListActiveDomainsQueryVariables): Promise<ENSDomain> {
+    // TODO: support ENS on Goerli?
+    const endpoint = 'https://api.thegraph.com/subgraphs/name/ensdomains/ens';
+
+    const res = await graphFetchList<
+    ListActiveDomainsQuery,
+    ListActiveDomainsQueryVariables
+    >(ListActiveDomainsDocument, endpoint, {
+      address: address.toLowerCase(),
+      now,
+    });
+
+    return res.account?.activeDomains?.[0];
+  };
 
   private async getLensProfile({
     memberAddress,

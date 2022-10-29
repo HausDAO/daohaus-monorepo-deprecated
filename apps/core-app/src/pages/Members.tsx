@@ -1,6 +1,22 @@
 import { useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { Column, Row } from 'react-table';
+import {
+  formatDateFromSeconds,
+  formatValueTo,
+  fromWei,
+  Keychain,
+  sharesDelegatedToMember,
+  votingPowerPercentage,
+} from '@daohaus/common-utilities';
+import {
+  useMembers,
+  useDao,
+  TMembers,
+  useConnectedMembership,
+} from '@daohaus/dao-context';
+import { Member_OrderBy } from '@daohaus/dao-data';
 import {
   SingleColumnLayout,
   Card,
@@ -10,27 +26,13 @@ import {
   useBreakpoint,
   Tooltip,
 } from '@daohaus/ui';
-import {
-  formatDateFromSeconds,
-  formatValueTo,
-  fromWei,
-  sharesDelegatedToMember,
-  votingPowerPercentage,
-} from '@daohaus/common-utilities';
 
-import {
-  useMembers,
-  useDao,
-  TMembers,
-  useConnectedMembership,
-} from '@daohaus/dao-context';
-import { MembersOverview } from '../components/MembersOverview';
-import { ProfileLink } from '../components/ProfileLink';
-import { DaoTable } from '../components/DaohausTable';
-import { useParams } from 'react-router-dom';
-import { MemberProfileMenu } from '../components/MemberProfileMenu';
 import { ButtonLink } from '../components/ButtonLink';
-import { Member_OrderBy } from '@daohaus/dao-data';
+import { DaoTable } from '../components/DaohausTable';
+import { MembersOverview } from '../components/MembersOverview';
+import { MemberProfileAvatar } from '../components/MemberProfileAvatar';
+import { MemberProfileMenu } from '../components/MemberProfileMenu';
+import { ProfileLink } from '../components/ProfileLink';
 
 const Actions = styled.div`
   display: flex;
@@ -80,7 +82,7 @@ const ActionContainer = styled.div`
 
 export type MembersTableType = TMembers[number];
 
-export function Members() {
+export const  Members = () => {
   const { dao } = useDao();
   const { members, membersNextPaging, loadMoreMembers, sortMembers } =
     useMembers();
@@ -98,7 +100,10 @@ export function Members() {
         Header: 'Member',
         accessor: 'memberAddress',
         Cell: ({ value }: { value: string }) => {
-          return <AddressDisplay address={value} truncate />;
+          return <MemberProfileAvatar
+            daochain={daochain as keyof Keychain}
+            memberAddress={value}
+          />
         },
       },
       {
@@ -219,7 +224,7 @@ export function Members() {
         },
       },
     ],
-    [dao]
+    [dao, daochain],
   );
 
   const handleColumnSort = (

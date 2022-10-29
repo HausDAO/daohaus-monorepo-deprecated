@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { RiArrowUpSLine, RiArrowDownSLine } from 'react-icons/ri';
 import styled from 'styled-components';
 
-import { Keychain } from '@daohaus/common-utilities';
+import { formatValueTo, fromWei, Keychain } from '@daohaus/common-utilities';
 import { TProposals } from '@daohaus/dao-context';
 import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
 import {
@@ -16,6 +16,8 @@ import {
   ParLg,
   ParMd,
   Theme,
+  widthQuery,
+  useBreakpoint,
 } from '@daohaus/ui';
 
 import {
@@ -117,6 +119,7 @@ export const ProposalHistoryCard = ({
   element,
   proposal,
 }: ProposalHistoryCardProps) => {
+  const isMobile = useBreakpoint(widthQuery.sm);
   const { daochain } = useParams();
   const [open, setOpen] = useState<boolean>(false);
 
@@ -126,6 +129,16 @@ export const ProposalHistoryCard = ({
 
   const hasProposalVotes =
     proposal && proposal.votes && proposal.votes.length > 0;
+
+  const totalVotes = hasProposalVotes
+    ? formatValueTo({
+        value:
+          Number(fromWei(proposal.yesBalance)) + Number(fromWei(proposal.noBalance)),
+        decimals: 0,
+        format: 'numberShort',
+        separator: '',
+      })
+    : '0';
 
   return (
     <ElementContainer>
@@ -153,7 +166,15 @@ export const ProposalHistoryCard = ({
                 Show Votes
               </VotesButton>
             </DialogTrigger>
-            <DialogContent title={`Proposal Votes (${proposal.votes?.length})`}>
+            <DialogContent
+              alignButtons='end'
+              rightButton={{
+                closeDialog: true,
+                fullWidth: isMobile,
+                centerAlign: true,
+              }}
+              title={`Proposal Votes (${totalVotes})`}
+            >
               <VoteList votes={proposal.votes} proposal={proposal} />
             </DialogContent>
           </Dialog>

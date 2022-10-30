@@ -58,6 +58,7 @@ const StyledDaoCard = styled.div`
 export const DaoCard = ({
   isDelegate,
   dao,
+  daoAvatarImg,
   activeMemberCount,
   fiatTotal,
   activeProposalCount,
@@ -71,7 +72,7 @@ export const DaoCard = ({
     <StyledDaoCard className="dao-card">
       <div className="top-box">
         <div className="alert-box">
-          <ProfileAvatar size="xl" address={dao} />
+          <ProfileAvatar size="xl" address={dao} image={daoAvatarImg} />
           {activeProposalCount > 0 && (
             <Tooltip
               content={`${activeProposalCount} Active Proposals (in voting or grace period)`}

@@ -69,6 +69,7 @@ export const transformMembershipList = (
         (dao: ListMembershipsQuery['daos'][number]) => {
           return {
             dao: dao.id,
+            daoAvatarImg: getDaoAvatarImg(dao),
             name: dao.name,
             safeAddress: dao.safeAddress,
             activeProposalCount: dao.activeProposals?.length || 0,
@@ -96,6 +97,23 @@ export const transformMembershipList = (
   }, []);
 };
 
+export const getDaoAvatarImg = (
+  dao: ListDaosQuery['daos'][number]
+): string | undefined => {
+  if (!dao.profile || !dao.profile.length) return;
+
+  const obj = JSON.parse(dao.profile[0].content);
+
+  const avatarUrl =
+    obj.avatarImg && obj.avatarImg.match(/Qm[a-zA-Z0-9/.]+/)
+      ? `https://daohaus.mypinata.cloud/ipfs/${obj.avatarImg.match(
+          /Qm[a-zA-Z0-9/.]+/
+        )}`
+      : obj.avatarImg;
+  
+  return avatarUrl;
+}
+
 export const addDaoProfileFields = (
   dao: ListDaosQuery['daos'][number]
 ): DaoProfile | undefined => {
@@ -108,12 +126,8 @@ export const addDaoProfileFields = (
         ? JSON.parse(obj.links)
         : obj.links;
 
-    const avatarUrl =
-      obj.avatarImg && obj.avatarImg.match(/Qm[a-zA-Z0-9/.]+/)
-        ? `https://daohaus.mypinata.cloud/ipfs/${obj.avatarImg.match(
-            /Qm[a-zA-Z0-9/.]+/
-          )}`
-        : obj.avatarImg;
+    const avatarUrl = getDaoAvatarImg(dao);
+
     return {
       description: obj.description,
       longDescription: obj.longDescription,

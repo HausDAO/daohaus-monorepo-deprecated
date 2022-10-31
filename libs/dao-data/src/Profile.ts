@@ -29,10 +29,8 @@ import {
   transformProfile,
 } from './utils/transformers';
 import {
-  cacheProfile,
   createPaging,
   DEFAULT_RECORDS_PER_PAGE,
-  getCachedProfile,
   graphFetch,
   graphFetchList,
 } from './utils';
@@ -71,9 +69,6 @@ export default class Profile {
       'memberAddress'
     >;
   }): Promise<AccountProfile> {
-    const cachedProfile = await getCachedProfile({ address });
-    if (cachedProfile) return cachedProfile;
-
     const ensDomain = await this.getENSDomain({
       address,
     });
@@ -92,10 +87,6 @@ export default class Profile {
 
       profile = { ...profile, daos: daoRes.data?.daos };
     }
-    cacheProfile({
-      address,
-      profile,
-    });
 
     return profile;
   }

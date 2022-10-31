@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { RiErrorWarningLine, RiTimeLine } from 'react-icons/ri';
 import { useParams } from 'react-router-dom';
 import styled, { useTheme } from 'styled-components';
@@ -24,6 +24,7 @@ import {
   MemberCard,
 } from '@daohaus/ui';
 
+import { fetchProfile } from '../utils/cacheProfile';
 import { getProposalTypeLabel } from '../utils/general';
 import { SENSITIVE_PROPOSAL_TYPES } from '../utils/constants';
 
@@ -80,19 +81,19 @@ export const ProposalCardOverview = ({
 
   const haus = Haus.create();
 
-  const fetchProfile = useCallback(async (
+  const fetchMemberProfile = useCallback(async (
     address: string,
     setter: typeof setSubmitterProfile,
   ) => {
-    const profile = await haus.profile.get({ address });
+    const profile = await fetchProfile({ haus, address });
     setter(profile);
-  }, [haus.profile]);
+  }, [haus]);
 
   useEffect(() => {
     if (!submitterProfile) {
-      fetchProfile(proposal.createdBy, setSubmitterProfile);
+      fetchMemberProfile(proposal.createdBy, setSubmitterProfile);
     }
-  }, [fetchProfile, proposal.createdBy, submitterProfile, setSubmitterProfile]);
+  }, [fetchMemberProfile, proposal.createdBy, submitterProfile, setSubmitterProfile]);
 
   return (
     <OverviewBox>

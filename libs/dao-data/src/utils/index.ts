@@ -1,4 +1,3 @@
-export * from './cacheProfile';
 export * from './requests';
 export * from './paging';
 export * from './fetch';

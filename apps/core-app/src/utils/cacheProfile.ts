@@ -6,6 +6,13 @@ import {
   CacheStoreName,
   getlocalForage,
 } from '@daohaus/common-utilities';
+import {
+  Dao_Filter,
+  Haus,
+  ICrossNetworkMemberListArguments,
+  Member_Filter,
+  Member_OrderBy,
+} from '@daohaus/dao-data';
 
 export const getProfileStore = async () =>
   (await getlocalForage(CacheStoreName.MEMBERS_PROFILE)) as ArbitraryState;
@@ -56,6 +63,32 @@ export const cacheProfile = async ({
     console.error(error);
     return false;
   }
+};
+
+export const fetchProfile = async ({
+  haus,
+  address,
+  includeDaosOptions,
+} : {
+  haus: Haus,
+  address: string;
+  includeDaosOptions?: Omit<
+    ICrossNetworkMemberListArguments<
+      Member_OrderBy,
+      Dao_Filter,
+      Member_Filter
+    >,
+    'memberAddress'
+  >;
+}): Promise<AccountProfile> => {
+  const cachedProfile = await getCachedProfile({ address });
+  if (cachedProfile) return cachedProfile;
+  const profile = await haus.profile.get({ address, includeDaosOptions });
+  cacheProfile({
+    address,
+    profile,
+  });
+  return profile;
 };
 
 const initProfilesStore = async () => {

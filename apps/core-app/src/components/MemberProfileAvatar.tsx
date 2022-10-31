@@ -4,6 +4,8 @@ import { AccountProfile, Keychain } from "@daohaus/common-utilities";
 import { Haus } from "@daohaus/dao-data";
 import { MemberCard } from "@daohaus/ui";
 
+import { fetchProfile } from '../utils/cacheProfile';
+
 type MemberProfileProps = {
   memberAddress: string;
   daochain: keyof Keychain;
@@ -23,19 +25,19 @@ export const MemberProfileAvatar = ({
 
   const haus = Haus.create();
 
-  const fetchProfile = useCallback(async (
+  const fetchMemberProfile = useCallback(async (
     address: string,
     setter: typeof setSubmitterProfile,
   ) => {
-    const profile = await haus.profile.get({ address });
+    const profile = await fetchProfile({ haus, address });
     setter(profile);
-  }, [haus.profile]);
+  }, [haus]);
 
   useEffect(() => {
     if (!submitterProfile) {
-      fetchProfile(memberAddress, setSubmitterProfile);
+      fetchMemberProfile(memberAddress, setSubmitterProfile);
     }
-  }, [fetchProfile, memberAddress, submitterProfile, setSubmitterProfile]);
+  }, [fetchMemberProfile, memberAddress, submitterProfile, setSubmitterProfile]);
 
   return (
     <MemberContainer>

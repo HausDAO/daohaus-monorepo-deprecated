@@ -12,7 +12,7 @@ export const CACHE_CONFIG = {
 export enum CacheStoreName {
   ABI = 'ABI',
   MEMBERS_PROFILE = 'MEMBERS_PROFILE',
-}
+};
 
 export const getlocalForage = async (storeName: CacheStoreName) => {
   try {

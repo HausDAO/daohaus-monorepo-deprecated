@@ -1,5 +1,7 @@
 import { Haus } from '../src/index';
 
+jest.mock('localforage');
+
 describe('haus', () => {
   let haus: Haus;
 

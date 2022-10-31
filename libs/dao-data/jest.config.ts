@@ -1,7 +1,13 @@
 /* eslint-disable */
 export default {
   displayName: 'data',
+  injectGlobals: true,
   preset: '../../jest.preset.js',
+  globals: {
+    'ts-jest': {
+      tsconfig: '<rootDir>/tsconfig.spec.json',
+    },
+  },
   transform: {
     '^.+\\.(t|j)s$': '@swc/jest',
   },

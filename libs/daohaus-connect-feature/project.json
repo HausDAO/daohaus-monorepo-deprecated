@@ -4,34 +4,26 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "vite-build": {
-      "executor": "@daohaus/executors:vite-helper",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/daohaus-connect-feature",
-        "frameworkConfigFile": "@nxext/react/plugins/vite",
-        "configFile": "libs/daohaus-connect-feature/vite.config.ts",
-        "entryFile": "src/index.ts",
-        "updateBuildableProjectDepsInPackageJson": true,
-        "buildableProjectDepsInPackageJsonType": "dependencies",
-        "packageJson": "libs/daohaus-connect-feature/package.json",
-        "project": "libs/daohaus-connect-feature"
-      }
-    },
     "build": {
-      "executor": "nx:run-commands",
+      "executor": "@nrwl/web:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/daohaus-connect-feature",
-        "command": "tsc --project libs/daohaus-connect-feature/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
-        "color": true
-      },
-      "dependsOn": [
-        {
-          "target": "vite-build",
-          "projects": "self"
-        }
-      ]
+        "tsConfig": "libs/daohaus-connect-feature/tsconfig.lib.json",
+        "project": "libs/daohaus-connect-feature/package.json",
+        "entryFile": "libs/daohaus-connect-feature/src/index.ts",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "compiler": "babel",
+        "assets": [
+          {
+            "glob": "libs/daohaus-connect-feature/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",

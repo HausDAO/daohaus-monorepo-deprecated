@@ -4,7 +4,7 @@ import { addKeychain, ENDPOINTS } from '@daohaus/common-utilities';
 import { TEMPORARY_RPC } from './common';
 
 export const supportedNetworks = addKeychain(
-  ENDPOINTS.EXPLORER,
+  ENDPOINTS['EXPLORER'],
   'explorer',
   addKeychain(TEMPORARY_RPC, 'rpc')
 );

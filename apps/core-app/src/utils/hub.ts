@@ -48,6 +48,7 @@ export const getDelegateFilter = (
   if (filterDelegate === FILTER_TYPE.DELEGATING_TO) {
     return { delegatingTo_not: address };
   }
+  return undefined;
 };
 
 export const defaultNetworks = Object.keys(NETWORK_DATA).reduce(

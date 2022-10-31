@@ -45,12 +45,14 @@ export const RequestERC20 = (
 
       return options;
     }
+    return undefined;
   }, [erc20s]);
 
   const selectedToken = useMemo(() => {
     if (erc20s && paymentTokenAddr) {
       return erc20s.find(({ address }) => address === paymentTokenAddr);
     }
+    return undefined;
   }, [paymentTokenAddr, erc20s]);
 
   const tokenBalance = selectedToken?.daoBalance

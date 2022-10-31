@@ -50,6 +50,7 @@ export const Failed = ({ proposal }: { proposal: ITransformedProposal }) => {
           address?.toLowerCase?.()
       );
     }
+    return undefined;
   }, [address, proposal]);
 
   const failDisplay = useMemo(() => {

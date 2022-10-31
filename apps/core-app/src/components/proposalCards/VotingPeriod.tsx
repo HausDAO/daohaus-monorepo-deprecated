@@ -28,6 +28,7 @@ export const VotingPeriod = ({
           address?.toLowerCase?.()
       );
     }
+    return undefined;
   }, [address, proposal]);
 
   return userVoteData ? (

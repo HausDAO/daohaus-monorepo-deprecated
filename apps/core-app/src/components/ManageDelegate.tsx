@@ -23,6 +23,7 @@ export const ManageDelegate = ({ defaultMember }: ManageDelegateProps) => {
     ) {
       return connectedMembership;
     }
+    return undefined;
   }, [connectedMembership, defaultMember]);
 
   const onFormComplete = () => {

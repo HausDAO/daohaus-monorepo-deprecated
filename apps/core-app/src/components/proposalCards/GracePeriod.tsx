@@ -21,6 +21,7 @@ export const GracePeriod = ({
           address?.toLowerCase?.()
       );
     }
+    return undefined;
   }, [address, proposal]);
 
   const readableTime = useMemo(() => {

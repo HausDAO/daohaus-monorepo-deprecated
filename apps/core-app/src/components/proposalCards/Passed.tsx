@@ -17,6 +17,7 @@ export const Passed = ({ proposal }: { proposal: ITransformedProposal }) => {
           address?.toLowerCase?.()
       );
     }
+    return undefined;
   }, [address, proposal]);
 
   const percentYes = roundedPercentage(

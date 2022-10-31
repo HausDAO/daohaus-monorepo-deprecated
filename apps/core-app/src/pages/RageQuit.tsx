@@ -22,6 +22,7 @@ export function RageQuit() {
         ),
       };
     }
+    return undefined;
   }, [connectedMembership, dao]);
 
   const onFormComplete = () => {

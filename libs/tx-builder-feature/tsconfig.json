@@ -10,9 +10,7 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "declaration": true,
-    "resolveJsonModule": true
+    "noFallthroughCasesInSwitch": true
   },
   "files": [],
   "include": [],

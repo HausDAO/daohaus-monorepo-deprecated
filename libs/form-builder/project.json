@@ -3,30 +3,26 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "vite-build": {
-      "executor": "@nxext/vite:package",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/form-builder",
-        "configFile": "@nxext/vite/plugins/vite-package",
-        "frameworkConfigFile": "@nxext/react/plugins/vite",
-        "entryFile": "src/index.ts"
-      }
-    },
     "build": {
-      "executor": "nx:run-commands",
+      "executor": "@nrwl/web:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/form-builder",
-        "command": "tsc --project libs/form-builder/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
-        "color": true
-      },
-      "dependsOn": [
-        {
-          "target": "vite-build",
-          "projects": "self"
-        }
-      ]
+        "tsConfig": "libs/form-builder/tsconfig.lib.json",
+        "project": "libs/form-builder/package.json",
+        "entryFile": "libs/form-builder/src/index.ts",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "compiler": "babel",
+        "assets": [
+          {
+            "glob": "libs/form-builder/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",

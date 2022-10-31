@@ -4,31 +4,26 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "vite-build": {
-      "executor": "@nxext/vite:package",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/tx-builder-feature",
-        "configFile": "libs/tx-builder-feature/vite.config.ts",
-        "frameworkConfigFile": "@nxext/react/plugins/vite",
-        "entryFile": "src/index.ts",
-        "generatePackageJson": true
-      }
-    },
     "build": {
-      "executor": "nx:run-commands",
+      "executor": "@nrwl/web:rollup",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/libs/tx-builder-feature",
-        "command": "tsc --project libs/tx-builder-feature/tsconfig.lib.json --emitDeclarationOnly --skipLibCheck",
-        "color": true
-      },
-      "dependsOn": [
-        {
-          "target": "vite-build",
-          "projects": "self"
-        }
-      ]
+        "tsConfig": "libs/tx-builder-feature/tsconfig.lib.json",
+        "project": "libs/tx-builder-feature/package.json",
+        "entryFile": "libs/tx-builder-feature/src/index.ts",
+        "external": ["react/jsx-runtime"],
+        "rollupConfig": "@nrwl/react/plugins/bundle-rollup",
+        "buildableProjectDepsInPackageJsonType": "dependencies",
+        "compiler": "babel",
+        "assets": [
+          {
+            "glob": "libs/tx-builder-feature/README.md",
+            "input": ".",
+            "output": "."
+          }
+        ]
+      }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",

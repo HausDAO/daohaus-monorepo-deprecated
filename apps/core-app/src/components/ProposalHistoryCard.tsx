@@ -133,7 +133,8 @@ export const ProposalHistoryCard = ({
   const totalVotes = hasProposalVotes
     ? formatValueTo({
         value:
-          Number(fromWei(proposal.yesBalance)) + Number(fromWei(proposal.noBalance)),
+          Number(fromWei(proposal.yesBalance)) +
+          Number(fromWei(proposal.noBalance)),
         decimals: 0,
         format: 'numberShort',
         separator: '',
@@ -167,11 +168,10 @@ export const ProposalHistoryCard = ({
               </VotesButton>
             </DialogTrigger>
             <DialogContent
-              alignButtons='end'
+              alignButtons="end"
               rightButton={{
                 closeDialog: true,
                 fullWidth: isMobile,
-                centerAlign: true,
               }}
               title={`Proposal Votes (${totalVotes})`}
             >

@@ -187,11 +187,10 @@ export const ReadyForProcessing = ({
             <GasDisplay gasAmt={proposal.actionGasEstimate} />
           )}
           <GatedButton
-            sm
+            size="sm"
             onClick={processProposal}
             className="execute"
             rules={[isConnectedToDao, isNotLoading, canProcess]}
-            centerAlign
             fullWidth={isMobile}
           >
             Execute

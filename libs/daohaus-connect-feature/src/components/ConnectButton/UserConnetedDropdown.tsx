@@ -36,10 +36,9 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
       onOpenChange={setOpen}
       trigger={
         <Button
-          avatar
-          sm={isSm}
+          size={isSm ? 'sm' : 'md'}
           IconRight={isSm ? undefined : chevron}
-          width={!isSm ? '25rem' : ''}
+          // width={!isSm ? '25rem' : ''}
         >
           <Container>
             <ProfileAvatar
@@ -50,13 +49,13 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
             />
             <div className="interior">
               {!isSm && (
-                <ParMd color={theme.button.primary.text}>
+                <ParMd color={theme.button.primary.solid.text}>
                   {profile?.displayName ||
                     (address && truncateAddress(address.toLowerCase()))}
                 </ParMd>
               )}
               {!isSm && (
-                <ParXs color={theme.button.primary.text}>
+                <ParXs color={theme.button.primary.solid.text}>
                   {(networkName && `@${networkName}`) || 'Wrong Network'}
                 </ParXs>
               )}
@@ -87,7 +86,14 @@ export const UserConnectedDropdown = ({ isSm }: { isSm: boolean }) => {
         </div>
       </DropdownMenuLabel>
       <DropdownMenuItem>
-        <Button tertiary fullWidth sm onClick={disconnect} centerAlign>
+        <Button
+          color="secondary"
+          variant="outline"
+          size="sm"
+          fullWidth
+          // centerAlign
+          onClick={disconnect}
+        >
           Disconnect
         </Button>
       </DropdownMenuItem>

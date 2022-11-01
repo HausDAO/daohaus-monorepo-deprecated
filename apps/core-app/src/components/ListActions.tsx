@@ -100,7 +100,7 @@ export const ListActions = ({
         />
         {isMobile || (
           <Button
-            secondary
+            color="secondary"
             onClick={toggleListType}
             IconLeft={listType === ListType.Table ? IconGrid : IconList}
             className="list-toggle"

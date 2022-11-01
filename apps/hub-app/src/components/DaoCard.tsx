@@ -141,7 +141,7 @@ export const DaoCard = ({
         target="_blank"
         rel="noreferrer"
       >
-        <StyledButton secondary>Go</StyledButton>
+        <StyledButton color="secondary">Go</StyledButton>
       </a>
     </StyledDaoCard>
   );

@@ -42,8 +42,13 @@ const SearchFilterContainer = styled.div`
 
 export function Proposals() {
   const isMobile = useBreakpoint(widthQuery.sm);
-  const { isProposalsLoading, proposals, proposalsNextPaging, loadMoreProposals, filterProposals } =
-    useProposals();
+  const {
+    isProposalsLoading,
+    proposals,
+    proposalsNextPaging,
+    loadMoreProposals,
+    filterProposals,
+  } = useProposals();
   const { dao } = useDao();
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [filter, setFilter] = useState<string>('');
@@ -127,7 +132,12 @@ export function Proposals() {
         ))}
 
       {proposals && proposalsNextPaging && (
-        <Button tertiary sm onClick={loadMoreProposals}>
+        <Button
+          color="secondary"
+          variant="outline"
+          size="sm"
+          onClick={loadMoreProposals}
+        >
           Show More Proposals
         </Button>
       )}

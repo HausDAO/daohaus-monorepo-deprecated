@@ -63,18 +63,18 @@ export const DialogContent = React.forwardRef(
           {(leftButton || rightButton) && (
             <ButtonContainer align={alignButtons}>
               {leftButton && (
-                <Button secondary sm {...leftButton}>
+                <Button color="secondary" size="sm" {...leftButton}>
                   {leftButton?.children}
                 </Button>
               )}
               {rightButton && rightButton.closeDialog ? (
                 <DialogClose asChild>
-                  <Button secondary sm {...rightButton}>
+                  <Button color="secondary" size="sm" {...rightButton}>
                     Close
                   </Button>
                 </DialogClose>
               ) : (
-                <Button secondary sm {...rightButton}>
+                <Button color="secondary" size="sm" {...rightButton}>
                   {rightButton?.children}
                 </Button>
               )}

@@ -5,6 +5,41 @@ import { Button } from './Button';
 export default {
   title: 'Atoms/Button',
   component: Button,
+  argTypes: {
+    color: {
+      description: 'Set the base theme color for the button',
+      defaultValue: 'primary',
+      options: ['primary', 'secondary', 'success', 'warning', 'danger'],
+      control: { type: 'radio' },
+    },
+    variant: {
+      description: 'Set the variant of the button',
+      defaultValue: 'solid',
+      options: ['solid', 'outline', 'ghost', 'link'],
+      control: { type: 'radio' },
+    },
+    size: {
+      description: 'Set the size of the button',
+      defaultValue: 'md',
+      options: ['sm', 'md', 'lg'],
+      control: { type: 'radio' },
+    },
+    justify: {
+      description:
+        'Allow for positioning content inside the button based on justify content and flexbox container',
+      defaultValue: 'center',
+      options: [
+        'flex-start',
+        'flex-end',
+        'center',
+        'space-between',
+        'space-around',
+        'space-evenly',
+      ],
+      control: { type: 'radio' },
+    },
+    onClick: { action: 'clicked' },
+  },
 } as ComponentMeta<typeof Button>;
 
 // Setting displayName manually since Storybook displays it as [Object, object]
@@ -16,11 +51,12 @@ export const BaseButton = Template.bind({});
 
 BaseButton.args = {
   children: 'Button',
-  secondary: false,
-  tertiary: false,
-  sm: false,
-  lg: false,
-  onClick: () => alert('clicked me'),
+  color: 'primary',
+  variant: 'solid',
+  size: 'md',
+  disabled: false,
+  fullWidth: false,
+  justify: 'flex-start',
 };
 
 export const PrimaryButton = Template.bind({});
@@ -28,60 +64,52 @@ PrimaryButton.args = {
   children: 'Button',
 };
 
+export const PrimaryButtonOutline = Template.bind({});
+PrimaryButtonOutline.args = {
+  children: 'Button',
+  variant: 'outline',
+};
+
+export const PrimaryButtonAsLink = Template.bind({});
+PrimaryButtonAsLink.args = {
+  children: 'Button',
+  variant: 'link',
+};
+
 export const SecondaryButton = Template.bind({});
 SecondaryButton.args = {
   children: 'Button',
-  secondary: true,
+  color: 'secondary',
 };
 
-export const SecondaryButtonWithIcons = Template.bind({});
-SecondaryButtonWithIcons.args = {
+export const SecondaryButtonOutline = Template.bind({});
+SecondaryButtonOutline.args = {
   children: 'Button',
-  secondary: true,
-  IconLeft: RiAlertLine,
-  IconRight: RiArrowDropDownLine,
+  color: 'secondary',
+  variant: 'outline',
 };
 
-export const TertiaryButton = Template.bind({});
-TertiaryButton.args = {
+export const SecondaryButtonAsLink = Template.bind({});
+SecondaryButtonAsLink.args = {
   children: 'Button',
-  tertiary: true,
+  color: 'secondary',
+  variant: 'link',
 };
 
-export const TertiaryButtonWithIcons = Template.bind({});
-TertiaryButtonWithIcons.args = {
-  children: 'Button',
-  tertiary: true,
-  IconLeft: RiAlertLine,
-  IconRight: RiArrowDropDownLine,
-};
-
-export const SmallButton = Template.bind({});
-SmallButton.args = {
-  children: 'Button',
-  sm: true,
-};
-
-export const LargeButton = Template.bind({});
-LargeButton.args = {
-  children: 'Button',
-  lg: true,
-};
-
-export const IconLeftButton = Template.bind({});
-IconLeftButton.args = {
+export const ButtonLeftIcon = Template.bind({});
+ButtonLeftIcon.args = {
   children: 'Button',
   IconLeft: RiAlertLine,
 };
 
-export const IconRightButton = Template.bind({});
-IconRightButton.args = {
+export const ButtonRightIcon = Template.bind({});
+ButtonRightIcon.args = {
   children: 'Button',
   IconRight: RiArrowDropDownLine,
 };
 
-export const IconBothButton = Template.bind({});
-IconBothButton.args = {
+export const ButtonWithLeftAndRightIcons = Template.bind({});
+ButtonWithLeftAndRightIcons.args = {
   children: 'Button',
   IconLeft: RiAlertLine,
   IconRight: RiArrowDropDownLine,

@@ -212,8 +212,8 @@ export const  Members = () => {
           return (
             <ActionContainer>
               <ProfileLink
-                sm
-                secondary
+                color="secondary"
+                size="sm"
                 memberAddress={row.original.memberAddress}
               >
                 Profile
@@ -241,9 +241,9 @@ export const  Members = () => {
         <Actions>
           <ButtonLink
             href={`/molochv3/${daochain}/${daoid}/new-proposal?formLego=ISSUE`}
-            secondary
+            color="secondary"
             fullWidth={isMd}
-            centerAlign={isMd}
+            // centerAlign={isMd}
           >
             Add Member
           </ButtonLink>
@@ -251,7 +251,7 @@ export const  Members = () => {
             <ButtonLink
               href={`/molochv3/${daochain}/${daoid}/members/${connectedMembership.memberAddress}`}
               fullWidth={isMd}
-              centerAlign={isMd}
+              // centerAlign={isMd}
             >
               My Profile
             </ButtonLink>

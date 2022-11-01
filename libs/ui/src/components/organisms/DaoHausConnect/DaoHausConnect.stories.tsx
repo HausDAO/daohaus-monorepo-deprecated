@@ -18,7 +18,7 @@ export const WarningButton: ComponentStory<typeof Button> = ({
   children,
   ...props
 }: ButtonProps) => (
-  <Button tertiary IconLeft={BiError} {...props}>
+  <Button color="secondary" variant="outline" IconLeft={BiError} {...props}>
     {children}
   </Button>
 );
@@ -28,7 +28,7 @@ WarningButton.args = {
 };
 
 const ExitButton = (props: ButtonProps) => (
-  <Button tertiary fullWidth sm {...props} />
+  <Button color="secondary" variant="outline" size="sm" fullWidth {...props} />
 );
 
 export const ExitButtonExample: ComponentStory<typeof Button> = (
@@ -65,7 +65,7 @@ export const ConnectWalletButtonMoblile: ComponentStory<typeof Button> = (
   props: Omit<ButtonProps, 'children'>
 ) => (
   <Button
-    sm
+    size="sm"
     IconLeft={RiUserAddLine}
     className="menu-button"
     onClick={() => {
@@ -170,7 +170,7 @@ const networkPanels = [
   'Rinkeby',
 ].map((item, index) => (
   <DropdownMenuItem key={index} spacing="0.7rem">
-    <Button secondary fullWidth leftAlign>
+    <Button color="secondary" justify="flex-start" fullWidth>
       {item}
     </Button>
   </DropdownMenuItem>
@@ -183,7 +183,7 @@ NetworkUnavailableDropdown.args = {
   align: 'end',
   menuMinWidth: '26rem',
   trigger: (
-    <Button IconLeft={RiAlertLine} tertiary>
+    <Button IconLeft={RiAlertLine} color="secondary" variant="outline">
       Network Unavailable
     </Button>
   ),

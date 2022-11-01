@@ -55,9 +55,9 @@ const FilterDropdown = ({
           value={network.chainId}
           onClick={toggleNetworkFilter}
           className={isActive ? 'selected' : ''}
-          secondary
+          color="secondary"
+          justify="flex-start"
           fullWidth
-          leftAlign
           IconRight={isActive ? AiOutlineCheck : undefined}
         >
           <div style={{ width: '100%' }}>{network.name}</div>
@@ -68,11 +68,11 @@ const FilterDropdown = ({
   return (
     <Dropdown
       align="end"
-      menuBg={theme.button.secondary.bg}
+      menuBg={theme.button.secondary.solid.bg}
       menuMinWidth="25rem"
       spacing=".6rem"
       trigger={
-        <Button secondary IconLeft={IconFilter}>
+        <Button color="secondary" IconLeft={IconFilter}>
           Filters
         </Button>
       }
@@ -86,9 +86,9 @@ const FilterDropdown = ({
       </DropdownMenuLabel>
       <DropdownMenuItem asChild>
         <DropdownButton
-          secondary
+          color="secondary"
           fullWidth
-          leftAlign
+          justify="flex-start"
           value={FILTER_TYPE.DELEGATING}
           onClick={toggleDelegateFilter}
           IconRight={
@@ -105,9 +105,9 @@ const FilterDropdown = ({
       </DropdownMenuItem>
       <DropdownMenuItem asChild>
         <DropdownButton
-          secondary
+          color="secondary"
           fullWidth
-          leftAlign
+          justify="flex-start"
           value={FILTER_TYPE.DELEGATING_TO}
           onClick={toggleDelegateFilter}
           IconRight={

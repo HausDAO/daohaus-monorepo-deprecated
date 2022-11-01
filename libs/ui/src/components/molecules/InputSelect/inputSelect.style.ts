@@ -16,23 +16,22 @@ export const InputSelectBox = styled.div`
     border-left: none;
     color: white;
     font-weight: ${font.weight.bold};
-    background-color: ${({ theme }: { theme: Theme }) =>
-      theme.button.secondary.bg};
-    color: ${({ theme }: { theme: Theme }) => theme.button.secondary.text};
+    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step6};
+    color: ${({ theme }: { theme: Theme }) => theme.secondary.step12};
 
     :hover {
       background-color: ${({ theme }: { theme: Theme }) =>
-        theme.button.secondary.hoverBg};
+        theme.secondary.step7};
     }
 
     :focus {
       background-color: ${({ theme }: { theme: Theme }) =>
-        theme.button.secondary.focusBg};
+        theme.secondary.step6};
     }
 
     :disabled {
       background-color: ${({ theme }: { theme: Theme }) =>
-        theme.button.secondary.disabledBg};
+        theme.secondary.step3};
       cursor: not-allowed;
     }
   }
@@ -41,8 +40,7 @@ export const InputSelectBox = styled.div`
     max-width: 10rem;
     svg {
       right: 0.6rem;
-      color: ${({ theme }: { theme: Theme }) =>
-        theme.button.secondary.disabledText};
+      color: ${({ theme }: { theme: Theme }) => theme.primary.step6};
     }
     &.match-long {
       max-width: 16rem;

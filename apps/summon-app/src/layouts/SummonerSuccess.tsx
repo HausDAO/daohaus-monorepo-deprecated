@@ -87,9 +87,9 @@ export const SummonerSuccess = ({
       </AddressInfoSection>
       <ButtonGroup>
         <Button
-          secondary
+          color="secondary"
           onClick={handleResetSummon}
-          centerAlign={isMobile}
+          // centerAlign={isMobile}
           fullWidth={isMobile}
         >
           <Bold>Summon Another DAO</Bold>
@@ -98,7 +98,10 @@ export const SummonerSuccess = ({
           linkType="no-icon-external"
           href={`https://admin.daohaus.fun/#/molochv3/${chainId}/${daoAddress}`}
         >
-          <Button primary centerAlign={isMobile} fullWidth={isMobile}>
+          <Button
+            // centerAlign={isMobile}
+            fullWidth={isMobile}
+          >
             View DAO
           </Button>
         </Link>

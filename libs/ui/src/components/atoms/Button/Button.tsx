@@ -1,89 +1,82 @@
-import React, { RefObject } from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import classNames from 'classnames';
 import { IconType } from 'react-icons';
 
-import { ButtonBase } from './Button.styles';
+import { StyledButton } from './Button.styles';
 
-export type ButtonProps = {
-  avatar?: boolean;
-  centerAlign?: boolean;
-  children?: React.ReactNode;
-  className?: string;
-  disabled?: boolean;
+export type ButtonColor =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'warning'
+  | 'danger';
+
+export type ButtonJustifyContent =
+  | 'flex-start'
+  | 'flex-end'
+  | 'center'
+  | 'space-between'
+  | 'space-around'
+  | 'space-evenly';
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  // ! Not Included untill talk with design
+  // Shows loading spinner */
+  loading?: boolean;
+  // ! Not Included untill talk with design
+  /* The label to show in the button when loading is true */
+  loadingText?: string;
+  /** Set theme color */
+  color?: ButtonColor;
+  /* Size of the button */
+  size?: 'sm' | 'md' | 'lg';
+  /** Controls button variant */
+  variant?: 'solid' | 'outline' | 'ghost' | 'link';
+  /* Toggle from fit-content to width 100% of the button element */
   fullWidth?: boolean;
-  IconLeft?:
-    | IconType
-    | React.FunctionComponent<
-        React.SVGProps<SVGSVGElement> & {
-          title?: string | undefined;
-        }
-      >;
-  IconRight?:
-    | IconType
-    | React.FunctionComponent<
-        React.SVGProps<SVGSVGElement> & {
-          title?: string | undefined;
-        }
-      >;
-  leftAlign?: boolean;
-  lg?: boolean;
-  onClick?: React.MouseEventHandler<HTMLButtonElement>;
-  primary?: boolean;
-  secondary?: boolean;
-  sm?: boolean;
-  tertiary?: boolean;
-  type?: 'button' | 'submit' | 'reset';
-  value?: string;
-  width?: string;
-};
+  /* Add justify-content as prop for button content */
+  justify?: ButtonJustifyContent;
+  /* Adds icon before button label */
+  IconLeft?: IconType | React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+  /* Adds icon after button label */
+  IconRight?: IconType | React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+}
 
-type Ref =
-  | ((instance: HTMLButtonElement | null) => void)
-  | RefObject<HTMLButtonElement>
-  | null
-  | undefined;
+export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      type = 'button',
+      IconLeft,
+      IconRight,
+      color = 'primary',
+      variant = 'solid',
+      size = 'md',
+      fullWidth,
+      justify = 'center',
+      className,
+      children,
+      ...rest
+    },
+    ref
+  ) => {
+    const classes = classNames({
+      [variant]: variant,
+      [size]: size,
+      'full-width': fullWidth,
+    });
 
-export const Button = React.forwardRef((props: ButtonProps, ref: Ref) => {
-  const {
-    primary,
-    secondary,
-    sm,
-    lg,
-    tertiary,
-    children,
-    fullWidth,
-    centerAlign,
-    leftAlign,
-    avatar,
-    className,
-    IconLeft,
-    IconRight,
-    type,
-    value,
-  } = props;
-  const classes = classNames({
-    secondary,
-    sm,
-    lg,
-    tertiary,
-    avatar,
-    'left-align': leftAlign,
-    'full-width': fullWidth,
-    'center-align': centerAlign,
-  });
-
-  const iconClasses = classNames({ secondary, primary, tertiary, sm, lg });
-  return (
-    <ButtonBase
-      {...props}
-      className={`${classes} ${className}`}
-      ref={ref}
-      type={type}
-      value={value}
-    >
-      {IconLeft && <IconLeft className={`${iconClasses} icon-left`} />}
-      {children}
-      {IconRight && <IconRight className={`${iconClasses} icon-right`} />}
-    </ButtonBase>
-  );
-});
+    return (
+      <StyledButton
+        {...rest}
+        color={color}
+        justify={justify}
+        className={`${classes} ${className}`}
+        ref={ref}
+        type={type}
+      >
+        {IconLeft && <IconLeft className="icon-left" />}
+        {children}
+        {IconRight && <IconRight className="icon-right" />}
+      </StyledButton>
+    );
+  }
+);

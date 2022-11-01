@@ -27,7 +27,7 @@ const ConnectWalletButton = ({ isSm }: { isSm: boolean }) => {
         fullWidth={!isSm}
         IconLeft={RiUserAddLine}
         onClick={connectWallet}
-        sm={isSm}
+        size={isSm ? 'sm' : 'md'}
         className="should-connect"
       >
         {!isSm && 'Connect Wallet'}
@@ -39,7 +39,11 @@ const ConnectWalletButton = ({ isSm }: { isSm: boolean }) => {
 const LoadingButton = ({ isSm }: { isSm: boolean }) => {
   return (
     <ButtonContainer>
-      <Button fullWidth={!isSm} sm={isSm} centerAlign>
+      <Button
+        fullWidth={!isSm}
+        size={isSm ? 'sm' : 'md'}
+        // centerAlign
+      >
         <Spinner
           topColor={amberDark.amber8}
           bottomColor={amberDark.amber11}

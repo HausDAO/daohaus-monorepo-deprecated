@@ -31,7 +31,7 @@ const networkPanels = [
   'Rinkeby',
 ].map((item, index) => (
   <DropdownMenuItem key={index} spacing="0.7rem">
-    <Button secondary fullWidth leftAlign>
+    <Button color="secondary" fullWidth>
       {item}
     </Button>
   </DropdownMenuItem>
@@ -43,7 +43,7 @@ FullDropdown.args = {
   menuMinWidth: '26rem',
   align: 'end',
   trigger: (
-    <Button IconLeft={RiAlertLine} tertiary>
+    <Button IconLeft={RiAlertLine} variant="outline">
       Network Unavailable
     </Button>
   ),

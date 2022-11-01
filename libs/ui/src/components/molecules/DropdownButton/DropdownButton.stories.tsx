@@ -1,11 +1,13 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { ProfileAvatar } from '../ProfileAvatar/ProfileAvatar';
 import { DropdownButton } from './DropdownButton';
 
 export default {
   title: 'Atoms/DropdownButton',
   component: DropdownButton,
+  subcomponents: { ProfileAvatar },
   argTypes: {
-    colorVariant: {
+    color: {
       description: 'Set the base theme color for the button',
       defaultValue: 'primary',
       options: ['primary', 'secondary'],
@@ -14,7 +16,7 @@ export default {
     variant: {
       description: 'Set the variant of the button',
       defaultValue: 'solid',
-      options: ['solid', 'outline', 'link'],
+      options: ['solid', 'outline'],
       control: { type: 'radio' },
     },
     size: {
@@ -37,24 +39,25 @@ export const BaseDropdownButton = Template.bind({});
 
 BaseDropdownButton.args = {
   children: 'Button',
-  colorVariant: 'primary',
+  color: 'primary',
   variant: 'solid',
   size: 'md',
   disabled: false,
-  width: 'fit-content',
+  fullWidth: false,
 };
 
 export const ProfileDropdownButton = Template.bind({});
 
 ProfileDropdownButton.args = {
   children: 'Button',
-  colorVariant: 'primary',
+  color: 'primary',
   variant: 'solid',
   size: 'md',
   disabled: false,
-  width: 'fit-content',
+  fullWidth: false,
   profile: {
-    src: 'https://bafybeiabmsm2gy3eb7d3b3zx7mqmg7tg54swosqjb2swcwpatgrctu5ry4.ipfs.dweb.link/',
-    alt: 'Jord waz here',
+    image:
+      'https://bafybeiabmsm2gy3eb7d3b3zx7mqmg7tg54swosqjb2swcwpatgrctu5ry4.ipfs.dweb.link/',
+    address: '0xDE6bcde54CF040088607199FC541f013bA53C21E',
   },
 };

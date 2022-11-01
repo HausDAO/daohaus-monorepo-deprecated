@@ -40,7 +40,7 @@ FieldWrapperWithButtonComponent.args = {
   label: 'Label',
   info: 'Cooltip text',
   rightAddon: (
-    <Button tertiary sm>
+    <Button color="secondary" variant="outline" size="sm">
       Button Label
     </Button>
   ),

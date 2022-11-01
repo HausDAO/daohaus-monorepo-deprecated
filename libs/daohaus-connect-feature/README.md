@@ -44,7 +44,7 @@ ReactDOM.render(
     </BrowserRouter>
   </StrictMode>,
   document.getElementById('root')
-)
+);
 ```
 
 After including the `<HausConnectProvider/>` component in your app, you'll be able to access the associated Context throughout your app.
@@ -66,7 +66,7 @@ const { connectWallet } = useHausConnect();
 This can then be passed into any Button with an `onClick` handler:
 
 ```jsx
-<Button onClick={connectWallet} sm type="button">
+<Button onClick={connectWallet} size="sm" type="button">
   Connect
 </Button>
 ```

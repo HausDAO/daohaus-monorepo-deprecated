@@ -56,7 +56,7 @@ export const MemberCard = ({
       align={'end'}
       trigger={
         <MemberCardTrigger
-          avatar
+          // avatar
           minWidth={minWidth}
           IconRight={RiArrowDropDownLine}
         >

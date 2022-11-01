@@ -21,10 +21,6 @@ export const DropdownMenuContent = styled(Dropdown.DropdownMenuContent)`
   z-index: 10;
 `;
 
-export const DropdownMenuItem = styled(Dropdown.Item)`
-  margin-bottom: ${(props: { spacing?: string }) => props.spacing};
-`;
-
 export const DropdownMenuLabel = styled(Dropdown.Label)`
   display: flex;
   align-items: flex-start;
@@ -33,33 +29,14 @@ export const DropdownMenuLabel = styled(Dropdown.Label)`
 `;
 
 export const DropdownButton = styled(Button)`
-  background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
-  border: 0.1rem solid ${({ theme }: { theme: Theme }) => theme.secondary.step3};
-  color: ${({ theme }: { theme: Theme }) => theme.secondary.step12};
-
-  :hover {
-    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step4};
-    border: 0.1rem solid
-      ${({ theme }: { theme: Theme }) => theme.secondary.step4};
-  }
-
-  :focus {
-    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step5};
-    border: 0.1rem solid
-      ${({ theme }: { theme: Theme }) => theme.secondary.step5};
-  }
-
-  :disabled {
-    background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step3};
-    border: 0.1rem solid
-      ${({ theme }: { theme: Theme }) => theme.secondary.step3};
-    color: ${({ theme }: { theme: Theme }) => theme.secondary.step11};
-    cursor: not-allowed;
-  }
-
+  /* TODO This should be handled using dropdown checkboxes */
   &.selected {
     background-color: ${({ theme }: { theme: Theme }) => theme.secondary.step9};
   }
+`;
+
+export const DropdownMenuItem = styled(Dropdown.Item)`
+  margin-bottom: ${(props: { spacing?: string }) => props.spacing};
 `;
 
 /*

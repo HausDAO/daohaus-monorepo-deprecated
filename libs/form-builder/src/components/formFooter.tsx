@@ -32,7 +32,13 @@ export const FormFooter = ({
         </ExplorerLink>
       )}
       {status && <FormStatusDisplay status={status} />}
-      <Button fullWidth lg centerAlign type="submit" disabled={submitDisabled}>
+      <Button
+        size="sm"
+        fullWidth
+        // centerAlign
+        type="submit"
+        disabled={submitDisabled}
+      >
         {submitButtonText || 'Submit'}
       </Button>
     </FooterBox>

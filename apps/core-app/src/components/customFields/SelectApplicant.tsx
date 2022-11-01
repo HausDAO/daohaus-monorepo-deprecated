@@ -65,8 +65,9 @@ export const SelectApplicant = ({
   const ToggleButton = () => {
     return (
       <Button
-        sm
-        tertiary
+        color="secondary"
+        variant="outline"
+        size="sm"
         onClick={() => {
           setValue(props.id, '');
           toggleTextMode(!textMode);

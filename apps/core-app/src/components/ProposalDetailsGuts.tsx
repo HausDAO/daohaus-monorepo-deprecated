@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import {
-  AddressDisplay,
   ParMd,
   Link,
   Theme,
@@ -19,6 +18,7 @@ import {
 } from '@daohaus/common-utilities';
 
 import { TProposals } from '@daohaus/dao-context';
+import { MemberProfileAvatar } from './MemberProfileAvatar';
 import { ProposalWarning } from './ProposalWarning';
 
 const OverviewContainer = styled.div`
@@ -43,11 +43,6 @@ const DataContainer = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   margin-top: 3rem;
-`;
-
-const SpacedAddressDisplay = styled(AddressDisplay)`
-  margin-top: 1rem;
-  margin-bottom: 2rem;
 `;
 
 const Spacer = styled.div`
@@ -77,11 +72,9 @@ export const ProposalDetailsGuts = ({ decodeError, proposal }: ProposalDetailsGu
       <DataContainer>
         <div>
           <ParMd>Submitted by</ParMd>
-          <SpacedAddressDisplay
-            truncate
-            address={proposal.createdBy}
-            copy
-            explorerNetworkId={daochain as keyof Keychain}
+          <MemberProfileAvatar
+            daochain={daochain as keyof Keychain}
+            memberAddress={proposal.createdBy}
           />
         </div>
         <DataIndicator

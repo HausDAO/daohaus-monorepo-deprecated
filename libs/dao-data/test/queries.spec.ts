@@ -4,7 +4,7 @@ describe('haus', () => {
   let haus: Haus;
 
   beforeAll(async () => {
-    haus = await Haus.create();
+    haus = Haus.create();
   });
   it('should have a query class', () => {
     expect(haus.query).toBeTruthy();

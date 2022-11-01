@@ -66,14 +66,13 @@ export const MoleculeDialogWithComponentInside = Template.bind({});
 MoleculeDialogWithComponentInside.args = {
   title: 'Title goes here',
   description: 'Description Goes here and has more detail/text than the title',
-  alignButtons: 'start',
+  alignButtons: 'end',
   leftButton: {
     onClick: () => alert('Left button clicked'),
     children: 'Left Button',
   },
   rightButton: {
-    onClick: () => alert('Right button clicked'),
-    children: 'Right Button',
+    closeDialog: true,
   },
   children: [
     <div>

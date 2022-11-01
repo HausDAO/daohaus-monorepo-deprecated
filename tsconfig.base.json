@@ -26,10 +26,10 @@
       "@daohaus/daohaus-connect-feature": [
         "libs/daohaus-connect-feature/src/index.ts"
       ],
+      "@daohaus/executors": ["tools/executors/"],
       "@daohaus/haus-form-builder": ["libs/form-builder/src/index.ts"],
       "@daohaus/tx-builder-feature": ["libs/tx-builder-feature/src/index.ts"],
-      "@daohaus/ui": ["libs/ui/src/index.ts"],
-      "@daohaus/executors": ["tools/executors/"]
+      "@daohaus/ui": ["libs/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -53,7 +53,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/summon-safe-app"],
+      "outputs": ["{workspaceRoot}/coverage/apps/summon-safe-app"],
       "options": {
         "jestConfig": "apps/summon-safe-app/jest.config.ts",
         "passWithNoTests": true

@@ -26,7 +26,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/contract-utilities"],
+      "outputs": ["{workspaceRoot}/coverage/libs/contract-utilities"],
       "options": {
         "jestConfig": "libs/contract-utilities/jest.config.ts",
         "passWithNoTests": true

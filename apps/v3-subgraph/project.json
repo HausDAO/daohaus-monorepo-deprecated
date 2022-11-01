@@ -70,6 +70,19 @@
         "cwd": "apps/v3-subgraph",
         "parallel": false
       }
+    },
+    "graph-deploy-studio": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          {
+            "command": "node manifests/deploy-prep.js {args.network} && graph deploy --studio {args.name}",
+            "forwardAllArgs": true
+          }
+        ],
+        "cwd": "apps/v3-subgraph",
+        "parallel": false
+      }
     }
   },
   "tags": []

@@ -21,7 +21,9 @@ const Daos: React.FC<DaosProps> = (props: DaosProps) => {
   const fetchSafeInfo = useCallback(async () => {
     setLoading(true);
     const daos = await fetchDaos(VALID_NETWORKS[safe.chainId], safe.safeAddress);
-    setListDaos(daos || []);
+    if (daos.length) {
+      setListDaos(daos);
+    }
     setLoading(false);
   }, [safe]);
 

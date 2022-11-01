@@ -290,6 +290,10 @@ export const TX: Record<string, TXLego> = {
         fallback: 0,
       },
       {
+        type: 'static',
+        value: '0',
+      },
+      {
         type: 'JSONDetails',
         jsonSchema: {
           title: '.formValues.title',

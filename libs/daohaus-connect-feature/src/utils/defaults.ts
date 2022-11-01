@@ -15,7 +15,8 @@ const providerOptions: IProviderOptions = {
     options: {
       rpc: {
         1: TEMPORARY_RPC['0x1'],
-        4: TEMPORARY_RPC['0x4'],
+        5: TEMPORARY_RPC['0x5'],
+        100: TEMPORARY_RPC['0x64'],
       },
     },
   },

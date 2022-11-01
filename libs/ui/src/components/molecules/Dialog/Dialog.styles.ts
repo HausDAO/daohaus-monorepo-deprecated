@@ -5,6 +5,7 @@ import styled, { keyframes } from 'styled-components';
 import { indigoDarkA } from '@radix-ui/colors';
 
 import { Theme } from '../../../types/theming';
+import { widthQuery } from '../../../theme';
 
 export const DialogRoot = DialogPrimitive.Root;
 export const DialogPrimitaveTrigger = DialogPrimitive.Trigger;
@@ -83,4 +84,7 @@ export const ButtonContainer = styled.div<{
   align-self: ${(props) => `flex-${props.align}`};
   display: flex;
   gap: 1rem;
+  @media ${widthQuery.sm} {
+    width: 100%;
+  };
 `;

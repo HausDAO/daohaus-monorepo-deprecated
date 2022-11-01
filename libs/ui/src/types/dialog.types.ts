@@ -6,5 +6,7 @@ export type DialogProps = DialogContentProps & {
   description?: string;
   alignButtons?: 'start' | 'end';
   leftButton?: ButtonProps;
-  rightButton?: ButtonProps;
+  rightButton?: ButtonProps & {
+    closeDialog?: boolean;
+  };
 };

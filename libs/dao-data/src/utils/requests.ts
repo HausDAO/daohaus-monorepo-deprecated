@@ -44,5 +44,5 @@ const cleanVariables = <V = QueryVariables>(variables: V): V => {
           ? cleanVariables(value)
           : value,
       ])
-  ) as V;
+  ) as unknown as V;
 };

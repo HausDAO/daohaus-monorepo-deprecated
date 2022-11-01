@@ -24,6 +24,11 @@ The SDK provides a `Haus` class that you'll need to import into your component a
 import { Haus } from '@daohaus/dao-data';
 
 const haus = Haus.create();
+
+// if you need to query the mainnet daos you'll need to provide an api key obtained here:
+// https://thegraph.com/explorer/subgraph?id=GfHFdFmiSwW1PKtnDhhcxhArwtTjVuMnXxQ5XcETF1bP&view=Overview
+
+const haus = Haus.create({ graphApiKey: { '0x1': 'someapikey' } });
 ```
 
 Once this is imported you can access the SDK methods that are available. For example, to use the functionality related to user profiles, you can use the following:

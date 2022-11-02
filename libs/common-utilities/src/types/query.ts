@@ -2,6 +2,7 @@ import { Keychain } from './keychains';
 
 export interface ITransformedMembership {
   dao: string;
+  daoAvatarImg?: string;
   name?: string;
   safeAddress: string;
   activeProposalCount: number;

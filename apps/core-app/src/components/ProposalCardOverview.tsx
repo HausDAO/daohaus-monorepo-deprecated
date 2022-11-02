@@ -1,15 +1,16 @@
+import { useCallback, useEffect, useState } from 'react';
 import { RiErrorWarningLine, RiTimeLine } from 'react-icons/ri';
 import { useParams } from 'react-router-dom';
 import styled, { useTheme } from 'styled-components';
 import {
+  AccountProfile,
   charLimit,
   formatShortDateTimeFromSeconds,
   Keychain,
 } from '@daohaus/common-utilities';
 import { TProposals } from '@daohaus/dao-context';
-import { ITransformedProposal } from '@daohaus/dao-data';
+import { Haus, ITransformedProposal } from '@daohaus/dao-data';
 import {
-  AddressDisplay,
   Button,
   ParLg,
   ParMd,
@@ -20,8 +21,10 @@ import {
   ParSm,
   Theme,
   Icon,
+  MemberCard,
 } from '@daohaus/ui';
 
+import { fetchProfile } from '../utils/cacheProfile';
 import { getProposalTypeLabel } from '../utils/general';
 import { SENSITIVE_PROPOSAL_TYPES } from '../utils/constants';
 
@@ -45,7 +48,7 @@ const OverviewBox = styled.div`
 
 const SubmittedContainer = styled.div`
   display: flex;
-
+  align-items: center;
   margin-top: 2rem;
   .submitted-by {
     margin-right: 1rem;
@@ -74,6 +77,23 @@ export const ProposalCardOverview = ({
   const theme = useTheme();
   const isMobile = useBreakpoint(widthQuery.sm);
   const isMd = useBreakpoint(widthQuery.md);
+  const [submitterProfile, setSubmitterProfile] = useState<AccountProfile>();
+
+  const haus = Haus.create();
+
+  const fetchMemberProfile = useCallback(async (
+    address: string,
+    setter: typeof setSubmitterProfile,
+  ) => {
+    const profile = await fetchProfile({ haus, address });
+    setter(profile);
+  }, [haus]);
+
+  useEffect(() => {
+    if (!submitterProfile) {
+      fetchMemberProfile(proposal.createdBy, setSubmitterProfile);
+    }
+  }, [fetchMemberProfile, proposal.createdBy, submitterProfile, setSubmitterProfile]);
 
   return (
     <OverviewBox>
@@ -95,7 +115,6 @@ export const ProposalCardOverview = ({
             size="sm"
             fullWidth={isMobile}
             disabled={loading}
-            // centerAlign
           >
             View Details
           </Button>
@@ -103,13 +122,13 @@ export const ProposalCardOverview = ({
       )}
       <SubmittedContainer>
         <ParMd color={theme.secondary.step11} className="submitted-by">
-          Submitted by:{' '}
+          Submitted by
         </ParMd>
-        <AddressDisplay
-          truncate
-          address={proposal.createdBy}
-          copy
+        <MemberCard
           explorerNetworkId={daochain as keyof Keychain}
+          profile={submitterProfile || {
+            address: proposal.createdBy,
+          }}
         />
       </SubmittedContainer>
     </OverviewBox>

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { font } from '../../../theme/global/font';
+import { ButtonJustifyContent, ButtonColor } from './Button';
 
-import { ButtonColor } from './Button';
-
-export const ButtonBase = styled.button<{
+export const StyledButton = styled.button<{
+  justify: ButtonJustifyContent;
   color: ButtonColor;
 }>`
   align-items: center;
@@ -13,7 +13,7 @@ export const ButtonBase = styled.button<{
   font-size: ${font.size.md};
   font-weight: ${font.weight.bold};
   height: 4.8rem;
-  justify-content: center;
+  justify-content: ${({ justify }) => justify};
   letter-spacing: 1.8px;
   padding: 1.2rem;
   transition: 0.2s all;

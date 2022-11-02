@@ -121,7 +121,6 @@ export const Unsponsored = ({
             size="sm"
             rules={[hasShares, isConnectedToDao]}
             onClick={handleSponsor}
-            // centerAlign
             fullWidth={isMobile}
           >
             {isLoading ? (

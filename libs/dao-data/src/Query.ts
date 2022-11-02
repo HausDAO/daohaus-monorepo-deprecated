@@ -1,4 +1,5 @@
 import {
+  addApiKeyToGraphEnpoints,
   DaoTokenBalances,
   ENDPOINTS,
   Keychain,
@@ -83,8 +84,12 @@ import { createPaging, DEFAULT_RECORDS_PER_PAGE } from './utils';
 export default class Query {
   public endpoints: KeychainList;
 
-  constructor() {
+  constructor(graphApiKeys?: Keychain) {
     this.endpoints = ENDPOINTS;
+
+    if (graphApiKeys) {
+      this.endpoints = addApiKeyToGraphEnpoints(graphApiKeys, ENDPOINTS);
+    }
   }
 
   /*

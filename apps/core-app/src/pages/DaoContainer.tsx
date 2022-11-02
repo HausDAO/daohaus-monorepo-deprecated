@@ -8,7 +8,12 @@ export function DaoContainer() {
   const { address } = useHausConnect();
 
   return (
-    <DaoContextProvider address={address} daoid={daoid} daochain={daochain}>
+    <DaoContextProvider
+      address={address}
+      daoid={daoid}
+      daochain={daochain}
+      graphApiKeys={{ '0x1': import.meta.env['VITE_GRAPH_API_KEY_MAINNET'] }}
+    >
       <Dao />
     </DaoContextProvider>
   );

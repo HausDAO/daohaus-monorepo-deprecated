@@ -1,28 +1,30 @@
-import { useParams } from 'react-router-dom';
 import { MouseEvent, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { RiArrowUpSLine, RiArrowDownSLine } from 'react-icons/ri';
 import styled from 'styled-components';
 
+import { formatValueTo, fromWei, Keychain } from '@daohaus/common-utilities';
+import { TProposals } from '@daohaus/dao-context';
+import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
 import {
   Bold,
-  Theme,
-  ParMd,
-  AddressDisplay,
-  DataIndicator,
   Button,
+  DataIndicator,
   Dialog,
   DialogTrigger,
   DialogContent,
   ParLg,
+  ParMd,
+  Theme,
+  widthQuery,
+  useBreakpoint,
 } from '@daohaus/ui';
-import { Keychain } from '@daohaus/common-utilities';
-import { ExplorerLink } from '@daohaus/daohaus-connect-feature';
 
 import {
   ProposalHistoryElement,
   ProposalHistoryElementData,
 } from '../utils/historyHelpers';
-import { TProposals } from '@daohaus/dao-context';
+import { MemberProfileAvatar } from './MemberProfileAvatar';
 import { VoteList } from './VoteList';
 
 const ElementContainer = styled.div`
@@ -71,10 +73,6 @@ const DataGrid = styled.div`
   margin-top: 2.4rem;
 `;
 
-const SpacedAddressDisplay = styled(AddressDisplay)`
-  margin-top: 1rem;
-`;
-
 const LinkContainer = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -97,11 +95,9 @@ const DataPoint = ({
     return (
       <div>
         <ParMd>{data.label}</ParMd>
-        <SpacedAddressDisplay
-          truncate
-          address={data.data}
-          copy
-          explorerNetworkId={daochain as keyof Keychain}
+        <MemberProfileAvatar
+          daochain={daochain as keyof Keychain}
+          memberAddress={data.data}
         />
       </div>
     );
@@ -123,6 +119,7 @@ export const ProposalHistoryCard = ({
   element,
   proposal,
 }: ProposalHistoryCardProps) => {
+  const isMobile = useBreakpoint(widthQuery.sm);
   const { daochain } = useParams();
   const [open, setOpen] = useState<boolean>(false);
 
@@ -132,6 +129,17 @@ export const ProposalHistoryCard = ({
 
   const hasProposalVotes =
     proposal && proposal.votes && proposal.votes.length > 0;
+
+  const totalVotes = hasProposalVotes
+    ? formatValueTo({
+        value:
+          Number(fromWei(proposal.yesBalance)) +
+          Number(fromWei(proposal.noBalance)),
+        decimals: 0,
+        format: 'numberShort',
+        separator: '',
+      })
+    : '0';
 
   return (
     <ElementContainer>
@@ -159,7 +167,14 @@ export const ProposalHistoryCard = ({
                 Show Votes
               </VotesButton>
             </DialogTrigger>
-            <DialogContent title={`Proposal Votes (${proposal.votes?.length})`}>
+            <DialogContent
+              alignButtons="end"
+              rightButton={{
+                closeDialog: true,
+                fullWidth: isMobile,
+              }}
+              title={`Proposal Votes (${totalVotes})`}
+            >
               <VoteList votes={proposal.votes} proposal={proposal} />
             </DialogContent>
           </Dialog>

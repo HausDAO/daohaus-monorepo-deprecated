@@ -191,7 +191,6 @@ export const ReadyForProcessing = ({
             onClick={processProposal}
             className="execute"
             rules={[isConnectedToDao, isNotLoading, canProcess]}
-            // centerAlign
             fullWidth={isMobile}
           >
             Execute

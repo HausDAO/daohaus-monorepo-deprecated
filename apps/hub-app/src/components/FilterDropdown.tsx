@@ -56,8 +56,8 @@ const FilterDropdown = ({
           onClick={toggleNetworkFilter}
           className={isActive ? 'selected' : ''}
           color="secondary"
+          justify="flex-start"
           fullWidth
-          leftAlign
           IconRight={isActive ? AiOutlineCheck : undefined}
         >
           <div style={{ width: '100%' }}>{network.name}</div>
@@ -88,7 +88,7 @@ const FilterDropdown = ({
         <DropdownButton
           color="secondary"
           fullWidth
-          leftAlign
+          justify="flex-start"
           value={FILTER_TYPE.DELEGATING}
           onClick={toggleDelegateFilter}
           IconRight={
@@ -107,7 +107,7 @@ const FilterDropdown = ({
         <DropdownButton
           color="secondary"
           fullWidth
-          leftAlign
+          justify="flex-start"
           value={FILTER_TYPE.DELEGATING_TO}
           onClick={toggleDelegateFilter}
           IconRight={

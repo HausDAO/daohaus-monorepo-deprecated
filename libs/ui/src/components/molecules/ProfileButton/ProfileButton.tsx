@@ -1,23 +1,16 @@
 import React from 'react';
 import classNames from 'classnames';
-
 import { RiArrowDropDownLine } from 'react-icons/ri';
-import { ButtonProps } from '../../atoms/Button';
-import { DropdownAvatar, DropdownButtonBase } from './DropdownButton.styles';
-import { ProfileAvatarProps } from '../ProfileAvatar/ProfileAvatar';
 
-type OmittedProps = 'IconLeft';
-export interface DropdownButtonProps extends Omit<ButtonProps, OmittedProps> {
-  /* Profile Avatar stils on the left of button */
-  profile: Omit<ProfileAvatarProps, 'size'>;
-}
+import { DropdownAvatar, StyledProfileButton } from './ProfileButton.styles';
+import { ProfileButtonProps } from './ProfileButton.types';
 
-export const DropdownButton = React.forwardRef<
+export const ProfileButton = React.forwardRef<
   HTMLButtonElement,
-  DropdownButtonProps
+  ProfileButtonProps
 >((props, ref) => {
   const {
-    IconRight = RiArrowDropDownLine,
+    IconRight,
     children,
     className,
     color = 'secondary',
@@ -34,7 +27,7 @@ export const DropdownButton = React.forwardRef<
   });
 
   return (
-    <DropdownButtonBase
+    <StyledProfileButton
       {...rest}
       color={color}
       size={size}
@@ -45,6 +38,6 @@ export const DropdownButton = React.forwardRef<
     >
       {profile && <DropdownAvatar {...profile} size={size} />}
       {children}
-    </DropdownButtonBase>
+    </StyledProfileButton>
   );
 });

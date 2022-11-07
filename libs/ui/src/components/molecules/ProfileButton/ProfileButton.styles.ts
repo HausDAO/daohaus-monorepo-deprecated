@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Button } from '../../atoms/Button';
 import { ProfileAvatar } from '../ProfileAvatar';
 
-export const DropdownButtonBase = styled(Button)`
+export const StyledProfileButton = styled(Button)`
   svg {
     &.icon-right {
       margin-left: auto;

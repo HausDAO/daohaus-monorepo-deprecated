@@ -1,10 +1,10 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { ProfileAvatar } from '../ProfileAvatar/ProfileAvatar';
-import { DropdownButton } from './DropdownButton';
+import { ProfileButton } from './ProfileButton';
 
 export default {
-  title: 'Atoms/DropdownButton',
-  component: DropdownButton,
+  title: 'Molecules/ProfileButton',
+  component: ProfileButton,
   subcomponents: { ProfileAvatar },
   argTypes: {
     color: {
@@ -26,13 +26,13 @@ export default {
       control: { type: 'radio' },
     },
   },
-} as ComponentMeta<typeof DropdownButton>;
+} as ComponentMeta<typeof ProfileButton>;
 
 // Setting displayName manually since Storybook displays it as [Object, object]
-DropdownButton.displayName = 'DropdownButton';
+ProfileButton.displayName = 'DropdownButton';
 
-const Template: ComponentStory<typeof DropdownButton> = (args) => (
-  <DropdownButton {...args} />
+const Template: ComponentStory<typeof ProfileButton> = (args) => (
+  <ProfileButton {...args} />
 );
 
 export const BaseDropdownButton = Template.bind({});

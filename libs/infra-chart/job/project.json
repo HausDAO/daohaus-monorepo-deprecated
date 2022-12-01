@@ -1,4 +1,5 @@
 {
+  "name": "infra-chart-job",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/infra-chart/job",
   "projectType": "library",

@@ -48,5 +48,6 @@
       }
     }
   },
-  "tags": []
+  "tags": [],
+  "name": "jobs-dao-producer-job"
 }

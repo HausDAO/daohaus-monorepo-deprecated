@@ -1,4 +1,5 @@
 {
+  "name": "dao-consumer-job",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/dao-consumer-job/src",
   "projectType": "application",

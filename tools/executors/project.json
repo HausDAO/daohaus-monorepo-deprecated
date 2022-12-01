@@ -13,5 +13,6 @@
       "schema": "./vite-helper/schema.json",
       "description": "build vite with package depedencies"
     }
-  }
+  },
+  "name": "tools-executors"
 }

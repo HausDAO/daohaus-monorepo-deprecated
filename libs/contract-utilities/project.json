@@ -1,4 +1,5 @@
 {
+  "name": "contract-utilities",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/contract-utilities/src",
   "projectType": "library",
@@ -26,7 +27,7 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/contract-utilities"],
+      "outputs": ["{workspaceRoot}/coverage/libs/contract-utilities"],
       "options": {
         "jestConfig": "libs/contract-utilities/jest.config.ts",
         "passWithNoTests": true

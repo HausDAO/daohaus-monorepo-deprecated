@@ -11,6 +11,7 @@
     "dao-data": "libs/dao-data",
     "dao-producer-job": "apps/dao-producer-job",
     "daohaus-connect-feature": "libs/daohaus-connect-feature",
+    "executors": "tools/executors",
     "form-builder": "libs/form-builder",
     "hub-app": "apps/hub-app",
     "infra-chart-ceramic": "libs/infra-chart/ceramic",
@@ -21,8 +22,7 @@
     "summon-safe-app": "apps/summon-safe-app",
     "tx-builder-feature": "libs/tx-builder-feature",
     "ui": "libs/ui",
-    "v3-subgraph": "apps/v3-subgraph",
-    "executors": "tools/executors"
+    "v3-subgraph": "apps/v3-subgraph"
   },
   "$schema": "./node_modules/nx/schemas/workspace-schema.json"
 }

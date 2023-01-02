@@ -1,74 +1,74 @@
-name: CI Release
+# name: CI Release
 
-on:
-  workflow_dispatch: # adding the workflow_dispatch so it can be triggered manually
-env:
-  BASE: origin/master
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: log Base
-        run: echo $BASE
-      - uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            **/node_modules
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-          # This doesn't just set the registry url, but also sets
-          # the right configuration in .npmrc that reads NPM token
-          # from NPM_AUTH_TOKEN environment variable.
-          # It actually creates a .npmrc in a temporary folder
-          # and sets the NPM_CONFIG_USERCONFIG environment variable.
-          registry-url: https://registry.npmjs.org
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      - name: Create env file
-        shell: bash
-        run: |
-          touch .env
-          echo NODE_ENV=production  >> .env
-      - run: yarn install --frozen-lockfile
-      - run: npm install -g nx
-      - name: Lint mono
-        run: nx affected:lint --base $BASE
-      - name: Test mono
-        run: NODE_OPTIONS=--experimental-vm-modules nx affected:test --base $BASE
-      - name: Build mono
-        run: nx affected:build --base $BASE
-      - name: Setup git user to "🤖 Moloch Bot"
-        shell: bash
-        run: git config user.email "-" && git config user.name "🤖 Moloch Bot"
-      - name: Version Bump
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.OTP }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        # Use npx instead of yarn because yarn automagically sets NPM_* environment variables
-        # like NPM_CONFIG_REGISTRY so npm publish ends up ignoring the .npmrc file
-        # which is set up by `setup-node` action.
-        shell: bash
-        run: npx nx affected --base $BASE --target=version --parallel 1
-      - name: Create Release Branch
-        run: |
-          git push origin --tags
-          CURRENT_DATE=$(date +'%Y-%m-%d-%I%M%S')
-          BRANCH="bump-lib-versions-${CURRENT_DATE}"
-          git checkout -b "${BRANCH}"
-          git push -f --set-upstream origin "${BRANCH}"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+# on:
+#   workflow_dispatch: # adding the workflow_dispatch so it can be triggered manually
+# env:
+#   BASE: origin/master
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#         with:
+#           fetch-depth: 0
+#       - name: Get yarn cache directory path
+#         id: yarn-cache-dir-path
+#         run: echo "::set-output name=dir::$(yarn cache dir)"
+#       - name: log Base
+#         run: echo $BASE
+#       - uses: actions/cache@v2
+#         id: yarn-cache
+#         with:
+#           path: |
+#             **/node_modules
+#             ${{ steps.yarn-cache-dir-path.outputs.dir }}
+#           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#           restore-keys: |
+#             ${{ runner.os }}-yarn-
+#       - uses: actions/setup-node@v2
+#         with:
+#           node-version: 16.x
+#           # This doesn't just set the registry url, but also sets
+#           # the right configuration in .npmrc that reads NPM token
+#           # from NPM_AUTH_TOKEN environment variable.
+#           # It actually creates a .npmrc in a temporary folder
+#           # and sets the NPM_CONFIG_USERCONFIG environment variable.
+#           registry-url: https://registry.npmjs.org
+#       - name: Set up QEMU
+#         uses: docker/setup-qemu-action@v1
+#       - name: Set up Docker Buildx
+#         uses: docker/setup-buildx-action@v1
+#       - name: Create env file
+#         shell: bash
+#         run: |
+#           touch .env
+#           echo NODE_ENV=production  >> .env
+#       - run: yarn install --frozen-lockfile
+#       - run: npm install -g nx
+#       - name: Lint mono
+#         run: nx affected:lint --base $BASE
+#       - name: Test mono
+#         run: NODE_OPTIONS=--experimental-vm-modules nx affected:test --base $BASE
+#       - name: Build mono
+#         run: nx affected:build --base $BASE
+#       - name: Setup git user to "🤖 Moloch Bot"
+#         shell: bash
+#         run: git config user.email "-" && git config user.name "🤖 Moloch Bot"
+#       - name: Version Bump
+#         env:
+#           NODE_AUTH_TOKEN: ${{ secrets.OTP }}
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#         # Use npx instead of yarn because yarn automagically sets NPM_* environment variables
+#         # like NPM_CONFIG_REGISTRY so npm publish ends up ignoring the .npmrc file
+#         # which is set up by `setup-node` action.
+#         shell: bash
+#         run: npx nx affected --base $BASE --target=version --parallel 1
+#       - name: Create Release Branch
+#         run: |
+#           git push origin --tags
+#           CURRENT_DATE=$(date +'%Y-%m-%d-%I%M%S')
+#           BRANCH="bump-lib-versions-${CURRENT_DATE}"
+#           git checkout -b "${BRANCH}"
+#           git push -f --set-upstream origin "${BRANCH}"
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

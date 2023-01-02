@@ -1,58 +1,58 @@
-name: Ci Master
+# name: Ci Master
 
-on:
-  pull_request:
-    branches:
-      - 'master'
-  push:
-    branches:
-      - 'master'
+# on:
+#   pull_request:
+#     branches:
+#       - 'master'
+#   push:
+#     branches:
+#       - 'master'
 
-env:
-  BASE: ${{ github.ref == 'refs/heads/master' && 'origin/master~1' || 'origin/master' }}
-  DAOHAUS_SUMMON_SKYNET_SEED: ${{ secrets.DAOHAUS_SUMMON_SKYNET_SEED }}
-  DAOHAUS_HUB_SKYNET_SEED: ${{ secrets.DAOHAUS_HUB_SKYNET_SEED }}
-  SKYNET_API_KEY: ${{ secrets.SKYNET_API_KEY }}
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            **/node_modules
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16.x
-      - name: Create env file
-        run: |
-          touch .env
-          echo NX_RIVET_KEY=${{ secrets.RIVET_KEY }}  >> .env
-          echo VITE_RIVET_KEY=${{ secrets.RIVET_KEY }}  >> .env
-          echo VITE_INFURA_PROJECT_ID=${{ secrets.INFURA_PROJECT_ID }} >> .env
-          echo CERAMIC_NETWORK=${{ secrets.CERAMIC_NETWORK }}  >> .env
-          echo NODE_ENV=production  >> .env
-      - run: yarn install --frozen-lockfile
-      - run: npm install -g nx
-      - name: Lint mono
-        run: nx affected:lint --base $BASE
-      - name: Test mono
-        run: NODE_OPTIONS=--experimental-vm-modules nx affected:test --base $BASE
-      - name: Build mono
-        run: nx affected:build --base $BASE
-      - name: Deploy mono
-        if: ${{ github.ref == 'refs/heads/master' }}
-        run: |
-          echo '//registry.npmjs.org/:_authToken=${{secrets.OTP}}' > .npmrc
-          nx affected --target deploy --base $BASE --otp ${{ secrets.OTP }}
+# env:
+#   BASE: ${{ github.ref == 'refs/heads/master' && 'origin/master~1' || 'origin/master' }}
+#   DAOHAUS_SUMMON_SKYNET_SEED: ${{ secrets.DAOHAUS_SUMMON_SKYNET_SEED }}
+#   DAOHAUS_HUB_SKYNET_SEED: ${{ secrets.DAOHAUS_HUB_SKYNET_SEED }}
+#   SKYNET_API_KEY: ${{ secrets.SKYNET_API_KEY }}
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#         with:
+#           fetch-depth: 0
+#       - name: Get yarn cache directory path
+#         id: yarn-cache-dir-path
+#         run: echo "::set-output name=dir::$(yarn cache dir)"
+#       - uses: actions/cache@v2
+#         id: yarn-cache
+#         with:
+#           path: |
+#             **/node_modules
+#             ${{ steps.yarn-cache-dir-path.outputs.dir }}
+#           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#           restore-keys: |
+#             ${{ runner.os }}-yarn-
+#       - uses: actions/setup-node@v2
+#         with:
+#           node-version: 16.x
+#       - name: Create env file
+#         run: |
+#           touch .env
+#           echo NX_RIVET_KEY=${{ secrets.RIVET_KEY }}  >> .env
+#           echo VITE_RIVET_KEY=${{ secrets.RIVET_KEY }}  >> .env
+#           echo VITE_INFURA_PROJECT_ID=${{ secrets.INFURA_PROJECT_ID }} >> .env
+#           echo CERAMIC_NETWORK=${{ secrets.CERAMIC_NETWORK }}  >> .env
+#           echo NODE_ENV=production  >> .env
+#       - run: yarn install --frozen-lockfile
+#       - run: npm install -g nx
+#       - name: Lint mono
+#         run: nx affected:lint --base $BASE
+#       - name: Test mono
+#         run: NODE_OPTIONS=--experimental-vm-modules nx affected:test --base $BASE
+#       - name: Build mono
+#         run: nx affected:build --base $BASE
+#       - name: Deploy mono
+#         if: ${{ github.ref == 'refs/heads/master' }}
+#         run: |
+#           echo '//registry.npmjs.org/:_authToken=${{secrets.OTP}}' > .npmrc
+#           nx affected --target deploy --base $BASE --otp ${{ secrets.OTP }}
